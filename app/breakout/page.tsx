@@ -12,9 +12,9 @@ export default function BreakoutPage() {
 
   const filtered = useMemo(() =>
     breakoutData
-      .filter(s => s['To_Break%'] <= toBreakMax)
-      .filter(s => s['Box_Width%'] <= boxWidthMax)
-      .sort((a, b) => a['To_Break%'] - b['To_Break%']),
+      .filter(s => s['To_Break'] <= toBreakMax)
+      .filter(s => s['Box_Width'] <= boxWidthMax)
+      .sort((a, b) => a['To_Break'] - b['To_Break']),
     [toBreakMax, boxWidthMax]
   );
 
@@ -22,7 +22,7 @@ export default function BreakoutPage() {
     <div className="p-4 md:p-6 space-y-4">
       <PageHeader
         title="Breakout Setup"
-        subtitle="VDU / Box Pattern — ยิ่ง To_Break% น้อย ยิ่งจ่อ break"
+        subtitle="VDU / Box Pattern — ยิ่ง To_Break น้อย ยิ่งจ่อ break"
         count={filtered.length}
         total={breakoutData.length}
       />
@@ -67,7 +67,7 @@ export default function BreakoutPage() {
         </thead>
         <tbody>
           {filtered.map((s, i) => {
-            const toBrk = s['To_Break%'];
+            const toBrk = s['To_Break'];
             const broke = toBrk <= 0;
             return (
               <tr key={s.Ticker} className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
@@ -95,8 +95,8 @@ export default function BreakoutPage() {
                   </span>
                 </Td>
                 <Td right mono>
-                  <span className={s['Box_Width%'] <= 8 ? 'text-[#1D9E75]' : 'text-white/50'}>
-                    {s['Box_Width%'].toFixed(1)}%
+                  <span className={s['Box_Width'] <= 8 ? 'text-[#1D9E75]' : 'text-white/50'}>
+                    {s['Box_Width'].toFixed(1)}%
                   </span>
                 </Td>
                 <Td right mono>{s['ADTV(MB)'].toFixed(0)}</Td>

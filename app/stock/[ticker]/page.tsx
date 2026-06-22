@@ -25,17 +25,27 @@ export default async function StockPage({
     (rawStage as { Ticker: string; Stage: string; Price: number; EMA50: number; EMA200: number; Bar_Count: number; 'ADTV(MB)': number }[])
       .find(s => s.Ticker === t) ?? null;
 
-  const sepaEntry =
-    (rawSepa as { Ticker: string; Price: number; RS_Rating: number; SMA_50: number; SMA_200: number; '52W_High': number; '%_From_High': number }[])
-      .find(s => s.Ticker === t) ?? null;
+  const sepaEntry = (() => {
+    const raw = (rawSepa as { Ticker: string; Price: number; RS_Rating: number; SMA_50: number; SMA_200: number; '52W_High': number; '%_From_High': string | number }[])
+      .find(s => s.Ticker === t);
+    if (!raw) return null;
+    const v = raw['%_From_High'];
+    return { ...raw, '%_From_High': typeof v === 'string' ? parseFloat(v.replace('%', '')) : v } as
+      { Ticker: string; Price: number; RS_Rating: number; SMA_50: number; SMA_200: number; '52W_High': number; '%_From_High': number };
+  })();
 
   const kellEntry =
     (rawKell as { Ticker: string; Signal: string; Price: number; EMA10: number; 'Dist_EMA10_%': number; 'ADTV(MB)': number; Status: string }[])
       .find(s => s.Ticker === t) ?? null;
 
-  const breakoutEntry =
-    (rawBreakout as { Ticker: string; Price: number; Box_Low: number; 'Box_High(Break)': number; 'To_Break%': number; 'ADTV(MB)': number; 'Box_Width%': number; SMA150_Chg: number }[])
-      .find(s => s.Ticker === t) ?? null;
+  const breakoutEntry = (() => {
+    const raw = (rawBreakout as { Ticker: string; Price: number; Box_Low: number; 'Box_High(Break)': number; To_Break: string | number; 'ADTV(MB)': number; Box_Width: string | number; SMA150_Chg: number }[])
+      .find(s => s.Ticker === t);
+    if (!raw) return null;
+    const pct = (v: string | number) => typeof v === 'string' ? parseFloat(v.replace('%', '')) : v;
+    return { ...raw, To_Break: pct(raw.To_Break), Box_Width: pct(raw.Box_Width) } as
+      { Ticker: string; Price: number; Box_Low: number; 'Box_High(Break)': number; To_Break: number; 'ADTV(MB)': number; Box_Width: number; SMA150_Chg: number };
+  })();
 
   const combinedEntry =
     (rawCombined as { ticker: string; price: number; stage: string | null; rs_score: number; combo_score: number; sepa: boolean; kell: boolean; breakout: boolean }[])

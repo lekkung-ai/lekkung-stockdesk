@@ -38,9 +38,9 @@ interface BreakoutEntry {
   Price: number;
   Box_Low: number;
   'Box_High(Break)': number;
-  'To_Break%': number;
+  To_Break: number;
   'ADTV(MB)': number;
-  'Box_Width%': number;
+  Box_Width: number;
   SMA150_Chg: number;
 }
 interface CombinedEntry {
