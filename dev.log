@@ -1,0 +1,26 @@
+
+> stockdesk@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.8:3000
+✓ Ready in 579ms
+
+ GET / 200 in 458ms (next.js: 179ms, application-code: 278ms)
+ GET /sector 200 in 456ms (next.js: 356ms, application-code: 100ms)
+ GET /sector/technology 200 in 813ms (next.js: 739ms, generate-params: 502ms, application-code: 73ms)
+ GET /scanner 200 in 322ms (next.js: 27ms, application-code: 295ms)
+✓ Compiled in 68ms
+ GET /sector/financials 200 in 329ms (next.js: 107ms, generate-params: 10ms, application-code: 222ms)
+ GET /sector/technology 200 in 97ms (next.js: 8ms, generate-params: 5ms, application-code: 89ms)
+✓ Compiled in 66ms
+✓ Compiled in 31ms
+✓ Compiled in 39ms
+✓ Compiled in 44ms
+✓ Compiled in 27ms
+✓ Compiled in 126ms
+✓ Compiled in 49ms
+✓ Compiled in 35ms
+✓ Compiled in 49ms
+✓ Compiled in 34ms
