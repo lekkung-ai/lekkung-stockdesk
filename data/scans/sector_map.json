@@ -1,358 +1,5840 @@
 {
+  "updated": "2026-06-23",
+  "note": "SET + MAI sector list — อัปเดตจาก TradingView 23 มิ.ย. 2569",
   "sectors": [
     {
-      "sector": "Financials",
-      "subsector": "Banking",
-      "tickers": ["KBANK", "BBL", "SCB", "KTB", "BAY", "TTB", "TISCO", "KKP", "TCAP", "BKIH"],
-      "count": 10
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET",
+      "tickers": [
+        "GFPT",
+        "LEE",
+        "NER",
+        "PCE",
+        "PPPM",
+        "SMO",
+        "STA",
+        "TEGH",
+        "TFM",
+        "TRUBB",
+        "UPOIC",
+        "UVAN",
+        "VPO"
+      ],
+      "count": 13
+    },
+    {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET",
+      "tickers": [
+        "AAI",
+        "APURE",
+        "AQUA",
+        "ASIAN",
+        "BR",
+        "BRR",
+        "BTG",
+        "CBG",
+        "CFRESH",
+        "CH",
+        "CHAO",
+        "CHOTI",
+        "CM",
+        "COCOCO",
+        "CPF",
+        "CPI",
+        "F&D",
+        "FM",
+        "HTC",
+        "ICHI",
+        "ITC",
+        "JDF",
+        "KBS",
+        "KCG",
+        "KSL",
+        "KTIS",
+        "LST",
+        "M",
+        "MADAME",
+        "MALEE",
+        "NRF",
+        "NSL",
+        "OKJ",
+        "OSP",
+        "PB",
+        "PLUS",
+        "PM",
+        "PQS",
+        "PRG",
+        "RBF",
+        "SAPPE",
+        "SAUCE",
+        "SNNP",
+        "SNP",
+        "SORKON",
+        "SSF",
+        "SST",
+        "SUN",
+        "TC",
+        "TFG",
+        "TFMAMA",
+        "TIPCO",
+        "TKN",
+        "TU",
+        "TVO",
+        "TWPC",
+        "XBIO",
+        "ZEN"
+      ],
+      "count": 58
+    },
+    {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET",
+      "tickers": [
+        "AFC",
+        "AURA",
+        "BTNC",
+        "CPH",
+        "CPL",
+        "IHL",
+        "NC",
+        "NEP",
+        "PAF",
+        "PDJ",
+        "PG",
+        "SABINA",
+        "SAWANG",
+        "SUC",
+        "TR",
+        "TTI",
+        "TTT",
+        "UPF",
+        "WACOAL",
+        "WFX"
+      ],
+      "count": 20
+    },
+    {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET",
+      "tickers": [
+        "AJA",
+        "DTCI",
+        "FANCY",
+        "FTI",
+        "KYE",
+        "L&E",
+        "MODERN",
+        "OGC",
+        "ROCK",
+        "SIAM",
+        "TCMC",
+        "TSR"
+      ],
+      "count": 12
+    },
+    {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET",
+      "tickers": [
+        "APCO",
+        "BIZ",
+        "BLC",
+        "DDD",
+        "JCT",
+        "IP",
+        "KISS",
+        "NAM",
+        "NEO",
+        "NV",
+        "OCC",
+        "S&J",
+        "STGT",
+        "SNPS",
+        "TMAN",
+        "TNR",
+        "TOG"
+      ],
+      "count": 17
     },
     {
       "sector": "Financials",
-      "subsector": "Finance & Credit",
-      "tickers": ["KTC", "JMT", "BAM", "MTC", "SAWAD", "TIDLOR", "AEONTS", "THANI", "NCAP", "ASK", "CREDIT", "SCAP", "LHFG"],
-      "count": 13
+      "subsector": "Banking",
+      "market": "SET",
+      "tickers": [
+        "BAY",
+        "BBL",
+        "CIMBT",
+        "CREDIT",
+        "KBANK",
+        "KKP",
+        "KTB",
+        "LHFG",
+        "SCB",
+        "TCAP",
+        "TISCO",
+        "TTB"
+      ],
+      "count": 12
+    },
+    {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "tickers": [
+        "AEONTS",
+        "AMANAH",
+        "ASK",
+        "ASP",
+        "BAM",
+        "BYD",
+        "CGH",
+        "CHASE",
+        "CHAYO",
+        "FNS",
+        "FSX",
+        "GBX",
+        "HENG",
+        "IFS",
+        "JMT",
+        "KCAR",
+        "KGI",
+        "KTC",
+        "MFC",
+        "MICRO",
+        "ML",
+        "MST",
+        "MTC",
+        "NCAP",
+        "PL",
+        "S11",
+        "SAK",
+        "SAWAD",
+        "SCAP",
+        "SGC",
+        "STARM",
+        "TH",
+        "THANI",
+        "TIDLOR",
+        "TK",
+        "TNITY",
+        "TURBO",
+        "TNL",
+        "XPG"
+      ],
+      "count": 39
     },
     {
       "sector": "Financials",
       "subsector": "Insurance",
-      "tickers": ["TLI", "BLA", "AYUD"],
-      "count": 3
+      "market": "SET",
+      "tickers": [
+        "AYUD",
+        "BKIH",
+        "BLA",
+        "BUI",
+        "CHARAN",
+        "INSURE",
+        "KWI",
+        "MTI",
+        "NKI",
+        "TGH",
+        "THRE",
+        "THREL",
+        "TIPH",
+        "TLI",
+        "TQM",
+        "TSI",
+        "TVH"
+      ],
+      "count": 17
     },
     {
-      "sector": "Financials",
-      "subsector": "Securities",
-      "tickers": ["KGI", "KTBSTMR"],
-      "count": 2
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET",
+      "tickers": [
+        "ACG",
+        "AH",
+        "ASAP",
+        "CWT",
+        "EASON",
+        "GYT",
+        "HFT",
+        "INGRS",
+        "IRC",
+        "MGC",
+        "NEX",
+        "PCSGH",
+        "POLY",
+        "SAT",
+        "SPG",
+        "STANLY",
+        "TKT",
+        "TNPC",
+        "TRU",
+        "TSC"
+      ],
+      "count": 20
     },
     {
-      "sector": "Energy & Utilities",
-      "subsector": "Power Generation",
-      "tickers": ["GULF", "GUNKUL", "RATCH", "EGCO", "GPSC", "BGRIM", "BCPG", "EA", "CKP", "GENCO"],
-      "count": 10
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET",
+      "tickers": [
+        "AKR",
+        "ALLA",
+        "ASEFA",
+        "CPT",
+        "CRANE",
+        "CTW",
+        "FMT",
+        "FTE",
+        "KKC",
+        "MASTEC",
+        "PCC",
+        "PK",
+        "PSP",
+        "QTC",
+        "SCI",
+        "SE",
+        "SNC",
+        "TCJ",
+        "TPCS",
+        "VARO"
+      ],
+      "count": 20
     },
     {
-      "sector": "Energy & Utilities",
-      "subsector": "Oil & Gas",
-      "tickers": ["PTT", "PTTEP", "OR", "PTG"],
-      "count": 4
+      "sector": "Industrials",
+      "subsector": "Paper & Printing Materials",
+      "market": "SET",
+      "tickers": [
+        "UTP"
+      ],
+      "count": 1
     },
     {
-      "sector": "Energy & Utilities",
-      "subsector": "Petroleum Refining",
-      "tickers": ["PTTGC", "TOP", "IRPC", "SPRC", "BCP", "TASCO"],
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET",
+      "tickers": [
+        "BCT",
+        "CMAN",
+        "GC",
+        "GGC",
+        "IVL",
+        "NFC",
+        "PATO",
+        "PMTA",
+        "PTTGC",
+        "SUTHA",
+        "TPA",
+        "UAC",
+        "UP"
+      ],
+      "count": 13
+    },
+    {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET",
+      "tickers": [
+        "AJ",
+        "ALUCON",
+        "BGC",
+        "CSC",
+        "PJW",
+        "PTL",
+        "SCGP",
+        "SFLEX",
+        "SITHAI",
+        "SLP",
+        "SMPC",
+        "SPACK",
+        "TCOAT",
+        "TFI",
+        "THIP",
+        "TMD",
+        "TOPP",
+        "TPAC",
+        "TPBI",
+        "TPP",
+        "UNIX"
+      ],
+      "count": 21
+    },
+    {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET",
+      "tickers": [
+        "2S",
+        "AMC",
+        "BSBM",
+        "CEN",
+        "CITY",
+        "CSP",
+        "GJS",
+        "GSTEEL",
+        "INOX",
+        "LHK",
+        "MCS",
+        "MILL",
+        "PAP",
+        "PERM",
+        "SAM",
+        "SMIT",
+        "SSSC",
+        "TGPRO",
+        "THE",
+        "TMT",
+        "TSTH",
+        "TWP",
+        "TYCN"
+      ],
+      "count": 23
+    },
+    {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET",
+      "tickers": [
+        "CCP",
+        "DCC",
+        "DCON",
+        "DRT",
+        "EPG",
+        "GEL",
+        "PPP",
+        "Q-CON",
+        "SCC",
+        "SCCC",
+        "SCGD",
+        "SCP",
+        "SKN",
+        "STECH",
+        "TASCO",
+        "TOA",
+        "TPIPL",
+        "UMI",
+        "VNG",
+        "WIIK",
+        "WINDOW"
+      ],
+      "count": 21
+    },
+    {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET",
+      "tickers": [
+        "A",
+        "A5",
+        "AKS",
+        "AMATA",
+        "AMATAV",
+        "ANAN",
+        "AP",
+        "ASW",
+        "AWC",
+        "BLAND",
+        "BRI",
+        "BROCK",
+        "CGD",
+        "CI",
+        "CMC",
+        "CPN",
+        "ESTAR",
+        "EVER",
+        "FPT",
+        "GLAND",
+        "J",
+        "JCK",
+        "KC",
+        "LALIN",
+        "LH",
+        "LPN",
+        "MBK",
+        "MJD",
+        "MK",
+        "NCH",
+        "NNCL",
+        "NOBLE",
+        "NVD",
+        "ORI",
+        "ORN",
+        "PEACE",
+        "PF",
+        "PIN",
+        "PLAT",
+        "PRECHA",
+        "PRIN",
+        "PROUD",
+        "PSH",
+        "QH",
+        "RABBIT",
+        "RICHY",
+        "RML",
+        "ROJNA",
+        "S",
+        "SA",
+        "SAMCO",
+        "SC",
+        "SENA",
+        "SIRI",
+        "SPALI",
+        "STELLA",
+        "TITLE",
+        "UV",
+        "WHA",
+        "WIN"
+      ],
+      "count": 60
+    },
+    {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET",
+      "tickers": [
+        "AIMCG",
+        "AIMIRT",
+        "ALLY",
+        "AMATAR",
+        "AXTRART",
+        "B-WORK",
+        "BAREIT",
+        "BOFFICE",
+        "CPNCG",
+        "CPNREIT",
+        "CPTREIT",
+        "CTARAF",
+        "DREIT",
+        "FTREIT",
+        "FUTURERT",
+        "GAHREIT",
+        "GROREIT",
+        "GVREIT",
+        "HPF",
+        "HYDROGEN",
+        "IMPACT",
+        "INETREIT",
+        "KPNREIT",
+        "ISSARA",
+        "KTBSTMR",
+        "LHHOTEL",
+        "LHSC",
+        "LUXF",
+        "M-PAT",
+        "M-STOR",
+        "MII",
+        "MIPF",
+        "MJLF",
+        "MNIT",
+        "MNIT2",
+        "MNRF",
+        "POPF",
+        "PROSPECT",
+        "QHHRREIT",
+        "QHOP",
+        "SIRIPRT",
+        "SPRIME",
+        "SRIPANWA",
+        "SSPF",
+        "SSTRT",
+        "TIF1",
+        "TLHPF",
+        "TNPF",
+        "TPRIME",
+        "TTLPF",
+        "TU-PF",
+        "WHABT",
+        "WHAIR",
+        "WHART"
+      ],
+      "count": 54
+    },
+    {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET",
+      "tickers": [
+        "APCS",
+        "BJCHI",
+        "BKD",
+        "CIVIL",
+        "CK",
+        "CNT",
+        "EMC",
+        "DEMCO",
+        "ITD",
+        "JR",
+        "NL",
+        "NWR",
+        "PLE",
+        "PREB",
+        "PYLON",
+        "RT",
+        "SEAFCO",
+        "SOLAR",
+        "SQ",
+        "SRICHA",
+        "STI",
+        "STECON",
+        "STPI",
+        "SYNTEC",
+        "TEAMG",
+        "TEKA",
+        "TPOLY",
+        "TRC",
+        "TRITN",
+        "TTCL",
+        "UNIQ",
+        "WGE"
+      ],
+      "count": 32
+    },
+    {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "tickers": [
+        "ACC",
+        "ACE",
+        "AE",
+        "AGE",
+        "AI",
+        "AIE",
+        "ATLAS",
+        "BAFS",
+        "BANPU",
+        "BBGI",
+        "BCP",
+        "BCPG",
+        "BGRIM",
+        "BIOTEC",
+        "BPP",
+        "BRRGIF",
+        "CKP",
+        "CV",
+        "EA",
+        "EASTW",
+        "EGATIF",
+        "EGCO",
+        "EP",
+        "ETC",
+        "GPSC",
+        "GREEN",
+        "GULF",
+        "GUNKUL",
+        "IRPC",
+        "KBSPIF",
+        "LANNA",
+        "MDX",
+        "NOVA",
+        "OR",
+        "PRIME",
+        "PTG",
+        "PTT",
+        "PTTEP",
+        "RATCH",
+        "RPC",
+        "SCG",
+        "SCN",
+        "SEAOIL",
+        "SGP",
+        "SKE",
+        "SPCG",
+        "SPRC",
+        "SSP",
+        "SUPER",
+        "SUPEREIF",
+        "SUSCO",
+        "TAE",
+        "TCC",
+        "TGE",
+        "TOP",
+        "TPIPP",
+        "TSE",
+        "TTW",
+        "UBE",
+        "WHAUP",
+        "WP"
+      ],
+      "count": 61
+    },
+    {
+      "sector": "Resources",
+      "subsector": "Mining",
+      "market": "SET",
+      "tickers": [
+        "THL"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET",
+      "tickers": [
+        "ADVICE",
+        "B52",
+        "BEAUTY",
+        "BIG",
+        "BJC",
+        "COM7",
+        "CPALL",
+        "CPAXT",
+        "CPW",
+        "CRC",
+        "CSS",
+        "DOHOME",
+        "FN",
+        "GLOBAL",
+        "HMPRO",
+        "ICC",
+        "ILM",
+        "IT",
+        "KAMART",
+        "LOXLEY",
+        "MC",
+        "MEGA",
+        "MIDA",
+        "MOSHI",
+        "MRDIYT",
+        "RS",
+        "RSP",
+        "SCM",
+        "SINGER",
+        "SPC",
+        "SPI",
+        "SVT",
+        "TAN",
+        "WSOL"
+      ],
+      "count": 34
+    },
+    {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET",
+      "tickers": [
+        "AHC",
+        "BCH",
+        "BDMS",
+        "BH",
+        "BKGI",
+        "CHG",
+        "CMR",
+        "EKH",
+        "KDH",
+        "KLINIQ",
+        "LPH",
+        "M-CHAI",
+        "MASTER",
+        "MEDEZE",
+        "NEW",
+        "NKT",
+        "NTV",
+        "PHG",
+        "PR9",
+        "PRINC",
+        "RAM",
+        "RJH",
+        "RPH",
+        "SAFE",
+        "SKR",
+        "THG",
+        "VIBHA",
+        "VIH",
+        "WPH"
+      ],
+      "count": 29
+    },
+    {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET",
+      "tickers": [
+        "AMARIN",
+        "AS",
+        "BEC",
+        "FE",
+        "GPI",
+        "GRAMMY",
+        "MATCH",
+        "MATI",
+        "MCOT",
+        "MONO",
+        "NATION",
+        "ONEE",
+        "PLANB",
+        "PRAKIT",
+        "SE-ED",
+        "TKS",
+        "VGI",
+        "WORK",
+        "ZAA"
+      ],
+      "count": 19
+    },
+    {
+      "sector": "Services",
+      "subsector": "Professional Services",
+      "market": "SET",
+      "tickers": [
+        "BWG",
+        "GENCO",
+        "PRTR",
+        "SISB",
+        "SO",
+        "WAVE"
+      ],
       "count": 6
     },
     {
-      "sector": "Energy & Utilities",
-      "subsector": "Water & Utilities",
-      "tickers": ["EASTW", "TTW", "WHAUP"],
-      "count": 3
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET",
+      "tickers": [
+        "ASIA",
+        "BEYOND",
+        "CENTEL",
+        "CSR",
+        "DUSIT",
+        "ERW",
+        "GRAND",
+        "LRH",
+        "MANRIN",
+        "MINT",
+        "OHTL",
+        "ONSENS",
+        "ROH",
+        "SHANG",
+        "SHR",
+        "SPA",
+        "VRANDA"
+      ],
+      "count": 17
+    },
+    {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET",
+      "tickers": [
+        "AAV",
+        "ANI",
+        "AOT",
+        "ASIMAR",
+        "B",
+        "BA",
+        "BEM",
+        "BTS",
+        "BTSGIF",
+        "DMT",
+        "ETL",
+        "III",
+        "KIAT",
+        "KWC",
+        "MENA",
+        "NYT",
+        "PORT",
+        "PRM",
+        "PSL",
+        "RCL",
+        "SAV",
+        "SINO",
+        "SJWD",
+        "TFFIF",
+        "THAI",
+        "TSTE",
+        "TTA",
+        "WICE"
+      ],
+      "count": 28
     },
     {
       "sector": "Technology",
       "subsector": "Electronic Components",
-      "tickers": ["DELTA", "HANA", "KCE", "SVI", "SMT", "CCET", "MGC", "STANLY", "SAT", "HTECH", "YUASA", "ALUCON"],
-      "count": 12
+      "market": "SET",
+      "tickers": [
+        "CCET",
+        "DELTA",
+        "HANA",
+        "KCE",
+        "METCO",
+        "SMT",
+        "TEAM"
+      ],
+      "count": 7
     },
     {
       "sector": "Technology",
-      "subsector": "IT Services",
-      "tickers": ["FORTH", "TEAM", "DITTO", "IT", "INSET", "SVOA", "SAMART", "SYNEX", "VCOM", "SECURE", "NETBAY", "TEAMG"],
-      "count": 12
+      "subsector": "Information & Communication Technology",
+      "market": "SET",
+      "tickers": [
+        "3BBIF",
+        "ADVANC",
+        "AIT",
+        "ALT",
+        "AMR",
+        "BBIK",
+        "BLISS",
+        "DIF",
+        "DITTO",
+        "DTCENT",
+        "FORTH",
+        "GABLE",
+        "HUMAN",
+        "ICN",
+        "ILINK",
+        "INET",
+        "INSET",
+        "ITEL",
+        "JAS",
+        "JMART",
+        "JTS",
+        "MFEC",
+        "MSC",
+        "PT",
+        "ROCTEC",
+        "SAMART",
+        "SAMTEL",
+        "SDC",
+        "SIS",
+        "SKY",
+        "SPREME",
+        "SVOA",
+        "SYMC",
+        "SYNEX",
+        "THCOM",
+        "TKC",
+        "XYZ",
+        "TL",
+        "TRUE",
+        "TWZ"
+      ],
+      "count": 40
     },
     {
-      "sector": "Technology",
-      "subsector": "Telecom",
-      "tickers": ["ADVANC", "TRUE", "THCOM", "JAS", "DMT"],
-      "count": 5
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI",
+      "tickers": [
+        "APO",
+        "AU",
+        "CFARM",
+        "KASET",
+        "MAGURO",
+        "MUD",
+        "NTF",
+        "NTSC",
+        "QDC",
+        "TACC",
+        "TMILL",
+        "WINNER",
+        "XO"
+      ],
+      "count": 13
     },
     {
-      "sector": "Materials",
-      "subsector": "Chemicals & Plastics",
-      "tickers": ["IVL", "GC", "TOA", "TPIPL", "UKEM", "TPLAS"],
-      "count": 6
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI",
+      "tickers": [
+        "88TH",
+        "BGT",
+        "DOD",
+        "ECF",
+        "EFORL",
+        "EURO",
+        "HPT",
+        "ITTHI",
+        "JSP",
+        "JUBILE",
+        "LTS",
+        "MGI",
+        "MOONG",
+        "NPK",
+        "NUT",
+        "SEI",
+        "SKIN",
+        "SMD100",
+        "TM",
+        "WARRIX",
+        "WINMED"
+      ],
+      "count": 21
     },
     {
-      "sector": "Materials",
-      "subsector": "Packaging & Paper",
-      "tickers": ["SCC", "SCGP", "SCCC", "BGC", "EPG", "SCGD"],
-      "count": 6
-    },
-    {
-      "sector": "Materials",
-      "subsector": "Rubber",
-      "tickers": ["TRUBB", "NER", "STA"],
-      "count": 3
-    },
-    {
-      "sector": "Materials",
-      "subsector": "Coal & Mining",
-      "tickers": ["BANPU"],
-      "count": 1
-    },
-    {
-      "sector": "Industrials",
-      "subsector": "Construction",
-      "tickers": ["STECON", "CK", "SEAFCO", "PYLON", "CMAN", "STPI", "NDR", "CTW"],
-      "count": 8
-    },
-    {
-      "sector": "Industrials",
-      "subsector": "Industrial Estate",
-      "tickers": ["AMATA", "WHA", "ROJNA", "WHART"],
-      "count": 4
-    },
-    {
-      "sector": "Industrials",
-      "subsector": "Auto & Parts",
-      "tickers": ["TAE", "EURO", "TSTH", "TRT", "AXTRART"],
-      "count": 5
-    },
-    {
-      "sector": "Consumer Products",
-      "subsector": "Food Processing",
-      "tickers": ["TU", "CPF", "GFPT", "TFG", "TVO"],
-      "count": 5
-    },
-    {
-      "sector": "Consumer Products",
-      "subsector": "Food & Beverage",
-      "tickers": ["CBG", "XO", "ICHI", "M", "MAGURO", "BJC", "OSP", "MOSHI", "AURA"],
-      "count": 9
-    },
-    {
-      "sector": "Consumer Products",
-      "subsector": "Agri-Business",
-      "tickers": ["KSL"],
-      "count": 1
-    },
-    {
-      "sector": "Property",
-      "subsector": "Real Estate Development",
-      "tickers": ["SIRI", "SPALI", "AP", "LH", "QH", "AMATAR"],
-      "count": 6
-    },
-    {
-      "sector": "Property",
-      "subsector": "REIT",
-      "tickers": ["AIMIRT", "SPRIME", "B-WORK", "LHHOTEL"],
-      "count": 4
-    },
-    {
-      "sector": "Property",
-      "subsector": "Commercial Property",
-      "tickers": ["AWC", "CPN", "IMPACT", "MBK"],
-      "count": 4
-    },
-    {
-      "sector": "Services",
-      "subsector": "Transportation",
-      "tickers": ["AOT", "BA", "AAV", "THAI", "RCL", "PSL", "BEM", "BTS", "PRM"],
-      "count": 9
-    },
-    {
-      "sector": "Services",
-      "subsector": "Tourism & Hotels",
-      "tickers": ["ERW", "CENTEL", "MINT", "SHR"],
-      "count": 4
-    },
-    {
-      "sector": "Services",
-      "subsector": "Healthcare",
-      "tickers": ["BH", "BDMS", "CHG", "BCH", "LHSC", "MEGA"],
-      "count": 6
-    },
-    {
-      "sector": "Services",
-      "subsector": "Media & Entertainment",
-      "tickers": ["PLANB", "MONO", "MAJOR", "ONEE", "NATION", "VGI"],
-      "count": 6
-    },
-    {
-      "sector": "Services",
-      "subsector": "Retail",
-      "tickers": ["CPALL", "CRC", "HMPRO", "DOHOME", "JMART", "MC", "GLOBAL", "SINGER", "COM7", "ADVICE", "CPAXT"],
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI",
+      "tickers": [
+        "ACAP",
+        "AF",
+        "AIRA",
+        "ASN",
+        "BTC",
+        "GCAP",
+        "KCC",
+        "LIT",
+        "MITSIB",
+        "SGF",
+        "TQR"
+      ],
       "count": 11
+    },
+    {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI",
+      "tickers": [
+        "ADB",
+        "BM",
+        "BPS",
+        "CHO",
+        "CHOW",
+        "CIG",
+        "COLOR",
+        "CPR",
+        "FPI",
+        "GTB",
+        "HARN",
+        "KCM",
+        "KJL",
+        "KUMWEL",
+        "KWM",
+        "MBAX",
+        "MGT",
+        "MTW",
+        "NDR",
+        "PACO",
+        "PDG",
+        "PHOL",
+        "PIMO",
+        "PMC",
+        "PPM",
+        "PRAPAT",
+        "RWI",
+        "SAF",
+        "SALEE",
+        "SANKO",
+        "SCL",
+        "SELIC",
+        "SFT",
+        "STP",
+        "SWC",
+        "TATG",
+        "TMC",
+        "TMI",
+        "TMW",
+        "TPLAS",
+        "TRT",
+        "TRV",
+        "UBIS",
+        "UEC",
+        "UKEM",
+        "UREKA",
+        "YUASA",
+        "ZIGA"
+      ],
+      "count": 48
+    },
+    {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI",
+      "tickers": [
+        "ARIN",
+        "ARROW",
+        "BC",
+        "BKA",
+        "BLESS",
+        "BSM",
+        "BTW",
+        "CAZ",
+        "CHEWA",
+        "CPANEL",
+        "CRD",
+        "DHOUSE",
+        "DIMET",
+        "DPAINT",
+        "EMPIRE",
+        "FLOYD",
+        "HYDRO",
+        "IND",
+        "JAK",
+        "META",
+        "PANEL",
+        "PPS",
+        "PRI",
+        "PROS",
+        "PSGC",
+        "QTCG",
+        "SENX",
+        "SK",
+        "SMART",
+        "STC",
+        "STX",
+        "SVR",
+        "TAPAC",
+        "THANA",
+        "TIGER",
+        "WELL",
+        "YONG"
+      ],
+      "count": 37
+    },
+    {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI",
+      "tickers": [
+        "ABM",
+        "ALPHAX",
+        "GTV",
+        "PSTC",
+        "PTC",
+        "SAAM",
+        "SR",
+        "STOWER",
+        "TAKUNI",
+        "TPCH",
+        "UMS"
+      ],
+      "count": 11
+    },
+    {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI",
+      "tickers": [
+        "ADD",
+        "AKP",
+        "AMA",
+        "AMARC",
+        "ARIP",
+        "ASTR",
+        "ATP30",
+        "AUCT",
+        "BIS",
+        "BOL",
+        "CEYE",
+        "CHIC",
+        "CMO",
+        "D",
+        "DEXON",
+        "ETE",
+        "FSMART",
+        "FVC",
+        "GFC",
+        "GLORY",
+        "HANN",
+        "HL",
+        "IMH",
+        "IROYAL",
+        "IVF",
+        "JPARK",
+        "K",
+        "KGEN",
+        "KK",
+        "KOOL",
+        "KTMS",
+        "LDC",
+        "LEO",
+        "LTMH",
+        "MCA",
+        "MEB",
+        "MORE",
+        "MOTHER",
+        "MPJ",
+        "MVP",
+        "NCL",
+        "NCP",
+        "PEER",
+        "PICO",
+        "PLT",
+        "QLT",
+        "RP",
+        "SONIC",
+        "SPTX",
+        "THMUI",
+        "TNDT",
+        "TNH",
+        "TNP",
+        "TPL",
+        "TRP",
+        "TURTLE",
+        "TVDH",
+        "TVT",
+        "UBA",
+        "VIBE",
+        "VL",
+        "VS",
+        "WASH",
+        "YGG"
+      ],
+      "count": 64
+    },
+    {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI",
+      "tickers": [
+        "APP",
+        "BE8",
+        "BVG",
+        "COMAN",
+        "I2",
+        "IDG",
+        "IIG",
+        "IRCP",
+        "ITNS",
+        "NAT",
+        "NETBAY",
+        "PIS",
+        "PLANET",
+        "PROEN",
+        "READY",
+        "SECURE",
+        "SICT",
+        "SIMAT",
+        "SPVI",
+        "SRS",
+        "TBN",
+        "TERA",
+        "TPS",
+        "VCOM"
+      ],
+      "count": 24
     }
   ],
   "ticker_to_sector": {
-    "KBANK": { "sector": "Financials", "subsector": "Banking" },
-    "BBL": { "sector": "Financials", "subsector": "Banking" },
-    "SCB": { "sector": "Financials", "subsector": "Banking" },
-    "KTB": { "sector": "Financials", "subsector": "Banking" },
-    "BAY": { "sector": "Financials", "subsector": "Banking" },
-    "TTB": { "sector": "Financials", "subsector": "Banking" },
-    "TISCO": { "sector": "Financials", "subsector": "Banking" },
-    "KKP": { "sector": "Financials", "subsector": "Banking" },
-    "TCAP": { "sector": "Financials", "subsector": "Banking" },
-    "BKIH": { "sector": "Financials", "subsector": "Banking" },
-    "KTC": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "JMT": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "BAM": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "MTC": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "SAWAD": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "TIDLOR": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "AEONTS": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "THANI": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "NCAP": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "ASK": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "CREDIT": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "SCAP": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "LHFG": { "sector": "Financials", "subsector": "Finance & Credit" },
-    "TLI": { "sector": "Financials", "subsector": "Insurance" },
-    "BLA": { "sector": "Financials", "subsector": "Insurance" },
-    "AYUD": { "sector": "Financials", "subsector": "Insurance" },
-    "KGI": { "sector": "Financials", "subsector": "Securities" },
-    "KTBSTMR": { "sector": "Financials", "subsector": "Securities" },
-    "GULF": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "GUNKUL": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "RATCH": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "EGCO": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "GPSC": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "BGRIM": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "BCPG": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "EA": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "CKP": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "GENCO": { "sector": "Energy & Utilities", "subsector": "Power Generation" },
-    "PTT": { "sector": "Energy & Utilities", "subsector": "Oil & Gas" },
-    "PTTEP": { "sector": "Energy & Utilities", "subsector": "Oil & Gas" },
-    "OR": { "sector": "Energy & Utilities", "subsector": "Oil & Gas" },
-    "PTG": { "sector": "Energy & Utilities", "subsector": "Oil & Gas" },
-    "PTTGC": { "sector": "Energy & Utilities", "subsector": "Petroleum Refining" },
-    "TOP": { "sector": "Energy & Utilities", "subsector": "Petroleum Refining" },
-    "IRPC": { "sector": "Energy & Utilities", "subsector": "Petroleum Refining" },
-    "SPRC": { "sector": "Energy & Utilities", "subsector": "Petroleum Refining" },
-    "BCP": { "sector": "Energy & Utilities", "subsector": "Petroleum Refining" },
-    "TASCO": { "sector": "Energy & Utilities", "subsector": "Petroleum Refining" },
-    "EASTW": { "sector": "Energy & Utilities", "subsector": "Water & Utilities" },
-    "TTW": { "sector": "Energy & Utilities", "subsector": "Water & Utilities" },
-    "WHAUP": { "sector": "Energy & Utilities", "subsector": "Water & Utilities" },
-    "DELTA": { "sector": "Technology", "subsector": "Electronic Components" },
-    "HANA": { "sector": "Technology", "subsector": "Electronic Components" },
-    "KCE": { "sector": "Technology", "subsector": "Electronic Components" },
-    "SVI": { "sector": "Technology", "subsector": "Electronic Components" },
-    "SMT": { "sector": "Technology", "subsector": "Electronic Components" },
-    "CCET": { "sector": "Technology", "subsector": "Electronic Components" },
-    "MGC": { "sector": "Technology", "subsector": "Electronic Components" },
-    "STANLY": { "sector": "Technology", "subsector": "Electronic Components" },
-    "SAT": { "sector": "Technology", "subsector": "Electronic Components" },
-    "HTECH": { "sector": "Technology", "subsector": "Electronic Components" },
-    "YUASA": { "sector": "Technology", "subsector": "Electronic Components" },
-    "ALUCON": { "sector": "Technology", "subsector": "Electronic Components" },
-    "FORTH": { "sector": "Technology", "subsector": "IT Services" },
-    "TEAM": { "sector": "Technology", "subsector": "IT Services" },
-    "DITTO": { "sector": "Technology", "subsector": "IT Services" },
-    "IT": { "sector": "Technology", "subsector": "IT Services" },
-    "INSET": { "sector": "Technology", "subsector": "IT Services" },
-    "SVOA": { "sector": "Technology", "subsector": "IT Services" },
-    "SAMART": { "sector": "Technology", "subsector": "IT Services" },
-    "SYNEX": { "sector": "Technology", "subsector": "IT Services" },
-    "VCOM": { "sector": "Technology", "subsector": "IT Services" },
-    "SECURE": { "sector": "Technology", "subsector": "IT Services" },
-    "NETBAY": { "sector": "Technology", "subsector": "IT Services" },
-    "TEAMG": { "sector": "Technology", "subsector": "IT Services" },
-    "ADVANC": { "sector": "Technology", "subsector": "Telecom" },
-    "TRUE": { "sector": "Technology", "subsector": "Telecom" },
-    "THCOM": { "sector": "Technology", "subsector": "Telecom" },
-    "JAS": { "sector": "Technology", "subsector": "Telecom" },
-    "DMT": { "sector": "Technology", "subsector": "Telecom" },
-    "IVL": { "sector": "Materials", "subsector": "Chemicals & Plastics" },
-    "GC": { "sector": "Materials", "subsector": "Chemicals & Plastics" },
-    "TOA": { "sector": "Materials", "subsector": "Chemicals & Plastics" },
-    "TPIPL": { "sector": "Materials", "subsector": "Chemicals & Plastics" },
-    "UKEM": { "sector": "Materials", "subsector": "Chemicals & Plastics" },
-    "TPLAS": { "sector": "Materials", "subsector": "Chemicals & Plastics" },
-    "SCC": { "sector": "Materials", "subsector": "Packaging & Paper" },
-    "SCGP": { "sector": "Materials", "subsector": "Packaging & Paper" },
-    "SCCC": { "sector": "Materials", "subsector": "Packaging & Paper" },
-    "BGC": { "sector": "Materials", "subsector": "Packaging & Paper" },
-    "EPG": { "sector": "Materials", "subsector": "Packaging & Paper" },
-    "SCGD": { "sector": "Materials", "subsector": "Packaging & Paper" },
-    "TRUBB": { "sector": "Materials", "subsector": "Rubber" },
-    "NER": { "sector": "Materials", "subsector": "Rubber" },
-    "STA": { "sector": "Materials", "subsector": "Rubber" },
-    "BANPU": { "sector": "Materials", "subsector": "Coal & Mining" },
-    "STECON": { "sector": "Industrials", "subsector": "Construction" },
-    "CK": { "sector": "Industrials", "subsector": "Construction" },
-    "SEAFCO": { "sector": "Industrials", "subsector": "Construction" },
-    "PYLON": { "sector": "Industrials", "subsector": "Construction" },
-    "CMAN": { "sector": "Industrials", "subsector": "Construction" },
-    "STPI": { "sector": "Industrials", "subsector": "Construction" },
-    "NDR": { "sector": "Industrials", "subsector": "Construction" },
-    "CTW": { "sector": "Industrials", "subsector": "Construction" },
-    "AMATA": { "sector": "Industrials", "subsector": "Industrial Estate" },
-    "WHA": { "sector": "Industrials", "subsector": "Industrial Estate" },
-    "ROJNA": { "sector": "Industrials", "subsector": "Industrial Estate" },
-    "WHART": { "sector": "Industrials", "subsector": "Industrial Estate" },
-    "TAE": { "sector": "Industrials", "subsector": "Auto & Parts" },
-    "EURO": { "sector": "Industrials", "subsector": "Auto & Parts" },
-    "TSTH": { "sector": "Industrials", "subsector": "Auto & Parts" },
-    "TRT": { "sector": "Industrials", "subsector": "Auto & Parts" },
-    "AXTRART": { "sector": "Industrials", "subsector": "Auto & Parts" },
-    "TU": { "sector": "Consumer Products", "subsector": "Food Processing" },
-    "CPF": { "sector": "Consumer Products", "subsector": "Food Processing" },
-    "GFPT": { "sector": "Consumer Products", "subsector": "Food Processing" },
-    "TFG": { "sector": "Consumer Products", "subsector": "Food Processing" },
-    "TVO": { "sector": "Consumer Products", "subsector": "Food Processing" },
-    "CBG": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "XO": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "ICHI": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "M": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "MAGURO": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "BJC": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "OSP": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "MOSHI": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "AURA": { "sector": "Consumer Products", "subsector": "Food & Beverage" },
-    "KSL": { "sector": "Consumer Products", "subsector": "Agri-Business" },
-    "SIRI": { "sector": "Property", "subsector": "Real Estate Development" },
-    "SPALI": { "sector": "Property", "subsector": "Real Estate Development" },
-    "AP": { "sector": "Property", "subsector": "Real Estate Development" },
-    "LH": { "sector": "Property", "subsector": "Real Estate Development" },
-    "QH": { "sector": "Property", "subsector": "Real Estate Development" },
-    "AMATAR": { "sector": "Property", "subsector": "Real Estate Development" },
-    "AIMIRT": { "sector": "Property", "subsector": "REIT" },
-    "SPRIME": { "sector": "Property", "subsector": "REIT" },
-    "B-WORK": { "sector": "Property", "subsector": "REIT" },
-    "LHHOTEL": { "sector": "Property", "subsector": "REIT" },
-    "AWC": { "sector": "Property", "subsector": "Commercial Property" },
-    "CPN": { "sector": "Property", "subsector": "Commercial Property" },
-    "IMPACT": { "sector": "Property", "subsector": "Commercial Property" },
-    "MBK": { "sector": "Property", "subsector": "Commercial Property" },
-    "AOT": { "sector": "Services", "subsector": "Transportation" },
-    "BA": { "sector": "Services", "subsector": "Transportation" },
-    "AAV": { "sector": "Services", "subsector": "Transportation" },
-    "THAI": { "sector": "Services", "subsector": "Transportation" },
-    "RCL": { "sector": "Services", "subsector": "Transportation" },
-    "PSL": { "sector": "Services", "subsector": "Transportation" },
-    "BEM": { "sector": "Services", "subsector": "Transportation" },
-    "BTS": { "sector": "Services", "subsector": "Transportation" },
-    "PRM": { "sector": "Services", "subsector": "Transportation" },
-    "ERW": { "sector": "Services", "subsector": "Tourism & Hotels" },
-    "CENTEL": { "sector": "Services", "subsector": "Tourism & Hotels" },
-    "MINT": { "sector": "Services", "subsector": "Tourism & Hotels" },
-    "SHR": { "sector": "Services", "subsector": "Tourism & Hotels" },
-    "BH": { "sector": "Services", "subsector": "Healthcare" },
-    "BDMS": { "sector": "Services", "subsector": "Healthcare" },
-    "CHG": { "sector": "Services", "subsector": "Healthcare" },
-    "BCH": { "sector": "Services", "subsector": "Healthcare" },
-    "LHSC": { "sector": "Services", "subsector": "Healthcare" },
-    "MEGA": { "sector": "Services", "subsector": "Healthcare" },
-    "PLANB": { "sector": "Services", "subsector": "Media & Entertainment" },
-    "MONO": { "sector": "Services", "subsector": "Media & Entertainment" },
-    "MAJOR": { "sector": "Services", "subsector": "Media & Entertainment" },
-    "ONEE": { "sector": "Services", "subsector": "Media & Entertainment" },
-    "NATION": { "sector": "Services", "subsector": "Media & Entertainment" },
-    "VGI": { "sector": "Services", "subsector": "Media & Entertainment" },
-    "CPALL": { "sector": "Services", "subsector": "Retail" },
-    "CRC": { "sector": "Services", "subsector": "Retail" },
-    "HMPRO": { "sector": "Services", "subsector": "Retail" },
-    "DOHOME": { "sector": "Services", "subsector": "Retail" },
-    "JMART": { "sector": "Services", "subsector": "Retail" },
-    "MC": { "sector": "Services", "subsector": "Retail" },
-    "GLOBAL": { "sector": "Services", "subsector": "Retail" },
-    "SINGER": { "sector": "Services", "subsector": "Retail" },
-    "COM7": { "sector": "Services", "subsector": "Retail" },
-    "ADVICE": { "sector": "Services", "subsector": "Retail" },
-    "CPAXT": { "sector": "Services", "subsector": "Retail" }
+    "GFPT": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "LEE": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "NER": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "PCE": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "PPPM": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "SMO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "STA": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "TEGH": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "TFM": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "TRUBB": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "UPOIC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "UVAN": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "VPO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Agribusiness",
+      "market": "SET"
+    },
+    "AAI": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "APURE": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "AQUA": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "ASIAN": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "BR": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "BRR": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "BTG": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CBG": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CFRESH": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CH": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CHAO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CHOTI": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CM": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "COCOCO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CPF": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "CPI": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "F&D": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "FM": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "HTC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "ICHI": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "ITC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "JDF": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "KBS": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "KCG": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "KSL": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "KTIS": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "LST": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "M": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "MADAME": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "MALEE": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "NRF": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "NSL": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "OKJ": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "OSP": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "PB": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "PLUS": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "PM": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "PQS": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "PRG": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "RBF": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SAPPE": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SAUCE": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SNNP": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SNP": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SORKON": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SSF": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SST": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "SUN": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TFG": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TFMAMA": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TIPCO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TKN": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TU": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TVO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "TWPC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "XBIO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "ZEN": {
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET"
+    },
+    "AFC": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "AURA": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "BTNC": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "CPH": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "CPL": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "IHL": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "NC": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "NEP": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "PAF": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "PDJ": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "PG": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "SABINA": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "SAWANG": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "SUC": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "TR": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "TTI": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "TTT": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "UPF": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "WACOAL": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "WFX": {
+      "sector": "Consump",
+      "subsector": "& Fashion",
+      "market": "SET"
+    },
+    "AJA": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "DTCI": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "FANCY": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "FTI": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "KYE": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "L&E": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "MODERN": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "OGC": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "ROCK": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "SIAM": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "TCMC": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "TSR": {
+      "sector": "Consump",
+      "subsector": "& Home",
+      "market": "SET"
+    },
+    "APCO": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "BIZ": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "BLC": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "DDD": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "JCT": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "IP": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "KISS": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "NAM": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "NEO": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "NV": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "OCC": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "S&J": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "STGT": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "SNPS": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "TMAN": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "TNR": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "TOG": {
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET"
+    },
+    "BAY": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "BBL": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "CIMBT": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "CREDIT": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "KBANK": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "KKP": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "KTB": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "LHFG": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "SCB": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "TCAP": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "TISCO": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "TTB": {
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET"
+    },
+    "AEONTS": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "AMANAH": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "ASK": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "ASP": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "BAM": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "BYD": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "CGH": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "CHASE": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "CHAYO": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "FNS": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "FSX": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "GBX": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "HENG": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "IFS": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "JMT": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "KCAR": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "KGI": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "KTC": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "MFC": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "MICRO": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "ML": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "MST": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "MTC": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "NCAP": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "PL": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "S11": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "SAK": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "SAWAD": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "SCAP": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "SGC": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "STARM": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "TH": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "THANI": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "TIDLOR": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "TK": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "TNITY": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "TURBO": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "TNL": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "XPG": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "AYUD": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "BKIH": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "BLA": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "BUI": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "CHARAN": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "INSURE": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "KWI": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "MTI": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "NKI": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "TGH": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "THRE": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "THREL": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "TIPH": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "TLI": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "TQM": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "TSI": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "TVH": {
+      "sector": "Financials",
+      "subsector": "Insurance",
+      "market": "SET"
+    },
+    "ACG": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "AH": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "ASAP": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "CWT": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "EASON": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "GYT": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "HFT": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "INGRS": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "IRC": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "MGC": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "NEX": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "PCSGH": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "POLY": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "SAT": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "SPG": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "STANLY": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "TKT": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "TNPC": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "TRU": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "TSC": {
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET"
+    },
+    "AKR": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "ALLA": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "ASEFA": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "CPT": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "CRANE": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "CTW": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "FMT": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "FTE": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "KKC": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "MASTEC": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "PCC": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "PK": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "PSP": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "QTC": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "SCI": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "SE": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "SNC": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "TCJ": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "TPCS": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "VARO": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "UTP": {
+      "sector": "Industrials",
+      "subsector": "Paper & Printing Materials",
+      "market": "SET"
+    },
+    "BCT": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "CMAN": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "GC": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "GGC": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "IVL": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "NFC": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "PATO": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "PMTA": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "PTTGC": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "SUTHA": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "TPA": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "UAC": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "UP": {
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET"
+    },
+    "AJ": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "ALUCON": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "BGC": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "CSC": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "PJW": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "PTL": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "SCGP": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "SFLEX": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "SITHAI": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "SLP": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "SMPC": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "SPACK": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "TCOAT": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "TFI": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "THIP": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "TMD": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "TOPP": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "TPAC": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "TPBI": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "TPP": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "UNIX": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "2S": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "AMC": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "BSBM": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "CEN": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "CITY": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "CSP": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "GJS": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "GSTEEL": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "INOX": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "LHK": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "MCS": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "MILL": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "PAP": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "PERM": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "SAM": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "SMIT": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "SSSC": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "TGPRO": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "THE": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "TMT": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "TSTH": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "TWP": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "TYCN": {
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET"
+    },
+    "CCP": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "DCC": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "DCON": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "DRT": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "EPG": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "GEL": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "PPP": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "Q-CON": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "SCC": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "SCCC": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "SCGD": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "SCP": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "SKN": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "STECH": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "TASCO": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "TOA": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "TPIPL": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "UMI": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "VNG": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "WIIK": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "WINDOW": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET"
+    },
+    "A": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "A5": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "AKS": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "AMATA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "AMATAV": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "ANAN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "AP": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "ASW": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "AWC": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "BLAND": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "BRI": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "BROCK": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "CGD": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "CI": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "CMC": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "CPN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "ESTAR": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "EVER": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "FPT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "GLAND": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "J": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "JCK": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "KC": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "LALIN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "LH": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "LPN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "MBK": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "MJD": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "MK": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "NCH": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "NNCL": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "NOBLE": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "NVD": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "ORI": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "ORN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PEACE": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PIN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PLAT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PRECHA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PRIN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PROUD": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "PSH": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "QH": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "RABBIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "RICHY": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "RML": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "ROJNA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "S": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "SA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "SAMCO": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "SC": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "SENA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "SIRI": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "SPALI": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "STELLA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "TITLE": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "UV": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "WHA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "WIN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "AIMCG": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "AIMIRT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "ALLY": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "AMATAR": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "AXTRART": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "B-WORK": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "BAREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "BOFFICE": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "CPNCG": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "CPNREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "CPTREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "CTARAF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "DREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "FTREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "FUTURERT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "GAHREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "GROREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "GVREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "HPF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "HYDROGEN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "IMPACT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "INETREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "KPNREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "ISSARA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "KTBSTMR": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "LHHOTEL": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "LHSC": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "LUXF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "M-PAT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "M-STOR": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "MII": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "MIPF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "MJLF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "MNIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "MNIT2": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "MNRF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "POPF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "PROSPECT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "QHHRREIT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "QHOP": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "SIRIPRT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "SPRIME": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "SRIPANWA": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "SSPF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "SSTRT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "TIF1": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "TLHPF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "TNPF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "TPRIME": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "TTLPF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "TU-PF": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "WHABT": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "WHAIR": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "WHART": {
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET"
+    },
+    "APCS": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "BJCHI": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "BKD": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "CIVIL": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "CK": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "CNT": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "EMC": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "DEMCO": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "ITD": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "JR": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "NL": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "NWR": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "PLE": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "PREB": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "PYLON": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "RT": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "SEAFCO": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "SOLAR": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "SQ": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "SRICHA": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "STI": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "STECON": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "STPI": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "SYNTEC": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "TEAMG": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "TEKA": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "TPOLY": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "TRC": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "TRITN": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "TTCL": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "UNIQ": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "WGE": {
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET"
+    },
+    "ACC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "ACE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "AE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "AGE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "AI": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "AIE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "ATLAS": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BAFS": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BANPU": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BBGI": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BCP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BCPG": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BGRIM": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BIOTEC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BPP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "BRRGIF": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "CKP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "CV": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "EA": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "EASTW": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "EGATIF": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "EGCO": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "EP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "ETC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "GPSC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "GREEN": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "GULF": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "GUNKUL": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "IRPC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "KBSPIF": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "LANNA": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "MDX": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "NOVA": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "OR": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "PRIME": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "PTG": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "PTT": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "PTTEP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "RATCH": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "RPC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SCG": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SCN": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SEAOIL": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SGP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SKE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SPCG": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SPRC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SSP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SUPER": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SUPEREIF": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "SUSCO": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "TAE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "TCC": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "TGE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "TOP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "TPIPP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "TSE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "TTW": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "UBE": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "WHAUP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "WP": {
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET"
+    },
+    "THL": {
+      "sector": "Resources",
+      "subsector": "Mining",
+      "market": "SET"
+    },
+    "ADVICE": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "B52": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "BEAUTY": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "BIG": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "BJC": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "COM7": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "CPALL": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "CPAXT": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "CPW": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "CRC": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "CSS": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "DOHOME": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "FN": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "GLOBAL": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "HMPRO": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "ICC": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "ILM": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "IT": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "KAMART": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "LOXLEY": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "MC": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "MEGA": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "MIDA": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "MOSHI": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "MRDIYT": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "RS": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "RSP": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "SCM": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "SINGER": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "SPC": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "SPI": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "SVT": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "TAN": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "WSOL": {
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET"
+    },
+    "AHC": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "BCH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "BDMS": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "BH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "BKGI": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "CHG": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "CMR": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "EKH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "KDH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "KLINIQ": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "LPH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "M-CHAI": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "MASTER": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "MEDEZE": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "NEW": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "NKT": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "NTV": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "PHG": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "PR9": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "PRINC": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "RAM": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "RJH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "RPH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "SAFE": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "SKR": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "THG": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "VIBHA": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "VIH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "WPH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "AMARIN": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "AS": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "BEC": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "FE": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "GPI": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "GRAMMY": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "MATCH": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "MATI": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "MCOT": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "MONO": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "NATION": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "ONEE": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "PLANB": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "PRAKIT": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "SE-ED": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "TKS": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "VGI": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "WORK": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "ZAA": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "BWG": {
+      "sector": "Services",
+      "subsector": "Professional Services",
+      "market": "SET"
+    },
+    "GENCO": {
+      "sector": "Services",
+      "subsector": "Professional Services",
+      "market": "SET"
+    },
+    "PRTR": {
+      "sector": "Services",
+      "subsector": "Professional Services",
+      "market": "SET"
+    },
+    "SISB": {
+      "sector": "Services",
+      "subsector": "Professional Services",
+      "market": "SET"
+    },
+    "SO": {
+      "sector": "Services",
+      "subsector": "Professional Services",
+      "market": "SET"
+    },
+    "WAVE": {
+      "sector": "Services",
+      "subsector": "Professional Services",
+      "market": "SET"
+    },
+    "ASIA": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "BEYOND": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "CENTEL": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "CSR": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "DUSIT": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "ERW": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "GRAND": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "LRH": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "MANRIN": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "MINT": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "OHTL": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "ONSENS": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "ROH": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "SHANG": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "SHR": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "SPA": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "VRANDA": {
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET"
+    },
+    "AAV": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "ANI": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "AOT": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "ASIMAR": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "B": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "BA": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "BEM": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "BTS": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "BTSGIF": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "DMT": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "ETL": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "III": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "KIAT": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "KWC": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "MENA": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "NYT": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "PORT": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "PRM": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "PSL": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "RCL": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "SAV": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "SINO": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "SJWD": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "TFFIF": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "THAI": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "TSTE": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "TTA": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "WICE": {
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET"
+    },
+    "CCET": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "DELTA": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "HANA": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "KCE": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "METCO": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "SMT": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "TEAM": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "3BBIF": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "ADVANC": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "AIT": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "ALT": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "AMR": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "BBIK": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "BLISS": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "DIF": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "DITTO": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "DTCENT": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "FORTH": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "GABLE": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "HUMAN": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "ICN": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "ILINK": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "INET": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "INSET": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "ITEL": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "JAS": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "JMART": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "JTS": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "MFEC": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "MSC": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "PT": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "ROCTEC": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SAMART": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SAMTEL": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SDC": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SIS": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SKY": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SPREME": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SVOA": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SYMC": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "SYNEX": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "THCOM": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "TKC": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "XYZ": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "TL": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "TRUE": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "TWZ": {
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET"
+    },
+    "APO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "AU": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "CFARM": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "KASET": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "MAGURO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "MUD": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "NTF": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "NTSC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "QDC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "TACC": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "TMILL": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "WINNER": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "XO": {
+      "sector": "Agro",
+      "subsector": "& Food Industry",
+      "market": "MAI"
+    },
+    "88TH": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "BGT": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "DOD": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "ECF": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "EFORL": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "EURO": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "HPT": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "ITTHI": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "JSP": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "JUBILE": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "LTS": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "MGI": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "MOONG": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "NPK": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "NUT": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "SEI": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "SKIN": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "SMD100": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "TM": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "WARRIX": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "WINMED": {
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI"
+    },
+    "ACAP": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "AF": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "AIRA": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "ASN": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "BTC": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "GCAP": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "KCC": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "LIT": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "MITSIB": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "SGF": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "TQR": {
+      "sector": "Financials",
+      "subsector": "Financials",
+      "market": "MAI"
+    },
+    "ADB": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "BM": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "BPS": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "CHO": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "CHOW": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "CIG": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "COLOR": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "CPR": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "FPI": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "GTB": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "HARN": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "KCM": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "KJL": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "KUMWEL": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "KWM": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "MBAX": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "MGT": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "MTW": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "NDR": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "PACO": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "PDG": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "PHOL": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "PIMO": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "PMC": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "PPM": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "PRAPAT": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "RWI": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "SAF": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "SALEE": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "SANKO": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "SCL": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "SELIC": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "SFT": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "STP": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "SWC": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "TATG": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "TMC": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "TMI": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "TMW": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "TPLAS": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "TRT": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "TRV": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "UBIS": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "UEC": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "UKEM": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "UREKA": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "YUASA": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "ZIGA": {
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI"
+    },
+    "ARIN": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "ARROW": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "BC": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "BKA": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "BLESS": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "BSM": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "BTW": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "CAZ": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "CHEWA": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "CPANEL": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "CRD": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "DHOUSE": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "DIMET": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "DPAINT": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "EMPIRE": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "FLOYD": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "HYDRO": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "IND": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "JAK": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "META": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "PANEL": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "PPS": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "PRI": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "PROS": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "PSGC": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "QTCG": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "SENX": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "SK": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "SMART": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "STC": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "STX": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "SVR": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "TAPAC": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "THANA": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "TIGER": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "WELL": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "YONG": {
+      "sector": "Property",
+      "subsector": "& Construction",
+      "market": "MAI"
+    },
+    "ABM": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "ALPHAX": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "GTV": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "PSTC": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "PTC": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "SAAM": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "SR": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "STOWER": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "TAKUNI": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "TPCH": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "UMS": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
+    },
+    "ADD": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "AKP": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "AMA": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "AMARC": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "ARIP": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "ASTR": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "ATP30": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "AUCT": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "BIS": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "BOL": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "CEYE": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "CHIC": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "CMO": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "D": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "DEXON": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "ETE": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "FSMART": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "FVC": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "GFC": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "GLORY": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "HANN": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "HL": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "IMH": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "IROYAL": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "IVF": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "JPARK": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "K": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "KGEN": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "KK": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "KOOL": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "KTMS": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "LDC": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "LEO": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "LTMH": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "MCA": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "MEB": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "MORE": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "MOTHER": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "MPJ": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "MVP": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "NCL": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "NCP": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "PEER": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "PICO": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "PLT": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "QLT": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "RP": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "SONIC": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "SPTX": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "THMUI": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TNDT": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TNH": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TNP": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TPL": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TRP": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TURTLE": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TVDH": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "TVT": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "UBA": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "VIBE": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "VL": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "VS": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "WASH": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "YGG": {
+      "sector": "Services",
+      "subsector": "Services",
+      "market": "MAI"
+    },
+    "APP": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "BE8": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "BVG": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "COMAN": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "I2": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "IDG": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "IIG": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "IRCP": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "ITNS": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "NAT": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "NETBAY": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "PIS": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "PLANET": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "PROEN": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "READY": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "SECURE": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "SICT": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "SIMAT": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "SPVI": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "SRS": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "TBN": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "TERA": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "TPS": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    },
+    "VCOM": {
+      "sector": "Technology",
+      "subsector": "Technology",
+      "market": "MAI"
+    }
   }
 }
