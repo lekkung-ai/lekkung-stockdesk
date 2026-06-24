@@ -1,12 +1,22 @@
 [
   {
     "ticker": "KBANK",
-    "price": 209.0,
+    "price": 208.0,
     "sepa": true,
     "kell": true,
     "breakout": true,
     "stage": "S.Bull",
-    "rs_score": 86,
+    "rs_score": 85,
+    "combo_score": 4
+  },
+  {
+    "ticker": "BBL",
+    "price": 176.5,
+    "sepa": true,
+    "kell": true,
+    "breakout": true,
+    "stage": "S.Bull",
+    "rs_score": 78,
     "combo_score": 4
   },
   {
@@ -20,16 +30,6 @@
     "combo_score": 4
   },
   {
-    "ticker": "BBL",
-    "price": 176.0,
-    "sepa": true,
-    "kell": true,
-    "breakout": true,
-    "stage": "S.Bull",
-    "rs_score": 77,
-    "combo_score": 4
-  },
-  {
     "ticker": "DMT",
     "price": 11.7,
     "sepa": true,
@@ -40,18 +40,18 @@
     "combo_score": 4
   },
   {
-    "ticker": "SCB",
-    "price": 142.5,
+    "ticker": "WHART",
+    "price": 10.9,
     "sepa": true,
     "kell": true,
     "breakout": true,
     "stage": "S.Bull",
-    "rs_score": 73,
+    "rs_score": 75,
     "combo_score": 4
   },
   {
-    "ticker": "WHART",
-    "price": 10.8,
+    "ticker": "SCB",
+    "price": 143.0,
     "sepa": true,
     "kell": true,
     "breakout": true,
@@ -70,6 +70,16 @@
     "combo_score": 4
   },
   {
+    "ticker": "RATCH",
+    "price": 30.25,
+    "sepa": true,
+    "kell": true,
+    "breakout": true,
+    "stage": "Bull",
+    "rs_score": 70,
+    "combo_score": 4
+  },
+  {
     "ticker": "MC",
     "price": 11.4,
     "sepa": true,
@@ -77,6 +87,16 @@
     "breakout": true,
     "stage": "S.Bull",
     "rs_score": 67,
+    "combo_score": 4
+  },
+  {
+    "ticker": "SIRI",
+    "price": 1.43,
+    "sepa": true,
+    "kell": true,
+    "breakout": true,
+    "stage": "S.Bull",
+    "rs_score": 64,
     "combo_score": 4
   },
   {
@@ -101,7 +121,7 @@
   },
   {
     "ticker": "MGC",
-    "price": 6.75,
+    "price": 6.8,
     "sepa": true,
     "kell": true,
     "breakout": false,
@@ -111,7 +131,7 @@
   },
   {
     "ticker": "SRICHA",
-    "price": 18.2,
+    "price": 18.1,
     "sepa": true,
     "kell": true,
     "breakout": false,
@@ -121,11 +141,11 @@
   },
   {
     "ticker": "TEAM",
-    "price": 4.64,
+    "price": 4.66,
     "sepa": true,
     "kell": true,
     "breakout": false,
-    "stage": "Bull",
+    "stage": "S.Bull",
     "rs_score": 98,
     "combo_score": 3
   },
@@ -141,7 +161,7 @@
   },
   {
     "ticker": "INSET",
-    "price": 3.58,
+    "price": 3.6,
     "sepa": true,
     "kell": true,
     "breakout": false,
@@ -151,7 +171,7 @@
   },
   {
     "ticker": "KCE",
-    "price": 38.0,
+    "price": 38.25,
     "sepa": true,
     "kell": true,
     "breakout": false,
@@ -161,7 +181,7 @@
   },
   {
     "ticker": "AMATA",
-    "price": 26.75,
+    "price": 27.0,
     "sepa": true,
     "kell": true,
     "breakout": false,
@@ -171,7 +191,7 @@
   },
   {
     "ticker": "BAY",
-    "price": 38.5,
+    "price": 38.75,
     "sepa": true,
     "kell": true,
     "breakout": false,
@@ -191,7 +211,7 @@
   },
   {
     "ticker": "BLA",
-    "price": 24.2,
+    "price": 24.3,
     "sepa": true,
     "kell": true,
     "breakout": false,
@@ -207,16 +227,6 @@
     "breakout": false,
     "stage": "S.Bull",
     "rs_score": 90,
-    "combo_score": 3
-  },
-  {
-    "ticker": "TCAP",
-    "price": 64.5,
-    "sepa": true,
-    "kell": true,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 86,
     "combo_score": 3
   },
   {
@@ -250,6 +260,16 @@
     "combo_score": 3
   },
   {
+    "ticker": "ADVICE",
+    "price": 6.35,
+    "sepa": true,
+    "kell": true,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 81,
+    "combo_score": 3
+  },
+  {
     "ticker": "ITC",
     "price": 16.6,
     "sepa": true,
@@ -260,18 +280,8 @@
     "combo_score": 3
   },
   {
-    "ticker": "ADVICE",
-    "price": 6.25,
-    "sepa": true,
-    "kell": true,
-    "breakout": false,
-    "stage": "Bull",
-    "rs_score": 79,
-    "combo_score": 3
-  },
-  {
     "ticker": "BEM",
-    "price": 6.0,
+    "price": 5.95,
     "sepa": true,
     "kell": false,
     "breakout": true,
@@ -311,42 +321,12 @@
   },
   {
     "ticker": "MBK",
-    "price": 19.1,
+    "price": 19.0,
     "sepa": false,
     "kell": true,
     "breakout": true,
     "stage": "S.Bull",
-    "rs_score": 72,
-    "combo_score": 3
-  },
-  {
-    "ticker": "RATCH",
-    "price": 30.0,
-    "sepa": true,
-    "kell": true,
-    "breakout": true,
-    "stage": "Warning",
-    "rs_score": 68,
-    "combo_score": 3
-  },
-  {
-    "ticker": "SIRI",
-    "price": 1.42,
-    "sepa": true,
-    "kell": true,
-    "breakout": false,
-    "stage": "Bull",
-    "rs_score": 63,
-    "combo_score": 3
-  },
-  {
-    "ticker": "EGCO",
-    "price": 116.5,
-    "sepa": false,
-    "kell": true,
-    "breakout": true,
-    "stage": "Bull",
-    "rs_score": 61,
+    "rs_score": 71,
     "combo_score": 3
   },
   {
@@ -371,7 +351,7 @@
   },
   {
     "ticker": "SMT",
-    "price": 3.4,
+    "price": 3.5,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -381,7 +361,7 @@
   },
   {
     "ticker": "STECON",
-    "price": 17.9,
+    "price": 17.8,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -401,7 +381,7 @@
   },
   {
     "ticker": "FORTH",
-    "price": 14.6,
+    "price": 14.5,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -421,7 +401,7 @@
   },
   {
     "ticker": "EASTW",
-    "price": 4.2,
+    "price": 4.24,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -431,12 +411,32 @@
   },
   {
     "ticker": "TAE",
-    "price": 1.42,
+    "price": 1.43,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": "Bull",
     "rs_score": 97,
+    "combo_score": 2
+  },
+  {
+    "ticker": "KKP",
+    "price": 95.75,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 96,
+    "combo_score": 2
+  },
+  {
+    "ticker": "TFG",
+    "price": 9.6,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 96,
     "combo_score": 2
   },
   {
@@ -447,16 +447,6 @@
     "breakout": false,
     "stage": "S.Bull",
     "rs_score": 96,
-    "combo_score": 2
-  },
-  {
-    "ticker": "KKP",
-    "price": 95.5,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 95,
     "combo_score": 2
   },
   {
@@ -476,12 +466,12 @@
     "kell": false,
     "breakout": false,
     "stage": "S.Bull",
-    "rs_score": 95,
+    "rs_score": 94,
     "combo_score": 2
   },
   {
     "ticker": "AOT",
-    "price": 61.0,
+    "price": 60.75,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -501,7 +491,7 @@
   },
   {
     "ticker": "BA",
-    "price": 17.9,
+    "price": 17.7,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -511,7 +501,7 @@
   },
   {
     "ticker": "CK",
-    "price": 19.6,
+    "price": 19.7,
     "sepa": false,
     "kell": true,
     "breakout": false,
@@ -521,7 +511,7 @@
   },
   {
     "ticker": "AJ",
-    "price": 2.98,
+    "price": 2.96,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -531,7 +521,7 @@
   },
   {
     "ticker": "AWC",
-    "price": 2.64,
+    "price": 2.62,
     "sepa": false,
     "kell": false,
     "breakout": true,
@@ -541,7 +531,7 @@
   },
   {
     "ticker": "GULF",
-    "price": 61.75,
+    "price": 61.5,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -561,42 +551,12 @@
   },
   {
     "ticker": "STANLY",
-    "price": 246.0,
+    "price": 245.0,
     "sepa": true,
     "kell": true,
     "breakout": false,
     "stage": null,
     "rs_score": 89,
-    "combo_score": 2
-  },
-  {
-    "ticker": "SCC",
-    "price": 242.0,
-    "sepa": false,
-    "kell": true,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 88,
-    "combo_score": 2
-  },
-  {
-    "ticker": "TACC",
-    "price": 6.2,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 88,
-    "combo_score": 2
-  },
-  {
-    "ticker": "DITTO",
-    "price": 13.6,
-    "sepa": false,
-    "kell": true,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 87,
     "combo_score": 2
   },
   {
@@ -606,7 +566,37 @@
     "kell": false,
     "breakout": false,
     "stage": "S.Bull",
+    "rs_score": 88,
+    "combo_score": 2
+  },
+  {
+    "ticker": "SCC",
+    "price": 241.0,
+    "sepa": false,
+    "kell": true,
+    "breakout": false,
+    "stage": "S.Bull",
     "rs_score": 87,
+    "combo_score": 2
+  },
+  {
+    "ticker": "TACC",
+    "price": 6.15,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 87,
+    "combo_score": 2
+  },
+  {
+    "ticker": "TCAP",
+    "price": 64.75,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 86,
     "combo_score": 2
   },
   {
@@ -616,17 +606,7 @@
     "kell": false,
     "breakout": true,
     "stage": "S.Bull",
-    "rs_score": 83,
-    "combo_score": 2
-  },
-  {
-    "ticker": "ICHI",
-    "price": 13.8,
-    "sepa": false,
-    "kell": false,
-    "breakout": true,
-    "stage": "S.Bull",
-    "rs_score": 81,
+    "rs_score": 82,
     "combo_score": 2
   },
   {
@@ -636,12 +616,12 @@
     "kell": false,
     "breakout": false,
     "stage": "Bull",
-    "rs_score": 81,
+    "rs_score": 80,
     "combo_score": 2
   },
   {
     "ticker": "BH",
-    "price": 185.0,
+    "price": 184.5,
     "sepa": false,
     "kell": true,
     "breakout": false,
@@ -656,7 +636,7 @@
     "kell": true,
     "breakout": false,
     "stage": null,
-    "rs_score": 73,
+    "rs_score": 72,
     "combo_score": 2
   },
   {
@@ -666,27 +646,27 @@
     "kell": false,
     "breakout": false,
     "stage": "S.Bull",
-    "rs_score": 63,
+    "rs_score": 64,
     "combo_score": 2
   },
   {
     "ticker": "MOSHI",
-    "price": 37.0,
+    "price": 37.25,
     "sepa": false,
     "kell": false,
     "breakout": true,
     "stage": "S.Bull",
-    "rs_score": 60,
+    "rs_score": 61,
     "combo_score": 2
   },
   {
-    "ticker": "CPALL",
-    "price": 46.0,
+    "ticker": "EGCO",
+    "price": 116.0,
     "sepa": false,
     "kell": true,
     "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 54,
+    "stage": "Bull",
+    "rs_score": 60,
     "combo_score": 2
   },
   {
@@ -701,7 +681,7 @@
   },
   {
     "ticker": "CTW",
-    "price": 7.25,
+    "price": 7.3,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -711,7 +691,7 @@
   },
   {
     "ticker": "ML",
-    "price": 1.66,
+    "price": 1.68,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -731,7 +711,7 @@
   },
   {
     "ticker": "SGC",
-    "price": 1.5,
+    "price": 1.51,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -741,7 +721,7 @@
   },
   {
     "ticker": "SINGER",
-    "price": 9.75,
+    "price": 9.8,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -751,17 +731,7 @@
   },
   {
     "ticker": "ALT",
-    "price": 1.87,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 96,
-    "combo_score": 1
-  },
-  {
-    "ticker": "ASAP",
-    "price": 2.0,
+    "price": 1.88,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -780,13 +750,13 @@
     "combo_score": 1
   },
   {
-    "ticker": "TFG",
-    "price": 9.55,
-    "sepa": false,
+    "ticker": "ASAP",
+    "price": 2.0,
+    "sepa": true,
     "kell": false,
     "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 96,
+    "stage": null,
+    "rs_score": 95,
     "combo_score": 1
   },
   {
@@ -801,7 +771,7 @@
   },
   {
     "ticker": "CNT",
-    "price": 1.62,
+    "price": 1.65,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -811,7 +781,7 @@
   },
   {
     "ticker": "IT",
-    "price": 5.6,
+    "price": 5.65,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -831,7 +801,7 @@
   },
   {
     "ticker": "TITLE",
-    "price": 8.0,
+    "price": 7.95,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -840,28 +810,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "BGRIM",
-    "price": 17.1,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 94,
-    "combo_score": 1
-  },
-  {
     "ticker": "BIZ",
     "price": 5.65,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 94,
-    "combo_score": 1
-  },
-  {
-    "ticker": "NDR",
-    "price": 1.95,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -877,6 +827,16 @@
     "breakout": false,
     "stage": "S.Bull",
     "rs_score": 94,
+    "combo_score": 1
+  },
+  {
+    "ticker": "BGRIM",
+    "price": 17.1,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 93,
     "combo_score": 1
   },
   {
@@ -900,6 +860,16 @@
     "combo_score": 1
   },
   {
+    "ticker": "NDR",
+    "price": 1.95,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 93,
+    "combo_score": 1
+  },
+  {
     "ticker": "PYLON",
     "price": 3.46,
     "sepa": true,
@@ -910,28 +880,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "RBF",
-    "price": 4.88,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 93,
-    "combo_score": 1
-  },
-  {
-    "ticker": "SALEE",
-    "price": 0.55,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 93,
-    "combo_score": 1
-  },
-  {
     "ticker": "SEAFCO",
-    "price": 2.98,
+    "price": 3.0,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -941,7 +891,7 @@
   },
   {
     "ticker": "CMO",
-    "price": 0.79,
+    "price": 0.8,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -951,7 +901,7 @@
   },
   {
     "ticker": "JMART",
-    "price": 9.5,
+    "price": 9.55,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -960,8 +910,28 @@
     "combo_score": 1
   },
   {
-    "ticker": "ASK",
-    "price": 10.1,
+    "ticker": "RBF",
+    "price": 4.86,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 92,
+    "combo_score": 1
+  },
+  {
+    "ticker": "SALEE",
+    "price": 0.54,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 92,
+    "combo_score": 1
+  },
+  {
+    "ticker": "LHFG",
+    "price": 1.14,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -970,8 +940,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "B-WORK",
-    "price": 6.25,
+    "ticker": "QTC",
+    "price": 4.74,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -981,7 +951,7 @@
   },
   {
     "ticker": "THANA",
-    "price": 1.54,
+    "price": 1.55,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -991,12 +961,32 @@
   },
   {
     "ticker": "VCOM",
-    "price": 3.84,
+    "price": 3.86,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": null,
     "rs_score": 91,
+    "combo_score": 1
+  },
+  {
+    "ticker": "ASK",
+    "price": 10.1,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 90,
+    "combo_score": 1
+  },
+  {
+    "ticker": "B-WORK",
+    "price": 6.25,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 90,
     "combo_score": 1
   },
   {
@@ -1010,38 +1000,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "EURO",
-    "price": 5.3,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 90,
-    "combo_score": 1
-  },
-  {
-    "ticker": "QTC",
-    "price": 4.6,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 90,
-    "combo_score": 1
-  },
-  {
     "ticker": "CRC",
-    "price": 23.2,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 89,
-    "combo_score": 1
-  },
-  {
-    "ticker": "GPSC",
-    "price": 43.75,
+    "price": 23.3,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -1070,6 +1030,26 @@
     "combo_score": 1
   },
   {
+    "ticker": "EURO",
+    "price": 5.2,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 88,
+    "combo_score": 1
+  },
+  {
+    "ticker": "GPSC",
+    "price": 43.5,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 88,
+    "combo_score": 1
+  },
+  {
     "ticker": "HTECH",
     "price": 3.46,
     "sepa": true,
@@ -1090,8 +1070,28 @@
     "combo_score": 1
   },
   {
+    "ticker": "SCP",
+    "price": 9.05,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 88,
+    "combo_score": 1
+  },
+  {
+    "ticker": "DITTO",
+    "price": 13.8,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 87,
+    "combo_score": 1
+  },
+  {
     "ticker": "JMT",
-    "price": 11.2,
+    "price": 11.3,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -1110,18 +1110,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "SCP",
-    "price": 8.95,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 87,
-    "combo_score": 1
-  },
-  {
     "ticker": "SVOA",
-    "price": 1.8,
+    "price": 1.81,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1130,12 +1120,12 @@
     "combo_score": 1
   },
   {
-    "ticker": "TKS",
-    "price": 7.2,
-    "sepa": true,
+    "ticker": "XO",
+    "price": 18.4,
+    "sepa": false,
     "kell": false,
-    "breakout": false,
-    "stage": null,
+    "breakout": true,
+    "stage": "Accumulation",
     "rs_score": 87,
     "combo_score": 1
   },
@@ -1151,7 +1141,17 @@
   },
   {
     "ticker": "BKIH",
-    "price": 368.0,
+    "price": 371.0,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 86,
+    "combo_score": 1
+  },
+  {
+    "ticker": "NATION",
+    "price": 0.04,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1170,32 +1170,22 @@
     "combo_score": 1
   },
   {
-    "ticker": "XO",
-    "price": 18.3,
-    "sepa": false,
+    "ticker": "TKS",
+    "price": 7.2,
+    "sepa": true,
     "kell": false,
-    "breakout": true,
-    "stage": "Accumulation",
+    "breakout": false,
+    "stage": null,
     "rs_score": 86,
     "combo_score": 1
   },
   {
     "ticker": "ALUCON",
-    "price": 234.0,
+    "price": 233.0,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": null,
-    "rs_score": 85,
-    "combo_score": 1
-  },
-  {
-    "ticker": "CENTEL",
-    "price": 36.5,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "S.Bull",
     "rs_score": 85,
     "combo_score": 1
   },
@@ -1220,8 +1210,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "MBAX",
-    "price": 1.96,
+    "ticker": "TSI",
+    "price": 0.06,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1230,13 +1220,23 @@
     "combo_score": 1
   },
   {
-    "ticker": "TSI",
-    "price": 0.06,
+    "ticker": "UBA",
+    "price": 1.11,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": null,
     "rs_score": 85,
+    "combo_score": 1
+  },
+  {
+    "ticker": "CENTEL",
+    "price": 36.5,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
+    "rs_score": 84,
     "combo_score": 1
   },
   {
@@ -1270,8 +1270,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "KTBSTMR",
-    "price": 6.3,
+    "ticker": "MBAX",
+    "price": 1.94,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1290,8 +1290,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "UBA",
-    "price": 1.09,
+    "ticker": "SAT",
+    "price": 15.8,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1300,8 +1300,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "S11",
-    "price": 4.0,
+    "ticker": "KTBSTMR",
+    "price": 6.3,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1310,8 +1310,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "SAT",
-    "price": 15.7,
+    "ticker": "S11",
+    "price": 4.0,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1330,16 +1330,6 @@
     "combo_score": 1
   },
   {
-    "ticker": "AYUD",
-    "price": 40.0,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 81,
-    "combo_score": 1
-  },
-  {
     "ticker": "F&D",
     "price": 52.25,
     "sepa": true,
@@ -1350,13 +1340,33 @@
     "combo_score": 1
   },
   {
-    "ticker": "TFM",
-    "price": 6.65,
+    "ticker": "KISS",
+    "price": 3.56,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": null,
     "rs_score": 81,
+    "combo_score": 1
+  },
+  {
+    "ticker": "UVAN",
+    "price": 14.7,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 81,
+    "combo_score": 1
+  },
+  {
+    "ticker": "AYUD",
+    "price": 39.75,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 80,
     "combo_score": 1
   },
   {
@@ -1380,13 +1390,33 @@
     "combo_score": 1
   },
   {
-    "ticker": "KISS",
-    "price": 3.54,
+    "ticker": "TFM",
+    "price": 6.6,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": null,
     "rs_score": 80,
+    "combo_score": 1
+  },
+  {
+    "ticker": "AMATAR",
+    "price": 7.3,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 79,
+    "combo_score": 1
+  },
+  {
+    "ticker": "CREDIT",
+    "price": 19.1,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 79,
     "combo_score": 1
   },
   {
@@ -1396,6 +1426,16 @@
     "kell": false,
     "breakout": false,
     "stage": null,
+    "rs_score": 79,
+    "combo_score": 1
+  },
+  {
+    "ticker": "ICHI",
+    "price": 13.7,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
     "rs_score": 79,
     "combo_score": 1
   },
@@ -1430,26 +1470,6 @@
     "combo_score": 1
   },
   {
-    "ticker": "AMATAR",
-    "price": 7.3,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 78,
-    "combo_score": 1
-  },
-  {
-    "ticker": "CREDIT",
-    "price": 19.1,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 78,
-    "combo_score": 1
-  },
-  {
     "ticker": "GC",
     "price": 4.58,
     "sepa": true,
@@ -1460,18 +1480,18 @@
     "combo_score": 1
   },
   {
-    "ticker": "KGI",
-    "price": 4.34,
+    "ticker": "NNCL",
+    "price": 1.68,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": null,
-    "rs_score": 76,
+    "rs_score": 77,
     "combo_score": 1
   },
   {
-    "ticker": "NNCL",
-    "price": 1.68,
+    "ticker": "KGI",
+    "price": 4.36,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1496,6 +1516,16 @@
     "kell": false,
     "breakout": true,
     "stage": "Accumulation",
+    "rs_score": 75,
+    "combo_score": 1
+  },
+  {
+    "ticker": "SKY",
+    "price": 14.4,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Bull",
     "rs_score": 75,
     "combo_score": 1
   },
@@ -1550,16 +1580,6 @@
     "combo_score": 1
   },
   {
-    "ticker": "SKY",
-    "price": 14.3,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Bull",
-    "rs_score": 74,
-    "combo_score": 1
-  },
-  {
     "ticker": "PIS",
     "price": 3.98,
     "sepa": true,
@@ -1580,16 +1600,6 @@
     "combo_score": 1
   },
   {
-    "ticker": "SCGD",
-    "price": 5.0,
-    "sepa": true,
-    "kell": false,
-    "breakout": false,
-    "stage": null,
-    "rs_score": 71,
-    "combo_score": 1
-  },
-  {
     "ticker": "SECURE",
     "price": 12.5,
     "sepa": true,
@@ -1600,8 +1610,8 @@
     "combo_score": 1
   },
   {
-    "ticker": "CPI",
-    "price": 3.46,
+    "ticker": "ORN",
+    "price": 0.79,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1610,13 +1620,23 @@
     "combo_score": 1
   },
   {
-    "ticker": "GBX",
-    "price": 0.57,
+    "ticker": "SCGD",
+    "price": 5.0,
     "sepa": true,
     "kell": false,
     "breakout": false,
     "stage": null,
-    "rs_score": 69,
+    "rs_score": 70,
+    "combo_score": 1
+  },
+  {
+    "ticker": "CPI",
+    "price": 3.44,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 68,
     "combo_score": 1
   },
   {
@@ -1640,6 +1660,16 @@
     "combo_score": 1
   },
   {
+    "ticker": "GBX",
+    "price": 0.56,
+    "sepa": true,
+    "kell": false,
+    "breakout": false,
+    "stage": null,
+    "rs_score": 65,
+    "combo_score": 1
+  },
+  {
     "ticker": "AXTRART",
     "price": 12.7,
     "sepa": false,
@@ -1660,8 +1690,18 @@
     "combo_score": 1
   },
   {
+    "ticker": "QH",
+    "price": 1.36,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Bull",
+    "rs_score": 58,
+    "combo_score": 1
+  },
+  {
     "ticker": "KSL",
-    "price": 1.53,
+    "price": 1.54,
     "sepa": true,
     "kell": false,
     "breakout": false,
@@ -1670,23 +1710,13 @@
     "combo_score": 1
   },
   {
-    "ticker": "QH",
-    "price": 1.35,
+    "ticker": "CPALL",
+    "price": 45.75,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Bull",
-    "rs_score": 57,
-    "combo_score": 1
-  },
-  {
-    "ticker": "CKP",
-    "price": 2.44,
-    "sepa": false,
-    "kell": false,
-    "breakout": true,
-    "stage": "Accumulation",
-    "rs_score": 55,
+    "rs_score": 53,
     "combo_score": 1
   },
   {
@@ -1696,6 +1726,16 @@
     "kell": true,
     "breakout": false,
     "stage": null,
+    "rs_score": 53,
+    "combo_score": 1
+  },
+  {
+    "ticker": "THANI",
+    "price": 1.69,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "S.Bull",
     "rs_score": 53,
     "combo_score": 1
   },
@@ -1710,16 +1750,6 @@
     "combo_score": 1
   },
   {
-    "ticker": "THANI",
-    "price": 1.67,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "S.Bull",
-    "rs_score": 50,
-    "combo_score": 1
-  },
-  {
     "ticker": "DELTA",
     "price": 314.0,
     "sepa": false,
@@ -1731,7 +1761,7 @@
   },
   {
     "ticker": "UKEM",
-    "price": 0.97,
+    "price": 0.98,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -1751,7 +1781,7 @@
   },
   {
     "ticker": "TSE",
-    "price": 0.7,
+    "price": 0.71,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -1766,7 +1796,7 @@
     "kell": false,
     "breakout": false,
     "stage": "Warning",
-    "rs_score": 91,
+    "rs_score": 90,
     "combo_score": 0
   },
   {
@@ -1776,7 +1806,7 @@
     "kell": false,
     "breakout": false,
     "stage": "Warning",
-    "rs_score": 88,
+    "rs_score": 89,
     "combo_score": 0
   },
   {
@@ -1811,42 +1841,42 @@
   },
   {
     "ticker": "TOP",
-    "price": 44.25,
+    "price": 44.5,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Warning",
-    "rs_score": 79,
+    "rs_score": 80,
     "combo_score": 0
   },
   {
     "ticker": "ADVANC",
-    "price": 354.0,
+    "price": 353.0,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Warning",
-    "rs_score": 75,
+    "rs_score": 74,
     "combo_score": 0
   },
   {
     "ticker": "AMARC",
-    "price": 3.3,
+    "price": 3.28,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Warning",
-    "rs_score": 74,
+    "rs_score": 73,
     "combo_score": 0
   },
   {
     "ticker": "GLOBAL",
-    "price": 6.5,
+    "price": 6.45,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 74,
+    "rs_score": 73,
     "combo_score": 0
   },
   {
@@ -1860,8 +1890,8 @@
     "combo_score": 0
   },
   {
-    "ticker": "TOA",
-    "price": 13.6,
+    "ticker": "M",
+    "price": 21.0,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -1870,13 +1900,13 @@
     "combo_score": 0
   },
   {
-    "ticker": "M",
-    "price": 20.9,
+    "ticker": "TOA",
+    "price": 13.6,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Accumulation",
-    "rs_score": 71,
+    "rs_score": 72,
     "combo_score": 0
   },
   {
@@ -1910,6 +1940,16 @@
     "combo_score": 0
   },
   {
+    "ticker": "TPIPL",
+    "price": 0.79,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Warning",
+    "rs_score": 66,
+    "combo_score": 0
+  },
+  {
     "ticker": "FSMART",
     "price": 7.0,
     "sepa": false,
@@ -1930,23 +1970,23 @@
     "combo_score": 0
   },
   {
-    "ticker": "MINT",
-    "price": 24.6,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Accumulation",
-    "rs_score": 63,
-    "combo_score": 0
-  },
-  {
-    "ticker": "TPIPL",
-    "price": 0.78,
+    "ticker": "PSL",
+    "price": 7.0,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Warning",
-    "rs_score": 63,
+    "rs_score": 64,
+    "combo_score": 0
+  },
+  {
+    "ticker": "MINT",
+    "price": 24.5,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Accumulation",
+    "rs_score": 62,
     "combo_score": 0
   },
   {
@@ -1957,26 +1997,6 @@
     "breakout": false,
     "stage": "Warning",
     "rs_score": 62,
-    "combo_score": 0
-  },
-  {
-    "ticker": "PSL",
-    "price": 6.9,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Warning",
-    "rs_score": 61,
-    "combo_score": 0
-  },
-  {
-    "ticker": "BCPG",
-    "price": 6.95,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Recovery",
-    "rs_score": 60,
     "combo_score": 0
   },
   {
@@ -1997,6 +2017,16 @@
     "breakout": false,
     "stage": "Warning",
     "rs_score": 59,
+    "combo_score": 0
+  },
+  {
+    "ticker": "BCPG",
+    "price": 6.9,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Recovery",
+    "rs_score": 58,
     "combo_score": 0
   },
   {
@@ -2026,7 +2056,7 @@
     "kell": false,
     "breakout": false,
     "stage": "Accumulation",
-    "rs_score": 57,
+    "rs_score": 56,
     "combo_score": 0
   },
   {
@@ -2040,6 +2070,26 @@
     "combo_score": 0
   },
   {
+    "ticker": "IVL",
+    "price": 21.0,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Distribution",
+    "rs_score": 55,
+    "combo_score": 0
+  },
+  {
+    "ticker": "BANPU",
+    "price": 5.25,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Distribution",
+    "rs_score": 54,
+    "combo_score": 0
+  },
+  {
     "ticker": "CBG",
     "price": 43.75,
     "sepa": false,
@@ -2050,22 +2100,22 @@
     "combo_score": 0
   },
   {
-    "ticker": "IVL",
-    "price": 20.9,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Distribution",
-    "rs_score": 54,
-    "combo_score": 0
-  },
-  {
     "ticker": "NER",
     "price": 4.42,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Warning",
+    "rs_score": 54,
+    "combo_score": 0
+  },
+  {
+    "ticker": "CKP",
+    "price": 2.42,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Accumulation",
     "rs_score": 53,
     "combo_score": 0
   },
@@ -2080,23 +2130,13 @@
     "combo_score": 0
   },
   {
-    "ticker": "BANPU",
-    "price": 5.2,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Distribution",
-    "rs_score": 51,
-    "combo_score": 0
-  },
-  {
     "ticker": "SIS",
-    "price": 21.1,
+    "price": 21.2,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Warning",
-    "rs_score": 50,
+    "rs_score": 52,
     "combo_score": 0
   },
   {
@@ -2106,7 +2146,7 @@
     "kell": false,
     "breakout": false,
     "stage": "Recovery",
-    "rs_score": 48,
+    "rs_score": 49,
     "combo_score": 0
   },
   {
@@ -2116,16 +2156,26 @@
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 47,
+    "rs_score": 48,
     "combo_score": 0
   },
   {
     "ticker": "OR",
-    "price": 12.1,
+    "price": 12.2,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Bear",
+    "rs_score": 47,
+    "combo_score": 0
+  },
+  {
+    "ticker": "LH",
+    "price": 3.66,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Recovery",
     "rs_score": 46,
     "combo_score": 0
   },
@@ -2140,16 +2190,6 @@
     "combo_score": 0
   },
   {
-    "ticker": "LH",
-    "price": 3.64,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Bear",
-    "rs_score": 45,
-    "combo_score": 0
-  },
-  {
     "ticker": "NCAP",
     "price": 2.62,
     "sepa": false,
@@ -2160,23 +2200,33 @@
     "combo_score": 0
   },
   {
-    "ticker": "SAWAD",
-    "price": 22.4,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Recovery",
-    "rs_score": 45,
-    "combo_score": 0
-  },
-  {
     "ticker": "SPALI",
-    "price": 15.5,
+    "price": 15.6,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 43,
+    "rs_score": 45,
+    "combo_score": 0
+  },
+  {
+    "ticker": "SAWAD",
+    "price": 22.3,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Recovery",
+    "rs_score": 44,
+    "combo_score": 0
+  },
+  {
+    "ticker": "PTG",
+    "price": 7.25,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Bear",
+    "rs_score": 41,
     "combo_score": 0
   },
   {
@@ -2186,27 +2236,27 @@
     "kell": false,
     "breakout": false,
     "stage": "Recovery",
-    "rs_score": 41,
-    "combo_score": 0
-  },
-  {
-    "ticker": "PTG",
-    "price": 7.2,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Bear",
     "rs_score": 40,
     "combo_score": 0
   },
   {
+    "ticker": "AP",
+    "price": 7.25,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Bear",
+    "rs_score": 37,
+    "combo_score": 0
+  },
+  {
     "ticker": "BCP",
-    "price": 32.75,
+    "price": 32.5,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Distribution",
-    "rs_score": 39,
+    "rs_score": 37,
     "combo_score": 0
   },
   {
@@ -2220,23 +2270,23 @@
     "combo_score": 0
   },
   {
-    "ticker": "AP",
-    "price": 7.2,
+    "ticker": "SAMART",
+    "price": 5.45,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 35,
+    "rs_score": 36,
     "combo_score": 0
   },
   {
-    "ticker": "SAMART",
-    "price": 5.4,
+    "ticker": "AAI",
+    "price": 3.74,
     "sepa": false,
     "kell": false,
     "breakout": false,
-    "stage": "Bear",
-    "rs_score": 34,
+    "stage": "Recovery",
+    "rs_score": 32,
     "combo_score": 0
   },
   {
@@ -2246,7 +2296,7 @@
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 33,
+    "rs_score": 32,
     "combo_score": 0
   },
   {
@@ -2256,27 +2306,7 @@
     "kell": false,
     "breakout": false,
     "stage": "Recovery",
-    "rs_score": 32,
-    "combo_score": 0
-  },
-  {
-    "ticker": "AAI",
-    "price": 3.7,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Recovery",
     "rs_score": 31,
-    "combo_score": 0
-  },
-  {
-    "ticker": "AAV",
-    "price": 1.09,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Bear",
-    "rs_score": 30,
     "combo_score": 0
   },
   {
@@ -2290,6 +2320,36 @@
     "combo_score": 0
   },
   {
+    "ticker": "AAV",
+    "price": 1.09,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Bear",
+    "rs_score": 29,
+    "combo_score": 0
+  },
+  {
+    "ticker": "GFPT",
+    "price": 8.95,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Recovery",
+    "rs_score": 29,
+    "combo_score": 0
+  },
+  {
+    "ticker": "LTS",
+    "price": 2.68,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Recovery",
+    "rs_score": 29,
+    "combo_score": 0
+  },
+  {
     "ticker": "NEX",
     "price": 1.0,
     "sepa": false,
@@ -2300,22 +2360,12 @@
     "combo_score": 0
   },
   {
-    "ticker": "LTS",
-    "price": 2.66,
+    "ticker": "MAGURO",
+    "price": 17.5,
     "sepa": false,
     "kell": false,
     "breakout": false,
-    "stage": "Recovery",
-    "rs_score": 28,
-    "combo_score": 0
-  },
-  {
-    "ticker": "GFPT",
-    "price": 8.9,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Recovery",
+    "stage": "Bear",
     "rs_score": 27,
     "combo_score": 0
   },
@@ -2326,32 +2376,32 @@
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 26,
-    "combo_score": 0
-  },
-  {
-    "ticker": "MAGURO",
-    "price": 17.4,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Bear",
-    "rs_score": 26,
-    "combo_score": 0
-  },
-  {
-    "ticker": "CPF",
-    "price": 19.4,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Recovery",
     "rs_score": 25,
     "combo_score": 0
   },
   {
+    "ticker": "CPF",
+    "price": 19.3,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Recovery",
+    "rs_score": 24,
+    "combo_score": 0
+  },
+  {
+    "ticker": "SYNEX",
+    "price": 9.05,
+    "sepa": false,
+    "kell": false,
+    "breakout": false,
+    "stage": "Bear",
+    "rs_score": 24,
+    "combo_score": 0
+  },
+  {
     "ticker": "CPAXT",
-    "price": 14.6,
+    "price": 14.7,
     "sepa": false,
     "kell": false,
     "breakout": false,
@@ -2360,13 +2410,13 @@
     "combo_score": 0
   },
   {
-    "ticker": "SYNEX",
-    "price": 9.0,
+    "ticker": "PR9",
+    "price": 16.9,
     "sepa": false,
     "kell": false,
     "breakout": false,
-    "stage": "Bear",
-    "rs_score": 23,
+    "stage": "Recovery",
+    "rs_score": 22,
     "combo_score": 0
   },
   {
@@ -2380,23 +2430,13 @@
     "combo_score": 0
   },
   {
-    "ticker": "PR9",
-    "price": 16.8,
-    "sepa": false,
-    "kell": false,
-    "breakout": false,
-    "stage": "Recovery",
-    "rs_score": 21,
-    "combo_score": 0
-  },
-  {
     "ticker": "BCH",
-    "price": 9.4,
+    "price": 9.45,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Recovery",
-    "rs_score": 19,
+    "rs_score": 20,
     "combo_score": 0
   },
   {
@@ -2406,7 +2446,7 @@
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 17,
+    "rs_score": 16,
     "combo_score": 0
   },
   {
@@ -2416,17 +2456,17 @@
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 13,
+    "rs_score": 14,
     "combo_score": 0
   },
   {
     "ticker": "BTS",
-    "price": 2.04,
+    "price": 2.06,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 10,
+    "rs_score": 11,
     "combo_score": 0
   },
   {
@@ -2441,12 +2481,12 @@
   },
   {
     "ticker": "JTS",
-    "price": 34.75,
+    "price": 34.25,
     "sepa": false,
     "kell": false,
     "breakout": false,
     "stage": "Bear",
-    "rs_score": 9,
+    "rs_score": 8,
     "combo_score": 0
   },
   {
@@ -2461,7 +2501,7 @@
   },
   {
     "ticker": "NETBAY",
-    "price": 9.9,
+    "price": 9.85,
     "sepa": false,
     "kell": false,
     "breakout": false,
