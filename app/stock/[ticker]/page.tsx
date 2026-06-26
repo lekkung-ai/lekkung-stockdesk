@@ -47,9 +47,10 @@ export default async function StockPage({
       { Ticker: string; Price: number; Box_Low: number; 'Box_High(Break)': number; To_Break: number; 'ADTV(MB)': number; Box_Width: number; SMA150_Chg: number };
   })();
 
-  const combinedEntry =
-    (rawCombined as { ticker: string; price: number; stage: string | null; rs_score: number; combo_score: number; sepa: boolean; kell: boolean; breakout: boolean }[])
-      .find(s => s.ticker === t) ?? null;
+  type CombinedEntry = { ticker: string; price: number; stage: string | null; rs_score: number; combo_score: number; sepa: boolean; kell: boolean; breakout: boolean };
+  const _rawC = rawCombined as unknown as CombinedEntry[] | { generated_at?: string; data: CombinedEntry[] };
+  const combinedArr: CombinedEntry[] = Array.isArray(_rawC) ? _rawC : _rawC.data;
+  const combinedEntry = combinedArr.find(s => s.ticker === t) ?? null;
 
   const sectorInfo = sectorMap.ticker_to_sector[t] ?? null;
 

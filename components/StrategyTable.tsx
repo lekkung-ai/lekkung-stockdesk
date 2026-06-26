@@ -27,24 +27,24 @@ export function SectorChip({ ticker }: { ticker: string }) {
   );
 }
 
-export function Th({ children, right }: { children: ReactNode; right?: boolean }) {
+export function Th({ children, right, className }: { children: ReactNode; right?: boolean; className?: string }) {
   return (
     <th
       className={`px-3 py-2.5 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${
         right ? 'text-right' : 'text-left'
-      }`}
+      } ${className ?? ''}`}
     >
       {children}
     </th>
   );
 }
 
-export function Td({ children, right, mono }: { children: ReactNode; right?: boolean; mono?: boolean }) {
+export function Td({ children, right, mono, className }: { children: ReactNode; right?: boolean; mono?: boolean; className?: string }) {
   return (
     <td
       className={`px-3 py-2.5 text-[12px] text-white/70 whitespace-nowrap ${
         right ? 'text-right' : ''
-      } ${mono ? 'tabular-nums' : ''}`}
+      } ${mono ? 'tabular-nums' : ''} ${className ?? ''}`}
     >
       {children}
     </td>
@@ -111,16 +111,36 @@ export function Divider() {
   return <div className="h-4 w-px bg-white/[0.07] hidden sm:block" />;
 }
 
+export function LivePriceCell({
+  jsonPrice,
+  livePrice,
+  fetchDone,
+}: {
+  jsonPrice: number;
+  livePrice: number | undefined;
+  fetchDone: boolean;
+}) {
+  if (!fetchDone) return <span className="text-white/40">{jsonPrice.toFixed(2)}</span>;
+  if (livePrice != null) return <>{livePrice.toFixed(2)}</>;
+  return (
+    <span title="ราคา ณ วันที่รัน scan" className="text-white/40 cursor-help">
+      {jsonPrice.toFixed(2)}
+    </span>
+  );
+}
+
 export function PageHeader({
   title,
   subtitle,
   count,
   total,
+  updatedAt,
 }: {
   title: string;
   subtitle: string;
   count: number;
   total: number;
+  updatedAt?: string;
 }) {
   return (
     <div>
@@ -130,6 +150,9 @@ export function PageHeader({
         {' / '}
         {total} หุ้น · {subtitle}
       </p>
+      {updatedAt !== undefined && (
+        <p className="text-[11px] text-white/25 mt-1">อัปเดตล่าสุด: {updatedAt}</p>
+      )}
     </div>
   );
 }

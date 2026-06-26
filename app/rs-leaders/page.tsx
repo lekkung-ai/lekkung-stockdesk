@@ -2,12 +2,14 @@
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { scanData, type ScanEntry } from '@/lib/scanData';
+import { scanData, scanGeneratedAt, type ScanEntry } from '@/lib/scanData';
+import { formatThaiDate } from '@/lib/utils';
 import { tickerToSector, getSectorsGrouped } from '@/lib/sectorData';
 import { stockNames } from '@/lib/stockNames';
-import SparklineChart from '@/components/SparklineChart';
+import MiniCandleChart from '@/components/MiniCandleChart';
 
 type LivePrice = { price: number; changePercent: number };
+
 
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Bear'];
 
@@ -28,64 +30,33 @@ function rsColor(score: number): string {
 function StockRow({
   entry,
   rank,
+  livePrice,
   liveChangePercent,
 }: {
   entry: ScanEntry;
   rank: number;
+  livePrice: number | null | undefined;
   liveChangePercent: number | null;
 }) {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const [sparkData, setSparkData] = useState<{ time: string; value: number }[]>([]);
-  const [sparkLoaded, setSparkLoaded] = useState(false);
-
-  useEffect(() => {
-    const el = rowRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          obs.disconnect();
-          let cancelled = false;
-          fetch(`/api/chart/${encodeURIComponent(entry.ticker)}?market=SET`)
-            .then(r => r.json())
-            .then(json => {
-              if (cancelled) return;
-              const raw: { time: string; close: number }[] = json.data ?? [];
-              const last30 = raw.slice(-30);
-              setSparkData(last30.map(d => ({ time: d.time, value: d.close })));
-              setSparkLoaded(true);
-            })
-            .catch(() => setSparkLoaded(true));
-          return () => { cancelled = true; };
-        }
-      },
-      { rootMargin: '400px' }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [entry.ticker]);
 
   const sector = tickerToSector[entry.ticker];
   const name = stockNames[entry.ticker] ?? '';
-  const logoUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(entry.ticker)}&background=1e2232&color=8899bb&size=40&font-size=0.42&bold=true`;
+  const logoUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(entry.ticker)}&background=1e2232&color=8899bb&size=80&font-size=0.35&bold=true`;
 
   return (
-    <div
-      ref={rowRef}
-      className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors"
-    >
+    <div className="flex items-center gap-3 px-4 border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors" style={{ paddingTop: 14, paddingBottom: 14 }}>
       {/* Rank */}
       <div className="w-7 text-right text-[12px] text-white/20 tabular-nums flex-shrink-0">
         {rank}
       </div>
 
-      {/* Logo */}
+      {/* Avatar */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={logoUrl}
         alt={entry.ticker}
-        width={36}
-        height={36}
+        width={40}
+        height={40}
         className="rounded-xl flex-shrink-0 object-cover"
         loading="lazy"
       />
@@ -93,25 +64,25 @@ function StockRow({
       {/* Ticker + Name + Sector */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="text-[14px] font-bold text-white leading-none">{entry.ticker}</span>
+          <span className="text-[15px] font-semibold text-white leading-none">{entry.ticker}</span>
           {entry.stage && (
-            <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold leading-none ${stageCls(entry.stage)}`}>
+            <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold leading-none ${stageCls(entry.stage)}`}>
               {entry.stage}
             </span>
           )}
         </div>
         {name && (
-          <div className="text-[11px] text-white/35 truncate mt-0.5 max-w-[220px]">{name}</div>
+          <div className="text-[12px] text-white/35 truncate mt-0.5 max-w-[220px]">{name}</div>
         )}
         {sector && (
-          <div className="text-[10px] text-white/20 mt-0.5">{sector.sector}</div>
+          <div className="text-[11px] text-white/20 mt-0.5">{sector.sector}</div>
         )}
       </div>
 
       {/* RS Score */}
       <div className="w-12 text-right flex-shrink-0">
         <span
-          className="text-[22px] font-bold tabular-nums leading-none"
+          className="text-[18px] font-semibold tabular-nums leading-none"
           style={{ color: rsColor(entry.rs_score) }}
         >
           {entry.rs_score}
@@ -120,29 +91,42 @@ function StockRow({
 
       {/* Combo Score */}
       <div className="w-10 text-center flex-shrink-0">
-        <span className="text-[11px] text-white/30 tabular-nums">{entry.combo_score}/4</span>
+        <span className="text-[13px] text-white/30 tabular-nums">{entry.combo_score}/4</span>
       </div>
 
       {/* Signal badges */}
-      <div className="w-[72px] flex-shrink-0 hidden sm:block">
+      <div className="w-[86px] flex-shrink-0 hidden sm:block">
         <div className="flex flex-col gap-0.5">
           {entry.sepa && (
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-[#EAF3DE] text-[#27500A] inline-block w-fit leading-none">SEPA</span>
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[#EAF3DE] text-[#27500A] inline-block w-fit leading-none">SEPA</span>
           )}
           {entry.kell && (
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-[#E6F1FB] text-[#0C447C] inline-block w-fit leading-none">Kell</span>
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[#E6F1FB] text-[#0C447C] inline-block w-fit leading-none">Kell</span>
           )}
           {entry.breakout && (
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-[#E6F1FB] text-[#0C447C] inline-block w-fit leading-none">BO</span>
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[#E6F1FB] text-[#0C447C] inline-block w-fit leading-none">BO</span>
           )}
         </div>
       </div>
 
+      {/* Price */}
+      <div className="w-[80px] text-right flex-shrink-0 hidden md:block">
+        {typeof livePrice === 'number' ? (
+          <span className="text-[13px] tabular-nums text-white/80">{livePrice.toFixed(2)}</span>
+        ) : livePrice === null ? (
+          <span title="ราคา ณ วันที่รัน scan" className="text-[13px] tabular-nums text-white/40 cursor-help">
+            {entry.price.toFixed(2)}
+          </span>
+        ) : (
+          <span className="text-[13px] tabular-nums text-white/40">{entry.price.toFixed(2)}</span>
+        )}
+      </div>
+
       {/* 1D% — from batch price API */}
-      <div className="w-[60px] text-right flex-shrink-0 hidden md:block">
+      <div className="w-[65px] text-right flex-shrink-0 hidden md:block">
         {liveChangePercent !== null ? (
           <span
-            className={`text-[12px] font-semibold tabular-nums ${liveChangePercent >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}
+            className={`text-[13px] font-semibold tabular-nums ${liveChangePercent >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}
           >
             {liveChangePercent >= 0 ? '+' : ''}{liveChangePercent.toFixed(2)}%
           </span>
@@ -151,15 +135,9 @@ function StockRow({
         )}
       </div>
 
-      {/* Sparkline */}
-      <div className="w-[120px] h-[40px] flex-shrink-0 hidden lg:block">
-        {sparkData.length > 0 ? (
-          <SparklineChart data={sparkData} width={120} height={40} />
-        ) : sparkLoaded ? (
-          <div className="w-full h-full bg-white/[0.03] rounded" />
-        ) : (
-          <div className="w-full h-full bg-white/[0.03] rounded animate-pulse" />
-        )}
+      {/* 30D Candlestick + EMA200 */}
+      <div className="flex-shrink-0 hidden lg:block">
+        <MiniCandleChart ticker={entry.ticker} width={180} height={55} />
       </div>
     </div>
   );
@@ -277,15 +255,18 @@ export default function RSLeadersPage() {
   const [filterSepa, setFilterSepa] = useState(false);
   const [filterKell, setFilterKell] = useState(false);
   const [filterBreakout, setFilterBreakout] = useState(false);
+  const [filterBarOpen, setFilterBarOpen] = useState(false);
   const [priceMap, setPriceMap] = useState<Record<string, LivePrice>>({});
+  const [fetchDone, setFetchDone] = useState(false);
 
   // Fetch all scanData prices once on mount
   useEffect(() => {
-    const symbols = scanData.map(e => e.ticker).join(',');
+    const symbols = scanData.map(e => encodeURIComponent(e.ticker)).join(',');
     fetch(`/api/prices?symbols=${symbols}`)
       .then(r => r.json())
       .then(json => { if (json.prices) setPriceMap(json.prices); })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setFetchDone(true));
   }, []);
 
   const allSectors = useMemo(() => getSectorsGrouped().map(g => g.sector), []);
@@ -326,10 +307,22 @@ export default function RSLeadersPage() {
           <p className="text-[12px] text-white/35 mt-0.5">
             <span className="text-white/65 font-medium">{filtered.length}</span> หุ้น
           </p>
+          <p className="text-[11px] text-white/25 mt-1">อัปเดตล่าสุด: {formatThaiDate(scanGeneratedAt)}</p>
         </div>
       </div>
 
+      {/* Mobile filter toggle */}
+      <button
+        className="md:hidden flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.07] text-[12px] text-white/60 hover:text-white/80 transition-colors min-h-[44px] w-full"
+        onClick={() => setFilterBarOpen(o => !o)}
+      >
+        <span>Filter ⚙️</span>
+        {isDirty && <span className="ml-1 w-2 h-2 rounded-full bg-[#1D9E75] flex-shrink-0" />}
+        <span className="ml-auto text-white/30">{filterBarOpen ? '▲' : '▼'}</span>
+      </button>
+
       {/* ─── Filter bar ─── */}
+      <div className={`${filterBarOpen ? 'block' : 'hidden'} md:block`}>
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-3">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <div className="flex items-center gap-2">
@@ -406,18 +399,20 @@ export default function RSLeadersPage() {
           />
         </div>
       </div>
+      </div>
 
       {/* ─── Table ─── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
         <div className="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.015]">
           <div className="w-7 flex-shrink-0" />
-          <div className="w-9 flex-shrink-0" />
+          <div className="w-10 flex-shrink-0" />
           <div className="flex-1 text-[10px] font-semibold text-white/25 uppercase tracking-wider">Ticker</div>
           <div className="w-12 text-right text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0">RS</div>
           <div className="w-10 text-center text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0">Combo</div>
-          <div className="w-[72px] text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0 hidden sm:block">Signals</div>
-          <div className="w-[60px] text-right text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0 hidden md:block">1D%</div>
-          <div className="w-[120px] text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0 hidden lg:block">30D</div>
+          <div className="w-[86px] text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0 hidden sm:block">Signals</div>
+          <div className="w-[80px] text-right text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0 hidden md:block">Price</div>
+          <div className="w-[65px] text-right text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0 hidden md:block">1D%</div>
+          <div className="w-[180px] text-[10px] font-semibold text-white/25 uppercase tracking-wider flex-shrink-0 hidden lg:block">30D</div>
         </div>
 
         {filtered.length === 0 ? (
@@ -430,6 +425,7 @@ export default function RSLeadersPage() {
               key={entry.ticker}
               entry={entry}
               rank={i + 1}
+              livePrice={fetchDone ? (priceMap[entry.ticker]?.price ?? null) : undefined}
               liveChangePercent={priceMap[entry.ticker]?.changePercent ?? null}
             />
           ))

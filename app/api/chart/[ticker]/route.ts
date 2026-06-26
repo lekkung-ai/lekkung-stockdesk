@@ -2,13 +2,15 @@ import type { NextRequest } from 'next/server';
 import { toYahooSymbol } from '@/lib/setTickers';
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ ticker: string }> }
 ) {
   const { ticker } = await context.params;
   const symbol = toYahooSymbol(ticker.toUpperCase());
 
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=2y`;
+  const interval = req.nextUrl.searchParams.get('interval') ?? '1d';
+  const range = req.nextUrl.searchParams.get('range') ?? '2y';
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=${interval}&range=${range}`;
 
   try {
     const res = await fetch(url, {
@@ -21,6 +23,7 @@ export async function GET(
     });
 
     if (!res.ok) {
+      console.error(`[chart] ${symbol} upstream ${res.status}`);
       return Response.json({ error: 'upstream error' }, { status: res.status });
     }
 
@@ -59,7 +62,8 @@ export async function GET(
     return Response.json({ data }, {
       headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' },
     });
-  } catch {
+  } catch (err) {
+    console.error(`[chart] ${symbol} fetch failed:`, err);
     return Response.json({ error: 'fetch failed' }, { status: 500 });
   }
 }

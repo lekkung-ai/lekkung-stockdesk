@@ -61,6 +61,20 @@ interface NewsItem {
   source: string;
   sentiment: 'pos' | 'neg' | 'neu';
 }
+interface SecData {
+  headers: string[];
+  rows: Record<string, string>[];
+}
+interface FundamentalData {
+  pe: number | null;
+  pb: number | null;
+  roe: number | null;
+  eps: number | null;
+  de: number | null;
+  deMissing: boolean;
+  divYield: number | null;
+  marketCap: string;
+}
 
 interface Props {
   ticker: string;
@@ -139,11 +153,23 @@ export default function StockDetailPage({
   sectorInfo,
 }: Props) {
   const router = useRouter();
+  const [chartHeight, setChartHeight] = useState(350);
   const [quote, setQuote] = useState<{ price: number; change1d: number; shortName: string } | null>(null);
+  const [fundamental, setFundamental] = useState<FundamentalData | null>(null);
   const [news, setNews] = useState<NewsItem[] | null>(null);
+  const [newsIsGeneral, setNewsIsGeneral] = useState(false);
+  const [sec59, setSec59] = useState<SecData | null>(null);
+  const [sec246, setSec246] = useState<SecData | null>(null);
 
   // Suppress unused warning for breakoutEntry (used as existence check)
   void breakoutEntry;
+
+  useEffect(() => {
+    const update = () => setChartHeight(window.innerWidth < 768 ? 250 : 350);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   useEffect(() => {
     fetch(`/api/quote/${encodeURIComponent(ticker)}`)
@@ -153,10 +179,32 @@ export default function StockDetailPage({
   }, [ticker]);
 
   useEffect(() => {
+    fetch(`/api/fundamental/${encodeURIComponent(ticker)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data && !data.error) setFundamental(data); })
+      .catch(() => {});
+  }, [ticker]);
+
+  useEffect(() => {
     fetch(`/api/news/${encodeURIComponent(ticker)}`)
       .then(r => r.json())
-      .then(data => setNews(data.news ?? []))
+      .then(data => {
+        setNews(data.news ?? []);
+        setNewsIsGeneral(data.isGeneral ?? false);
+      })
       .catch(() => setNews([]));
+  }, [ticker]);
+
+  useEffect(() => {
+    const t = encodeURIComponent(ticker);
+    fetch(`/api/sec-report?type=59&ticker=${t}`)
+      .then(r => r.json())
+      .then(d => setSec59(d))
+      .catch(() => setSec59({ headers: [], rows: [] }));
+    fetch(`/api/sec-report?type=246&ticker=${t}`)
+      .then(r => r.json())
+      .then(d => setSec246(d))
+      .catch(() => setSec246({ headers: [], rows: [] }));
   }, [ticker]);
 
   const changeColor = quote
@@ -260,7 +308,31 @@ export default function StockDetailPage({
       </div>
 
       {/* ── Chart ── */}
-      <StockChart ticker={ticker} height={350} />
+      <StockChart ticker={ticker} height={chartHeight} />
+
+      {/* ── Fundamental Data ── */}
+      {fundamental && (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
+          <h2 className="text-[13px] font-semibold text-white mb-4">ข้อมูลพื้นฐาน</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {([
+              { label: 'P/E',        value: fundamental.pe != null    ? fundamental.pe.toFixed(2)      : 'N/A' },
+              { label: 'P/B',        value: fundamental.pb != null    ? fundamental.pb.toFixed(2)      : '—' },
+              { label: 'ROE',        value: fundamental.roe != null   ? `${fundamental.roe.toFixed(1)}%` : '—' },
+              { label: 'EPS',        value: fundamental.eps != null   ? fundamental.eps.toFixed(2)     : '—' },
+              { label: 'D/E',        value: fundamental.de != null ? fundamental.de.toFixed(2) : fundamental.deMissing && sectorInfo?.sector === 'Financials' ? 'N/A (ธนาคาร)' : '—' },
+              { label: 'Div Yield',  value: fundamental.divYield != null ? `${fundamental.divYield.toFixed(2)}%` : '—' },
+              { label: 'Market Cap', value: fundamental.marketCap },
+            ] as { label: string; value: string }[]).map(item => (
+              <div key={item.label} className="bg-white/[0.03] rounded-lg px-3 py-3">
+                <div className="text-[10px] text-white/30 mb-1 uppercase tracking-wider">{item.label}</div>
+                <div className="text-[15px] font-semibold text-white/80 tabular-nums">{item.value}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-[10px] text-white/20 mt-3 text-right">ที่มา: Yahoo Finance · อัปเดตทุก 1 ชั่วโมง</p>
+        </div>
+      )}
 
       {/* ── 2-column detail ── */}
       {!hasAnyScan ? (
@@ -368,6 +440,9 @@ export default function StockDetailPage({
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
         <div className="px-5 py-4 border-b border-white/[0.06]">
           <h2 className="text-[13px] font-semibold text-white">ข่าวล่าสุด</h2>
+          {newsIsGeneral && (
+            <p className="text-[11px] text-white/30 mt-0.5">ไม่พบข่าวของ {ticker} · แสดงข่าวตลาดทั่วไปแทน</p>
+          )}
         </div>
 
         {news === null ? (
@@ -426,6 +501,51 @@ export default function StockDetailPage({
         )}
       </div>
 
+      {/* ── SEC 59-2 ── */}
+      {sec59 && sec59.rows.length > 0 && (
+        <SecReportCard title="รายงาน 59-2 · การเปลี่ยนแปลงการถือหลักทรัพย์ของผู้บริหาร" data={sec59} />
+      )}
+
+      {/* ── SEC 246 ── */}
+      {sec246 && sec246.rows.length > 0 && (
+        <SecReportCard title="รายงาน 246 · ผู้ถือหุ้นรายใหญ่" data={sec246} />
+      )}
+
+    </div>
+  );
+}
+
+function SecReportCard({ title, data }: { title: string; data: { headers: string[]; rows: Record<string, string>[] } }) {
+  return (
+    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
+      <div className="px-5 py-4 border-b border-white/[0.06]">
+        <h2 className="text-[13px] font-semibold text-white">{title}</h2>
+        <p className="text-[11px] text-white/25 mt-0.5">ที่มา: สำนักงาน ก.ล.ต.</p>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-left">
+          <thead>
+            <tr className="border-b border-white/[0.06]">
+              {data.headers.map(h => (
+                <th key={h} className="px-4 py-2.5 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/[0.03]">
+            {data.rows.map((row, i) => (
+              <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                {data.headers.map(h => (
+                  <td key={h} className="px-4 py-3 text-[11px] text-white/60 whitespace-nowrap">
+                    {row[h] ?? '—'}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

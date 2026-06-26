@@ -2,13 +2,17 @@
 
 import { useState, useMemo } from 'react';
 import { breakoutData } from '@/lib/strategyData';
+import { scanGeneratedAt } from '@/lib/scanData';
+import { formatThaiDate } from '@/lib/utils';
+import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader,
+  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
 } from '@/components/StrategyTable';
 
 export default function BreakoutPage() {
   const [toBreakMax, setToBreakMax] = useState(10);
   const [boxWidthMax, setBoxWidthMax] = useState(20);
+  const { priceMap, fetchDone } = useLivePrices(breakoutData.map(s => s.Ticker));
 
   const filtered = useMemo(() =>
     breakoutData
@@ -24,6 +28,7 @@ export default function BreakoutPage() {
         title="Breakout Setup"
         subtitle="VDU / Box Pattern — ยิ่ง To_Break น้อย ยิ่งจ่อ break"
         count={filtered.length}
+        updatedAt={formatThaiDate(scanGeneratedAt)}
         total={breakoutData.length}
       />
 
@@ -83,7 +88,9 @@ export default function BreakoutPage() {
                   </div>
                   <SectorChip ticker={s.Ticker} />
                 </Td>
-                <Td right mono>{s.Price.toFixed(2)}</Td>
+                <Td right mono>
+                  <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+                </Td>
                 <Td right mono>
                   <span className="text-white/50">{s['Box_High(Break)'].toFixed(2)}</span>
                 </Td>

@@ -1,13 +1,16 @@
 import Link from 'next/link';
-import rawStage from '@/data/scans/market_stage.json';
 import rawSectorMap from '@/data/scans/sector_map.json';
-import rawCombined from '@/data/scans/combined.json';
-import rawSepa from '@/data/scans/sepa.json';
-import rawKell from '@/data/scans/oliver_kell.json';
-import rawBreakout from '@/data/scans/breakout.json';
+import rawStageDefault from '@/data/scans/market_stage.json';
+import rawCombinedDefault from '@/data/scans/combined.json';
+import rawSepaDefault from '@/data/scans/sepa.json';
+import rawKellDefault from '@/data/scans/oliver_kell.json';
+import rawBreakoutDefault from '@/data/scans/breakout.json';
 import TopRSTable from '@/components/TopRSTable';
 import MetricCard from '@/components/MetricCard';
-import { marketMetrics } from '@/lib/mockData';
+import SetIndexCard from '@/components/SetIndexCard';
+import VolumeCard from '@/components/VolumeCard';
+import InvestorTypeSection from '@/components/InvestorTypeSection';
+import SectorFlow from '@/components/SectorFlow';
 
 interface StageEntry {
   Ticker: string;
@@ -33,9 +36,7 @@ interface SectorMap {
   ticker_to_sector: Record<string, { sector: string; subsector: string }>;
 }
 
-const stageData = rawStage as StageEntry[];
 const sectorMap = rawSectorMap as SectorMap;
-const combinedData = rawCombined as ScanEntry[];
 
 const STAGE_ORDER = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 const STAGE_COLORS: Record<string, string> = {
@@ -59,6 +60,15 @@ const SECTOR_COLORS: Record<string, string> = {
 };
 
 export default function OverviewPage() {
+  const rawStage = rawStageDefault;
+  const rawCombined = rawCombinedDefault;
+  const rawSepa = rawSepaDefault as { ticker?: string }[];
+  const rawKell = rawKellDefault as { ticker?: string }[];
+  const rawBreakout = rawBreakoutDefault as { ticker?: string }[];
+
+  const stageData = rawStage as StageEntry[];
+  const _c = rawCombined as ScanEntry[] | { generated_at?: string; data: ScanEntry[] };
+  const combinedData: ScanEntry[] = Array.isArray(_c) ? _c : (_c.data ?? []);
   const total = stageData.length;
 
   // ── Signal counts ─────────────────────────────────────────────────────
@@ -136,14 +146,12 @@ export default function OverviewPage() {
     },
   }));
 
-  const m = marketMetrics;
-
   const signals = [
-    { label: 'SEPA Pass',       count: sepaCount,     href: '/sepa',         color: '#1D9E75',  bg: 'bg-[#1D9E75]/[0.08] border-[#1D9E75]/20 hover:border-[#1D9E75]/40' },
-    { label: 'Oliver Kell',     count: kellCount,     href: '/kell',         color: '#378ADD',  bg: 'bg-[#378ADD]/[0.08] border-[#378ADD]/20 hover:border-[#378ADD]/40' },
-    { label: 'Breakout Setup',  count: breakoutCount, href: '/breakout',     color: '#EF9F27',  bg: 'bg-[#EF9F27]/[0.08] border-[#EF9F27]/20 hover:border-[#EF9F27]/40' },
-    { label: 'Dual Pass',       count: dualPass,      href: '/combo',        color: '#7F77DD',  bg: 'bg-[#7F77DD]/[0.08] border-[#7F77DD]/20 hover:border-[#7F77DD]/40' },
-    { label: 'Stage 2 (Bull)',  count: stage2Count,   href: '/market-stage', color: '#27AE60',  bg: 'bg-[#27AE60]/[0.08] border-[#27AE60]/20 hover:border-[#27AE60]/40' },
+    { label: 'SEPA Pass',      count: sepaCount,     href: '/sepa',         color: '#1D9E75', bg: 'bg-[#1D9E75]/[0.08] border-[#1D9E75]/20 hover:border-[#1D9E75]/40' },
+    { label: 'Oliver Kell',    count: kellCount,     href: '/kell',         color: '#378ADD', bg: 'bg-[#378ADD]/[0.08] border-[#378ADD]/20 hover:border-[#378ADD]/40' },
+    { label: 'Breakout Setup', count: breakoutCount, href: '/breakout',     color: '#EF9F27', bg: 'bg-[#EF9F27]/[0.08] border-[#EF9F27]/20 hover:border-[#EF9F27]/40' },
+    { label: 'Dual Pass',      count: dualPass,      href: '/combo',        color: '#7F77DD', bg: 'bg-[#7F77DD]/[0.08] border-[#7F77DD]/20 hover:border-[#7F77DD]/40' },
+    { label: 'Stage 2 (Bull)', count: stage2Count,   href: '/market-stage', color: '#27AE60', bg: 'bg-[#27AE60]/[0.08] border-[#27AE60]/20 hover:border-[#27AE60]/40' },
   ];
 
   return (
@@ -153,30 +161,26 @@ export default function OverviewPage() {
         <p className="text-[12px] text-white/35 mt-0.5">SET · Universe: {total} stocks</p>
       </div>
 
-      {/* ── Metric bar ── */}
-      <div className="flex gap-3 overflow-x-auto pb-1 -mx-4 md:mx-0 px-4 md:px-0">
+      {/* ── Metric bar: 2-col grid on mobile, horizontal scroll on md+ ── */}
+      <div className="grid grid-cols-2 gap-3 md:flex md:overflow-x-auto md:pb-1 md:-mx-4 md:px-4 lg:mx-0 lg:px-0">
+        <SetIndexCard />
+        <VolumeCard />
         <MetricCard
-          label="SET Index"
-          value={m.setIndex.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          sub={`${m.setChange >= 0 ? '+' : ''}${m.setChangeAmt.toFixed(2)} (${m.setChange >= 0 ? '+' : ''}${m.setChange.toFixed(2)}%)`}
-          subColor={m.setChange >= 0 ? 'green' : 'red'}
-        />
-        <MetricCard
-          label="Volume (พันล้าน ฿)"
-          value={m.volumeBillion.toFixed(1)}
-          sub="วันนี้"
+          label="SEPA Pass"
+          value={`${sepaCount} ตัว`}
+          sub="Stan Weinstein + O'Neil"
           subColor="gray"
         />
         <MetricCard
-          label="Gainers / Losers"
-          value={`${m.gainers} / ${m.losers}`}
-          sub={`Unchanged ${m.unchanged}`}
-          subColor={m.gainers > m.losers ? 'green' : 'red'}
+          label="Oliver Kell"
+          value={`${kellCount} ตัว`}
+          sub="EMAC + Trend Riding"
+          subColor="gray"
         />
         <MetricCard
-          label="SEPA Pass"
-          value={String(m.sepaPassCount)}
-          sub={`จาก ${m.sepaTotal} ตัว (${((m.sepaPassCount / m.sepaTotal) * 100).toFixed(1)}%)`}
+          label="Breakout Setup"
+          value={`${breakoutCount} ตัว`}
+          sub="VDU / Box Pattern"
           subColor="gray"
         />
       </div>
@@ -184,12 +188,12 @@ export default function OverviewPage() {
       {/* ── Scanner Signal Summary ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
         <p className="text-[10px] font-semibold uppercase tracking-wider text-white/25 mb-3">Scanner Signals</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 md:flex-nowrap md:overflow-x-auto md:pb-1 md:-mx-4 md:px-4 lg:mx-0 lg:px-0 md:scrollbar-none">
           {signals.map(sig => (
             <Link
               key={sig.label}
               href={sig.href}
-              className={`flex items-center gap-2.5 px-3.5 py-2 rounded-xl border transition-all ${sig.bg}`}
+              className={`flex items-center gap-2.5 px-3.5 py-2 rounded-xl border transition-all flex-shrink-0 ${sig.bg}`}
             >
               <span className="text-[22px] font-bold tabular-nums leading-none" style={{ color: sig.color }}>
                 {sig.count}
@@ -199,6 +203,12 @@ export default function OverviewPage() {
           ))}
         </div>
       </div>
+
+      {/* ── Investor Type ── */}
+      <InvestorTypeSection />
+
+      {/* ── Sector Flow ── */}
+      <SectorFlow />
 
       {/* ── SET Market Breadth ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
@@ -282,7 +292,6 @@ export default function OverviewPage() {
             const sectorColor = SECTOR_COLORS[s.sector] ?? '#6b7280';
             return (
               <div key={s.sector} className={`rounded-xl border p-4 ${bgCls}`}>
-                {/* Header row */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <div className="w-1 h-4 rounded-full flex-shrink-0" style={{ background: sectorColor }} />
@@ -290,8 +299,6 @@ export default function OverviewPage() {
                   </div>
                   <span className="text-[11px] text-white/30 tabular-nums">{s.total} หุ้น</span>
                 </div>
-
-                {/* EMA50 breadth */}
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-[28px] font-bold leading-none tabular-nums" style={{ color: accent }}>
                     {s.pct.toFixed(0)}%
@@ -304,8 +311,6 @@ export default function OverviewPage() {
                     <div className="text-[10px] text-white/20 mt-0.5 tabular-nums">{s.above}/{s.total}</div>
                   </div>
                 </div>
-
-                {/* Stage mini bar */}
                 <div>
                   <div className="text-[10px] text-white/20 mb-1.5">Stage distribution</div>
                   <div className="flex h-2 rounded-full overflow-hidden gap-px">

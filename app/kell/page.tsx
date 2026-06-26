@@ -2,8 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import { kellData } from '@/lib/strategyData';
+import { scanGeneratedAt } from '@/lib/scanData';
+import { formatThaiDate } from '@/lib/utils';
+import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader,
+  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
 } from '@/components/StrategyTable';
 
 const SIGNALS = ['ทั้งหมด', 'EMAC Buy', 'Trend Riding'] as const;
@@ -18,6 +21,7 @@ function distColor(dist: number): string {
 export default function KellPage() {
   const [signalFilter, setSignalFilter] = useState<SignalFilter>('ทั้งหมด');
   const [distMax, setDistMax] = useState(8);
+  const { priceMap, fetchDone } = useLivePrices(kellData.map(s => s.Ticker));
 
   const filtered = useMemo(() =>
     kellData
@@ -33,11 +37,11 @@ export default function KellPage() {
         title="Oliver Kell EMAC"
         subtitle="EMA 10 Channel — ยิ่งแนบ EMA ยิ่งดี"
         count={filtered.length}
+        updatedAt={formatThaiDate(scanGeneratedAt)}
         total={kellData.length}
       />
 
       <FilterBar>
-        {/* Signal toggle */}
         <div className="flex items-center gap-1.5">
           <span className="text-[11px] text-white/40 mr-1">Signal</span>
           {SIGNALS.map(sig => (
@@ -96,7 +100,9 @@ export default function KellPage() {
                   {s.Signal}
                 </span>
               </Td>
-              <Td right mono>{s.Price.toFixed(2)}</Td>
+              <Td right mono>
+                <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+              </Td>
               <Td right mono>{s.EMA10.toFixed(2)}</Td>
               <Td right mono>
                 <span className="font-semibold" style={{ color: distColor(s['Dist_EMA10_%']) }}>

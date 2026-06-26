@@ -11,7 +11,7 @@ export default function WatchlistCard() {
   const [priceMap, setPriceMap] = useState<Record<string, LivePrice>>({});
 
   useEffect(() => {
-    const symbols = watchlistSymbols.join(',');
+    const symbols = watchlistSymbols.map(t => encodeURIComponent(t)).join(',');
     fetch(`/api/prices?symbols=${symbols}`)
       .then(r => r.json())
       .then(json => { if (json.prices) setPriceMap(json.prices); })

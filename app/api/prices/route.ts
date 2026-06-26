@@ -1,7 +1,11 @@
 import type { NextRequest } from 'next/server';
 import { isSetTicker } from '@/lib/setTickers';
 
-type PriceResult = { price: number; changePercent: number };
+export type PriceResult = {
+  price: number;
+  change: number;
+  changePercent: number;
+};
 
 const YAHOO_HEADERS = {
   'User-Agent':
@@ -20,8 +24,9 @@ async function fetchOne(yahooSymbol: string): Promise<PriceResult | null> {
     const price: number | undefined = meta.regularMarketPrice;
     if (!price) return null;
     const prev: number | undefined = meta.chartPreviousClose ?? meta.previousClose;
+    const change = prev ? price - prev : 0;
     const changePercent = prev ? ((price - prev) / prev) * 100 : 0;
-    return { price, changePercent };
+    return { price, change, changePercent };
   } catch {
     return null;
   }

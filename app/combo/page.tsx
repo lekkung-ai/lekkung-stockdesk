@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { scanData } from '@/lib/scanData';
+import { scanData, scanGeneratedAt } from '@/lib/scanData';
+import { formatThaiDate } from '@/lib/utils';
+import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  rsColor, stageCls, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader,
+  rsColor, stageCls, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
 } from '@/components/StrategyTable';
 
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Bear'];
@@ -20,6 +22,7 @@ function BadgeCell({ value, label, color }: { value: boolean; label: string; col
 export default function ComboPage() {
   const [comboMin, setComboMin] = useState(2);
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
+  const { priceMap, fetchDone } = useLivePrices(scanData.map(s => s.ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
 
@@ -37,6 +40,7 @@ export default function ComboPage() {
         title="Combo Score"
         subtitle="ผ่านหลาย criteria พร้อมกัน — ยิ่งมากยิ่งแน่"
         count={filtered.length}
+        updatedAt={formatThaiDate(scanGeneratedAt)}
         total={scanData.length}
       />
 
@@ -75,6 +79,7 @@ export default function ComboPage() {
           <tr>
             <Th>#</Th>
             <Th>Symbol</Th>
+            <Th right>Price</Th>
             <Th>Stage</Th>
             <Th>SEPA</Th>
             <Th>Kell</Th>
@@ -90,6 +95,9 @@ export default function ComboPage() {
               <Td>
                 <div className="font-bold text-white">{s.ticker}</div>
                 <SectorChip ticker={s.ticker} />
+              </Td>
+              <Td right mono>
+                <LivePriceCell jsonPrice={s.price} livePrice={priceMap[s.ticker]} fetchDone={fetchDone} />
               </Td>
               <Td>
                 {s.stage ? (
@@ -125,7 +133,7 @@ export default function ComboPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={8} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={9} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>

@@ -65,13 +65,13 @@ export default function StockDetailCard() {
         </div>
         <div className="flex items-center gap-1.5">
           <svg width="14" height="3" viewBox="0 0 14 3" className="flex-shrink-0">
-            <line x1="0" y1="1.5" x2="14" y2="1.5" stroke="#EF9F27" strokeWidth="1.5" />
+            <line x1="0" y1="1.5" x2="14" y2="1.5" stroke="#F9C942" strokeWidth="1.5" />
           </svg>
           <span className="text-[11px] text-white/35">EMA 50</span>
         </div>
         <div className="flex items-center gap-1.5">
           <svg width="14" height="3" viewBox="0 0 14 3" className="flex-shrink-0">
-            <line x1="0" y1="1.5" x2="14" y2="1.5" stroke="#7F77DD" strokeWidth="1.5" />
+            <line x1="0" y1="1.5" x2="14" y2="1.5" stroke="#AA00FF" strokeWidth="1.5" />
           </svg>
           <span className="text-[11px] text-white/35">EMA 200</span>
         </div>

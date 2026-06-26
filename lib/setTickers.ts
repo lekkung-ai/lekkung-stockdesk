@@ -4,7 +4,8 @@ import rawCombined from '@/data/scans/combined.json';
 const SECTOR_MAP = rawSectorMap as {
   ticker_to_sector: Record<string, { sector: string; subsector: string }>;
 };
-const COMBINED = rawCombined as { ticker: string }[];
+const _combined = rawCombined as unknown as { ticker: string }[] | { generated_at?: string; data: { ticker: string }[] };
+const COMBINED: { ticker: string }[] = Array.isArray(_combined) ? _combined : _combined.data;
 
 // Full SET ticker set: sector_map (178) ∪ combined (258)
 export const SET_TICKER_SET = new Set<string>([

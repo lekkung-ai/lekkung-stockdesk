@@ -82,20 +82,21 @@ export async function GET(
     const xml = await res.text();
     const all = parseRSS(xml);
 
-    const filtered = all
-      .filter(item => item.title.toUpperCase().includes(t))
-      .slice(0, 5)
-      .map(item => ({
-        title: item.title,
-        link: item.link,
-        pubDate: item.pubDate,
-        source: item.source,
-        sentiment: getSentiment(item.title),
-      }));
+    const tickerMatches = all.filter(item => item.title.toUpperCase().includes(t));
+
+    const source = tickerMatches.length > 0 ? tickerMatches.slice(0, 5) : all.slice(0, 3);
+
+    const filtered = source.map(item => ({
+      title: item.title,
+      link: item.link,
+      pubDate: item.pubDate,
+      source: item.source,
+      sentiment: getSentiment(item.title),
+    }));
 
     return Response.json(
-      { news: filtered },
-      { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
+      { news: filtered, isGeneral: tickerMatches.length === 0 },
+      { headers: { 'Cache-Control': 'public, max-age=1800, stale-while-revalidate=300' } }
     );
   } catch {
     return Response.json({ news: [] }, { status: 200 });

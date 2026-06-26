@@ -6,14 +6,15 @@ import { ChevronLeft } from 'lucide-react';
 import SectorTickerGrid from '@/components/SectorTickerGrid';
 
 const SECTOR_COLORS: Record<string, string> = {
-  'Financials': '#378ADD',
-  'Energy & Utilities': '#EF9F27',
-  'Technology': '#1D9E75',
-  'Materials': '#9B59B6',
-  'Industrials': '#E67E22',
-  'Consumer Products': '#E24B4A',
-  'Property': '#27AE60',
-  'Services': '#7F77DD',
+  'Agro':             '#5D9E4A',
+  'Consump':          '#E24B4A',
+  'Consumer':         '#E24B4A',
+  'Financials':       '#378ADD',
+  'Industrials':      '#E67E22',
+  'Property':         '#27AE60',
+  'Resources':        '#EF9F27',
+  'Services':         '#7F77DD',
+  'Technology':       '#1D9E75',
 };
 
 export async function generateStaticParams() {
@@ -21,12 +22,22 @@ export async function generateStaticParams() {
   return Array.from(slugs).map(slug => ({ slug }));
 }
 
-export default async function SectorDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function SectorDetailPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<Record<string, string>>;
+}) {
   const { slug } = await params;
+  const sp = await searchParams;
+  const market = sp.market === 'MAI' ? 'MAI' : 'SET';
+
   const sectorName = slugToSector(slug);
   if (!sectorName) notFound();
 
-  const subsectors = allSectorEntries.filter(e => e.sector === sectorName);
+  const subsectors = allSectorEntries.filter(e => e.sector === sectorName && e.market === market);
+  if (subsectors.length === 0) notFound();
   const totalCount = subsectors.reduce((s, e) => s + e.count, 0);
   const color = SECTOR_COLORS[sectorName] ?? '#6b7280';
 
@@ -47,11 +58,11 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
   return (
     <div className="p-4 md:p-6 space-y-6">
       <Link
-        href="/sector"
+        href={`/sector`}
         className="inline-flex items-center gap-1 text-[12px] text-white/40 hover:text-white/70 transition-colors"
       >
         <ChevronLeft size={14} />
-        Sector Map
+        Sector Map · {market}
       </Link>
 
       <div className="flex items-center gap-3">

@@ -109,11 +109,11 @@ export default function StockChart({ ticker, height = 350 }: { ticker: string; h
 
     const ema50 = calcEMA(chartData, 50);
     if (ema50.length) {
-      chart.addSeries(LineSeries, { color: '#EF9F27', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema50);
+      chart.addSeries(LineSeries, { color: '#F9C942', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema50);
     }
     const ema200 = calcEMA(chartData, 200);
     if (ema200.length) {
-      chart.addSeries(LineSeries, { color: '#7F77DD', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema200);
+      chart.addSeries(LineSeries, { color: '#AA00FF', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema200);
     }
 
     // Set initial visible range
@@ -144,11 +144,11 @@ export default function StockChart({ ticker, height = 350 }: { ticker: string; h
       <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-0.5 rounded-full" style={{ background: '#EF9F27' }} />
+            <div className="w-3 h-0.5 rounded-full" style={{ background: '#F9C942' }} />
             <span className="text-[10px] text-white/30">EMA50</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-0.5 rounded-full" style={{ background: '#7F77DD' }} />
+            <div className="w-3 h-0.5 rounded-full" style={{ background: '#AA00FF' }} />
             <span className="text-[10px] text-white/30">EMA200</span>
           </div>
         </div>

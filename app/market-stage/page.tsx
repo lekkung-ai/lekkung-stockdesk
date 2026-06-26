@@ -2,8 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import { stageData } from '@/lib/strategyData';
+import { scanGeneratedAt } from '@/lib/scanData';
+import { formatThaiDate } from '@/lib/utils';
+import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  stageCls, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader,
+  stageCls, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell,
 } from '@/components/StrategyTable';
 
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Bear'];
@@ -20,6 +23,7 @@ const STAGE_ORDER: Record<string, number> = {
 
 export default function MarketStagePage() {
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
+  const { priceMap, fetchDone } = useLivePrices(stageData.map(s => s.Ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
 
@@ -47,6 +51,7 @@ export default function MarketStagePage() {
         title="Market Stage"
         subtitle="Wyckoff/Weinstein Stage Analysis"
         count={filtered.length}
+        updatedAt={formatThaiDate(scanGeneratedAt)}
         total={stageData.length}
       />
 
@@ -99,7 +104,9 @@ export default function MarketStagePage() {
                   {s.Stage}
                 </span>
               </Td>
-              <Td right mono>{s.Price.toFixed(2)}</Td>
+              <Td right mono>
+                <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+              </Td>
               <Td right mono>
                 <span className={s.Price > s.EMA50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
                   {s.EMA50.toFixed(2)}

@@ -2,13 +2,17 @@
 
 import { useState, useMemo } from 'react';
 import { sepaData } from '@/lib/strategyData';
+import { scanGeneratedAt } from '@/lib/scanData';
+import { formatThaiDate } from '@/lib/utils';
+import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader,
+  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
 } from '@/components/StrategyTable';
 
 export default function SepaPage() {
   const [rsMin, setRsMin] = useState(60);
   const [fromHighMax, setFromHighMax] = useState(15);
+  const { priceMap, fetchDone } = useLivePrices(sepaData.map(s => s.Ticker));
 
   const filtered = useMemo(() =>
     sepaData
@@ -24,6 +28,7 @@ export default function SepaPage() {
         title="SEPA Trend Template"
         subtitle="Stan Weinstein + O'Neil SEPA criteria"
         count={filtered.length}
+        updatedAt={formatThaiDate(scanGeneratedAt)}
         total={sepaData.length}
       />
 
@@ -65,7 +70,9 @@ export default function SepaPage() {
                 <div className="font-bold text-white">{s.Ticker}</div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
-              <Td right mono>{s.Price.toFixed(2)}</Td>
+              <Td right mono>
+                <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+              </Td>
               <Td right mono>
                 <span className={s.Price > s.SMA_50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
                   {s.SMA_50.toFixed(2)}

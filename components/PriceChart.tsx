@@ -103,7 +103,7 @@ export default function PriceChart({
     const ema50 = calcEMA(chartData, 50);
     if (ema50.length > 0) {
       const ema50Line = chart.addSeries(LineSeries, {
-        color: '#EF9F27',
+        color: '#F9C942',
         lineWidth: 1,
         lastValueVisible: false,
         priceLineVisible: false,
@@ -114,7 +114,7 @@ export default function PriceChart({
     const ema200 = calcEMA(chartData, 200);
     if (ema200.length > 0) {
       const ema200Line = chart.addSeries(LineSeries, {
-        color: '#7F77DD',
+        color: '#AA00FF',
         lineWidth: 1,
         lastValueVisible: false,
         priceLineVisible: false,

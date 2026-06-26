@@ -1,11 +1,352 @@
-import { Suspense } from 'react';
-import { scanData } from '@/lib/scanData';
-import ScannerTable from '@/components/ScannerTable';
+'use client';
 
-export default function ScannerPage() {
+import { useState, useMemo } from 'react';
+import Link from 'next/link';
+import rawCombined from '@/data/scans/combined.json';
+import rawMarketStage from '@/data/scans/market_stage.json';
+import rawPpbp from '@/data/scans/ppbp.json';
+import rawStageAll from '@/data/scans/stage_all.json';
+import { scanGeneratedAt } from '@/lib/scanData';
+import { formatThaiDate } from '@/lib/utils';
+import { useLivePrices } from '@/lib/useLivePrices';
+import {
+  rsColor,
+  stageCls,
+  SectorChip,
+  Th,
+  Td,
+  TableWrap,
+  FilterBar,
+  Divider,
+  PageHeader,
+} from '@/components/StrategyTable';
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type CombinedEntry = {
+  ticker: string;
+  price: number;
+  sepa: boolean;
+  kell: boolean;
+  breakout: boolean;
+  stage: string | null;
+  rs_score: number | null;
+  combo_score: number;
+};
+
+type MarketStageEntry = { Ticker: string; Bar_Count: number };
+type PpbpEntry = { Ticker: string };
+type StageAllEntry = { Ticker: string; Chg30D?: number | null };
+
+// ─── Module-level data (computed once) ────────────────────────────────────────
+
+const _rawC = rawCombined as unknown as CombinedEntry[] | { generated_at?: string; data: CombinedEntry[] };
+const combinedData: CombinedEntry[] = Array.isArray(_rawC) ? _rawC : _rawC.data;
+
+const barCountMap = new Map<string, number>(
+  (rawMarketStage as unknown as MarketStageEntry[]).map(r => [r.Ticker, r.Bar_Count])
+);
+
+const ppbpSet = new Set<string>(
+  (rawPpbp as unknown as PpbpEntry[]).map(r => r.Ticker)
+);
+
+const chg30dMap = new Map<string, number | null>(
+  (rawStageAll as unknown as StageAllEntry[]).map(r => [r.Ticker, r.Chg30D ?? null])
+);
+
+// ─── Row type & helpers ────────────────────────────────────────────────────────
+
+type EntryKind = 'ppbp' | 'pullback' | 'breakout' | 'none';
+
+type Row = CombinedEntry & {
+  ppbp: boolean;
+  barCount: number | null;
+  chg30d: number | null;
+  entry: EntryKind;
+};
+
+function getEntry(ppbp: boolean, sepa: boolean, kell: boolean, breakout: boolean): EntryKind {
+  if (ppbp) return 'ppbp';
+  if (sepa && kell) return 'pullback';
+  if (breakout) return 'breakout';
+  return 'none';
+}
+
+const ENTRY_ORDER: Record<EntryKind, number> = { ppbp: 0, pullback: 1, breakout: 2, none: 3 };
+
+const allRows: Row[] = combinedData.map(c => {
+  const ppbp = ppbpSet.has(c.ticker);
+  return {
+    ...c,
+    ppbp,
+    barCount: barCountMap.get(c.ticker) ?? null,
+    chg30d: chg30dMap.get(c.ticker) ?? null,
+    entry: getEntry(ppbp, c.sepa, c.kell, c.breakout),
+  };
+});
+
+// ─── Filter constants ─────────────────────────────────────────────────────────
+
+const SIGNAL_OPTS = ['ทั้งหมด', 'PPBP', 'SEPA', 'Kell', 'BO'] as const;
+type SignalOpt = (typeof SIGNAL_OPTS)[number];
+
+const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Bear'];
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export default function QuantScannerPage() {
+  const [sigFilter, setSigFilter] = useState<SignalOpt>('ทั้งหมด');
+  const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
+  const [filterOpen, setFilterOpen] = useState(false);
+  const { priceMap, changePctMap, fetchDone } = useLivePrices(allRows.map(r => r.ticker));
+
+  const allStagesSelected = stages.size === ALL_STAGES.length;
+
+  const rows = useMemo(() => {
+    let filtered = allRows;
+
+    if (sigFilter !== 'ทั้งหมด') {
+      filtered = filtered.filter(r => {
+        if (sigFilter === 'PPBP') return r.ppbp;
+        if (sigFilter === 'SEPA') return r.sepa;
+        if (sigFilter === 'Kell') return r.kell;
+        if (sigFilter === 'BO') return r.breakout;
+        return true;
+      });
+    }
+
+    if (!allStagesSelected) {
+      filtered = filtered.filter(r => r.stage !== null && stages.has(r.stage));
+    }
+
+    return [...filtered].sort((a, b) => {
+      const ed = ENTRY_ORDER[a.entry] - ENTRY_ORDER[b.entry];
+      if (ed !== 0) return ed;
+      if (b.combo_score !== a.combo_score) return b.combo_score - a.combo_score;
+      return (b.rs_score ?? 0) - (a.rs_score ?? 0);
+    });
+  }, [sigFilter, stages, allStagesSelected]);
+
   return (
-    <Suspense>
-      <ScannerTable data={scanData} />
-    </Suspense>
+    <div className="p-4 md:p-6 space-y-4">
+      <PageHeader
+        title="Quant Scanner"
+        subtitle="SEPA · Oliver Kell · Breakout · Pocket Pivot"
+        count={rows.length}
+        total={allRows.length}
+        updatedAt={formatThaiDate(scanGeneratedAt)}
+      />
+
+      {/* Mobile filter toggle */}
+      <button
+        className="md:hidden flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.07] text-[12px] text-white/60 hover:text-white/80 transition-colors min-h-[44px]"
+        onClick={() => setFilterOpen(f => !f)}
+      >
+        <span>Filter ⚙️</span>
+        <span className="ml-auto text-white/30">{filterOpen ? '▲' : '▼'}</span>
+      </button>
+
+      <div className={`${filterOpen ? 'block' : 'hidden'} md:block`}>
+      <FilterBar>
+        <span className="text-[10px] text-white/20 uppercase tracking-wider">Signal</span>
+        {SIGNAL_OPTS.map(s => (
+          <button
+            key={s}
+            onClick={() => setSigFilter(s)}
+            className={`px-2.5 py-1 rounded text-[10px] font-semibold transition-all ${
+              sigFilter === s
+                ? s === 'PPBP'
+                  ? 'bg-[#7F77DD] text-white'
+                  : 'bg-[#1D9E75] text-white'
+                : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+            }`}
+          >
+            {s === 'PPBP' ? 'PPBP 🔥' : s}
+          </button>
+        ))}
+        <Divider />
+        <span className="text-[10px] text-white/20 uppercase tracking-wider">Stage</span>
+        {ALL_STAGES.map(s => (
+          <button
+            key={s}
+            onClick={() => {
+              const next = new Set(stages);
+              if (next.has(s)) next.delete(s);
+              else next.add(s);
+              setStages(next);
+            }}
+            className={`px-2 py-0.5 rounded text-[10px] font-semibold transition-all ${
+              stages.has(s) ? stageCls(s) : 'bg-white/[0.04] text-white/20 hover:text-white/40'
+            }`}
+          >
+            {s}
+          </button>
+        ))}
+        {(sigFilter !== 'ทั้งหมด' || !allStagesSelected) && (
+          <button
+            onClick={() => { setSigFilter('ทั้งหมด'); setStages(new Set(ALL_STAGES)); }}
+            className="ml-auto text-[11px] text-white/25 hover:text-white/60 transition-colors"
+          >
+            Reset
+          </button>
+        )}
+      </FilterBar>
+      </div>
+
+      <TableWrap>
+        <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+          <tr>
+            <Th>#</Th>
+            <Th>Symbol</Th>
+            <Th>Stage</Th>
+            <Th>Signals</Th>
+            <Th right className="hidden md:table-cell">Price</Th>
+            <Th right className="hidden md:table-cell">1D%</Th>
+            <Th right className="hidden md:table-cell">30D%</Th>
+            <Th right>RS</Th>
+            <Th>จุดเข้า</Th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => {
+            const livePrice = priceMap[row.ticker];
+            const changePct = changePctMap[row.ticker];
+            const displayPrice = livePrice ?? row.price;
+            const isStale = fetchDone && livePrice == null;
+
+            return (
+              <tr
+                key={row.ticker}
+                className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors"
+              >
+                <Td>
+                  <span className="text-white/20 tabular-nums">{i + 1}</span>
+                </Td>
+
+                <Td>
+                  <Link
+                    href={`/stock/${row.ticker}`}
+                    className="font-bold text-white hover:text-[#1D9E75] transition-colors"
+                  >
+                    {row.ticker}
+                  </Link>
+                  <SectorChip ticker={row.ticker} />
+                </Td>
+
+                <Td>
+                  <div className="flex flex-col gap-0.5">
+                    {row.stage ? (
+                      <span
+                        className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold w-fit ${stageCls(row.stage)}`}
+                      >
+                        {row.stage}
+                      </span>
+                    ) : (
+                      <span className="text-white/20 text-[11px]">—</span>
+                    )}
+                    {row.barCount != null && (
+                      <span className="text-[10px] text-white/25 tabular-nums">{row.barCount}d</span>
+                    )}
+                  </div>
+                </Td>
+
+                <Td>
+                  <div className="flex flex-wrap gap-1">
+                    {row.ppbp && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#7F77DD] text-white">
+                        PPBP 🔥
+                      </span>
+                    )}
+                    {row.sepa && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF3DE] text-[#27500A]">
+                        SEPA
+                      </span>
+                    )}
+                    {row.kell && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#E6F1FB] text-[#0C447C]">
+                        Kell
+                      </span>
+                    )}
+                    {row.breakout && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#FAEEDA] text-[#633806]">
+                        BO
+                      </span>
+                    )}
+                    {!row.ppbp && !row.sepa && !row.kell && !row.breakout && (
+                      <span className="text-white/15 text-[11px]">—</span>
+                    )}
+                  </div>
+                </Td>
+
+                <Td right mono className="hidden md:table-cell">
+                  <span className={isStale ? 'text-white/40' : 'text-white'}>
+                    {displayPrice.toFixed(2)}
+                  </span>
+                </Td>
+
+                <Td right mono className="hidden md:table-cell">
+                  {fetchDone && changePct != null ? (
+                    <span className={changePct >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
+                      {changePct >= 0 ? '+' : ''}
+                      {changePct.toFixed(2)}%
+                    </span>
+                  ) : (
+                    <span className="text-white/25">—</span>
+                  )}
+                </Td>
+
+                <Td right mono className="hidden md:table-cell">
+                  {row.chg30d != null ? (
+                    <span className={row.chg30d >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
+                      {row.chg30d >= 0 ? '+' : ''}
+                      {row.chg30d.toFixed(1)}%
+                    </span>
+                  ) : (
+                    <span className="text-white/25">—</span>
+                  )}
+                </Td>
+
+                <Td right mono>
+                  {row.rs_score != null ? (
+                    <span
+                      className="font-bold text-[14px]"
+                      style={{ color: rsColor(row.rs_score) }}
+                    >
+                      {row.rs_score}
+                    </span>
+                  ) : (
+                    <span className="text-white/25">—</span>
+                  )}
+                </Td>
+
+                <Td>
+                  {row.entry === 'ppbp' && (
+                    <span className="text-[11px] font-semibold text-[#7F77DD]">⚡ เข้าได้เลย</span>
+                  )}
+                  {row.entry === 'pullback' && (
+                    <span className="text-[11px] text-white/50">⏳ รอ pullback</span>
+                  )}
+                  {row.entry === 'breakout' && (
+                    <span className="text-[11px] text-white/50">⏳ รอ breakout</span>
+                  )}
+                  {row.entry === 'none' && (
+                    <span className="text-white/15 text-[11px]">—</span>
+                  )}
+                </Td>
+              </tr>
+            );
+          })}
+
+          {rows.length === 0 && (
+            <tr>
+              <td colSpan={9} className="py-12 text-center text-[13px] text-white/25">
+                ไม่พบหุ้นที่ตรงกับ filter
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </TableWrap>
+    </div>
   );
 }
