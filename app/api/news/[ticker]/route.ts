@@ -1,4 +1,31 @@
 import type { NextRequest } from 'next/server';
+import rawSectorMap from '@/data/scans/sector_map.json';
+
+// Known SET tickers (keys of ticker_to_sector) used to tag each headline.
+const TICKER_SET = new Set<string>(
+  Object.keys((rawSectorMap as { ticker_to_sector: Record<string, unknown> }).ticker_to_sector)
+);
+
+// Common English/finance words that collide with real ticker symbols — skip them
+// to cut false positives from English headlines ("speed UP THAI", "dip AS ...").
+const TICKER_STOPWORDS = new Set<string>([
+  'NEW', 'BIG', 'TOP', 'ALL', 'AND', 'FOR', 'THE', 'WAS', 'NOW', 'NEWS', 'NEXT',
+  'ASIA', 'ASIAN', 'THAI', 'CEO', 'CFO', 'USD', 'THB', 'GDP', 'ETF', 'IPO', 'ESG',
+  'AGM', 'EGM', 'NPL', 'SET', 'MAI', 'WHO', 'OUT', 'OUR', 'ARE', 'HAS', 'CAN',
+  'GET', 'ONE', 'TWO', 'BUY', 'NET', 'WIN', 'WORK', 'PLAN', 'BEAUTY', 'PANEL', 'STAR',
+]);
+
+// Extract SET tickers that appear as standalone tokens in a headline.
+// Require >= 3 chars (drops noise like AS/UP/AI/OR/IT) and skip the stopword list.
+function extractTickers(title: string): string[] {
+  const found = new Set<string>();
+  const tokens = title.toUpperCase().match(/[A-Z][A-Z0-9]{2,}/g) ?? [];
+  for (const tok of tokens) {
+    if (TICKER_STOPWORDS.has(tok)) continue;
+    if (TICKER_SET.has(tok)) found.add(tok);
+  }
+  return [...found];
+}
 
 // ── Sources (all fetched server-side) ──────────────────────────────────────
 interface Feed {
@@ -182,7 +209,8 @@ export async function GET(
   let isGeneral: boolean;
 
   if (wantGeneral) {
-    selected = all.slice(0, 40);
+    // Return the full merged set; the /news page filters + paginates client-side.
+    selected = all.slice(0, 200);
     isGeneral = true;
   } else {
     const matches = all.filter(item => titleHasTicker(item.title, t));
@@ -199,7 +227,9 @@ export async function GET(
     title: item.title,
     link: item.link,
     pubDate: item.pubDate,
+    ts: item.ts,
     source: item.source,
+    tickers: extractTickers(item.title),
     sentiment: getSentiment(item.title),
   }));
 
