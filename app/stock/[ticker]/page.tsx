@@ -4,6 +4,7 @@ import rawKell from '@/data/scans/oliver_kell.json';
 import rawBreakout from '@/data/scans/breakout.json';
 import rawCombined from '@/data/scans/combined.json';
 import rawSectorMap from '@/data/scans/sector_map.json';
+import rawPpbp from '@/data/scans/ppbp.json';
 import StockDetailPage from '@/components/StockDetailPage';
 
 interface SectorMap {
@@ -53,6 +54,7 @@ export default async function StockPage({
   const combinedEntry = combinedArr.find(s => s.ticker === t) ?? null;
 
   const sectorInfo = sectorMap.ticker_to_sector[t] ?? null;
+  const isPpbp = (rawPpbp as { Ticker: string }[]).some(r => r.Ticker === t);
 
   return (
     <StockDetailPage
@@ -63,6 +65,7 @@ export default async function StockPage({
       breakoutEntry={breakoutEntry}
       combinedEntry={combinedEntry}
       sectorInfo={sectorInfo}
+      isPpbp={isPpbp}
     />
   );
 }

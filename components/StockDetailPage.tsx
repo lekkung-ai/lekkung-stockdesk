@@ -61,6 +61,16 @@ interface NewsItem {
   source: string;
   sentiment: 'pos' | 'neg' | 'neu';
 }
+
+const NEWS_SOURCE_STYLE: Record<string, string> = {
+  InfoQuest: 'bg-[#E6F1FB] text-[#0C447C]',
+  'ข่าวหุ้น': 'bg-[#FAEEDA] text-[#633806]',
+  'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
+  'ประชาชาติ': 'bg-[#F3E8FB] text-[#5B2A86]',
+  'กรุงเทพธุรกิจ': 'bg-[#FCEBEB] text-[#791F1F]',
+  'Bangkok Post': 'bg-[#E5F3F4] text-[#0B5563]',
+};
+const newsSourceCls = (s: string) => NEWS_SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 interface SecData {
   headers: string[];
   rows: Record<string, string>[];
@@ -84,6 +94,7 @@ interface Props {
   breakoutEntry: BreakoutEntry | null;
   combinedEntry: CombinedEntry | null;
   sectorInfo: SectorInfo | null;
+  isPpbp?: boolean;
 }
 
 // ── Stage style helper ──────────────────────────────────────────────────────
@@ -151,6 +162,7 @@ export default function StockDetailPage({
   breakoutEntry,
   combinedEntry,
   sectorInfo,
+  isPpbp = false,
 }: Props) {
   const router = useRouter();
   const [chartHeight, setChartHeight] = useState(350);
@@ -273,8 +285,13 @@ export default function StockDetailPage({
         </div>
 
         {/* Signal badges row */}
-        {hasAnyScan && (
+        {(hasAnyScan || isPpbp) && (
           <div className="flex items-center gap-2 flex-wrap">
+            {isPpbp && (
+              <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-bold bg-[#7F77DD]/20 text-[#7F77DD]">
+                PPBP 🔥
+              </span>
+            )}
             {combinedEntry?.sepa && (
               <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-bold bg-[#1D9E75]/15 text-[#1D9E75]">
                 SEPA
@@ -308,7 +325,7 @@ export default function StockDetailPage({
       </div>
 
       {/* ── Chart ── */}
-      <StockChart ticker={ticker} height={chartHeight} />
+      <StockChart ticker={ticker} height={chartHeight} isPpbp={isPpbp} />
 
       {/* ── Fundamental Data ── */}
       {fundamental && (
@@ -489,7 +506,9 @@ export default function StockDetailPage({
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] text-white/80 leading-snug line-clamp-2">{item.title}</p>
                     <div className="flex items-center gap-2 mt-1.5 text-[11px] text-white/25">
-                      <span>{item.source}</span>
+                      <span className={`font-semibold px-1.5 py-0.5 rounded ${newsSourceCls(item.source)}`}>
+                        {item.source}
+                      </span>
                       <span>·</span>
                       <span>{formattedDate}</span>
                     </div>

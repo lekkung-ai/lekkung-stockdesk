@@ -40,6 +40,7 @@ export async function GET(
     const highs: (number | null)[] = quote.high ?? [];
     const lows: (number | null)[] = quote.low ?? [];
     const closes: (number | null)[] = quote.close ?? [];
+    const volumes: (number | null)[] = quote.volume ?? [];
 
     const data = timestamps
       .map((ts, i) => {
@@ -55,6 +56,7 @@ export async function GET(
           high: parseFloat(h.toFixed(2)),
           low: parseFloat(l.toFixed(2)),
           close: parseFloat(c.toFixed(2)),
+          volume: volumes[i] ?? 0,
         };
       })
       .filter((p): p is NonNullable<typeof p> => p !== null);

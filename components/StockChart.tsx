@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { createChart, CandlestickSeries, LineSeries, ColorType } from 'lightweight-charts';
+import { createChart, CandlestickSeries, LineSeries, HistogramSeries, ColorType } from 'lightweight-charts';
 import type { IChartApi, Time } from 'lightweight-charts';
 
 type Timeframe = '1M' | '3M' | '6M' | '1Y';
@@ -12,6 +12,7 @@ interface OhlcvPoint {
   high: number;
   low: number;
   close: number;
+  volume: number;
 }
 
 const TF_LABELS: Timeframe[] = ['1M', '3M', '6M', '1Y'];
@@ -38,7 +39,17 @@ function calcEMA(data: OhlcvPoint[], period: number): { time: string; value: num
   return result;
 }
 
-export default function StockChart({ ticker, height = 350 }: { ticker: string; height?: number }) {
+function calcVolSMA(data: OhlcvPoint[], period: number): { time: string; value: number }[] {
+  if (data.length < period) return [];
+  const result: { time: string; value: number }[] = [];
+  for (let i = period - 1; i < data.length; i++) {
+    const avg = data.slice(i - period + 1, i + 1).reduce((s, d) => s + d.volume, 0) / period;
+    result.push({ time: data[i].time, value: Math.round(avg) });
+  }
+  return result;
+}
+
+export default function StockChart({ ticker, height = 350, isPpbp = false }: { ticker: string; height?: number; isPpbp?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
@@ -90,7 +101,7 @@ export default function StockChart({ ticker, height = 350 }: { ticker: string; h
       },
       rightPriceScale: {
         borderColor: 'rgba(255,255,255,0.08)',
-        scaleMargins: { top: 0.08, bottom: 0.08 },
+        scaleMargins: { top: 0.06, bottom: 0.28 },
       },
       crosshair: {
         vertLine: { color: 'rgba(255,255,255,0.15)' },
@@ -116,6 +127,43 @@ export default function StockChart({ ticker, height = 350 }: { ticker: string; h
       chart.addSeries(LineSeries, { color: '#AA00FF', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema200);
     }
 
+    // ── Volume pane ──────────────────────────────────────────────────────────
+    const lastIdx = chartData.length - 1;
+    const volData = chartData.map((d, i) => {
+      const isUp = d.close >= d.open;
+      const isPpbpBar = isPpbp && i === lastIdx;
+      return {
+        time: d.time,
+        value: d.volume,
+        color: isPpbpBar
+          ? 'rgba(127, 119, 221, 0.95)'
+          : isUp
+          ? 'rgba(29, 158, 117, 0.55)'
+          : 'rgba(226, 75, 74, 0.55)',
+      };
+    });
+
+    const volSeries = chart.addSeries(HistogramSeries, {
+      priceScaleId: 'vol',
+      lastValueVisible: false,
+      priceLineVisible: false,
+    });
+    volSeries.setData(volData);
+    chart.priceScale('vol').applyOptions({
+      scaleMargins: { top: 0.76, bottom: 0.02 },
+    });
+
+    const volSma50 = calcVolSMA(chartData, 50);
+    if (volSma50.length) {
+      chart.addSeries(LineSeries, {
+        priceScaleId: 'vol',
+        color: 'rgba(248, 201, 66, 0.7)',
+        lineWidth: 1,
+        lastValueVisible: false,
+        priceLineVisible: false,
+      }).setData(volSma50);
+    }
+
     // Set initial visible range
     const startDate = getStartDate(timeframeRef.current);
     const lastDate = chartData[chartData.length - 1].time;
@@ -129,7 +177,7 @@ export default function StockChart({ ticker, height = 350 }: { ticker: string; h
     ro.observe(containerRef.current);
 
     return () => { ro.disconnect(); chart.remove(); chartRef.current = null; };
-  }, [status, chartData, height]);
+  }, [status, chartData, height, isPpbp]);
 
   // Update visible range when timeframe changes (chart already created)
   useEffect(() => {
@@ -142,7 +190,7 @@ export default function StockChart({ ticker, height = 350 }: { ticker: string; h
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-0.5 rounded-full" style={{ background: '#F9C942' }} />
             <span className="text-[10px] text-white/30">EMA50</span>
@@ -151,6 +199,16 @@ export default function StockChart({ ticker, height = 350 }: { ticker: string; h
             <div className="w-3 h-0.5 rounded-full" style={{ background: '#AA00FF' }} />
             <span className="text-[10px] text-white/30">EMA200</span>
           </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-0.5 rounded-full" style={{ background: 'rgba(248,201,66,0.7)' }} />
+            <span className="text-[10px] text-white/30">Vol SMA50</span>
+          </div>
+          {isPpbp && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-sm" style={{ background: 'rgba(127,119,221,0.95)' }} />
+              <span className="text-[10px] font-semibold" style={{ color: '#7F77DD' }}>PPBP</span>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-0.5">
           {TF_LABELS.map(tf => (

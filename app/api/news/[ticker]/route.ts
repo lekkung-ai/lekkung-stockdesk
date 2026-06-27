@@ -1,7 +1,27 @@
 import type { NextRequest } from 'next/server';
 
-const RSS_URL = 'https://www.infoquest.co.th/stock/feed/';
+// ── Sources (all fetched server-side) ──────────────────────────────────────
+interface Feed {
+  name: string; // short badge label
+  url: string;
+}
 
+// Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
+// works (see console output). A failing feed is skipped, not fatal.
+const FEEDS: Feed[] = [
+  { name: 'InfoQuest', url: 'https://www.infoquest.co.th/stock/feed/' },
+  { name: 'ข่าวหุ้น', url: 'https://www.kaohoon.com/feed' },
+  { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/feed/' },
+  { name: 'ประชาชาติ', url: 'https://www.prachachat.net/category/finance/feed' },
+  { name: 'กรุงเทพธุรกิจ', url: 'https://www.bangkokbiznews.com/rss/finance' },
+  { name: 'Bangkok Post', url: 'https://www.bangkokpost.com/rss/data/business.xml' },
+];
+
+const REVALIDATE = 1800; // 30 minutes
+const FEED_TIMEOUT_MS = 12000;
+const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
+
+// ── Sentiment ───────────────────────────────────────────────────────────────
 const POS_KEYWORDS = [
   // Thai
   'กำไร', 'เติบโต', 'ฟื้นตัว', 'ดีขึ้น', 'สูงสุด', 'ปันผล', 'เพิ่มขึ้น', 'แข็งแกร่ง',
@@ -29,36 +49,119 @@ function getSentiment(text: string): 'pos' | 'neg' | 'neu' {
   return 'neu';
 }
 
+// ── RSS parsing ──────────────────────────────────────────────────────────────
+interface NewsItem {
+  title: string;
+  link: string;
+  pubDate: string;
+  source: string;
+  ts: number; // parsed pubDate (ms) for sorting; 0 if unknown
+}
+
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', hellip: '…',
+  ldquo: '“', rdquo: '”', lsquo: '‘', rsquo: '’',
+  mdash: '—', ndash: '–', laquo: '«', raquo: '»',
+};
+
+function decodeEntities(s: string): string {
+  // Loop until stable to handle double-encoded entities (e.g. "&amp;#8220;").
+  let out = s;
+  let prev: string;
+  let guard = 0;
+  do {
+    prev = out;
+    out = out
+      .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+      .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
+      .replace(/&([a-zA-Z]+);/g, (m, n) => NAMED_ENTITIES[n] ?? NAMED_ENTITIES[n.toLowerCase()] ?? m);
+    guard++;
+  } while (out !== prev && guard < 5);
+  return out;
+}
+
+// Parse an RSS pubDate to epoch ms. Some Thai feeds (e.g. ThaiPBS) omit the
+// timezone; since every source is Thai, assume Asia/Bangkok (+07:00) so sorting
+// stays correct regardless of the server's timezone (Vercel runs in UTC).
+function parsePubDate(raw: string): number {
+  if (!raw) return 0;
+  let s = raw.trim();
+  if (!/([+-]\d{2}:?\d{2}|Z|GMT|UTC?)\s*$/i.test(s)) {
+    s += ' +0700';
+  }
+  const t = Date.parse(s);
+  return Number.isNaN(t) ? 0 : t;
+}
+
 function extractCdata(raw: string): string {
   const m = raw.match(/<!\[CDATA\[([\s\S]*?)\]\]>/);
   return m ? m[1].trim() : raw.replace(/<[^>]+>/g, '').trim();
 }
 
-function parseRSS(xml: string) {
-  const items: { title: string; link: string; pubDate: string; source: string }[] = [];
-  const re = /<item>([\s\S]*?)<\/item>/g;
-  let m: RegExpExecArray | null;
+function parseRSS(xml: string, sourceName: string): NewsItem[] {
+  const items: NewsItem[] = [];
+  const re = /<item\b[\s\S]*?<\/item>/g;
+  const blocks = xml.match(re) ?? [];
 
-  while ((m = re.exec(xml)) !== null) {
-    const block = m[1];
-
+  for (const block of blocks) {
     const titleRaw = block.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? '';
-    const title = extractCdata(titleRaw);
+    const title = decodeEntities(extractCdata(titleRaw));
+    if (!title) continue;
 
-    // <link> in RSS often has a text node after </link> — grab the href between tags
-    const linkRaw = block.match(/<link>([\s\S]*?)<\/link>/)?.[1]
-      ?? block.match(/<guid[^>]*>([\s\S]*?)<\/guid>/)?.[1]
-      ?? '';
+    // <link> in RSS often has a trailing text node — fall back to <guid>
+    const linkRaw =
+      block.match(/<link>([\s\S]*?)<\/link>/)?.[1] ??
+      block.match(/<guid[^>]*>([\s\S]*?)<\/guid>/)?.[1] ??
+      '';
     const link = extractCdata(linkRaw).replace(/\s+/g, '');
 
     const pubDate = block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1]?.trim() ?? '';
 
-    const sourceRaw = block.match(/<source[^>]*>([\s\S]*?)<\/source>/)?.[1] ?? '';
-    const source = extractCdata(sourceRaw) || 'InfoQuest';
-
-    if (title) items.push({ title, link, pubDate, source });
+    items.push({
+      title,
+      link,
+      pubDate,
+      source: sourceName,
+      ts: parsePubDate(pubDate),
+    });
   }
   return items;
+}
+
+async function fetchFeed(feed: Feed): Promise<NewsItem[]> {
+  try {
+    const res = await fetch(feed.url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 Chrome/120',
+        Accept: 'application/rss+xml, application/xml, text/xml, */*',
+      },
+      next: { revalidate: REVALIDATE },
+      signal: AbortSignal.timeout(FEED_TIMEOUT_MS),
+    });
+    if (!res.ok) {
+      console.log(`[news] FAIL  ${feed.name} -> HTTP ${res.status}  (${feed.url})`);
+      return [];
+    }
+    const xml = await res.text();
+    const items = parseRSS(xml, feed.name);
+    if (items.length === 0) {
+      console.log(`[news] FAIL  ${feed.name} -> 200 but 0 items (not RSS?)  (${feed.url})`);
+      return [];
+    }
+    console.log(`[news] OK    ${feed.name} -> ${items.length} items  (${feed.url})`);
+    return items;
+  } catch (err) {
+    // a single broken/slow feed must not break the rest
+    const e = err as Error;
+    console.log(`[news] ERROR ${feed.name} -> ${e.name}: ${e.message}  (${feed.url})`);
+    return [];
+  }
+}
+
+// Match the ticker as a standalone token (avoids "TU" matching "STATUS" etc.)
+function titleHasTicker(title: string, ticker: string): boolean {
+  const re = new RegExp(`(?:^|[^A-Z0-9])${ticker}(?:[^A-Z0-9]|$)`, 'i');
+  return re.test(title);
 }
 
 export async function GET(
@@ -67,38 +170,41 @@ export async function GET(
 ) {
   const { ticker } = await context.params;
   const t = ticker.toUpperCase();
+  const wantGeneral = GENERAL_TOKENS.has(t);
 
-  try {
-    const res = await fetch(RSS_URL, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        Accept: 'application/rss+xml, application/xml, text/xml, */*',
-      },
-      next: { revalidate: 300 },
-    });
+  // Fetch every feed in parallel; per-feed errors degrade to [].
+  const results = await Promise.all(FEEDS.map(fetchFeed));
 
-    if (!res.ok) throw new Error(`RSS ${res.status}`);
+  // Merge + newest first.
+  const all = results.flat().sort((a, b) => b.ts - a.ts);
 
-    const xml = await res.text();
-    const all = parseRSS(xml);
+  let selected: NewsItem[];
+  let isGeneral: boolean;
 
-    const tickerMatches = all.filter(item => item.title.toUpperCase().includes(t));
-
-    const source = tickerMatches.length > 0 ? tickerMatches.slice(0, 5) : all.slice(0, 3);
-
-    const filtered = source.map(item => ({
-      title: item.title,
-      link: item.link,
-      pubDate: item.pubDate,
-      source: item.source,
-      sentiment: getSentiment(item.title),
-    }));
-
-    return Response.json(
-      { news: filtered, isGeneral: tickerMatches.length === 0 },
-      { headers: { 'Cache-Control': 'public, max-age=1800, stale-while-revalidate=300' } }
-    );
-  } catch {
-    return Response.json({ news: [] }, { status: 200 });
+  if (wantGeneral) {
+    selected = all.slice(0, 40);
+    isGeneral = true;
+  } else {
+    const matches = all.filter(item => titleHasTicker(item.title, t));
+    if (matches.length > 0) {
+      selected = matches.slice(0, 20);
+      isGeneral = false;
+    } else {
+      selected = all.slice(0, 8);
+      isGeneral = true;
+    }
   }
+
+  const news = selected.map(item => ({
+    title: item.title,
+    link: item.link,
+    pubDate: item.pubDate,
+    source: item.source,
+    sentiment: getSentiment(item.title),
+  }));
+
+  return Response.json(
+    { news, isGeneral },
+    { headers: { 'Cache-Control': 'public, max-age=1800, stale-while-revalidate=300' } }
+  );
 }
