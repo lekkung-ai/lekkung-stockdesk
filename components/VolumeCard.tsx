@@ -34,12 +34,12 @@ export default function VolumeCard() {
         </>
       ) : fmt ? (
         <>
-          <p className="text-[22px] font-bold text-white leading-none tabular-nums">{fmt.main}</p>
+          <p className="text-[25px] font-bold text-white leading-none tabular-nums">{fmt.main}</p>
           <p className="text-[12px] mt-1.5 text-white/35">{fmt.unit} · วันนี้</p>
         </>
       ) : (
         <>
-          <p className="text-[22px] font-bold text-white/30 leading-none">—</p>
+          <p className="text-[25px] font-bold text-white/30 leading-none">—</p>
           <p className="text-[12px] mt-1.5 text-white/20">ไม่มีข้อมูล</p>
         </>
       )}

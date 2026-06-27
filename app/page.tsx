@@ -161,28 +161,34 @@ export default function OverviewPage() {
         <p className="text-[12px] text-white/35 mt-0.5">SET · Universe: {total} stocks</p>
       </div>
 
-      {/* ── Metric bar: 2-col grid on mobile, horizontal scroll on md+ ── */}
-      <div className="grid grid-cols-2 gap-3 md:flex md:overflow-x-auto md:pb-1 md:-mx-4 md:px-4 lg:mx-0 lg:px-0">
-        <SetIndexCard />
-        <VolumeCard />
-        <MetricCard
-          label="SEPA Pass"
-          value={`${sepaCount} ตัว`}
-          sub="Stan Weinstein + O'Neil"
-          subColor="gray"
-        />
-        <MetricCard
-          label="Oliver Kell"
-          value={`${kellCount} ตัว`}
-          sub="EMAC + Trend Riding"
-          subColor="gray"
-        />
-        <MetricCard
-          label="Breakout Setup"
-          value={`${breakoutCount} ตัว`}
-          sub="VDU / Box Pattern"
-          subColor="gray"
-        />
+      {/* ── Top: metric cards (left) + buy-sell pressure (right) ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+        {/* Metric cards */}
+        <div className="grid grid-cols-2 gap-3 content-start">
+          <SetIndexCard />
+          <VolumeCard />
+          <MetricCard
+            label="SEPA Pass"
+            value={`${sepaCount} ตัว`}
+            sub="Stan Weinstein + O'Neil"
+            subColor="gray"
+          />
+          <MetricCard
+            label="Oliver Kell"
+            value={`${kellCount} ตัว`}
+            sub="EMAC + Trend Riding"
+            subColor="gray"
+          />
+          <MetricCard
+            label="Breakout Setup"
+            value={`${breakoutCount} ตัว`}
+            sub="VDU / Box Pattern"
+            subColor="gray"
+          />
+        </div>
+
+        {/* Buy-sell pressure — moved up, right column */}
+        <InvestorTypeSection />
       </div>
 
       {/* ── Scanner Signal Summary ── */}
@@ -203,9 +209,6 @@ export default function OverviewPage() {
           ))}
         </div>
       </div>
-
-      {/* ── Investor Type ── */}
-      <InvestorTypeSection />
 
       {/* ── Sector Flow ── */}
       <SectorFlow />

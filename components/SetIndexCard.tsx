@@ -31,7 +31,7 @@ export default function SetIndexCard() {
         </>
       ) : data ? (
         <>
-          <p className="text-[22px] font-bold text-white leading-none tabular-nums">
+          <p className="text-[25px] font-bold text-white leading-none tabular-nums">
             {data.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
           <p className={`text-[12px] mt-1.5 font-medium tabular-nums ${isPos ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
@@ -43,7 +43,7 @@ export default function SetIndexCard() {
         </>
       ) : (
         <>
-          <p className="text-[22px] font-bold text-white/30 leading-none">—</p>
+          <p className="text-[25px] font-bold text-white/30 leading-none">—</p>
           <p className="text-[12px] mt-1.5 text-white/20">ไม่มีข้อมูล</p>
         </>
       )}
