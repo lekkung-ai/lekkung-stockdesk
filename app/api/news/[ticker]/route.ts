@@ -39,10 +39,20 @@ const FEEDS: Feed[] = [
   { name: 'InfoQuest', url: 'https://www.infoquest.co.th/stock/feed/' },
   { name: 'ข่าวหุ้น', url: 'https://www.kaohoon.com/feed' },
   { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/feed/' },
-  { name: 'ประชาชาติ', url: 'https://www.prachachat.net/category/finance/feed' },
-  { name: 'กรุงเทพธุรกิจ', url: 'https://www.bangkokbiznews.com/rss/finance' },
+  { name: 'มติชน', url: 'https://www.matichon.co.th/category/economy/feed' },
   { name: 'Bangkok Post', url: 'https://www.bangkokpost.com/rss/data/business.xml' },
 ];
+
+// The Standard's wealth feed is dead and its general /feed/ buries stock news
+// under politics, so it is intentionally excluded.
+
+// Verified NOT usable from a server-side fetch (2026-06) — kept for reference:
+//   Settrade feedburner (saaDailyUpdate / researchAll / researchMarket /
+//     researchTechnique / researchStock) -> Incapsula bot-protection HTML page
+//   HoonSmart https://hoonsmart.com/feed/            -> times out (>20s)
+//   Share2Trade / MGR Online / Sanook                -> 404
+//   Wealthy Thai / Prachachat                        -> 403 (Cloudflare)
+//   Bangkok Biz / Thansettakij / Post Today          -> 200 but HTML, not RSS
 
 const REVALIDATE = 1800; // 30 minutes
 const FEED_TIMEOUT_MS = 12000;

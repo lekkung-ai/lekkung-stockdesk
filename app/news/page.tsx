@@ -19,9 +19,8 @@ const SOURCE_STYLE: Record<string, string> = {
   InfoQuest: 'bg-[#E6F1FB] text-[#0C447C]',
   'ข่าวหุ้น': 'bg-[#FAEEDA] text-[#633806]',
   'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
-  'ประชาชาติ': 'bg-[#F3E8FB] text-[#5B2A86]',
-  'กรุงเทพธุรกิจ': 'bg-[#FCEBEB] text-[#791F1F]',
-  'Bangkok Post': 'bg-[#E5F3F4] text-[#0B5563]',
+  'มติชน': 'bg-[#F3E8FB] text-[#5B2A86]',
+  'Bangkok Post': 'bg-[#FCEBEB] text-[#791F1F]',
 };
 const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 
@@ -308,10 +307,10 @@ export default function NewsPage() {
                     <button
                       key={t}
                       onClick={() => commitTicker(t)}
-                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded transition-colors ${
+                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ring-1 transition-colors ${
                         tickerFilter === t
-                          ? 'bg-[#5B9BD5] text-white'
-                          : 'bg-white/[0.07] text-white/55 hover:bg-white/[0.12] hover:text-white'
+                          ? 'bg-[#5B9BD5] text-white ring-[#5B9BD5]'
+                          : 'bg-[#5B9BD5]/15 text-[#8FC1EA] ring-[#5B9BD5]/30 hover:bg-[#5B9BD5]/25 hover:text-white'
                       }`}
                     >
                       {t}

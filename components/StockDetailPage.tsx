@@ -66,9 +66,8 @@ const NEWS_SOURCE_STYLE: Record<string, string> = {
   InfoQuest: 'bg-[#E6F1FB] text-[#0C447C]',
   'ข่าวหุ้น': 'bg-[#FAEEDA] text-[#633806]',
   'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
-  'ประชาชาติ': 'bg-[#F3E8FB] text-[#5B2A86]',
-  'กรุงเทพธุรกิจ': 'bg-[#FCEBEB] text-[#791F1F]',
-  'Bangkok Post': 'bg-[#E5F3F4] text-[#0B5563]',
+  'มติชน': 'bg-[#F3E8FB] text-[#5B2A86]',
+  'Bangkok Post': 'bg-[#FCEBEB] text-[#791F1F]',
 };
 const newsSourceCls = (s: string) => NEWS_SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 interface SecData {

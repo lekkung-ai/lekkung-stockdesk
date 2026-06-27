@@ -38,12 +38,13 @@ const NAV_GROUPS: NavGroup[] = [
     section: 'ภาพรวม',
     items: [
       { label: 'Overview', href: '/', icon: Globe },
+      { label: 'Sector Map', href: '/sector', icon: Map },
       { label: 'Top Movers', href: '/top-movers', icon: Activity, exact: true },
       { label: 'Big Lot', href: '/top-movers/biglot', icon: Package, indent: true },
       { label: 'รายงาน 59-2', href: '/top-movers/r59', icon: FileText, indent: true },
       { label: 'รายงาน 246', href: '/top-movers/r246', icon: FileText, indent: true },
+      { label: 'ข่าว', href: '/news', icon: Newspaper },
       { label: 'My Stocks', href: '/my-stocks', icon: LayoutDashboard },
-      { label: 'Sector Map', href: '/sector', icon: Map },
     ],
   },
   {
@@ -56,12 +57,6 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Breakout Setup', href: '/breakout', icon: Zap, indent: true, count: COUNTS.breakout },
       { label: 'RS Leaders', href: '/rs-leaders', icon: Award, indent: true, count: COUNTS.rs80 },
       { label: 'Combo Score', href: '/combo', icon: Trophy, indent: true, count: COUNTS.combo3 },
-    ],
-  },
-  {
-    section: 'Portfolio',
-    items: [
-      { label: 'ข่าว', href: '/news', icon: Newspaper },
     ],
   },
 ];
