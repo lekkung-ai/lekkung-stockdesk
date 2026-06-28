@@ -4,26 +4,29 @@ import { useState, useEffect } from 'react';
 
 type IndexData = { price: number; change: number; changePercent: number };
 
-export default function SetIndexCard() {
+export default function SetIndexCard({
+  label = 'SET Index',
+  symbol = '^SET.BK',
+}: { label?: string; symbol?: string } = {}) {
   const [data, setData] = useState<IndexData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/prices?symbols=%5ESET.BK')
+    fetch(`/api/prices?symbols=${encodeURIComponent(symbol)}`)
       .then(r => r.json())
       .then(json => {
-        const d = json.prices?.['^SET.BK'];
+        const d = json.prices?.[symbol];
         if (d) setData(d);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
+  }, [symbol]);
 
   const isPos = data ? data.changePercent >= 0 : true;
 
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 min-w-[160px] flex-shrink-0">
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-white/35 mb-1.5">SET Index</p>
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-white/35 mb-1.5">{label}</p>
       {loading ? (
         <>
           <div className="h-7 w-24 bg-white/[0.06] rounded animate-pulse mb-2" />

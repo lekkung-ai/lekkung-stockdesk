@@ -167,6 +167,8 @@ export default function OverviewPage() {
         <div className="grid grid-cols-2 gap-3 content-start">
           <SetIndexCard />
           <VolumeCard />
+          <SetIndexCard label="SET50" symbol="^SET50.BK" />
+          <SetIndexCard label="SET100" symbol="^SET100.BK" />
           <MetricCard
             label="SEPA Pass"
             value={`${sepaCount} ตัว`}
