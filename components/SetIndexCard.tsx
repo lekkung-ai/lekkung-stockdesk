@@ -1,13 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 type IndexData = { price: number; change: number; changePercent: number };
 
 export default function SetIndexCard({
   label = 'SET Index',
   symbol = '^SET.BK',
-}: { label?: string; symbol?: string } = {}) {
+  href,
+}: { label?: string; symbol?: string; href?: string } = {}) {
   const [data, setData] = useState<IndexData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -24,8 +26,9 @@ export default function SetIndexCard({
 
   const isPos = data ? data.changePercent >= 0 : true;
 
-  return (
-    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 min-w-[160px] flex-shrink-0">
+  const cardCls = 'bg-[#13161e] border border-white/[0.07] rounded-xl p-4 min-w-[160px] flex-shrink-0';
+  const body = (
+    <>
       <p className="text-[10px] font-semibold uppercase tracking-wider text-white/35 mb-1.5">{label}</p>
       {loading ? (
         <>
@@ -50,6 +53,18 @@ export default function SetIndexCard({
           <p className="text-[12px] mt-1.5 text-white/20">ไม่มีข้อมูล</p>
         </>
       )}
-    </div>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={`${cardCls} block hover:border-white/20 hover:bg-white/[0.025] transition-colors`}
+      >
+        {body}
+      </Link>
+    );
+  }
+  return <div className={cardCls}>{body}</div>;
 }
