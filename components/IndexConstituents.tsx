@@ -260,7 +260,7 @@ export default function IndexConstituents({ index }: { index: string }) {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table style={{ width: '100%', minWidth: 800, borderCollapse: 'collapse' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.06)' }}>
                   {/* # */}
@@ -305,7 +305,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </th>
 
                   {/* SCAN — chip filter */}
-                  <th className={thBase} style={{ minWidth: 108 }}>
+                  <th className={`${thBase} hidden sm:table-cell`} style={{ minWidth: 108 }}>
                     Scan
                     <div className="flex gap-1 mt-1.5">
                       {(['SEPA', 'Kell', 'BO'] as const).map(s => (
@@ -339,7 +339,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </th>
 
                   {/* P/E — sortable */}
-                  <th className={thRight} style={{ minWidth: 60 }}>
+                  <th className={`${thRight} hidden sm:table-cell`} style={{ minWidth: 60 }}>
                     <div
                       className="flex items-center justify-end gap-1 cursor-pointer select-none"
                       onClick={() => toggleSort('pe')}
@@ -349,7 +349,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </th>
 
                   {/* MKT CAP — sortable */}
-                  <th className={thRight} style={{ minWidth: 82 }}>
+                  <th className={`${thRight} hidden sm:table-cell`} style={{ minWidth: 82 }}>
                     <div
                       className="flex items-center justify-end gap-1 cursor-pointer select-none whitespace-nowrap"
                       onClick={() => toggleSort('marketCap')}
@@ -359,7 +359,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </th>
 
                   {/* SECTOR — sortable + text filter (hidden on mobile) */}
-                  <th className={`${thBase} hidden md:table-cell`} style={{ minWidth: 95 }}>
+                  <th className={`${thBase} hidden sm:table-cell`} style={{ minWidth: 95 }}>
                     <div
                       className="flex items-center gap-1 cursor-pointer select-none"
                       onClick={() => toggleSort('sector')}
@@ -377,7 +377,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </th>
 
                   {/* CHART — no filter, no sort */}
-                  <th className={`${thBase} hidden sm:table-cell`} style={{ minWidth: 160 }}>
+                  <th className={`${thBase} hidden lg:table-cell`} style={{ minWidth: 160 }}>
                     Chart
                   </th>
                 </tr>
@@ -413,26 +413,26 @@ export default function IndexConstituents({ index }: { index: string }) {
                         >
                           {up ? '+' : ''}{r.percentChange.toFixed(2)}%
                         </td>
-                        <td className="px-2 py-2.5">
+                        <td className="px-2 py-2.5 hidden sm:table-cell">
                           <ScanBadges sym={r.symbol} />
                         </td>
                         <td className="px-2 py-2.5">
                           <StageBadge sym={r.symbol} />
                         </td>
                         <td
-                          className="px-2 py-2.5 text-[13px] text-right tabular-nums whitespace-nowrap"
+                          className="px-2 py-2.5 text-[13px] text-right tabular-nums whitespace-nowrap hidden sm:table-cell"
                           style={{ color: peColor(r.pe) || 'rgba(255,255,255,0.6)' }}
                         >
                           {r.pe != null ? r.pe.toFixed(2) : '—'}
                         </td>
-                        <td className="px-2 py-2.5 text-[13px] text-white/60 text-right tabular-nums whitespace-nowrap">
+                        <td className="px-2 py-2.5 text-[13px] text-white/60 text-right tabular-nums whitespace-nowrap hidden sm:table-cell">
                           {fmtMktCap(r.marketCap)}
                         </td>
-                        <td className="px-2 py-2.5 text-[12px] text-white/45 hidden md:table-cell whitespace-nowrap">
+                        <td className="px-2 py-2.5 text-[12px] text-white/45 hidden sm:table-cell whitespace-nowrap">
                           {sector}
                         </td>
                         <td
-                          className="hidden sm:table-cell"
+                          className="hidden lg:table-cell"
                           style={{ paddingTop: 4, paddingBottom: 4, paddingLeft: 8, paddingRight: 8 }}
                         >
                           <MiniCandleChart ticker={r.symbol} width="100%" height={64} />
