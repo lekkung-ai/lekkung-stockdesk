@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import { peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
 
 // ── Prop types (all from server component) ─────────────────────────────────
@@ -332,17 +333,22 @@ export default function StockDetailPage({
           <h2 className="text-[13px] font-semibold text-white mb-4">ข้อมูลพื้นฐาน</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {([
-              { label: 'P/E',        value: fundamental.pe != null    ? fundamental.pe.toFixed(2)      : 'N/A' },
+              { label: 'P/E',        value: fundamental.pe != null    ? fundamental.pe.toFixed(2)      : 'N/A', color: peColor(fundamental.pe) },
               { label: 'P/B',        value: fundamental.pb != null    ? fundamental.pb.toFixed(2)      : '—' },
-              { label: 'ROE',        value: fundamental.roe != null   ? `${fundamental.roe.toFixed(1)}%` : '—' },
+              { label: 'ROE',        value: fundamental.roe != null   ? `${fundamental.roe.toFixed(1)}%` : '—', color: roeColor(fundamental.roe) },
               { label: 'EPS',        value: fundamental.eps != null   ? fundamental.eps.toFixed(2)     : '—' },
               { label: 'D/E',        value: fundamental.de != null ? fundamental.de.toFixed(2) : fundamental.deMissing && sectorInfo?.sector === 'Financials' ? 'N/A (ธนาคาร)' : '—' },
               { label: 'Div Yield',  value: fundamental.divYield != null ? `${fundamental.divYield.toFixed(2)}%` : '—' },
               { label: 'Market Cap', value: fundamental.marketCap },
-            ] as { label: string; value: string }[]).map(item => (
+            ] as { label: string; value: string; color?: string }[]).map(item => (
               <div key={item.label} className="bg-white/[0.03] rounded-lg px-3 py-3">
                 <div className="text-[10px] text-white/30 mb-1 uppercase tracking-wider">{item.label}</div>
-                <div className="text-[15px] font-semibold text-white/80 tabular-nums">{item.value}</div>
+                <div
+                  className="text-[15px] font-semibold tabular-nums"
+                  style={{ color: item.color || 'rgba(255,255,255,0.8)' }}
+                >
+                  {item.value}
+                </div>
               </div>
             ))}
           </div>

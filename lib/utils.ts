@@ -18,6 +18,32 @@ export function formatThaiDate(iso: string | null | undefined): string {
   }
 }
 
+// Color a P/E value by valuation band (used everywhere P/E is shown):
+//   < 0      → violet (negative earnings)
+//   0 – 10   → yellow (cheap / value)
+//   10 – 35  → green  (fair)
+//   > 35     → red    (expensive)
+// Returns '' for null/undefined so callers can fall back to a default color.
+export function peColor(pe: number | null | undefined): string {
+  if (pe == null) return '';
+  if (pe < 0) return '#AA00FF';
+  if (pe < 10) return '#F9C942';
+  if (pe <= 35) return '#1D9E75';
+  return '#E24B4A';
+}
+
+// Color a ROE value (already in percent):
+//   < 0      → red    (loss-making)
+//   0 – 15   → yellow (modest returns)
+//   > 15     → green  (strong returns)
+// Returns '' for null/undefined so callers can fall back to a default color.
+export function roeColor(roe: number | null | undefined): string {
+  if (roe == null) return '';
+  if (roe < 0) return '#E24B4A';
+  if (roe <= 15) return '#F9C942';
+  return '#1D9E75';
+}
+
 export function calculateSMA(data: PricePoint[], period: number): PricePoint[] {
   return data
     .map((point, i) => {
