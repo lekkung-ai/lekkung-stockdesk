@@ -216,8 +216,8 @@ export default function IndexConstituents({ index }: { index: string }) {
 
   const thBase  = 'px-2 pt-2.5 pb-2 text-left text-[10px] font-semibold uppercase tracking-wider text-white/25 align-top';
   const thRight = 'px-2 pt-2.5 pb-2 text-right text-[10px] font-semibold uppercase tracking-wider text-white/25 align-top';
-  const inputCls  = 'mt-1.5 block w-full text-[10px] bg-white/[0.05] border border-white/10 rounded px-1.5 py-0.5 text-white/60 placeholder-white/20 outline-none focus:border-white/25 transition-colors';
-  const selectCls = 'mt-1.5 block w-full text-[10px] bg-[#0d0f16] border border-white/10 rounded px-1 py-0.5 text-white/60 outline-none focus:border-white/25 transition-colors';
+  const inputCls  = 'mt-1 block w-full text-[9px] bg-white/[0.05] border border-white/10 rounded px-1 py-[1px] text-white/55 placeholder-white/20 outline-none focus:border-white/25 transition-colors';
+  const selectCls = 'mt-1 block w-full text-[9px] bg-[#0d0f16] border border-white/10 rounded px-1 py-[1px] text-white/55 outline-none focus:border-white/25 transition-colors';
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -260,14 +260,14 @@ export default function IndexConstituents({ index }: { index: string }) {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table style={{ width: '100%', minWidth: 760, borderCollapse: 'collapse' }}>
+            <table style={{ width: '100%', minWidth: 800, borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.06)' }}>
                   {/* # */}
                   <th className={thBase} style={{ width: 32 }}>#</th>
 
                   {/* SYMBOL — sortable + text filter */}
-                  <th className={thBase} style={{ minWidth: 110 }}>
+                  <th className={thBase} style={{ minWidth: 90 }}>
                     <div
                       className="flex items-center gap-1 cursor-pointer select-none"
                       onClick={() => toggleSort('symbol')}
@@ -358,7 +358,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </th>
 
                   {/* SECTOR — sortable + text filter (hidden on mobile) */}
-                  <th className={`${thBase} hidden md:table-cell`} style={{ minWidth: 120 }}>
+                  <th className={`${thBase} hidden md:table-cell`} style={{ minWidth: 95 }}>
                     <div
                       className="flex items-center gap-1 cursor-pointer select-none"
                       onClick={() => toggleSort('sector')}
@@ -375,7 +375,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </th>
 
                   {/* CHART — no filter, no sort */}
-                  <th className={`${thBase} hidden sm:table-cell`} style={{ minWidth: 110 }}>
+                  <th className={`${thBase} hidden sm:table-cell`} style={{ minWidth: 160 }}>
                     Chart
                   </th>
                 </tr>
