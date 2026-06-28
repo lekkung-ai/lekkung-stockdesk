@@ -216,8 +216,8 @@ export default function IndexConstituents({ index }: { index: string }) {
 
   const thBase  = 'px-2 pt-2.5 pb-2 text-left text-[10px] font-semibold uppercase tracking-wider text-white/25 align-top';
   const thRight = 'px-2 pt-2.5 pb-2 text-right text-[10px] font-semibold uppercase tracking-wider text-white/25 align-top';
-  const inputCls  = 'mt-1 block w-full text-[9px] bg-white/[0.05] border border-white/10 rounded px-1 py-[1px] text-white/55 placeholder-white/20 outline-none focus:border-white/25 transition-colors';
-  const selectCls = 'mt-1 block w-full text-[9px] bg-[#0d0f16] border border-white/10 rounded px-1 py-[1px] text-white/55 outline-none focus:border-white/25 transition-colors';
+  const inputCls  = 'mt-1 block text-[10px] bg-white/[0.05] border border-white/10 rounded px-1.5 py-[1px] text-white/55 placeholder-white/20 outline-none focus:border-white/25 transition-colors';
+  const selectCls = 'mt-1 block w-full text-[10px] bg-[#0d0f16] border border-white/10 rounded px-1 py-[1px] text-white/55 outline-none focus:border-white/25 transition-colors';
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -279,6 +279,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                       onChange={e => setFilterSym(e.target.value)}
                       placeholder="ค้นหา..."
                       className={inputCls}
+                      style={{ width: 62 }}
                       onClick={e => e.stopPropagation()}
                     />
                   </th>
@@ -370,6 +371,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                       onChange={e => setFilterSector(e.target.value)}
                       placeholder="ค้นหา..."
                       className={inputCls}
+                      style={{ width: 82 }}
                       onClick={e => e.stopPropagation()}
                     />
                   </th>
