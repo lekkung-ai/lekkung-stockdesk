@@ -11,6 +11,7 @@ import SetIndexCard from '@/components/SetIndexCard';
 import VolumeCard from '@/components/VolumeCard';
 import InvestorTypeSection from '@/components/InvestorTypeSection';
 import SectorFlow from '@/components/SectorFlow';
+import IndexImpact from '@/components/IndexImpact';
 
 interface StageEntry {
   Ticker: string;
@@ -192,6 +193,9 @@ export default function OverviewPage() {
         {/* Buy-sell pressure — moved up, right column */}
         <InvestorTypeSection />
       </div>
+
+      {/* ── Index Impact ── */}
+      <IndexImpact />
 
       {/* ── Scanner Signal Summary ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
