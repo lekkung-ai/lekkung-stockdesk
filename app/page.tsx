@@ -195,8 +195,11 @@ export default function OverviewPage() {
         <InvestorTypeSection />
       </div>
 
-      {/* ── Index Impact ── */}
-      <IndexImpact />
+      {/* ── Index Impact + Sector Impact ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <IndexImpact />
+        <SectorImpact />
+      </div>
 
       {/* ── Scanner Signal Summary ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
@@ -219,9 +222,6 @@ export default function OverviewPage() {
 
       {/* ── Sector Flow ── */}
       <SectorFlow />
-
-      {/* ── Sector Impact ── */}
-      <SectorImpact />
 
       {/* ── SET Market Breadth ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
