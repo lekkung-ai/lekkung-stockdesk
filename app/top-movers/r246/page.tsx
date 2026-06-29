@@ -2,10 +2,26 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Search } from 'lucide-react';
+import { RefreshCw, Search, Calendar } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 
 const PER_PAGE = 20;
+
+function todayISO(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function isoToThaiDate(iso: string): string {
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${String(parseInt(y) + 543)}`;
+}
+
+function thaiDateToISO(thai: string): string | null {
+  const m = thai.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (!m) return null;
+  const year = parseInt(m[3]) - 543;
+  return `${year}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
+}
 
 function isTicker(val: string): boolean {
   return /^[A-Z][A-Z0-9]{1,9}$/.test(val.trim());
@@ -22,6 +38,7 @@ export default function Report246Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
+  const [selectedDate, setSelectedDate] = useState(todayISO());
   const [page, setPage] = useState(1);
 
   const loadData = useCallback(async () => {
@@ -32,8 +49,25 @@ export default function Report246Page() {
       const res = await fetch('/api/sec/r246');
       if (!res.ok) throw new Error();
       const data = await res.json();
-      setHeaders(data.headers ?? []);
-      setRawRows(data.rows ?? []);
+      const hdrs: string[] = data.headers ?? [];
+      const rows: Record<string, string>[] = data.rows ?? [];
+      setHeaders(hdrs);
+      setRawRows(rows);
+
+      // Auto-select latest date if today has no data
+      const dateCol = hdrs.find(h => /วันที่/.test(h));
+      if (dateCol && rows.length > 0) {
+        const todayThai = isoToThaiDate(todayISO());
+        const hasToday = rows.some(r => r[dateCol] === todayThai);
+        if (!hasToday) {
+          const isoList = [...new Set(rows.map(r => r[dateCol] ?? '').filter(Boolean))]
+            .map(d => thaiDateToISO(d))
+            .filter((x): x is string => x !== null)
+            .sort()
+            .reverse();
+          if (isoList[0]) setSelectedDate(isoList[0]);
+        }
+      }
     } catch {
       setError(true);
     } finally {
@@ -44,10 +78,21 @@ export default function Report246Page() {
   useEffect(() => { loadData(); }, [loadData]);
 
   const filteredRows = useMemo(() => {
-    if (!query.trim()) return rawRows;
-    const q = query.toLowerCase();
-    return rawRows.filter(row => Object.values(row).some(v => v.toLowerCase().includes(q)));
-  }, [rawRows, query]);
+    const dateCol = headers.find(h => /วันที่/.test(h));
+    const thaiDate = isoToThaiDate(selectedDate);
+
+    return rawRows.filter(row => {
+      if (dateCol) {
+        const rowDate = row[dateCol] ?? '';
+        if (rowDate && rowDate !== thaiDate) return false;
+      }
+      if (query.trim()) {
+        const q = query.toLowerCase();
+        return Object.values(row).some(v => v.toLowerCase().includes(q));
+      }
+      return true;
+    });
+  }, [rawRows, headers, query, selectedDate]);
 
   const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
   const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -71,16 +116,30 @@ export default function Report246Page() {
         </button>
       </div>
 
-      {/* Search */}
-      <div className="relative">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
-        <input
-          type="text"
-          placeholder="ค้นหาหลักทรัพย์, ชื่อผู้ถือหุ้น..."
-          value={query}
-          onChange={e => { setQuery(e.target.value); setPage(1); }}
-          className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
-        />
+      {/* Filters row */}
+      <div className="flex flex-wrap gap-2 items-center">
+        {/* Search */}
+        <div className="relative flex-1 min-w-[180px]">
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
+          <input
+            type="text"
+            placeholder="ค้นหาหลักทรัพย์, ชื่อผู้ถือหุ้น..."
+            value={query}
+            onChange={e => { setQuery(e.target.value); setPage(1); }}
+            className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
+          />
+        </div>
+        {/* Date picker */}
+        <div className="relative flex items-center flex-shrink-0">
+          <Calendar size={12} className="absolute left-2.5 text-white/30 pointer-events-none" />
+          <input
+            type="date"
+            value={selectedDate}
+            max={todayISO()}
+            onChange={e => { setSelectedDate(e.target.value); setPage(1); }}
+            className="pl-7 pr-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors [color-scheme:dark]"
+          />
+        </div>
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #9F7AEA' }}>
@@ -98,7 +157,7 @@ export default function Report246Page() {
         ) : pageRows.length === 0 ? (
           <div className="py-16 text-center">
             <p className="text-[13px] text-white/30">
-              {rawRows.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกัน' : 'ไม่พบข้อมูล'}
+              {rawRows.length > 0 ? 'ไม่พบข้อมูลในวันที่เลือก' : 'ไม่พบข้อมูล'}
             </p>
           </div>
         ) : (
