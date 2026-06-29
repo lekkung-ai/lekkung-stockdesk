@@ -1,5 +1,3 @@
-import rawSectorMap from '@/data/scans/sector_map.json';
-
 const UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
@@ -8,15 +6,6 @@ const YAHOO_HEADERS = {
   Accept: 'application/json',
   Referer: 'https://finance.yahoo.com',
 };
-
-// ── Ticker → broad sector lookup (same taxonomy as SectorFlow) ────────────────
-// sector_map.json: { sectors: [{ sector, subsector, tickers[] }] }
-const TICKER_SECTOR: Record<string, string> = {};
-for (const entry of (rawSectorMap as { sectors: { sector: string; subsector: string; tickers: string[] }[] }).sectors) {
-  for (const ticker of entry.tickers) {
-    if (!TICKER_SECTOR[ticker]) TICKER_SECTOR[ticker] = entry.sector;
-  }
-}
 
 // ── Settrade cookie ───────────────────────────────────────────────────────────
 
@@ -167,8 +156,8 @@ export async function GET() {
       // Impact = (Last - Prior) × ListedShares × Current_SET_Index / Total_SET_MarketCap
       const impact = (s.change * s.listedShare * setIndex.current) / totalSETMarketCap;
 
-      // Accumulate per broad sector (same taxonomy as SectorFlow)
-      const sec = TICKER_SECTOR[s.symbol] ?? s.sectorName ?? 'Other';
+      // Accumulate per sector
+      const sec = s.sectorName || 'OTHER';
       if (!sectorAcc[sec]) sectorAcc[sec] = { impact: 0, count: 0 };
       sectorAcc[sec].impact += impact;
       sectorAcc[sec].count += 1;
