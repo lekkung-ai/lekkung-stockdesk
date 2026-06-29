@@ -7,33 +7,6 @@ import Pagination from '@/components/Pagination';
 
 const PER_PAGE = 20;
 
-function parseThaiDate(s: string): number {
-  if (!s) return 0;
-  const m1 = s.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
-  if (m1) {
-    let year = parseInt(m1[3]);
-    if (year > 2400) year -= 543;
-    return new Date(year, parseInt(m1[2]) - 1, parseInt(m1[1])).getTime();
-  }
-  const m2 = s.match(/(\d{4})-(\d{2})-(\d{2})/);
-  if (m2) {
-    let year = parseInt(m2[1]);
-    if (year > 2400) year -= 543;
-    return new Date(year, parseInt(m2[2]) - 1, parseInt(m2[3])).getTime();
-  }
-  return 0;
-}
-
-function daysAgoISO(days: number): string {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  return d.toISOString().slice(0, 10);
-}
-
-function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
-}
-
 function isTicker(val: string): boolean {
   return /^[A-Z][A-Z0-9]{1,9}$/.test(val.trim());
 }
@@ -49,8 +22,6 @@ export default function Report59Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
-  const [dateFrom, setDateFrom] = useState(daysAgoISO(7));
-  const [dateTo, setDateTo] = useState(todayISO());
   const [page, setPage] = useState(1);
 
   const loadData = useCallback(async () => {
@@ -61,14 +32,8 @@ export default function Report59Page() {
       const res = await fetch('/api/sec/r59');
       if (!res.ok) throw new Error();
       const data = await res.json();
-      const hdrs: string[] = data.headers ?? [];
-      let rows: Record<string, string>[] = data.rows ?? [];
-      const dateCol = hdrs.find(h => /วันที่/.test(h));
-      if (dateCol) {
-        rows = [...rows].sort((a, b) => parseThaiDate(b[dateCol] ?? '') - parseThaiDate(a[dateCol] ?? ''));
-      }
-      setHeaders(hdrs);
-      setRawRows(rows);
+      setHeaders(data.headers ?? []);
+      setRawRows(data.rows ?? []);
     } catch {
       setError(true);
     } finally {
@@ -79,24 +44,10 @@ export default function Report59Page() {
   useEffect(() => { loadData(); }, [loadData]);
 
   const filteredRows = useMemo(() => {
-    const dateCol = headers.find(h => /วันที่/.test(h));
-    const from = new Date(dateFrom).getTime();
-    const to = new Date(dateTo + 'T23:59:59').getTime();
-
-    return rawRows.filter(row => {
-      // Date filter
-      if (dateCol) {
-        const ts = parseThaiDate(row[dateCol] ?? '');
-        if (ts && (ts < from || ts > to)) return false;
-      }
-      // Query filter
-      if (query.trim()) {
-        const q = query.toLowerCase();
-        return Object.values(row).some(v => v.toLowerCase().includes(q));
-      }
-      return true;
-    });
-  }, [rawRows, headers, query, dateFrom, dateTo]);
+    if (!query.trim()) return rawRows;
+    const q = query.toLowerCase();
+    return rawRows.filter(row => Object.values(row).some(v => v.toLowerCase().includes(q)));
+  }, [rawRows, query]);
 
   const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
   const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -120,45 +71,16 @@ export default function Report59Page() {
         </button>
       </div>
 
-      {/* Filters row */}
-      <div className="flex flex-wrap gap-2 items-center">
-        {/* Search */}
-        <div className="relative flex-1 min-w-[180px]">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
-          <input
-            type="text"
-            placeholder="ค้นหาชื่อบริษัท, ผู้บริหาร, หลักทรัพย์..."
-            value={query}
-            onChange={e => { setQuery(e.target.value); setPage(1); }}
-            className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
-          />
-        </div>
-        {/* Date range */}
-        <div className="flex items-center gap-1.5 flex-shrink-0">
-          <span className="text-[11px] text-white/30">จาก</span>
-          <input
-            type="date"
-            value={dateFrom}
-            max={dateTo}
-            onChange={e => { setDateFrom(e.target.value); setPage(1); }}
-            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors [color-scheme:dark]"
-          />
-          <span className="text-[11px] text-white/30">ถึง</span>
-          <input
-            type="date"
-            value={dateTo}
-            min={dateFrom}
-            max={todayISO()}
-            onChange={e => { setDateTo(e.target.value); setPage(1); }}
-            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors [color-scheme:dark]"
-          />
-          <button
-            onClick={() => { setDateFrom(daysAgoISO(7)); setDateTo(todayISO()); setPage(1); }}
-            className="px-2.5 py-2 text-[11px] rounded-xl border border-white/[0.07] text-white/40 hover:text-white/70 transition-colors whitespace-nowrap"
-          >
-            7 วัน
-          </button>
-        </div>
+      {/* Search */}
+      <div className="relative">
+        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
+        <input
+          type="text"
+          placeholder="ค้นหาชื่อบริษัท, ผู้บริหาร, หลักทรัพย์..."
+          value={query}
+          onChange={e => { setQuery(e.target.value); setPage(1); }}
+          className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
+        />
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #4B9EF5' }}>

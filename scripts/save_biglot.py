@@ -6,12 +6,6 @@ Usage:
 
 Output:
     stockdesk/public/data/history/YYYY-MM-DD/biglot.json
-
-Format:
-    { "date": "...", "set": { "headers": [...], "rows": [...] }, "mai": { ... } }
-
-This file is committed to public/ so Vercel serves it as a static asset.
-The Big Lot page fetches /data/history/YYYY-MM-DD/biglot.json for past dates.
 """
 
 import json
@@ -33,7 +27,7 @@ MARKET_URLS = {
 }
 
 
-# ── HTML table parser (mirrors parseHtmlTable.ts logic) ──────────────────────
+# ── HTML helpers ─────────────────────────────────────────────────────────────
 
 def strip_tags(html: str) -> str:
     html = re.sub(r"<[^>]+>", "", html)
@@ -43,7 +37,8 @@ def strip_tags(html: str) -> str:
     return re.sub(r"\s+", " ", html).strip()
 
 
-def extract_tag_contents(tag: str, html: str) -> list[str]:
+def inner_content(tag: str, html: str) -> list[str]:
+    """Extract inner HTML of every <tag>...</tag> occurrence."""
     open_re = re.compile(
         rf"<{tag}(?:[^>\"']|\"[^\"]*\"|'[^']*')*>", re.IGNORECASE
     )
@@ -55,32 +50,60 @@ def extract_tag_contents(tag: str, html: str) -> list[str]:
         if end == -1:
             continue
         results.append(html[start:end])
-        # next finditer iteration skips past close tag automatically
     return results
 
 
-def parse_html_table(html: str, table_index: int = 0):
-    tables = extract_tag_contents("table", html)
-    if table_index >= len(tables):
-        return [], []
-    tbl = tables[table_index]
+# ── Settrade Big Lot parser ───────────────────────────────────────────────────
 
-    raw_headers = [strip_tags(h) for h in extract_tag_contents("th", tbl)]
-    headers = [
-        re.sub(r"\s*\(Click to sort[^)]*\)", "", h, flags=re.IGNORECASE).strip()
-        for h in raw_headers
-    ]
-    headers = [h for h in headers if h]
+def parse_settrade_biglot(html: str):
+    """
+    Returns (headers, rows) for the first table with real data.
+    Extracts headers only from <thead> to avoid duplicate <th> from nested content.
+    """
+    tables = inner_content("table", html)
 
-    rows = []
-    for row_html in extract_tag_contents("tr", tbl):
-        cells = [strip_tags(c) for c in extract_tag_contents("td", row_html)]
-        if not cells:
+    for tbl in tables:
+        # Headers from <thead> only
+        thead_list = inner_content("thead", tbl)
+        if not thead_list:
             continue
-        row = {headers[i] if i < len(headers) else f"col{i}": c for i, c in enumerate(cells)}
-        rows.append(row)
 
-    return headers, rows
+        raw_headers = [
+            re.sub(r"\s*\(Click to sort[^)]*\)", "", strip_tags(h), flags=re.IGNORECASE).strip()
+            for h in inner_content("th", thead_list[0])
+        ]
+
+        # Deduplicate: rename second occurrence of a header
+        seen: dict[str, int] = {}
+        headers: list[str] = []
+        for h in raw_headers:
+            if not h:
+                continue
+            if h not in seen:
+                seen[h] = 0
+                headers.append(h)
+            else:
+                seen[h] += 1
+                headers.append(f"{h}_{seen[h]}")
+
+        if not headers:
+            continue
+
+        # Rows from <tbody>
+        tbody_list = inner_content("tbody", tbl)
+        body_html = "".join(tbody_list)
+        rows = []
+        for row_html in inner_content("tr", body_html):
+            cells = [strip_tags(c) for c in inner_content("td", row_html)]
+            if not cells or not any(c.strip() for c in cells):
+                continue
+            row = {headers[i]: c for i, c in enumerate(cells) if i < len(headers)}
+            rows.append(row)
+
+        if len(rows) > 2:
+            return headers, rows
+
+    return [], []
 
 
 # ── Fetch one market ──────────────────────────────────────────────────────────
@@ -102,11 +125,9 @@ def fetch_market(market: str):
         print(f"  Warning: failed to fetch {market}: {e}")
         return None
 
-    # Try each table until we find one with data rows
-    for i in range(6):
-        headers, rows = parse_html_table(html, i)
-        if len(rows) > 2:
-            return {"headers": headers, "rows": rows}
+    headers, rows = parse_settrade_biglot(html)
+    if len(rows) > 2:
+        return {"headers": headers, "rows": rows}
 
     print(f"  Warning: no data table found for {market} (market may be closed)")
     return None
@@ -130,7 +151,7 @@ def main():
         data = fetch_market(market)
         result[market] = data
         if data:
-            print(f"    {market.upper()}: {len(data['rows'])} rows")
+            print(f"    {market.upper()}: {len(data['rows'])} rows, headers: {data['headers']}")
         else:
             print(f"    {market.upper()}: no data")
 
