@@ -120,6 +120,12 @@ export interface StockImpact {
   impact: number;
 }
 
+export interface SectorImpact {
+  sector: string;
+  impact: number;
+  stockCount: number;
+}
+
 export async function GET() {
   const [stocks, setIndex] = await Promise.all([
     fetchSET100Stocks(),
@@ -128,7 +134,7 @@ export async function GET() {
 
   if (!stocks || stocks.length === 0) {
     return Response.json(
-      { error: 'upstream_unavailable', gainers: [], losers: [] },
+      { error: 'upstream_unavailable', gainers: [], losers: [], sectorImpacts: [] },
       { status: 503 }
     );
   }
@@ -139,6 +145,9 @@ export async function GET() {
   // Estimate full-SET total market cap: SET100 ≈ 82% of full SET by market cap
   const totalSETMarketCap = set100MarketCap / 0.82;
 
+  // Sector accumulator — computed in one pass alongside stock impacts
+  const sectorAcc: Record<string, { impact: number; count: number }> = {};
+
   const impacts: StockImpact[] = stocks
     .map(s => {
       if (s.listedShare <= 0 || totalSETMarketCap <= 0 || setIndex.current <= 0) return null;
@@ -146,6 +155,12 @@ export async function GET() {
       // Official SET Impact formula:
       // Impact = (Last - Prior) × ListedShares × Current_SET_Index / Total_SET_MarketCap
       const impact = (s.change * s.listedShare * setIndex.current) / totalSETMarketCap;
+
+      // Accumulate per sector
+      const sec = s.sectorName || 'OTHER';
+      if (!sectorAcc[sec]) sectorAcc[sec] = { impact: 0, count: 0 };
+      sectorAcc[sec].impact += impact;
+      sectorAcc[sec].count += 1;
 
       return {
         ticker:      s.symbol,
@@ -164,8 +179,16 @@ export async function GET() {
   const gainers = impacts.filter(x => x.impact > 0).slice(0, 10);
   const losers  = impacts.filter(x => x.impact < 0).reverse().slice(0, 10);
 
+  const sectorImpacts: SectorImpact[] = Object.entries(sectorAcc)
+    .map(([sector, { impact, count }]) => ({
+      sector,
+      impact: Math.round(impact * 10000) / 10000,
+      stockCount: count,
+    }))
+    .sort((a, b) => b.impact - a.impact);
+
   return Response.json(
-    { setIndex, set100MarketCap, totalSETMarketCap, gainers, losers },
+    { setIndex, set100MarketCap, totalSETMarketCap, gainers, losers, sectorImpacts },
     { headers: { 'Cache-Control': 'public, max-age=120, stale-while-revalidate=60' } }
   );
 }

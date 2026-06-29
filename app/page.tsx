@@ -12,6 +12,7 @@ import VolumeCard from '@/components/VolumeCard';
 import InvestorTypeSection from '@/components/InvestorTypeSection';
 import SectorFlow from '@/components/SectorFlow';
 import IndexImpact from '@/components/IndexImpact';
+import SectorImpact from '@/components/SectorImpact';
 
 interface StageEntry {
   Ticker: string;
@@ -218,6 +219,9 @@ export default function OverviewPage() {
 
       {/* ── Sector Flow ── */}
       <SectorFlow />
+
+      {/* ── Sector Impact ── */}
+      <SectorImpact />
 
       {/* ── SET Market Breadth ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
