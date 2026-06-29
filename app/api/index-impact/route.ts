@@ -82,6 +82,61 @@ async function fetchSET100Stocks(): Promise<SettradeSock[] | null> {
   return null;
 }
 
+// ── Supplemental stocks not in SET100 but with high SET-index impact ─────────
+// THAI has ~28B shares from rehabilitation — excluded by Settrade's SET100
+// composition but is a full SET constituent and moves the index materially.
+
+const SUPPLEMENTAL = ['THAI'];
+
+async function fetchSupplementalStocks(): Promise<SettradeSock[]> {
+  const cookie = await getSettradeCookie();
+  const results: SettradeSock[] = [];
+
+  await Promise.all(
+    SUPPLEMENTAL.map(async symbol => {
+      try {
+        // listedShare from Settrade profile
+        const profileRes = await fetch(
+          `https://www.settrade.com/api/set/stock/${symbol}/profile`,
+          {
+            headers: {
+              'User-Agent': UA,
+              Accept: '*/*',
+              Referer: `https://www.settrade.com/th/equities/quote/${symbol}/overview`,
+              ...(cookie ? { Cookie: cookie } : {}),
+            },
+          }
+        );
+        if (!profileRes.ok) return;
+        const profile = await profileRes.json();
+        const listedShare = Number(profile.listedShare ?? 0);
+        if (listedShare <= 0) return;
+        const sectorName = String(profile.sector ?? 'OTHER');
+
+        // price / change from Yahoo Finance
+        const yRes = await fetch(
+          `https://query2.finance.yahoo.com/v8/finance/chart/${symbol}.BK?interval=1d&range=2d`,
+          { headers: YAHOO_HEADERS }
+        );
+        if (!yRes.ok) return;
+        const yJson = await yRes.json();
+        const meta = yJson?.chart?.result?.[0]?.meta ?? {};
+        const last  = Number(meta.regularMarketPrice ?? 0);
+        const prior = Number(meta.chartPreviousClose ?? meta.previousClose ?? last);
+        if (last <= 0) return;
+
+        const change        = last - prior;
+        const percentChange = prior > 0 ? (change / prior) * 100 : 0;
+        const marketCap     = prior * listedShare;
+
+        results.push({ symbol, nameEN: symbol, prior, last, change, percentChange, listedShare, marketCap, sectorName });
+      } catch { /* skip on error */ }
+    })
+  );
+
+  return results;
+}
+
 // ── Yahoo Finance — SET Index level ──────────────────────────────────────────
 
 interface SETIndexData {
@@ -127,12 +182,18 @@ export interface SectorImpact {
 }
 
 export async function GET() {
-  const [stocks, setIndex] = await Promise.all([
+  const [set100, supplemental, setIndex] = await Promise.all([
     fetchSET100Stocks(),
+    fetchSupplementalStocks(),
     fetchSETIndex(),
   ]);
 
-  if (!stocks || stocks.length === 0) {
+  // Merge supplemental stocks that aren't already covered by SET100
+  const set100Symbols = new Set((set100 ?? []).map(s => s.symbol));
+  const extra = supplemental.filter(s => !set100Symbols.has(s.symbol));
+  const stocks = [...(set100 ?? []), ...extra];
+
+  if (stocks.length === 0) {
     return Response.json(
       { error: 'upstream_unavailable', gainers: [], losers: [], sectorImpacts: [] },
       { status: 503 }
