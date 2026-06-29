@@ -3,6 +3,9 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search } from 'lucide-react';
+import Pagination from '@/components/Pagination';
+
+const PER_PAGE = 20;
 
 function parseThaiDate(s: string): number {
   if (!s) return 0;
@@ -21,6 +24,16 @@ function parseThaiDate(s: string): number {
   return 0;
 }
 
+function daysAgoISO(days: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
+function todayISO(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
 function isTicker(val: string): boolean {
   return /^[A-Z][A-Z0-9]{1,9}$/.test(val.trim());
 }
@@ -36,10 +49,14 @@ export default function Report246Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
+  const [dateFrom, setDateFrom] = useState(daysAgoISO(7));
+  const [dateTo, setDateTo] = useState(todayISO());
+  const [page, setPage] = useState(1);
 
   const loadData = useCallback(async () => {
     setLoading(true);
     setError(false);
+    setPage(1);
     try {
       const res = await fetch('/api/sec/r246');
       if (!res.ok) throw new Error();
@@ -61,18 +78,29 @@ export default function Report246Page() {
 
   useEffect(() => { loadData(); }, [loadData]);
 
-  const rows = useMemo(() => {
-    if (!query.trim()) return rawRows;
-    const q = query.toLowerCase();
-    return rawRows.filter(row =>
-      Object.values(row).some(v => v.toLowerCase().includes(q))
-    );
-  }, [rawRows, query]);
+  const filteredRows = useMemo(() => {
+    const dateCol = headers.find(h => /วันที่/.test(h));
+    const from = new Date(dateFrom).getTime();
+    const to = new Date(dateTo + 'T23:59:59').getTime();
+
+    return rawRows.filter(row => {
+      if (dateCol) {
+        const ts = parseThaiDate(row[dateCol] ?? '');
+        if (ts && (ts < from || ts > to)) return false;
+      }
+      if (query.trim()) {
+        const q = query.toLowerCase();
+        return Object.values(row).some(v => v.toLowerCase().includes(q));
+      }
+      return true;
+    });
+  }, [rawRows, headers, query, dateFrom, dateTo]);
+
+  const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
+  const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   function handleCell(header: string, value: string) {
-    if (isTickerCol(header) && isTicker(value)) {
-      router.push(`/stock/${value.trim()}`);
-    }
+    if (isTickerCol(header) && isTicker(value)) router.push(`/stock/${value.trim()}`);
   }
 
   return (
@@ -90,16 +118,45 @@ export default function Report246Page() {
         </button>
       </div>
 
-      {/* Search */}
-      <div className="relative">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
-        <input
-          type="text"
-          placeholder="ค้นหาหลักทรัพย์, ชื่อผู้ถือหุ้น..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
-        />
+      {/* Filters row */}
+      <div className="flex flex-wrap gap-2 items-center">
+        {/* Search */}
+        <div className="relative flex-1 min-w-[180px]">
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
+          <input
+            type="text"
+            placeholder="ค้นหาหลักทรัพย์, ชื่อผู้ถือหุ้น..."
+            value={query}
+            onChange={e => { setQuery(e.target.value); setPage(1); }}
+            className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
+          />
+        </div>
+        {/* Date range */}
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          <span className="text-[11px] text-white/30">จาก</span>
+          <input
+            type="date"
+            value={dateFrom}
+            max={dateTo}
+            onChange={e => { setDateFrom(e.target.value); setPage(1); }}
+            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors [color-scheme:dark]"
+          />
+          <span className="text-[11px] text-white/30">ถึง</span>
+          <input
+            type="date"
+            value={dateTo}
+            min={dateFrom}
+            max={todayISO()}
+            onChange={e => { setDateTo(e.target.value); setPage(1); }}
+            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors [color-scheme:dark]"
+          />
+          <button
+            onClick={() => { setDateFrom(daysAgoISO(7)); setDateTo(todayISO()); setPage(1); }}
+            className="px-2.5 py-2 text-[11px] rounded-xl border border-white/[0.07] text-white/40 hover:text-white/70 transition-colors whitespace-nowrap"
+          >
+            7 วัน
+          </button>
+        </div>
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #9F7AEA' }}>
@@ -110,16 +167,15 @@ export default function Report246Page() {
         ) : error ? (
           <div className="py-16 text-center space-y-3">
             <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
-            <button
-              onClick={loadData}
-              className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors"
-            >
+            <button onClick={loadData} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
               ลองอีกครั้ง
             </button>
           </div>
-        ) : rows.length === 0 ? (
+        ) : pageRows.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-[13px] text-white/30">{rawRows.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกัน' : 'ไม่พบข้อมูล'}</p>
+            <p className="text-[13px] text-white/30">
+              {rawRows.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกัน' : 'ไม่พบข้อมูล'}
+            </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -134,7 +190,7 @@ export default function Report246Page() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.03]">
-                {rows.map((row, i) => (
+                {pageRows.map((row, i) => (
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                     {headers.map(h => {
                       const val = row[h] ?? '—';
@@ -142,13 +198,11 @@ export default function Report246Page() {
                       return (
                         <td
                           key={h}
+                          onClick={() => handleCell(h, val)}
                           className={[
                             'px-3 py-2.5 text-[12px] whitespace-nowrap',
-                            clickable
-                              ? 'text-blue-400 font-semibold cursor-pointer hover:text-blue-300'
-                              : 'text-white/65',
+                            clickable ? 'text-blue-400 font-semibold cursor-pointer hover:text-blue-300' : 'text-white/65',
                           ].join(' ')}
-                          onClick={() => handleCell(h, val)}
                         >
                           {val}
                         </td>
@@ -162,8 +216,9 @@ export default function Report246Page() {
         )}
       </div>
 
+      {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onChange={setPage} />}
       <p className="text-[10px] text-white/20 text-right">
-        แหล่งข้อมูล: ก.ล.ต. (SEC) · Form 246 · {rows.length > 0 ? `${rows.length} รายการ` : ''}
+        แหล่งข้อมูล: ก.ล.ต. (SEC) · Form 246{filteredRows.length > 0 ? ` · ${filteredRows.length} รายการ` : ''}
       </p>
     </div>
   );

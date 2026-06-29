@@ -16,13 +16,22 @@ export async function GET(req: NextRequest) {
         Accept: 'text/html,application/xhtml+xml',
         Referer: 'https://www.settrade.com',
       },
+      cache: 'no-store',
     });
     if (!res.ok) return Response.json({ headers: [], rows: [] });
     const html = await res.text();
-    const { headers, rows } = parseHtmlTable(html, 1);
+    const { headers: rawHeaders, rows: rawRows } = parseHtmlTable(html, 1);
+    const headers = rawHeaders.map(h => h.replace(/\s*\(Click to sort[^)]*\)/gi, '').trim());
+    // Remap row keys from dirty header names to clean ones
+    const rows = rawRows.map(row => {
+      const out: Record<string, string> = {};
+      rawHeaders.forEach((dirty, i) => { out[headers[i]] = row[dirty] ?? ''; });
+      return out;
+    });
+    console.log(`[biglot] market=${market} status=${res.status} headers=${headers.length} rows=${rows.length}`);
     return Response.json(
       { headers, rows },
-      { headers: { 'Cache-Control': 'public, max-age=120, stale-while-revalidate=60' } }
+      { headers: { 'Cache-Control': 'no-store' } }
     );
   } catch {
     return Response.json({ headers: [], rows: [] });
