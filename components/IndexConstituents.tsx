@@ -196,7 +196,7 @@ export default function IndexConstituents({ index }: { index: string }) {
       switch (sortCol) {
         case 'symbol':    av = a.symbol;         bv = b.symbol;         break;
         case 'price':     av = a.last;            bv = b.last;           break;
-        case 'change':    av = a.percentChange;   bv = b.percentChange;  break;
+        case 'change':    av = a.percentChange ?? 0; bv = b.percentChange ?? 0; break;
         case 'pe':        av = a.pe ?? -Infinity; bv = b.pe ?? -Infinity; break;
         case 'sector': {
           av = getSectorForTicker(a.symbol.toUpperCase())?.sector ?? a.sectorCode;
@@ -391,8 +391,9 @@ export default function IndexConstituents({ index }: { index: string }) {
                   </tr>
                 ) : (
                   rows.map((r, i) => {
-                    const up = r.percentChange >= 0;
-                    const sector = getSectorForTicker(r.symbol.toUpperCase())?.sector ?? r.sectorCode;
+                    const pct = r.percentChange ?? 0;
+                    const up = pct >= 0;
+                    const sector = getSectorForTicker(r.symbol.toUpperCase())?.sector ?? r.sectorCode ?? '';
                     return (
                       <tr
                         key={r.symbol}
@@ -411,7 +412,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                           className="px-2 py-2.5 text-[14px] text-right tabular-nums font-semibold whitespace-nowrap"
                           style={{ color: up ? '#1D9E75' : '#E24B4A' }}
                         >
-                          {up ? '+' : ''}{r.percentChange.toFixed(2)}%
+                          {r.percentChange != null ? `${up ? '+' : ''}${pct.toFixed(2)}%` : '—'}
                         </td>
                         <td className="px-2 py-2.5 hidden sm:table-cell">
                           <ScanBadges sym={r.symbol} />
