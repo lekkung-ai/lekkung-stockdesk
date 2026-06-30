@@ -6,39 +6,82 @@ import { RefreshCw, Search, Calendar } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 
 const PER_PAGE = 20;
+const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
-function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
-}
+function todayISO() { return new Date().toISOString().slice(0, 10); }
 
-function isoToThaiDate(iso: string): string {
-  const [y, m, d] = iso.split('-');
-  return `${d}/${m}/${String(parseInt(y) + 543)}`;
+function daysAgoISO(n: number) {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return d.toISOString().slice(0, 10);
 }
 
 function thaiDateToISO(thai: string): string | null {
   const m = thai.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
   if (!m) return null;
-  const year = parseInt(m[3]) - 543;
-  return `${year}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
+  return `${parseInt(m[3]) - 543}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 }
 
-function isTicker(val: string): boolean {
-  return /^[A-Z][A-Z0-9]{1,9}$/.test(val.trim());
+function isoToThaiLabel(iso: string): string {
+  const [y, m, d] = iso.split('-');
+  return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${parseInt(y) + 543}`;
 }
 
-function isTickerCol(header: string): boolean {
-  return /หลักทรัพย์|symbol|ticker/i.test(header);
+function fmtPct(val: string): string {
+  const n = parseFloat(val);
+  if (isNaN(n)) return val || '—';
+  return n.toFixed(4) + '%';
 }
+
+function PctDelta({ before, after }: { before: string; after: string }) {
+  const b = parseFloat(before);
+  const a = parseFloat(after);
+  if (isNaN(b) || isNaN(a)) return <span className="text-white/30">—</span>;
+  const delta = a - b;
+  const sign = delta > 0 ? '+' : '';
+  const color = delta > 0.001 ? 'text-green-400' : delta < -0.001 ? 'text-red-400' : 'text-white/45';
+  return (
+    <span className="inline-flex items-center gap-1 tabular-nums text-[11px]">
+      <span className="text-white/50">{b.toFixed(2)}%</span>
+      <span className="text-white/20">→</span>
+      <span className="text-white/80">{a.toFixed(2)}%</span>
+      <span className={`${color} text-[10px]`}>({sign}{delta.toFixed(4)}%)</span>
+    </span>
+  );
+}
+
+function MethodBadge({ method }: { method: string }) {
+  const isAcquire = /ได้มา/.test(method) && !/จำหน่าย/.test(method);
+  const isDispose = /จำหน่าย/.test(method);
+  const cls = isAcquire ? 'bg-green-500/20 text-green-400'
+    : isDispose ? 'bg-red-500/20 text-red-400'
+    : 'bg-white/10 text-white/45';
+  const label = isAcquire ? 'ได้มา' : isDispose ? 'จำหน่าย' : method.slice(0, 10);
+  return (
+    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${cls}`}>
+      {label}
+    </span>
+  );
+}
+
+const COL_TICKER = 'หลักทรัพย์';
+const COL_PERSON = 'ชื่อผู้ได้มา/จำหน่าย';
+const COL_METHOD = 'วิธีการ';
+const COL_DATE = 'วันที่ได้มา/จำหน่าย';
+const COL_BEFORE = '% ก่อนได้มา/จำหน่าย';
+const COL_CHANGE = '% ได้มา/จำหน่าย';
+const COL_AFTER = '% หลังได้มา/จำหน่าย';
 
 export default function Report246Page() {
   const router = useRouter();
   const [headers, setHeaders] = useState<string[]>([]);
   const [rawRows, setRawRows] = useState<Record<string, string>[]>([]);
+  const [fetchDate, setFetchDate] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
-  const [selectedDate, setSelectedDate] = useState(todayISO());
+  const [fromDate, setFromDate] = useState(daysAgoISO(30));
+  const [toDate, setToDate] = useState(todayISO());
   const [page, setPage] = useState(1);
 
   const loadData = useCallback(async () => {
@@ -49,25 +92,9 @@ export default function Report246Page() {
       const res = await fetch('/api/sec/r246');
       if (!res.ok) throw new Error();
       const data = await res.json();
-      const hdrs: string[] = data.headers ?? [];
-      const rows: Record<string, string>[] = data.rows ?? [];
-      setHeaders(hdrs);
-      setRawRows(rows);
-
-      // Auto-select latest date if today has no data
-      const dateCol = hdrs.find(h => /วันที่/.test(h));
-      if (dateCol && rows.length > 0) {
-        const todayThai = isoToThaiDate(todayISO());
-        const hasToday = rows.some(r => r[dateCol] === todayThai);
-        if (!hasToday) {
-          const isoList = [...new Set(rows.map(r => r[dateCol] ?? '').filter(Boolean))]
-            .map(d => thaiDateToISO(d))
-            .filter((x): x is string => x !== null)
-            .sort()
-            .reverse();
-          if (isoList[0]) setSelectedDate(isoList[0]);
-        }
-      }
+      setHeaders(data.headers ?? []);
+      setRawRows(data.rows ?? []);
+      setFetchDate(data.fetchDate ?? '');
     } catch {
       setError(true);
     } finally {
@@ -78,47 +105,42 @@ export default function Report246Page() {
   useEffect(() => { loadData(); }, [loadData]);
 
   const filteredRows = useMemo(() => {
-    const dateCol = headers.find(h => /วันที่/.test(h));
-    const thaiDate = isoToThaiDate(selectedDate);
-
     return rawRows.filter(row => {
-      if (dateCol) {
-        const rowDate = row[dateCol] ?? '';
-        if (rowDate && rowDate !== thaiDate) return false;
-      }
+      const rowISO = thaiDateToISO(row[COL_DATE] ?? '');
+      if (rowISO && (rowISO < fromDate || rowISO > toDate)) return false;
       if (query.trim()) {
         const q = query.toLowerCase();
-        return Object.values(row).some(v => v.toLowerCase().includes(q));
+        const ticker = (row[COL_TICKER] ?? '').toLowerCase();
+        const person = (row[COL_PERSON] ?? '').toLowerCase();
+        if (!ticker.includes(q) && !person.includes(q)) return false;
       }
       return true;
     });
-  }, [rawRows, headers, query, selectedDate]);
+  }, [rawRows, fromDate, toDate, query]);
 
   const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
   const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  function handleCell(header: string, value: string) {
-    if (isTickerCol(header) && isTicker(value)) router.push(`/stock/${value.trim()}`);
-  }
+  // Determine which columns are available in the API response
+  const hasBeforeAfter = headers.includes(COL_BEFORE) && headers.includes(COL_AFTER);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-[18px] font-bold text-white">รายงาน 246</h1>
-          <p className="text-[12px] text-white/35 mt-0.5">การได้มา/จำหน่ายหลักทรัพย์ของผู้ถือหุ้นรายใหญ่ · SEC</p>
+          <p className="text-[12px] text-white/35 mt-0.5">
+            การได้มา/จำหน่ายหลักทรัพย์ของผู้ถือหุ้นรายใหญ่ · SEC
+            {fetchDate && ` · ดึงข้อมูลเมื่อ ${isoToThaiLabel(fetchDate)}`}
+          </p>
         </div>
-        <button
-          onClick={loadData}
-          className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0"
-        >
+        <button onClick={loadData} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
           <RefreshCw size={13} />
         </button>
       </div>
 
-      {/* Filters row */}
+      {/* Filters */}
       <div className="flex flex-wrap gap-2 items-center">
-        {/* Search */}
         <div className="relative flex-1 min-w-[180px]">
           <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
           <input
@@ -129,15 +151,22 @@ export default function Report246Page() {
             className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
           />
         </div>
-        {/* Date picker */}
-        <div className="relative flex items-center flex-shrink-0">
-          <Calendar size={12} className="absolute left-2.5 text-white/30 pointer-events-none" />
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          <Calendar size={12} className="text-white/30" />
           <input
             type="date"
-            value={selectedDate}
+            value={fromDate}
+            max={toDate}
+            onChange={e => { setFromDate(e.target.value); setPage(1); }}
+            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
+          />
+          <span className="text-white/25 text-[11px]">ถึง</span>
+          <input
+            type="date"
+            value={toDate}
             max={todayISO()}
-            onChange={e => { setSelectedDate(e.target.value); setPage(1); }}
-            className="pl-7 pr-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors [color-scheme:dark]"
+            onChange={e => { setToDate(e.target.value); setPage(1); }}
+            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
           />
         </div>
       </div>
@@ -157,7 +186,7 @@ export default function Report246Page() {
         ) : pageRows.length === 0 ? (
           <div className="py-16 text-center">
             <p className="text-[13px] text-white/30">
-              {rawRows.length > 0 ? 'ไม่พบข้อมูลในวันที่เลือก' : 'ไม่พบข้อมูล'}
+              {rawRows.length > 0 ? 'ไม่พบข้อมูลในช่วงวันที่เลือก' : 'ไม่พบข้อมูล'}
             </p>
           </div>
         ) : (
@@ -165,32 +194,46 @@ export default function Report246Page() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  {headers.map(h => (
-                    <th key={h} className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">
-                      {h}
-                    </th>
-                  ))}
+                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">หลักทรัพย์</th>
+                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">ผู้ถือหุ้น</th>
+                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วิธีการ</th>
+                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วันที่</th>
+                  {hasBeforeAfter && (
+                    <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง</th>
+                  )}
+                  {headers.includes(COL_CHANGE) && (
+                    <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">Δ%</th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.03]">
                 {pageRows.map((row, i) => (
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                    {headers.map(h => {
-                      const val = row[h] ?? '—';
-                      const clickable = isTickerCol(h) && isTicker(val);
-                      return (
-                        <td
-                          key={h}
-                          onClick={() => handleCell(h, val)}
-                          className={[
-                            'px-3 py-2.5 text-[12px] whitespace-nowrap',
-                            clickable ? 'text-blue-400 font-semibold cursor-pointer hover:text-blue-300' : 'text-white/65',
-                          ].join(' ')}
-                        >
-                          {val}
-                        </td>
-                      );
-                    })}
+                    <td
+                      onClick={() => row[COL_TICKER] && router.push(`/stock/${row[COL_TICKER]}`)}
+                      className="px-3 py-2.5 text-[12px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                    >
+                      {row[COL_TICKER] ?? '—'}
+                    </td>
+                    <td className="px-3 py-2.5 text-[12px] text-white/65 max-w-[200px] truncate">
+                      {row[COL_PERSON] ?? '—'}
+                    </td>
+                    <td className="px-3 py-2.5 whitespace-nowrap">
+                      <MethodBadge method={row[COL_METHOD] ?? ''} />
+                    </td>
+                    <td className="px-3 py-2.5 text-[12px] text-white/55 whitespace-nowrap">
+                      {row[COL_DATE] ?? '—'}
+                    </td>
+                    {hasBeforeAfter && (
+                      <td className="px-3 py-2.5 whitespace-nowrap">
+                        <PctDelta before={row[COL_BEFORE] ?? ''} after={row[COL_AFTER] ?? ''} />
+                      </td>
+                    )}
+                    {headers.includes(COL_CHANGE) && (
+                      <td className="px-3 py-2.5 text-[12px] tabular-nums text-white/55 whitespace-nowrap">
+                        {fmtPct(row[COL_CHANGE] ?? '')}
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>

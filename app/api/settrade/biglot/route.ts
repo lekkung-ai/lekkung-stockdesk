@@ -1,20 +1,21 @@
 import type { NextRequest } from 'next/server';
 
-const MARKET_URLS: Record<string, string> = {
-  set: 'https://www.settrade.com/th/equities/market-data/biglot',
-  mai: 'https://www.settrade.com/th/mai/market-data/biglot',
-};
+const RSS_URL = 'https://www.ryt9.com/tag/BIG+LOT%3A/rss.xml';
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
-function strip(html: string): string {
-  return html
-    .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&#(\d+);/g, (_, c) => String.fromCharCode(parseInt(c, 10)))
-    .replace(/\s+/g, ' ')
-    .trim();
+interface RssItem {
+  title: string;
+  link: string;
+  pubDate: string;
+  bangkokDate: string;
+}
+
+export interface BigLotRow {
+  symbol: string;
+  volume: number;
+  value: number;
+  avgPrice: number;
+  time: string;
 }
 
 function innerContent(tag: string, html: string): string[] {
@@ -32,73 +33,93 @@ function innerContent(tag: string, html: string): string[] {
   return out;
 }
 
-function parseSettradeBiglot(html: string): { headers: string[]; rows: Record<string, string>[] } {
-  const tables = innerContent('table', html);
+function pubDateToBangkokDate(pubDate: string): string {
+  const d = new Date(pubDate);
+  const bk = new Date(d.getTime() + 7 * 60 * 60 * 1000);
+  return bk.toISOString().slice(0, 10);
+}
 
-  for (const tbl of tables) {
-    // Extract headers ONLY from <thead> to avoid duplicate <th> from nested content
-    const theadArr = innerContent('thead', tbl);
-    if (!theadArr.length) continue;
-
-    const rawHeaders = innerContent('th', theadArr[0]).map(h =>
-      strip(h).replace(/\s*\(Click to sort[^)]*\)/gi, '').trim()
-    );
-
-    // Deduplicate headers: keep first occurrence, rename subsequent ones
-    const seen: Record<string, number> = {};
-    const headers = rawHeaders
-      .filter(h => h.length > 0)
-      .map(h => {
-        if (seen[h] === undefined) { seen[h] = 0; return h; }
-        seen[h]++;
-        return `${h}_${seen[h]}`;
-      });
-
-    if (headers.length === 0) continue;
-
-    // Extract rows from <tbody>
-    const tbodyArr = innerContent('tbody', tbl);
-    const bodyHtml = tbodyArr.join('');
-    const rowHtmls = innerContent('tr', bodyHtml);
-
-    const rows: Record<string, string>[] = [];
-    for (const rowHtml of rowHtmls) {
-      const cells = innerContent('td', rowHtml).map(strip);
-      if (cells.length === 0 || cells.every(c => !c)) continue;
-      const row: Record<string, string> = {};
-      cells.forEach((c, i) => { if (headers[i]) row[headers[i]] = c; });
-      rows.push(row);
-    }
-
-    if (rows.length > 2) {
-      return { headers, rows };
-    }
+function parseRssItems(xml: string): RssItem[] {
+  const items: RssItem[] = [];
+  for (const block of innerContent('item', xml)) {
+    const titleM = block.match(/<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i);
+    const linkM = block.match(/<link>\s*(https?:[^\s<]+?)\s*<\/link>/i);
+    const dateM = block.match(/<pubDate[^>]*>(.*?)<\/pubDate>/i);
+    const title = titleM?.[1]?.trim() ?? '';
+    const link = linkM?.[1]?.trim() ?? '';
+    const pubDate = dateM?.[1]?.trim() ?? '';
+    if (!title.includes('(By Time)') || !link || !pubDate) continue;
+    items.push({ title, link, pubDate, bangkokDate: pubDateToBangkokDate(pubDate) });
   }
+  return items;
+}
 
-  return { headers: [], rows: [] };
+function parsePreRows(html: string): BigLotRow[] {
+  const preBlocks = innerContent('pre', html);
+  // PRE[0] is header row, PRE[1] is data rows
+  const dataText = (preBlocks[1] ?? preBlocks[0] ?? '').replace(/<[^>]+>/g, '');
+  const rows: BigLotRow[] = [];
+  for (const line of dataText.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || !/^[A-Z]/.test(trimmed)) continue;
+    const parts = trimmed.split(/\s{2,}/);
+    if (parts.length < 4) continue;
+    const volume = parseFloat(parts[1]?.replace(/,/g, '') ?? '');
+    const rawValue = parseFloat(parts[2]?.replace(/,/g, '') ?? '');
+    const avgPrice = parseFloat(parts[3]?.replace(/,/g, '') ?? '');
+    if (isNaN(volume) || isNaN(rawValue) || isNaN(avgPrice)) continue;
+    rows.push({
+      symbol: parts[0],
+      volume,
+      value: parseFloat((rawValue / 1000).toFixed(2)), // พันบาท → ลบ.
+      avgPrice,
+      time: parts[4]?.trim() ?? '',
+    });
+  }
+  return rows;
 }
 
 export async function GET(req: NextRequest) {
-  const market = (req.nextUrl.searchParams.get('market') ?? 'set').toLowerCase();
-  const url = MARKET_URLS[market] ?? MARKET_URLS.set;
+  const selectedDate = req.nextUrl.searchParams.get('date');
   try {
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        Accept: 'text/html,application/xhtml+xml',
-        Referer: 'https://www.settrade.com',
-      },
+    const rssRes = await fetch(RSS_URL, {
+      headers: { 'User-Agent': UA, Accept: 'application/rss+xml, application/xml, text/xml' },
       cache: 'no-store',
     });
-    if (!res.ok) return Response.json({ headers: [], rows: [] });
-    const html = await res.text();
-    const { headers, rows } = parseSettradeBiglot(html);
-    console.log(`[biglot] market=${market} status=${res.status} headers=${headers.length} rows=${rows.length}`);
+    if (!rssRes.ok) return Response.json({ error: `rss_${rssRes.status}`, rows: [] });
+
+    const items = parseRssItems(await rssRes.text());
+    if (!items.length) return Response.json({ error: 'no_items', rows: [] });
+
+    // Group by Bangkok date — keep latest item per date
+    const dateMap = new Map<string, RssItem>();
+    for (const item of items) {
+      const ex = dateMap.get(item.bangkokDate);
+      if (!ex || item.pubDate > ex.pubDate) dateMap.set(item.bangkokDate, item);
+    }
+
+    const availableDates = [...dateMap.keys()].sort().reverse();
+    const targetDate = (selectedDate && dateMap.has(selectedDate)) ? selectedDate : availableDates[0];
+    const targetItem = dateMap.get(targetDate)!;
+
+    const artRes = await fetch(targetItem.link, {
+      headers: { 'User-Agent': UA, Referer: 'https://www.ryt9.com' },
+      cache: 'no-store',
+    });
+    if (!artRes.ok) return Response.json({ error: `article_${artRes.status}`, rows: [] });
+
+    const rows = parsePreRows(await artRes.text());
+
+    // Cache: 30 min after 17:00 BKK, 5 min before
+    const bkHour = new Date(Date.now() + 7 * 3600000).getUTCHours();
+    const cache = bkHour >= 17 ? 'public, max-age=1800, stale-while-revalidate=60'
+                               : 'public, max-age=300, stale-while-revalidate=60';
+
     return Response.json(
-      { headers, rows },
-      { headers: { 'Cache-Control': 'no-store' } }
+      { date: targetDate, publishedAt: targetItem.pubDate, source: 'InfoQuest/RYT9', rows, availableDates },
+      { headers: { 'Cache-Control': cache } }
     );
   } catch {
-    return Response.json({ headers: [], rows: [] });
+    return Response.json({ error: 'fetch_failed', rows: [] }, { status: 500 });
   }
 }

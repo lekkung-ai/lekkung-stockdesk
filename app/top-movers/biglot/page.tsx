@@ -2,88 +2,86 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Search, Calendar } from 'lucide-react';
+import { RefreshCw, Search, ChevronDown } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 
-type Market = 'set' | 'mai';
+interface BigLotRow {
+  symbol: string;
+  volume: number;
+  value: number;
+  avgPrice: number;
+  time: string;
+}
+
+interface BigLotData {
+  date: string;
+  publishedAt: string;
+  source: string;
+  rows: BigLotRow[];
+  availableDates: string[];
+}
 
 const PER_PAGE = 20;
+const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
-function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
+function isoToThaiLabel(iso: string): string {
+  const [y, m, d] = iso.split('-');
+  return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${parseInt(y) + 543}`;
 }
 
-function isTicker(val: string): boolean {
-  return /^[A-Z][A-Z0-9]{1,9}$/.test(val.trim());
+function pubDateToTime(pubDate: string): string {
+  const d = new Date(pubDate);
+  const bk = new Date(d.getTime() + 7 * 3600000);
+  return `${String(bk.getUTCHours()).padStart(2, '0')}:${String(bk.getUTCMinutes()).padStart(2, '0')}`;
 }
 
-function isTickerCol(header: string): boolean {
-  return /หลักทรัพย์|symbol|ticker/i.test(header);
+function fmtNum(n: number, decimals = 0): string {
+  return n.toLocaleString('th-TH', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
 
 export default function BigLotPage() {
   const router = useRouter();
-  const [market, setMarket] = useState<Market>('set');
-  const [date, setDate] = useState(todayISO());
-  const [headers, setHeaders] = useState<string[]>([]);
-  const [allRows, setAllRows] = useState<Record<string, string>[]>([]);
+  const [data, setData] = useState<BigLotData | null>(null);
+  const [selectedDate, setSelectedDate] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
 
-  const loadData = useCallback(async (m: Market, d: string) => {
+  const loadData = useCallback(async (date?: string) => {
     setLoading(true);
-    setError(null);
+    setError(false);
     setPage(1);
     try {
-      const isToday = d === todayISO();
-      const url = isToday
-        ? `/api/settrade/biglot?market=${m}`
-        : `/data/history/${d}/biglot.json`;
-
-      const res = await fetch(url, isToday ? { cache: 'no-store' } : undefined);
-      if (!res.ok) {
-        setError(isToday ? 'ไม่สามารถโหลดข้อมูลได้' : `ไม่มีข้อมูลวันที่ ${d}`);
-        setHeaders([]); setAllRows([]);
-        return;
-      }
-      const data = await res.json();
-
-      let h: string[], r: Record<string, string>[];
-      if (isToday) {
-        h = data.headers ?? [];
-        r = data.rows ?? [];
-      } else {
-        const mData = data[m] ?? { headers: [], rows: [] };
-        h = mData.headers ?? [];
-        r = mData.rows ?? [];
-      }
-      setHeaders(h);
-      setAllRows(r);
+      const url = date ? `/api/settrade/biglot?date=${date}` : '/api/settrade/biglot';
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error();
+      const json: BigLotData = await res.json();
+      setData(json);
+      if (!date) setSelectedDate(json.date);
     } catch {
-      setError('ไม่สามารถโหลดข้อมูลได้');
+      setError(true);
     } finally {
       setLoading(false);
     }
   }, []);
 
-  useEffect(() => { loadData(market, date); }, [market, date, loadData]);
+  useEffect(() => { loadData(); }, [loadData]);
+
+  function handleDateChange(d: string) {
+    setSelectedDate(d);
+    loadData(d);
+  }
 
   const filteredRows = useMemo(() => {
-    if (!query.trim()) return allRows;
+    if (!data) return [];
+    if (!query.trim()) return data.rows;
     const q = query.toLowerCase();
-    return allRows.filter(row => Object.values(row).some(v => v.toLowerCase().includes(q)));
-  }, [allRows, query]);
+    return data.rows.filter(r => r.symbol.toLowerCase().includes(q));
+  }, [data, query]);
 
   const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
   const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
-
-  function handleCell(header: string, value: string) {
-    if (isTickerCol(header) && isTicker(value)) router.push(`/stock/${value.trim()}`);
-  }
-
-  const isToday = date === todayISO();
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -91,40 +89,32 @@ export default function BigLotPage() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-[18px] font-bold text-white">Big Lot</h1>
-          <p className="text-[12px] text-white/35 mt-0.5">
-            {market.toUpperCase()} · {isToday ? 'Real-time' : `ข้อมูลวันที่ ${date}`}
-          </p>
+          {data?.publishedAt ? (
+            <p className="text-[12px] text-white/35 mt-0.5">
+              ข้อมูล ณ {isoToThaiLabel(data.date)} เวลา {pubDateToTime(data.publishedAt)} น. · {data.source}
+            </p>
+          ) : (
+            <p className="text-[12px] text-white/35 mt-0.5">รายการซื้อขายบิ๊กล็อต</p>
+          )}
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Market tabs */}
-          {(['set', 'mai'] as Market[]).map(m => (
-            <button
-              key={m}
-              onClick={() => setMarket(m)}
-              className={[
-                'px-4 py-1.5 rounded-lg text-[12px] font-bold uppercase tracking-wider transition-all border',
-                market === m
-                  ? 'bg-white/10 border-white/20 text-white'
-                  : 'border-white/[0.07] text-white/35 hover:text-white/60',
-              ].join(' ')}
-            >
-              {m}
-            </button>
-          ))}
-          {/* Date picker */}
-          <div className="relative flex items-center">
-            <Calendar size={12} className="absolute left-2.5 text-white/30 pointer-events-none" />
-            <input
-              type="date"
-              value={date}
-              max={todayISO()}
-              onChange={e => setDate(e.target.value)}
-              className="pl-7 pr-2 py-1.5 bg-[#13161e] border border-white/[0.07] rounded-lg text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors [color-scheme:dark]"
-            />
-          </div>
-          {/* Refresh */}
+          {/* Date select */}
+          {data && data.availableDates.length > 0 && (
+            <div className="relative flex items-center">
+              <select
+                value={selectedDate}
+                onChange={e => handleDateChange(e.target.value)}
+                className="appearance-none pl-3 pr-7 py-1.5 bg-[#13161e] border border-white/[0.07] rounded-lg text-[12px] text-white/70 outline-none focus:border-white/20 transition-colors cursor-pointer"
+              >
+                {data.availableDates.map(d => (
+                  <option key={d} value={d}>{isoToThaiLabel(d)}</option>
+                ))}
+              </select>
+              <ChevronDown size={11} className="absolute right-2 text-white/30 pointer-events-none" />
+            </div>
+          )}
           <button
-            onClick={() => loadData(market, date)}
+            onClick={() => loadData(selectedDate || undefined)}
             className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors"
           >
             <RefreshCw size={13} />
@@ -152,9 +142,9 @@ export default function BigLotPage() {
           </div>
         ) : error ? (
           <div className="py-16 text-center space-y-3">
-            <p className="text-[13px] text-white/30">{error}</p>
+            <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
             <button
-              onClick={() => loadData(market, date)}
+              onClick={() => loadData()}
               className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors"
             >
               ลองอีกครั้ง
@@ -163,18 +153,15 @@ export default function BigLotPage() {
         ) : pageRows.length === 0 ? (
           <div className="py-16 text-center">
             <p className="text-[13px] text-white/30">
-              {allRows.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกัน' : 'ไม่พบข้อมูล Big Lot'}
+              {data && data.rows.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกัน' : 'ไม่พบข้อมูล Big Lot'}
             </p>
-            {!isToday && allRows.length === 0 && (
-              <p className="text-[11px] text-white/20 mt-1">ข้อมูลย้อนหลังจะมีเมื่อรัน update_stockdesk.bat</p>
-            )}
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  {headers.map(h => (
+                  {['หลักทรัพย์', "จำนวนหุ้น", 'มูลค่า (ลบ.)', 'ราคาเฉลี่ย (บ.)', 'เวลา'].map(h => (
                     <th key={h} className="px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">
                       {h}
                     </th>
@@ -184,22 +171,24 @@ export default function BigLotPage() {
               <tbody className="divide-y divide-white/[0.03]">
                 {pageRows.map((row, i) => (
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                    {headers.map(h => {
-                      const val = row[h] ?? '—';
-                      const clickable = isTickerCol(h) && isTicker(val);
-                      return (
-                        <td
-                          key={h}
-                          onClick={() => handleCell(h, val)}
-                          className={[
-                            'px-4 py-3 text-[12px] tabular-nums whitespace-nowrap',
-                            clickable ? 'text-blue-400 font-semibold cursor-pointer hover:text-blue-300' : 'text-white/65',
-                          ].join(' ')}
-                        >
-                          {val}
-                        </td>
-                      );
-                    })}
+                    <td
+                      onClick={() => router.push(`/stock/${row.symbol}`)}
+                      className="px-4 py-3 text-[12px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                    >
+                      {row.symbol}
+                    </td>
+                    <td className="px-4 py-3 text-[12px] tabular-nums text-white/65 whitespace-nowrap text-right">
+                      {fmtNum(row.volume)}
+                    </td>
+                    <td className="px-4 py-3 text-[12px] tabular-nums text-white/65 whitespace-nowrap text-right">
+                      {fmtNum(row.value, 2)}
+                    </td>
+                    <td className="px-4 py-3 text-[12px] tabular-nums text-white/65 whitespace-nowrap text-right">
+                      {fmtNum(row.avgPrice, 2)}
+                    </td>
+                    <td className="px-4 py-3 text-[12px] text-white/40 whitespace-nowrap">
+                      {row.time}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -208,12 +197,9 @@ export default function BigLotPage() {
         )}
       </div>
 
-      {/* Pagination + footer */}
-      {totalPages > 1 && (
-        <Pagination page={page} totalPages={totalPages} onChange={setPage} />
-      )}
+      {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onChange={setPage} />}
       <p className="text-[10px] text-white/20 text-right">
-        แหล่งข้อมูล: SETTrade · {market.toUpperCase()}
+        แหล่งข้อมูล: InfoQuest/RYT9 · รวมทุกตลาด (SET+MAI+DW)
         {filteredRows.length > 0 && ` · ${filteredRows.length} รายการ`}
       </p>
     </div>

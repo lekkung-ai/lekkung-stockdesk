@@ -19,9 +19,21 @@ function extractToken(html: string, id: string): string {
   return m?.[1] ?? '';
 }
 
+// Fix garbled headers caused by <sup>N</sup> inside <th> opening tags
+function cleanHeader(h: string): string {
+  const gtIdx = h.lastIndexOf('>');
+  if (gtIdx >= 0) h = h.slice(gtIdx + 1);
+  return h.replace(/\s*\d+\s*$/, '').trim();
+}
+
+function thaiDateToSortKey(thai: string): string {
+  const m = thai.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (!m) return '0000-00-00';
+  return `${parseInt(m[3]) - 543}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
+}
+
 export async function GET() {
   try {
-    // Step 1: GET page to acquire ASP.NET form tokens
     const page1 = await fetch(BASE, {
       headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml', 'Accept-Language': 'th-TH,th;q=0.9' },
       cache: 'no-store',
@@ -32,15 +44,10 @@ export async function GET() {
     const cookie = page1.headers.get('set-cookie') ?? '';
     const sessionCookie = cookie.split(';')[0];
 
-    const viewstate = extractToken(html1, '__VIEWSTATE');
-    const generator = extractToken(html1, '__VIEWSTATEGENERATOR');
-    const evval = extractToken(html1, '__EVENTVALIDATION');
-
-    // Step 2: POST form with 30-day date range search
     const body = new URLSearchParams({
-      '__VIEWSTATE': viewstate,
-      '__VIEWSTATEGENERATOR': generator,
-      '__EVENTVALIDATION': evval,
+      '__VIEWSTATE': extractToken(html1, '__VIEWSTATE'),
+      '__VIEWSTATEGENERATOR': extractToken(html1, '__VIEWSTATEGENERATOR'),
+      '__EVENTVALIDATION': extractToken(html1, '__EVENTVALIDATION'),
       'ctl00$CPH$BsCompany': '',
       'ctl00$CPH$BsCompany_t': '',
       'ctl00$CPH$BsCompany_v': '',
@@ -67,18 +74,37 @@ export async function GET() {
     if (!page2.ok) return Response.json({ headers: [], rows: [], error: `page2_${page2.status}` });
 
     const html2 = await page2.text();
-    // Find data table — pick the one with most rows
+    const fetchDate = new Date().toISOString().slice(0, 10);
+
     for (let i = 0; i < 6; i++) {
-      const { headers, rows } = parseHtmlTable(html2, i);
+      const { headers: rawHeaders, rows } = parseHtmlTable(html2, i);
       if (rows.length > 2) {
+        const headers = rawHeaders.map(cleanHeader);
+
+        // Re-key rows with cleaned headers
+        const cleanedRows = rows.map(row => {
+          const cleaned: Record<string, string> = {};
+          rawHeaders.forEach((raw, idx) => {
+            cleaned[headers[idx]] = row[raw] ?? '';
+          });
+          return cleaned;
+        });
+
+        const dateCol = headers.find(h => /วันที่/.test(h));
+        if (dateCol) {
+          cleanedRows.sort((a, b) =>
+            thaiDateToSortKey(b[dateCol] ?? '').localeCompare(thaiDateToSortKey(a[dateCol] ?? ''))
+          );
+        }
+
         return Response.json(
-          { headers, rows },
+          { headers, rows: cleanedRows, fetchDate },
           { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
         );
       }
     }
-    return Response.json({ headers: [], rows: [] });
-  } catch (e) {
+    return Response.json({ headers: [], rows: [], fetchDate });
+  } catch {
     return Response.json({ headers: [], rows: [], error: 'fetch_failed' });
   }
 }
