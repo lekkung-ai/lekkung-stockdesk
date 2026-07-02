@@ -14,12 +14,6 @@ function daysAgoISO(n: number) {
   const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10);
 }
 
-function thaiDateToISO(thai: string): string | null {
-  const m = thai.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-  if (!m) return null;
-  return `${parseInt(m[3]) - 543}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
-}
-
 function isoToThaiLabel(iso: string): string {
   const [y, m, d] = iso.split('-');
   return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${parseInt(y) + 543}`;
@@ -90,12 +84,12 @@ export default function Report246Page() {
     setPage(1);
   };
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (from: string, to: string) => {
     setLoading(true);
     setError(false);
     setPage(1);
     try {
-      const res = await fetch('/api/sec/r246');
+      const res = await fetch(`/api/sec/r246?from=${from}&to=${to}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
       setHeaders(data.headers ?? []);
@@ -108,14 +102,12 @@ export default function Report246Page() {
     }
   }, []);
 
-  useEffect(() => { loadData(); }, [loadData]);
+  // Re-fetch whenever the publish-date range changes (filtered server-side by วันที่เผยแพร่)
+  useEffect(() => { loadData(fromDate, toDate); }, [loadData, fromDate, toDate]);
 
   const filteredRows = useMemo(() => {
-    let result = rawRows.filter(row => {
-      const rowISO = thaiDateToISO(row[COL_DATE] ?? '');
-      const effectiveDate = row.savedated ?? rowISO;
-      if (effectiveDate && (effectiveDate < fromDate || effectiveDate > toDate)) return false;
-
+    // Date range is applied server-side; here we only do text search + sort.
+    const result = rawRows.filter(row => {
       if (query.trim()) {
         const q = query.toLowerCase();
         const ticker = (row[COL_TICKER] ?? '').toLowerCase();
@@ -154,11 +146,11 @@ export default function Report246Page() {
         <div>
           <h1 className="text-[18px] font-bold text-white">รายงาน 246</h1>
           <p className="text-[12px] text-white/35 mt-0.5">
-            การได้มา/จำหน่ายหลักทรัพย์ของผู้ถือหุ้นรายใหญ่ · SEC
+            การได้มา/จำหน่ายหลักทรัพย์ของผู้ถือหุ้นรายใหญ่ · SEC · กรองตามวันที่เผยแพร่
             {fetchDate && ` · ดึงข้อมูลเมื่อ ${isoToThaiLabel(fetchDate)}`}
           </p>
         </div>
-        <button onClick={loadData} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
+        <button onClick={() => loadData(fromDate, toDate)} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
           <RefreshCw size={13} />
         </button>
       </div>
@@ -203,7 +195,7 @@ export default function Report246Page() {
         ) : error ? (
           <div className="py-16 text-center space-y-3">
             <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
-            <button onClick={loadData} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
+            <button onClick={() => loadData(fromDate, toDate)} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
               ลองอีกครั้ง
             </button>
           </div>

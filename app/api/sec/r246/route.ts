@@ -1,3 +1,4 @@
+import type { NextRequest } from 'next/server';
 import { parseHtmlTable } from '@/lib/parseHtmlTable';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
@@ -12,6 +13,12 @@ function daysAgoTH(days: number) {
   const d = new Date();
   d.setDate(d.getDate() - days);
   return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+}
+
+// ISO "YYYY-MM-DD" -> SEC form date "DD/MM/YYYY" (Gregorian, same format the form accepts)
+function isoToSecDate(iso: string): string {
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : '';
 }
 
 function extractToken(html: string, id: string): string {
@@ -32,7 +39,12 @@ function thaiDateToSortKey(thai: string): string {
   return `${parseInt(m[3]) - 543}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const fromParam = req.nextUrl.searchParams.get('from');
+  const toParam = req.nextUrl.searchParams.get('to');
+  const dateFrom = fromParam ? isoToSecDate(fromParam) : daysAgoTH(30);
+  const dateTo = toParam ? isoToSecDate(toParam) : todayTH();
+
   try {
     const page1 = await fetch(BASE, {
       headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml', 'Accept-Language': 'th-TH,th;q=0.9' },
@@ -52,9 +64,10 @@ export async function GET() {
       'ctl00$CPH$BsCompany_t': '',
       'ctl00$CPH$BsCompany_v': '',
       'ctl00$CPH$txtSearchPerson': '',
-      'ctl00$CPH$rblDateType': '1',
-      'ctl00$CPH$BSDateFrom': daysAgoTH(30),
-      'ctl00$CPH$BSDateTo': todayTH(),
+      // rblDateType 2 = "วันที่เผยแพร่" (disclosure/publish date) = when the filing became available
+      'ctl00$CPH$rblDateType': '2',
+      'ctl00$CPH$BSDateFrom': dateFrom,
+      'ctl00$CPH$BSDateTo': dateTo,
       'ctl00$CPH$btSearch': 'Search',
     });
 
@@ -98,12 +111,12 @@ export async function GET() {
         }
 
         return Response.json(
-          { headers, rows: cleanedRows, fetchDate },
-          { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
+          { headers, rows: cleanedRows, fetchDate, dateBasis: 'วันที่เผยแพร่', from: dateFrom, to: dateTo },
+          { headers: { 'Cache-Control': 'no-store' } }
         );
       }
     }
-    return Response.json({ headers: [], rows: [], fetchDate });
+    return Response.json({ headers: [], rows: [], fetchDate, dateBasis: 'วันที่เผยแพร่' });
   } catch {
     return Response.json({ headers: [], rows: [], error: 'fetch_failed' });
   }
