@@ -37,6 +37,8 @@ const STAGE: Record<string, { color: string; bg: string }> = {
   'Distribution': { color: '#BA7517', bg: 'rgba(186,117,23,.15)' },
   'Warning':      { color: '#EF9F27', bg: 'rgba(239,159,39,.15)' },
   'Bear':         { color: '#E24B4A', bg: 'rgba(226,75,74,.15)' },
+  'UNKNOWN':      { color: '#9CA3AF', bg: 'rgba(156,163,175,.15)' },
+  'Unknown':      { color: '#9CA3AF', bg: 'rgba(156,163,175,.15)' },
 };
 
 type SortCol = 'symbol' | 'price' | 'change' | 'pe' | 'marketCap' | 'sector';

@@ -6,21 +6,38 @@ import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
+  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
 
 export default function BreakoutPage() {
   const [toBreakMax, setToBreakMax] = useState(10);
   const [boxWidthMax, setBoxWidthMax] = useState(20);
+  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const { priceMap, fetchDone } = useLivePrices(breakoutData.map(s => s.Ticker));
 
-  const filtered = useMemo(() =>
-    breakoutData
+  const handleSort = (key: string) => {
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
+  const filtered = useMemo(() => {
+    let result = breakoutData
       .filter(s => s['To_Break'] <= toBreakMax)
-      .filter(s => s['Box_Width'] <= boxWidthMax)
-      .sort((a, b) => a['To_Break'] - b['To_Break']),
-    [toBreakMax, boxWidthMax]
-  );
+      .filter(s => s['Box_Width'] <= boxWidthMax);
+      
+    if (sortConfig) {
+      result = result.sort((a, b) => {
+        const aVal = (a as any)[sortConfig.key];
+        const bVal = (b as any)[sortConfig.key];
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+      });
+    } else {
+      result = result.sort((a, b) => a['To_Break'] - b['To_Break']);
+    }
+    return result;
+  }, [toBreakMax, boxWidthMax, sortConfig]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -61,12 +78,12 @@ export default function BreakoutPage() {
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
-            <Th>Symbol</Th>
-            <Th right>Price</Th>
-            <Th right>Box High (Break)</Th>
-            <Th right>To Break %</Th>
-            <Th right>Box Width %</Th>
-            <Th right>ADTV (MB)</Th>
+            <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="Box_High(Break)" currentSort={sortConfig} onSort={handleSort}>Break Price</SortableTh>
+            <SortableTh right sortKey="To_Break" currentSort={sortConfig} onSort={handleSort}>% To Break</SortableTh>
+            <SortableTh right sortKey="Box_Width" currentSort={sortConfig} onSort={handleSort}>Box Width</SortableTh>
+            <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
             <Th right>SMA150 Chg</Th>
           </tr>
         </thead>

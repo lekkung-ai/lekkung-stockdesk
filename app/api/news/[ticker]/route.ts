@@ -38,9 +38,10 @@ interface Feed {
 const FEEDS: Feed[] = [
   { name: 'InfoQuest', url: 'https://www.infoquest.co.th/stock/feed/' },
   { name: 'ข่าวหุ้น', url: 'https://www.kaohoon.com/feed' },
-  { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/feed/' },
-  { name: 'มติชน', url: 'https://www.matichon.co.th/category/economy/feed' },
-  { name: 'Bangkok Post', url: 'https://www.bangkokpost.com/rss/data/business.xml' },
+  { name: 'ข่าวหุ้น (ด่วน)', url: 'https://www.kaohoon.com/breakingnews/feed' },
+  { name: 'ข่าวหุ้น (ทั่วไป)', url: 'https://www.kaohoon.com/news/feed' },
+  { name: 'RYT9 (SET)', url: 'https://www.ryt9.com/tag/SET/rss.xml' },
+  { name: 'กรุงเทพธุรกิจ', url: 'https://www.bangkokbiznews.com/rss/finance' },
 ];
 
 // The Standard's wealth feed is dead and its general /feed/ buries stock news
@@ -201,6 +202,8 @@ function titleHasTicker(title: string, ticker: string): boolean {
   return re.test(title);
 }
 
+import rawArchivedItems from '@/data/news_archive.json';
+
 export async function GET(
   _req: NextRequest,
   context: { params: Promise<{ ticker: string }> }
@@ -211,16 +214,30 @@ export async function GET(
 
   // Fetch every feed in parallel; per-feed errors degrade to [].
   const results = await Promise.all(FEEDS.map(fetchFeed));
+  let allLive = results.flat();
 
-  // Merge + newest first.
-  const all = results.flat().sort((a, b) => b.ts - a.ts);
+  // Load archived news from statically imported JSON
+  let archivedItems: NewsItem[] = rawArchivedItems as NewsItem[];
+
+  // Merge live and archived items, deduplicate by link
+  const seenLinks = new Set<string>();
+  const merged: NewsItem[] = [];
+  
+  for (const item of [...allLive, ...archivedItems]) {
+    if (!item.link || seenLinks.has(item.link)) continue;
+    seenLinks.add(item.link);
+    merged.push(item);
+  }
+
+  // Sort newest first
+  const all = merged.sort((a, b) => b.ts - a.ts);
 
   let selected: NewsItem[];
   let isGeneral: boolean;
 
   if (wantGeneral) {
-    // Return the full merged set; the /news page filters + paginates client-side.
-    selected = all.slice(0, 200);
+    // Return more items since we have an archive now
+    selected = all.slice(0, 500);
     isGeneral = true;
   } else {
     const matches = all.filter(item => titleHasTicker(item.title, t));

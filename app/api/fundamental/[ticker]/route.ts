@@ -75,50 +75,64 @@ export async function GET(
   context: { params: Promise<{ ticker: string }> }
 ) {
   const { ticker } = await context.params;
-  const symbol = toYahooSymbol(ticker.toUpperCase());
-
-  const auth = await getYahooCrumb(symbol);
-  if (!auth) return Response.json({ error: 'auth_failed' }, { status: 503 });
-
-  const url = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(symbol)}?modules=defaultKeyStatistics,financialData,summaryDetail&crumb=${encodeURIComponent(auth.crumb)}`;
+  const symbol = ticker.toUpperCase();
 
   try {
-    const res = await fetch(url, {
-      headers: { 'User-Agent': YF_UA, Accept: 'application/json', 'Accept-Language': 'en-US,en;q=0.9', Cookie: auth.cookie },
+    const payload = {
+      filter: [{ left: "name", operation: "equal", right: symbol }],
+      options: { lang: "en" },
+      markets: ["thailand"],
+      columns: [
+        "name",
+        "price_earnings_ttm",
+        "price_book_ratio",
+        "return_on_equity",
+        "earnings_per_share_basic_ttm",
+        "debt_to_equity",
+        "dividend_yield_recent",
+        "market_cap_basic",
+      ],
+      range: [0, 1]
+    };
+
+    const res = await fetch("https://scanner.tradingview.com/thailand/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
 
-    if (!res.ok) return Response.json({ error: `upstream_${res.status}` }, { status: res.status });
+    if (!res.ok) {
+      return Response.json({ error: `upstream_${res.status}` }, { status: res.status });
+    }
 
     const json = await res.json();
-    const result = json?.quoteSummary?.result?.[0];
-    if (!result) return Response.json({ error: 'no_data' }, { status: 404 });
+    const data = json.data;
 
-    const ks = result.defaultKeyStatistics ?? {};
-    const fd = result.financialData ?? {};
-    const sd = result.summaryDetail ?? {};
+    if (!data || data.length === 0) {
+      return Response.json({ error: 'no_data' }, { status: 404 });
+    }
 
-    const roe = raw(fd.returnOnEquity);
-    const divYield = raw(sd.dividendYield);
-    const mcap = raw(sd.marketCap);
-    // trailingPE is inconsistently placed across Yahoo Finance modules — try all known paths
-    const pe = [raw(sd.trailingPE), raw(ks.trailingPE), raw(ks.forwardPE), raw((result.price ?? {}).trailingPE)]
-      .find(v => v != null && v !== 0) ?? null;
-    const de = raw(fd.debtToEquity);
+    const d = data[0].d;
+    
+    // TradingView returns null for missing data
+    // d[1] = PE, d[2] = PB, d[3] = ROE (%), d[4] = EPS, d[5] = DE, d[6] = Div Yield (%), d[7] = Market Cap (Baht)
+    const deValue = d[5] != null ? d[5] * 100 : null; // Multiply DE by 100 to match Yahoo's scale
 
     return Response.json(
       {
-        pe,
-        pb: raw(ks.priceToBook),
-        roe: roe != null ? roe * 100 : null,
-        eps: raw(ks.trailingEps),
-        de,
-        deMissing: de == null,
-        divYield: divYield != null ? divYield * 100 : null,
-        marketCap: fmtMarketCap(mcap),
+        pe: d[1],
+        pb: d[2],
+        roe: d[3],
+        eps: d[4],
+        de: deValue,
+        deMissing: deValue == null,
+        divYield: d[6],
+        marketCap: fmtMarketCap(d[7]),
       },
       { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
     );
-  } catch {
+  } catch (err) {
     return Response.json({ error: 'fetch_failed' }, { status: 500 });
   }
 }
+

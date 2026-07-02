@@ -5,10 +5,10 @@ import { scanData, scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  rsColor, stageCls, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
+  rsColor, stageCls, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
 
-const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Bear'];
+const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 
 function BadgeCell({ value, label, color }: { value: boolean; label: string; color: string }) {
   if (!value) return <span className="text-white/15 text-[11px]">—</span>;
@@ -22,17 +22,34 @@ function BadgeCell({ value, label, color }: { value: boolean; label: string; col
 export default function ComboPage() {
   const [comboMin, setComboMin] = useState(2);
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
+  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const { priceMap, fetchDone } = useLivePrices(scanData.map(s => s.ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
 
-  const filtered = useMemo(() =>
-    scanData
+  const handleSort = (key: string) => {
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
+  const filtered = useMemo(() => {
+    let result = scanData
       .filter(s => s.combo_score >= comboMin)
-      .filter(s => allStagesSelected || (s.stage !== null && stages.has(s.stage)))
-      .sort((a, b) => b.combo_score - a.combo_score || b.rs_score - a.rs_score),
-    [comboMin, stages, allStagesSelected]
-  );
+      .filter(s => allStagesSelected || (s.stage !== null && stages.has(s.stage)));
+      
+    if (sortConfig) {
+      result = result.sort((a, b) => {
+        const aVal = (a as any)[sortConfig.key];
+        const bVal = (b as any)[sortConfig.key];
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+      });
+    } else {
+      result = result.sort((a, b) => b.combo_score - a.combo_score || b.rs_score - a.rs_score);
+    }
+    return result;
+  }, [comboMin, stages, allStagesSelected, sortConfig]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -78,14 +95,14 @@ export default function ComboPage() {
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
-            <Th>Symbol</Th>
-            <Th right>Price</Th>
-            <Th>Stage</Th>
+            <SortableTh sortKey="ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
+            <SortableTh right sortKey="price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh sortKey="stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <Th>SEPA</Th>
             <Th>Kell</Th>
             <Th>BO</Th>
-            <Th right>RS</Th>
-            <Th right>Combo</Th>
+            <SortableTh right sortKey="rs_score" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
+            <SortableTh right sortKey="combo_score" currentSort={sortConfig} onSort={handleSort}>Combo</SortableTh>
           </tr>
         </thead>
         <tbody>

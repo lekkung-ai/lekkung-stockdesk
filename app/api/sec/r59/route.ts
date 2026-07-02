@@ -25,7 +25,7 @@ export async function GET() {
     for (let i = 0; i < 6; i++) {
       const { headers, rows } = parseHtmlTable(html, i);
       if (rows.length > 2) {
-        const dateCol = headers.find(h => /วันที่/.test(h));
+        const dateCol = headers.find(h => /รับเอกสาร|รับแจ้ง|รับรายงาน/.test(h)) || headers.find(h => /วันที่/.test(h));
         if (dateCol) {
           rows.sort((a, b) =>
             thaiDateToSortKey(b[dateCol] ?? '').localeCompare(thaiDateToSortKey(a[dateCol] ?? ''))

@@ -39,6 +39,20 @@ function calcEMA(data: OhlcvPoint[], period: number): { time: string; value: num
   return result;
 }
 
+function calcSMA(data: OhlcvPoint[], period: number): { time: string; value: number }[] {
+  if (data.length < period) return [];
+  const result: { time: string; value: number }[] = [];
+  let sum = 0;
+  for (let i = 0; i < period; i++) sum += data[i].close;
+  result.push({ time: data[period - 1].time, value: parseFloat((sum / period).toFixed(2)) });
+  
+  for (let i = period; i < data.length; i++) {
+    sum = sum - data[i - period].close + data[i].close;
+    result.push({ time: data[i].time, value: parseFloat((sum / period).toFixed(2)) });
+  }
+  return result;
+}
+
 function calcVolSMA(data: OhlcvPoint[], period: number): { time: string; value: number }[] {
   if (data.length < period) return [];
   const result: { time: string; value: number }[] = [];
@@ -49,7 +63,35 @@ function calcVolSMA(data: OhlcvPoint[], period: number): { time: string; value: 
   return result;
 }
 
-export default function StockChart({ ticker, height = 350, isPpbp = false }: { ticker: string; height?: number; isPpbp?: boolean }) {
+function getPpbpTimes(data: OhlcvPoint[]): Set<string> {
+  const times = new Set<string>();
+  if (data.length <= 50) return times;
+  
+  for (let i = 50; i < data.length; i++) {
+    const current = data[i];
+    if (current.close <= current.open) continue;
+
+    let maxDownVol = 0;
+    for (let j = i - 10; j < i; j++) {
+      if (data[j].close <= data[j].open && data[j].volume > maxDownVol) {
+        maxDownVol = data[j].volume;
+      }
+    }
+    if (maxDownVol > 0 && current.volume <= maxDownVol) continue;
+
+    let sum = 0;
+    for (let j = i - 50; j < i; j++) {
+      sum += data[j].volume;
+    }
+    const sma50 = sum / 50;
+    if (current.volume <= sma50) continue;
+
+    times.add(current.time);
+  }
+  return times;
+}
+
+export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
@@ -118,20 +160,36 @@ export default function StockChart({ ticker, height = 350, isPpbp = false }: { t
     });
     candles.setData(chartData);
 
+    const ema10 = calcEMA(chartData, 10);
+    if (showEma10 && ema10.length) {
+      chart.addSeries(LineSeries, { color: '#00BFFF', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema10);
+    }
     const ema50 = calcEMA(chartData, 50);
     if (ema50.length) {
       chart.addSeries(LineSeries, { color: '#F9C942', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema50);
     }
     const ema200 = calcEMA(chartData, 200);
-    if (ema200.length) {
+    if (ema200.length && !showSma150) {
       chart.addSeries(LineSeries, { color: '#AA00FF', lineWidth: 1, lastValueVisible: false, priceLineVisible: false }).setData(ema200);
+    }
+    
+    // SMA overrides for Stage Analysis
+    const sma50 = calcSMA(chartData, 50);
+    if (showSma50 && sma50.length) {
+      chart.addSeries(LineSeries, { color: '#FF5722', lineWidth: 2, lastValueVisible: false, priceLineVisible: false }).setData(sma50);
+    }
+    const sma150 = calcSMA(chartData, 150);
+    if (showSma150 && sma150.length) {
+      chart.addSeries(LineSeries, { color: '#3F51B5', lineWidth: 2, lastValueVisible: false, priceLineVisible: false }).setData(sma150);
     }
 
     // ── Volume pane ──────────────────────────────────────────────────────────
     const lastIdx = chartData.length - 1;
+    const ppbpTimes = getPpbpTimes(chartData);
+    
     const volData = chartData.map((d, i) => {
       const isUp = d.close >= d.open;
-      const isPpbpBar = isPpbp && i === lastIdx;
+      const isPpbpBar = ppbpTimes.has(d.time) || (isPpbp && i === lastIdx);
       return {
         time: d.time,
         value: d.volume,
@@ -191,14 +249,36 @@ export default function StockChart({ ticker, height = 350, isPpbp = false }: { t
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-0.5 rounded-full" style={{ background: '#F9C942' }} />
-            <span className="text-[10px] text-white/30">EMA50</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-0.5 rounded-full" style={{ background: '#AA00FF' }} />
-            <span className="text-[10px] text-white/30">EMA200</span>
-          </div>
+          {showEma10 && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-0.5 rounded-full" style={{ background: '#00BFFF' }} />
+              <span className="text-[10px] text-white/30">EMA10</span>
+            </div>
+          )}
+          {!showSma50 && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-0.5 rounded-full" style={{ background: '#F9C942' }} />
+              <span className="text-[10px] text-white/30">EMA50</span>
+            </div>
+          )}
+          {!showSma150 && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-0.5 rounded-full" style={{ background: '#AA00FF' }} />
+              <span className="text-[10px] text-white/30">EMA200</span>
+            </div>
+          )}
+          {showSma50 && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-0.5 rounded-full" style={{ background: '#FF5722' }} />
+              <span className="text-[10px] text-white/30 font-bold">SMA50 (10-Week)</span>
+            </div>
+          )}
+          {showSma150 && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-0.5 rounded-full" style={{ background: '#3F51B5' }} />
+              <span className="text-[10px] text-white/30 font-bold">SMA150 (30-Week)</span>
+            </div>
+          )}
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-0.5 rounded-full" style={{ background: 'rgba(248,201,66,0.7)' }} />
             <span className="text-[10px] text-white/30">Vol SMA50</span>

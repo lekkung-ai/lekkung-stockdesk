@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import rawCombined from '@/data/scans/combined.json';
 import rawMarketStage from '@/data/scans/market_stage.json';
 import rawPpbp from '@/data/scans/ppbp.json';
@@ -19,6 +20,8 @@ import {
   FilterBar,
   Divider,
   PageHeader,
+  SortableTh,
+  SortConfig,
 } from '@/components/StrategyTable';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -29,6 +32,8 @@ type CombinedEntry = {
   sepa: boolean;
   kell: boolean;
   breakout: boolean;
+  lekkung: boolean;
+  oneil: boolean;
   stage: string | null;
   rs_score: number | null;
   combo_score: number;
@@ -88,26 +93,45 @@ const allRows: Row[] = combinedData.map(c => {
 
 // ─── Filter constants ─────────────────────────────────────────────────────────
 
-const SIGNAL_OPTS = ['ทั้งหมด', 'PPBP', 'SEPA', 'Kell', 'BO'] as const;
+const SIGNAL_OPTS = ['ทั้งหมด', 'Lekkung', 'O\'Neil', 'PPBP', 'SEPA', 'Kell', 'BO'] as const;
 type SignalOpt = (typeof SIGNAL_OPTS)[number];
 
-const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Bear'];
+const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function QuantScannerPage() {
-  const [sigFilter, setSigFilter] = useState<SignalOpt>('ทั้งหมด');
+function QuantScannerContent() {
+  const searchParams = useSearchParams();
+  const initSignal = (searchParams.get('signal') as SignalOpt) || 'ทั้งหมด';
+  
+  const [sigFilter, setSigFilter] = useState<SignalOpt>(initSignal);
+  
+  useEffect(() => {
+    const s = searchParams.get('signal') as SignalOpt;
+    if (s && SIGNAL_OPTS.includes(s)) {
+      setSigFilter(s);
+    } else if (!s) {
+      setSigFilter('ทั้งหมด');
+    }
+  }, [searchParams]);
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
   const [filterOpen, setFilterOpen] = useState(false);
+  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const { priceMap, changePctMap, fetchDone } = useLivePrices(allRows.map(r => r.ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
+
+  const handleSort = (key: string) => {
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
 
   const rows = useMemo(() => {
     let filtered = allRows;
 
     if (sigFilter !== 'ทั้งหมด') {
       filtered = filtered.filter(r => {
+        if (sigFilter === 'Lekkung') return r.lekkung;
+        if (sigFilter === 'O\'Neil') return r.oneil;
         if (sigFilter === 'PPBP') return r.ppbp;
         if (sigFilter === 'SEPA') return r.sepa;
         if (sigFilter === 'Kell') return r.kell;
@@ -121,12 +145,36 @@ export default function QuantScannerPage() {
     }
 
     return [...filtered].sort((a, b) => {
+      if (sortConfig) {
+        if (sortConfig.key === 'price') {
+          const aPrice = priceMap[a.ticker] ?? a.price;
+          const bPrice = priceMap[b.ticker] ?? b.price;
+          return sortConfig.dir === 'asc' ? aPrice - bPrice : bPrice - aPrice;
+        }
+        if (sortConfig.key === 'chg1d') {
+          const aChg = changePctMap[a.ticker] ?? -999;
+          const bChg = changePctMap[b.ticker] ?? -999;
+          return sortConfig.dir === 'asc' ? aChg - bChg : bChg - aChg;
+        }
+        if (sortConfig.key === 'stage') {
+           const aStage = a.stage ? ALL_STAGES.indexOf(a.stage) : 99;
+           const bStage = b.stage ? ALL_STAGES.indexOf(b.stage) : 99;
+           return sortConfig.dir === 'asc' ? aStage - bStage : bStage - aStage;
+        }
+        const aVal = (a as any)[sortConfig.key];
+        const bVal = (b as any)[sortConfig.key];
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+      }
+      
       const ed = ENTRY_ORDER[a.entry] - ENTRY_ORDER[b.entry];
       if (ed !== 0) return ed;
       if (b.combo_score !== a.combo_score) return b.combo_score - a.combo_score;
       return (b.rs_score ?? 0) - (a.rs_score ?? 0);
     });
-  }, [sigFilter, stages, allStagesSelected]);
+  }, [sigFilter, stages, allStagesSelected, sortConfig, priceMap, changePctMap]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -198,14 +246,14 @@ export default function QuantScannerPage() {
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
-            <Th>Symbol</Th>
-            <Th>Stage</Th>
+            <SortableTh sortKey="ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
+            <SortableTh sortKey="stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <Th>Signals</Th>
-            <Th right className="hidden md:table-cell">Price</Th>
-            <Th right className="hidden md:table-cell">1D%</Th>
-            <Th right className="hidden md:table-cell">30D%</Th>
-            <Th right>RS</Th>
-            <Th>จุดเข้า</Th>
+            <SortableTh right className="hidden md:table-cell" sortKey="price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right className="hidden md:table-cell" sortKey="chg1d" currentSort={sortConfig} onSort={handleSort}>1D%</SortableTh>
+            <SortableTh right className="hidden md:table-cell" sortKey="chg30d" currentSort={sortConfig} onSort={handleSort}>30D%</SortableTh>
+            <SortableTh right sortKey="rs_score" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
+            <SortableTh sortKey="entry" currentSort={sortConfig} onSort={handleSort}>จุดเข้า</SortableTh>
           </tr>
         </thead>
         <tbody>
@@ -258,6 +306,16 @@ export default function QuantScannerPage() {
                         PPBP 🔥
                       </span>
                     )}
+                    {row.lekkung && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#FF9800] text-white">
+                        Lekkung
+                      </span>
+                    )}
+                    {row.oneil && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#E91E63] text-white">
+                        CAN SLIM
+                      </span>
+                    )}
                     {row.sepa && (
                       <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF3DE] text-[#27500A]">
                         SEPA
@@ -273,7 +331,7 @@ export default function QuantScannerPage() {
                         BO
                       </span>
                     )}
-                    {!row.ppbp && !row.sepa && !row.kell && !row.breakout && (
+                    {!row.ppbp && !row.lekkung && !row.oneil && !row.sepa && !row.kell && !row.breakout && (
                       <span className="text-white/15 text-[11px]">—</span>
                     )}
                   </div>
@@ -348,5 +406,13 @@ export default function QuantScannerPage() {
         </tbody>
       </TableWrap>
     </div>
+  );
+}
+
+export default function QuantScannerPage() {
+  return (
+    <Suspense fallback={<div className="p-4 md:p-6 text-white/50">Loading scanner...</div>}>
+      <QuantScannerContent />
+    </Suspense>
   );
 }

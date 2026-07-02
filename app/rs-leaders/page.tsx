@@ -11,12 +11,17 @@ import MiniCandleChart from '@/components/MiniCandleChart';
 type LivePrice = { price: number; changePercent: number };
 
 
-const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Bear'];
+const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 
-function stageCls(stage: string): string {
-  if (stage === 'Bull' || stage === 'S.Bull') return 'bg-[#EAF3DE] text-[#27500A]';
-  if (stage === 'Accumulation' || stage === 'Recovery') return 'bg-[#E6F1FB] text-[#0C447C]';
-  if (stage === 'Warning') return 'bg-[#FAEEDA] text-[#633806]';
+function stageCls(stage: string | null): string {
+  if (!stage) return 'bg-white/[0.07] text-white/30';
+  if (stage === 'S.Bull') return 'bg-[#1b5e20] text-white';
+  if (stage === 'Bull') return 'bg-[#4caf50] text-black font-bold';
+  if (stage === 'Accumulation') return 'bg-[#00bcd4] text-black font-bold';
+  if (stage === 'Recovery') return 'bg-[#9e9e9e] text-black font-bold';
+  if (stage === 'Warning') return 'bg-[#FFEB3B] text-black font-bold';
+  if (stage === 'Distribution') return 'bg-[#ff9800] text-black font-bold';
+  if (stage === 'Bear') return 'bg-[#ef5350] text-white font-bold';
   return 'bg-[#FCEBEB] text-[#791F1F]';
 }
 

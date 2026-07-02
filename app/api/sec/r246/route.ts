@@ -90,7 +90,7 @@ export async function GET() {
           return cleaned;
         });
 
-        const dateCol = headers.find(h => /วันที่/.test(h));
+        const dateCol = headers.find(h => /รับเอกสาร|รับแจ้ง|รับรายงาน/.test(h)) || headers.find(h => /วันที่/.test(h));
         if (dateCol) {
           cleanedRows.sort((a, b) =>
             thaiDateToSortKey(b[dateCol] ?? '').localeCompare(thaiDateToSortKey(a[dateCol] ?? ''))

@@ -6,21 +6,38 @@ import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
+  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
 
 export default function SepaPage() {
   const [rsMin, setRsMin] = useState(60);
   const [fromHighMax, setFromHighMax] = useState(15);
+  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const { priceMap, fetchDone } = useLivePrices(sepaData.map(s => s.Ticker));
 
-  const filtered = useMemo(() =>
-    sepaData
+  const handleSort = (key: string) => {
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
+  const filtered = useMemo(() => {
+    let result = sepaData
       .filter(s => s.RS_Rating >= rsMin)
-      .filter(s => s['%_From_High'] >= -fromHighMax)
-      .sort((a, b) => b['%_From_High'] - a['%_From_High']),
-    [rsMin, fromHighMax]
-  );
+      .filter(s => s['%_From_High'] >= -fromHighMax);
+      
+    if (sortConfig) {
+      result = result.sort((a, b) => {
+        const aVal = (a as any)[sortConfig.key];
+        const bVal = (b as any)[sortConfig.key];
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+      });
+    } else {
+      result = result.sort((a, b) => b['%_From_High'] - a['%_From_High']);
+    }
+    return result;
+  }, [rsMin, fromHighMax, sortConfig]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -53,13 +70,13 @@ export default function SepaPage() {
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
-            <Th>Symbol</Th>
-            <Th right>Price</Th>
-            <Th right>SMA 50</Th>
-            <Th right>SMA 200</Th>
-            <Th right>52W High</Th>
-            <Th right>% From High</Th>
-            <Th right>RS</Th>
+            <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
+            <SortableTh right sortKey="%_From_High" currentSort={sortConfig} onSort={handleSort}>% From High</SortableTh>
+            <SortableTh right sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>
+            <SortableTh right sortKey="SMA_200" currentSort={sortConfig} onSort={handleSort}>SMA 200</SortableTh>
+            <SortableTh right sortKey="RS_Rating" currentSort={sortConfig} onSort={handleSort}>RS Rating</SortableTh>
           </tr>
         </thead>
         <tbody>

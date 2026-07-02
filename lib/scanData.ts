@@ -6,6 +6,8 @@ export interface ScanEntry {
   sepa: boolean;
   kell: boolean;
   breakout: boolean;
+  lekkung: boolean;
+  oneil: boolean;
   stage: string;
   rs_score: number;
   combo_score: number;

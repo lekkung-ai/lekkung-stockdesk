@@ -24,6 +24,7 @@ function stageCls(stage: string | null): string {
   if (stage === 'Bull' || stage === 'S.Bull') return 'bg-[#EAF3DE] text-[#27500A]';
   if (stage === 'Accumulation' || stage === 'Recovery') return 'bg-[#E6F1FB] text-[#0C447C]';
   if (stage === 'Warning') return 'bg-[#FAEEDA] text-[#633806]';
+  if (stage === 'UNKNOWN' || stage === 'Unknown') return 'bg-[#333333] text-[#A0A0A0]';
   return 'bg-[#FCEBEB] text-[#791F1F]';
 }
 
@@ -238,11 +239,9 @@ export default function SectorTickerGrid({ subsectors }: { subsectors: Subsector
 
                   {/* Stage + signal badges */}
                   <div className="flex flex-wrap gap-1 mb-1">
-                    {scan.stage && (
-                      <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(scan.stage)}`}>
-                        {scan.stage}
-                      </span>
-                    )}
+                    <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(scan.stage || 'UNKNOWN')}`}>
+                      {scan.stage || 'UNKNOWN'}
+                    </span>
                     {scan.sepa && (
                       <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EAF3DE] text-[#27500A]">SEPA</span>
                     )}
@@ -303,13 +302,11 @@ export default function SectorTickerGrid({ subsectors }: { subsectors: Subsector
                     </div>
 
                     {/* Stage badge */}
-                    {stage && (
-                      <div className="flex flex-wrap gap-1 mb-1">
-                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(stage)}`}>
-                          {stage}
-                        </span>
-                      </div>
-                    )}
+                    <div className="flex flex-wrap gap-1 mb-1">
+                      <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(stage || 'UNKNOWN')}`}>
+                        {stage || 'UNKNOWN'}
+                      </span>
+                    </div>
 
                     {/* Candlestick chart */}
                     <TickerCandleChart ticker={ticker} />

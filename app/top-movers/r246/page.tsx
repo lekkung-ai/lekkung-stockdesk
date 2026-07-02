@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Search, Calendar } from 'lucide-react';
+import { RefreshCw, Search, Calendar, ArrowDown, ArrowUp } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 
 const PER_PAGE = 20;
@@ -11,9 +11,7 @@ const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','�
 function todayISO() { return new Date().toISOString().slice(0, 10); }
 
 function daysAgoISO(n: number) {
-  const d = new Date();
-  d.setDate(d.getDate() - n);
-  return d.toISOString().slice(0, 10);
+  const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10);
 }
 
 function thaiDateToISO(thai: string): string | null {
@@ -83,6 +81,14 @@ export default function Report246Page() {
   const [fromDate, setFromDate] = useState(daysAgoISO(30));
   const [toDate, setToDate] = useState(todayISO());
   const [page, setPage] = useState(1);
+  const [sortCol, setSortCol] = useState('');
+  const [sortDesc, setSortDesc] = useState(true);
+
+  const handleSort = (col: string) => {
+    if (sortCol === col) setSortDesc(!sortDesc);
+    else { setSortCol(col); setSortDesc(true); }
+    setPage(1);
+  };
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -105,9 +111,11 @@ export default function Report246Page() {
   useEffect(() => { loadData(); }, [loadData]);
 
   const filteredRows = useMemo(() => {
-    return rawRows.filter(row => {
+    let result = rawRows.filter(row => {
       const rowISO = thaiDateToISO(row[COL_DATE] ?? '');
-      if (rowISO && (rowISO < fromDate || rowISO > toDate)) return false;
+      const effectiveDate = row.savedated ?? rowISO;
+      if (effectiveDate && (effectiveDate < fromDate || effectiveDate > toDate)) return false;
+
       if (query.trim()) {
         const q = query.toLowerCase();
         const ticker = (row[COL_TICKER] ?? '').toLowerCase();
@@ -116,7 +124,23 @@ export default function Report246Page() {
       }
       return true;
     });
-  }, [rawRows, fromDate, toDate, query]);
+
+    if (sortCol) {
+      result.sort((a, b) => {
+        const va = a[sortCol] ?? '';
+        const vb = b[sortCol] ?? '';
+        const numA = parseFloat(va.replace(/,/g, ''));
+        const numB = parseFloat(vb.replace(/,/g, ''));
+        const isNumA = !isNaN(numA) && /^[\d.,-]+$/.test(va);
+        const isNumB = !isNaN(numB) && /^[\d.,-]+$/.test(vb);
+        if (isNumA && isNumB) {
+          return sortDesc ? numB - numA : numA - numB;
+        }
+        return sortDesc ? vb.localeCompare(va, 'th') : va.localeCompare(vb, 'th');
+      });
+    }
+    return result;
+  }, [rawRows, query, sortCol, sortDesc]);
 
   const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
   const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -194,34 +218,62 @@ export default function Report246Page() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">หลักทรัพย์</th>
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">ผู้ถือหุ้น</th>
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วิธีการ</th>
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วันที่</th>
+                  {[COL_TICKER, COL_PERSON, COL_METHOD, COL_DATE].map(h => (
+                    <th 
+                      key={h} 
+                      onClick={() => handleSort(h)}
+                      className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                    >
+                      <div className="flex items-center gap-1">
+                        {h === COL_TICKER ? 'หลักทรัพย์' : h === COL_PERSON ? 'ผู้ถือหุ้น' : h === COL_METHOD ? 'วิธีการ' : 'วันที่'}
+                        <div className="flex flex-col opacity-0 group-hover:opacity-100 data-[active=true]:opacity-100 transition-opacity" data-active={sortCol === h}>
+                          {sortCol === h ? (
+                            sortDesc ? <ArrowDown size={10} className="text-white/50" /> : <ArrowUp size={10} className="text-white/50" />
+                          ) : (
+                            <ArrowDown size={10} className="text-white/20" />
+                          )}
+                        </div>
+                      </div>
+                    </th>
+                  ))}
                   {hasBeforeAfter && (
-                    <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง</th>
+                    <th className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง</th>
                   )}
                   {headers.includes(COL_CHANGE) && (
-                    <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">Δ%</th>
+                    <th 
+                      onClick={() => handleSort(COL_CHANGE)}
+                      className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                    >
+                      <div className="flex items-center gap-1">
+                        Δ%
+                        <div className="flex flex-col opacity-0 group-hover:opacity-100 data-[active=true]:opacity-100 transition-opacity" data-active={sortCol === COL_CHANGE}>
+                          {sortCol === COL_CHANGE ? (
+                            sortDesc ? <ArrowDown size={10} className="text-white/50" /> : <ArrowUp size={10} className="text-white/50" />
+                          ) : (
+                            <ArrowDown size={10} className="text-white/20" />
+                          )}
+                        </div>
+                      </div>
+                    </th>
                   )}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/[0.03]">
+            <tbody className="divide-y divide-white/[0.03]">
                 {pageRows.map((row, i) => (
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                     <td
                       onClick={() => row[COL_TICKER] && router.push(`/stock/${row[COL_TICKER]}`)}
-                      className="px-3 py-2.5 text-[12px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                      className="px-3 py-2.5 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
                     >
                       {row[COL_TICKER] ?? '—'}
                     </td>
-                    <td className="px-3 py-2.5 text-[12px] text-white/65 max-w-[200px] truncate">
+                    <td className="px-3 py-2.5 text-[13px] text-white/65 whitespace-normal max-w-[250px] leading-relaxed align-top">
                       {row[COL_PERSON] ?? '—'}
                     </td>
                     <td className="px-3 py-2.5 whitespace-nowrap">
                       <MethodBadge method={row[COL_METHOD] ?? ''} />
                     </td>
-                    <td className="px-3 py-2.5 text-[12px] text-white/55 whitespace-nowrap">
+                    <td className="px-3 py-2.5 text-[13px] text-white/55 whitespace-nowrap">
                       {row[COL_DATE] ?? '—'}
                     </td>
                     {hasBeforeAfter && (
@@ -230,7 +282,7 @@ export default function Report246Page() {
                       </td>
                     )}
                     {headers.includes(COL_CHANGE) && (
-                      <td className="px-3 py-2.5 text-[12px] tabular-nums text-white/55 whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-[13px] tabular-nums text-white/55 whitespace-nowrap">
                         {fmtPct(row[COL_CHANGE] ?? '')}
                       </td>
                     )}

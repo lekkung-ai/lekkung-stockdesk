@@ -102,6 +102,7 @@ function stageCls(stage: string): string {
   if (stage === 'Bull' || stage === 'S.Bull') return 'bg-[#EAF3DE] text-[#27500A]';
   if (stage === 'Accumulation' || stage === 'Recovery') return 'bg-[#E6F1FB] text-[#0C447C]';
   if (stage === 'Warning') return 'bg-[#FAEEDA] text-[#633806]';
+  if (stage === 'UNKNOWN' || stage === 'Unknown') return 'bg-[#333333] text-[#A0A0A0]';
   return 'bg-[#FCEBEB] text-[#791F1F]';
 }
 
@@ -532,7 +533,7 @@ export default function StockDetailPage({
 
       {/* ── SEC 246 ── */}
       {sec246 && sec246.rows.length > 0 && (
-        <SecReportCard title="รายงาน 246 · ผู้ถือหุ้นรายใหญ่" data={sec246} />
+        <SecReportCard title="รายงาน 246-2 · ผู้ถือหุ้นรายใหญ่" data={sec246} />
       )}
 
     </div>

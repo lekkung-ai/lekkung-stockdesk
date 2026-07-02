@@ -6,7 +6,7 @@ import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
-  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell,
+  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
 
 const SIGNALS = ['ทั้งหมด', 'EMAC Buy', 'Trend Riding'] as const;
@@ -21,15 +21,32 @@ function distColor(dist: number): string {
 export default function KellPage() {
   const [signalFilter, setSignalFilter] = useState<SignalFilter>('ทั้งหมด');
   const [distMax, setDistMax] = useState(8);
+  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const { priceMap, fetchDone } = useLivePrices(kellData.map(s => s.Ticker));
 
-  const filtered = useMemo(() =>
-    kellData
+  const handleSort = (key: string) => {
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
+  const filtered = useMemo(() => {
+    let result = kellData
       .filter(s => signalFilter === 'ทั้งหมด' || s.Signal === signalFilter)
-      .filter(s => s['Dist_EMA10_%'] <= distMax)
-      .sort((a, b) => a['Dist_EMA10_%'] - b['Dist_EMA10_%']),
-    [signalFilter, distMax]
-  );
+      .filter(s => s['Dist_EMA10_%'] <= distMax);
+      
+    if (sortConfig) {
+      result = result.sort((a, b) => {
+        const aVal = (a as any)[sortConfig.key];
+        const bVal = (b as any)[sortConfig.key];
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+      });
+    } else {
+      result = result.sort((a, b) => Math.abs(a['Dist_EMA10_%']) - Math.abs(b['Dist_EMA10_%']));
+    }
+    return result;
+  }, [signalFilter, distMax, sortConfig]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -74,12 +91,12 @@ export default function KellPage() {
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
-            <Th>Symbol</Th>
-            <Th>Signal</Th>
-            <Th right>Price</Th>
-            <Th right>EMA 10</Th>
-            <Th right>Dist %</Th>
-            <Th right>ADTV (MB)</Th>
+            <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
+            <SortableTh sortKey="Signal" currentSort={sortConfig} onSort={handleSort}>Signal</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>
+            <SortableTh right sortKey="Dist_EMA10_%" currentSort={sortConfig} onSort={handleSort}>% Dist EMA10</SortableTh>
+            <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
             <Th>Status</Th>
           </tr>
         </thead>

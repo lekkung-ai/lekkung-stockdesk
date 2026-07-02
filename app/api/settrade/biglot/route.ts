@@ -12,10 +12,10 @@ interface RssItem {
 
 export interface BigLotRow {
   symbol: string;
+  transactions: number;
   volume: number;
   value: number;
   avgPrice: number;
-  time: string;
 }
 
 function innerContent(tag: string, html: string): string[] {
@@ -33,6 +33,13 @@ function innerContent(tag: string, html: string): string[] {
   return out;
 }
 
+function stripTags(html: string): string {
+  let text = html.replace(/<[^>]+>/g, '');
+  text = text.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+  text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  return text.replace(/\s+/g, ' ').trim();
+}
+
 function pubDateToBangkokDate(pubDate: string): string {
   const d = new Date(pubDate);
   const bk = new Date(d.getTime() + 7 * 60 * 60 * 1000);
@@ -48,33 +55,41 @@ function parseRssItems(xml: string): RssItem[] {
     const title = titleM?.[1]?.trim() ?? '';
     const link = linkM?.[1]?.trim() ?? '';
     const pubDate = dateM?.[1]?.trim() ?? '';
-    if (!title.includes('(By Time)') || !link || !pubDate) continue;
+    if (!title.includes('วันนี้') || !title.includes('มูลค่าสูงสุด') || !link || !pubDate) continue;
     items.push({ title, link, pubDate, bangkokDate: pubDateToBangkokDate(pubDate) });
   }
   return items;
 }
 
-function parsePreRows(html: string): BigLotRow[] {
-  const preBlocks = innerContent('pre', html);
-  // PRE[0] is header row, PRE[1] is data rows
-  const dataText = (preBlocks[1] ?? preBlocks[0] ?? '').replace(/<[^>]+>/g, '');
+function parseTableRows(html: string): BigLotRow[] {
+  const tables = innerContent('table', html);
+  if (!tables.length) return [];
+  
   const rows: BigLotRow[] = [];
-  for (const line of dataText.split('\n')) {
-    const trimmed = line.trim();
-    if (!trimmed || !/^[A-Z]/.test(trimmed)) continue;
-    const parts = trimmed.split(/\s{2,}/);
-    if (parts.length < 4) continue;
-    const volume = parseFloat(parts[1]?.replace(/,/g, '') ?? '');
-    const rawValue = parseFloat(parts[2]?.replace(/,/g, '') ?? '');
-    const avgPrice = parseFloat(parts[3]?.replace(/,/g, '') ?? '');
-    if (isNaN(volume) || isNaN(rawValue) || isNaN(avgPrice)) continue;
-    rows.push({
-      symbol: parts[0],
-      volume,
-      value: parseFloat((rawValue / 1000).toFixed(2)), // พันบาท → ลบ.
-      avgPrice,
-      time: parts[4]?.trim() ?? '',
-    });
+  for (const tr of innerContent('tr', tables[0])) {
+    let tds = innerContent('td', tr);
+    if (!tds.length) tds = innerContent('th', tr);
+    
+    const cells = tds.map(stripTags);
+    if (cells.length >= 5) {
+      const symbol = cells[0].trim();
+      if (!symbol || !/^[A-Za-z0-9\-\.]+$/.test(symbol) || symbol === 'หลักทรัพย์') continue;
+      
+      const transactions = parseInt(cells[1].replace(/,/g, ''), 10);
+      const volume = parseInt(cells[2].replace(/,/g, ''), 10);
+      const rawValue = parseFloat(cells[3].replace(/,/g, ''));
+      const avgPrice = parseFloat(cells[4].replace(/,/g, ''));
+      
+      if (isNaN(transactions) || isNaN(volume) || isNaN(rawValue) || isNaN(avgPrice)) continue;
+      
+      rows.push({
+        symbol,
+        transactions,
+        volume,
+        value: parseFloat((rawValue / 1000).toFixed(2)),
+        avgPrice,
+      });
+    }
   }
   return rows;
 }
@@ -108,7 +123,7 @@ export async function GET(req: NextRequest) {
     });
     if (!artRes.ok) return Response.json({ error: `article_${artRes.status}`, rows: [] });
 
-    const rows = parsePreRows(await artRes.text());
+    const rows = parseTableRows(await artRes.text());
 
     // Cache: 30 min after 17:00 BKK, 5 min before
     const bkHour = new Date(Date.now() + 7 * 3600000).getUTCHours();
