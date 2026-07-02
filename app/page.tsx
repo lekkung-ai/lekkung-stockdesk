@@ -42,13 +42,13 @@ const sectorMap = rawSectorMap as SectorMap;
 
 const STAGE_ORDER = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 const STAGE_COLORS: Record<string, string> = {
-  'S.Bull': '#1D9E75',
-  'Bull': '#27AE60',
-  'Accumulation': '#378ADD',
-  'Recovery': '#5B9BD5',
-  'Warning': '#BA7517',
-  'Distribution': '#E24B4A',
-  'Bear': '#C0392B',
+  'S.Bull': '#1b5e20',
+  'Bull': '#4caf50',
+  'Accumulation': '#00bcd4',
+  'Recovery': '#9e9e9e',
+  'Warning': '#FFEB3B',
+  'Distribution': '#ff9800',
+  'Bear': '#ef5350',
 };
 const SECTOR_COLORS: Record<string, string> = {
   'Financials': '#378ADD',
