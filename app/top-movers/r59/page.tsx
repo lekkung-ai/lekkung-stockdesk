@@ -10,10 +10,6 @@ const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','�
 
 function todayISO() { return new Date().toISOString().slice(0, 10); }
 
-function daysAgoISO(n: number) {
-  const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10);
-}
-
 function isoToThaiLabel(iso: string): string {
   const [y, m, d] = iso.split('-');
   return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${parseInt(y) + 543}`;
@@ -49,7 +45,7 @@ export default function Report59Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
-  const [fromDate, setFromDate] = useState(daysAgoISO(30));
+  const [fromDate, setFromDate] = useState(todayISO());
   const [toDate, setToDate] = useState(todayISO());
   const [page, setPage] = useState(1);
   const [sortCol, setSortCol] = useState('');
