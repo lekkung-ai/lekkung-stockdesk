@@ -152,7 +152,7 @@ export default function OverviewPage() {
     { label: 'SEPA Pass',      count: sepaCount,     href: '/sepa',         color: '#1D9E75', bg: 'bg-[#1D9E75]/[0.08] border-[#1D9E75]/20 hover:border-[#1D9E75]/40' },
     { label: 'Oliver Kell',    count: kellCount,     href: '/kell',         color: '#378ADD', bg: 'bg-[#378ADD]/[0.08] border-[#378ADD]/20 hover:border-[#378ADD]/40' },
     { label: 'Breakout Setup', count: breakoutCount, href: '/breakout',     color: '#EF9F27', bg: 'bg-[#EF9F27]/[0.08] border-[#EF9F27]/20 hover:border-[#EF9F27]/40' },
-    { label: 'Dual Pass',      count: dualPass,      href: '/combo',        color: '#7F77DD', bg: 'bg-[#7F77DD]/[0.08] border-[#7F77DD]/20 hover:border-[#7F77DD]/40' },
+    { label: 'Dual Pass',      count: dualPass,      href: '/scanner',      color: '#7F77DD', bg: 'bg-[#7F77DD]/[0.08] border-[#7F77DD]/20 hover:border-[#7F77DD]/40' },
     { label: 'Stage 2 (Bull)', count: stage2Count,   href: '/market-stage', color: '#27AE60', bg: 'bg-[#27AE60]/[0.08] border-[#27AE60]/20 hover:border-[#27AE60]/40' },
   ];
 

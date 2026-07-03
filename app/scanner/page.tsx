@@ -10,6 +10,7 @@ import rawStageAll from '@/data/scans/stage_all.json';
 import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import MiniCandleChart from '@/components/MiniCandleChart';
 import {
   rsColor,
   stageCls,
@@ -254,6 +255,7 @@ function QuantScannerContent() {
             <SortableTh right className="hidden md:table-cell" sortKey="chg30d" currentSort={sortConfig} onSort={handleSort}>30D%</SortableTh>
             <SortableTh right sortKey="rs_score" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
             <SortableTh sortKey="entry" currentSort={sortConfig} onSort={handleSort}>จุดเข้า</SortableTh>
+            <Th className="hidden lg:table-cell">30D</Th>
           </tr>
         </thead>
         <tbody>
@@ -392,13 +394,17 @@ function QuantScannerContent() {
                     <span className="text-white/15 text-[11px]">—</span>
                   )}
                 </Td>
+
+                <Td className="hidden lg:table-cell">
+                  <MiniCandleChart ticker={row.ticker} width={160} height={46} />
+                </Td>
               </tr>
             );
           })}
 
           {rows.length === 0 && (
             <tr>
-              <td colSpan={9} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={10} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>

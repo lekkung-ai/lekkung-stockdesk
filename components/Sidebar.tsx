@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
-  Layers, Zap, Award, Trophy, Newspaper, Activity,
+  Layers, Zap, Newspaper, Activity,
   Settings, X, FileText, Package,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
@@ -18,8 +18,6 @@ const COUNTS = {
   lekkung: scanData.filter(s => s.lekkung).length,
   oneil: scanData.filter(s => s.oneil).length,
   weinstein: scanData.filter(s => (s as any).weinstein).length,
-  rs80: scanData.filter(s => s.rs_score >= 80).length,
-  combo3: scanData.filter(s => s.combo_score >= 3).length,
 };
 
 interface NavItem {
@@ -62,8 +60,6 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Stage Analysis', href: '/stage-analysis', icon: Layers, indent: true, count: COUNTS.weinstein },
       { label: 'Market Stage', href: '/market-stage', icon: Layers, indent: true, count: COUNTS.uptrend },
       { label: 'Breakout Setup', href: '/breakout', icon: Zap, indent: true, count: COUNTS.breakout },
-      { label: 'RS Leaders', href: '/rs-leaders', icon: Award, indent: true, count: COUNTS.rs80 },
-      { label: 'Combo Score', href: '/combo', icon: Trophy, indent: true, count: COUNTS.combo3 },
     ],
   },
 ];

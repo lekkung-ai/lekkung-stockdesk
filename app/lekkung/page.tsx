@@ -66,6 +66,7 @@ export default function LekkungPage() {
         <SliderField label="Market Cap (MB)" min={0} max={50000} value={mcapMin} onChange={setMcapMin} step={1000} />
       </FilterBar>
 
+      <div className="[&_td]:text-[14px] [&_th]:text-[11px]">
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
@@ -159,6 +160,7 @@ export default function LekkungPage() {
           )}
         </tbody>
       </TableWrap>
+      </div>
     </div>
   );
 }
