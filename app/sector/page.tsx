@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { getSectorsGrouped, sectorToSlug } from '@/lib/sectorData';
+import WarrantTable from '@/components/WarrantTable';
 
-type Market = 'SET' | 'MAI';
+type Market = 'SET' | 'MAI' | 'WARRANT';
 
 const SECTOR_COLORS: Record<string, string> = {
   'Agro':             '#5D9E4A',
@@ -24,7 +25,8 @@ function sectorColor(sector: string): string {
 
 export default function SectorPage() {
   const [market, setMarket] = useState<Market>('SET');
-  const sectors = getSectorsGrouped(market);
+  const isWarrantTab = market === 'WARRANT';
+  const sectors = isWarrantTab ? [] : getSectorsGrouped(market);
   const totalTickers = sectors.reduce((s, g) => s + g.totalCount, 0);
 
   return (
@@ -32,13 +34,13 @@ export default function SectorPage() {
       <div>
         <h1 className="text-[18px] font-bold text-white">Sector Map</h1>
         <p className="text-[12px] text-white/35 mt-0.5">
-          {sectors.length} sectors · {totalTickers} tickers
+          {isWarrantTab ? 'Warrant ที่ยัง trade อยู่ทั้งหมด' : `${sectors.length} sectors · ${totalTickers} tickers`}
         </p>
       </div>
 
       {/* Market tab switcher */}
       <div className="flex gap-2">
-        {(['SET', 'MAI'] as Market[]).map(m => (
+        {(['SET', 'MAI', 'WARRANT'] as Market[]).map(m => (
           <button
             key={m}
             onClick={() => setMarket(m)}
@@ -54,6 +56,9 @@ export default function SectorPage() {
         ))}
       </div>
 
+      {isWarrantTab ? (
+        <WarrantTable />
+      ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {sectors.map(({ sector, subsectors, totalCount }) => {
           const color = sectorColor(sector);
@@ -88,6 +93,7 @@ export default function SectorPage() {
           );
         })}
       </div>
+      )}
     </div>
   );
 }
