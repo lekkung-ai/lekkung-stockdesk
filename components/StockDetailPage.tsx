@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, AlertTriangle } from 'lucide-react';
 import { peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
+import type { CalendarRow } from '@/app/api/corporate-action/route';
+import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -112,6 +114,47 @@ function stageCls(stage: string): string {
   return 'bg-[#FCEBEB] text-[#791F1F]';
 }
 
+// ── Financial history helpers ────────────────────────────────────────────────
+type FinKind = 'money' | 'number' | 'percent' | 'ratio';
+interface FinRowDef {
+  key: keyof YearlyFinancials;
+  label: string;
+  kind: FinKind;
+  emphasize?: boolean;
+  showGrowth?: boolean;
+}
+const FIN_ROWS: FinRowDef[] = [
+  { key: 'totalRevenue', label: 'รายได้รวม', kind: 'money', emphasize: true, showGrowth: true },
+  { key: 'netIncome', label: 'กำไรสุทธิ', kind: 'money', showGrowth: true },
+  { key: 'eps', label: 'EPS', kind: 'number', emphasize: true, showGrowth: true },
+  { key: 'grossMargin', label: 'Gross Margin', kind: 'percent' },
+  { key: 'netMargin', label: 'Net Profit Margin', kind: 'percent' },
+  { key: 'roe', label: 'ROE', kind: 'percent' },
+  { key: 'roa', label: 'ROA', kind: 'percent' },
+  { key: 'de', label: 'หนี้สินรวม/ทุน (D/E)', kind: 'ratio' },
+  { key: 'operatingCashFlow', label: 'กระแสเงินสดจากการดำเนินงาน', kind: 'money' },
+];
+
+function fmtMoney(n: number | null): string {
+  if (n == null) return '—';
+  const abs = Math.abs(n);
+  const sign = n < 0 ? '-' : '';
+  if (abs >= 1e12) return `${sign}${(abs / 1e12).toFixed(2)} ล้านล้าน`;
+  if (abs >= 1e9) return `${sign}${(abs / 1e9).toFixed(2)} พันล้าน`;
+  if (abs >= 1e6) return `${sign}${(abs / 1e6).toFixed(1)} ล้าน`;
+  return `${sign}${abs.toLocaleString('th-TH')}`;
+}
+function formatFinVal(v: number | null, kind: FinKind): string {
+  if (v == null) return '—';
+  if (kind === 'money') return fmtMoney(v);
+  if (kind === 'percent') return `${v.toFixed(1)}%`;
+  return v.toFixed(2);
+}
+function yoyPct(curr: number | null, prev: number | null): number | null {
+  if (curr == null || prev == null || prev === 0) return null;
+  return ((curr - prev) / Math.abs(prev)) * 100;
+}
+
 // ── SEPA checklist ──────────────────────────────────────────────────────────
 function SepaChecklist({ entry }: { entry: SepaEntry }) {
   const fromHigh = entry['%_From_High'];
@@ -179,6 +222,8 @@ export default function StockDetailPage({
   const [newsIsGeneral, setNewsIsGeneral] = useState(false);
   const [sec59, setSec59] = useState<SecData | null>(null);
   const [sec246, setSec246] = useState<SecData | null>(null);
+  const [upcomingCA, setUpcomingCA] = useState<CalendarRow[]>([]);
+  const [financials, setFinancials] = useState<YearlyFinancials[] | null>(null);
 
   // Suppress unused warning for breakoutEntry (used as existence check)
   void breakoutEntry;
@@ -224,6 +269,24 @@ export default function StockDetailPage({
       .then(r => r.json())
       .then(d => setSec246(d))
       .catch(() => setSec246({ headers: [], rows: [] }));
+  }, [ticker]);
+
+  useEffect(() => {
+    const from = new Date().toISOString().slice(0, 10);
+    const toDate = new Date();
+    toDate.setDate(toDate.getDate() + 7);
+    const to = toDate.toISOString().slice(0, 10);
+    fetch(`/api/corporate-action?symbol=${encodeURIComponent(ticker)}&from=${from}&to=${to}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => setUpcomingCA(data?.rows ?? []))
+      .catch(() => setUpcomingCA([]));
+  }, [ticker]);
+
+  useEffect(() => {
+    fetch(`/api/financial-history/${encodeURIComponent(ticker)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => setFinancials(Array.isArray(data?.years) ? data.years : null))
+      .catch(() => setFinancials(null));
   }, [ticker]);
 
   const changeColor = quote
@@ -331,6 +394,24 @@ export default function StockDetailPage({
         )}
       </div>
 
+      {/* ── Upcoming corporate action warning ── */}
+      {upcomingCA.length > 0 && (
+        <div className="space-y-1.5">
+          {upcomingCA.map((ca, i) => (
+            <div
+              key={`${ca.caType}-${ca.xDate}-${i}`}
+              className="flex items-center gap-2 px-3.5 py-2.5 rounded-lg bg-[#EF9F27]/10 border border-[#EF9F27]/25 text-[12.5px] text-[#EF9F27]"
+            >
+              <AlertTriangle size={14} className="flex-shrink-0" />
+              <span>
+                <span className="font-bold">⚠️ {ca.caType}</span> วันที่ {new Date(ca.xDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
+                {ca.detail ? ` · ${ca.detail}` : ''}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* ── Chart ── */}
       <StockChart ticker={ticker} height={chartHeight} isPpbp={isPpbp} />
 
@@ -360,6 +441,56 @@ export default function StockDetailPage({
             ))}
           </div>
           <p className="text-[10px] text-white/20 mt-3 text-right">ที่มา: Yahoo Finance · อัปเดตทุก 1 ชั่วโมง</p>
+        </div>
+      )}
+
+      {/* ── Financial History ── */}
+      {financials && financials.length > 0 && (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
+          <h2 className="text-[13px] font-semibold text-white mb-4">ตัวเลขทางการเงินสำคัญ</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-white/[0.06]">
+                  <th className="pb-2 pr-4 text-[10px] font-semibold uppercase tracking-wider text-white/30 whitespace-nowrap">รายการ</th>
+                  {financials.map(y => (
+                    <th key={y.year} className="pb-2 px-3 text-[11px] font-semibold text-white/50 text-right whitespace-nowrap">
+                      {y.year}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.04]">
+                {FIN_ROWS.map(rowDef => {
+                  const values = financials.map(y => (y[rowDef.key] as number | null) ?? null);
+                  if (values.every(v => v == null)) return null;
+                  return (
+                    <tr key={rowDef.key}>
+                      <td className="py-2.5 pr-4 text-[12px] text-white/60 whitespace-nowrap">{rowDef.label}</td>
+                      {financials.map((y, i) => {
+                        const val = values[i];
+                        const prevVal = values[i + 1] ?? null;
+                        const growth = yoyPct(val, prevVal);
+                        const color = growth == null ? 'text-white/80' : growth > 0 ? 'text-[#1D9E75]' : growth < 0 ? 'text-[#E24B4A]' : 'text-white/80';
+                        return (
+                          <td
+                            key={y.year}
+                            className={`py-2.5 px-3 text-[12px] tabular-nums text-right whitespace-nowrap ${color} ${rowDef.emphasize ? 'font-semibold' : ''}`}
+                          >
+                            {formatFinVal(val, rowDef.kind)}
+                            {rowDef.showGrowth && growth != null && (
+                              <span className="ml-1.5 text-[10px] opacity-70">({growth >= 0 ? '+' : ''}{growth.toFixed(1)}%)</span>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-[10px] text-white/20 mt-3 text-right">ที่มา: Yahoo Finance · งบการเงินรายปี</p>
         </div>
       )}
 
