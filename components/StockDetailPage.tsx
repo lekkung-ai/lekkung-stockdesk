@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
+import AiAssistant from './AiAssistant';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -540,6 +541,8 @@ export default function StockDetailPage({
       {sec246 && sec246.rows.length > 0 && (
         <SecReportCard title="รายงาน 246-2 · ผู้ถือหุ้นรายใหญ่" data={sec246} />
       )}
+
+      <AiAssistant ticker={ticker} />
 
     </div>
   );
