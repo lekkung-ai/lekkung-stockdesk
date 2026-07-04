@@ -116,7 +116,10 @@ export async function GET(req: NextRequest) {
         );
       }
     }
-    return Response.json({ headers: [], rows: [], fetchDate, dateBasis: 'วันที่เผยแพร่' });
+    return Response.json(
+      { headers: [], rows: [], fetchDate, dateBasis: 'วันที่เผยแพร่' },
+      { headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60' } }
+    );
   } catch {
     return Response.json({ headers: [], rows: [], error: 'fetch_failed' });
   }

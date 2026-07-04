@@ -94,7 +94,10 @@ export async function GET(req: NextRequest) {
         );
       }
     }
-    return Response.json({ headers: [], rows: [], fetchDate, dateBasis: 'วันที่ สนง.รับเอกสาร' });
+    return Response.json(
+      { headers: [], rows: [], fetchDate, dateBasis: 'วันที่ สนง.รับเอกสาร' },
+      { headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60' } }
+    );
   } catch {
     return Response.json({ headers: [], rows: [], error: 'fetch_failed' });
   }
