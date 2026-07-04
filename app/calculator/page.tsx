@@ -46,6 +46,36 @@ function computeConversion(inp: ConversionInputs): ConversionResult {
   return { parentSharesFromExercise, additionalCashNeeded, totalCashUsed, costPerParentShare, diffVsParent, profitPct };
 }
 
+// ── XD/XR/XW dilution math ───────────────────────────────────────────────────
+// Unified TERP (theoretical ex-rights price) formula — XD is just the special
+// case where additionalPrice = 0 (a stock dividend gives new shares for free).
+// Verified against the reference spreadsheet's XD/XW/XR examples exactly.
+interface DilutionInputs {
+  priceBefore: number;
+  additionalPrice: number; // 0 for XD, exercise price for XW, subscription price for XR
+  oldRatio: number;
+  newRatio: number;
+  oldShares: number | null; // optional — only needed to show share counts
+}
+interface DilutionResult {
+  newShares: number | null;
+  totalShares: number | null;
+  dilutionPct: number;
+  increasePct: number;
+  priceAfter: number;
+  priceDilutionPct: number;
+}
+function computeDilution(inp: DilutionInputs): DilutionResult {
+  const denom = inp.oldRatio + inp.newRatio;
+  const dilutionPct = denom > 0 ? (inp.newRatio / denom) * 100 : 0;
+  const increasePct = inp.oldRatio > 0 ? (inp.newRatio / inp.oldRatio) * 100 : 0;
+  const priceAfter = denom > 0 ? (inp.priceBefore * inp.oldRatio + inp.additionalPrice * inp.newRatio) / denom : inp.priceBefore;
+  const priceDilutionPct = inp.priceBefore !== 0 ? ((priceAfter - inp.priceBefore) / inp.priceBefore) * 100 : 0;
+  const newShares = inp.oldShares != null && inp.oldRatio > 0 ? inp.oldShares * (inp.newRatio / inp.oldRatio) : null;
+  const totalShares = inp.oldShares != null && newShares != null ? inp.oldShares + newShares : null;
+  return { newShares, totalShares, dilutionPct, increasePct, priceAfter, priceDilutionPct };
+}
+
 // ── Lightweight parent-ticker autocomplete ───────────────────────────────────
 function TickerAutocomplete({
   value, onChange, onSubmit, placeholder,
@@ -130,6 +160,74 @@ function ResultRow({ label, value, highlight, sub }: { label: string; value: str
         {sub && <div className="text-[11px] text-white/25 mt-0.5">{sub}</div>}
       </div>
       <div className={`text-[16px] font-bold tabular-nums ${color}`}>{value}</div>
+    </div>
+  );
+}
+
+// ── One XD / XW / XR dilution card ───────────────────────────────────────────
+function DilutionBlock({
+  title, priceLabel, additionalPriceLabel, showShares, accentColor,
+}: {
+  title: string; priceLabel: string; additionalPriceLabel: string | null; showShares: boolean; accentColor: string;
+}) {
+  const [priceBefore, setPriceBefore] = useState(0);
+  const [additionalPrice, setAdditionalPrice] = useState(0);
+  const [oldRatio, setOldRatio] = useState(1);
+  const [newRatio, setNewRatio] = useState(1);
+  const [oldSharesInput, setOldSharesInput] = useState('');
+
+  const oldShares = oldSharesInput.trim() ? parseFloat(oldSharesInput) : null;
+  const result = useMemo(
+    () => computeDilution({ priceBefore, additionalPrice: additionalPriceLabel ? additionalPrice : 0, oldRatio, newRatio, oldShares }),
+    [priceBefore, additionalPrice, additionalPriceLabel, oldRatio, newRatio, oldShares]
+  );
+
+  return (
+    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderTop: `3px solid ${accentColor}` }}>
+      <div className="px-4 py-3 border-b border-white/[0.06]">
+        <h3 className="text-[14px] font-bold text-white">{title}</h3>
+      </div>
+      <div className="p-4 space-y-3">
+        <div className={`grid gap-2.5 ${additionalPriceLabel ? 'grid-cols-2' : 'grid-cols-3'}`}>
+          <FieldInput label={priceLabel} value={priceBefore} onChange={setPriceBefore} unit="บาท" decimals={2} />
+          {additionalPriceLabel && (
+            <FieldInput label={additionalPriceLabel} value={additionalPrice} onChange={setAdditionalPrice} unit="บาท" decimals={2} />
+          )}
+          <FieldInput label="สัดส่วน หุ้นเดิม" value={oldRatio} onChange={setOldRatio} decimals={2} />
+          <FieldInput label="สัดส่วน หุ้นใหม่" value={newRatio} onChange={setNewRatio} decimals={2} />
+        </div>
+
+        {showShares && (
+          <div className="bg-white/[0.03] rounded-lg px-3 py-2.5">
+            <div className="text-[11px] text-white/35 mb-1">จำนวนหุ้นเดิม (ไม่บังคับ)</div>
+            <input
+              type="number"
+              value={oldSharesInput}
+              step="any"
+              onChange={e => setOldSharesInput(e.target.value)}
+              placeholder="ใส่ถ้าต้องการดูจำนวนหุ้นที่เพิ่ม"
+              className="w-full bg-transparent text-[15px] font-semibold text-white tabular-nums outline-none placeholder:text-white/20 placeholder:text-[12px] placeholder:font-normal"
+            />
+          </div>
+        )}
+
+        <div className="pt-1">
+          <ResultRow label="Dilution" value={`${fmt(result.dilutionPct, 2)}%`} />
+          <ResultRow label="มีหุ้นเพิ่ม" value={`${fmt(result.increasePct, 2)}%`} />
+          {showShares && oldShares != null && (
+            <>
+              <ResultRow label="จำนวนหุ้นเพิ่ม" value={fmt(result.newShares, 0)} />
+              <ResultRow label="จำนวนหุ้นใหม่ (รวม)" value={fmt(result.totalShares, 0)} />
+            </>
+          )}
+          <ResultRow label={`ราคาวัน ${title.split(' ')[0]}`} value={`${fmt(result.priceAfter, 2)} บาท`} highlight="main" />
+          <ResultRow
+            label="Price dilution"
+            value={`${result.priceDilutionPct >= 0 ? '+' : ''}${fmt(result.priceDilutionPct, 2)}%`}
+            highlight={result.priceDilutionPct >= 0 ? 'pos' : 'neg'}
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -351,9 +449,36 @@ export default function CalculatorPage() {
           </p>
         </div>
       ) : (
-        <div className="py-20 text-center">
-          <p className="text-[14px] text-white/30">กำลังพัฒนา — เร็วๆ นี้</p>
-          <p className="text-[12px] text-white/20 mt-1">เครื่องคำนวณ Dilution จาก XD / XR / XW</p>
+        <div className="space-y-4">
+          <p className="text-[12px] text-white/35">
+            คำนวณราคาปรับฐาน (ราคาทฤษฎีหลังขึ้นเครื่องหมาย) และสัดส่วนหุ้นที่เพิ่มขึ้น — กรอกตัวเลขเองได้เลย แต่ละบล็อกคำนวณแยกอิสระจากกัน
+          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <DilutionBlock
+              title="XD Dilution"
+              priceLabel="ราคาก่อน XD"
+              additionalPriceLabel={null}
+              showShares
+              accentColor="#1D9E75"
+            />
+            <DilutionBlock
+              title="XW Dilution"
+              priceLabel="ราคาก่อน XW"
+              additionalPriceLabel="Exercise Price"
+              showShares
+              accentColor="#7F77DD"
+            />
+            <DilutionBlock
+              title="XR Dilution"
+              priceLabel="ราคาก่อน XR"
+              additionalPriceLabel="ราคาเพิ่มทุน"
+              showShares
+              accentColor="#378ADD"
+            />
+          </div>
+          <p className="text-[10px] text-white/20 text-right">
+            สูตร: ราคาทฤษฎี = (ราคาก่อน × สัดส่วนหุ้นเดิม + ราคาที่จ่ายเพิ่ม × สัดส่วนหุ้นใหม่) / (สัดส่วนหุ้นเดิม + สัดส่วนหุ้นใหม่)
+          </p>
         </div>
       )}
     </div>
