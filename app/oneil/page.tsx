@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { oneilData } from '@/lib/strategyData';
+import { daysInScan } from '@/lib/scanDays';
 import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
@@ -70,7 +71,8 @@ export default function OneilPage() {
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
-            <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
+            <Th right>Days</Th>
+            <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W H/L</SortableTh>
             <SortableTh right sortKey="%_From_52W_High" currentSort={sortConfig} onSort={handleSort}>% From 52W High</SortableTh>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>
             <SortableTh right sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
@@ -91,7 +93,15 @@ export default function OneilPage() {
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>
-              <Td right mono>{s['52W_High']?.toFixed(2) || '-'}</Td>
+              <Td right mono>
+                <span className="text-white/60">{daysInScan('oneil', s.Ticker) ?? '—'}</span>
+              </Td>
+              <Td right mono>
+                <div className="flex flex-col items-end leading-tight text-[11px]">
+                  <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
+                  <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
+                </div>
+              </Td>
               <Td right mono>
                 <span className={s['%_From_52W_High'] >= -15 ? 'text-[#1D9E75]' : 'text-white'}>
                   {s['%_From_52W_High']?.toFixed(1) || '-'}%
@@ -123,7 +133,7 @@ export default function OneilPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={11} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={12} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>

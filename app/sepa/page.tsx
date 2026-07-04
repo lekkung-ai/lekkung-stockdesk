@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { sepaData } from '@/lib/strategyData';
+import { daysInScan } from '@/lib/scanDays';
 import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
@@ -72,6 +73,7 @@ export default function SepaPage() {
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Days</Th>
             <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
             <SortableTh right sortKey="%_From_High" currentSort={sortConfig} onSort={handleSort}>% From High</SortableTh>
             <SortableTh right sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>
@@ -89,6 +91,9 @@ export default function SepaPage() {
               </Td>
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+              </Td>
+              <Td right mono>
+                <span className="text-white/60">{daysInScan('sepa', s.Ticker) ?? '—'}</span>
               </Td>
               <Td right mono>
                 <span className={s.Price > s.SMA_50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
@@ -115,7 +120,7 @@ export default function SepaPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={8} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={9} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>

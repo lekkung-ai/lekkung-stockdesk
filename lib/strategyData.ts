@@ -40,6 +40,7 @@ export interface OneilEntry {
   Ticker: string;
   Price: number;
   '52W_High': number;
+  '52W_Low': number;
   '%_From_52W_High': number;
   'ADTV(MB)': number;
   PE_Ratio: number;

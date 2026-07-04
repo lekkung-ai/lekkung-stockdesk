@@ -7,10 +7,12 @@ import rawCombined from '@/data/scans/combined.json';
 import rawMarketStage from '@/data/scans/market_stage.json';
 import rawPpbp from '@/data/scans/ppbp.json';
 import rawStageAll from '@/data/scans/stage_all.json';
+import rawWeinstein from '@/data/scans/weinstein.json';
 import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import MiniCandleChart from '@/components/MiniCandleChart';
+import Pagination from '@/components/Pagination';
 import {
   rsColor,
   stageCls,
@@ -61,6 +63,12 @@ const chg30dMap = new Map<string, number | null>(
   (rawStageAll as unknown as StageAllEntry[]).map(r => [r.Ticker, r.Chg30D ?? null])
 );
 
+// 52W High/Low map — weinstein.json covers ~all SET tickers
+const w52Map = new Map<string, { high: number; low: number }>(
+  (rawWeinstein as unknown as { Ticker: string; '52W_High': number; '52W_Low': number }[])
+    .map(w => [w.Ticker, { high: w['52W_High'], low: w['52W_Low'] }])
+);
+
 // ─── Row type & helpers ────────────────────────────────────────────────────────
 
 type EntryKind = 'ppbp' | 'pullback' | 'breakout' | 'none';
@@ -99,6 +107,8 @@ type SignalOpt = (typeof SIGNAL_OPTS)[number];
 
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 
+const PER_PAGE = 30;
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 function QuantScannerContent() {
@@ -118,6 +128,7 @@ function QuantScannerContent() {
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
   const [filterOpen, setFilterOpen] = useState(false);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [page, setPage] = useState(1);
   const { priceMap, changePctMap, fetchDone } = useLivePrices(allRows.map(r => r.ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
@@ -176,6 +187,13 @@ function QuantScannerContent() {
       return (b.rs_score ?? 0) - (a.rs_score ?? 0);
     });
   }, [sigFilter, stages, allStagesSelected, sortConfig, priceMap, changePctMap]);
+
+  // Reset to first page whenever the filter/sort result set changes
+  useEffect(() => { setPage(1); }, [sigFilter, stages, sortConfig]);
+
+  const totalPages = Math.max(1, Math.ceil(rows.length / PER_PAGE));
+  const safePage = Math.min(page, totalPages);
+  const pageRows = rows.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -253,13 +271,15 @@ function QuantScannerContent() {
             <SortableTh right className="hidden md:table-cell" sortKey="price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <SortableTh right className="hidden md:table-cell" sortKey="chg1d" currentSort={sortConfig} onSort={handleSort}>1D%</SortableTh>
             <SortableTh right className="hidden md:table-cell" sortKey="chg30d" currentSort={sortConfig} onSort={handleSort}>30D%</SortableTh>
+            <Th right className="hidden md:table-cell">52W H/L</Th>
             <SortableTh right sortKey="rs_score" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
             <SortableTh sortKey="entry" currentSort={sortConfig} onSort={handleSort}>จุดเข้า</SortableTh>
             <Th className="hidden lg:table-cell">30D</Th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, i) => {
+          {pageRows.map((row, i) => {
+            const rank = (safePage - 1) * PER_PAGE + i + 1;
             const livePrice = priceMap[row.ticker];
             const changePct = changePctMap[row.ticker];
             const displayPrice = livePrice ?? row.price;
@@ -271,7 +291,7 @@ function QuantScannerContent() {
                 className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors"
               >
                 <Td>
-                  <span className="text-white/20 tabular-nums">{i + 1}</span>
+                  <span className="text-white/20 tabular-nums">{rank}</span>
                 </Td>
 
                 <Td>
@@ -367,6 +387,17 @@ function QuantScannerContent() {
                   )}
                 </Td>
 
+                <Td right mono className="hidden md:table-cell">
+                  {w52Map.get(row.ticker) ? (
+                    <div className="flex flex-col items-end leading-tight text-[11px]">
+                      <span className="text-[#E24B4A]">{w52Map.get(row.ticker)!.high.toFixed(2)}</span>
+                      <span className="text-[#1D9E75]">{w52Map.get(row.ticker)!.low.toFixed(2)}</span>
+                    </div>
+                  ) : (
+                    <span className="text-white/25">—</span>
+                  )}
+                </Td>
+
                 <Td right mono>
                   {row.rs_score != null ? (
                     <span
@@ -396,7 +427,7 @@ function QuantScannerContent() {
                 </Td>
 
                 <Td className="hidden lg:table-cell">
-                  <MiniCandleChart ticker={row.ticker} width={160} height={46} />
+                  <MiniCandleChart ticker={row.ticker} width={220} height={58} />
                 </Td>
               </tr>
             );
@@ -404,13 +435,15 @@ function QuantScannerContent() {
 
           {rows.length === 0 && (
             <tr>
-              <td colSpan={10} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={11} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
           )}
         </tbody>
       </TableWrap>
+
+      {totalPages > 1 && <Pagination page={safePage} totalPages={totalPages} onChange={setPage} />}
     </div>
   );
 }

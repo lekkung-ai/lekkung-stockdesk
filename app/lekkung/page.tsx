@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { lekkungData } from '@/lib/strategyData';
+import { daysInScan } from '@/lib/scanDays';
 import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
@@ -73,6 +74,7 @@ export default function LekkungPage() {
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Close" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Days</Th>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>
             <SortableTh right sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
             <SortableTh right sortKey="Revenue_Growth_YoY" currentSort={sortConfig} onSort={handleSort}>Rev Gr (YoY)</SortableTh>
@@ -98,6 +100,9 @@ export default function LekkungPage() {
               </Td>
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Close} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+              </Td>
+              <Td right mono>
+                <span className="text-white/60">{daysInScan('lekkung', s.Ticker) ?? '—'}</span>
               </Td>
               <Td right mono>{s.PE_Ratio?.toFixed(2) || '-'}</Td>
               <Td right mono>
@@ -130,7 +135,7 @@ export default function LekkungPage() {
             </tr>
             {selectedTicker === s.Ticker && (
               <tr key={`${s.Ticker}-chart`} className="bg-black/20 border-b border-white/[0.04]">
-                <td colSpan={11} className="p-4">
+                <td colSpan={12} className="p-4">
                   <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 shadow-lg relative">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-baseline gap-2">
@@ -153,7 +158,7 @@ export default function LekkungPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={11} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={12} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>

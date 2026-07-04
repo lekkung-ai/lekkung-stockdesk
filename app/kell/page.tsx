@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { kellData } from '@/lib/strategyData';
+import { daysInScan } from '@/lib/scanDays';
 import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
@@ -94,6 +95,7 @@ export default function KellPage() {
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh sortKey="Signal" currentSort={sortConfig} onSort={handleSort}>Signal</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Days</Th>
             <SortableTh right sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>
             <SortableTh right sortKey="Dist_EMA10_%" currentSort={sortConfig} onSort={handleSort}>% Dist EMA10</SortableTh>
             <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
@@ -120,6 +122,9 @@ export default function KellPage() {
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>
+              <Td right mono>
+                <span className="text-white/60">{daysInScan('kell', s.Ticker) ?? '—'}</span>
+              </Td>
               <Td right mono>{s.EMA10.toFixed(2)}</Td>
               <Td right mono>
                 <span className="font-semibold" style={{ color: distColor(s['Dist_EMA10_%']) }}>
@@ -140,7 +145,7 @@ export default function KellPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={8} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={9} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
