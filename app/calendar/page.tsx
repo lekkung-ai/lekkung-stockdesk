@@ -2,9 +2,12 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Search, Calendar as CalendarIcon } from 'lucide-react';
+import { RefreshCw, Search, Calendar as CalendarIcon, ArrowDown, ArrowUp } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
+
+type SortKey = 'xDate' | 'ticker' | 'caType' | 'detail' | 'payDate';
+type SortConfig = { key: SortKey; dir: 'asc' | 'desc' } | null;
 
 const PER_PAGE = 20;
 const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
@@ -34,10 +37,55 @@ const BUCKET_STYLE: Record<string, string> = {
   XA: 'bg-orange-500/20 text-orange-400',
 };
 
-function BucketBadge({ bucket, caType }: { bucket: string; caType: string }) {
+// Days from today until the given ISO date (yyyy-mm-dd), timezone-safe.
+function daysUntil(iso: string): number {
+  const target = new Date(iso + 'T00:00:00Z').getTime();
+  const today = new Date(todayISO() + 'T00:00:00Z').getTime();
+  return Math.round((target - today) / 86400000);
+}
+
+// XR/XW carry an action deadline (subscription end date) — highlight it as it
+// approaches: red when ≤3 days left, yellow when 4-7 days left.
+function urgencyCls(row: CalendarRow): string | null {
+  if (row.bucket !== 'XR' && row.bucket !== 'XW') return null;
+  if (!row.payDate) return null;
+  const days = daysUntil(row.payDate);
+  if (days < 0) return null;
+  if (days <= 3) return 'bg-red-500/20 text-red-400';
+  if (days <= 7) return 'bg-yellow-500/20 text-yellow-400';
+  return null;
+}
+
+function SortTh({
+  sortKey, label, sortConfig, onSort, className = '',
+}: {
+  sortKey: SortKey; label: string; sortConfig: SortConfig; onSort: (k: SortKey) => void; className?: string;
+}) {
+  const active = sortConfig?.key === sortKey;
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${BUCKET_STYLE[bucket] ?? BUCKET_STYLE.XA}`}>
-      {caType}
+    <th
+      onClick={() => onSort(sortKey)}
+      className={`px-3 py-3 text-[11px] font-semibold uppercase tracking-wider whitespace-nowrap cursor-pointer select-none group ${active ? 'text-white/60' : 'text-white/25 hover:text-white/40'} ${className}`}
+    >
+      <div className="flex items-center gap-1">
+        {label}
+        <div className={`flex flex-col opacity-0 group-hover:opacity-100 transition-opacity ${active ? 'opacity-100' : ''}`}>
+          {active ? (
+            sortConfig!.dir === 'asc' ? <ArrowUp size={10} className="text-white/50" /> : <ArrowDown size={10} className="text-white/50" />
+          ) : (
+            <ArrowDown size={10} className="text-white/20" />
+          )}
+        </div>
+      </div>
+    </th>
+  );
+}
+
+function BucketBadge({ row }: { row: CalendarRow }) {
+  const cls = urgencyCls(row) ?? BUCKET_STYLE[row.bucket] ?? BUCKET_STYLE.XA;
+  return (
+    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold ${cls}`}>
+      {row.caType}
     </span>
   );
 }
@@ -52,6 +100,12 @@ export default function CalendarPage() {
   const [fromDate, setFromDate] = useState(todayISO());
   const [toDate, setToDate] = useState(addDaysISO(todayISO(), 7));
   const [page, setPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+
+  const handleSort = (key: SortKey) => {
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'asc' });
+    setPage(1);
+  };
 
   const loadData = useCallback(async (from: string, to: string) => {
     setLoading(true);
@@ -72,12 +126,26 @@ export default function CalendarPage() {
   useEffect(() => { loadData(fromDate, toDate); }, [loadData, fromDate, toDate]);
 
   const filteredRows = useMemo(() => {
-    return rows.filter(r => {
+    const result = rows.filter(r => {
       if (bucket !== 'ทั้งหมด' && r.bucket !== bucket) return false;
       if (query.trim() && !r.ticker.toLowerCase().includes(query.trim().toLowerCase())) return false;
       return true;
     });
-  }, [rows, bucket, query]);
+
+    if (sortConfig) {
+      const { key, dir } = sortConfig;
+      result.sort((a, b) => {
+        const va = a[key];
+        const vb = b[key];
+        if (va == null && vb == null) return 0;
+        if (va == null) return 1;   // nulls (e.g. missing payDate) always sort last
+        if (vb == null) return -1;
+        return dir === 'asc' ? va.localeCompare(vb, 'th') : vb.localeCompare(va, 'th');
+      });
+    }
+    // Default (no sort clicked): server already returns ascending by X-Date (closest first)
+    return result;
+  }, [rows, bucket, query, sortConfig]);
 
   const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
   const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -103,7 +171,7 @@ export default function CalendarPage() {
           <button
             key={b}
             onClick={() => { setBucket(b); setPage(1); }}
-            className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
+            className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
               bucket === b
                 ? (b === 'ทั้งหมด' ? 'bg-white/15 text-white' : BUCKET_STYLE[b])
                 : 'bg-white/[0.04] text-white/30 hover:text-white/60'
@@ -172,32 +240,32 @@ export default function CalendarPage() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วันขึ้นเครื่องหมาย (X-Date)</th>
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">หลักทรัพย์</th>
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">เครื่องหมาย</th>
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25">รายละเอียด</th>
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วันจ่าย/ประชุม</th>
+                  <SortTh sortKey="xDate" label="วันขึ้นเครื่องหมาย (X-Date)" sortConfig={sortConfig} onSort={handleSort} />
+                  <SortTh sortKey="ticker" label="หลักทรัพย์" sortConfig={sortConfig} onSort={handleSort} />
+                  <SortTh sortKey="caType" label="เครื่องหมาย" sortConfig={sortConfig} onSort={handleSort} />
+                  <SortTh sortKey="detail" label="รายละเอียด" sortConfig={sortConfig} onSort={handleSort} className="!normal-case" />
+                  <SortTh sortKey="payDate" label="วันจ่าย/ประชุม" sortConfig={sortConfig} onSort={handleSort} />
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.03]">
                 {pageRows.map((row, i) => (
                   <tr key={`${row.ticker}-${row.caType}-${row.xDate}-${i}`} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-3 py-2.5 text-[12px] text-white/55 whitespace-nowrap">
+                    <td className="px-3 py-3 text-[14px] text-white/55 whitespace-nowrap">
                       {isoToThaiLabel(row.xDate)}
                     </td>
                     <td
                       onClick={() => router.push(`/stock/${row.ticker}`)}
-                      className="px-3 py-2.5 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                      className="px-3 py-3 text-[15px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
                     >
                       {row.ticker}
                     </td>
-                    <td className="px-3 py-2.5 whitespace-nowrap">
-                      <BucketBadge bucket={row.bucket} caType={row.caType} />
+                    <td className="px-3 py-3 whitespace-nowrap">
+                      <BucketBadge row={row} />
                     </td>
-                    <td className="px-3 py-2.5 text-[12px] text-white/65 max-w-[360px]">
+                    <td className="px-3 py-3 text-[14px] text-white/65 max-w-[360px]">
                       {row.detail}
                     </td>
-                    <td className="px-3 py-2.5 text-[12px] text-white/55 whitespace-nowrap">
+                    <td className="px-3 py-3 text-[14px] text-white/55 whitespace-nowrap">
                       {isoToThaiLabel(row.payDate)}
                     </td>
                   </tr>
