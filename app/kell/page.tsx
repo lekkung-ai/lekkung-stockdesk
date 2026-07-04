@@ -36,6 +36,11 @@ export default function KellPage() {
       
     if (sortConfig) {
       result = result.sort((a, b) => {
+        if (sortConfig.key === '__days') {
+          const aVal = daysInScan('kell', a.Ticker) ?? -1;
+          const bVal = daysInScan('kell', b.Ticker) ?? -1;
+          return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
         const aVal = (a as any)[sortConfig.key];
         const bVal = (b as any)[sortConfig.key];
         if (typeof aVal === 'string' && typeof bVal === 'string') {
@@ -95,7 +100,7 @@ export default function KellPage() {
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh sortKey="Signal" currentSort={sortConfig} onSort={handleSort}>Signal</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
-            <Th right>Days</Th>
+            <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>
             <SortableTh right sortKey="Dist_EMA10_%" currentSort={sortConfig} onSort={handleSort}>% Dist EMA10</SortableTh>
             <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>

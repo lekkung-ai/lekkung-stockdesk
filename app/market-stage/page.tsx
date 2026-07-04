@@ -8,6 +8,8 @@ import { useLivePrices } from '@/lib/useLivePrices';
 import {
   stageCls, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
+import StockChart from '@/components/StockChart';
+import React from 'react';
 
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear', 'UNKNOWN'];
 
@@ -25,6 +27,7 @@ const STAGE_ORDER: Record<string, number> = {
 export default function MarketStagePage() {
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const { priceMap, fetchDone } = useLivePrices(stageData.map(s => s.Ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
@@ -114,11 +117,20 @@ export default function MarketStagePage() {
         </thead>
         <tbody>
           {filtered.map((s, i) => (
-            <tr key={s.Ticker} className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
+            <React.Fragment key={s.Ticker}>
+            <tr
+              onClick={() => setSelectedTicker(selectedTicker === s.Ticker ? null : s.Ticker)}
+              className={`border-b border-white/[0.04] transition-colors cursor-pointer ${
+                selectedTicker === s.Ticker ? 'bg-white/[0.08]' : 'hover:bg-white/[0.025]'
+              }`}
+            >
               <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
                 <div className="font-bold text-white">{s.Ticker}</div>
                 <SectorChip ticker={s.Ticker} />
+              </Td>
+              <Td right mono>
+                <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>
               <Td>
                 <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(s.Stage)}`}>
@@ -126,7 +138,7 @@ export default function MarketStagePage() {
                 </span>
               </Td>
               <Td right mono>
-                <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+                <span className="text-white/60">{s.Bar_Count != null ? s.Bar_Count : '-'} วัน</span>
               </Td>
               <Td right mono>
                 <span className={s.Price > (s.EMA50 || 0) ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
@@ -138,11 +150,30 @@ export default function MarketStagePage() {
                   {s.EMA200 != null ? s.EMA200.toFixed(2) : '-'}
                 </span>
               </Td>
-              <Td right mono>
-                <span className="text-white/60">{s.Bar_Count != null ? s.Bar_Count : '-'} วัน</span>
-              </Td>
               <Td right mono>{s['ADTV(MB)'] != null ? s['ADTV(MB)'].toFixed(0) : '-'}</Td>
             </tr>
+            {selectedTicker === s.Ticker && (
+              <tr key={`${s.Ticker}-chart`} className="bg-black/20 border-b border-white/[0.04]">
+                <td colSpan={8} className="p-4">
+                  <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 shadow-lg relative">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-baseline gap-2">
+                        <h2 className="text-[16px] font-bold text-white tracking-wide">{s.Ticker}</h2>
+                        <span className="text-[11px] text-white/40">EMA50 / EMA200</span>
+                      </div>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setSelectedTicker(null); }}
+                        className="text-[11px] text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
+                      >
+                        ปิดกราฟ
+                      </button>
+                    </div>
+                    <StockChart ticker={s.Ticker} height={350} />
+                  </div>
+                </td>
+              </tr>
+            )}
+            </React.Fragment>
           ))}
           {filtered.length === 0 && (
             <tr>

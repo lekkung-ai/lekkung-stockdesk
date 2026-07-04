@@ -34,6 +34,11 @@ export default function LekkungPage() {
       
     if (sortConfig) {
       result = result.sort((a, b) => {
+        if (sortConfig.key === '__days') {
+          const aVal = daysInScan('lekkung', a.Ticker) ?? -1;
+          const bVal = daysInScan('lekkung', b.Ticker) ?? -1;
+          return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
         const aVal = (a as any)[sortConfig.key];
         const bVal = (b as any)[sortConfig.key];
         if (typeof aVal === 'string' && typeof bVal === 'string') {
@@ -74,7 +79,7 @@ export default function LekkungPage() {
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Close" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
-            <Th right>Days</Th>
+            <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>
             <SortableTh right sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
             <SortableTh right sortKey="Revenue_Growth_YoY" currentSort={sortConfig} onSort={handleSort}>Rev Gr (YoY)</SortableTh>

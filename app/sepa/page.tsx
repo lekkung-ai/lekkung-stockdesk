@@ -27,6 +27,11 @@ export default function SepaPage() {
       
     if (sortConfig) {
       result = result.sort((a, b) => {
+        if (sortConfig.key === '__days') {
+          const aVal = daysInScan('sepa', a.Ticker) ?? -1;
+          const bVal = daysInScan('sepa', b.Ticker) ?? -1;
+          return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
         const aVal = (a as any)[sortConfig.key];
         const bVal = (b as any)[sortConfig.key];
         if (typeof aVal === 'string' && typeof bVal === 'string') {
@@ -73,7 +78,7 @@ export default function SepaPage() {
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
-            <Th right>Days</Th>
+            <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
             <SortableTh right sortKey="%_From_High" currentSort={sortConfig} onSort={handleSort}>% From High</SortableTh>
             <SortableTh right sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>
