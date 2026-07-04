@@ -112,7 +112,7 @@ export async function GET(req: NextRequest) {
 
         return Response.json(
           { headers, rows: cleanedRows, fetchDate, dateBasis: 'วันที่เผยแพร่', from: dateFrom, to: dateTo },
-          { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60' } }
+          { headers: { 'Cache-Control': 'public, max-age=300, s-maxage=300, stale-while-revalidate=60' } }
         );
       }
     }

@@ -65,7 +65,8 @@ export default function Report246Page() {
   const [headers, setHeaders] = useState<string[]>([]);
   const [rawRows, setRawRows] = useState<Record<string, string>[]>([]);
   const [fetchDate, setFetchDate] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
   const [fromDate, setFromDate] = useState(todayISO());
@@ -80,10 +81,10 @@ export default function Report246Page() {
     setPage(1);
   };
 
-  const loadData = useCallback(async (from: string, to: string) => {
-    setLoading(true);
+  const loadData = useCallback(async (from: string, to: string, background = false) => {
+    if (background) setRefreshing(true);
+    else { setLoading(true); setPage(1); }
     setError(false);
-    setPage(1);
     try {
       const res = await fetch(`/api/sec/r246?from=${from}&to=${to}`);
       if (!res.ok) throw new Error();
@@ -92,14 +93,41 @@ export default function Report246Page() {
       setRawRows(data.rows ?? []);
       setFetchDate(data.fetchDate ?? '');
     } catch {
-      setError(true);
+      if (!background) setError(true);
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   }, []);
 
-  // Re-fetch whenever the publish-date range changes (filtered server-side by วันที่เผยแพร่)
-  useEffect(() => { loadData(fromDate, toDate); }, [loadData, fromDate, toDate]);
+  // Default (today) view: paint the static JSON snapshot instantly, then refresh
+  // live in the background. Custom date ranges fetch live directly (with spinner).
+  useEffect(() => {
+    let cancelled = false;
+    const today = todayISO();
+    const isDefault = fromDate === today && toDate === today;
+    if (!isDefault) { loadData(fromDate, toDate); return; }
+
+    (async () => {
+      let painted = false;
+      try {
+        const jr = await fetch('/data/sec/r246.json', { cache: 'no-store' });
+        if (jr.ok) {
+          const j = await jr.json();
+          if (!cancelled && j?.date === today && Array.isArray(j.rows)) {
+            setHeaders(j.headers ?? []);
+            setRawRows(j.rows ?? []);
+            setFetchDate(j.fetchDate ?? j.date ?? '');
+            setLoading(false);
+            painted = true;
+          }
+        }
+      } catch { /* fall through to live */ }
+      if (!cancelled) loadData(today, today, painted);
+    })();
+
+    return () => { cancelled = true; };
+  }, [loadData, fromDate, toDate]);
 
   const filteredRows = useMemo(() => {
     // Date range is applied server-side; here we only do text search + sort.
@@ -144,10 +172,11 @@ export default function Report246Page() {
           <p className="text-[12px] text-white/35 mt-0.5">
             การได้มา/จำหน่ายหลักทรัพย์ของผู้ถือหุ้นรายใหญ่ · SEC · กรองตามวันที่เผยแพร่
             {fetchDate && ` · ดึงข้อมูลเมื่อ ${isoToThaiLabel(fetchDate)}`}
+            {refreshing && ' · กำลังอัปเดต…'}
           </p>
         </div>
         <button onClick={() => loadData(fromDate, toDate)} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
-          <RefreshCw size={13} />
+          <RefreshCw size={13} className={loading || refreshing ? 'animate-spin' : ''} />
         </button>
       </div>
 
