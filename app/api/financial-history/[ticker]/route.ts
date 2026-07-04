@@ -12,6 +12,7 @@ const TYPES = [
   'annualStockholdersEquity',
   'annualTotalLiabilitiesNetMinorityInterest',
   'annualOperatingCashFlow',
+  'annualFreeCashFlow',
 ].join(',');
 
 function httpsGet(url: string, headers: Record<string, string>): Promise<{ body: string; cookies: string[] }> {
@@ -80,6 +81,7 @@ export interface YearlyFinancials {
   stockholdersEquity: number | null;
   totalLiabilities: number | null;
   operatingCashFlow: number | null;
+  freeCashFlow: number | null;
   grossMargin: number | null;   // %
   netMargin: number | null;     // %
   roe: number | null;           // %
@@ -124,6 +126,7 @@ export async function GET(
     const equity = seriesOf(results, 'annualStockholdersEquity');
     const liabilities = seriesOf(results, 'annualTotalLiabilitiesNetMinorityInterest');
     const opCashFlow = seriesOf(results, 'annualOperatingCashFlow');
+    const freeCashFlow = seriesOf(results, 'annualFreeCashFlow');
 
     const years = [...new Set([...revenue.keys(), ...netIncome.keys()])].sort().reverse().slice(0, 4);
 
@@ -144,6 +147,7 @@ export async function GET(
         stockholdersEquity: eq,
         totalLiabilities: li,
         operatingCashFlow: opCashFlow.get(year) ?? null,
+        freeCashFlow: freeCashFlow.get(year) ?? null,
         grossMargin: gp != null && rev ? (gp / rev) * 100 : null,
         netMargin: ni != null && rev ? (ni / rev) * 100 : null,
         roe: ni != null && eq ? (ni / eq) * 100 : null,

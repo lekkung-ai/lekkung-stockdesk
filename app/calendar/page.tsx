@@ -172,7 +172,7 @@ export default function CalendarPage() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วันที่</th>
+                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">วันขึ้นเครื่องหมาย (X-Date)</th>
                   <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">หลักทรัพย์</th>
                   <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">เครื่องหมาย</th>
                   <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-wider text-white/25">รายละเอียด</th>

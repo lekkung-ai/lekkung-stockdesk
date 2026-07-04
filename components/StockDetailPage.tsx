@@ -87,6 +87,7 @@ interface FundamentalData {
   deMissing: boolean;
   divYield: number | null;
   marketCap: string;
+  payoutRatio: number | null;
 }
 
 interface Props {
@@ -133,6 +134,7 @@ const FIN_ROWS: FinRowDef[] = [
   { key: 'roa', label: 'ROA', kind: 'percent' },
   { key: 'de', label: 'หนี้สินรวม/ทุน (D/E)', kind: 'ratio' },
   { key: 'operatingCashFlow', label: 'กระแสเงินสดจากการดำเนินงาน', kind: 'money' },
+  { key: 'freeCashFlow', label: 'กระแสเงินสดอิสระ (FCF)', kind: 'money' },
 ];
 
 function fmtMoney(n: number | null): string {
@@ -427,6 +429,7 @@ export default function StockDetailPage({
               { label: 'EPS',        value: fundamental.eps != null   ? fundamental.eps.toFixed(2)     : '—' },
               { label: 'D/E',        value: fundamental.de != null ? fundamental.de.toFixed(2) : fundamental.deMissing && sectorInfo?.sector === 'Financials' ? 'N/A (ธนาคาร)' : '—' },
               { label: 'Div Yield',  value: fundamental.divYield != null ? `${fundamental.divYield.toFixed(2)}%` : '—' },
+              { label: 'Payout Ratio', value: fundamental.payoutRatio != null ? `${fundamental.payoutRatio.toFixed(1)}%` : '—' },
               { label: 'Market Cap', value: fundamental.marketCap },
             ] as { label: string; value: string; color?: string }[]).map(item => (
               <div key={item.label} className="bg-white/[0.03] rounded-lg px-3 py-3">
@@ -440,7 +443,7 @@ export default function StockDetailPage({
               </div>
             ))}
           </div>
-          <p className="text-[10px] text-white/20 mt-3 text-right">ที่มา: Yahoo Finance · อัปเดตทุก 1 ชั่วโมง</p>
+          <p className="text-[10px] text-white/20 mt-3 text-right">ที่มา: TradingView · อัปเดตทุก 5 นาที</p>
         </div>
       )}
 
@@ -452,9 +455,9 @@ export default function StockDetailPage({
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  <th className="pb-2 pr-4 text-[10px] font-semibold uppercase tracking-wider text-white/30 whitespace-nowrap">รายการ</th>
+                  <th className="pb-2 pr-4 text-[11px] font-semibold uppercase tracking-wider text-white/30 whitespace-nowrap">รายการ</th>
                   {financials.map(y => (
-                    <th key={y.year} className="pb-2 px-3 text-[11px] font-semibold text-white/50 text-right whitespace-nowrap">
+                    <th key={y.year} className="pb-2 px-3 text-[13px] font-semibold text-white/50 text-right whitespace-nowrap">
                       {y.year}
                     </th>
                   ))}
@@ -466,7 +469,7 @@ export default function StockDetailPage({
                   if (values.every(v => v == null)) return null;
                   return (
                     <tr key={rowDef.key}>
-                      <td className="py-2.5 pr-4 text-[12px] text-white/60 whitespace-nowrap">{rowDef.label}</td>
+                      <td className="py-2.5 pr-4 text-[13.5px] text-white/60 whitespace-nowrap">{rowDef.label}</td>
                       {financials.map((y, i) => {
                         const val = values[i];
                         const prevVal = values[i + 1] ?? null;
@@ -475,11 +478,11 @@ export default function StockDetailPage({
                         return (
                           <td
                             key={y.year}
-                            className={`py-2.5 px-3 text-[12px] tabular-nums text-right whitespace-nowrap ${color} ${rowDef.emphasize ? 'font-semibold' : ''}`}
+                            className={`py-2.5 px-3 text-[13.5px] tabular-nums text-right whitespace-nowrap ${color} ${rowDef.emphasize ? 'font-semibold' : ''}`}
                           >
                             {formatFinVal(val, rowDef.kind)}
                             {rowDef.showGrowth && growth != null && (
-                              <span className="ml-1.5 text-[10px] opacity-70">({growth >= 0 ? '+' : ''}{growth.toFixed(1)}%)</span>
+                              <span className="ml-1.5 text-[11px] opacity-70">({growth >= 0 ? '+' : ''}{growth.toFixed(1)}%)</span>
                             )}
                           </td>
                         );

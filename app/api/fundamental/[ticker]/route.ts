@@ -91,6 +91,7 @@ export async function GET(
         "debt_to_equity",
         "dividend_yield_recent",
         "market_cap_basic",
+        "dividend_payout_ratio_fy",
       ],
       range: [0, 1]
     };
@@ -115,7 +116,7 @@ export async function GET(
     const d = data[0].d;
     
     // TradingView returns null for missing data
-    // d[1] = PE, d[2] = PB, d[3] = ROE (%), d[4] = EPS, d[5] = DE, d[6] = Div Yield (%), d[7] = Market Cap (Baht)
+    // d[1] = PE, d[2] = PB, d[3] = ROE (%), d[4] = EPS, d[5] = DE, d[6] = Div Yield (%), d[7] = Market Cap (Baht), d[8] = Payout Ratio (%)
     const deValue = d[5] != null ? d[5] * 100 : null; // Multiply DE by 100 to match Yahoo's scale
 
     return Response.json(
@@ -128,6 +129,7 @@ export async function GET(
         deMissing: deValue == null,
         divYield: d[6],
         marketCap: fmtMarketCap(d[7]),
+        payoutRatio: d[8],
       },
       { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
     );
