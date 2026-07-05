@@ -8,6 +8,7 @@ import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
+import type { F45Data } from '@/app/api/f45/[ticker]/route';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -226,6 +227,7 @@ export default function StockDetailPage({
   const [sec246, setSec246] = useState<SecData | null>(null);
   const [upcomingCA, setUpcomingCA] = useState<CalendarRow[]>([]);
   const [financials, setFinancials] = useState<YearlyFinancials[] | null>(null);
+  const [f45, setF45] = useState<F45Data | null>(null);
 
   // Suppress unused warning for breakoutEntry (used as existence check)
   void breakoutEntry;
@@ -289,6 +291,13 @@ export default function StockDetailPage({
       .then(r => r.ok ? r.json() : null)
       .then(data => setFinancials(Array.isArray(data?.years) ? data.years : null))
       .catch(() => setFinancials(null));
+  }, [ticker]);
+
+  useEffect(() => {
+    fetch(`/api/f45/${encodeURIComponent(ticker)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => setF45(data ?? null))
+      .catch(() => setF45(null));
   }, [ticker]);
 
   const changeColor = quote
@@ -496,6 +505,58 @@ export default function StockDetailPage({
           <p className="text-[10px] text-white/20 mt-3 text-right">ที่มา: Yahoo Finance · งบการเงินรายปี</p>
         </div>
       )}
+
+      {/* ── F45 - สรุปผลประกอบการล่าสุด ── */}
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
+        <h2 className="text-[13px] font-semibold text-white mb-4">F45 - สรุปผลประกอบการล่าสุด</h2>
+        {f45 === null ? (
+          <p className="text-[12px] text-white/25 text-center py-6 animate-pulse">กำลังโหลด...</p>
+        ) : !f45.found ? (
+          <p className="text-[13px] text-white/30 text-center py-6">ไม่มีรายงานล่าสุด</p>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="bg-white/[0.03] rounded-lg px-3 py-2.5">
+                <div className="text-[11px] text-white/35 mb-1">ไตรมาส</div>
+                <div className="text-[14px] font-semibold text-white">{f45.quarter ?? '—'}</div>
+                {f45.periodEnd && <div className="text-[10px] text-white/25 mt-0.5">สิ้นสุด {f45.periodEnd}</div>}
+              </div>
+              <div className="bg-white/[0.03] rounded-lg px-3 py-2.5">
+                <div className="text-[11px] text-white/35 mb-1">กำไร (ขาดทุน) สุทธิ</div>
+                <div className="text-[14px] font-semibold text-white">
+                  {f45.netProfit != null ? `${fmtMoney(f45.netProfit)} บาท` : '—'}
+                </div>
+                {f45.netProfitYoY != null && (
+                  <div className={`text-[11px] font-semibold mt-0.5 ${f45.netProfitYoY >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
+                    {f45.netProfitYoY >= 0 ? '+' : ''}{f45.netProfitYoY.toFixed(1)}% YoY
+                  </div>
+                )}
+              </div>
+              <div className="bg-white/[0.03] rounded-lg px-3 py-2.5">
+                <div className="text-[11px] text-white/35 mb-1">กำไรต่อหุ้น (EPS)</div>
+                <div className="text-[14px] font-semibold text-white">
+                  {f45.eps != null ? `${f45.eps.toFixed(2)} บาท` : '—'}
+                </div>
+                {f45.epsYoY != null && (
+                  <div className={`text-[11px] font-semibold mt-0.5 ${f45.epsYoY >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
+                    {f45.epsYoY >= 0 ? '+' : ''}{f45.epsYoY.toFixed(1)}% YoY
+                  </div>
+                )}
+              </div>
+              <div className="bg-white/[0.03] rounded-lg px-3 py-2.5">
+                <div className="text-[11px] text-white/35 mb-1">รายงานผู้สอบบัญชี</div>
+                <div className="text-[14px] font-semibold text-white">{f45.auditorOpinion ?? '—'}</div>
+              </div>
+            </div>
+            <p className="text-[10px] text-white/20 mt-3 text-right">
+              ที่มา: SET (ผ่าน Settrade) · อัปเดตทุก 6 ชม.
+              {f45.newsUrl && (
+                <> · <a href={f45.newsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">ดูข่าวเต็ม</a></>
+              )}
+            </p>
+          </>
+        )}
+      </div>
 
       {/* ── 2-column detail ── */}
       {!hasAnyScan ? (

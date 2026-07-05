@@ -44,16 +44,27 @@ function daysUntil(iso: string): number {
   return Math.round((target - today) / 86400000);
 }
 
-// XR/XW carry an action deadline (subscription end date) — highlight it as it
-// approaches: red when ≤3 days left, yellow when 4-7 days left.
-function urgencyCls(row: CalendarRow): string | null {
-  if (row.bucket !== 'XR' && row.bucket !== 'XW') return null;
-  if (!row.payDate) return null;
-  const days = daysUntil(row.payDate);
-  if (days < 0) return null;
-  if (days <= 3) return 'bg-red-500/20 text-red-400';
-  if (days <= 7) return 'bg-yellow-500/20 text-yellow-400';
-  return null;
+// Color tier by proximity to the X-Date itself (applies to every bucket,
+// not just XR/XW): grayed once it's passed/today, red inside 3 days, orange
+// inside a week, otherwise the bucket's normal color.
+function xDateTierCls(row: CalendarRow): string {
+  const days = daysUntil(row.xDate);
+  if (days <= 0) return 'bg-white/10 text-white/35';
+  if (days <= 3) return 'bg-[#E24B4A]/20 text-[#E24B4A]';
+  if (days <= 7) return 'bg-[#EF9F27]/20 text-[#EF9F27]';
+  return BUCKET_STYLE[row.bucket] ?? BUCKET_STYLE.XA;
+}
+
+function DaysLeftBadge({ xDate }: { xDate: string }) {
+  const days = daysUntil(xDate);
+  if (days < 0) {
+    return <span className="text-[10px] text-white/25 ml-1.5 whitespace-nowrap">ผ่านมาแล้ว {Math.abs(days)} วัน</span>;
+  }
+  if (days === 0) {
+    return <span className="text-[10px] font-semibold text-white/45 bg-white/[0.06] px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap">วันนี้</span>;
+  }
+  const cls = days <= 3 ? 'bg-[#E24B4A]/15 text-[#E24B4A]' : days <= 7 ? 'bg-[#EF9F27]/15 text-[#EF9F27]' : 'bg-white/[0.05] text-white/30';
+  return <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap ${cls}`}>เหลือ {days} วัน</span>;
 }
 
 function SortTh({
@@ -82,7 +93,7 @@ function SortTh({
 }
 
 function BucketBadge({ row }: { row: CalendarRow }) {
-  const cls = urgencyCls(row) ?? BUCKET_STYLE[row.bucket] ?? BUCKET_STYLE.XA;
+  const cls = xDateTierCls(row);
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold ${cls}`}>
       {row.caType}
@@ -98,7 +109,7 @@ export default function CalendarPage() {
   const [query, setQuery] = useState('');
   const [bucket, setBucket] = useState<BucketOpt>('ทั้งหมด');
   const [fromDate, setFromDate] = useState(todayISO());
-  const [toDate, setToDate] = useState(addDaysISO(todayISO(), 7));
+  const [toDate, setToDate] = useState(addDaysISO(todayISO(), 30));
   const [page, setPage] = useState(1);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
 
@@ -155,7 +166,7 @@ export default function CalendarPage() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-[18px] font-bold text-white">ปฏิทินหลักทรัพย์</h1>
-          <p className="text-[12px] text-white/35 mt-0.5">XD / XR / XW / XM · SET Corporate Action Calendar</p>
+          <p className="text-[12px] text-white/35 mt-0.5">XD / XR / XW / XM / อื่นๆ (XA) · SET Corporate Action Calendar</p>
         </div>
         <button
           onClick={() => loadData(fromDate, toDate)}
@@ -252,6 +263,7 @@ export default function CalendarPage() {
                   <tr key={`${row.ticker}-${row.caType}-${row.xDate}-${i}`} className="hover:bg-white/[0.02] transition-colors">
                     <td className="px-3 py-3 text-[14px] text-white/55 whitespace-nowrap">
                       {isoToThaiLabel(row.xDate)}
+                      <DaysLeftBadge xDate={row.xDate} />
                     </td>
                     <td
                       onClick={() => router.push(`/stock/${row.ticker}`)}
