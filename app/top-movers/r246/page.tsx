@@ -236,10 +236,10 @@ export default function Report246Page() {
               <thead>
                 <tr className="border-b border-white/[0.06]">
                   {[COL_TICKER, COL_PERSON, COL_METHOD, COL_DATE].map(h => (
-                    <th 
-                      key={h} 
+                    <th
+                      key={h}
                       onClick={() => handleSort(h)}
-                      className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                      className={`px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group ${h === COL_TICKER ? 'sticky left-0 z-10 bg-[#13161e]' : ''}`}
                     >
                       <div className="flex items-center gap-1">
                         {h === COL_TICKER ? 'หลักทรัพย์' : h === COL_PERSON ? 'ผู้ถือหุ้น' : h === COL_METHOD ? 'วิธีการ' : 'วันที่'}
@@ -280,7 +280,7 @@ export default function Report246Page() {
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                     <td
                       onClick={() => row[COL_TICKER] && router.push(`/stock/${row[COL_TICKER]}`)}
-                      className="px-3 py-2.5 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                      className="sticky left-0 z-10 bg-[#13161e] px-3 py-2.5 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
                     >
                       {row[COL_TICKER] ?? '—'}
                     </td>

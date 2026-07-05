@@ -389,7 +389,7 @@ export default function BigLotPage() {
                    <thead>
                      <tr className="border-b border-white/[0.06]">
                        {['วันที่', 'หลักทรัพย์', 'รายการ', 'จำนวนหุ้น', 'มูลค่า (ลบ.)', 'ราคาเฉลี่ย (บ.)'].map((h, i) => (
-                         <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i > 1 ? 'text-right' : 'text-left'}`}>
+                         <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i === 0 ? 'sticky left-0 z-10 bg-[#13161e]' : ''} ${i > 1 ? 'text-right' : 'text-left'}`}>
                            {h}
                          </th>
                        ))}
@@ -398,7 +398,7 @@ export default function BigLotPage() {
                    <tbody className="divide-y divide-white/[0.03]">
                      {[...activeDays].reverse().map((d, i) => (
                        <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                         <td className="px-4 py-3 text-[13px] font-semibold text-white/70 whitespace-nowrap">
+                         <td className="sticky left-0 z-10 bg-[#13161e] px-4 py-3 text-[13px] font-semibold text-white/70 whitespace-nowrap">
                            {isoToThaiLabel(d.date)}
                          </td>
                          <td
@@ -453,7 +453,7 @@ export default function BigLotPage() {
                 <thead>
                   <tr className="border-b border-white/[0.06]">
                     {['หลักทรัพย์', 'รายการ', 'จำนวนหุ้น', 'มูลค่า (ลบ.)', 'ราคาเฉลี่ย (บ.)'].map((h, i) => (
-                      <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i > 0 ? 'text-right' : 'text-left'}`}>
+                      <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i === 0 ? 'sticky left-0 z-10 bg-[#13161e]' : ''} ${i > 0 ? 'text-right' : 'text-left'}`}>
                         {h}
                       </th>
                     ))}
@@ -464,7 +464,7 @@ export default function BigLotPage() {
                     <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                       <td
                         onClick={() => router.push(`/stock/${row.symbol}`)}
-                        className="px-4 py-3 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                        className="sticky left-0 z-10 bg-[#13161e] px-4 py-3 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
                       >
                         {row.symbol}
                       </td>

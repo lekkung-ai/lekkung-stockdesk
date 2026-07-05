@@ -138,7 +138,9 @@ export default function Report59Page() {
   const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
   const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const displayHeaders = headers.filter(h => h !== COL_METHOD);
+  // Company is rendered as its own sticky first column (see table below) so it
+  // stays visible while scrolling the rest horizontally on narrow screens.
+  const displayHeaders = headers.filter(h => h !== COL_METHOD && h !== COL_COMPANY);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -211,7 +213,22 @@ export default function Report59Page() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  <th 
+                  <th
+                    onClick={() => handleSort(COL_COMPANY)}
+                    className="sticky left-0 z-10 bg-[#13161e] px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                  >
+                    <div className="flex items-center gap-1">
+                      {COL_COMPANY}
+                      <div className="flex flex-col opacity-0 group-hover:opacity-100 data-[active=true]:opacity-100 transition-opacity" data-active={sortCol === COL_COMPANY}>
+                        {sortCol === COL_COMPANY ? (
+                          sortDesc ? <ArrowDown size={10} className="text-white/50" /> : <ArrowUp size={10} className="text-white/50" />
+                        ) : (
+                          <ArrowDown size={10} className="text-white/20" />
+                        )}
+                      </div>
+                    </div>
+                  </th>
+                  <th
                     onClick={() => handleSort(COL_METHOD)}
                     className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
                   >
@@ -251,23 +268,27 @@ export default function Report59Page() {
                   const ticker = extractTicker(row[COL_COMPANY] ?? '');
                   return (
                     <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                      <td
+                        onClick={() => ticker && router.push(`/stock/${ticker}`)}
+                        className={[
+                          'sticky left-0 z-10 bg-[#13161e] px-3 py-2.5 text-[13px] align-top whitespace-normal min-w-[150px] max-w-[250px] leading-relaxed',
+                          ticker ? 'text-blue-400 font-semibold cursor-pointer hover:text-blue-300' : 'text-white/65',
+                        ].join(' ')}
+                      >
+                        {row[COL_COMPANY] ?? '—'}
+                      </td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
                         <BuySellBadge action={row[COL_METHOD] ?? ''} />
                       </td>
                       {displayHeaders.map(h => {
                         const val = row[h] ?? '—';
-                        const isCompany = h === COL_COMPANY;
-                        const shouldWrap = ['ชื่อบริษัท', 'ประเภทหลักทรัพย์', 'ความสัมพันธ์', 'ชื่อผู้บริหาร'].some(kw => h.includes(kw));
+                        const shouldWrap = ['ประเภทหลักทรัพย์', 'ความสัมพันธ์', 'ชื่อผู้บริหาร'].some(kw => h.includes(kw));
                         return (
                           <td
                             key={h}
-                            onClick={() => isCompany && ticker && router.push(`/stock/${ticker}`)}
                             className={[
-                              'px-3 py-2.5 text-[13px] align-top',
+                              'px-3 py-2.5 text-[13px] align-top text-white/65',
                               shouldWrap ? 'whitespace-normal min-w-[150px] max-w-[250px] leading-relaxed' : 'whitespace-nowrap',
-                              isCompany && ticker
-                                ? 'text-blue-400 font-semibold cursor-pointer hover:text-blue-300'
-                                : 'text-white/65',
                             ].join(' ')}
                           >
                             {val}

@@ -92,33 +92,33 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   return (
     <aside
       className={[
-        'fixed lg:static inset-y-0 left-0 z-30',
-        'w-[75vw] max-w-[280px] lg:w-[220px] flex-shrink-0 flex flex-col',
+        'fixed md:static inset-y-0 left-0 z-30',
+        'w-[75vw] max-w-[280px] md:w-[220px] flex-shrink-0 flex flex-col',
         'bg-[#0b0d12] border-r border-white/[0.07]',
         'transition-transform duration-200 ease-in-out',
-        open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+        open ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
       ].join(' ')}
     >
       {/* Logo row */}
-      <div className="h-14 flex items-center justify-between px-3 lg:px-4 border-b border-white/[0.07] flex-shrink-0">
-        <span className={`font-bold text-[15px] text-white tracking-tight ${open ? 'block' : 'hidden'} lg:block`}>
+      <div className="h-14 flex items-center justify-between px-3 md:px-4 border-b border-white/[0.07] flex-shrink-0">
+        <span className={`font-bold text-[15px] text-white tracking-tight ${open ? 'block' : 'hidden'} md:block`}>
           StockDesk
         </span>
-        <span className={`font-bold text-[13px] text-white tracking-tight ${open ? 'hidden' : 'block'} lg:hidden`}>
+        <span className={`font-bold text-[13px] text-white tracking-tight ${open ? 'hidden' : 'block'} md:hidden`}>
           SD
         </span>
         <button
           onClick={onClose}
-          className="lg:hidden p-2 rounded text-white/30 hover:text-white/70 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="md:hidden p-2 rounded text-white/30 hover:text-white/70 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
         >
           <X size={15} />
         </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto py-3 px-1 lg:px-2 space-y-4">
+      <nav className="flex-1 overflow-y-auto py-3 px-1 md:px-2 space-y-4">
         {NAV_GROUPS.map(group => (
           <div key={group.section}>
-            <p className={`px-2 mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/25 ${open ? 'block' : 'hidden'} lg:block`}>
+            <p className={`px-2 mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/25 ${open ? 'block' : 'hidden'} md:block`}>
               {group.section}
             </p>
             <div className="space-y-0.5">
@@ -134,11 +134,11 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     title={label}
                     className={[
                       'flex items-center gap-2 rounded-lg transition-colors',
-                      'py-2.5 lg:py-[6px]',
+                      'py-2.5 md:py-[6px]',
                       open ? 'justify-start' : 'justify-center',
-                      'lg:justify-start',
+                      'md:justify-start',
                       item.indent
-                        ? `${open ? 'pl-7 pr-2' : 'px-2'} lg:pl-7 lg:pr-2`
+                        ? `${open ? 'pl-7 pr-2' : 'px-2'} md:pl-7 md:pr-2`
                         : 'px-2',
                       active
                         ? 'bg-white/10 text-white font-medium'
@@ -146,7 +146,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     ].join(' ')}
                   >
                     <Icon size={14} className="flex-shrink-0" />
-                    <span className={`truncate text-[12.5px] ${open ? 'block' : 'hidden'} lg:block`}>
+                    <span className={`truncate text-[12.5px] ${open ? 'block' : 'hidden'} md:block`}>
                       {label}
                     </span>
                   </Link>
@@ -157,14 +157,14 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
         ))}
       </nav>
 
-      <div className="p-1 lg:p-2 border-t border-white/[0.07] flex-shrink-0">
+      <div className="p-1 md:p-2 border-t border-white/[0.07] flex-shrink-0">
         <Link
           href="/settings"
           title="Settings"
-          className={`flex items-center gap-2 px-2 py-2.5 lg:py-[6px] rounded-lg text-[12.5px] text-white/45 hover:text-white/75 hover:bg-white/[0.05] transition-colors ${open ? 'justify-start' : 'justify-center'} lg:justify-start`}
+          className={`flex items-center gap-2 px-2 py-2.5 md:py-[6px] rounded-lg text-[12.5px] text-white/45 hover:text-white/75 hover:bg-white/[0.05] transition-colors ${open ? 'justify-start' : 'justify-center'} md:justify-start`}
         >
           <Settings size={13} />
-          <span className={`${open ? 'block' : 'hidden'} lg:block`}>Settings</span>
+          <span className={`${open ? 'block' : 'hidden'} md:block`}>Settings</span>
         </Link>
       </div>
     </aside>

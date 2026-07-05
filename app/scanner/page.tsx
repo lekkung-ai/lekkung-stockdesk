@@ -274,7 +274,7 @@ function QuantScannerContent() {
             <Th right className="hidden md:table-cell">52W H/L</Th>
             <SortableTh right sortKey="rs_score" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
             <SortableTh sortKey="entry" currentSort={sortConfig} onSort={handleSort}>จุดเข้า</SortableTh>
-            <Th className="hidden lg:table-cell">30D</Th>
+            <Th className="hidden lg:table-cell min-w-[160px]">30D</Th>
           </tr>
         </thead>
         <tbody>
@@ -426,8 +426,8 @@ function QuantScannerContent() {
                   )}
                 </Td>
 
-                <Td className="hidden lg:table-cell">
-                  <MiniCandleChart ticker={row.ticker} width={220} height={58} />
+                <Td className="hidden lg:table-cell min-w-[160px]">
+                  <MiniCandleChart ticker={row.ticker} width="100%" height={58} />
                 </Td>
               </tr>
             );

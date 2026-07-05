@@ -16,10 +16,10 @@ export default function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
 
   return (
     <header className="h-14 flex items-center gap-2 px-3 md:px-4 border-b border-white/[0.07] bg-[#0d0f15] flex-shrink-0">
-      {/* Hamburger — mobile + tablet (drawer); hidden on desktop static sidebar */}
+      {/* Hamburger — phone only (drawer); hidden from md: up where the sidebar is static */}
       <button
         onClick={onMenuClick}
-        className="lg:hidden p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.05] transition-colors flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
+        className="md:hidden p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.05] transition-colors flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
         <Menu size={18} />
       </button>
