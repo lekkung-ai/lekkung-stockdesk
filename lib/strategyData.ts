@@ -58,6 +58,17 @@ export interface SepaEntry {
   SMA_200: number;
   '52W_High': number;
   '%_From_High': number;
+  // Minervini Trend Template — 8 เงื่อนไข (Trade Like a Stock Market Wizard, p.79)
+  T1_Price_Above_150_200?: boolean;
+  T2_SMA50_Above_150_200?: boolean;
+  T3_SMA150_Above_SMA200?: boolean;
+  T4_SMA200_Trending_Up?: boolean;
+  T5_Price_Above_SMA50?: boolean;
+  T6_Above_52wLow_30pct?: boolean;
+  T7_Within_52wHigh_25pct?: boolean;
+  T8_RS_At_Least_70?: boolean;
+  // null = ไม่มีข้อมูลพอตัดสิน, true/false = ผ่าน/ไม่ผ่าน fundamental filter
+  Fundamental_Pass?: boolean | null;
 }
 
 export interface KellEntry {

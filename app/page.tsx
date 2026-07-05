@@ -148,6 +148,16 @@ export default function OverviewPage() {
     },
   }));
 
+  // ── Market Health (Phase 4) ─────────────────────────────────────────────
+  // % of the whole scanned universe passing the full 8-point Trend Template
+  // (sepa.json), calibrated for the Thai SET+MAI universe (~900 tickers)
+  // instead of arbitrary fixed counts that don't scale with universe size.
+  const sepaPassPct = total > 0 ? (sepaCount / total) * 100 : 0;
+  const marketHealth: 'Bullish' | 'Neutral' | 'Bearish' =
+    sepaPassPct > 15 ? 'Bullish' : sepaPassPct >= 5 ? 'Neutral' : 'Bearish';
+  const marketHealthColor =
+    marketHealth === 'Bullish' ? '#1D9E75' : marketHealth === 'Neutral' ? '#EF9F27' : '#E24B4A';
+
   const signals = [
     { label: 'SEPA Pass',      count: sepaCount,     href: '/sepa',         color: '#1D9E75', bg: 'bg-[#1D9E75]/[0.08] border-[#1D9E75]/20 hover:border-[#1D9E75]/40' },
     { label: 'Oliver Kell',    count: kellCount,     href: '/kell',         color: '#378ADD', bg: 'bg-[#378ADD]/[0.08] border-[#378ADD]/20 hover:border-[#378ADD]/40' },
@@ -160,7 +170,16 @@ export default function OverviewPage() {
     <div className="p-4 md:p-6 space-y-6">
       <div>
         <h1 className="text-[18px] font-bold text-white">Market Overview</h1>
-        <p className="text-[12px] text-white/35 mt-0.5">SET · Universe: {total} stocks</p>
+        <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+          <p className="text-[12px] text-white/35">SET · Universe: {total} stocks</p>
+          <span className="text-white/15">·</span>
+          <span
+            className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold"
+            style={{ backgroundColor: `${marketHealthColor}22`, color: marketHealthColor }}
+          >
+            Market Health: {marketHealth} ({sepaPassPct.toFixed(1)}% ผ่าน SEPA)
+          </span>
+        </div>
       </div>
 
       {/* ── Top: metric cards (left) + buy-sell pressure (right) ── */}
