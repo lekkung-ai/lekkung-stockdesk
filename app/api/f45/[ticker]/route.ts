@@ -1,7 +1,11 @@
 import type { NextRequest } from 'next/server';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
-const TWO_MONTHS_MS = 60 * 24 * 3600 * 1000;
+// Widened from a strict 2 months: SET's 45-day filing deadline means an
+// early filer's latest quarterly report can be >60 days old right up until
+// the next quarter's own deadline, which would otherwise create a recurring
+// "no report" gap for companies that file well ahead of the deadline.
+const LOOKBACK_MS = 90 * 24 * 3600 * 1000;
 
 // F45 (สรุปผลการดำเนินงาน) lives on Settrade's per-ticker news feed, not
 // set.or.th (which is Incapsula-blocked from a server). Same cookie-bypass
@@ -28,22 +32,33 @@ async function getSessionCookie(ticker: string): Promise<string> {
 }
 
 interface NewsListItem { uuid: string; title: string; publishDate: string }
+interface RawNewsInfo { id: string; headline: string; datetime: string }
 
-// The news list page is server-rendered as a Nuxt payload (window.__NUXT__) —
-// a minified JS object literal, not JSON. Rather than parse that whole
-// structure, pull out just the uuid/title/publishDate triples we need with a
-// scoped regex (each item's publishDate appears within the same object,
-// shortly after its uuid/title).
-function parseNewsList(html: string): NewsListItem[] {
-  const items: NewsListItem[] = [];
-  const re = /uuid:"(\d+)",title:"([^"]+)"/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(html))) {
-    const chunk = html.slice(m.index, m.index + 2000);
-    const pd = chunk.match(/publishDate:"([^"]+)"/);
-    items.push({ uuid: m[1], title: m[2], publishDate: pd ? pd[1] : '' });
+// The rendered news page (…/equities/quote/{ticker}/news) only ever shows the
+// 5 most recent items — enough to silently miss an F45 that's within the
+// 2-month window but has since been pushed down by unrelated news (verified:
+// DELTA's Q1 F45 sat at position #6+, hidden behind daily SEC Form 59-2
+// digest reposts). The page's own Nuxt bundle calls this JSON endpoint with a
+// much higher limit, so use that directly instead of scraping the HTML.
+async function fetchNewsList(ticker: string, cookie: string, limit = 50): Promise<NewsListItem[]> {
+  try {
+    const res = await fetch(`https://www.settrade.com/api/set/news/${encodeURIComponent(ticker)}/list?limit=${limit}`, {
+      headers: {
+        'User-Agent': UA,
+        Accept: 'application/json, text/plain, */*',
+        'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8',
+        Referer: `https://www.settrade.com/th/equities/quote/${ticker}/news`,
+        ...(cookie ? { Cookie: cookie } : {}),
+      },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return [];
+    const json = await res.json();
+    const raw: RawNewsInfo[] = Array.isArray(json?.newsInfoList) ? json.newsInfoList : [];
+    return raw.map(n => ({ uuid: n.id, title: n.headline, publishDate: n.datetime }));
+  } catch {
+    return [];
   }
-  return items;
 }
 
 export interface F45Data {
@@ -122,22 +137,9 @@ export async function GET(
 
   try {
     const cookie = await getSessionCookie(t);
-    const listRes = await fetch(newsListUrl, {
-      headers: {
-        'User-Agent': UA,
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8',
-        ...(cookie ? { Cookie: cookie } : {}),
-      },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!listRes.ok) {
-      return Response.json({ found: false }, { headers: cacheHeaders });
-    }
-    const listHtml = await listRes.text();
-    const items = parseNewsList(listHtml);
+    const items = await fetchNewsList(t, cookie);
 
-    const cutoff = Date.now() - TWO_MONTHS_MS;
+    const cutoff = Date.now() - LOOKBACK_MS;
     const f45Items = items
       .filter(it => it.title.includes('F45') && Date.parse(it.publishDate) >= cutoff)
       .sort((a, b) => Date.parse(b.publishDate) - Date.parse(a.publishDate));
