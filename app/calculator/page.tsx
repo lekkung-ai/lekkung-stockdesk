@@ -17,8 +17,11 @@ function fmt(n: number | null, decimals = 4): string {
   return n.toLocaleString('th-TH', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
 
-const TABS = ['แปลง Warrant', 'XD / XR / XW Dilution'] as const;
+const TABS = ['แปลง Warrant', 'XD / XR / XW / PP Dilution'] as const;
 type Tab = (typeof TABS)[number];
+
+const DILUTION_TYPES = ['XD', 'XW', 'XR', 'PP'] as const;
+type DilutionType = (typeof DILUTION_TYPES)[number];
 
 // ── Warrant conversion math (verified against the reference spreadsheet) ────
 interface ConversionInputs {
@@ -76,6 +79,57 @@ function computeDilution(inp: DilutionInputs): DilutionResult {
   return { newShares, totalShares, dilutionPct, increasePct, priceAfter, priceDilutionPct };
 }
 
+// ── Private Placement (PP) math ──────────────────────────────────────────────
+// Unlike XD/XR/XW, PP has no automatic ex-date on the board — this is a
+// theoretical post-money estimate based on total shares outstanding, not a
+// ratio. Uses absolute share counts (Total_Shares, PP_Shares), not proportions.
+interface PPInputs {
+  priceBefore: number;
+  totalShares: number;
+  ppShares: number;
+  ppPrice: number;
+}
+interface PPResult {
+  theoreticalPrice: number;
+  controlDilutionPct: number;
+  priceDilutionPct: number;
+}
+function computePP(inp: PPInputs): PPResult {
+  const denom = inp.totalShares + inp.ppShares;
+  const theoreticalPrice = denom > 0
+    ? (inp.priceBefore * inp.totalShares + inp.ppPrice * inp.ppShares) / denom
+    : inp.priceBefore;
+  const controlDilutionPct = denom > 0 ? (inp.ppShares / denom) * 100 : 0;
+  const priceDilutionPct = inp.priceBefore !== 0 ? ((theoreticalPrice - inp.priceBefore) / inp.priceBefore) * 100 : 0;
+  return { theoreticalPrice, controlDilutionPct, priceDilutionPct };
+}
+
+// ── Shared result-display helpers (bigger main figures per spec) ────────────
+function dilutionTierColor(pct: number): string {
+  const abs = Math.abs(pct);
+  if (abs > 10) return 'text-[#E24B4A]';
+  if (abs >= 5) return 'text-[#F2C94C]';
+  return 'text-white/50';
+}
+function MainResult({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="pt-2 pb-2.5">
+      <div className="text-[13px] text-white/40 mb-1">{label}</div>
+      <div className="text-[30px] font-semibold text-white tabular-nums leading-tight">{value}</div>
+    </div>
+  );
+}
+function DilutionDisplay({ label, pct }: { label: string; pct: number }) {
+  return (
+    <div className="flex items-center justify-between py-2.5 border-b border-white/[0.04] last:border-0">
+      <span className="text-[13px] text-white/40">{label}</span>
+      <span className={`text-[20px] font-bold tabular-nums ${dilutionTierColor(pct)}`}>
+        {pct >= 0 ? '+' : ''}{fmt(pct, 2)}%
+      </span>
+    </div>
+  );
+}
+
 // ── Lightweight parent-ticker autocomplete ───────────────────────────────────
 function TickerAutocomplete({
   value, onChange, onSubmit, placeholder,
@@ -127,22 +181,22 @@ function TickerAutocomplete({
 }
 
 function FieldInput({
-  label, value, onChange, unit, decimals = 4,
+  label, value, onChange, unit, decimals = 4, big = false,
 }: {
-  label: string; value: number; onChange: (v: number) => void; unit?: string; decimals?: number;
+  label: string; value: number; onChange: (v: number) => void; unit?: string; decimals?: number; big?: boolean;
 }) {
   return (
-    <div className="bg-white/[0.03] rounded-lg px-3 py-2.5">
-      <div className="text-[11px] text-white/35 mb-1">{label}</div>
+    <div className={big ? 'bg-white/[0.03] rounded-lg px-3.5 py-3' : 'bg-white/[0.03] rounded-lg px-3 py-2.5'}>
+      <div className={big ? 'text-[13px] text-white/40 mb-1.5' : 'text-[11px] text-white/35 mb-1'}>{label}</div>
       <div className="flex items-baseline gap-1.5">
         <input
           type="number"
           value={Number.isFinite(value) ? value : ''}
           step="any"
           onChange={e => onChange(parseFloat(e.target.value) || 0)}
-          className="w-full bg-transparent text-[15px] font-semibold text-white tabular-nums outline-none border-b border-transparent focus:border-white/25 transition-colors"
+          className={`w-full bg-transparent font-semibold text-white tabular-nums outline-none border-b border-transparent focus:border-white/25 transition-colors ${big ? 'text-[16px]' : 'text-[15px]'}`}
         />
-        {unit && <span className="text-[11px] text-white/30 flex-shrink-0">{unit}</span>}
+        {unit && <span className={big ? 'text-[13px] text-white/30 flex-shrink-0' : 'text-[11px] text-white/30 flex-shrink-0'}>{unit}</span>}
       </div>
     </div>
   );
@@ -166,20 +220,27 @@ function ResultRow({ label, value, highlight, sub }: { label: string; value: str
 
 // ── One XD / XW / XR dilution card ───────────────────────────────────────────
 function DilutionBlock({
-  title, priceLabel, additionalPriceLabel, showShares, accentColor,
+  title, priceLabel, additionalPriceLabel, showShares, accentColor, warrantMode = false,
 }: {
-  title: string; priceLabel: string; additionalPriceLabel: string | null; showShares: boolean; accentColor: string;
+  title: string; priceLabel: string; additionalPriceLabel: string | null; showShares: boolean; accentColor: string; warrantMode?: boolean;
 }) {
   const [priceBefore, setPriceBefore] = useState(0);
   const [additionalPrice, setAdditionalPrice] = useState(0);
   const [oldRatio, setOldRatio] = useState(1);
   const [newRatio, setNewRatio] = useState(1);
+  // XW-only: raw warrant units and their conversion ratio, multiplied together
+  // to get the actual new-share count — entering the raw unit count directly
+  // into "new ratio" would silently understate dilution whenever the
+  // conversion ratio isn't 1:1 (e.g. adjusted after a prior corporate action).
+  const [warrantUnits, setWarrantUnits] = useState(1);
+  const [conversionRatio, setConversionRatio] = useState(1);
   const [oldSharesInput, setOldSharesInput] = useState('');
 
   const oldShares = oldSharesInput.trim() ? parseFloat(oldSharesInput) : null;
+  const effectiveNewRatio = warrantMode ? warrantUnits * conversionRatio : newRatio;
   const result = useMemo(
-    () => computeDilution({ priceBefore, additionalPrice: additionalPriceLabel ? additionalPrice : 0, oldRatio, newRatio, oldShares }),
-    [priceBefore, additionalPrice, additionalPriceLabel, oldRatio, newRatio, oldShares]
+    () => computeDilution({ priceBefore, additionalPrice: additionalPriceLabel ? additionalPrice : 0, oldRatio, newRatio: effectiveNewRatio, oldShares }),
+    [priceBefore, additionalPrice, additionalPriceLabel, oldRatio, effectiveNewRatio, oldShares]
   );
 
   return (
@@ -188,31 +249,43 @@ function DilutionBlock({
         <h3 className="text-[14px] font-bold text-white">{title}</h3>
       </div>
       <div className="p-4 space-y-3">
-        <div className={`grid gap-2.5 ${additionalPriceLabel ? 'grid-cols-2' : 'grid-cols-3'}`}>
-          <FieldInput label={priceLabel} value={priceBefore} onChange={setPriceBefore} unit="บาท" decimals={2} />
+        <div className={`grid gap-2.5 grid-cols-2 sm:grid-cols-3 ${warrantMode ? 'lg:grid-cols-4' : ''}`}>
+          <FieldInput big label={priceLabel} value={priceBefore} onChange={setPriceBefore} unit="บาท" decimals={2} />
           {additionalPriceLabel && (
-            <FieldInput label={additionalPriceLabel} value={additionalPrice} onChange={setAdditionalPrice} unit="บาท" decimals={2} />
+            <FieldInput big label={additionalPriceLabel} value={additionalPrice} onChange={setAdditionalPrice} unit="บาท" decimals={2} />
           )}
-          <FieldInput label="สัดส่วน หุ้นเดิม" value={oldRatio} onChange={setOldRatio} decimals={2} />
-          <FieldInput label="สัดส่วน หุ้นใหม่" value={newRatio} onChange={setNewRatio} decimals={2} />
+          <FieldInput big label="สัดส่วน หุ้นเดิม" value={oldRatio} onChange={setOldRatio} decimals={2} />
+          {warrantMode ? (
+            <>
+              <FieldInput big label="จำนวน Warrant ที่ใช้สิทธิ" value={warrantUnits} onChange={setWarrantUnits} decimals={0} />
+              <FieldInput big label="อัตราแปลงสภาพ (หุ้นแม่/Warrant)" value={conversionRatio} onChange={setConversionRatio} decimals={4} />
+            </>
+          ) : (
+            <FieldInput big label="สัดส่วน หุ้นใหม่" value={newRatio} onChange={setNewRatio} decimals={2} />
+          )}
         </div>
+        {warrantMode && (
+          <p className="text-[11px] text-white/25 -mt-1">
+            = {fmt(effectiveNewRatio, 4)} หุ้นใหม่ (ปรับอัตราแปลงสภาพแล้ว) ใช้แทนค่า &quot;สัดส่วน หุ้นใหม่&quot;
+          </p>
+        )}
 
         {showShares && (
-          <div className="bg-white/[0.03] rounded-lg px-3 py-2.5">
-            <div className="text-[11px] text-white/35 mb-1">จำนวนหุ้นเดิม (ไม่บังคับ)</div>
+          <div className="bg-white/[0.03] rounded-lg px-3.5 py-3">
+            <div className="text-[13px] text-white/40 mb-1.5">จำนวนหุ้นเดิม (ไม่บังคับ)</div>
             <input
               type="number"
               value={oldSharesInput}
               step="any"
               onChange={e => setOldSharesInput(e.target.value)}
               placeholder="ใส่ถ้าต้องการดูจำนวนหุ้นที่เพิ่ม"
-              className="w-full bg-transparent text-[15px] font-semibold text-white tabular-nums outline-none placeholder:text-white/20 placeholder:text-[12px] placeholder:font-normal"
+              className="w-full bg-transparent text-[16px] font-semibold text-white tabular-nums outline-none placeholder:text-white/20 placeholder:text-[12px] placeholder:font-normal"
             />
           </div>
         )}
 
         <div className="pt-1">
-          <ResultRow label="Dilution" value={`${fmt(result.dilutionPct, 2)}%`} />
+          <ResultRow label="Control Dilution" value={`${fmt(result.dilutionPct, 2)}%`} />
           <ResultRow label="มีหุ้นเพิ่ม" value={`${fmt(result.increasePct, 2)}%`} />
           {showShares && oldShares != null && (
             <>
@@ -220,12 +293,46 @@ function DilutionBlock({
               <ResultRow label="จำนวนหุ้นใหม่ (รวม)" value={fmt(result.totalShares, 0)} />
             </>
           )}
-          <ResultRow label={`ราคาวัน ${title.split(' ')[0]}`} value={`${fmt(result.priceAfter, 2)} บาท`} highlight="main" />
-          <ResultRow
-            label="Price dilution"
-            value={`${result.priceDilutionPct >= 0 ? '+' : ''}${fmt(result.priceDilutionPct, 2)}%`}
-            highlight={result.priceDilutionPct >= 0 ? 'pos' : 'neg'}
-          />
+          <MainResult label={`ราคาวัน ${title.split(' ')[0]}`} value={`${fmt(result.priceAfter, 2)} บาท`} />
+          <DilutionDisplay label="Price Dilution" pct={result.priceDilutionPct} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Private Placement card ────────────────────────────────────────────────────
+function PPBlock() {
+  const [priceBefore, setPriceBefore] = useState(0);
+  const [totalShares, setTotalShares] = useState(0);
+  const [ppShares, setPpShares] = useState(0);
+  const [ppPrice, setPpPrice] = useState(0);
+
+  const result = useMemo(
+    () => computePP({ priceBefore, totalShares, ppShares, ppPrice }),
+    [priceBefore, totalShares, ppShares, ppPrice]
+  );
+
+  return (
+    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderTop: '3px solid #E67E22' }}>
+      <div className="px-4 py-3 border-b border-white/[0.06]">
+        <h3 className="text-[14px] font-bold text-white">Private Placement (PP)</h3>
+      </div>
+      <div className="p-4 space-y-3">
+        <div className="grid gap-2.5 grid-cols-2 sm:grid-cols-4">
+          <FieldInput big label="ราคาปิดก่อนประกาศ" value={priceBefore} onChange={setPriceBefore} unit="บาท" decimals={2} />
+          <FieldInput big label="ราคาเสนอขาย PP" value={ppPrice} onChange={setPpPrice} unit="บาท" decimals={2} />
+          <FieldInput big label="จำนวนหุ้นเดิมทั้งหมด" value={totalShares} onChange={setTotalShares} unit="หุ้น" decimals={0} />
+          <FieldInput big label="จำนวนหุ้น PP ใหม่" value={ppShares} onChange={setPpShares} unit="หุ้น" decimals={0} />
+        </div>
+
+        <div className="px-3.5 py-3 rounded-lg bg-[#F2C94C]/10 border border-[#F2C94C]/25 text-[12px] text-[#F2C94C] leading-relaxed">
+          ⚠️ PP ไม่มี Ex-date บนกระดาน ราคานี้เป็นการประเมินทางทฤษฎีเท่านั้น ราคาจริงขึ้นกับกลไกตลาด
+        </div>
+
+        <div className="pt-1">
+          <MainResult label="ราคาประเมินทางทฤษฎี (Post-Money)" value={`${fmt(result.theoreticalPrice, 2)} บาท`} />
+          <DilutionDisplay label="% Control Dilution" pct={result.controlDilutionPct} />
         </div>
       </div>
     </div>
@@ -235,6 +342,7 @@ function DilutionBlock({
 export default function CalculatorPage() {
   const router = useRouter();
   const [tab, setTab] = useState<Tab>('แปลง Warrant');
+  const [dilutionType, setDilutionType] = useState<DilutionType>('XD');
 
   const [parentInput, setParentInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -451,9 +559,25 @@ export default function CalculatorPage() {
       ) : (
         <div className="space-y-4">
           <p className="text-[12px] text-white/35">
-            คำนวณราคาปรับฐาน (ราคาทฤษฎีหลังขึ้นเครื่องหมาย) และสัดส่วนหุ้นที่เพิ่มขึ้น — กรอกตัวเลขเองได้เลย แต่ละบล็อกคำนวณแยกอิสระจากกัน
+            คำนวณราคาปรับฐาน (ราคาทฤษฎีหลังขึ้นเครื่องหมาย) และสัดส่วนหุ้นที่เพิ่มขึ้น — กรอกตัวเลขเองได้เลย
           </p>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+          {/* Segmented control — one dilution type shown at a time */}
+          <div className="flex gap-1.5 flex-wrap">
+            {DILUTION_TYPES.map(d => (
+              <button
+                key={d}
+                onClick={() => setDilutionType(d)}
+                className={`px-4 py-2 rounded-lg text-[13px] font-bold transition-colors ${
+                  dilutionType === d ? 'bg-white/10 text-white border border-white/20' : 'bg-white/[0.03] text-white/40 border border-transparent hover:text-white/70'
+                }`}
+              >
+                {d}
+              </button>
+            ))}
+          </div>
+
+          {dilutionType === 'XD' && (
             <DilutionBlock
               title="XD Dilution"
               priceLabel="ราคาก่อน XD"
@@ -461,13 +585,18 @@ export default function CalculatorPage() {
               showShares
               accentColor="#1D9E75"
             />
+          )}
+          {dilutionType === 'XW' && (
             <DilutionBlock
               title="XW Dilution"
               priceLabel="ราคาก่อน XW"
               additionalPriceLabel="Exercise Price"
               showShares
+              warrantMode
               accentColor="#7F77DD"
             />
+          )}
+          {dilutionType === 'XR' && (
             <DilutionBlock
               title="XR Dilution"
               priceLabel="ราคาก่อน XR"
@@ -475,9 +604,13 @@ export default function CalculatorPage() {
               showShares
               accentColor="#378ADD"
             />
-          </div>
+          )}
+          {dilutionType === 'PP' && <PPBlock />}
+
           <p className="text-[10px] text-white/20 text-right">
-            สูตร: ราคาทฤษฎี = (ราคาก่อน × สัดส่วนหุ้นเดิม + ราคาที่จ่ายเพิ่ม × สัดส่วนหุ้นใหม่) / (สัดส่วนหุ้นเดิม + สัดส่วนหุ้นใหม่)
+            {dilutionType === 'PP'
+              ? 'สูตร: ราคาทฤษฎี = (ราคาก่อน × หุ้นเดิมทั้งหมด + ราคา PP × หุ้น PP ใหม่) / (หุ้นเดิมทั้งหมด + หุ้น PP ใหม่)'
+              : 'สูตร: ราคาทฤษฎี = (ราคาก่อน × สัดส่วนหุ้นเดิม + ราคาที่จ่ายเพิ่ม × สัดส่วนหุ้นใหม่) / (สัดส่วนหุ้นเดิม + สัดส่วนหุ้นใหม่)'}
           </p>
         </div>
       )}
