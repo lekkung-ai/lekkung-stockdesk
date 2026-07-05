@@ -68,10 +68,11 @@ const NAV_GROUPS: NavGroup[] = [
 
 interface SidebarProps {
   open: boolean;
+  desktopOpen: boolean;
   onClose: () => void;
 }
 
-export default function Sidebar({ open, onClose }: SidebarProps) {
+export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -89,19 +90,26 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
     return true;
   }
 
+  // Labels/section headers hide whenever the sidebar is collapsed for the
+  // current context — mobile drawer closed (open=false) or desktop
+  // collapsed (desktopOpen=false).
+  const labelCls = `${open ? 'block' : 'hidden'} ${desktopOpen ? 'md:block' : 'md:hidden'}`;
+
   return (
     <aside
       className={[
-        'fixed md:static inset-y-0 left-0 z-30',
-        'w-[75vw] max-w-[280px] md:w-[220px] flex-shrink-0 flex flex-col',
+        'fixed md:static inset-y-0 left-0 z-30 overflow-hidden',
+        'w-[75vw] max-w-[280px] flex-shrink-0 flex flex-col',
+        desktopOpen ? 'md:w-[220px]' : 'md:w-0',
         'bg-[#0b0d12] border-r border-white/[0.07]',
-        'transition-transform duration-200 ease-in-out',
+        desktopOpen ? '' : 'md:border-r-0',
+        'transition-all duration-200 ease-in-out',
         open ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
       ].join(' ')}
     >
       {/* Logo row */}
       <div className="h-14 flex items-center justify-between px-3 md:px-4 border-b border-white/[0.07] flex-shrink-0">
-        <span className={`font-bold text-[15px] text-white tracking-tight ${open ? 'block' : 'hidden'} md:block`}>
+        <span className={`font-bold text-[15px] text-white tracking-tight whitespace-nowrap ${labelCls}`}>
           StockDesk
         </span>
         <span className={`font-bold text-[13px] text-white tracking-tight ${open ? 'hidden' : 'block'} md:hidden`}>
@@ -118,7 +126,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       <nav className="flex-1 overflow-y-auto py-3 px-1 md:px-2 space-y-4">
         {NAV_GROUPS.map(group => (
           <div key={group.section}>
-            <p className={`px-2 mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/25 ${open ? 'block' : 'hidden'} md:block`}>
+            <p className={`px-2 mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/25 whitespace-nowrap ${labelCls}`}>
               {group.section}
             </p>
             <div className="space-y-0.5">
@@ -146,7 +154,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     ].join(' ')}
                   >
                     <Icon size={14} className="flex-shrink-0" />
-                    <span className={`truncate text-[12.5px] ${open ? 'block' : 'hidden'} md:block`}>
+                    <span className={`truncate text-[12.5px] whitespace-nowrap ${labelCls}`}>
                       {label}
                     </span>
                   </Link>
@@ -163,8 +171,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           title="Settings"
           className={`flex items-center gap-2 px-2 py-2.5 md:py-[6px] rounded-lg text-[12.5px] text-white/45 hover:text-white/75 hover:bg-white/[0.05] transition-colors ${open ? 'justify-start' : 'justify-center'} md:justify-start`}
         >
-          <Settings size={13} />
-          <span className={`${open ? 'block' : 'hidden'} md:block`}>Settings</span>
+          <Settings size={13} className="flex-shrink-0" />
+          <span className={`whitespace-nowrap ${labelCls}`}>Settings</span>
         </Link>
       </div>
     </aside>

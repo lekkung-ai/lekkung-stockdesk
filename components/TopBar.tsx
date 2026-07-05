@@ -1,6 +1,6 @@
 'use client';
 
-import { Bell, Settings, Menu } from 'lucide-react';
+import { Bell, Settings, Menu, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import SearchBox from './SearchBox';
 import { useStock } from '@/context/stock';
 import type { Market } from '@/context/stock';
@@ -11,17 +11,23 @@ const MARKETS: { code: Market; flag: string }[] = [
   { code: 'HK', flag: '🇭🇰' },
 ];
 
-export default function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
+export default function TopBar({ onMenuClick, sidebarDesktopOpen }: { onMenuClick: () => void; sidebarDesktopOpen: boolean }) {
   const { selectedMarket, setSelectedMarket } = useStock();
 
   return (
     <header className="h-14 flex items-center gap-2 px-3 md:px-4 border-b border-white/[0.07] bg-[#0d0f15] flex-shrink-0">
-      {/* Hamburger — phone only (drawer); hidden from md: up where the sidebar is static */}
+      {/* Sidebar toggle — opens the drawer on phone, collapses/expands the static sidebar on desktop */}
       <button
         onClick={onMenuClick}
-        className="md:hidden p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.05] transition-colors flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
+        title={sidebarDesktopOpen ? 'ซ่อน Sidebar' : 'แสดง Sidebar'}
+        className="p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.05] transition-colors flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
-        <Menu size={18} />
+        <Menu size={18} className="md:hidden" />
+        {sidebarDesktopOpen ? (
+          <PanelLeftClose size={18} className="hidden md:block" />
+        ) : (
+          <PanelLeftOpen size={18} className="hidden md:block" />
+        )}
       </button>
 
       {/* Search — takes all available space */}
