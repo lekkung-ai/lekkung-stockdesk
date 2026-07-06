@@ -24,23 +24,21 @@ export default function TopRSTable({ rows }: TopRSTableProps) {
     if (rows.length === 0) return;
     let cancelled = false;
 
-    Promise.allSettled(
-      rows.map(async row => {
-        const res = await fetch(`/api/quote/${row.ticker}`);
-        if (!res.ok) return { ticker: row.ticker, change1d: null };
-        const data = await res.json() as { change1d?: number };
-        return { ticker: row.ticker, change1d: data.change1d ?? null };
-      })
-    ).then(results => {
-      if (cancelled) return;
-      const map: Record<string, number | null> = {};
-      for (const r of results) {
-        if (r.status === 'fulfilled') {
-          map[r.value.ticker] = r.value.change1d;
+    // Batch fetch (same pattern as ScannerTable/MyStocks) instead of one
+    // /api/quote round trip per row — /api/prices keys its response by the
+    // plain ticker (no .BK suffix), so no extra normalization needed here.
+    fetch(`/api/prices?symbols=${encodeURIComponent(tickerKey)}`)
+      .then(res => res.ok ? res.json() : { prices: {} })
+      .then((data: { prices?: Record<string, { changePercent?: number }> }) => {
+        if (cancelled) return;
+        const prices = data.prices ?? {};
+        const map: Record<string, number | null> = {};
+        for (const row of rows) {
+          map[row.ticker] = prices[row.ticker]?.changePercent ?? null;
         }
-      }
-      setQuotes(map);
-    });
+        setQuotes(map);
+      })
+      .catch(() => { if (!cancelled) setQuotes({}); });
 
     return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps

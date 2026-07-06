@@ -5,6 +5,7 @@ export interface RSSignals {
   kell: boolean;
   breakout: boolean;
   combo: number;
+  isNew?: boolean;
 }
 
 interface TopRSRowProps {
@@ -56,7 +57,7 @@ export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals
       {/* Ticker + Sector */}
       <td className="px-4 py-3">
         <div className="font-bold text-[13px] text-white leading-tight">{ticker}</div>
-        {sector && <div className="text-[10px] text-white/25 mt-0.5">{sector}</div>}
+        <div className="text-[10px] text-white/25 mt-0.5">{sector ?? 'N/A'}</div>
       </td>
 
       {/* Stage */}
@@ -73,6 +74,14 @@ export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals
       {/* Signals */}
       <td className="px-4 py-3">
         <div className="flex items-center gap-1 flex-nowrap">
+          {signals.isNew && (
+            <span
+              title="ผ่าน SEPA วันนี้ แต่ไม่ผ่านเมื่อวาน"
+              className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#7F77DD]/20 text-[#7F77DD] whitespace-nowrap"
+            >
+              NEW
+            </span>
+          )}
           {signals.sepa && (
             <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#1D9E75]/15 text-[#1D9E75] whitespace-nowrap">
               SEPA

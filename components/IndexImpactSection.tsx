@@ -1,0 +1,310 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
+import type { SectorImpact as SectorImpactItem } from '@/app/api/index-impact/route';
+
+interface StockImpact {
+  ticker: string;
+  company: string;
+  price: number;
+  priceChange: number;
+  pctChange: number;
+  marketCap: number;
+  impact: number;
+}
+
+interface ImpactData {
+  setIndex: { current: number; prevClose: number; change: number; changePercent: number };
+  totalMarketCap: number;
+  divisor: number;
+  gainers: StockImpact[];
+  losers: StockImpact[];
+  sectorImpacts: SectorImpactItem[];
+}
+
+function fmt(n: number, decimals = 2): string {
+  return n.toFixed(decimals);
+}
+
+function StockRow({ item, positive }: { item: StockImpact; positive: boolean }) {
+  const color = positive ? '#1D9E75' : '#E24B4A';
+  const pctSign = item.pctChange >= 0 ? '+' : '';
+  const chgSign = item.priceChange >= 0 ? '+' : '';
+  const impactSign = item.impact >= 0 ? '+' : '';
+
+  return (
+    <div className="flex items-center gap-1 py-[6px] border-b border-white/[0.04] last:border-0">
+      <span className="text-[14px] font-bold text-white w-[58px] shrink-0">{item.ticker}</span>
+      <span className="text-[12px] tabular-nums text-white/50 w-[46px] text-right shrink-0">
+        {fmt(item.price, 2)}
+      </span>
+      <span className="text-[13px] tabular-nums w-[44px] text-right shrink-0" style={{ color }}>
+        {chgSign}{fmt(item.priceChange, 2)}
+      </span>
+      <span className="text-[13px] tabular-nums w-[46px] text-right shrink-0" style={{ color }}>
+        {pctSign}{fmt(item.pctChange, 1)}%
+      </span>
+      <span className="text-[14px] font-semibold tabular-nums flex-1 text-right" style={{ color }}>
+        {impactSign}{fmt(Math.abs(item.impact), 2)}
+        <span className="text-[11px] font-normal text-white/30 ml-0.5">จุด</span>
+      </span>
+    </div>
+  );
+}
+
+function SectorRow({ item, positive }: { item: SectorImpactItem; positive: boolean }) {
+  const color = positive ? '#1D9E75' : '#E24B4A';
+  const sign = item.impact >= 0 ? '+' : '';
+  return (
+    <div className="flex items-center gap-2 py-[4px] border-b border-white/[0.04] last:border-0">
+      <span className="text-[13px] font-bold text-white/75 w-[68px] shrink-0">${item.sector}</span>
+      <span className="text-[11px] tabular-nums text-white/25 w-[28px] text-right shrink-0">
+        {item.stockCount}
+      </span>
+      <span className="text-[13px] font-semibold tabular-nums flex-1 text-right" style={{ color }}>
+        {sign}{fmt(Math.abs(item.impact), 4)}
+        <span className="text-[10px] font-normal text-white/30 ml-0.5">pt</span>
+      </span>
+    </div>
+  );
+}
+
+const TABS = ['รายหุ้น', 'รายกลุ่ม'] as const;
+type Tab = (typeof TABS)[number];
+
+export default function IndexImpactSection() {
+  const [data, setData] = useState<ImpactData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [tab, setTab] = useState<Tab>('รายหุ้น');
+
+  useEffect(() => {
+    fetch('/api/index-impact')
+      .then(r => r.json())
+      .then(d => {
+        if (d.error) { setError(true); setLoading(false); return; }
+        setData(d);
+        setLoading(false);
+      })
+      .catch(() => { setError(true); setLoading(false); });
+  }, []);
+
+  const totalGain = data?.gainers.reduce((s, x) => s + x.impact, 0) ?? 0;
+  const totalLoss = data?.losers.reduce((s, x) => s + x.impact, 0) ?? 0;
+  const netImpact = totalGain + totalLoss;
+  const setIdx = data?.setIndex;
+  const idxUp = (setIdx?.changePercent ?? 0) >= 0;
+
+  const sectorGainers = (data?.sectorImpacts.filter(x => x.impact > 0) ?? []).slice(0, 8);
+  const sectorLosers = [...(data?.sectorImpacts.filter(x => x.impact < 0) ?? [])].reverse().slice(0, 8);
+  const sectorTotalGain = sectorGainers.reduce((s, x) => s + x.impact, 0);
+  const sectorTotalLoss = sectorLosers.reduce((s, x) => s + x.impact, 0);
+  const sectorNetImpact = sectorTotalGain + sectorTotalLoss;
+
+  return (
+    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-3 flex-wrap gap-2">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-white/25 mb-0.5">
+            Index Impact วันนี้
+          </p>
+          <p className="text-[12px] text-white/30">SET100 · คำนวณจาก market-cap weighted</p>
+        </div>
+        {setIdx && setIdx.current > 0 && (
+          <div className="text-right">
+            <p className="text-[16px] font-bold text-white tabular-nums">
+              {setIdx.current.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+            <p className="text-[13px] font-medium tabular-nums" style={{ color: idxUp ? '#1D9E75' : '#E24B4A' }}>
+              {idxUp ? '+' : ''}{fmt(setIdx.change, 2)}{' '}
+              <span className="text-[12px]">({idxUp ? '+' : ''}{fmt(setIdx.changePercent, 2)}%)</span>
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-1.5 mb-3">
+        {TABS.map(t => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all ${
+              tab === t ? 'bg-white/10 text-white' : 'bg-white/[0.03] text-white/35 hover:text-white/60'
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[0, 1].map(i => (
+            <div key={i} className="space-y-2">
+              {Array.from({ length: 6 }).map((_, j) => (
+                <div key={j} className="h-7 bg-white/[0.05] rounded animate-pulse" />
+              ))}
+            </div>
+          ))}
+        </div>
+      ) : error ? (
+        <p className="text-[13px] text-white/30 py-4 text-center">โหลดข้อมูลไม่สำเร็จ</p>
+      ) : !data ? (
+        <p className="text-[13px] text-white/30 py-4 text-center">ไม่มีข้อมูล</p>
+      ) : tab === 'รายหุ้น' ? (
+        <>
+          {(data.gainers.length > 0 || data.losers.length > 0) && (
+            <div className="mb-3 flex items-center gap-2">
+              <div
+                className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[12px] font-semibold"
+                style={
+                  netImpact >= 0
+                    ? { background: 'rgba(29,158,117,.12)', color: '#1D9E75', border: '1px solid rgba(29,158,117,.25)' }
+                    : { background: 'rgba(226,75,74,.12)', color: '#E24B4A', border: '1px solid rgba(226,75,74,.25)' }
+                }
+              >
+                {netImpact >= 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+                Net SET100 impact: {netImpact >= 0 ? '+' : ''}{fmt(netImpact, 2)} จุด
+              </div>
+            </div>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
+            <div>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <TrendingUp size={13} style={{ color: '#1D9E75' }} />
+                <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: '#1D9E75' }}>
+                  หนุน SET
+                </span>
+              </div>
+              <div className="flex items-center gap-1 py-1 border-b border-white/[0.07] mb-0.5">
+                <span className="text-[10px] text-white/20 w-[58px] shrink-0">หุ้น</span>
+                <span className="text-[10px] text-white/20 w-[46px] text-right shrink-0">ราคา</span>
+                <span className="text-[10px] text-white/20 w-[44px] text-right shrink-0">เปลี่ยน</span>
+                <span className="text-[10px] text-white/20 w-[46px] text-right shrink-0">%</span>
+                <span className="text-[10px] text-white/20 flex-1 text-right">impact</span>
+              </div>
+              {data.gainers.length === 0 ? (
+                <p className="text-[13px] text-white/25 py-3 text-center">ไม่มีหุ้นหนุน</p>
+              ) : (
+                data.gainers.map(item => <StockRow key={item.ticker} item={item} positive />)
+              )}
+              <div className="flex items-center justify-between pt-2 mt-1 border-t border-white/[0.06]">
+                <span className="text-[12px] text-white/35">รวมหนุน</span>
+                <span className="text-[15px] font-bold tabular-nums" style={{ color: '#1D9E75' }}>
+                  +{fmt(totalGain, 2)} จุด
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <TrendingDown size={13} style={{ color: '#E24B4A' }} />
+                <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: '#E24B4A' }}>
+                  กด SET
+                </span>
+              </div>
+              <div className="flex items-center gap-1 py-1 border-b border-white/[0.07] mb-0.5">
+                <span className="text-[10px] text-white/20 w-[58px] shrink-0">หุ้น</span>
+                <span className="text-[10px] text-white/20 w-[46px] text-right shrink-0">ราคา</span>
+                <span className="text-[10px] text-white/20 w-[44px] text-right shrink-0">เปลี่ยน</span>
+                <span className="text-[10px] text-white/20 w-[46px] text-right shrink-0">%</span>
+                <span className="text-[10px] text-white/20 flex-1 text-right">impact</span>
+              </div>
+              {data.losers.length === 0 ? (
+                <p className="text-[13px] text-white/25 py-3 text-center">ไม่มีหุ้นกด</p>
+              ) : (
+                data.losers.map(item => <StockRow key={item.ticker} item={item} positive={false} />)
+              )}
+              <div className="flex items-center justify-between pt-2 mt-1 border-t border-white/[0.06]">
+                <span className="text-[12px] text-white/35">รวมกด</span>
+                <span className="text-[15px] font-bold tabular-nums" style={{ color: '#E24B4A' }}>
+                  {fmt(totalLoss, 2)} จุด
+                </span>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          {data.sectorImpacts.length === 0 ? (
+            <p className="text-[13px] text-white/30 py-4 text-center">ไม่มีข้อมูล</p>
+          ) : (
+            <>
+              <div className="mb-2.5 flex items-center gap-2">
+                <div
+                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold"
+                  style={
+                    sectorNetImpact >= 0
+                      ? { background: 'rgba(29,158,117,.12)', color: '#1D9E75', border: '1px solid rgba(29,158,117,.25)' }
+                      : { background: 'rgba(226,75,74,.12)', color: '#E24B4A', border: '1px solid rgba(226,75,74,.25)' }
+                  }
+                >
+                  {sectorNetImpact >= 0 ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
+                  {sectorNetImpact >= 0 ? '+' : ''}{fmt(sectorNetImpact, 2)} จุด
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-x-4">
+                <div>
+                  <div className="flex items-center gap-1 mb-1">
+                    <TrendingUp size={11} style={{ color: '#1D9E75' }} />
+                    <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#1D9E75' }}>
+                      หนุน SET
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 pb-1 border-b border-white/[0.07] mb-0.5">
+                    <span className="text-[9px] text-white/20 w-[68px] shrink-0">กลุ่ม</span>
+                    <span className="text-[9px] text-white/20 w-[28px] text-right shrink-0">N</span>
+                    <span className="text-[9px] text-white/20 flex-1 text-right">impact</span>
+                  </div>
+                  {sectorGainers.length === 0 ? (
+                    <p className="text-[12px] text-white/25 py-3 text-center">ไม่มี</p>
+                  ) : (
+                    sectorGainers.map(item => <SectorRow key={item.sector} item={item} positive />)
+                  )}
+                  {sectorGainers.length > 0 && (
+                    <div className="flex items-center justify-between pt-1.5 mt-1 border-t border-white/[0.06]">
+                      <span className="text-[11px] text-white/30">รวม</span>
+                      <span className="text-[13px] font-bold tabular-nums" style={{ color: '#1D9E75' }}>
+                        +{fmt(sectorTotalGain, 2)} pt
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-1 mb-1">
+                    <TrendingDown size={11} style={{ color: '#E24B4A' }} />
+                    <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#E24B4A' }}>
+                      กด SET
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 pb-1 border-b border-white/[0.07] mb-0.5">
+                    <span className="text-[9px] text-white/20 w-[68px] shrink-0">กลุ่ม</span>
+                    <span className="text-[9px] text-white/20 w-[28px] text-right shrink-0">N</span>
+                    <span className="text-[9px] text-white/20 flex-1 text-right">impact</span>
+                  </div>
+                  {sectorLosers.length === 0 ? (
+                    <p className="text-[12px] text-white/25 py-3 text-center">ไม่มี</p>
+                  ) : (
+                    sectorLosers.map(item => <SectorRow key={item.sector} item={item} positive={false} />)
+                  )}
+                  {sectorLosers.length > 0 && (
+                    <div className="flex items-center justify-between pt-1.5 mt-1 border-t border-white/[0.06]">
+                      <span className="text-[11px] text-white/30">รวม</span>
+                      <span className="text-[13px] font-bold tabular-nums" style={{ color: '#E24B4A' }}>
+                        {fmt(sectorTotalLoss, 2)} pt
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  );
+}

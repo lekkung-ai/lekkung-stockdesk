@@ -6,13 +6,12 @@ import rawSepaDefault from '@/data/scans/sepa.json';
 import rawKellDefault from '@/data/scans/oliver_kell.json';
 import rawBreakoutDefault from '@/data/scans/breakout.json';
 import TopRSTable from '@/components/TopRSTable';
-import MetricCard from '@/components/MetricCard';
 import SetIndexCard from '@/components/SetIndexCard';
 import VolumeCard from '@/components/VolumeCard';
 import InvestorTypeSection from '@/components/InvestorTypeSection';
 import SectorFlow from '@/components/SectorFlow';
-import IndexImpact from '@/components/IndexImpact';
-import SectorImpact from '@/components/SectorImpact';
+import IndexImpactSection from '@/components/IndexImpactSection';
+import { getNewSepaTickers } from '@/lib/newSepaTickers';
 
 interface StageEntry {
   Ticker: string;
@@ -64,7 +63,7 @@ const SECTOR_COLORS: Record<string, string> = {
 export default function OverviewPage() {
   const rawStage = rawStageDefault;
   const rawCombined = rawCombinedDefault;
-  const rawSepa = rawSepaDefault as { ticker?: string }[];
+  const rawSepa = rawSepaDefault as { Ticker?: string }[];
   const rawKell = rawKellDefault as { ticker?: string }[];
   const rawBreakout = rawBreakoutDefault as { ticker?: string }[];
 
@@ -79,6 +78,14 @@ export default function OverviewPage() {
   const breakoutCount = rawBreakout.length;
   const dualPass = combinedData.filter(s => s.sepa && s.kell).length;
   const stage2Count = stageData.filter(s => s.Stage === 'S.Bull' || s.Stage === 'Bull').length;
+
+  // ── NEW badge (Phase 5) — SEPA passers today that weren't in the most
+  // recent saved history snapshot. Empty set (no crash) if there's no prior
+  // snapshot to compare against.
+  const newSepaTickers = getNewSepaTickers(
+    rawSepa.map(r => r.Ticker).filter((t): t is string => !!t)
+  );
+  const newSepaCount = newSepaTickers.size;
 
   // ── Market Breadth ────────────────────────────────────────────────────
   const aboveEMA50 = stageData.filter(s => s.Price > s.EMA50).length;
@@ -145,6 +152,7 @@ export default function OverviewPage() {
       kell: combinedMap.get(entry.ticker)?.kell ?? false,
       breakout: combinedMap.get(entry.ticker)?.breakout ?? false,
       combo: combinedMap.get(entry.ticker)?.combo_score ?? 0,
+      isNew: newSepaTickers.has(entry.ticker),
     },
   }));
 
@@ -159,92 +167,54 @@ export default function OverviewPage() {
     marketHealth === 'Bullish' ? '#1D9E75' : marketHealth === 'Neutral' ? '#EF9F27' : '#E24B4A';
 
   const signals = [
-    { label: 'SEPA Pass',      count: sepaCount,     href: '/sepa',         color: '#1D9E75', bg: 'bg-[#1D9E75]/[0.08] border-[#1D9E75]/20 hover:border-[#1D9E75]/40' },
-    { label: 'Oliver Kell',    count: kellCount,     href: '/kell',         color: '#378ADD', bg: 'bg-[#378ADD]/[0.08] border-[#378ADD]/20 hover:border-[#378ADD]/40' },
-    { label: 'Breakout Setup', count: breakoutCount, href: '/breakout',     color: '#EF9F27', bg: 'bg-[#EF9F27]/[0.08] border-[#EF9F27]/20 hover:border-[#EF9F27]/40' },
-    { label: 'Dual Pass',      count: dualPass,      href: '/scanner',      color: '#7F77DD', bg: 'bg-[#7F77DD]/[0.08] border-[#7F77DD]/20 hover:border-[#7F77DD]/40' },
-    { label: 'Stage 2 (Bull)', count: stage2Count,   href: '/market-stage', color: '#27AE60', bg: 'bg-[#27AE60]/[0.08] border-[#27AE60]/20 hover:border-[#27AE60]/40' },
+    { label: 'SEPA Pass',      count: sepaCount,     href: '/sepa',         color: '#1D9E75', bg: 'bg-[#1D9E75]/[0.08] border-[#1D9E75]/20 hover:border-[#1D9E75]/40', newCount: newSepaCount },
+    { label: 'Oliver Kell',    count: kellCount,     href: '/kell',         color: '#378ADD', bg: 'bg-[#378ADD]/[0.08] border-[#378ADD]/20 hover:border-[#378ADD]/40', newCount: 0 },
+    { label: 'Breakout Setup', count: breakoutCount, href: '/breakout',     color: '#EF9F27', bg: 'bg-[#EF9F27]/[0.08] border-[#EF9F27]/20 hover:border-[#EF9F27]/40', newCount: 0 },
+    { label: 'Dual Pass',      count: dualPass,      href: '/scanner',      color: '#7F77DD', bg: 'bg-[#7F77DD]/[0.08] border-[#7F77DD]/20 hover:border-[#7F77DD]/40', newCount: 0 },
+    { label: 'Stage 2 (Bull)', count: stage2Count,   href: '/market-stage', color: '#27AE60', bg: 'bg-[#27AE60]/[0.08] border-[#27AE60]/20 hover:border-[#27AE60]/40', newCount: 0 },
   ];
 
   return (
     <div className="p-4 md:p-6 space-y-6">
       <div>
         <h1 className="text-[18px] font-bold text-white">Market Overview</h1>
-        <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-          <p className="text-[12px] text-white/35">SET · Universe: {total} stocks</p>
-          <span className="text-white/15">·</span>
-          <span
-            className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold"
-            style={{ backgroundColor: `${marketHealthColor}22`, color: marketHealthColor }}
-          >
-            Market Health: {marketHealth} ({sepaPassPct.toFixed(1)}% ผ่าน SEPA)
-          </span>
-        </div>
+        <p className="text-[12px] text-white/35 mt-0.5">SET · Universe: {total} stocks</p>
       </div>
 
-      {/* ── Top: metric cards (left) + buy-sell pressure (right) ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-        {/* Metric cards */}
-        <div className="grid grid-cols-2 gap-3 content-start">
-          <SetIndexCard />
-          <VolumeCard />
+      {/* ── 1. Top row: SET Index / Volume / Market Health (primary), SET50/SET100 (secondary) ── */}
+      <div className="space-y-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <SetIndexCard large />
+          <VolumeCard large />
+          <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-6">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-white/35 mb-1.5">Market Health</p>
+            <p className="text-[36px] font-bold leading-none tabular-nums" style={{ color: marketHealthColor }}>
+              {marketHealth}
+            </p>
+            <p className="text-[14px] mt-1.5 text-white/40">
+              {sepaPassPct.toFixed(1)}% ผ่าน SEPA ({sepaCount}/{total})
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-3 max-w-md">
           <SetIndexCard label="SET50" symbol="^SET50.BK" href="/set-index/set50" />
           <SetIndexCard label="SET100" symbol="^SET100.BK" href="/set-index/set100" />
-          <MetricCard
-            label="SEPA Pass"
-            value={`${sepaCount} ตัว`}
-            sub="Stan Weinstein + O'Neil"
-            subColor="gray"
-          />
-          <MetricCard
-            label="Oliver Kell"
-            value={`${kellCount} ตัว`}
-            sub="EMAC + Trend Riding"
-            subColor="gray"
-          />
-          <MetricCard
-            label="Breakout Setup"
-            value={`${breakoutCount} ตัว`}
-            sub="VDU / Box Pattern"
-            subColor="gray"
-          />
-        </div>
-
-        {/* Buy-sell pressure — moved up, right column */}
-        <InvestorTypeSection />
-      </div>
-
-      {/* ── Index Impact + Sector Impact ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <IndexImpact />
-        <SectorImpact />
-      </div>
-
-      {/* ── Scanner Signal Summary ── */}
-      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/25 mb-3">Scanner Signals</p>
-        <div className="flex flex-wrap gap-2 md:flex-nowrap md:overflow-x-auto md:pb-1 md:-mx-4 md:px-4 lg:mx-0 lg:px-0 md:scrollbar-none">
-          {signals.map(sig => (
-            <Link
-              key={sig.label}
-              href={sig.href}
-              className={`flex items-center gap-2.5 px-3.5 py-2 rounded-xl border transition-all flex-shrink-0 ${sig.bg}`}
-            >
-              <span className="text-[22px] font-bold tabular-nums leading-none" style={{ color: sig.color }}>
-                {sig.count}
-              </span>
-              <span className="text-[11px] font-medium text-white/55 whitespace-nowrap">{sig.label}</span>
-            </Link>
-          ))}
         </div>
       </div>
 
-      {/* ── Sector Flow ── */}
+      {/* ── 2. แรงซื้อ-ขาย ── */}
+      <InvestorTypeSection />
+
+      {/* ── 3. Index Impact (รวม tab รายหุ้น/รายกลุ่ม) ── */}
+      <IndexImpactSection />
+
+      {/* ── 4. Sector Flow ── */}
       <SectorFlow />
 
-      {/* ── SET Market Breadth ── */}
-      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
-        <h2 className="text-[13px] font-semibold text-white mb-4">SET Market Breadth</h2>
+      {/* ── 5. Market Structure (EMA Breadth + Stage Distribution + Sector Breadth) ── */}
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-6">
+        <h2 className="text-[13px] font-semibold text-white">Market Structure</h2>
+
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-1.5">
@@ -281,37 +251,34 @@ export default function OverviewPage() {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* ── Stage Distribution ── */}
-      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
-        <h2 className="text-[13px] font-semibold text-white mb-4">Stage Distribution</h2>
-        <div className="flex h-8 rounded-lg overflow-hidden gap-0.5 mb-4">
-          {stageSegments.map(s => (
-            <div
-              key={s.stage}
-              className="h-full"
-              style={{ width: `${s.pct}%`, background: s.color }}
-              title={`${s.stage}: ${s.count} (${s.pct.toFixed(1)}%)`}
-            />
-          ))}
+        <div>
+          <h3 className="text-[12px] font-semibold text-white/60 mb-3">Stage Distribution</h3>
+          <div className="flex h-8 rounded-lg overflow-hidden gap-0.5 mb-4">
+            {stageSegments.map(s => (
+              <div
+                key={s.stage}
+                className="h-full"
+                style={{ width: `${s.pct}%`, background: s.color }}
+                title={`${s.stage}: ${s.count} (${s.pct.toFixed(1)}%)`}
+              />
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {stageSegments.map(s => (
+              <div key={s.stage} className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: s.color }} />
+                <span className="text-[11px] text-white/50">{s.stage}</span>
+                <span className="text-[11px] font-semibold text-white/70 tabular-nums">{s.count}</span>
+                <span className="text-[10px] text-white/25 tabular-nums">({s.pct.toFixed(0)}%)</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-2">
-          {stageSegments.map(s => (
-            <div key={s.stage} className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: s.color }} />
-              <span className="text-[11px] text-white/50">{s.stage}</span>
-              <span className="text-[11px] font-semibold text-white/70 tabular-nums">{s.count}</span>
-              <span className="text-[10px] text-white/25 tabular-nums">({s.pct.toFixed(0)}%)</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
-      {/* ── Sector Breadth ── */}
-      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
-        <h2 className="text-[13px] font-semibold text-white mb-4">Sector Breadth</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <h3 className="text-[12px] font-semibold text-white/60 mb-3">Sector Breadth</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {sectorBreadth.map(s => {
             const accent =
               s.pct >= 60 ? '#1D9E75' :
@@ -383,10 +350,35 @@ export default function OverviewPage() {
               </div>
             );
           })}
+          </div>
         </div>
       </div>
 
-      {/* ── Top RS Leaders ── */}
+      {/* ── 6. Scanner Signal Summary ── */}
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-white/25 mb-3">Scanner Signals</p>
+        <div className="flex flex-wrap gap-2 md:flex-nowrap md:overflow-x-auto md:pb-1 md:-mx-4 md:px-4 lg:mx-0 lg:px-0 md:scrollbar-none">
+          {signals.map(sig => (
+            <Link
+              key={sig.label}
+              href={sig.href}
+              className={`flex items-center gap-2.5 px-3.5 py-2 rounded-xl border transition-all flex-shrink-0 ${sig.bg}`}
+            >
+              <span className="text-[22px] font-bold tabular-nums leading-none" style={{ color: sig.color }}>
+                {sig.count}
+              </span>
+              <span className="text-[11px] font-medium text-white/55 whitespace-nowrap">
+                {sig.label}
+                {sig.newCount > 0 && (
+                  <span className="text-[#7F77DD] font-semibold"> (+{sig.newCount} ใหม่)</span>
+                )}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 7. Top RS Leaders ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
         <div className="px-5 py-4 border-b border-white/[0.06]">
           <h2 className="text-[13px] font-semibold text-white">Top RS Leaders</h2>
