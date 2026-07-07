@@ -202,11 +202,13 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* ── 2. แรงซื้อ-ขาย ── */}
-      <InvestorTypeSection />
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
+        {/* ── 2. Index Impact (รวม tab รายหุ้น/รายกลุ่ม) ── */}
+        <IndexImpactSection />
 
-      {/* ── 3. Index Impact (รวม tab รายหุ้น/รายกลุ่ม) ── */}
-      <IndexImpactSection />
+        {/* ── 3. แรงซื้อ-ขาย ── */}
+        <InvestorTypeSection />
+      </div>
 
       {/* ── 4. Sector Flow ── */}
       <SectorFlow />
