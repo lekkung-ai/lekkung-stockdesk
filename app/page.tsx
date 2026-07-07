@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next/link'; // Trigger Vercel Build
 import rawSectorMap from '@/data/scans/sector_map.json';
 import rawStageDefault from '@/data/scans/market_stage.json';
 import rawCombinedDefault from '@/data/scans/combined.json';
