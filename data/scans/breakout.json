@@ -1,25 +1,5 @@
 [
   {
-    "Ticker": "MOSHI",
-    "Price": 39.5,
-    "Box_Low": 29.95,
-    "Box_High(Break)": 39.5,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 18.8,
-    "Box_Width": "31.89%",
-    "SMA150_Chg": 0.634
-  },
-  {
-    "Ticker": "SCB",
-    "Price": 155.0,
-    "Box_Low": 121.68,
-    "Box_High(Break)": 155.0,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 2626.7,
-    "Box_Width": "27.38%",
-    "SMA150_Chg": 3.195
-  },
-  {
     "Ticker": "CPF",
     "Price": 22.3,
     "Box_Low": 18.46,
@@ -30,14 +10,24 @@
     "SMA150_Chg": -0.105
   },
   {
-    "Ticker": "RATCH",
-    "Price": 35.5,
-    "Box_Low": 27.47,
-    "Box_High(Break)": 35.5,
+    "Ticker": "MOSHI",
+    "Price": 39.5,
+    "Box_Low": 29.95,
+    "Box_High(Break)": 39.5,
     "To_Break": "0.0%",
-    "ADTV(MB)": 131.9,
-    "Box_Width": "29.23%",
-    "SMA150_Chg": 0.536
+    "ADTV(MB)": 18.8,
+    "Box_Width": "31.89%",
+    "SMA150_Chg": 0.634
+  },
+  {
+    "Ticker": "TVO",
+    "Price": 26.5,
+    "Box_Low": 20.04,
+    "Box_High(Break)": 26.5,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 17.5,
+    "Box_Width": "32.26%",
+    "SMA150_Chg": 0.452
   },
   {
     "Ticker": "TTW",
@@ -60,14 +50,34 @@
     "SMA150_Chg": 0.021
   },
   {
-    "Ticker": "TVO",
-    "Price": 26.5,
-    "Box_Low": 20.04,
-    "Box_High(Break)": 26.5,
+    "Ticker": "SCCC",
+    "Price": 148.0,
+    "Box_Low": 134.33,
+    "Box_High(Break)": 148.0,
     "To_Break": "0.0%",
-    "ADTV(MB)": 17.5,
-    "Box_Width": "32.26%",
-    "SMA150_Chg": 0.452
+    "ADTV(MB)": 10.3,
+    "Box_Width": "10.18%",
+    "SMA150_Chg": 1.375
+  },
+  {
+    "Ticker": "SCB",
+    "Price": 155.0,
+    "Box_Low": 121.68,
+    "Box_High(Break)": 155.0,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 2626.7,
+    "Box_Width": "27.38%",
+    "SMA150_Chg": 3.195
+  },
+  {
+    "Ticker": "RATCH",
+    "Price": 35.5,
+    "Box_Low": 27.47,
+    "Box_High(Break)": 35.5,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 131.9,
+    "Box_Width": "29.23%",
+    "SMA150_Chg": 0.536
   },
   {
     "Ticker": "TISCO",
@@ -78,16 +88,6 @@
     "ADTV(MB)": 382.9,
     "Box_Width": "22.14%",
     "SMA150_Chg": 2.067
-  },
-  {
-    "Ticker": "SCCC",
-    "Price": 148.0,
-    "Box_Low": 134.33,
-    "Box_High(Break)": 148.0,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 10.3,
-    "Box_Width": "10.18%",
-    "SMA150_Chg": 1.375
   },
   {
     "Ticker": "MBK",
