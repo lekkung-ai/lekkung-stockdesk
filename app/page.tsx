@@ -9,7 +9,8 @@ import TopRSTable from '@/components/TopRSTable';
 import SetIndexCard from '@/components/SetIndexCard';
 import VolumeCard from '@/components/VolumeCard';
 import InvestorTypeSection from '@/components/InvestorTypeSection';
-import SectorFlow from '@/components/SectorFlow';
+import SectorOverview from '@/components/SectorOverview';
+import type { SectorBreadthInfo } from '@/components/SectorOverview';
 import IndexImpactSection from '@/components/IndexImpactSection';
 import { getNewSepaTickers } from '@/lib/newSepaTickers';
 
@@ -49,16 +50,13 @@ const STAGE_COLORS: Record<string, string> = {
   'Distribution': '#ff9800',
   'Bear': '#ef5350',
 };
-const SECTOR_COLORS: Record<string, string> = {
-  'Financials': '#378ADD',
-  'Energy & Utilities': '#EF9F27',
-  'Technology': '#1D9E75',
-  'Materials': '#9B59B6',
-  'Industrials': '#E67E22',
-  'Consumer Products': '#E24B4A',
-  'Property': '#27AE60',
-  'Services': '#7F77DD',
-};
+const THAI_MONTHS_SHORT = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+function formatThaiDateShort(iso: string | undefined): string {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '—';
+  return `${d.getDate()} ${THAI_MONTHS_SHORT[d.getMonth()]}`;
+}
 
 export default function OverviewPage() {
   const rawStage = rawStageDefault;
@@ -71,6 +69,7 @@ export default function OverviewPage() {
   const _c = rawCombined as ScanEntry[] | { generated_at?: string; data: ScanEntry[] };
   const combinedData: ScanEntry[] = Array.isArray(_c) ? _c : (_c.data ?? []);
   const total = stageData.length;
+  const scanDateLabel = formatThaiDateShort(Array.isArray(_c) ? undefined : _c.generated_at);
 
   // ── Signal counts ─────────────────────────────────────────────────────
   const sepaCount = rawSepa.length;
@@ -113,15 +112,24 @@ export default function OverviewPage() {
     accum: number;
     warn: number;
   }> = {};
+  const missingSectorTickers: string[] = [];
   for (const s of stageData) {
     const sec = sectorMap.ticker_to_sector[s.Ticker]?.sector;
-    if (!sec) continue;
+    if (!sec) {
+      missingSectorTickers.push(s.Ticker);
+      continue;
+    }
     if (!sectorStats[sec]) sectorStats[sec] = { aboveEMA50: 0, total: 0, bullish: 0, accum: 0, warn: 0 };
     sectorStats[sec].total += 1;
     if (s.Price > s.EMA50) sectorStats[sec].aboveEMA50 += 1;
     if (s.Stage === 'S.Bull' || s.Stage === 'Bull') sectorStats[sec].bullish += 1;
     else if (s.Stage === 'Accumulation' || s.Stage === 'Recovery') sectorStats[sec].accum += 1;
     else sectorStats[sec].warn += 1;
+  }
+  if (missingSectorTickers.length > 0) {
+    console.warn(
+      `[Overview] ${missingSectorTickers.length} ticker(s) have no sector_map.json mapping, excluded from Sector breadth/stage: ${missingSectorTickers.join(', ')}`
+    );
   }
   const sectorBreadth = Object.entries(sectorStats)
     .map(([sector, d]) => ({
@@ -134,6 +142,17 @@ export default function OverviewPage() {
       warnPct: (d.warn / d.total) * 100,
     }))
     .sort((a, b) => b.pct - a.pct);
+  const breadthBySector: Record<string, SectorBreadthInfo> = {};
+  for (const s of sectorBreadth) {
+    breadthBySector[s.sector] = {
+      total: s.total,
+      above: s.above,
+      pct: s.pct,
+      bullishPct: s.bullishPct,
+      accumPct: s.accumPct,
+      warnPct: s.warnPct,
+    };
+  }
 
   // ── Top RS ────────────────────────────────────────────────────────────
   const stageMap = new Map(stageData.map(s => [s.Ticker, s.Stage]));
@@ -210,8 +229,8 @@ export default function OverviewPage() {
         <InvestorTypeSection />
       </div>
 
-      {/* ── 4. Sector Flow ── */}
-      <SectorFlow />
+      {/* ── 4. Sector (Flow + Breadth merged) ── */}
+      <SectorOverview breadthBySector={breadthBySector} scanDateLabel={scanDateLabel} />
 
       {/* ── 5. Market Structure (EMA Breadth + Stage Distribution + Sector Breadth) ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-6">
@@ -275,83 +294,6 @@ export default function OverviewPage() {
                 <span className="text-[10px] text-white/25 tabular-nums">({s.pct.toFixed(0)}%)</span>
               </div>
             ))}
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-[12px] font-semibold text-white/60 mb-3">Sector Breadth</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {sectorBreadth.map(s => {
-            const accent =
-              s.pct >= 60 ? '#1D9E75' :
-              s.pct >= 40 ? '#BA7517' :
-              '#E24B4A';
-            const bgCls =
-              s.pct >= 60 ? 'bg-[#1D9E75]/[0.05] border-[#1D9E75]/12' :
-              s.pct >= 40 ? 'bg-[#BA7517]/[0.05] border-[#BA7517]/12' :
-              'bg-[#E24B4A]/[0.05] border-[#E24B4A]/12';
-            const sectorColor = SECTOR_COLORS[s.sector] ?? '#6b7280';
-            return (
-              <div key={s.sector} className={`rounded-xl border p-4 ${bgCls}`}>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-1 h-4 rounded-full flex-shrink-0" style={{ background: sectorColor }} />
-                    <span className="text-[12px] font-semibold text-white/80">{s.sector}</span>
-                  </div>
-                  <span className="text-[11px] text-white/30 tabular-nums">{s.total} หุ้น</span>
-                </div>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-[28px] font-bold leading-none tabular-nums" style={{ color: accent }}>
-                    {s.pct.toFixed(0)}%
-                  </span>
-                  <div className="flex-1">
-                    <div className="text-[10px] text-white/30 mb-1">เหนือ EMA50</div>
-                    <div className="h-1.5 bg-white/[0.07] rounded-full overflow-hidden">
-                      <div className="h-full rounded-full" style={{ width: `${s.pct}%`, background: accent }} />
-                    </div>
-                    <div className="text-[10px] text-white/20 mt-0.5 tabular-nums">{s.above}/{s.total}</div>
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[10px] text-white/20 mb-1.5">Stage distribution</div>
-                  <div className="flex h-2 rounded-full overflow-hidden gap-px">
-                    {s.bullishPct > 0 && (
-                      <div
-                        className="h-full rounded-l-full"
-                        style={{ width: `${s.bullishPct}%`, background: '#1D9E75' }}
-                        title={`Bull/S.Bull: ${s.bullishPct.toFixed(0)}%`}
-                      />
-                    )}
-                    {s.accumPct > 0 && (
-                      <div
-                        className="h-full"
-                        style={{ width: `${s.accumPct}%`, background: '#378ADD' }}
-                        title={`Accum/Recovery: ${s.accumPct.toFixed(0)}%`}
-                      />
-                    )}
-                    {s.warnPct > 0 && (
-                      <div
-                        className="h-full rounded-r-full"
-                        style={{ width: `${s.warnPct}%`, background: '#E24B4A' }}
-                        title={`Warning/Bear: ${s.warnPct.toFixed(0)}%`}
-                      />
-                    )}
-                  </div>
-                  <div className="flex gap-3 mt-1.5">
-                    <span className="text-[10px] tabular-nums" style={{ color: '#1D9E75' }}>
-                      {s.bullishPct.toFixed(0)}% Bull
-                    </span>
-                    <span className="text-[10px] tabular-nums" style={{ color: '#378ADD' }}>
-                      {s.accumPct.toFixed(0)}% Accum
-                    </span>
-                    <span className="text-[10px] tabular-nums" style={{ color: '#E24B4A' }}>
-                      {s.warnPct.toFixed(0)}% Warn
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
           </div>
         </div>
       </div>
