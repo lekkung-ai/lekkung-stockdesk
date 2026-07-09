@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09T16:55:55+07:00",
+  "generated_at": "2026-07-09T17:35:57+07:00",
   "data": [
     {
       "ticker": "SCB",
@@ -16,7 +16,7 @@
     },
     {
       "ticker": "TISCO",
-      "price": 123.5,
+      "price": 123.0,
       "sepa": true,
       "kell": true,
       "breakout": true,
@@ -24,7 +24,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 78,
+      "rs_score": 77,
       "combo_score": 5
     },
     {
@@ -54,6 +54,32 @@
       "combo_score": 5
     },
     {
+      "ticker": "MBK",
+      "price": 20.0,
+      "sepa": true,
+      "kell": true,
+      "breakout": true,
+      "lekkung": true,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 73,
+      "combo_score": 5
+    },
+    {
+      "ticker": "PTT",
+      "price": 37.0,
+      "sepa": true,
+      "kell": true,
+      "breakout": true,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 71,
+      "combo_score": 5
+    },
+    {
       "ticker": "TVO",
       "price": 26.5,
       "sepa": true,
@@ -67,8 +93,8 @@
       "combo_score": 5
     },
     {
-      "ticker": "PTT",
-      "price": 37.0,
+      "ticker": "WHART",
+      "price": 11.1,
       "sepa": true,
       "kell": true,
       "breakout": true,
@@ -81,7 +107,7 @@
     },
     {
       "ticker": "EASTW",
-      "price": 4.74,
+      "price": 4.72,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -94,7 +120,7 @@
     },
     {
       "ticker": "EPG",
-      "price": 5.9,
+      "price": 5.95,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -107,7 +133,7 @@
     },
     {
       "ticker": "MGC",
-      "price": 7.25,
+      "price": 7.2,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -120,7 +146,7 @@
     },
     {
       "ticker": "KKP",
-      "price": 103.0,
+      "price": 103.5,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -146,7 +172,7 @@
     },
     {
       "ticker": "SCGP",
-      "price": 28.5,
+      "price": 28.25,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -198,7 +224,7 @@
     },
     {
       "ticker": "STANLY",
-      "price": 237.0,
+      "price": 238.0,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -210,21 +236,8 @@
       "combo_score": 4
     },
     {
-      "ticker": "THANI",
-      "price": 2.06,
-      "sepa": true,
-      "kell": false,
-      "breakout": true,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 87,
-      "combo_score": 4
-    },
-    {
-      "ticker": "TACC",
-      "price": 6.25,
+      "ticker": "SKY",
+      "price": 15.4,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -232,12 +245,25 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 85,
+      "rs_score": 86,
       "combo_score": 4
     },
     {
-      "ticker": "RATCH",
-      "price": 35.25,
+      "ticker": "TACC",
+      "price": 6.3,
+      "sepa": true,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 86,
+      "combo_score": 4
+    },
+    {
+      "ticker": "THANI",
+      "price": 2.04,
       "sepa": true,
       "kell": false,
       "breakout": true,
@@ -245,7 +271,20 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 84,
+      "rs_score": 86,
+      "combo_score": 4
+    },
+    {
+      "ticker": "RATCH",
+      "price": 35.5,
+      "sepa": true,
+      "kell": false,
+      "breakout": true,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 85,
       "combo_score": 4
     },
     {
@@ -258,7 +297,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 82,
+      "rs_score": 83,
       "combo_score": 4
     },
     {
@@ -276,7 +315,7 @@
     },
     {
       "ticker": "ADVANC",
-      "price": 377.0,
+      "price": 378.0,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -323,12 +362,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 78,
+      "rs_score": 77,
       "combo_score": 4
     },
     {
       "ticker": "RCL",
-      "price": 32.5,
+      "price": 32.75,
       "sepa": true,
       "kell": true,
       "breakout": false,
@@ -336,7 +375,20 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 75,
+      "rs_score": 76,
+      "combo_score": 4
+    },
+    {
+      "ticker": "BANPU",
+      "price": 5.7,
+      "sepa": true,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 74,
       "combo_score": 4
     },
     {
@@ -366,34 +418,8 @@
       "combo_score": 4
     },
     {
-      "ticker": "MBK",
-      "price": 19.9,
-      "sepa": false,
-      "kell": true,
-      "breakout": true,
-      "lekkung": true,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 73,
-      "combo_score": 4
-    },
-    {
-      "ticker": "BANPU",
-      "price": 5.65,
-      "sepa": true,
-      "kell": true,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 72,
-      "combo_score": 4
-    },
-    {
       "ticker": "SIS",
-      "price": 23.6,
+      "price": 23.7,
       "sepa": true,
       "kell": false,
       "breakout": true,
@@ -401,20 +427,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 71,
-      "combo_score": 4
-    },
-    {
-      "ticker": "WHART",
-      "price": 11.0,
-      "sepa": false,
-      "kell": true,
-      "breakout": true,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 69,
+      "rs_score": 72,
       "combo_score": 4
     },
     {
@@ -431,19 +444,6 @@
       "combo_score": 4
     },
     {
-      "ticker": "TTW",
-      "price": 10.0,
-      "sepa": false,
-      "kell": true,
-      "breakout": true,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 66,
-      "combo_score": 4
-    },
-    {
       "ticker": "MC",
       "price": 11.6,
       "sepa": false,
@@ -457,8 +457,8 @@
       "combo_score": 4
     },
     {
-      "ticker": "SIRI",
-      "price": 1.46,
+      "ticker": "TTW",
+      "price": 9.9,
       "sepa": false,
       "kell": true,
       "breakout": true,
@@ -466,7 +466,20 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 61,
+      "rs_score": 65,
+      "combo_score": 4
+    },
+    {
+      "ticker": "SIRI",
+      "price": 1.47,
+      "sepa": false,
+      "kell": true,
+      "breakout": true,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 62,
       "combo_score": 4
     },
     {
@@ -484,7 +497,7 @@
     },
     {
       "ticker": "SCCC",
-      "price": 147.5,
+      "price": 148.0,
       "sepa": false,
       "kell": true,
       "breakout": true,
@@ -492,12 +505,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 53,
+      "rs_score": 54,
       "combo_score": 4
     },
     {
       "ticker": "FORTH",
-      "price": 15.4,
+      "price": 15.6,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -510,7 +523,7 @@
     },
     {
       "ticker": "GUNKUL",
-      "price": 4.78,
+      "price": 4.8,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -536,7 +549,7 @@
     },
     {
       "ticker": "SMT",
-      "price": 3.48,
+      "price": 3.52,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -575,7 +588,7 @@
     },
     {
       "ticker": "BAY",
-      "price": 45.5,
+      "price": 45.75,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -588,7 +601,7 @@
     },
     {
       "ticker": "KCE",
-      "price": 40.5,
+      "price": 40.75,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -601,7 +614,7 @@
     },
     {
       "ticker": "KGEN",
-      "price": 1.91,
+      "price": 1.9,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -614,7 +627,7 @@
     },
     {
       "ticker": "TFG",
-      "price": 10.8,
+      "price": 10.9,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -627,7 +640,7 @@
     },
     {
       "ticker": "CCET",
-      "price": 8.7,
+      "price": 8.65,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -679,7 +692,7 @@
     },
     {
       "ticker": "UKEM",
-      "price": 1.08,
+      "price": 1.09,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -692,7 +705,7 @@
     },
     {
       "ticker": "ALT",
-      "price": 1.84,
+      "price": 1.85,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -718,7 +731,7 @@
     },
     {
       "ticker": "KTB",
-      "price": 40.25,
+      "price": 40.5,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -740,6 +753,19 @@
       "weinstein": true,
       "stage": "S.Bull",
       "rs_score": 94,
+      "combo_score": 3
+    },
+    {
+      "ticker": "PTL",
+      "price": 14.3,
+      "sepa": false,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 92,
       "combo_score": 3
     },
     {
@@ -770,7 +796,7 @@
     },
     {
       "ticker": "BLA",
-      "price": 26.75,
+      "price": 27.0,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -782,10 +808,10 @@
       "combo_score": 3
     },
     {
-      "ticker": "PTL",
-      "price": 14.2,
-      "sepa": false,
-      "kell": true,
+      "ticker": "CK",
+      "price": 19.8,
+      "sepa": true,
+      "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
@@ -809,20 +835,7 @@
     },
     {
       "ticker": "WHA",
-      "price": 5.05,
-      "sepa": true,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 91,
-      "combo_score": 3
-    },
-    {
-      "ticker": "CK",
-      "price": 19.7,
+      "price": 5.1,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -830,7 +843,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 90,
+      "rs_score": 91,
       "combo_score": 3
     },
     {
@@ -899,6 +912,19 @@
       "combo_score": 3
     },
     {
+      "ticker": "XO",
+      "price": 19.1,
+      "sepa": false,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 88,
+      "combo_score": 3
+    },
+    {
       "ticker": "TOP",
       "price": 49.25,
       "sepa": true,
@@ -913,33 +939,7 @@
     },
     {
       "ticker": "TTB",
-      "price": 2.66,
-      "sepa": true,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 87,
-      "combo_score": 3
-    },
-    {
-      "ticker": "XO",
-      "price": 19.0,
-      "sepa": false,
-      "kell": true,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 87,
-      "combo_score": 3
-    },
-    {
-      "ticker": "SKY",
-      "price": 15.5,
+      "price": 2.64,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -952,7 +952,7 @@
     },
     {
       "ticker": "BBL",
-      "price": 196.0,
+      "price": 196.5,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -965,15 +965,15 @@
     },
     {
       "ticker": "CRC",
-      "price": 23.1,
+      "price": 23.0,
       "sepa": true,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 85,
+      "stage": "Bull",
+      "rs_score": 84,
       "combo_score": 3
     },
     {
@@ -1003,29 +1003,16 @@
       "combo_score": 3
     },
     {
-      "ticker": "ERW",
-      "price": 3.02,
-      "sepa": true,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 81,
-      "combo_score": 3
-    },
-    {
       "ticker": "STPI",
-      "price": 5.3,
+      "price": 5.35,
       "sepa": true,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 81,
+      "stage": "S.Bull",
+      "rs_score": 82,
       "combo_score": 3
     },
     {
@@ -1042,11 +1029,11 @@
       "combo_score": 3
     },
     {
-      "ticker": "TSTH",
-      "price": 0.9,
-      "sepa": true,
+      "ticker": "TOA",
+      "price": 15.2,
+      "sepa": false,
       "kell": false,
-      "breakout": false,
+      "breakout": true,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
@@ -1055,11 +1042,24 @@
       "combo_score": 3
     },
     {
-      "ticker": "TOA",
-      "price": 15.1,
-      "sepa": false,
+      "ticker": "ERW",
+      "price": 2.98,
+      "sepa": true,
       "kell": false,
-      "breakout": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 79,
+      "combo_score": 3
+    },
+    {
+      "ticker": "TSTH",
+      "price": 0.89,
+      "sepa": true,
+      "kell": false,
+      "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
@@ -1082,7 +1082,7 @@
     },
     {
       "ticker": "TIPH",
-      "price": 23.6,
+      "price": 23.7,
       "sepa": false,
       "kell": true,
       "breakout": false,
@@ -1091,19 +1091,6 @@
       "weinstein": true,
       "stage": "S.Bull",
       "rs_score": 78,
-      "combo_score": 3
-    },
-    {
-      "ticker": "CPN",
-      "price": 66.75,
-      "sepa": true,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 77,
       "combo_score": 3
     },
     {
@@ -1120,8 +1107,21 @@
       "combo_score": 3
     },
     {
+      "ticker": "CPN",
+      "price": 66.5,
+      "sepa": true,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 76,
+      "combo_score": 3
+    },
+    {
       "ticker": "BH",
-      "price": 186.0,
+      "price": 185.5,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -1147,7 +1147,7 @@
     },
     {
       "ticker": "CENTEL",
-      "price": 36.5,
+      "price": 36.25,
       "sepa": true,
       "kell": false,
       "breakout": false,
@@ -1194,6 +1194,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
+      "rs_score": 66,
+      "combo_score": 3
+    },
+    {
+      "ticker": "BCP",
+      "price": 35.75,
+      "sepa": false,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
       "rs_score": 65,
       "combo_score": 3
     },
@@ -1211,16 +1224,16 @@
       "combo_score": 3
     },
     {
-      "ticker": "BCP",
-      "price": 35.25,
+      "ticker": "MOSHI",
+      "price": 39.5,
       "sepa": false,
-      "kell": true,
-      "breakout": false,
-      "lekkung": false,
+      "kell": false,
+      "breakout": true,
+      "lekkung": true,
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 62,
+      "rs_score": 61,
       "combo_score": 3
     },
     {
@@ -1234,19 +1247,6 @@
       "weinstein": true,
       "stage": "S.Bull",
       "rs_score": 61,
-      "combo_score": 3
-    },
-    {
-      "ticker": "MOSHI",
-      "price": 39.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": true,
-      "lekkung": true,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 60,
       "combo_score": 3
     },
     {
@@ -1276,12 +1276,12 @@
       "combo_score": 3
     },
     {
-      "ticker": "QH",
-      "price": 1.38,
+      "ticker": "CPALL",
+      "price": 47.25,
       "sepa": false,
       "kell": true,
       "breakout": false,
-      "lekkung": false,
+      "lekkung": true,
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
@@ -1289,21 +1289,34 @@
       "combo_score": 3
     },
     {
-      "ticker": "NER",
-      "price": 4.44,
+      "ticker": "QH",
+      "price": 1.37,
       "sepa": false,
       "kell": true,
       "breakout": false,
-      "lekkung": true,
+      "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 47,
+      "stage": "S.Bull",
+      "rs_score": 52,
+      "combo_score": 3
+    },
+    {
+      "ticker": "TASCO",
+      "price": 13.8,
+      "sepa": false,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 43,
       "combo_score": 3
     },
     {
       "ticker": "KUMWEL",
-      "price": 2.18,
+      "price": 2.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1342,7 +1355,7 @@
     },
     {
       "ticker": "TAE",
-      "price": 1.49,
+      "price": 1.48,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1355,7 +1368,7 @@
     },
     {
       "ticker": "CTW",
-      "price": 6.55,
+      "price": 6.6,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1367,8 +1380,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "SGC",
-      "price": 1.63,
+      "ticker": "MIDA",
+      "price": 0.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1393,34 +1406,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "CRD",
-      "price": 0.59,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 97,
-      "combo_score": 2
-    },
-    {
       "ticker": "JAK",
       "price": 1.34,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 97,
-      "combo_score": 2
-    },
-    {
-      "ticker": "MIDA",
-      "price": 0.49,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1445,8 +1432,34 @@
       "combo_score": 2
     },
     {
-      "ticker": "ASAP",
-      "price": 2.04,
+      "ticker": "SGC",
+      "price": 1.63,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 97,
+      "combo_score": 2
+    },
+    {
+      "ticker": "TIGER",
+      "price": 0.56,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 97,
+      "combo_score": 2
+    },
+    {
+      "ticker": "CRD",
+      "price": 0.57,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1459,7 +1472,7 @@
     },
     {
       "ticker": "IT",
-      "price": 6.0,
+      "price": 6.05,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1484,21 +1497,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "TIGER",
-      "price": 0.55,
+      "ticker": "MORE",
+      "price": 0.05,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
+      "stage": "Bull",
       "rs_score": 96,
       "combo_score": 2
     },
     {
       "ticker": "TITLE",
-      "price": 8.75,
+      "price": 8.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1510,21 +1523,34 @@
       "combo_score": 2
     },
     {
-      "ticker": "ASEFA",
-      "price": 5.65,
+      "ticker": "ASAP",
+      "price": 2.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
+      "stage": "Bull",
+      "rs_score": 95,
+      "combo_score": 2
+    },
+    {
+      "ticker": "ASEFA",
+      "price": 5.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
       "rs_score": 95,
       "combo_score": 2
     },
     {
       "ticker": "BKGI",
-      "price": 2.12,
+      "price": 2.14,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1537,7 +1563,7 @@
     },
     {
       "ticker": "CNT",
-      "price": 1.56,
+      "price": 1.57,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1550,7 +1576,7 @@
     },
     {
       "ticker": "DEMCO",
-      "price": 3.78,
+      "price": 3.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1558,19 +1584,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 95,
-      "combo_score": 2
-    },
-    {
-      "ticker": "MORE",
-      "price": 0.05,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
       "rs_score": 95,
       "combo_score": 2
     },
@@ -1602,7 +1615,7 @@
     },
     {
       "ticker": "BGRIM",
-      "price": 19.4,
+      "price": 19.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1628,7 +1641,7 @@
     },
     {
       "ticker": "FTE",
-      "price": 2.66,
+      "price": 2.68,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1706,7 +1719,7 @@
     },
     {
       "ticker": "LHFG",
-      "price": 1.29,
+      "price": 1.28,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1719,7 +1732,7 @@
     },
     {
       "ticker": "LTMH",
-      "price": 7.0,
+      "price": 7.05,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1758,7 +1771,7 @@
     },
     {
       "ticker": "TSE",
-      "price": 0.8,
+      "price": 0.79,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1784,7 +1797,7 @@
     },
     {
       "ticker": "CREDIT",
-      "price": 23.0,
+      "price": 23.1,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1810,7 +1823,7 @@
     },
     {
       "ticker": "NDR",
-      "price": 1.8,
+      "price": 1.79,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1818,19 +1831,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bull",
-      "rs_score": 92,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ONEE",
-      "price": 3.24,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
       "rs_score": 92,
       "combo_score": 2
     },
@@ -1861,21 +1861,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "CMO",
-      "price": 0.78,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 91,
-      "combo_score": 2
-    },
-    {
-      "ticker": "EURO",
-      "price": 5.75,
+      "ticker": "LIT",
+      "price": 0.9,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1900,8 +1887,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "STC",
-      "price": 0.6,
+      "ticker": "ONEE",
+      "price": 3.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1910,6 +1897,45 @@
       "weinstein": true,
       "stage": "S.Bull",
       "rs_score": 91,
+      "combo_score": 2
+    },
+    {
+      "ticker": "STC",
+      "price": 0.61,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 91,
+      "combo_score": 2
+    },
+    {
+      "ticker": "CMO",
+      "price": 0.77,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 90,
+      "combo_score": 2
+    },
+    {
+      "ticker": "EURO",
+      "price": 5.55,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 90,
       "combo_score": 2
     },
     {
@@ -1927,20 +1953,7 @@
     },
     {
       "ticker": "HTECH",
-      "price": 3.74,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 90,
-      "combo_score": 2
-    },
-    {
-      "ticker": "LIT",
-      "price": 0.9,
+      "price": 3.72,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1953,7 +1966,7 @@
     },
     {
       "ticker": "SNC",
-      "price": 8.1,
+      "price": 8.15,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1966,7 +1979,7 @@
     },
     {
       "ticker": "VCOM",
-      "price": 4.0,
+      "price": 3.98,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -1979,20 +1992,7 @@
     },
     {
       "ticker": "ITEL",
-      "price": 1.68,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 89,
-      "combo_score": 2
-    },
-    {
-      "ticker": "SCL",
-      "price": 1.6,
+      "price": 1.69,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2018,7 +2018,7 @@
     },
     {
       "ticker": "UMI",
-      "price": 0.93,
+      "price": 0.92,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2057,7 +2057,7 @@
     },
     {
       "ticker": "BBGI",
-      "price": 4.28,
+      "price": 4.26,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2069,8 +2069,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "QTC",
-      "price": 4.58,
+      "ticker": "SCL",
+      "price": 1.59,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 88,
+      "combo_score": 2
+    },
+    {
+      "ticker": "STGT",
+      "price": 10.7,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2078,19 +2091,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bull",
-      "rs_score": 88,
-      "combo_score": 2
-    },
-    {
-      "ticker": "TC",
-      "price": 6.7,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
       "rs_score": 88,
       "combo_score": 2
     },
@@ -2121,6 +2121,32 @@
       "combo_score": 2
     },
     {
+      "ticker": "CSS",
+      "price": 1.02,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 87,
+      "combo_score": 2
+    },
+    {
+      "ticker": "MII",
+      "price": 6.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 87,
+      "combo_score": 2
+    },
+    {
       "ticker": "NYT",
       "price": 4.0,
       "sepa": false,
@@ -2134,8 +2160,21 @@
       "combo_score": 2
     },
     {
+      "ticker": "QTC",
+      "price": 4.54,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 87,
+      "combo_score": 2
+    },
+    {
       "ticker": "STA",
-      "price": 18.1,
+      "price": 18.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2147,21 +2186,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "STGT",
-      "price": 10.7,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 87,
-      "combo_score": 2
-    },
-    {
-      "ticker": "CSS",
-      "price": 1.01,
+      "ticker": "TC",
+      "price": 6.65,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2169,7 +2195,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 86,
+      "rs_score": 87,
       "combo_score": 2
     },
     {
@@ -2199,47 +2225,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "METCO",
-      "price": 295.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 86,
-      "combo_score": 2
-    },
-    {
-      "ticker": "MII",
-      "price": 6.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 86,
-      "combo_score": 2
-    },
-    {
-      "ticker": "PAF",
-      "price": 0.93,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 86,
-      "combo_score": 2
-    },
-    {
       "ticker": "PIS",
-      "price": 4.38,
+      "price": 4.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2260,6 +2247,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bull",
+      "rs_score": 86,
+      "combo_score": 2
+    },
+    {
+      "ticker": "SLP",
+      "price": 0.53,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
       "rs_score": 86,
       "combo_score": 2
     },
@@ -2290,8 +2290,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "JDF",
-      "price": 1.97,
+      "ticker": "METCO",
+      "price": 294.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2299,6 +2299,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
+      "rs_score": 85,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PAF",
+      "price": 0.92,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
       "rs_score": 85,
       "combo_score": 2
     },
@@ -2317,14 +2330,14 @@
     },
     {
       "ticker": "SVOA",
-      "price": 1.77,
+      "price": 1.78,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
+      "stage": "S.Bull",
       "rs_score": 85,
       "combo_score": 2
     },
@@ -2381,6 +2394,19 @@
       "combo_score": 2
     },
     {
+      "ticker": "JDF",
+      "price": 1.97,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 84,
+      "combo_score": 2
+    },
+    {
       "ticker": "KISS",
       "price": 3.64,
       "sepa": false,
@@ -2408,7 +2434,7 @@
     },
     {
       "ticker": "BAFS",
-      "price": 10.5,
+      "price": 10.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2433,8 +2459,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "CAZ",
-      "price": 2.24,
+      "ticker": "IP",
+      "price": 4.88,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2448,19 +2474,6 @@
     {
       "ticker": "KTBSTMR",
       "price": 6.55,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 83,
-      "combo_score": 2
-    },
-    {
-      "ticker": "MICRO",
-      "price": 1.07,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2511,19 +2524,6 @@
       "combo_score": 2
     },
     {
-      "ticker": "UVAN",
-      "price": 14.9,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 83,
-      "combo_score": 2
-    },
-    {
       "ticker": "2S",
       "price": 3.08,
       "sepa": false,
@@ -2533,6 +2533,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
+      "rs_score": 82,
+      "combo_score": 2
+    },
+    {
+      "ticker": "BPP",
+      "price": 11.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
       "rs_score": 82,
       "combo_score": 2
     },
@@ -2563,21 +2576,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "IP",
-      "price": 4.86,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 82,
-      "combo_score": 2
-    },
-    {
-      "ticker": "SLP",
-      "price": 0.51,
+      "ticker": "MICRO",
+      "price": 1.06,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2602,8 +2602,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "UREKA",
-      "price": 0.46,
+      "ticker": "UVAN",
+      "price": 14.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2615,21 +2615,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "BPP",
-      "price": 11.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 81,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ICN",
-      "price": 2.14,
+      "ticker": "CAZ",
+      "price": 2.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2654,6 +2641,19 @@
       "combo_score": 2
     },
     {
+      "ticker": "SICT",
+      "price": 2.96,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 81,
+      "combo_score": 2
+    },
+    {
       "ticker": "TMILL",
       "price": 2.58,
       "sepa": false,
@@ -2667,8 +2667,34 @@
       "combo_score": 2
     },
     {
-      "ticker": "PLANB",
-      "price": 5.05,
+      "ticker": "UBIS",
+      "price": 1.36,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 81,
+      "combo_score": 2
+    },
+    {
+      "ticker": "UREKA",
+      "price": 0.46,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 81,
+      "combo_score": 2
+    },
+    {
+      "ticker": "ICN",
+      "price": 2.14,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2680,8 +2706,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "SICT",
-      "price": 2.94,
+      "ticker": "PLANB",
+      "price": 5.05,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2719,6 +2745,32 @@
       "combo_score": 2
     },
     {
+      "ticker": "ADB",
+      "price": 0.69,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 79,
+      "combo_score": 2
+    },
+    {
+      "ticker": "AMARC",
+      "price": 3.46,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 79,
+      "combo_score": 2
+    },
+    {
       "ticker": "KCG",
       "price": 10.3,
       "sepa": false,
@@ -2746,20 +2798,7 @@
     },
     {
       "ticker": "MTI",
-      "price": 19.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 79,
-      "combo_score": 2
-    },
-    {
-      "ticker": "SE",
-      "price": 0.51,
+      "price": 18.9,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2784,19 +2823,6 @@
       "combo_score": 2
     },
     {
-      "ticker": "UBIS",
-      "price": 1.33,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 79,
-      "combo_score": 2
-    },
-    {
       "ticker": "MCA",
       "price": 1.28,
       "sepa": false,
@@ -2812,6 +2838,32 @@
     {
       "ticker": "MOONG",
       "price": 2.3,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 78,
+      "combo_score": 2
+    },
+    {
+      "ticker": "SE",
+      "price": 0.51,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 78,
+      "combo_score": 2
+    },
+    {
+      "ticker": "STECH",
+      "price": 1.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -2875,19 +2927,6 @@
       "combo_score": 2
     },
     {
-      "ticker": "SPACK",
-      "price": 1.45,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 77,
-      "combo_score": 2
-    },
-    {
       "ticker": "TPP",
       "price": 12.6,
       "sepa": false,
@@ -2911,19 +2950,6 @@
       "weinstein": true,
       "stage": "S.Bull",
       "rs_score": 77,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ADB",
-      "price": 0.68,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 76,
       "combo_score": 2
     },
     {
@@ -2966,34 +2992,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "NATION",
-      "price": 0.04,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 76,
-      "combo_score": 2
-    },
-    {
-      "ticker": "STECH",
-      "price": 1.19,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 76,
-      "combo_score": 2
-    },
-    {
-      "ticker": "WICE",
-      "price": 2.9,
+      "ticker": "NNCL",
+      "price": 1.69,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3006,7 +3006,7 @@
     },
     {
       "ticker": "ALLY",
-      "price": 4.98,
+      "price": 5.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3018,8 +3018,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "NNCL",
-      "price": 1.69,
+      "ticker": "SPACK",
+      "price": 1.43,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3044,6 +3044,45 @@
       "combo_score": 2
     },
     {
+      "ticker": "WICE",
+      "price": 2.88,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 75,
+      "combo_score": 2
+    },
+    {
+      "ticker": "YUASA",
+      "price": 14.3,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 75,
+      "combo_score": 2
+    },
+    {
+      "ticker": "AIMIRT",
+      "price": 12.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 74,
+      "combo_score": 2
+    },
+    {
       "ticker": "AMATAR",
       "price": 7.4,
       "sepa": false,
@@ -3057,6 +3096,45 @@
       "combo_score": 2
     },
     {
+      "ticker": "LHHOTEL",
+      "price": 14.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 74,
+      "combo_score": 2
+    },
+    {
+      "ticker": "NUT",
+      "price": 4.9,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 74,
+      "combo_score": 2
+    },
+    {
+      "ticker": "INET",
+      "price": 4.26,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 73,
+      "combo_score": 2
+    },
+    {
       "ticker": "MDX",
       "price": 2.82,
       "sepa": false,
@@ -3066,77 +3144,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 74,
+      "rs_score": 73,
       "combo_score": 2
     },
     {
       "ticker": "PLAT",
-      "price": 1.31,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 74,
-      "combo_score": 2
-    },
-    {
-      "ticker": "YUASA",
-      "price": 14.3,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 74,
-      "combo_score": 2
-    },
-    {
-      "ticker": "CPW",
-      "price": 2.4,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 73,
-      "combo_score": 2
-    },
-    {
-      "ticker": "I2",
-      "price": 0.81,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 73,
-      "combo_score": 2
-    },
-    {
-      "ticker": "INET",
-      "price": 4.24,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 73,
-      "combo_score": 2
-    },
-    {
-      "ticker": "LHHOTEL",
-      "price": 13.9,
+      "price": 1.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3174,21 +3187,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "AIMIRT",
-      "price": 11.9,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 72,
-      "combo_score": 2
-    },
-    {
-      "ticker": "GBX",
-      "price": 0.59,
+      "ticker": "I2",
+      "price": 0.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3200,8 +3200,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "NUT",
-      "price": 4.84,
+      "ticker": "ILINK",
+      "price": 5.2,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 72,
+      "combo_score": 2
+    },
+    {
+      "ticker": "RABBIT",
+      "price": 0.35,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3265,34 +3278,34 @@
       "combo_score": 2
     },
     {
-      "ticker": "BPS",
-      "price": 0.51,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 71,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ILINK",
-      "price": 5.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 71,
-      "combo_score": 2
-    },
-    {
       "ticker": "IMPACT",
-      "price": 11.9,
+      "price": 11.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 71,
+      "combo_score": 2
+    },
+    {
+      "ticker": "MST",
+      "price": 7.75,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 71,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PCC",
+      "price": 2.96,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3317,8 +3330,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "RABBIT",
-      "price": 0.35,
+      "ticker": "RT",
+      "price": 0.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3330,15 +3343,15 @@
       "combo_score": 2
     },
     {
-      "ticker": "SPCG",
-      "price": 9.05,
+      "ticker": "UP",
+      "price": 23.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
+      "stage": "Bull",
       "rs_score": 71,
       "combo_score": 2
     },
@@ -3356,8 +3369,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "MST",
-      "price": 7.7,
+      "ticker": "CPW",
+      "price": 2.36,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 70,
+      "combo_score": 2
+    },
+    {
+      "ticker": "FM",
+      "price": 4.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3369,8 +3395,34 @@
       "combo_score": 2
     },
     {
-      "ticker": "PCC",
-      "price": 2.94,
+      "ticker": "GBX",
+      "price": 0.58,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 70,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PTTEP",
+      "price": 139.5,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 70,
+      "combo_score": 2
+    },
+    {
+      "ticker": "SPCG",
+      "price": 9.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3382,8 +3434,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "RT",
-      "price": 0.3,
+      "ticker": "STARM",
+      "price": 0.95,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3408,21 +3460,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "UP",
-      "price": 23.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 70,
-      "combo_score": 2
-    },
-    {
-      "ticker": "FM",
-      "price": 4.28,
+      "ticker": "MFEC",
+      "price": 5.85,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3447,8 +3486,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "SPI",
-      "price": 33.75,
+      "ticker": "SKR",
+      "price": 8.05,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3460,8 +3499,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "MFEC",
-      "price": 5.85,
+      "ticker": "ACG",
+      "price": 0.72,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 68,
+      "combo_score": 2
+    },
+    {
+      "ticker": "GPI",
+      "price": 1.77,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3525,15 +3577,28 @@
       "combo_score": 2
     },
     {
-      "ticker": "ACG",
-      "price": 0.72,
+      "ticker": "BEYOND",
+      "price": 8.85,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
+      "stage": "S.Bull",
+      "rs_score": 67,
+      "combo_score": 2
+    },
+    {
+      "ticker": "BOFFICE",
+      "price": 5.5,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
       "rs_score": 67,
       "combo_score": 2
     },
@@ -3551,8 +3616,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "STARM",
-      "price": 0.94,
+      "ticker": "NCAP",
+      "price": 2.96,
+      "sepa": false,
+      "kell": false,
+      "breakout": true,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 67,
+      "combo_score": 2
+    },
+    {
+      "ticker": "OSP",
+      "price": 17.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3564,8 +3642,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "BEYOND",
-      "price": 8.85,
+      "ticker": "SPI",
+      "price": 33.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3573,20 +3651,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 66,
-      "combo_score": 2
-    },
-    {
-      "ticker": "BOFFICE",
-      "price": 5.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 66,
+      "rs_score": 67,
       "combo_score": 2
     },
     {
@@ -3599,6 +3664,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
+      "rs_score": 66,
+      "combo_score": 2
+    },
+    {
+      "ticker": "CGH",
+      "price": 0.55,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
       "rs_score": 66,
       "combo_score": 2
     },
@@ -3616,41 +3694,15 @@
       "combo_score": 2
     },
     {
-      "ticker": "GPI",
-      "price": 1.76,
+      "ticker": "PHOL",
+      "price": 3.08,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 66,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ORN",
-      "price": 0.79,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 66,
-      "combo_score": 2
-    },
-    {
-      "ticker": "OSP",
-      "price": 17.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
+      "stage": "Bull",
       "rs_score": 66,
       "combo_score": 2
     },
@@ -3668,21 +3720,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "PHOL",
-      "price": 3.06,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 65,
-      "combo_score": 2
-    },
-    {
-      "ticker": "SKR",
-      "price": 7.9,
+      "ticker": "TQR",
+      "price": 5.55,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3690,6 +3729,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
+      "rs_score": 66,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PACO",
+      "price": 1.37,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
       "rs_score": 65,
       "combo_score": 2
     },
@@ -3720,8 +3772,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "TQR",
-      "price": 5.55,
+      "ticker": "TMW",
+      "price": 59.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3733,21 +3785,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "ARIP",
-      "price": 0.47,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 64,
-      "combo_score": 2
-    },
-    {
-      "ticker": "PACO",
-      "price": 1.37,
+      "ticker": "TPRIME",
+      "price": 7.6,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3755,6 +3794,58 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bull",
+      "rs_score": 65,
+      "combo_score": 2
+    },
+    {
+      "ticker": "TSC",
+      "price": 15.1,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 65,
+      "combo_score": 2
+    },
+    {
+      "ticker": "KLINIQ",
+      "price": 26.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": true,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 64,
+      "combo_score": 2
+    },
+    {
+      "ticker": "ORN",
+      "price": 0.78,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 64,
+      "combo_score": 2
+    },
+    {
+      "ticker": "RJH",
+      "price": 13.9,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
       "rs_score": 64,
       "combo_score": 2
     },
@@ -3772,34 +3863,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "TMW",
-      "price": 59.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 64,
-      "combo_score": 2
-    },
-    {
       "ticker": "TPAC",
       "price": 8.7,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 64,
-      "combo_score": 2
-    },
-    {
-      "ticker": "TPRIME",
-      "price": 7.6,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3824,28 +3889,15 @@
       "combo_score": 2
     },
     {
-      "ticker": "KLINIQ",
-      "price": 26.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": true,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 63,
-      "combo_score": 2
-    },
-    {
-      "ticker": "RJH",
-      "price": 13.9,
+      "ticker": "BPS",
+      "price": 0.49,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
+      "stage": "Bull",
       "rs_score": 63,
       "combo_score": 2
     },
@@ -3889,8 +3941,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "TSC",
-      "price": 15.0,
+      "ticker": "TPBI",
+      "price": 3.16,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3915,8 +3967,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "DTCENT",
-      "price": 0.95,
+      "ticker": "EASON",
+      "price": 1.15,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3928,8 +3980,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "APP",
-      "price": 2.54,
+      "ticker": "VIH",
+      "price": 8.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 62,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PIMO",
+      "price": 1.11,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3941,8 +4006,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "CGH",
-      "price": 0.54,
+      "ticker": "WINNER",
+      "price": 2.18,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 61,
+      "combo_score": 2
+    },
+    {
+      "ticker": "DTCENT",
+      "price": 0.94,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -3950,58 +4028,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bull",
-      "rs_score": 61,
-      "combo_score": 2
-    },
-    {
-      "ticker": "TPBI",
-      "price": 3.14,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 61,
-      "combo_score": 2
-    },
-    {
-      "ticker": "VIH",
-      "price": 8.65,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 61,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ASP",
-      "price": 2.3,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 60,
-      "combo_score": 2
-    },
-    {
-      "ticker": "EASON",
-      "price": 1.14,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
       "rs_score": 60,
       "combo_score": 2
     },
@@ -4032,6 +4058,19 @@
       "combo_score": 2
     },
     {
+      "ticker": "KBS",
+      "price": 5.85,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 60,
+      "combo_score": 2
+    },
+    {
       "ticker": "MPJ",
       "price": 3.66,
       "sepa": false,
@@ -4042,6 +4081,45 @@
       "weinstein": true,
       "stage": "S.Bull",
       "rs_score": 60,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PRAPAT",
+      "price": 0.81,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 60,
+      "combo_score": 2
+    },
+    {
+      "ticker": "TMD",
+      "price": 26.75,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 60,
+      "combo_score": 2
+    },
+    {
+      "ticker": "ARIP",
+      "price": 0.46,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 59,
       "combo_score": 2
     },
     {
@@ -4058,8 +4136,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "KBS",
-      "price": 5.85,
+      "ticker": "ROCK",
+      "price": 10.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4071,15 +4149,15 @@
       "combo_score": 2
     },
     {
-      "ticker": "TMD",
-      "price": 26.75,
+      "ticker": "TPLAS",
+      "price": 1.08,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
+      "stage": "Bull",
       "rs_score": 59,
       "combo_score": 2
     },
@@ -4097,8 +4175,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "WINNER",
-      "price": 2.16,
+      "ticker": "APP",
+      "price": 2.52,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4106,12 +4184,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 59,
+      "rs_score": 58,
       "combo_score": 2
     },
     {
-      "ticker": "DUSIT",
-      "price": 11.3,
+      "ticker": "ASP",
+      "price": 2.28,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4136,47 +4214,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "PIMO",
-      "price": 1.1,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 58,
-      "combo_score": 2
-    },
-    {
-      "ticker": "PMC",
-      "price": 0.91,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 58,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ROCK",
-      "price": 10.4,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 58,
-      "combo_score": 2
-    },
-    {
-      "ticker": "SHR",
-      "price": 1.7,
+      "ticker": "SAUCE",
+      "price": 41.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4201,21 +4240,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "PRAPAT",
-      "price": 0.8,
+      "ticker": "PMC",
+      "price": 0.91,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
+      "stage": "S.Bull",
       "rs_score": 57,
       "combo_score": 2
     },
     {
-      "ticker": "SAUCE",
-      "price": 41.0,
+      "ticker": "SHR",
+      "price": 1.69,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4240,28 +4279,41 @@
       "combo_score": 2
     },
     {
-      "ticker": "SMART",
-      "price": 0.54,
+      "ticker": "DUSIT",
+      "price": 11.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
+      "stage": "S.Bull",
       "rs_score": 56,
       "combo_score": 2
     },
     {
-      "ticker": "UBE",
-      "price": 0.58,
+      "ticker": "NEO",
+      "price": 20.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": true,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 56,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PROUD",
+      "price": 1.01,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
+      "stage": "S.Bull",
       "rs_score": 56,
       "combo_score": 2
     },
@@ -4279,8 +4331,21 @@
       "combo_score": 2
     },
     {
+      "ticker": "HTC",
+      "price": 15.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 55,
+      "combo_score": 2
+    },
+    {
       "ticker": "LHK",
-      "price": 3.52,
+      "price": 3.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4292,21 +4357,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "NEO",
-      "price": 20.8,
-      "sepa": false,
-      "kell": false,
-      "breakout": true,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 55,
-      "combo_score": 2
-    },
-    {
-      "ticker": "PROUD",
-      "price": 1.01,
+      "ticker": "SMPC",
+      "price": 9.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4331,15 +4383,28 @@
       "combo_score": 2
     },
     {
-      "ticker": "HTC",
-      "price": 15.6,
+      "ticker": "IRC",
+      "price": 11.9,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
+      "stage": "S.Bull",
+      "rs_score": 54,
+      "combo_score": 2
+    },
+    {
+      "ticker": "KJL",
+      "price": 6.25,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
       "rs_score": 54,
       "combo_score": 2
     },
@@ -4370,60 +4435,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "SMPC",
-      "price": 9.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 54,
-      "combo_score": 2
-    },
-    {
-      "ticker": "CSR",
-      "price": 72.75,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 53,
-      "combo_score": 2
-    },
-    {
-      "ticker": "GTB",
-      "price": 0.7,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 53,
-      "combo_score": 2
-    },
-    {
-      "ticker": "III",
-      "price": 4.3,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 53,
-      "combo_score": 2
-    },
-    {
       "ticker": "NTSC",
       "price": 6.25,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 53,
+      "combo_score": 2
+    },
+    {
+      "ticker": "SIAM",
+      "price": 0.77,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4448,8 +4474,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "CPALL",
-      "price": 47.0,
+      "ticker": "AKR",
+      "price": 0.91,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4461,15 +4487,28 @@
       "combo_score": 2
     },
     {
-      "ticker": "IRC",
-      "price": 11.8,
+      "ticker": "CFARM",
+      "price": 0.84,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bull",
+      "stage": "S.Bull",
+      "rs_score": 52,
+      "combo_score": 2
+    },
+    {
+      "ticker": "III",
+      "price": 4.28,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
       "rs_score": 52,
       "combo_score": 2
     },
@@ -4500,21 +4539,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "PL",
-      "price": 1.29,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 52,
-      "combo_score": 2
-    },
-    {
       "ticker": "AIT",
-      "price": 4.82,
+      "price": 4.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4526,15 +4552,15 @@
       "combo_score": 2
     },
     {
-      "ticker": "AKR",
-      "price": 0.91,
+      "ticker": "CPF",
+      "price": 22.3,
       "sepa": false,
       "kell": false,
-      "breakout": false,
+      "breakout": true,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "S.Bull",
+      "stage": "Accumulation",
       "rs_score": 51,
       "combo_score": 2
     },
@@ -4552,8 +4578,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "KJL",
-      "price": 6.2,
+      "ticker": "MNIT2",
+      "price": 5.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4565,8 +4591,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "TNP",
-      "price": 2.88,
+      "ticker": "PL",
+      "price": 1.28,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 51,
+      "combo_score": 2
+    },
+    {
+      "ticker": "UPOIC",
+      "price": 6.9,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4591,21 +4630,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "CPF",
-      "price": 22.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": true,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 50,
-      "combo_score": 2
-    },
-    {
-      "ticker": "MNIT2",
-      "price": 5.0,
+      "ticker": "ASIAN",
+      "price": 7.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4617,21 +4643,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "SIAM",
-      "price": 0.76,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 50,
-      "combo_score": 2
-    },
-    {
-      "ticker": "UPOIC",
-      "price": 6.9,
+      "ticker": "TNP",
+      "price": 2.86,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4640,32 +4653,6 @@
       "weinstein": true,
       "stage": "Bull",
       "rs_score": 50,
-      "combo_score": 2
-    },
-    {
-      "ticker": "ASIAN",
-      "price": 7.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 49,
-      "combo_score": 2
-    },
-    {
-      "ticker": "CFARM",
-      "price": 0.83,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 49,
       "combo_score": 2
     },
     {
@@ -4678,19 +4665,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 49,
-      "combo_score": 2
-    },
-    {
-      "ticker": "MINT",
-      "price": 23.7,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
       "rs_score": 49,
       "combo_score": 2
     },
@@ -4734,8 +4708,21 @@
       "combo_score": 2
     },
     {
-      "ticker": "LEE",
-      "price": 2.5,
+      "ticker": "MINT",
+      "price": 23.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 48,
+      "combo_score": 2
+    },
+    {
+      "ticker": "PQS",
+      "price": 1.81,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4760,34 +4747,34 @@
       "combo_score": 2
     },
     {
+      "ticker": "SYNTEC",
+      "price": 1.69,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 48,
+      "combo_score": 2
+    },
+    {
+      "ticker": "OCC",
+      "price": 9.95,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 47,
+      "combo_score": 2
+    },
+    {
       "ticker": "SMIT",
       "price": 3.52,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 47,
-      "combo_score": 2
-    },
-    {
-      "ticker": "SONIC",
-      "price": 1.51,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 47,
-      "combo_score": 2
-    },
-    {
-      "ticker": "TK",
-      "price": 4.22,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4812,8 +4799,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "OCC",
-      "price": 9.95,
+      "ticker": "LEE",
+      "price": 2.48,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4838,8 +4825,8 @@
       "combo_score": 2
     },
     {
-      "ticker": "SYNTEC",
-      "price": 1.68,
+      "ticker": "TK",
+      "price": 4.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4848,19 +4835,6 @@
       "weinstein": true,
       "stage": "S.Bull",
       "rs_score": 46,
-      "combo_score": 2
-    },
-    {
-      "ticker": "PQS",
-      "price": 1.8,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 45,
       "combo_score": 2
     },
     {
@@ -4877,19 +4851,6 @@
       "combo_score": 2
     },
     {
-      "ticker": "GYT",
-      "price": 183.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 44,
-      "combo_score": 2
-    },
-    {
       "ticker": "PCSGH",
       "price": 3.0,
       "sepa": false,
@@ -4900,6 +4861,19 @@
       "weinstein": true,
       "stage": "Bull",
       "rs_score": 44,
+      "combo_score": 2
+    },
+    {
+      "ticker": "GYT",
+      "price": 183.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 43,
       "combo_score": 2
     },
     {
@@ -4942,6 +4916,19 @@
       "combo_score": 2
     },
     {
+      "ticker": "SPC",
+      "price": 55.5,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 38,
+      "combo_score": 2
+    },
+    {
       "ticker": "SUC",
       "price": 27.25,
       "sepa": false,
@@ -4969,7 +4956,7 @@
     },
     {
       "ticker": "UMS",
-      "price": 0.64,
+      "price": 0.65,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4995,7 +4982,7 @@
     },
     {
       "ticker": "DELTA",
-      "price": 309.0,
+      "price": 310.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5034,7 +5021,7 @@
     },
     {
       "ticker": "GLORY",
-      "price": 1.06,
+      "price": 1.07,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5042,12 +5029,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Warning",
-      "rs_score": 88,
+      "rs_score": 89,
       "combo_score": 1
     },
     {
       "ticker": "MUD",
-      "price": 0.93,
+      "price": 0.92,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5055,7 +5042,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 84,
+      "rs_score": 83,
       "combo_score": 1
     },
     {
@@ -5072,28 +5059,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "AMARC",
-      "price": 3.44,
+      "ticker": "GEL",
+      "price": 0.04,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 79,
-      "combo_score": 1
-    },
-    {
-      "ticker": "TRITN",
-      "price": 0.03,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Accumulation",
       "rs_score": 79,
       "combo_score": 1
     },
@@ -5133,12 +5107,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Warning",
-      "rs_score": 75,
+      "rs_score": 76,
       "combo_score": 1
     },
     {
-      "ticker": "ASN",
-      "price": 1.0,
+      "ticker": "GLOBAL",
+      "price": 7.15,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5150,8 +5124,21 @@
       "combo_score": 1
     },
     {
+      "ticker": "AF",
+      "price": 0.4,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 73,
+      "combo_score": 1
+    },
+    {
       "ticker": "THCOM",
-      "price": 11.3,
+      "price": 11.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5159,19 +5146,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Warning",
-      "rs_score": 74,
-      "combo_score": 1
-    },
-    {
-      "ticker": "GLOBAL",
-      "price": 7.1,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
       "rs_score": 73,
       "combo_score": 1
     },
@@ -5190,7 +5164,7 @@
     },
     {
       "ticker": "AGE",
-      "price": 1.23,
+      "price": 1.22,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5198,12 +5172,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Warning",
-      "rs_score": 70,
+      "rs_score": 69,
       "combo_score": 1
     },
     {
       "ticker": "BBIK",
-      "price": 20.9,
+      "price": 20.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5211,19 +5185,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 70,
-      "combo_score": 1
-    },
-    {
-      "ticker": "CHOW",
-      "price": 1.31,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
       "rs_score": 69,
       "combo_score": 1
     },
@@ -5241,6 +5202,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "IROYAL",
+      "price": 4.58,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 69,
+      "combo_score": 1
+    },
+    {
       "ticker": "ITNS",
       "price": 1.72,
       "sepa": false,
@@ -5251,32 +5225,6 @@
       "weinstein": true,
       "stage": "Warning",
       "rs_score": 69,
-      "combo_score": 1
-    },
-    {
-      "ticker": "PTTEP",
-      "price": 138.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 69,
-      "combo_score": 1
-    },
-    {
-      "ticker": "AF",
-      "price": 0.39,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 68,
       "combo_score": 1
     },
     {
@@ -5293,47 +5241,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "UEC",
-      "price": 0.79,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 68,
-      "combo_score": 1
-    },
-    {
-      "ticker": "IROYAL",
-      "price": 4.54,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 67,
-      "combo_score": 1
-    },
-    {
-      "ticker": "LOXLEY",
-      "price": 1.42,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 67,
-      "combo_score": 1
-    },
-    {
-      "ticker": "SUPER",
-      "price": 0.13,
+      "ticker": "ASN",
+      "price": 0.96,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5341,7 +5250,7 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 67,
+      "rs_score": 68,
       "combo_score": 1
     },
     {
@@ -5358,29 +5267,42 @@
       "combo_score": 1
     },
     {
-      "ticker": "CWT",
-      "price": 0.95,
+      "ticker": "LOXLEY",
+      "price": 1.41,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 65,
+      "stage": "Warning",
+      "rs_score": 66,
       "combo_score": 1
     },
     {
-      "ticker": "NCAP",
-      "price": 2.92,
+      "ticker": "UEC",
+      "price": 0.78,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 65,
+      "stage": "Warning",
+      "rs_score": 66,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CHOW",
+      "price": 1.28,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 64,
       "combo_score": 1
     },
     {
@@ -5410,8 +5332,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "CCP",
-      "price": 0.26,
+      "ticker": "CWT",
+      "price": 0.94,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 63,
+      "combo_score": 1
+    },
+    {
+      "ticker": "KOOL",
+      "price": 0.29,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5423,15 +5358,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "M",
-      "price": 21.5,
+      "ticker": "TRUE",
+      "price": 13.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Warning",
       "rs_score": 63,
       "combo_score": 1
     },
@@ -5445,19 +5380,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Warning",
-      "rs_score": 62,
-      "combo_score": 1
-    },
-    {
-      "ticker": "CHG",
-      "price": 1.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
       "rs_score": 62,
       "combo_score": 1
     },
@@ -5488,16 +5410,55 @@
       "combo_score": 1
     },
     {
-      "ticker": "KOOL",
-      "price": 0.29,
+      "ticker": "M",
+      "price": 21.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Warning",
+      "stage": "Accumulation",
       "rs_score": 62,
+      "combo_score": 1
+    },
+    {
+      "ticker": "BEC",
+      "price": 2.1,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 61,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CHG",
+      "price": 1.59,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 61,
+      "combo_score": 1
+    },
+    {
+      "ticker": "PORT",
+      "price": 0.64,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 61,
       "combo_score": 1
     },
     {
@@ -5514,34 +5475,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "TRUE",
-      "price": 13.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 61,
-      "combo_score": 1
-    },
-    {
       "ticker": "ESTAR",
       "price": 0.21,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 60,
-      "combo_score": 1
-    },
-    {
-      "ticker": "SGP",
-      "price": 8.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5579,8 +5514,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "BEC",
-      "price": 2.08,
+      "ticker": "BM",
+      "price": 1.19,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5592,15 +5527,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "NVD",
-      "price": 0.89,
+      "ticker": "FLOYD",
+      "price": 1.03,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Warning",
       "rs_score": 59,
       "combo_score": 1
     },
@@ -5618,6 +5553,32 @@
       "combo_score": 1
     },
     {
+      "ticker": "CI",
+      "price": 0.34,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 58,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SGP",
+      "price": 7.95,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 58,
+      "combo_score": 1
+    },
+    {
       "ticker": "B",
       "price": 0.04,
       "sepa": false,
@@ -5627,32 +5588,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
-      "rs_score": 57,
-      "combo_score": 1
-    },
-    {
-      "ticker": "DOHOME",
-      "price": 3.74,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 57,
-      "combo_score": 1
-    },
-    {
-      "ticker": "FLOYD",
-      "price": 1.02,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
       "rs_score": 57,
       "combo_score": 1
     },
@@ -5670,6 +5605,32 @@
       "combo_score": 1
     },
     {
+      "ticker": "IVL",
+      "price": 22.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 57,
+      "combo_score": 1
+    },
+    {
+      "ticker": "MGT",
+      "price": 1.82,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 57,
+      "combo_score": 1
+    },
+    {
       "ticker": "SAWAD",
       "price": 24.1,
       "sepa": false,
@@ -5683,8 +5644,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "TPLAS",
-      "price": 1.07,
+      "ticker": "TNPC",
+      "price": 0.91,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5709,73 +5670,60 @@
       "combo_score": 1
     },
     {
-      "ticker": "BM",
-      "price": 1.18,
+      "ticker": "DOHOME",
+      "price": 3.72,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Recovery",
       "rs_score": 56,
       "combo_score": 1
     },
     {
-      "ticker": "IVL",
-      "price": 22.6,
+      "ticker": "EA",
+      "price": 2.94,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Warning",
+      "stage": "Bear",
       "rs_score": 56,
-      "combo_score": 1
-    },
-    {
-      "ticker": "MGT",
-      "price": 1.81,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 56,
-      "combo_score": 1
-    },
-    {
-      "ticker": "PORT",
-      "price": 0.63,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 56,
-      "combo_score": 1
-    },
-    {
-      "ticker": "BCPG",
-      "price": 7.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 55,
       "combo_score": 1
     },
     {
       "ticker": "EAST",
       "price": 0.73,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 56,
+      "combo_score": 1
+    },
+    {
+      "ticker": "AH",
+      "price": 13.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 55,
+      "combo_score": 1
+    },
+    {
+      "ticker": "BCPG",
+      "price": 7.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5800,34 +5748,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "BE8",
-      "price": 5.95,
+      "ticker": "CCP",
+      "price": 0.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Distribution",
       "rs_score": 54,
       "combo_score": 1
     },
     {
-      "ticker": "EA",
-      "price": 2.92,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 54,
-      "combo_score": 1
-    },
-    {
-      "ticker": "FPT",
-      "price": 6.55,
+      "ticker": "NVD",
+      "price": 0.87,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5865,8 +5800,60 @@
       "combo_score": 1
     },
     {
-      "ticker": "AH",
-      "price": 13.7,
+      "ticker": "BE8",
+      "price": 5.9,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 53,
+      "combo_score": 1
+    },
+    {
+      "ticker": "FPT",
+      "price": 6.5,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 53,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SAPPE",
+      "price": 31.75,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 53,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SMART",
+      "price": 0.53,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 53,
+      "combo_score": 1
+    },
+    {
+      "ticker": "UBE",
+      "price": 0.57,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5887,32 +5874,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 53,
-      "combo_score": 1
-    },
-    {
-      "ticker": "AIE",
-      "price": 1.14,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 52,
-      "combo_score": 1
-    },
-    {
-      "ticker": "RPC",
-      "price": 0.35,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
       "rs_score": 52,
       "combo_score": 1
     },
@@ -5930,15 +5891,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "CI",
-      "price": 0.33,
+      "ticker": "ADD",
+      "price": 3.28,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 51,
       "combo_score": 1
     },
@@ -5956,19 +5917,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "SAPPE",
-      "price": 31.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 51,
-      "combo_score": 1
-    },
-    {
       "ticker": "TCOAT",
       "price": 26.5,
       "sepa": false,
@@ -5982,8 +5930,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "J",
-      "price": 0.73,
+      "ticker": "AIE",
+      "price": 1.13,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 50,
+      "combo_score": 1
+    },
+    {
+      "ticker": "GTB",
+      "price": 0.69,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 50,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SFLEX",
+      "price": 3.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -5995,15 +5969,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "TNPC",
-      "price": 0.88,
+      "ticker": "SUPER",
+      "price": 0.12,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Warning",
+      "stage": "Bear",
       "rs_score": 50,
       "combo_score": 1
     },
@@ -6034,8 +6008,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "SFLEX",
-      "price": 2.98,
+      "ticker": "CSR",
+      "price": 71.75,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 49,
+      "combo_score": 1
+    },
+    {
+      "ticker": "JPARK",
+      "price": 3.3,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6047,21 +6034,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "ADD",
-      "price": 3.24,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 48,
-      "combo_score": 1
-    },
-    {
-      "ticker": "MEDEZE",
-      "price": 6.6,
+      "ticker": "MGI",
+      "price": 6.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6069,12 +6043,25 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 48,
+      "rs_score": 49,
       "combo_score": 1
     },
     {
-      "ticker": "MGI",
-      "price": 6.4,
+      "ticker": "THAI",
+      "price": 6.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 49,
+      "combo_score": 1
+    },
+    {
+      "ticker": "BLESS",
+      "price": 0.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6099,8 +6086,21 @@
       "combo_score": 1
     },
     {
+      "ticker": "SABINA",
+      "price": 15.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 48,
+      "combo_score": 1
+    },
+    {
       "ticker": "SENA",
-      "price": 1.75,
+      "price": 1.74,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6125,8 +6125,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "THAI",
-      "price": 6.0,
+      "ticker": "ASIA",
+      "price": 5.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6134,19 +6134,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 48,
-      "combo_score": 1
-    },
-    {
-      "ticker": "BLESS",
-      "price": 0.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
       "rs_score": 47,
       "combo_score": 1
     },
@@ -6164,8 +6151,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "SAK",
-      "price": 3.3,
+      "ticker": "J",
+      "price": 0.72,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 47,
+      "combo_score": 1
+    },
+    {
+      "ticker": "MK",
+      "price": 0.63,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 47,
+      "combo_score": 1
+    },
+    {
+      "ticker": "TAKUNI",
+      "price": 0.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6203,19 +6216,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "AMANAH",
-      "price": 0.76,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 46,
-      "combo_score": 1
-    },
-    {
       "ticker": "CHOTI",
       "price": 66.0,
       "sepa": false,
@@ -6229,8 +6229,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "JPARK",
-      "price": 3.28,
+      "ticker": "MEDEZE",
+      "price": 6.55,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6242,8 +6242,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "SR",
-      "price": 0.39,
+      "ticker": "NER",
+      "price": 4.42,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": true,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 46,
+      "combo_score": 1
+    },
+    {
+      "ticker": "QLT",
+      "price": 1.83,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6268,21 +6281,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "ASIA",
-      "price": 5.35,
+      "ticker": "ANI",
+      "price": 2.84,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Accumulation",
       "rs_score": 45,
       "combo_score": 1
     },
     {
-      "ticker": "BIG",
-      "price": 0.3,
+      "ticker": "PEER",
+      "price": 0.1,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6307,8 +6320,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "QLT",
-      "price": 1.81,
+      "ticker": "RPC",
+      "price": 0.34,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 45,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SAK",
+      "price": 3.28,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6320,15 +6346,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "SABINA",
-      "price": 15.6,
+      "ticker": "SONIC",
+      "price": 1.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Warning",
       "rs_score": 45,
       "combo_score": 1
     },
@@ -6346,8 +6372,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "BDMS",
-      "price": 19.6,
+      "ticker": "AMANAH",
+      "price": 0.75,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6359,8 +6385,60 @@
       "combo_score": 1
     },
     {
-      "ticker": "BLAND",
-      "price": 0.46,
+      "ticker": "BIG",
+      "price": 0.3,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 44,
+      "combo_score": 1
+    },
+    {
+      "ticker": "BUI",
+      "price": 11.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 44,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CHAYO",
+      "price": 1.28,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 44,
+      "combo_score": 1
+    },
+    {
+      "ticker": "EKH",
+      "price": 5.05,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 44,
+      "combo_score": 1
+    },
+    {
+      "ticker": "JR",
+      "price": 1.76,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6381,45 +6459,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 44,
-      "combo_score": 1
-    },
-    {
-      "ticker": "KDH",
-      "price": 83.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 44,
-      "combo_score": 1
-    },
-    {
-      "ticker": "MK",
-      "price": 0.62,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 44,
-      "combo_score": 1
-    },
-    {
-      "ticker": "THMUI",
-      "price": 0.32,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
       "rs_score": 44,
       "combo_score": 1
     },
@@ -6450,8 +6489,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "AURA",
-      "price": 13.8,
+      "ticker": "KDH",
+      "price": 83.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6463,28 +6502,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "NEW",
-      "price": 105.0,
+      "ticker": "PM",
+      "price": 11.1,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 43,
-      "combo_score": 1
-    },
-    {
-      "ticker": "OR",
-      "price": 12.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Accumulation",
       "rs_score": 43,
       "combo_score": 1
     },
@@ -6502,8 +6528,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "SPG",
-      "price": 11.0,
+      "ticker": "THMUI",
+      "price": 0.32,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 43,
+      "combo_score": 1
+    },
+    {
+      "ticker": "AURA",
+      "price": 13.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 42,
+      "combo_score": 1
+    },
+    {
+      "ticker": "BDMS",
+      "price": 19.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6511,25 +6563,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 43,
+      "rs_score": 42,
       "combo_score": 1
     },
     {
-      "ticker": "TNDT",
-      "price": 0.15,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 43,
-      "combo_score": 1
-    },
-    {
-      "ticker": "AMATAV",
-      "price": 2.08,
+      "ticker": "NEW",
+      "price": 105.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6541,47 +6580,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "CHAYO",
-      "price": 1.27,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 42,
-      "combo_score": 1
-    },
-    {
-      "ticker": "JR",
-      "price": 1.75,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 42,
-      "combo_score": 1
-    },
-    {
-      "ticker": "M-CHAI",
-      "price": 19.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 42,
-      "combo_score": 1
-    },
-    {
-      "ticker": "ORI",
-      "price": 1.84,
+      "ticker": "OR",
+      "price": 12.6,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6606,19 +6606,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "PTG",
-      "price": 7.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 42,
-      "combo_score": 1
-    },
-    {
       "ticker": "SAV",
       "price": 11.2,
       "sepa": false,
@@ -6632,8 +6619,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "ANI",
-      "price": 2.78,
+      "ticker": "SITHAI",
+      "price": 1.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 42,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SPG",
+      "price": 11.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6641,32 +6641,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 41,
+      "rs_score": 42,
       "combo_score": 1
     },
     {
-      "ticker": "BUI",
-      "price": 10.9,
+      "ticker": "AMATAV",
+      "price": 2.08,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 41,
-      "combo_score": 1
-    },
-    {
-      "ticker": "EKH",
-      "price": 5.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Recovery",
       "rs_score": 41,
       "combo_score": 1
     },
@@ -6684,6 +6671,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "INOX",
+      "price": 4.2,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 41,
+      "combo_score": 1
+    },
+    {
       "ticker": "LH",
       "price": 3.72,
       "sepa": false,
@@ -6697,8 +6697,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "TAKUNI",
-      "price": 0.39,
+      "ticker": "M-CHAI",
+      "price": 19.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -6710,15 +6710,41 @@
       "combo_score": 1
     },
     {
-      "ticker": "TASCO",
-      "price": 13.7,
+      "ticker": "ORI",
+      "price": 1.84,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Distribution",
+      "stage": "Recovery",
+      "rs_score": 41,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SAMART",
+      "price": 5.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 41,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SR",
+      "price": 0.38,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
       "rs_score": 41,
       "combo_score": 1
     },
@@ -6732,19 +6758,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Accumulation",
-      "rs_score": 41,
-      "combo_score": 1
-    },
-    {
-      "ticker": "VIBHA",
-      "price": 1.37,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
       "rs_score": 41,
       "combo_score": 1
     },
@@ -6775,6 +6788,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "CPL",
+      "price": 0.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 40,
+      "combo_score": 1
+    },
+    {
       "ticker": "IFS",
       "price": 1.87,
       "sepa": false,
@@ -6788,41 +6814,28 @@
       "combo_score": 1
     },
     {
-      "ticker": "INOX",
-      "price": 4.18,
+      "ticker": "LEO",
+      "price": 1.89,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Distribution",
+      "stage": "Recovery",
       "rs_score": 40,
       "combo_score": 1
     },
     {
-      "ticker": "PM",
-      "price": 11.0,
+      "ticker": "PTG",
+      "price": 7.55,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 40,
-      "combo_score": 1
-    },
-    {
-      "ticker": "SITHAI",
-      "price": 0.99,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
+      "stage": "Recovery",
       "rs_score": 40,
       "combo_score": 1
     },
@@ -6892,19 +6905,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "ILM",
-      "price": 12.9,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 39,
-      "combo_score": 1
-    },
-    {
       "ticker": "PMTA",
       "price": 9.55,
       "sepa": false,
@@ -6931,15 +6931,28 @@
       "combo_score": 1
     },
     {
-      "ticker": "VNG",
-      "price": 2.0,
+      "ticker": "SUSCO",
+      "price": 2.22,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Accumulation",
+      "rs_score": 39,
+      "combo_score": 1
+    },
+    {
+      "ticker": "VIBHA",
+      "price": 1.36,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 39,
       "combo_score": 1
     },
@@ -6983,28 +6996,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "LEO",
-      "price": 1.88,
+      "ticker": "GREEN",
+      "price": 0.7,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 38,
-      "combo_score": 1
-    },
-    {
-      "ticker": "MENA",
-      "price": 0.73,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Distribution",
       "rs_score": 38,
       "combo_score": 1
     },
@@ -7022,19 +7022,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "SPALI",
-      "price": 15.9,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 38,
-      "combo_score": 1
-    },
-    {
       "ticker": "SPTX",
       "price": 0.01,
       "sepa": false,
@@ -7044,6 +7031,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
+      "rs_score": 38,
+      "combo_score": 1
+    },
+    {
+      "ticker": "VNG",
+      "price": 1.99,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
       "rs_score": 38,
       "combo_score": 1
     },
@@ -7061,21 +7061,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "KASET",
-      "price": 0.67,
+      "ticker": "AMA",
+      "price": 3.88,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Distribution",
+      "stage": "Accumulation",
       "rs_score": 37,
       "combo_score": 1
     },
     {
-      "ticker": "LPN",
-      "price": 1.57,
+      "ticker": "BLAND",
+      "price": 0.45,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7083,6 +7083,45 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
+      "rs_score": 37,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ILM",
+      "price": 12.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 37,
+      "combo_score": 1
+    },
+    {
+      "ticker": "MENA",
+      "price": 0.73,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 37,
+      "combo_score": 1
+    },
+    {
+      "ticker": "NV",
+      "price": 0.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
       "rs_score": 37,
       "combo_score": 1
     },
@@ -7100,86 +7139,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SAMART",
-      "price": 5.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 37,
-      "combo_score": 1
-    },
-    {
-      "ticker": "SPC",
-      "price": 55.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
-      "rs_score": 37,
-      "combo_score": 1
-    },
-    {
-      "ticker": "TPCS",
-      "price": 9.8,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 37,
-      "combo_score": 1
-    },
-    {
-      "ticker": "YONG",
-      "price": 0.73,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 37,
-      "combo_score": 1
-    },
-    {
-      "ticker": "AMA",
-      "price": 3.86,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 36,
-      "combo_score": 1
-    },
-    {
-      "ticker": "AP",
-      "price": 7.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 36,
-      "combo_score": 1
-    },
-    {
-      "ticker": "CMR",
-      "price": 1.28,
+      "ticker": "SNPS",
+      "price": 4.52,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7187,12 +7148,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 36,
+      "rs_score": 37,
       "combo_score": 1
     },
     {
-      "ticker": "CPL",
-      "price": 0.69,
+      "ticker": "FNS",
+      "price": 0.7,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7217,6 +7178,32 @@
       "combo_score": 1
     },
     {
+      "ticker": "KASET",
+      "price": 0.67,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 36,
+      "combo_score": 1
+    },
+    {
+      "ticker": "LPN",
+      "price": 1.57,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 36,
+      "combo_score": 1
+    },
+    {
       "ticker": "OGC",
       "price": 9.7,
       "sepa": false,
@@ -7230,8 +7217,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "PERM",
-      "price": 0.26,
+      "ticker": "SINO",
+      "price": 0.9,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7243,21 +7230,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "SUSCO",
-      "price": 2.2,
+      "ticker": "SPALI",
+      "price": 15.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Bear",
       "rs_score": 36,
       "combo_score": 1
     },
     {
-      "ticker": "VL",
-      "price": 0.8,
+      "ticker": "THRE",
+      "price": 0.39,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7269,8 +7256,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "ATP30",
-      "price": 0.82,
+      "ticker": "TPCS",
+      "price": 9.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 36,
+      "combo_score": 1
+    },
+    {
+      "ticker": "AP",
+      "price": 7.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 35,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CMR",
+      "price": 1.28,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7282,34 +7295,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "CPH",
-      "price": 7.65,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 35,
-      "combo_score": 1
-    },
-    {
-      "ticker": "FN",
-      "price": 0.46,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 35,
-      "combo_score": 1
-    },
-    {
-      "ticker": "GREEN",
-      "price": 0.69,
+      "ticker": "COLOR",
+      "price": 0.98,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7321,8 +7308,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "NL",
-      "price": 0.7,
+      "ticker": "PERM",
+      "price": 0.26,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7334,8 +7321,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SNPS",
-      "price": 4.48,
+      "ticker": "PLANET",
+      "price": 0.57,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7347,21 +7334,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "TFMAMA",
-      "price": 187.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 35,
-      "combo_score": 1
-    },
-    {
       "ticker": "TKC",
-      "price": 8.4,
+      "price": 8.45,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7386,8 +7360,47 @@
       "combo_score": 1
     },
     {
-      "ticker": "COCOCO",
-      "price": 5.65,
+      "ticker": "VL",
+      "price": 0.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 35,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ZEN",
+      "price": 5.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 35,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CPH",
+      "price": 7.65,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 34,
+      "combo_score": 1
+    },
+    {
+      "ticker": "EP",
+      "price": 1.17,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7399,34 +7412,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "GFPT",
-      "price": 9.2,
+      "ticker": "FN",
+      "price": 0.46,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
       "rs_score": 34,
       "combo_score": 1
     },
     {
-      "ticker": "MOTHER",
-      "price": 1.15,
+      "ticker": "MCS",
+      "price": 7.85,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Warning",
+      "stage": "Accumulation",
       "rs_score": 34,
       "combo_score": 1
     },
     {
-      "ticker": "NC",
-      "price": 1.98,
+      "ticker": "NL",
+      "price": 0.7,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7464,8 +7477,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SINO",
-      "price": 0.89,
+      "ticker": "TFMAMA",
+      "price": 186.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7473,19 +7486,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 34,
-      "combo_score": 1
-    },
-    {
-      "ticker": "ZEN",
-      "price": 5.55,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
       "rs_score": 34,
       "combo_score": 1
     },
@@ -7516,8 +7516,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "LANNA",
-      "price": 14.6,
+      "ticker": "COCOCO",
+      "price": 5.65,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 33,
+      "combo_score": 1
+    },
+    {
+      "ticker": "GFPT",
+      "price": 9.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7542,21 +7555,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "MCS",
-      "price": 7.8,
+      "ticker": "MOTHER",
+      "price": 1.15,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Warning",
       "rs_score": 33,
       "combo_score": 1
     },
     {
-      "ticker": "NV",
-      "price": 0.59,
+      "ticker": "MTC",
+      "price": 32.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7564,6 +7577,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
+      "rs_score": 33,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SA",
+      "price": 7.1,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 33,
       "combo_score": 1
     },
@@ -7581,47 +7607,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SCN",
-      "price": 0.4,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 33,
-      "combo_score": 1
-    },
-    {
-      "ticker": "TVT",
-      "price": 0.23,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 33,
-      "combo_score": 1
-    },
-    {
       "ticker": "BRR",
       "price": 3.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 32,
-      "combo_score": 1
-    },
-    {
-      "ticker": "EP",
-      "price": 1.16,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7672,15 +7659,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "MTC",
-      "price": 32.0,
+      "ticker": "SCN",
+      "price": 0.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
       "rs_score": 32,
       "combo_score": 1
     },
@@ -7698,8 +7685,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "TSTE",
-      "price": 10.5,
+      "ticker": "TVT",
+      "price": 0.23,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7711,8 +7698,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "BGT",
-      "price": 0.37,
+      "ticker": "UNIQ",
+      "price": 2.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 32,
+      "combo_score": 1
+    },
+    {
+      "ticker": "AMC",
+      "price": 2.08,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 31,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ASIMAR",
+      "price": 1.37,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7720,6 +7733,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
+      "rs_score": 31,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ATP30",
+      "price": 0.81,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 31,
       "combo_score": 1
     },
@@ -7737,8 +7763,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "ETC",
-      "price": 0.68,
+      "ticker": "FPI",
+      "price": 1.51,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7763,21 +7789,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "PLANET",
-      "price": 0.56,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 31,
-      "combo_score": 1
-    },
-    {
-      "ticker": "SA",
-      "price": 7.05,
+      "ticker": "JSP",
+      "price": 1.77,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7802,47 +7815,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "UNIQ",
-      "price": 2.68,
+      "ticker": "TSTE",
+      "price": 10.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Distribution",
+      "stage": "Recovery",
       "rs_score": 31,
       "combo_score": 1
     },
     {
-      "ticker": "WGE",
-      "price": 0.72,
+      "ticker": "DIMET",
+      "price": 0.07,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 31,
-      "combo_score": 1
-    },
-    {
-      "ticker": "COLOR",
-      "price": 0.96,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
+      "stage": "Accumulation",
       "rs_score": 30,
       "combo_score": 1
     },
     {
-      "ticker": "CRANE",
-      "price": 0.38,
+      "ticker": "ETC",
+      "price": 0.68,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7854,21 +7854,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "JSP",
-      "price": 1.76,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 30,
-      "combo_score": 1
-    },
-    {
-      "ticker": "KAMART",
-      "price": 7.7,
+      "ticker": "LANNA",
+      "price": 14.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7893,8 +7880,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SNP",
-      "price": 8.9,
+      "ticker": "Q-CON",
+      "price": 6.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7906,8 +7893,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "THRE",
-      "price": 0.38,
+      "ticker": "READY",
+      "price": 3.04,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -7915,6 +7902,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
+      "rs_score": 30,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SNP",
+      "price": 8.9,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 30,
       "combo_score": 1
     },
@@ -7932,15 +7932,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "UAC",
-      "price": 2.54,
+      "ticker": "WGE",
+      "price": 0.72,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Distribution",
+      "stage": "Bear",
       "rs_score": 30,
       "combo_score": 1
     },
@@ -7958,34 +7958,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "ASIMAR",
-      "price": 1.36,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 29,
-      "combo_score": 1
-    },
-    {
       "ticker": "BVG",
       "price": 1.55,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 29,
-      "combo_score": 1
-    },
-    {
-      "ticker": "FPI",
-      "price": 1.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8010,15 +7984,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "PANEL",
-      "price": 1.2,
+      "ticker": "HUMAN",
+      "price": 4.76,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 29,
       "combo_score": 1
     },
@@ -8036,8 +8010,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "TCC",
-      "price": 0.31,
+      "ticker": "SK",
+      "price": 0.52,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 29,
+      "combo_score": 1
+    },
+    {
+      "ticker": "UAC",
+      "price": 2.54,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8045,6 +8032,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Distribution",
+      "rs_score": 29,
+      "combo_score": 1
+    },
+    {
+      "ticker": "YONG",
+      "price": 0.71,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 29,
       "combo_score": 1
     },
@@ -8062,19 +8062,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "AMC",
-      "price": 2.06,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
-      "rs_score": 28,
-      "combo_score": 1
-    },
-    {
       "ticker": "BEAUTY",
       "price": 0.36,
       "sepa": false,
@@ -8088,8 +8075,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "CHAO",
-      "price": 4.2,
+      "ticker": "FE",
+      "price": 160.5,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 28,
+      "combo_score": 1
+    },
+    {
+      "ticker": "KAMART",
+      "price": 7.65,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8101,8 +8101,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "FE",
-      "price": 160.5,
+      "ticker": "NC",
+      "price": 1.94,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 28,
+      "combo_score": 1
+    },
+    {
+      "ticker": "PANEL",
+      "price": 1.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8127,21 +8140,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "Q-CON",
-      "price": 6.15,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 28,
-      "combo_score": 1
-    },
-    {
-      "ticker": "READY",
-      "price": 3.02,
+      "ticker": "PSH",
+      "price": 3.6,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8153,15 +8153,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "TCJ",
-      "price": 2.42,
+      "ticker": "TCC",
+      "price": 0.31,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Distribution",
       "rs_score": 28,
       "combo_score": 1
     },
@@ -8179,15 +8179,28 @@
       "combo_score": 1
     },
     {
-      "ticker": "HUMAN",
-      "price": 4.72,
+      "ticker": "BYD",
+      "price": 0.48,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
+      "rs_score": 27,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CHAO",
+      "price": 4.18,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 27,
       "combo_score": 1
     },
@@ -8218,8 +8231,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "PSH",
-      "price": 3.6,
+      "ticker": "PLT",
+      "price": 0.54,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8231,28 +8244,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "TMAN",
-      "price": 11.0,
+      "ticker": "TCJ",
+      "price": 2.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 27,
-      "combo_score": 1
-    },
-    {
-      "ticker": "TMC",
-      "price": 0.69,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 27,
       "combo_score": 1
     },
@@ -8270,34 +8270,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "WPH",
-      "price": 5.95,
+      "ticker": "TYCN",
+      "price": 1.67,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
       "rs_score": 27,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ARIN",
+      "price": 0.49,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 26,
       "combo_score": 1
     },
     {
       "ticker": "ECF",
       "price": 0.1,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 26,
-      "combo_score": 1
-    },
-    {
-      "ticker": "FMT",
-      "price": 20.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8322,19 +8322,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "SK",
-      "price": 0.51,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 26,
-      "combo_score": 1
-    },
-    {
       "ticker": "TH",
       "price": 0.48,
       "sepa": false,
@@ -8348,8 +8335,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "TMI",
-      "price": 0.47,
+      "ticker": "TMAN",
+      "price": 10.9,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8361,15 +8348,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "TYCN",
-      "price": 1.65,
+      "ticker": "TNDT",
+      "price": 0.14,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 26,
       "combo_score": 1
     },
@@ -8387,8 +8374,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "NPK",
-      "price": 12.7,
+      "ticker": "WPH",
+      "price": 5.9,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 26,
+      "combo_score": 1
+    },
+    {
+      "ticker": "AU",
+      "price": 4.66,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8400,8 +8400,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "NSL",
-      "price": 22.6,
+      "ticker": "BGT",
+      "price": 0.36,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 25,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CRANE",
+      "price": 0.37,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 25,
+      "combo_score": 1
+    },
+    {
+      "ticker": "FMT",
+      "price": 20.4,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8409,6 +8435,32 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
+      "rs_score": 25,
+      "combo_score": 1
+    },
+    {
+      "ticker": "PRINC",
+      "price": 1.72,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 25,
+      "combo_score": 1
+    },
+    {
+      "ticker": "SAFE",
+      "price": 5.65,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 25,
       "combo_score": 1
     },
@@ -8426,19 +8478,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "THREL",
-      "price": 1.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 25,
-      "combo_score": 1
-    },
-    {
       "ticker": "TKN",
       "price": 4.08,
       "sepa": false,
@@ -8452,72 +8491,7 @@
       "combo_score": 1
     },
     {
-      "ticker": "TPA",
-      "price": 2.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 25,
-      "combo_score": 1
-    },
-    {
-      "ticker": "TRP",
-      "price": 4.24,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 25,
-      "combo_score": 1
-    },
-    {
-      "ticker": "UV",
-      "price": 0.83,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 25,
-      "combo_score": 1
-    },
-    {
-      "ticker": "XPG",
-      "price": 0.44,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 25,
-      "combo_score": 1
-    },
-    {
-      "ticker": "AU",
-      "price": 4.64,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 24,
-      "combo_score": 1
-    },
-    {
-      "ticker": "BYD",
+      "ticker": "TMI",
       "price": 0.47,
       "sepa": false,
       "kell": false,
@@ -8526,25 +8500,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 24,
+      "rs_score": 25,
       "combo_score": 1
     },
     {
-      "ticker": "FNS",
-      "price": 0.66,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 24,
-      "combo_score": 1
-    },
-    {
-      "ticker": "ISSARA",
-      "price": 6.55,
+      "ticker": "AAV",
+      "price": 1.08,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8556,21 +8517,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "JCK",
-      "price": 0.13,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 24,
-      "combo_score": 1
-    },
-    {
-      "ticker": "PRINC",
-      "price": 1.71,
+      "ticker": "NPK",
+      "price": 12.7,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8578,6 +8526,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
+      "rs_score": 24,
+      "combo_score": 1
+    },
+    {
+      "ticker": "NSL",
+      "price": 22.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
       "rs_score": 24,
       "combo_score": 1
     },
@@ -8595,33 +8556,7 @@
       "combo_score": 1
     },
     {
-      "ticker": "TKT",
-      "price": 0.74,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 24,
-      "combo_score": 1
-    },
-    {
-      "ticker": "TTT",
-      "price": 40.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 24,
-      "combo_score": 1
-    },
-    {
-      "ticker": "CPT",
+      "ticker": "THREL",
       "price": 1.0,
       "sepa": false,
       "kell": false,
@@ -8629,13 +8564,26 @@
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Distribution",
-      "rs_score": 23,
+      "stage": "Bear",
+      "rs_score": 24,
       "combo_score": 1
     },
     {
-      "ticker": "IRCP",
-      "price": 0.28,
+      "ticker": "TPA",
+      "price": 2.5,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 24,
+      "combo_score": 1
+    },
+    {
+      "ticker": "TRP",
+      "price": 4.24,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8643,12 +8591,64 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
+      "rs_score": 24,
+      "combo_score": 1
+    },
+    {
+      "ticker": "UV",
+      "price": 0.83,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 24,
+      "combo_score": 1
+    },
+    {
+      "ticker": "XPG",
+      "price": 0.44,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 24,
+      "combo_score": 1
+    },
+    {
+      "ticker": "IHL",
+      "price": 1.39,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 23,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ISSARA",
+      "price": 6.55,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 23,
       "combo_score": 1
     },
     {
       "ticker": "LALIN",
-      "price": 4.32,
+      "price": 4.34,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8660,15 +8660,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "PLT",
-      "price": 0.53,
+      "ticker": "PR9",
+      "price": 17.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 23,
       "combo_score": 1
     },
@@ -8686,15 +8686,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "SAFE",
-      "price": 5.6,
+      "ticker": "TKT",
+      "price": 0.74,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 23,
       "combo_score": 1
     },
@@ -8712,8 +8712,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "WORK",
-      "price": 3.48,
+      "ticker": "TTT",
+      "price": 40.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8725,28 +8725,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "AAV",
-      "price": 1.07,
+      "ticker": "BCH",
+      "price": 9.85,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 22,
-      "combo_score": 1
-    },
-    {
-      "ticker": "ARIN",
-      "price": 0.48,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 22,
       "combo_score": 1
     },
@@ -8764,7 +8751,20 @@
       "combo_score": 1
     },
     {
-      "ticker": "IHL",
+      "ticker": "CPT",
+      "price": 0.99,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 22,
+      "combo_score": 1
+    },
+    {
+      "ticker": "IIG",
       "price": 1.38,
       "sepa": false,
       "kell": false,
@@ -8786,19 +8786,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 22,
-      "combo_score": 1
-    },
-    {
-      "ticker": "PR9",
-      "price": 17.4,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
       "rs_score": 22,
       "combo_score": 1
     },
@@ -8842,6 +8829,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "WORK",
+      "price": 3.48,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 22,
+      "combo_score": 1
+    },
+    {
       "ticker": "ASTR",
       "price": 4.88,
       "sepa": false,
@@ -8851,32 +8851,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Warning",
-      "rs_score": 21,
-      "combo_score": 1
-    },
-    {
-      "ticker": "BCH",
-      "price": 9.8,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 21,
-      "combo_score": 1
-    },
-    {
-      "ticker": "BWG",
-      "price": 0.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
       "rs_score": 21,
       "combo_score": 1
     },
@@ -8894,8 +8868,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "CMC",
-      "price": 0.44,
+      "ticker": "PK",
+      "price": 0.47,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8903,19 +8877,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
-      "rs_score": 21,
-      "combo_score": 1
-    },
-    {
-      "ticker": "PEER",
-      "price": 0.09,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
       "rs_score": 21,
       "combo_score": 1
     },
@@ -8946,6 +8907,32 @@
       "combo_score": 1
     },
     {
+      "ticker": "SRS",
+      "price": 1.79,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 21,
+      "combo_score": 1
+    },
+    {
+      "ticker": "TMC",
+      "price": 0.67,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 21,
+      "combo_score": 1
+    },
+    {
       "ticker": "UPF",
       "price": 21.5,
       "sepa": false,
@@ -8959,8 +8946,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "BJC",
-      "price": 14.7,
+      "ticker": "ZIGA",
+      "price": 0.89,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -8968,25 +8955,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Recovery",
-      "rs_score": 20,
+      "rs_score": 21,
       "combo_score": 1
     },
     {
       "ticker": "CGD",
       "price": 0.11,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 20,
-      "combo_score": 1
-    },
-    {
-      "ticker": "GEL",
-      "price": 0.03,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9024,6 +8998,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "SE-ED",
+      "price": 1.55,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 20,
+      "combo_score": 1
+    },
+    {
       "ticker": "SKN",
       "price": 5.4,
       "sepa": false,
@@ -9050,8 +9037,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SRS",
-      "price": 1.79,
+      "ticker": "THIP",
+      "price": 21.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9063,8 +9050,47 @@
       "combo_score": 1
     },
     {
-      "ticker": "IIG",
-      "price": 1.36,
+      "ticker": "VPO",
+      "price": 0.47,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 20,
+      "combo_score": 1
+    },
+    {
+      "ticker": "BJC",
+      "price": 14.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 19,
+      "combo_score": 1
+    },
+    {
+      "ticker": "BRI",
+      "price": 1.31,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 19,
+      "combo_score": 1
+    },
+    {
+      "ticker": "JAS",
+      "price": 1.13,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9076,47 +9102,47 @@
       "combo_score": 1
     },
     {
-      "ticker": "IMH",
-      "price": 3.1,
+      "ticker": "MATI",
+      "price": 2.94,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
       "rs_score": 19,
       "combo_score": 1
     },
     {
-      "ticker": "MASTER",
-      "price": 8.65,
+      "ticker": "NAM",
+      "price": 3.44,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
+      "rs_score": 19,
+      "combo_score": 1
+    },
+    {
+      "ticker": "NOBLE",
+      "price": 1.82,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 19,
       "combo_score": 1
     },
     {
       "ticker": "PTC",
       "price": 0.59,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 19,
-      "combo_score": 1
-    },
-    {
-      "ticker": "THIP",
-      "price": 21.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9154,32 +9180,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "VPO",
-      "price": 0.47,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 19,
-      "combo_score": 1
-    },
-    {
-      "ticker": "ZIGA",
-      "price": 0.88,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 19,
-      "combo_score": 1
-    },
-    {
       "ticker": "APCO",
       "price": 2.58,
       "sepa": false,
@@ -9193,8 +9193,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "BRI",
-      "price": 1.3,
+      "ticker": "IMH",
+      "price": 3.08,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9206,28 +9206,28 @@
       "combo_score": 1
     },
     {
-      "ticker": "JAS",
-      "price": 1.12,
+      "ticker": "IND",
+      "price": 0.95,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 18,
       "combo_score": 1
     },
     {
-      "ticker": "MATI",
-      "price": 2.94,
+      "ticker": "MASTER",
+      "price": 8.6,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 18,
       "combo_score": 1
     },
@@ -9258,8 +9258,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "NOBLE",
-      "price": 1.81,
+      "ticker": "STI",
+      "price": 1.7,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9271,8 +9271,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "STI",
-      "price": 1.7,
+      "ticker": "THG",
+      "price": 7.55,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9310,8 +9310,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "IND",
-      "price": 0.94,
+      "ticker": "CMC",
+      "price": 0.43,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9323,15 +9323,28 @@
       "combo_score": 1
     },
     {
-      "ticker": "KC",
-      "price": 0.03,
+      "ticker": "CPAXT",
+      "price": 14.9,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Accumulation",
+      "stage": "Bear",
+      "rs_score": 17,
+      "combo_score": 1
+    },
+    {
+      "ticker": "IRCP",
+      "price": 0.27,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
       "rs_score": 17,
       "combo_score": 1
     },
@@ -9349,8 +9362,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "NAM",
-      "price": 3.4,
+      "ticker": "NATION",
+      "price": 0.03,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 17,
+      "combo_score": 1
+    },
+    {
+      "ticker": "PCE",
+      "price": 2.12,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9358,38 +9384,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 17,
-      "combo_score": 1
-    },
-    {
-      "ticker": "PK",
-      "price": 0.46,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
       "rs_score": 17,
       "combo_score": 1
     },
     {
       "ticker": "SAWANG",
       "price": 6.35,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 17,
-      "combo_score": 1
-    },
-    {
-      "ticker": "THG",
-      "price": 7.5,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9414,8 +9414,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "CH",
-      "price": 1.49,
+      "ticker": "BWG",
+      "price": 0.24,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9427,8 +9427,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "CPAXT",
-      "price": 14.8,
+      "ticker": "CH",
+      "price": 1.49,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9453,8 +9453,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "MAJOR",
-      "price": 6.75,
+      "ticker": "K",
+      "price": 0.97,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9466,8 +9466,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "PCE",
-      "price": 2.1,
+      "ticker": "MAJOR",
+      "price": 6.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9492,8 +9492,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SE-ED",
-      "price": 1.51,
+      "ticker": "SHANG",
+      "price": 43.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9518,21 +9518,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "ETE",
-      "price": 0.55,
+      "ticker": "ABM",
+      "price": 0.51,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 15,
       "combo_score": 1
     },
     {
-      "ticker": "K",
-      "price": 0.96,
+      "ticker": "DDD",
+      "price": 4.98,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 15,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ETE",
+      "price": 0.56,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9553,19 +9566,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 15,
-      "combo_score": 1
-    },
-    {
-      "ticker": "MTW",
-      "price": 0.8,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
       "rs_score": 15,
       "combo_score": 1
     },
@@ -9609,15 +9609,15 @@
       "combo_score": 1
     },
     {
-      "ticker": "SHANG",
-      "price": 43.0,
+      "ticker": "SGF",
+      "price": 0.15,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 15,
       "combo_score": 1
     },
@@ -9635,54 +9635,28 @@
       "combo_score": 1
     },
     {
-      "ticker": "ABM",
-      "price": 0.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 14,
-      "combo_score": 1
-    },
-    {
-      "ticker": "DDD",
-      "price": 4.9,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 14,
-      "combo_score": 1
-    },
-    {
-      "ticker": "HANN",
-      "price": 0.88,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 14,
-      "combo_score": 1
-    },
-    {
       "ticker": "HL",
-      "price": 5.8,
+      "price": 5.75,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
+      "rs_score": 14,
+      "combo_score": 1
+    },
+    {
+      "ticker": "JCK",
+      "price": 0.12,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
       "rs_score": 14,
       "combo_score": 1
     },
@@ -9727,7 +9701,33 @@
     },
     {
       "ticker": "OKJ",
-      "price": 3.72,
+      "price": 3.74,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 14,
+      "combo_score": 1
+    },
+    {
+      "ticker": "STX",
+      "price": 0.85,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 14,
+      "combo_score": 1
+    },
+    {
+      "ticker": "VGI",
+      "price": 0.97,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9778,6 +9778,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "HANN",
+      "price": 0.87,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 13,
+      "combo_score": 1
+    },
+    {
       "ticker": "LDC",
       "price": 0.25,
       "sepa": false,
@@ -9804,6 +9817,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "MTW",
+      "price": 0.77,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 13,
+      "combo_score": 1
+    },
+    {
       "ticker": "PROEN",
       "price": 0.91,
       "sepa": false,
@@ -9817,8 +9843,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "STX",
-      "price": 0.84,
+      "ticker": "TBN",
+      "price": 3.54,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9826,32 +9852,6 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 13,
-      "combo_score": 1
-    },
-    {
-      "ticker": "TIPCO",
-      "price": 6.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 13,
-      "combo_score": 1
-    },
-    {
-      "ticker": "VGI",
-      "price": 0.96,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
       "rs_score": 13,
       "combo_score": 1
     },
@@ -9869,6 +9869,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "CITY",
+      "price": 1.18,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 12,
+      "combo_score": 1
+    },
+    {
       "ticker": "DCON",
       "price": 0.19,
       "sepa": false,
@@ -9882,21 +9895,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "DIMET",
-      "price": 0.06,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 12,
-      "combo_score": 1
-    },
-    {
       "ticker": "NTV",
-      "price": 18.8,
+      "price": 18.7,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9922,7 +9922,7 @@
     },
     {
       "ticker": "PRI",
-      "price": 3.34,
+      "price": 3.38,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9934,8 +9934,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "SGF",
-      "price": 0.14,
+      "ticker": "RWI",
+      "price": 0.17,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9960,34 +9960,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "TBN",
-      "price": 3.5,
+      "ticker": "TIPCO",
+      "price": 6.2,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 12,
       "combo_score": 1
     },
     {
       "ticker": "AIRA",
       "price": 1.02,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 11,
-      "combo_score": 1
-    },
-    {
-      "ticker": "APURE",
-      "price": 2.02,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10025,6 +10012,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "KUN",
+      "price": 0.64,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 11,
+      "combo_score": 1
+    },
+    {
       "ticker": "PLUS",
       "price": 1.35,
       "sepa": false,
@@ -10051,6 +10051,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "SCM",
+      "price": 0.13,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 11,
+      "combo_score": 1
+    },
+    {
       "ticker": "TCMC",
       "price": 0.3,
       "sepa": false,
@@ -10064,8 +10077,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "XBIO",
-      "price": 0.07,
+      "ticker": "AJA",
+      "price": 0.13,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10073,12 +10086,12 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
-      "rs_score": 11,
+      "rs_score": 10,
       "combo_score": 1
     },
     {
-      "ticker": "ANAN",
-      "price": 0.33,
+      "ticker": "APURE",
+      "price": 2.0,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10116,19 +10129,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "CITY",
-      "price": 1.14,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 10,
-      "combo_score": 1
-    },
-    {
       "ticker": "EFORL",
       "price": 0.12,
       "sepa": false,
@@ -10142,21 +10142,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "KUN",
-      "price": 0.63,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 10,
-      "combo_score": 1
-    },
-    {
       "ticker": "PEACE",
-      "price": 1.52,
+      "price": 1.51,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10181,21 +10168,34 @@
       "combo_score": 1
     },
     {
-      "ticker": "PRECHA",
-      "price": 0.45,
+      "ticker": "RICHY",
+      "price": 0.15,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
       "rs_score": 10,
       "combo_score": 1
     },
     {
-      "ticker": "AJA",
-      "price": 0.13,
+      "ticker": "TRITN",
+      "price": 0.02,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 10,
+      "combo_score": 1
+    },
+    {
+      "ticker": "ANAN",
+      "price": 0.32,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10208,7 +10208,7 @@
     },
     {
       "ticker": "BC",
-      "price": 0.63,
+      "price": 0.62,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10259,6 +10259,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "NOVA",
+      "price": 6.7,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 9,
+      "combo_score": 1
+    },
+    {
       "ticker": "NRF",
       "price": 0.24,
       "sepa": false,
@@ -10272,34 +10285,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "RICHY",
-      "price": 0.15,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 9,
-      "combo_score": 1
-    },
-    {
-      "ticker": "RWI",
-      "price": 0.16,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 9,
-      "combo_score": 1
-    },
-    {
       "ticker": "TGE",
-      "price": 1.0,
+      "price": 1.01,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10311,8 +10298,21 @@
       "combo_score": 1
     },
     {
-      "ticker": "FANCY",
-      "price": 0.25,
+      "ticker": "WINMED",
+      "price": 0.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 9,
+      "combo_score": 1
+    },
+    {
+      "ticker": "CEYE",
+      "price": 1.14,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10333,6 +10333,19 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bear",
+      "rs_score": 8,
+      "combo_score": 1
+    },
+    {
+      "ticker": "GTV",
+      "price": 0.03,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
       "rs_score": 8,
       "combo_score": 1
     },
@@ -10363,21 +10376,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "NOVA",
-      "price": 6.7,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 8,
-      "combo_score": 1
-    },
-    {
-      "ticker": "SCM",
-      "price": 0.12,
+      "ticker": "SOLAR",
+      "price": 0.23,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10402,8 +10402,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "WINMED",
-      "price": 0.79,
+      "ticker": "WARRIX",
+      "price": 1.37,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10428,8 +10428,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "CEYE",
-      "price": 1.12,
+      "ticker": "FANCY",
+      "price": 0.24,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10454,8 +10454,21 @@
       "combo_score": 1
     },
     {
+      "ticker": "PRECHA",
+      "price": 0.42,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 7,
+      "combo_score": 1
+    },
+    {
       "ticker": "SAMTEL",
-      "price": 3.08,
+      "price": 3.1,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10468,7 +10481,7 @@
     },
     {
       "ticker": "SEI",
-      "price": 1.67,
+      "price": 1.66,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10493,19 +10506,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "SOLAR",
-      "price": 0.23,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 7,
-      "combo_score": 1
-    },
-    {
       "ticker": "SST",
       "price": 1.02,
       "sepa": false,
@@ -10519,8 +10519,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "WARRIX",
-      "price": 1.37,
+      "ticker": "TBSP",
+      "price": 0.87,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10572,7 +10572,7 @@
     },
     {
       "ticker": "JTS",
-      "price": 30.5,
+      "price": 30.25,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10585,7 +10585,7 @@
     },
     {
       "ticker": "MADAME",
-      "price": 0.49,
+      "price": 0.48,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10610,19 +10610,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "TBSP",
-      "price": 0.87,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 6,
-      "combo_score": 1
-    },
-    {
       "ticker": "TPCH",
       "price": 1.38,
       "sepa": false,
@@ -10638,6 +10625,19 @@
     {
       "ticker": "TVDH",
       "price": 0.05,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 6,
+      "combo_score": 1
+    },
+    {
+      "ticker": "XBIO",
+      "price": 0.06,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10702,7 +10702,7 @@
     },
     {
       "ticker": "MONO",
-      "price": 0.75,
+      "price": 0.76,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10715,7 +10715,7 @@
     },
     {
       "ticker": "NAT",
-      "price": 1.76,
+      "price": 1.75,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10740,8 +10740,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "RS",
-      "price": 0.14,
+      "ticker": "TGPRO",
+      "price": 0.03,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10779,6 +10779,19 @@
       "combo_score": 1
     },
     {
+      "ticker": "KC",
+      "price": 0.02,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 4,
+      "combo_score": 1
+    },
+    {
       "ticker": "PPPM",
       "price": 0.22,
       "sepa": false,
@@ -10792,8 +10805,8 @@
       "combo_score": 1
     },
     {
-      "ticker": "QTCG",
-      "price": 0.09,
+      "ticker": "RS",
+      "price": 0.13,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10831,19 +10844,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "TGPRO",
-      "price": 0.03,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 4,
-      "combo_score": 1
-    },
-    {
       "ticker": "XYZ",
       "price": 0.27,
       "sepa": false,
@@ -10858,7 +10858,7 @@
     },
     {
       "ticker": "YGG",
-      "price": 0.18,
+      "price": 0.19,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10909,19 +10909,6 @@
       "combo_score": 1
     },
     {
-      "ticker": "GTV",
-      "price": 0.02,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 3,
-      "combo_score": 1
-    },
-    {
       "ticker": "PLE",
       "price": 0.08,
       "sepa": false,
@@ -10948,8 +10935,21 @@
       "combo_score": 1
     },
     {
+      "ticker": "QTCG",
+      "price": 0.08,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 3,
+      "combo_score": 1
+    },
+    {
       "ticker": "SMD100",
-      "price": 1.15,
+      "price": 1.14,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -11014,7 +11014,7 @@
     },
     {
       "ticker": "DPAINT",
-      "price": 0.28,
+      "price": 0.26,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -11040,7 +11040,7 @@
     },
     {
       "ticker": "INGRS",
-      "price": 0.11,
+      "price": 0.1,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -11066,7 +11066,7 @@
     },
     {
       "ticker": "PROS",
-      "price": 0.16,
+      "price": 0.17,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -11092,7 +11092,7 @@
     },
     {
       "ticker": "EMPIRE",
-      "price": 0.19,
+      "price": 0.18,
       "sepa": false,
       "kell": false,
       "breakout": false,
