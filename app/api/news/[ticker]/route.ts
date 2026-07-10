@@ -1,4 +1,6 @@
 import type { NextRequest } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import rawSectorMap from '@/data/scans/sector_map.json';
 
 // Known SET tickers (keys of ticker_to_sector) used to tag each headline.
@@ -237,7 +239,28 @@ function titleHasTicker(title: string, ticker: string): boolean {
   return re.test(title);
 }
 
-import rawArchivedItems from '@/data/news_archive.json';
+// Daily snapshots written by scripts/save_news.py, same layout as Big Lot's
+// public/data/history/<date>/biglot.json. Read at request time (not a static
+// import) so new days show up without a redeploy — the batch script commits
+// straight into public/, which the running server can already see on disk.
+const HISTORY_DAYS = 7; // matches the news page's date-picker min range
+const HISTORY_DIR = path.join(process.cwd(), 'public', 'data', 'history');
+
+function loadHistoricalItems(): NewsItem[] {
+  const items: NewsItem[] = [];
+  const now = Date.now();
+  for (let i = 0; i < HISTORY_DAYS; i++) {
+    const date = new Date(now - i * 86400000).toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
+    const filePath = path.join(HISTORY_DIR, date, 'news.json');
+    try {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      items.push(...(JSON.parse(raw) as NewsItem[]));
+    } catch {
+      // no snapshot for this day yet — not an error, just nothing to add
+    }
+  }
+  return items;
+}
 
 export async function GET(
   _req: NextRequest,
@@ -261,8 +284,8 @@ export async function GET(
     }
   });
 
-  // Load archived news from statically imported JSON
-  let archivedItems: NewsItem[] = rawArchivedItems as NewsItem[];
+  // Load daily snapshots for the past HISTORY_DAYS days
+  const archivedItems: NewsItem[] = loadHistoricalItems();
 
   // Merge live and archived items, deduplicating across feeds. Different
   // sources can syndicate the same story with slightly different tracking
