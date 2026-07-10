@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { allSectorEntries, slugToSector, sectorToSlug } from '@/lib/sectorData';
@@ -20,6 +21,16 @@ const SECTOR_COLORS: Record<string, string> = {
 export async function generateStaticParams() {
   const slugs = new Set(allSectorEntries.map(e => sectorToSlug(e.sector)));
   return Array.from(slugs).map(slug => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const sector = slugToSector(slug);
+  return { title: sector ?? 'Sector' };
 }
 
 export default async function SectorDetailPage({

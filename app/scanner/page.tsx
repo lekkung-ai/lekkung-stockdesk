@@ -13,6 +13,7 @@ import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import MiniCandleChart from '@/components/MiniCandleChart';
 import Pagination from '@/components/Pagination';
+import TableSkeleton from '@/components/TableSkeleton';
 import {
   rsColor,
   stageCls,
@@ -448,9 +449,21 @@ function QuantScannerContent() {
   );
 }
 
+function ScannerSkeleton() {
+  return (
+    <div className="p-4 md:p-6 space-y-4">
+      <div className="h-6 w-40 rounded bg-white/[0.06] animate-pulse" />
+      <div className="h-9 w-full rounded-xl bg-white/[0.04] animate-pulse" />
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
+        <TableSkeleton rows={10} />
+      </div>
+    </div>
+  );
+}
+
 export default function QuantScannerPage() {
   return (
-    <Suspense fallback={<div className="p-4 md:p-6 text-white/50">Loading scanner...</div>}>
+    <Suspense fallback={<ScannerSkeleton />}>
       <QuantScannerContent />
     </Suspense>
   );

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, Calendar, ArrowDown, ArrowUp } from 'lucide-react';
 import Pagination from '@/components/Pagination';
+import TableSkeleton from '@/components/TableSkeleton';
 
 const PER_PAGE = 20;
 const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
@@ -214,9 +215,7 @@ export default function Report246Page() {
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #9F7AEA' }}>
         {loading ? (
-          <div className="py-16 text-center">
-            <span className="text-[12px] text-white/25 animate-pulse">กำลังโหลด...</span>
-          </div>
+          <TableSkeleton rows={10} />
         ) : error ? (
           <div className="py-16 text-center space-y-3">
             <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>

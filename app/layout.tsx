@@ -8,7 +8,10 @@ const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'StockDesk — Personal Stock Dashboard',
+  title: {
+    template: '%s · StockDesk',
+    default: 'StockDesk — Personal Stock Dashboard',
+  },
   description: 'ดูข้อมูลหุ้น SET ส่วนตัว',
 };
 

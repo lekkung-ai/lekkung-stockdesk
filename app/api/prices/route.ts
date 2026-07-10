@@ -14,6 +14,41 @@ const YAHOO_HEADERS = {
   Referer: 'https://finance.yahoo.com',
 };
 
+// Real SET tickers go through TradingView's scanner (real-time, batchable in one
+// request). Yahoo's regularMarketPrice for .BK symbols lags noticeably around
+// market open, sometimes still showing yesterday's close, which made 1D% read
+// as 0% for many stocks — see TopRSTable investigation. Index symbols (^SET.BK
+// etc.) are not real tickers and stay on the existing Yahoo path below, since
+// they're unaffected and out of scope for this fix.
+async function fetchTradingView(tickers: string[]): Promise<Record<string, PriceResult>> {
+  const result: Record<string, PriceResult> = {};
+  if (tickers.length === 0) return result;
+
+  try {
+    const res = await fetch('https://scanner.tradingview.com/thailand/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filter: [{ left: 'name', operation: 'in_range', right: tickers }],
+        options: { lang: 'en' },
+        markets: ['thailand'],
+        columns: ['name', 'close', 'change', 'change_abs'],
+        range: [0, tickers.length],
+      }),
+    });
+    if (!res.ok) return result;
+    const json = await res.json();
+    for (const row of json.data ?? []) {
+      const [name, close, change, changeAbs] = row.d as [string, number, number, number];
+      if (name == null || close == null) continue;
+      result[name] = { price: close, change: changeAbs ?? 0, changePercent: change ?? 0 };
+    }
+  } catch {
+    // fall through — caller just gets an empty map for these tickers
+  }
+  return result;
+}
+
 async function fetchOne(yahooSymbol: string): Promise<PriceResult | null> {
   const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?interval=1d&range=2d`;
   try {
@@ -63,12 +98,17 @@ export async function GET(req: NextRequest) {
     return Response.json({ prices: {} });
   }
 
-  const items = tickers.map(ticker => ({
-    ticker,
-    yahooSymbol: isSetTicker(ticker) ? `${ticker}.BK` : ticker,
-  }));
+  const setTickers = tickers.filter(t => isSetTicker(t));
+  const otherItems = tickers
+    .filter(t => !isSetTicker(t))
+    .map(ticker => ({ ticker, yahooSymbol: ticker }));
 
-  const prices = await fetchWithConcurrency(items, 10);
+  const [tvPrices, yahooPrices] = await Promise.all([
+    fetchTradingView(setTickers),
+    fetchWithConcurrency(otherItems, 10),
+  ]);
+
+  const prices = { ...yahooPrices, ...tvPrices };
 
   return Response.json({ prices }, {
     headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=30' },

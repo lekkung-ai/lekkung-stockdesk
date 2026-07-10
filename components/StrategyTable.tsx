@@ -97,10 +97,16 @@ export function Td({ children, right, mono, className }: { children: ReactNode; 
 
 export function TableWrap({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
-      <div className="overflow-x-auto">
+    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden relative">
+      <div
+        className="overflow-x-auto
+          [&_tr>:first-child]:sticky [&_tr>:first-child]:left-0 [&_tr>:first-child]:z-10
+          [&_thead_tr>:first-child]:bg-[#13161e] [&_tbody_tr>:first-child]:bg-[#13161e]"
+      >
         <table className="w-full border-collapse">{children}</table>
       </div>
+      {/* Scroll affordance for wide tables on narrow screens */}
+      <div className="md:hidden pointer-events-none absolute top-0 right-0 bottom-0 w-6 bg-gradient-to-l from-[#13161e] to-transparent" />
     </div>
   );
 }

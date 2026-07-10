@@ -42,18 +42,31 @@ const FEEDS: Feed[] = [
   { name: 'ข่าวหุ้น (ทั่วไป)', url: 'https://www.kaohoon.com/news/feed' },
   { name: 'RYT9 (SET)', url: 'https://www.ryt9.com/tag/SET/rss.xml' },
   { name: 'กรุงเทพธุรกิจ', url: 'https://www.bangkokbiznews.com/rss/finance' },
+  { name: 'มติชน', url: 'https://www.matichon.co.th/economy/feed' },
+  { name: 'Investing.com', url: 'https://th.investing.com/rss/news_25.rss' },
+  { name: 'RYT9 (IPO)', url: 'https://www.ryt9.com/tag/IPO/rss.xml' },
 ];
 
 // The Standard's wealth feed is dead and its general /feed/ buries stock news
 // under politics, so it is intentionally excluded.
 
-// Verified NOT usable from a server-side fetch (2026-06) — kept for reference:
+// Verified NOT usable from a server-side fetch (2026-06/07) — kept for reference:
 //   Settrade feedburner (saaDailyUpdate / researchAll / researchMarket /
 //     researchTechnique / researchStock) -> Incapsula bot-protection HTML page
-//   HoonSmart https://hoonsmart.com/feed/            -> times out (>20s)
-//   Share2Trade / MGR Online / Sanook                -> 404
-//   Wealthy Thai / Prachachat                        -> 403 (Cloudflare)
-//   Bangkok Biz / Thansettakij / Post Today          -> 200 but HTML, not RSS
+//   HoonSmart https://hoonsmart.com/feed/            -> reachable but ~19-20s
+//     response time, effectively times out under FEED_TIMEOUT_MS
+//   Thunhoon https://thunhoon.com/feed               -> 200 but returns the
+//     site's SPA shell HTML, not RSS (no feed at that path)
+//   MGR Online (mgronline.com)                       -> no working RSS path
+//     found (tried /rss, /asp/rss.aspx, per-section paths) — likely discontinued
+//   Thansettakij (all paths tried)                   -> 200 but redirects to
+//     the SPA shell HTML, not RSS
+//   stock2morrow.com/feed                            -> 503 at test time
+//   Share2Trade / Sanook                              -> 404
+//   Wealthy Thai / Prachachat                         -> 403 (Cloudflare)
+//   Bangkok Biz / Post Today                          -> 200 but HTML, not RSS
+//   RYT9 tag names tried and 404: หุ้น, ตลาดหลักทรัพย์, การเงิน, MAI, หลักทรัพย์,
+//     งบการเงิน, ปันผล, บล, หุ้นกู้, stock (only "SET" and "IPO" tags resolve)
 
 const REVALIDATE = 1800; // 30 minutes
 const FEED_TIMEOUT_MS = 12000;
@@ -196,6 +209,22 @@ async function fetchFeed(feed: Feed): Promise<NewsItem[]> {
   }
 }
 
+// Cross-feed dedup helpers — different outlets can syndicate the same story
+// with tracking params on the URL or trivial whitespace/case differences in
+// the title, so compare normalized forms rather than raw strings.
+function normalizeUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    return (u.hostname.replace(/^www\./, '') + u.pathname.replace(/\/+$/, '')).toLowerCase();
+  } catch {
+    return url.trim().toLowerCase();
+  }
+}
+
+function normalizeTitle(title: string): string {
+  return title.trim().toLowerCase().replace(/\s+/g, ' ').replace(/["'".,!?…„“”‘’]/g, '');
+}
+
 // Match the ticker as a standalone token (avoids "TU" matching "STATUS" etc.)
 function titleHasTicker(title: string, ticker: string): boolean {
   const re = new RegExp(`(?:^|[^A-Z0-9])${ticker}(?:[^A-Z0-9]|$)`, 'i');
@@ -219,13 +248,21 @@ export async function GET(
   // Load archived news from statically imported JSON
   let archivedItems: NewsItem[] = rawArchivedItems as NewsItem[];
 
-  // Merge live and archived items, deduplicate by link
+  // Merge live and archived items, deduplicating across feeds. Different
+  // sources can syndicate the same story with slightly different tracking
+  // params on the URL or minor whitespace/case differences in the title, so
+  // an exact-link match alone isn't enough once multiple outlets are mixed in.
   const seenLinks = new Set<string>();
+  const seenTitles = new Set<string>();
   const merged: NewsItem[] = [];
-  
+
   for (const item of [...allLive, ...archivedItems]) {
-    if (!item.link || seenLinks.has(item.link)) continue;
-    seenLinks.add(item.link);
+    if (!item.link) continue;
+    const normLink = normalizeUrl(item.link);
+    const normTitle = normalizeTitle(item.title);
+    if (seenLinks.has(normLink) || (normTitle && seenTitles.has(normTitle))) continue;
+    seenLinks.add(normLink);
+    if (normTitle) seenTitles.add(normTitle);
     merged.push(item);
   }
 

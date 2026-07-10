@@ -205,7 +205,13 @@ export default function OverviewPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <SetIndexCard large />
           <VolumeCard large />
-          <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-6">
+          <div className="relative bg-[#13161e] border border-white/[0.07] rounded-xl p-6">
+            <span
+              className="absolute top-2.5 right-3 text-[9.5px] text-white/20 tabular-nums"
+              title="ข้อมูล scan (SEPA/Stage/RS ฯลฯ) อัปเดตล่าสุดวันนี้"
+            >
+              scan ณ {scanDateLabel}
+            </span>
             <p className="text-[11px] font-semibold uppercase tracking-wider text-white/35 mb-1.5">Market Health</p>
             <p className="text-[36px] font-bold leading-none tabular-nums" style={{ color: marketHealthColor }}>
               {marketHealth}
@@ -274,7 +280,12 @@ export default function OverviewPage() {
         </div>
 
         <div>
-          <h3 className="text-[12px] font-semibold text-white/60 mb-3">Stage Distribution</h3>
+          <h3
+            className="text-[12px] font-semibold text-white/60 mb-3 w-fit cursor-help"
+            title="Bull = S.Bull + Bull · Accum = Accumulation + Recovery · Warn = Warning + Distribution + Bear"
+          >
+            Stage Distribution
+          </h3>
           <div className="flex h-8 rounded-lg overflow-hidden gap-0.5 mb-4">
             {stageSegments.map(s => (
               <div

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronDown } from 'lucide-react';
 import Pagination from '@/components/Pagination';
+import TableSkeleton from '@/components/TableSkeleton';
 
 interface BigLotRow {
   symbol: string;
@@ -428,9 +429,7 @@ export default function BigLotPage() {
           }
           
           return loading ? (
-            <div className="py-16 text-center">
-              <span className="text-[12px] text-white/25 animate-pulse">กำลังโหลด...</span>
-            </div>
+            <TableSkeleton rows={10} />
           ) : error ? (
             <div className="py-16 text-center space-y-3">
               <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>

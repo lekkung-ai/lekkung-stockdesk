@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import MiniCandleChart from '@/components/MiniCandleChart';
+import TableSkeleton from '@/components/TableSkeleton';
 import { scanData } from '@/lib/scanData';
 import marketStageRaw from '@/data/scans/market_stage.json';
 
@@ -115,9 +116,7 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol }: P
       </div>
 
       {loading ? (
-        <div className="flex-1 flex items-center justify-center py-10">
-          <span className="text-[12px] text-white/25 animate-pulse">กำลังโหลด...</span>
-        </div>
+        <TableSkeleton rows={6} />
       ) : items.length === 0 ? (
         <div className="flex-1 flex items-center justify-center py-10">
           <span className="text-[12px] text-white/25">ไม่พบข้อมูล</span>

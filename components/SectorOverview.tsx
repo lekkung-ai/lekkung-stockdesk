@@ -116,7 +116,12 @@ function SectorCard({
           </div>
 
           <div>
-            <div className="text-[10px] text-white/20 mb-1.5">Stage distribution</div>
+            <div
+              className="text-[10px] text-white/20 mb-1.5 w-fit cursor-help"
+              title="Bull = S.Bull + Bull · Accum = Accumulation + Recovery · Warn = Warning + Distribution + Bear"
+            >
+              Stage distribution
+            </div>
             <div className="flex h-2 rounded-full overflow-hidden gap-px">
               {breadth!.bullishPct > 0 && (
                 <div

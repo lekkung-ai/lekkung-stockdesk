@@ -1,4 +1,7 @@
+import type { Metadata } from 'next';
 import MyStocks from '@/components/MyStocks';
+
+export const metadata: Metadata = { title: 'My Stocks' };
 
 export default function MyStocksPage() {
   return (

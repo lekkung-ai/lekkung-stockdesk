@@ -104,7 +104,9 @@ export default function SearchBox() {
             <X size={13} />
           </button>
         )}
-        <kbd className="hidden sm:block text-[10px] text-white/20 font-mono flex-shrink-0 px-1.5 py-0.5 border border-white/[0.1] rounded">
+        {/* Keyboard shortcut hint is meaningless on touch devices (no physical
+            keyboard) — show only when the primary pointer is fine (mouse/trackpad). */}
+        <kbd className="hidden [@media(pointer:fine)]:block text-[10px] text-white/20 font-mono flex-shrink-0 px-1.5 py-0.5 border border-white/[0.1] rounded">
           ⌘K
         </kbd>
       </div>

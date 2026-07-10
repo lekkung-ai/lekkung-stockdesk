@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import rawStage from '@/data/scans/market_stage.json';
 import rawSepa from '@/data/scans/sepa.json';
 import rawKell from '@/data/scans/oliver_kell.json';
@@ -13,6 +14,15 @@ interface SectorMap {
 }
 
 const sectorMap = rawSectorMap as SectorMap;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ ticker: string }>;
+}): Promise<Metadata> {
+  const { ticker } = await params;
+  return { title: ticker.toUpperCase() };
+}
 
 export default async function StockPage({
   params,

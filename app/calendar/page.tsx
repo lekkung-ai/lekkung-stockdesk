@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, Calendar as CalendarIcon, ArrowDown, ArrowUp } from 'lucide-react';
 import Pagination from '@/components/Pagination';
+import TableSkeleton from '@/components/TableSkeleton';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 
 type SortKey = 'xDate' | 'ticker' | 'caType' | 'detail' | 'payDate';
@@ -227,9 +228,7 @@ export default function CalendarPage() {
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #4B9EF5' }}>
         {loading ? (
-          <div className="py-16 text-center">
-            <span className="text-[12px] text-white/25 animate-pulse">กำลังโหลด...</span>
-          </div>
+          <TableSkeleton rows={10} />
         ) : error ? (
           <div className="py-16 text-center space-y-3">
             <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>

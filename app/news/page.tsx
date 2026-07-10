@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import TableSkeleton from '@/components/TableSkeleton';
 
 interface NewsItem {
   title: string;
@@ -28,6 +29,9 @@ const SOURCE_STYLE: Record<string, string> = {
   'Wealthy Thai': 'bg-[#FCEBEB] text-[#791F1F]',
   'ประชาชาติธุรกิจ': 'bg-[#EAF3DE] text-[#27500A]',
   'ฐานเศรษฐกิจ': 'bg-[#E6F1FB] text-[#0C447C]',
+  'มติชน': 'bg-[#DFF3EE] text-[#0F5C4C]',
+  'Investing.com': 'bg-[#E5EDFB] text-[#1A4A8A]',
+  'RYT9 (IPO)': 'bg-[#F2EDF9] text-[#4F2D7F]',
 };
 const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 
@@ -285,9 +289,7 @@ export default function NewsPage() {
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
         {allNews === null ? (
-          <div className="px-5 py-10 text-center">
-            <span className="text-[12px] text-white/25 animate-pulse">กำลังโหลดข่าว...</span>
-          </div>
+          <TableSkeleton rows={10} />
         ) : pageItems.length === 0 ? (
           <div className="px-5 py-10 text-center">
             <p className="text-[13px] text-white/30">
