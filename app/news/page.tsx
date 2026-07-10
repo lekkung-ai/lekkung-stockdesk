@@ -22,6 +22,7 @@ const SOURCE_STYLE: Record<string, string> = {
   'ข่าวหุ้น (ด่วน)': 'bg-[#FAEEDA] text-[#633806]',
   'ข่าวหุ้น (ทั่วไป)': 'bg-[#FAEEDA] text-[#633806]',
   'RYT9 (SET)': 'bg-[#F2EDF9] text-[#4F2D7F]',
+  'RYT9 (หุ้น)': 'bg-[#F2EDF9] text-[#4F2D7F]',
   'กรุงเทพธุรกิจ': 'bg-[#EAF3DE] text-[#27500A]',
   'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
   'หุ้นสมาร์ท': 'bg-[#FBE8E8] text-[#8A1A1A]',

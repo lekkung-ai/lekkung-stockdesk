@@ -41,7 +41,8 @@ const FEEDS: Feed[] = [
   { name: 'ข่าวหุ้น (ด่วน)', url: 'https://www.kaohoon.com/breakingnews/feed' },
   { name: 'ข่าวหุ้น (ทั่วไป)', url: 'https://www.kaohoon.com/news/feed' },
   { name: 'RYT9 (SET)', url: 'https://www.ryt9.com/tag/SET/rss.xml' },
-  { name: 'กรุงเทพธุรกิจ', url: 'https://www.bangkokbiznews.com/rss/finance' },
+  { name: 'RYT9 (หุ้น)', url: 'https://www.ryt9.com/tag/%E0%B8%AB%E0%B8%B8%E0%B9%89%E0%B8%99/rss.xml' },
+  { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/feed/' },
   { name: 'มติชน', url: 'https://www.matichon.co.th/economy/feed' },
   { name: 'Investing.com', url: 'https://th.investing.com/rss/news_25.rss' },
   { name: 'RYT9 (IPO)', url: 'https://www.ryt9.com/tag/IPO/rss.xml' },
@@ -50,25 +51,30 @@ const FEEDS: Feed[] = [
 // The Standard's wealth feed is dead and its general /feed/ buries stock news
 // under politics, so it is intentionally excluded.
 
-// Verified NOT usable from a server-side fetch (2026-06/07) — kept for reference:
+// Verified NOT usable from a server-side fetch (2026-06/07, rechecked 2026-07-10) — kept for reference:
 //   Settrade feedburner (saaDailyUpdate / researchAll / researchMarket /
 //     researchTechnique / researchStock) -> Incapsula bot-protection HTML page
 //   HoonSmart https://hoonsmart.com/feed/            -> reachable but ~19-20s
 //     response time, effectively times out under FEED_TIMEOUT_MS
-//   Thunhoon https://thunhoon.com/feed               -> 200 but returns the
-//     site's SPA shell HTML, not RSS (no feed at that path)
+//   Thunhoon https://thunhoon.com/feed (+ category feeds) -> 200 but returns
+//     the site's SPA shell HTML, not RSS (no feed at that path)
 //   MGR Online (mgronline.com)                       -> no working RSS path
-//     found (tried /rss, /asp/rss.aspx, per-section paths) — likely discontinued
-//   Thansettakij (all paths tried)                   -> 200 but redirects to
-//     the SPA shell HTML, not RSS
+//     found (tried /rss, /rss/stockmarket.xml, /asp/rss.aspx, per-section
+//     paths) — likely discontinued
+//   Bangkok Biz / Thansettakij (all paths tried)     -> 200 but redirects to
+//     the SPA shell homepage HTML, not RSS
+//   thestandard.co/wealth/feed/                       -> valid RSS shell but
+//     it's the *comments* feed for that page ("ความเห็นบน: Wealth"), 0 items
 //   stock2morrow.com/feed                            -> 503 at test time
-//   Share2Trade / Sanook                              -> 404
+//   Share2Trade                                      -> 404 (site moved to Atlas CMS)
+//   Sanook Money                                     -> 404
 //   Wealthy Thai / Prachachat                         -> 403 (Cloudflare)
-//   Bangkok Biz / Post Today                          -> 200 but HTML, not RSS
-//   RYT9 tag names tried and 404: หุ้น, ตลาดหลักทรัพย์, การเงิน, MAI, หลักทรัพย์,
-//     งบการเงิน, ปันผล, บล, หุ้นกู้, stock (only "SET" and "IPO" tags resolve)
+//   th.investing.com/rss/stock.rss & stock_Stocks.rss -> valid RSS but stale
+//     (~4 days behind); market_overview.rss fresher (~1 day) but not stock-specific
+//   RYT9 tag names tried and 404: STOCK, ตลาดหลักทรัพย์, การเงิน, MAI, หลักทรัพย์,
+//     งบการเงิน, ปันผล, บล, หุ้นกู้ (only "SET", "IPO", and "หุ้น" tags resolve)
 
-const REVALIDATE = 1800; // 30 minutes
+const REVALIDATE = 300; // 5 minutes — was 1800 (30 min); too stale vs other aggregators
 const FEED_TIMEOUT_MS = 12000;
 const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
 
@@ -241,9 +247,19 @@ export async function GET(
   const t = ticker.toUpperCase();
   const wantGeneral = GENERAL_TOKENS.has(t);
 
-  // Fetch every feed in parallel; per-feed errors degrade to [].
-  const results = await Promise.all(FEEDS.map(fetchFeed));
-  let allLive = results.flat();
+  // Fetch every feed in parallel. fetchFeed() already catches its own errors
+  // and resolves to [], but allSettled is the belt-and-suspenders guarantee
+  // that one broken feed (a thrown rejection we didn't anticipate) can never
+  // take down the whole page — it's just logged and skipped.
+  const settled = await Promise.allSettled(FEEDS.map(fetchFeed));
+  let allLive: NewsItem[] = [];
+  settled.forEach((result, i) => {
+    if (result.status === 'fulfilled') {
+      allLive.push(...result.value);
+    } else {
+      console.log(`[news] REJECTED ${FEEDS[i].name} -> ${result.reason}  (${FEEDS[i].url})`);
+    }
+  });
 
   // Load archived news from statically imported JSON
   let archivedItems: NewsItem[] = rawArchivedItems as NewsItem[];
@@ -299,6 +315,6 @@ export async function GET(
 
   return Response.json(
     { news, isGeneral },
-    { headers: { 'Cache-Control': 'public, max-age=1800, stale-while-revalidate=300' } }
+    { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
   );
 }
