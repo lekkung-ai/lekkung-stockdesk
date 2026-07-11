@@ -161,19 +161,29 @@ export default function OverviewPage() {
     .sort((a, b) => b.rs_score - a.rs_score)
     .slice(0, 10);
 
-  const topRSRows = topRS.map(entry => ({
-    ticker: entry.ticker,
-    sector: sectorMap.ticker_to_sector[entry.ticker]?.sector ?? null,
-    rsScore: entry.rs_score,
-    stage: stageMap.get(entry.ticker) ?? entry.stage,
-    signals: {
-      sepa: combinedMap.get(entry.ticker)?.sepa ?? false,
-      kell: combinedMap.get(entry.ticker)?.kell ?? false,
-      breakout: combinedMap.get(entry.ticker)?.breakout ?? false,
-      combo: combinedMap.get(entry.ticker)?.combo_score ?? 0,
-      isNew: newSepaTickers.has(entry.ticker),
-    },
-  }));
+  const topRSMissingSector: string[] = [];
+  const topRSRows = topRS.map(entry => {
+    const sector = sectorMap.ticker_to_sector[entry.ticker]?.sector ?? null;
+    if (!sector) topRSMissingSector.push(entry.ticker);
+    return {
+      ticker: entry.ticker,
+      sector,
+      rsScore: entry.rs_score,
+      stage: stageMap.get(entry.ticker) ?? entry.stage,
+      signals: {
+        sepa: combinedMap.get(entry.ticker)?.sepa ?? false,
+        kell: combinedMap.get(entry.ticker)?.kell ?? false,
+        breakout: combinedMap.get(entry.ticker)?.breakout ?? false,
+        combo: combinedMap.get(entry.ticker)?.combo_score ?? 0,
+        isNew: newSepaTickers.has(entry.ticker),
+      },
+    };
+  });
+  if (topRSMissingSector.length > 0) {
+    console.warn(
+      `[Overview] ${topRSMissingSector.length} Top RS ticker(s) have no sector_map.json mapping: ${topRSMissingSector.join(', ')}`
+    );
+  }
 
   // ── Market Health (Phase 4) ─────────────────────────────────────────────
   // % of the whole scanned universe passing the full 8-point Trend Template

@@ -6,6 +6,7 @@ import { ArrowLeft, AlertTriangle } from 'lucide-react';
 import { peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
+import PeerComparisonTable from './PeerComparisonTable';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
 import type { F45Data } from '@/app/api/f45/[ticker]/route';
@@ -659,6 +660,14 @@ export default function StockDetailPage({
           </div>
         </div>
       )}
+
+      {/* ── Peer comparison ── */}
+      <PeerComparisonTable
+        key={ticker}
+        ticker={ticker}
+        sector={sectorInfo?.sector ?? null}
+        subsector={sectorInfo?.subsector ?? null}
+      />
 
       {/* ── News section ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">

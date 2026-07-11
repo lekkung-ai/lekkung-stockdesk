@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity,
-  X, FileText, Package, CalendarDays, Calculator, BookOpen,
+  X, FileText, Package, CalendarDays, Calculator, BookOpen, Award,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 
@@ -51,6 +51,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'เครื่องคำนวณ Warrant', href: '/calculator', icon: Calculator },
       { label: 'My Stocks', href: '/my-stocks', icon: LayoutDashboard },
       { label: 'Knowledge Base', href: '/knowledge', icon: BookOpen },
+      { label: 'Report Card', href: '/report-card', icon: Award },
     ],
   },
   {

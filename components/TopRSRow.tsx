@@ -56,7 +56,7 @@ export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals
       {/* Ticker + Sector */}
       <td className="px-4 py-3.5">
         <div className="font-bold text-[14px] text-white leading-tight">{ticker}</div>
-        <div className="text-[10px] text-white/25 mt-0.5">{sector ?? 'N/A'}</div>
+        <div className="text-[10px] text-white/25 mt-0.5">{sector ?? '—'}</div>
       </td>
 
       {/* Stage */}
