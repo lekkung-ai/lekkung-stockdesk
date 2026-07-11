@@ -76,7 +76,6 @@ const FEEDS: Feed[] = [
 //   RYT9 tag names tried and 404: STOCK, ตลาดหลักทรัพย์, การเงิน, MAI, หลักทรัพย์,
 //     งบการเงิน, ปันผล, บล, หุ้นกู้ (only "SET", "IPO", and "หุ้น" tags resolve)
 
-const REVALIDATE = 300; // 5 minutes — was 1800 (30 min); too stale vs other aggregators
 const FEED_TIMEOUT_MS = 12000;
 const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
 
@@ -194,7 +193,7 @@ async function fetchFeed(feed: Feed): Promise<NewsItem[]> {
         'User-Agent': 'Mozilla/5.0 Chrome/120',
         Accept: 'application/rss+xml, application/xml, text/xml, */*',
       },
-      next: { revalidate: REVALIDATE },
+      cache: 'no-store',
       signal: AbortSignal.timeout(FEED_TIMEOUT_MS),
     });
     if (!res.ok) {
@@ -338,6 +337,6 @@ export async function GET(
 
   return Response.json(
     { news, isGeneral },
-    { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
+    { headers: { 'Cache-Control': 'no-store' } }
   );
 }
