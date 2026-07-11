@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-23",
-  "note": "SET + MAI sector list — อัปเดตจาก TradingView 23 มิ.ย. 2569",
+  "updated": "2026-07-11",
+  "note": "SET + MAI sector list — อัปเดตจาก TradingView 23 มิ.ย. 2569 + patched 10 tickers missing after universe update to 875 (2026-07-11, verified via web search against SET/Settrade company classification pages)",
   "sectors": [
     {
       "sector": "Agro",
@@ -196,6 +196,7 @@
         "CGH",
         "CHASE",
         "CHAYO",
+        "EAST",
         "FNS",
         "FSX",
         "GBX",
@@ -223,11 +224,11 @@
         "TIDLOR",
         "TK",
         "TNITY",
-        "TURBO",
         "TNL",
+        "TURBO",
         "XPG"
       ],
-      "count": 39
+      "count": 40
     },
     {
       "sector": "Financials",
@@ -295,6 +296,7 @@
         "CTW",
         "FMT",
         "FTE",
+        "HTECH",
         "KKC",
         "MASTEC",
         "PCC",
@@ -308,16 +310,17 @@
         "TPCS",
         "VARO"
       ],
-      "count": 20
+      "count": 21
     },
     {
       "sector": "Industrials",
       "subsector": "Paper & Printing Materials",
       "market": "SET",
       "tickers": [
+        "TBSP",
         "UTP"
       ],
-      "count": 1
+      "count": 2
     },
     {
       "sector": "Industrials",
@@ -457,12 +460,14 @@
         "J",
         "JCK",
         "KC",
+        "KUN",
         "LALIN",
         "LH",
         "LPN",
         "MBK",
         "MJD",
         "MK",
+        "MMM",
         "NCH",
         "NNCL",
         "NOBLE",
@@ -495,7 +500,7 @@
         "WHA",
         "WIN"
       ],
-      "count": 60
+      "count": 62
     },
     {
       "sector": "Property",
@@ -732,6 +737,7 @@
         "CHG",
         "CMR",
         "EKH",
+        "HEALTH",
         "KDH",
         "KLINIQ",
         "LPH",
@@ -754,7 +760,7 @@
         "VIH",
         "WPH"
       ],
-      "count": 29
+      "count": 30
     },
     {
       "sector": "Services",
@@ -764,9 +770,11 @@
         "AMARIN",
         "AS",
         "BEC",
+        "DV8",
         "FE",
         "GPI",
         "GRAMMY",
+        "MAJOR",
         "MATCH",
         "MATI",
         "MCOT",
@@ -781,7 +789,7 @@
         "WORK",
         "ZAA"
       ],
-      "count": 19
+      "count": 21
     },
     {
       "sector": "Services",
@@ -868,10 +876,12 @@
         "HANA",
         "KCE",
         "METCO",
+        "PTECH",
         "SMT",
+        "SVI",
         "TEAM"
       ],
-      "count": 7
+      "count": 9
     },
     {
       "sector": "Technology",
@@ -5835,6 +5845,56 @@
       "sector": "Technology",
       "subsector": "Technology",
       "market": "MAI"
+    },
+    "SVI": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "HTECH": {
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
+    },
+    "DV8": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "EAST": {
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET"
+    },
+    "KUN": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
+    },
+    "MAJOR": {
+      "sector": "Services",
+      "subsector": "Media & Publishing",
+      "market": "SET"
+    },
+    "HEALTH": {
+      "sector": "Services",
+      "subsector": "Health Care Services",
+      "market": "SET"
+    },
+    "PTECH": {
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET"
+    },
+    "TBSP": {
+      "sector": "Industrials",
+      "subsector": "Paper & Printing Materials",
+      "market": "SET"
+    },
+    "MMM": {
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET"
     }
   }
 }
