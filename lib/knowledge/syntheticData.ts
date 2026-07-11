@@ -35,6 +35,17 @@ export interface MarkerConfig {
   position: 'aboveBar' | 'belowBar';
 }
 
+// Shaded background region spanning a bar range (e.g. Accumulation /
+// Markup / Distribution / Markdown phases). Rendered as a low-opacity
+// overlay behind the price pane, positioned from the chart's own
+// timeToCoordinate() so it always lines up with the actual bars.
+export interface ZoneConfig {
+  fromBar: number;
+  toBar: number;
+  color: string; // rgba(...) with low alpha, dark-theme friendly
+  label: string;
+}
+
 // mulberry32 — small, fast, deterministic PRNG (same seed -> same sequence).
 function mulberry32(seed: number) {
   let a = seed;

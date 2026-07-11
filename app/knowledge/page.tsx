@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { KNOWLEDGE_TABS } from '@/lib/knowledge/patterns';
 import KnowledgeChart from '@/components/KnowledgeChart';
+import KnowledgeRelationshipTable from '@/components/KnowledgeRelationshipTable';
 
 export default function KnowledgePage() {
   const [tabId, setTabId] = useState(KNOWLEDGE_TABS[0].id);
@@ -14,6 +15,11 @@ export default function KnowledgePage() {
     setTabId(id);
     const newTab = KNOWLEDGE_TABS.find(t => t.id === id);
     if (newTab) setPatternId(newTab.patterns[0].id);
+  }
+
+  function jumpToStage(id: string) {
+    setTabId('market-stage');
+    setPatternId(id);
   }
 
   return (
@@ -59,7 +65,7 @@ export default function KnowledgePage() {
 
       {/* Chart (left) + criteria card (right) */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4 items-start">
-        <KnowledgeChart shape={pattern.shape} markers={pattern.markers} />
+        <KnowledgeChart shape={pattern.shape} markers={pattern.markers} zones={pattern.zones} />
 
         <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-5">
           <div>
@@ -67,43 +73,70 @@ export default function KnowledgePage() {
             <p className="text-[12.5px] text-white/50 leading-relaxed">{pattern.description}</p>
           </div>
 
-          <div>
-            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-white/30 mb-2">
-              Scan มองหาอะไร
-            </h3>
-            <ul className="space-y-1.5">
-              {pattern.checklist.map((c, i) => (
-                <li key={i} className="flex items-start gap-2 text-[12.5px] text-white/65 leading-relaxed">
-                  <span className="text-[#1D9E75] flex-shrink-0 font-bold mt-0.5">✓</span>
-                  <span>{c}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {pattern.phaseTable ? (
+            <div className="overflow-x-auto -mx-1">
+              <table className="w-full text-[12px] min-w-[300px]">
+                <thead>
+                  <tr className="text-[10px] uppercase tracking-wider text-white/30">
+                    <th className="text-left font-semibold px-2 py-2 w-[26%]">ระยะ</th>
+                    <th className="text-left font-semibold px-2 py-2">พฤติกรรมราคา</th>
+                    <th className="text-left font-semibold px-2 py-2">จิตวิทยา / จุดสังเกต</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/[0.05]">
+                  {pattern.phaseTable.map((row, i) => (
+                    <tr key={i}>
+                      <td className="px-2 py-2.5 text-white/85 font-medium align-top">{row.phase}</td>
+                      <td className="px-2 py-2.5 text-white/60 leading-relaxed align-top">{row.priceBehavior}</td>
+                      <td className="px-2 py-2.5 text-white/60 leading-relaxed align-top">{row.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <>
+              <div>
+                <h3 className="text-[11px] font-semibold uppercase tracking-wider text-white/30 mb-2">
+                  Scan มองหาอะไร
+                </h3>
+                <ul className="space-y-1.5">
+                  {pattern.checklist.map((c, i) => (
+                    <li key={i} className="flex items-start gap-2 text-[12.5px] text-white/65 leading-relaxed">
+                      <span className="text-[#1D9E75] flex-shrink-0 font-bold mt-0.5">✓</span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-          <div>
-            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-[#1D9E75] mb-2">
-              จุดเข้า
-            </h3>
-            <ul className="space-y-1.5">
-              {pattern.entry.map((e, i) => (
-                <li key={i} className="text-[12.5px] text-white/65 leading-relaxed">{e}</li>
-              ))}
-            </ul>
-          </div>
+              <div>
+                <h3 className="text-[11px] font-semibold uppercase tracking-wider text-[#1D9E75] mb-2">
+                  จุดเข้า
+                </h3>
+                <ul className="space-y-1.5">
+                  {pattern.entry.map((e, i) => (
+                    <li key={i} className="text-[12.5px] text-white/65 leading-relaxed">{e}</li>
+                  ))}
+                </ul>
+              </div>
 
-          <div>
-            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-[#E24B4A] mb-2">
-              จุดระวัง / Failure Case
-            </h3>
-            <ul className="space-y-1.5">
-              {pattern.failure.map((f, i) => (
-                <li key={i} className="text-[12.5px] text-white/65 leading-relaxed">{f}</li>
-              ))}
-            </ul>
-          </div>
+              <div>
+                <h3 className="text-[11px] font-semibold uppercase tracking-wider text-[#E24B4A] mb-2">
+                  จุดระวัง / Failure Case
+                </h3>
+                <ul className="space-y-1.5">
+                  {pattern.failure.map((f, i) => (
+                    <li key={i} className="text-[12.5px] text-white/65 leading-relaxed">{f}</li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </div>
+
+      {tab.showRelationshipTable && <KnowledgeRelationshipTable onJumpToStage={jumpToStage} />}
     </div>
   );
 }

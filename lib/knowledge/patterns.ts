@@ -1,4 +1,14 @@
-import type { ShapeConfig, MarkerConfig } from './syntheticData';
+import type { ShapeConfig, MarkerConfig, ZoneConfig } from './syntheticData';
+
+// Table-style right-card content (phase / price behaviour / psychology or
+// "what to watch for") — used instead of the checklist/entry/failure lists
+// for patterns whose explanation is naturally a phase-by-phase table
+// (Dow's 3 Phases, Wyckoff's 4-phase cycle).
+export interface PhaseTableRow {
+  phase: string;
+  priceBehavior: string;
+  note: string; // psychology (Dow) or "จุดสังเกต" (Wyckoff)
+}
 
 export interface KnowledgePattern {
   id: string;
@@ -9,6 +19,8 @@ export interface KnowledgePattern {
   failure: string[];
   shape: ShapeConfig;
   markers: MarkerConfig[];
+  zones?: ZoneConfig[]; // shaded background regions (phase zones)
+  phaseTable?: PhaseTableRow[]; // if set, rendered instead of checklist/entry/failure
 }
 
 export interface KnowledgeTab {
@@ -16,6 +28,7 @@ export interface KnowledgeTab {
   label: string;
   intro: string;
   patterns: KnowledgePattern[];
+  showRelationshipTable?: boolean; // Dow/Wyckoff/Market Stage mapping, shown at tab bottom
 }
 
 // Same 8-item Trend Template checklist text as app/sepa/page.tsx's
@@ -486,4 +499,242 @@ export const KNOWLEDGE_TABS: KnowledgeTab[] = [
       },
     ],
   },
+
+  // ── 6. Dow Theory ────────────────────────────────────────────────────────
+  {
+    id: 'dow-theory',
+    label: 'Dow Theory',
+    intro:
+      'ทฤษฎีของ Charles Dow (ผู้ก่อตั้ง Dow Jones และ Wall Street Journal) เป็นรากฐานของการวิเคราะห์ทางเทคนิคสมัยใหม่ ใช้ประเมินทิศทางตลาดภาพใหญ่ (Macro) ก่อนตัดสินใจเทรดหุ้นรายตัว — ไม่ใช่ระบบ scan เชิงตัวเลขในหน้านี้ แต่เป็นกรอบความคิดที่ Market Stage scan ของเราแปลงมาเป็นเงื่อนไขอัตโนมัติ',
+    showRelationshipTable: true,
+    patterns: [
+      {
+        id: 'three-movements',
+        name: 'Three Movements (3 ระดับเทรนด์)',
+        description:
+          'Dow แบ่งการเคลื่อนไหวของราคาออกเป็น 3 ชั้นซ้อนกันตามกรอบเวลา — Primary (แนวโน้มหลัก 1-3 ปี), Secondary (การพักฐานสวนทาง Primary เป็นสัปดาห์ถึงเดือน), และ Minor (ความผันผวนรายวันที่ไม่มีนัยสำคัญ) นักลงทุนต้องแยกให้ออกว่ากำลังเห็นระดับไหนอยู่ ไม่ให้ Secondary หรือ Minor มาบดบัง Primary',
+        checklist: [
+          'ตลาด "discount" ทุกอย่างไว้ในราคาแล้ว — ข้อมูลที่รู้กันทั่วไปสะท้อนอยู่ในราคาปัจจุบันแล้วเสมอ',
+          'ต้องหา Primary Trend (แนวโน้มหลัก) ให้เจอก่อน แล้วอยู่ฝั่งเดียวกับตลาด ไม่สวนเทรนด์หลัก',
+          'Secondary Movement เป็นแค่การพักฐานสวนทาง Primary ชั่วคราว (สัปดาห์-เดือน) ไม่ใช่การกลับตัวของเทรนด์หลัก',
+          'Minor Movement คือความผันผวนรายวันที่เป็น "นอยส์" ไม่มีนัยสำคัญต่อทิศทางใหญ่',
+          'Volume ต้องยืนยันเทรนด์ — เบรคแนวต้านแต่ volume แห้ง = สัญญาณไม่แข็งแรง',
+          'ดัชนีต้องยืนยันกันเอง (เช่น Dow Industrials ต้องเคลื่อนไหวสอดคล้องกับ Dow Transportation) สัญญาณเทรนด์ถึงจะเชื่อถือได้เต็มที่',
+        ],
+        entry: [
+          'ใช้ Primary Trend เป็นตัวกรองทิศทางใหญ่ก่อนเปิดสถานะ — ถ้า Primary เป็นขาขึ้น ให้เน้นหา setup ฝั่งซื้อเป็นหลัก',
+        ],
+        failure: [
+          'การเข้าไม้สวน Primary Trend เพียงเพราะ Secondary Movement ดูน่าดึงดูด มักจบด้วยการโดนเทรนด์หลักที่แข็งแกร่งกว่าลากกลับ',
+        ],
+        shape: {
+          seed: 601,
+          startPrice: 100,
+          segments: [
+            { bars: 130, trendPct: 50, volatilityPct: 2.2, volumeBase: 90 },
+            { bars: 35, trendPct: -18, volatilityPct: 2.5, volumeBase: 70, volumeTrendPct: -10 },
+            { bars: 135, trendPct: 55, volatilityPct: 2.3, volumeBase: 100, volumeTrendPct: 15 },
+          ],
+        },
+        zones: [
+          { fromBar: 0, toBar: 130, color: 'rgba(29,158,117,0.07)', label: 'Primary (ขาขึ้นหลัก)' },
+          { fromBar: 130, toBar: 165, color: 'rgba(226,75,74,0.10)', label: 'Secondary (พักฐาน)' },
+          { fromBar: 165, toBar: 300, color: 'rgba(29,158,117,0.07)', label: 'Primary (ขาขึ้นหลัก)' },
+        ],
+        markers: [
+          { atBar: 130, label: 'เริ่ม Secondary (พักฐาน)', color: '#E24B4A', position: 'aboveBar' },
+          { atBar: 165, label: 'กลับสู่ Primary', color: '#1D9E75', position: 'belowBar' },
+        ],
+      },
+      {
+        id: 'primary-trend-phases',
+        name: 'Primary Trend 3 Phases',
+        description:
+          'แนวโน้มหลัก (Primary Trend) หนึ่งรอบเต็มแบ่งได้เป็น 3 ระยะตามพฤติกรรมราคาและจิตวิทยาตลาด — Accumulation (สะสม) → Public Participation (แห่ซื้อตาม) → Distribution (กระจายขาย) เป็น pattern ที่ตลาดหุ้นสวิงวนซ้ำตลอดประวัติศาสตร์',
+        checklist: [],
+        entry: [],
+        failure: [],
+        phaseTable: [
+          {
+            phase: 'Accumulation',
+            priceBehavior: 'ราคาซึมตัวอยู่ในกรอบแคบ เคลื่อนไหวน้อย หลังจากลงมานาน',
+            note: 'ข่าวร้ายเต็มตลาด นักลงทุนรายย่อยหมดหวังเทขายทิ้ง แต่ Smart Money เริ่มเก็บสะสมเงียบๆ',
+          },
+          {
+            phase: 'Public Participation',
+            priceBehavior: 'เทรนด์ขาขึ้นชัดเจน ราคาวิ่งแรงต่อเนื่อง เป็นช่วงที่ราคาวิ่งไกลที่สุดในทั้งวงจร',
+            note: 'ผลประกอบการเริ่มดีขึ้นชัดเจน นักลงทุนตามเทรนด์ (trend followers) เริ่มเข้าซื้อตาม ความเชื่อมั่นฟื้นตัว',
+          },
+          {
+            phase: 'Distribution',
+            priceBehavior: 'ราคาทำจุดสูงสุดใหม่ (new high) แต่เริ่ม choppy แกว่งกว้างไม่ไปต่อ',
+            note: 'ข่าวดีเต็มสื่อ ความเชื่อมั่นสูงสุด รายย่อยแห่เข้าซื้อ ขณะที่ Smart Money ทยอยขายทำกำไร (distribute) ออกอย่างเงียบๆ',
+          },
+        ],
+        shape: {
+          seed: 602,
+          startPrice: 100,
+          segments: [
+            { bars: 110, trendPct: -5, volatilityPct: 1.8, volumeBase: 50 },
+            { bars: 160, trendPct: 85, volatilityPct: 2.3, volumeBase: 110, volumeTrendPct: 25 },
+            { bars: 90, trendPct: 8, volatilityPct: 3.2, volumeBase: 100, volumeTrendPct: 10 },
+          ],
+        },
+        zones: [
+          { fromBar: 0, toBar: 110, color: 'rgba(158,158,158,0.10)', label: 'Accumulation' },
+          { fromBar: 110, toBar: 270, color: 'rgba(29,158,117,0.08)', label: 'Public Participation' },
+          { fromBar: 270, toBar: 360, color: 'rgba(226,75,74,0.10)', label: 'Distribution' },
+        ],
+        markers: [
+          { atBar: 110, label: 'เข้าสู่ Public Participation', color: '#1D9E75', position: 'belowBar' },
+          { atBar: 270, label: 'เข้าสู่ Distribution', color: '#EF9F27', position: 'aboveBar' },
+        ],
+      },
+    ],
+  },
+
+  // ── 7. Wyckoff ───────────────────────────────────────────────────────────
+  {
+    id: 'wyckoff',
+    label: 'Wyckoff',
+    intro:
+      'วิธีของ Richard Wyckoff เน้นอ่าน "ร่องรอย" ของนักลงทุนรายใหญ่ (Smart Money) ผ่านความสัมพันธ์ระหว่างราคาและ volume ในกราฟรายวัน เพื่อหาจุดที่รายใหญ่กำลังสะสมหรือกระจายหุ้น — ละเอียดกว่า Dow Theory ตรงที่มองระดับกราฟรายวัน ไม่ใช่ภาพรวมตลาด',
+    showRelationshipTable: true,
+    patterns: [
+      {
+        id: 'three-laws',
+        name: 'กฎ 3 ข้อของ Wyckoff',
+        description:
+          'รากฐานทั้งหมดของวิธี Wyckoff อยู่บนกฎ 3 ข้อนี้ — ใช้อ่านว่าใครกำลังควบคุมตลาด (ผู้ซื้อหรือผู้ขาย) และรายใหญ่กำลังทำอะไรอยู่เบื้องหลังการเคลื่อนไหวของราคาที่เห็น',
+        checklist: [
+          'Law of Supply & Demand: ราคาขึ้นเมื่อ demand มากกว่า supply และราคาลงเมื่อ supply มากกว่า demand — กฎพื้นฐานที่สุดที่กฎอื่นต่อยอดมาจากตรงนี้',
+          'Law of Cause & Effect: ฐานสะสม (Cause) ยิ่งกว้างหรือใช้เวลานานเท่าไหร่ การเคลื่อนไหวครั้งต่อไป (Effect) ยิ่งไปได้ไกลเท่านั้น',
+          'Law of Effort vs Result: เทียบ volume (effort) กับระยะราคาที่เคลื่อนไหวจริง (result) — ถ้า volume มหาศาลแต่ราคาแทบไม่ขยับ แปลว่ามีแรงต้านซ่อนอยู่ (Absorption)',
+        ],
+        entry: [
+          'ใช้ Effort vs Result เป็นสัญญาณเตือน: volume สูงผิดปกติแต่ spread แคบ มักบ่งบอกว่ารายใหญ่กำลังดูดซับ (ซื้อสะสมหรือขายทิ้ง) อยู่เบื้องหลัง ควรรอดูทิศทางที่ชัดเจนกว่านี้ก่อน',
+        ],
+        failure: [
+          'ตีความ volume สูงเป็นสัญญาณ breakout เสมอโดยไม่เทียบกับ "result" (ระยะราคา) ที่เกิดขึ้นจริง อาจพลาดสัญญาณ Absorption ที่แท้จริงคือการเขย่า ไม่ใช่การไปต่อ',
+        ],
+        shape: {
+          seed: 701,
+          startPrice: 100,
+          segments: [
+            { bars: 70, trendPct: -8, volatilityPct: 2, volumeBase: 70 },
+            { bars: 90, trendPct: 2, volatilityPct: 1.6, volumeBase: 45, volumeTrendPct: -15 },
+            { bars: 1, trendPct: 0.5, volatilityPct: 1, volumeBase: 200, volumeSpikeAt: 0, volumeSpikeMult: 3.2 },
+            { bars: 15, trendPct: 3, volatilityPct: 1.8, volumeBase: 60 },
+            { bars: 90, trendPct: 45, volatilityPct: 2.3, volumeBase: 110, volumeTrendPct: 20 },
+          ],
+        },
+        zones: [
+          { fromBar: 70, toBar: 161, color: 'rgba(158,158,158,0.10)', label: 'Cause (ฐานสะสม)' },
+          { fromBar: 176, toBar: 266, color: 'rgba(29,158,117,0.07)', label: 'Effect' },
+        ],
+        markers: [
+          { atBar: 160, label: 'Effort vs Result (Absorption)', color: '#7F77DD', position: 'aboveBar' },
+          { atBar: 176, label: 'Breakout (Effect จาก Cause)', color: '#1D9E75', position: 'belowBar' },
+        ],
+      },
+      {
+        id: 'wyckoff-cycle',
+        name: 'Wyckoff Cycle (4 ระยะ)',
+        description:
+          'วงจรเต็มของ Wyckoff แบ่งเป็น 4 ระยะ — Accumulation (รายใหญ่สะสม) → Markup (ราคาวิ่งขึ้น) → Distribution (รายใหญ่กระจายขาย) → Markdown (ราคาร่วง) พร้อม event ที่เป็นลายเซ็นของแต่ละระยะ (SC, Spring, LPS, UTAD)',
+        checklist: [],
+        entry: [],
+        failure: [],
+        phaseTable: [
+          {
+            phase: 'Accumulation',
+            priceBehavior:
+              'กรอบ sideway บริเวณโซนล่าง มี Selling Climax (SC) เทขายทะลุกรอบล่างด้วย volume มหาศาล ตามด้วย Spring ที่เขย่าหลุดแนวรับหลอกๆ ก่อนดึงกลับเข้ากรอบ',
+            note: 'จุด SC และ Spring คือจังหวะที่ Smart Money "เขย่า" ให้รายย่อยตกใจขายทิ้งก่อนจะเก็บของราคาถูก',
+          },
+          {
+            phase: 'Markup',
+            priceBehavior:
+              'ราคาเบรคขึ้นจากกรอบ Accumulation เทรนด์ขาขึ้นชัดเจน มีจุดพักฐานเป็นฐานย่อยที่สูงขึ้นเรื่อยๆ (LPS)',
+            note: 'LPS (Last Point of Support) คือจุดเข้าซื้อต่อเนื่องที่ความเสี่ยงต่ำ เพราะเป็นฐานย่อยเหนือฐานเดิม ไม่ใช่การกลับตัว',
+          },
+          {
+            phase: 'Distribution',
+            priceBehavior:
+              'กรอบบริเวณโซนบน ราคาพยายามทะลุแนวต้านขึ้นไปแต่ยืนไม่ได้ (UTAD) แล้วร่วงกลับเข้ากรอบ',
+            note: 'UTAD (Upthrust After Distribution) คือกับดักฝั่งขาขึ้น (bull trap) หลอกให้รายย่อยไล่ซื้อก่อนราคาจะพลิกลง',
+          },
+          {
+            phase: 'Markdown',
+            priceBehavior: 'ราคาหลุดแนวรับของกรอบ Distribution ลงมาเร็วและแรง พร้อม volume ขายที่หนาแน่น',
+            note: 'ช่วงที่ควรหลีกเลี่ยงการถือสถานะ Long เพราะแรงขายยังไม่หมด',
+          },
+        ],
+        shape: {
+          seed: 702,
+          startPrice: 100,
+          segments: [
+            { bars: 15, trendPct: -15, volatilityPct: 3.5, volumeBase: 160, volumeSpikeAt: 14, volumeSpikeMult: 2.5 },
+            { bars: 55, trendPct: 3, volatilityPct: 2, volumeBase: 70, volumeTrendPct: -20 },
+            { bars: 8, trendPct: -9, volatilityPct: 2.5, volumeBase: 90, volumeSpikeAt: 7, volumeSpikeMult: 1.8 },
+            { bars: 12, trendPct: 12, volatilityPct: 2, volumeBase: 70 },
+            { bars: 45, trendPct: 25, volatilityPct: 2.2, volumeBase: 100, volumeTrendPct: 15 },
+            { bars: 20, trendPct: -3, volatilityPct: 1.6, volumeBase: 55, volumeTrendPct: -15 },
+            { bars: 65, trendPct: 40, volatilityPct: 2.3, volumeBase: 110, volumeTrendPct: 10 },
+            { bars: 55, trendPct: 5, volatilityPct: 2.8, volumeBase: 100 },
+            { bars: 10, trendPct: 10, volatilityPct: 2.5, volumeBase: 150, volumeSpikeAt: 9, volumeSpikeMult: 2.3 },
+            { bars: 25, trendPct: -8, volatilityPct: 2.5, volumeBase: 95 },
+            { bars: 20, trendPct: -10, volatilityPct: 2.5, volumeBase: 110, volumeTrendPct: 10 },
+            { bars: 70, trendPct: -45, volatilityPct: 3, volumeBase: 140, volumeTrendPct: 20 },
+          ],
+        },
+        zones: [
+          { fromBar: 0, toBar: 90, color: 'rgba(158,158,158,0.10)', label: 'Accumulation' },
+          { fromBar: 90, toBar: 220, color: 'rgba(29,158,117,0.08)', label: 'Markup' },
+          { fromBar: 220, toBar: 310, color: 'rgba(226,75,74,0.08)', label: 'Distribution' },
+          { fromBar: 310, toBar: 400, color: 'rgba(226,75,74,0.14)', label: 'Markdown' },
+        ],
+        markers: [
+          { atBar: 14, label: 'SC (Selling Climax)', color: '#E24B4A', position: 'belowBar' },
+          { atBar: 77, label: 'Spring (เขย่าหลุดแนวรับหลอก)', color: '#7F77DD', position: 'belowBar' },
+          { atBar: 153, label: 'LPS (ฐานย่อยสูงขึ้น)', color: '#1D9E75', position: 'belowBar' },
+          { atBar: 284, label: 'UTAD (ทะลุแนวต้านหลอก)', color: '#EF9F27', position: 'aboveBar' },
+        ],
+      },
+    ],
+  },
+];
+
+// ── Dow / Wyckoff / Market Stage relationship table ─────────────────────────
+// Shown once at the bottom of both the Dow Theory and Wyckoff tabs (same
+// component instance, reused) — maps the three frameworks' phase names onto
+// each other and onto this dashboard's own Market Stage scan labels.
+export interface RelationshipRow {
+  dow: string;
+  wyckoff: string;
+  stageLabel: string;
+  stagePatternId: string; // pattern id inside the 'market-stage' tab to jump to
+}
+
+export const RELATIONSHIP_TABLE: RelationshipRow[] = [
+  { dow: 'Accumulation', wyckoff: 'Accumulation (Spring/SC)', stageLabel: 'Stage 1 Basing', stagePatternId: 'stage1-basing' },
+  { dow: 'Public Participation', wyckoff: 'Markup (LPS)', stageLabel: 'Stage 2 Advancing', stagePatternId: 'stage2-advancing' },
+  { dow: 'Distribution', wyckoff: 'Distribution (UTAD)', stageLabel: 'Stage 3 Topping', stagePatternId: 'stage3-topping' },
+  { dow: '— (Bear primary)', wyckoff: 'Markdown', stageLabel: 'Stage 4 Declining', stagePatternId: 'stage4-declining' },
+];
+
+export const RELATIONSHIP_SUMMARY: string[] = [
+  'Dow Theory ใช้ประเมินทิศทางลมภาพใหญ่ (Macro) — ถ้าตลาดโดยรวมยังไม่เข้าสู่ช่วง Public Participation หุ้นที่ breakout รายตัวมักไปได้ไม่ไกล เพราะสวนทิศทางลมใหญ่',
+  'Wyckoff ใช้ส่องร่องรอยของรายใหญ่ในระดับกราฟรายวัน หาจุดจบของ Accumulation (สัญญาณ Spring หรือ LPS) ที่ความเสี่ยงต่ำที่สุดก่อนเข้าสู่ Markup',
+  'ทั้งสองศาสตร์ใช้ Volume เป็นตัวกรองความจริงเหมือนกัน — Dow ใช้ volume ยืนยันเทรนด์ภาพกว้าง ส่วน Wyckoff ใช้ volume จับคู่กับ spread ของแต่ละแท่งเพื่อหาจุดดักซื้อดักขายที่ละเอียดกว่า',
+];
+
+export const RELATIONSHIP_CLOSING =
+  '"Market Stage" scan ของ dashboard นี้ คือการแปลง cycle เหล่านี้ให้เป็นเงื่อนไขเชิงตัวเลขที่ตรวจจับอัตโนมัติ';
+
+export const RELATIONSHIP_REFERENCES: string[] = [
+  'Rhea, R. (1932). The Dow Theory.',
+  'Edwards, R. D., & Magee, J. (1948). Technical Analysis of Stock Trends.',
+  'Wyckoff, R. D. (1931). The Richard D. Wyckoff Method of Trading and Investing in Stocks.',
+  'Pruden, H. (2007). The Three Skills of Top Trading.',
 ];

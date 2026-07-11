@@ -1,10 +1,17 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createChart, CandlestickSeries, LineSeries, HistogramSeries, ColorType, createSeriesMarkers } from 'lightweight-charts';
-import type { IChartApi } from 'lightweight-charts';
+import type { IChartApi, Time } from 'lightweight-charts';
 import { generateSeries, calcEMA } from '@/lib/knowledge/syntheticData';
-import type { ShapeConfig, MarkerConfig } from '@/lib/knowledge/syntheticData';
+import type { ShapeConfig, MarkerConfig, ZoneConfig } from '@/lib/knowledge/syntheticData';
+
+interface ZoneRect {
+  left: number;
+  width: number;
+  color: string;
+  label: string;
+}
 
 // Static, synthetic-data chart for the Knowledge Base page — same charting
 // library and visual style as components/StockChart.tsx (used on
@@ -13,14 +20,17 @@ import type { ShapeConfig, MarkerConfig } from '@/lib/knowledge/syntheticData';
 export default function KnowledgeChart({
   shape,
   markers,
+  zones,
   height = 340,
 }: {
   shape: ShapeConfig;
   markers: MarkerConfig[];
+  zones?: ZoneConfig[];
   height?: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
+  const [zoneRects, setZoneRects] = useState<ZoneRect[]>([]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -102,13 +112,34 @@ export default function KnowledgeChart({
     chart.timeScale().fitContent();
     chartRef.current = chart;
 
+    function updateZoneRects() {
+      if (!zones || !zones.length) {
+        setZoneRects([]);
+        return;
+      }
+      const ts = chart.timeScale();
+      const rects: ZoneRect[] = [];
+      for (const z of zones) {
+        const fromBar = bars[z.fromBar];
+        const toBar = bars[Math.min(z.toBar, bars.length - 1)];
+        if (!fromBar || !toBar) continue;
+        const x1 = ts.timeToCoordinate(fromBar.time as Time);
+        const x2 = ts.timeToCoordinate(toBar.time as Time);
+        if (x1 == null || x2 == null) continue;
+        rects.push({ left: Math.min(x1, x2), width: Math.max(1, Math.abs(x2 - x1)), color: z.color, label: z.label });
+      }
+      setZoneRects(rects);
+    }
+    updateZoneRects();
+
     const ro = new ResizeObserver(() => {
       if (containerRef.current) chart.applyOptions({ width: containerRef.current.clientWidth });
+      updateZoneRects();
     });
     ro.observe(containerRef.current);
 
     return () => { ro.disconnect(); chart.remove(); chartRef.current = null; };
-  }, [shape, markers, height]);
+  }, [shape, markers, zones, height]);
 
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
@@ -123,7 +154,18 @@ export default function KnowledgeChart({
         </div>
         <span className="text-[10px] text-white/20 ml-auto">ข้อมูลจำลอง (synthetic) — ไม่ใช่ราคาจริง</span>
       </div>
-      <div style={{ minHeight: height }}>
+      <div className="relative" style={{ minHeight: height }}>
+        {zoneRects.map((r, i) => (
+          <div
+            key={i}
+            className="absolute top-0 pointer-events-none"
+            style={{ left: r.left, width: r.width, height: Math.round(height * 0.72), background: r.color }}
+          >
+            <span className="absolute top-1.5 left-1.5 text-[9px] font-medium text-white/45 whitespace-nowrap">
+              {r.label}
+            </span>
+          </div>
+        ))}
         <div ref={containerRef} className="w-full" />
       </div>
     </div>
