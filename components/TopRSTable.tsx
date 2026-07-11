@@ -55,6 +55,7 @@ export default function TopRSTable({ rows }: TopRSTableProps) {
             <th className="text-left px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider">Signals</th>
             <th className="text-right px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider whitespace-nowrap">1D%</th>
             <th className="text-right px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider">RS</th>
+            <th className="text-left px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider hidden sm:table-cell">Trend</th>
           </tr>
         </thead>
         <tbody>

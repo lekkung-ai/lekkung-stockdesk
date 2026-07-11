@@ -1,5 +1,9 @@
 'use client';
 
+import TrendSparkline from './TrendSparkline';
+import { ChangeBadge } from './ChangeBadge';
+import { sparklineMap } from '@/lib/sparklineData';
+
 export interface RSSignals {
   sepa: boolean;
   kell: boolean;
@@ -44,24 +48,19 @@ function comboColor(score: number): string {
 }
 
 export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals, change1d }: TopRSRowProps) {
-  const changeColor =
-    change1d == null ? '#6b7280' :
-    change1d > 0 ? '#1D9E75' :
-    change1d < 0 ? '#E24B4A' : '#9ca3af';
-
   return (
     <tr className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
       {/* # */}
-      <td className="px-4 py-3 text-[12px] text-white/20 tabular-nums w-8">{rank}</td>
+      <td className="px-4 py-3.5 text-[12px] text-white/20 tabular-nums w-8">{rank}</td>
 
       {/* Ticker + Sector */}
-      <td className="px-4 py-3">
-        <div className="font-bold text-[13px] text-white leading-tight">{ticker}</div>
+      <td className="px-4 py-3.5">
+        <div className="font-bold text-[14px] text-white leading-tight">{ticker}</div>
         <div className="text-[10px] text-white/25 mt-0.5">{sector ?? 'N/A'}</div>
       </td>
 
       {/* Stage */}
-      <td className="px-4 py-3">
+      <td className="px-4 py-3.5">
         {stage ? (
           <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold whitespace-nowrap ${stageCls(stage)}`}>
             {stage}
@@ -72,7 +71,7 @@ export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals
       </td>
 
       {/* Signals */}
-      <td className="px-4 py-3">
+      <td className="px-4 py-3.5">
         <div className="flex items-center gap-1 flex-nowrap">
           {signals.isNew && (
             <span
@@ -107,19 +106,18 @@ export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals
       </td>
 
       {/* 1D% */}
-      <td className="px-4 py-3 text-right tabular-nums">
-        {change1d == null ? (
-          <span className="text-[12px] text-white/20">—</span>
-        ) : (
-          <span className="text-[12px] font-medium" style={{ color: changeColor }}>
-            {change1d > 0 ? '+' : ''}{change1d.toFixed(2)}%
-          </span>
-        )}
+      <td className="px-4 py-3.5 text-right tabular-nums">
+        <ChangeBadge value={change1d} />
       </td>
 
       {/* RS */}
-      <td className="px-4 py-3 text-right tabular-nums">
+      <td className="px-4 py-3.5 text-right tabular-nums">
         <span className="text-[20px] font-bold" style={{ color: rsColor(rsScore) }}>{rsScore}</span>
+      </td>
+
+      {/* Trend */}
+      <td className="px-4 py-3.5 hidden sm:table-cell">
+        <TrendSparkline data={sparklineMap[ticker]} width={64} height={20} />
       </td>
     </tr>
   );

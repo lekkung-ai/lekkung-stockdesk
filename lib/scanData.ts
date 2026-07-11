@@ -11,6 +11,9 @@ export interface ScanEntry {
   stage: string;
   rs_score: number;
   combo_score: number;
+  weinstein?: boolean;
+  growth_yoy?: number | null;
+  growth_qoq?: number | null;
 }
 
 type CombinedJson =

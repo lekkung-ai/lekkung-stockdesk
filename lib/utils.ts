@@ -2,6 +2,14 @@ import type { PricePoint } from './mockData';
 
 const MONTHS_TH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
+// Compact "ณ สแกน" label used next to chart titles — day + abbreviated Thai month, no year/time.
+export function formatShortThaiDate(iso: string | null | undefined): string {
+  if (!iso) return '-';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '-';
+  return `${d.getDate()} ${MONTHS_TH[d.getMonth()]}`;
+}
+
 export function formatThaiDate(iso: string | null | undefined): string {
   if (!iso) return 'ไม่ทราบวันที่อัปเดต';
   try {

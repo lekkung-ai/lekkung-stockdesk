@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import MiniCandleChart from '@/components/MiniCandleChart';
+import TrendSparkline from '@/components/TrendSparkline';
+import { ChangeBadge } from '@/components/ChangeBadge';
+import { sparklineMap } from '@/lib/sparklineData';
 import TableSkeleton from '@/components/TableSkeleton';
 import { scanData } from '@/lib/scanData';
 import marketStageRaw from '@/data/scans/market_stage.json';
@@ -144,13 +146,12 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol }: P
                   {volMode === 'value' ? 'Value (M฿)' : 'Volume'}
                 </th>
                 <th className="px-2 py-2 text-left text-[10px] font-semibold uppercase tracking-wider text-white/25">Signals</th>
-                <th className="px-2 py-2 text-left text-[10px] font-semibold uppercase tracking-wider text-white/25 hidden sm:table-cell">Chart</th>
+                <th className="px-2 py-2 text-left text-[10px] font-semibold uppercase tracking-wider text-white/25 hidden sm:table-cell">Trend</th>
               </tr>
             </thead>
             <tbody>
               {items.map((item, i) => {
                 const pct   = (item.percentChange as number | undefined) ?? 0;
-                const clr   = pct > 0 ? '#1D9E75' : pct < 0 ? '#E24B4A' : '#9ca3af';
                 const sym   = (item.symbol as string | undefined) ?? '';
                 const volTd = volMode === 'value'
                   ? fmtMB(item.totalValue as number | undefined)
@@ -166,21 +167,21 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol }: P
                     <td className="px-2" style={{ paddingTop: 10, paddingBottom: 10 }}>
                       <span className="text-[14px] font-semibold text-white block truncate">{sym || '—'}</span>
                     </td>
-                    <td className="px-2 text-[14px] text-white/70 text-right tabular-nums whitespace-nowrap" style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    <td className="px-2 text-[14px] text-white/70 text-right tabular-nums whitespace-nowrap" style={{ paddingTop: 12, paddingBottom: 12 }}>
                       {fmt(item.last as number | undefined)}
                     </td>
-                    <td className="px-2 text-[14px] text-right tabular-nums font-semibold whitespace-nowrap" style={{ paddingTop: 10, paddingBottom: 10, color: clr }}>
-                      {pct > 0 ? '+' : ''}{fmt(pct)}%
+                    <td className="px-2 text-right whitespace-nowrap" style={{ paddingTop: 12, paddingBottom: 12 }}>
+                      <ChangeBadge value={pct} />
                     </td>
-                    <td className="px-2 text-[14px] text-white/50 text-right tabular-nums whitespace-nowrap" style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    <td className="px-2 text-[14px] text-white/50 text-right tabular-nums whitespace-nowrap" style={{ paddingTop: 12, paddingBottom: 12 }}>
                       {volTd}
                     </td>
-                    <td className="px-2" style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    <td className="px-2" style={{ paddingTop: 12, paddingBottom: 12 }}>
                       <SignalBadges sym={sym} />
                     </td>
-                    {/* CHART — hidden on mobile */}
-                    <td className="hidden sm:table-cell" style={{ paddingTop: 6, paddingBottom: 6, paddingLeft: 8, paddingRight: 8 }}>
-                      {sym && <MiniCandleChart ticker={sym} width="100%" height={52} />}
+                    {/* TREND — hidden on mobile */}
+                    <td className="hidden sm:table-cell" style={{ paddingTop: 10, paddingBottom: 10, paddingLeft: 8, paddingRight: 8 }}>
+                      {sym && <TrendSparkline data={sparklineMap[sym]} width={72} height={20} />}
                     </td>
                   </tr>
                 );

@@ -11,9 +11,13 @@ import rawWeinstein from '@/data/scans/weinstein.json';
 import { scanGeneratedAt } from '@/lib/scanData';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
-import MiniCandleChart from '@/components/MiniCandleChart';
+import TrendSparkline from '@/components/TrendSparkline';
+import { ChangeBadge } from '@/components/ChangeBadge';
+import { sparklineMap } from '@/lib/sparklineData';
 import Pagination from '@/components/Pagination';
 import TableSkeleton from '@/components/TableSkeleton';
+import GrowthScatter, { type ScatterPoint } from '@/components/scanner/GrowthScatter';
+import { LayoutGrid, ScatterChart as ScatterIcon } from 'lucide-react';
 import {
   rsColor,
   stageCls,
@@ -41,6 +45,8 @@ type CombinedEntry = {
   stage: string | null;
   rs_score: number | null;
   combo_score: number;
+  growth_yoy: number | null;
+  growth_qoq: number | null;
 };
 
 type MarketStageEntry = { Ticker: string; Bar_Count: number };
@@ -88,6 +94,20 @@ function getEntry(ppbp: boolean, sepa: boolean, kell: boolean, breakout: boolean
   return 'none';
 }
 
+// ── 52WH distance: (Close - 52W_High) / 52W_High, as a % (0 = ที่ high พอดี) ──
+
+function pctFromHigh(price: number, high: number | undefined): number | null {
+  if (high == null || high <= 0) return null;
+  return ((price - high) / high) * 100;
+}
+
+function dist52whCls(pct: number): string {
+  const abs = Math.abs(pct);
+  if (abs <= 3) return 'text-[#1D9E75]';
+  if (abs <= 10) return 'text-[#F9C942]';
+  return 'text-white/35';
+}
+
 const ENTRY_ORDER: Record<EntryKind, number> = { ppbp: 0, pullback: 1, breakout: 2, none: 3 };
 
 const allRows: Row[] = combinedData.map(c => {
@@ -130,6 +150,7 @@ function QuantScannerContent() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [page, setPage] = useState(1);
+  const [viewMode, setViewMode] = useState<'table' | 'scatter'>('table');
   const { priceMap, changePctMap, fetchDone } = useLivePrices(allRows.map(r => r.ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
@@ -169,6 +190,13 @@ function QuantScannerContent() {
           const bChg = changePctMap[b.ticker] ?? -999;
           return sortConfig.dir === 'asc' ? aChg - bChg : bChg - aChg;
         }
+        if (sortConfig.key === 'dist52wh') {
+          const aPrice = priceMap[a.ticker] ?? a.price;
+          const bPrice = priceMap[b.ticker] ?? b.price;
+          const aDist = pctFromHigh(aPrice, w52Map.get(a.ticker)?.high) ?? -999;
+          const bDist = pctFromHigh(bPrice, w52Map.get(b.ticker)?.high) ?? -999;
+          return sortConfig.dir === 'asc' ? aDist - bDist : bDist - aDist;
+        }
         if (sortConfig.key === 'stage') {
            const aStage = a.stage ? ALL_STAGES.indexOf(a.stage) : 99;
            const bStage = b.stage ? ALL_STAGES.indexOf(b.stage) : 99;
@@ -195,6 +223,25 @@ function QuantScannerContent() {
   const totalPages = Math.max(1, Math.ceil(rows.length / PER_PAGE));
   const safePage = Math.min(page, totalPages);
   const pageRows = rows.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
+
+  // scatter mode ใช้ rows ทั้งหมดที่ผ่าน filter ปัจจุบัน (ไม่ตัดหน้าเหมือนตาราง)
+  const scatterPoints: ScatterPoint[] = useMemo(() => {
+    return rows
+      .map(r => {
+        const price = priceMap[r.ticker] ?? r.price;
+        const high = w52Map.get(r.ticker)?.high;
+        const dist = pctFromHigh(price, high);
+        if (dist == null || r.rs_score == null) return null;
+        return {
+          ticker: r.ticker,
+          rs: r.rs_score,
+          distFromHigh: Math.abs(dist),
+          growthYoy: r.growth_yoy,
+          growthQoq: r.growth_qoq,
+        };
+      })
+      .filter((p): p is ScatterPoint => p !== null);
+  }, [rows, priceMap]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -262,6 +309,34 @@ function QuantScannerContent() {
       </FilterBar>
       </div>
 
+      <div className="flex justify-end">
+        <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden">
+          <button
+            onClick={() => setViewMode('table')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold transition-colors ${
+              viewMode === 'table' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+            }`}
+          >
+            <LayoutGrid size={12} /> ตาราง
+          </button>
+          <button
+            onClick={() => setViewMode('scatter')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold transition-colors border-l border-white/[0.07] ${
+              viewMode === 'scatter' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+            }`}
+          >
+            <ScatterIcon size={12} /> Scatter
+          </button>
+        </div>
+      </div>
+
+      {viewMode === 'scatter' && (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
+          <GrowthScatter points={scatterPoints} />
+        </div>
+      )}
+
+      {viewMode === 'table' && (
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
@@ -273,9 +348,10 @@ function QuantScannerContent() {
             <SortableTh right className="hidden md:table-cell" sortKey="chg1d" currentSort={sortConfig} onSort={handleSort}>1D%</SortableTh>
             <SortableTh right className="hidden md:table-cell" sortKey="chg30d" currentSort={sortConfig} onSort={handleSort}>30D%</SortableTh>
             <Th right className="hidden md:table-cell">52W H/L</Th>
+            <SortableTh right sortKey="dist52wh" currentSort={sortConfig} onSort={handleSort}>52WH</SortableTh>
             <SortableTh right sortKey="rs_score" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
             <SortableTh sortKey="entry" currentSort={sortConfig} onSort={handleSort}>จุดเข้า</SortableTh>
-            <Th className="hidden lg:table-cell min-w-[160px]">30D</Th>
+            <Th className="hidden lg:table-cell min-w-[90px]">Trend</Th>
           </tr>
         </thead>
         <tbody>
@@ -302,6 +378,15 @@ function QuantScannerContent() {
                   >
                     {row.ticker}
                   </Link>
+                  {(() => {
+                    const dist = pctFromHigh(displayPrice, w52Map.get(row.ticker)?.high);
+                    if (dist == null || Math.abs(dist) > 0.5) return null;
+                    return (
+                      <span className="ml-1.5 inline-flex items-center px-1 py-0.5 rounded text-[9px] font-bold bg-[#1D9E75] text-white align-middle">
+                        NH
+                      </span>
+                    );
+                  })()}
                   <SectorChip ticker={row.ticker} />
                 </Td>
 
@@ -367,11 +452,8 @@ function QuantScannerContent() {
                 </Td>
 
                 <Td right mono className="hidden md:table-cell">
-                  {fetchDone && changePct != null ? (
-                    <span className={changePct >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
-                      {changePct >= 0 ? '+' : ''}
-                      {changePct.toFixed(2)}%
-                    </span>
+                  {fetchDone ? (
+                    <ChangeBadge value={changePct} />
                   ) : (
                     <span className="text-white/25">—</span>
                   )}
@@ -397,6 +479,19 @@ function QuantScannerContent() {
                   ) : (
                     <span className="text-white/25">—</span>
                   )}
+                </Td>
+
+                <Td right mono>
+                  {(() => {
+                    const dist = pctFromHigh(displayPrice, w52Map.get(row.ticker)?.high);
+                    if (dist == null) return <span className="text-white/25">—</span>;
+                    return (
+                      <span className={`font-semibold ${dist52whCls(dist)}`}>
+                        {dist > 0 ? '+' : ''}
+                        {dist.toFixed(1)}%
+                      </span>
+                    );
+                  })()}
                 </Td>
 
                 <Td right mono>
@@ -427,8 +522,8 @@ function QuantScannerContent() {
                   )}
                 </Td>
 
-                <Td className="hidden lg:table-cell min-w-[160px]">
-                  <MiniCandleChart ticker={row.ticker} width="100%" height={58} />
+                <Td className="hidden lg:table-cell min-w-[90px]">
+                  <TrendSparkline data={sparklineMap[row.ticker]} width={72} height={20} />
                 </Td>
               </tr>
             );
@@ -436,15 +531,18 @@ function QuantScannerContent() {
 
           {rows.length === 0 && (
             <tr>
-              <td colSpan={11} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={12} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
           )}
         </tbody>
       </TableWrap>
+      )}
 
-      {totalPages > 1 && <Pagination page={safePage} totalPages={totalPages} onChange={setPage} />}
+      {viewMode === 'table' && totalPages > 1 && (
+        <Pagination page={safePage} totalPages={totalPages} onChange={setPage} />
+      )}
     </div>
   );
 }
