@@ -7,6 +7,7 @@ import { peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
 import PeerComparisonTable from './PeerComparisonTable';
+import MacroFactorCard from './MacroFactorCard';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
 import type { F45Data } from '@/app/api/f45/[ticker]/route';
@@ -686,6 +687,9 @@ export default function StockDetailPage({
         sector={sectorInfo?.sector ?? null}
         subsector={sectorInfo?.subsector ?? null}
       />
+
+      {/* ── Macro factors ── */}
+      <MacroFactorCard ticker={ticker} />
 
       {/* ── Related research ── */}
       {research && research.length > 0 && (

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
-  Layers, Zap, Newspaper, Activity,
+  Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
@@ -41,6 +41,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Overview', href: '/', icon: Globe },
       { label: 'Market Breadth', href: '/breadth', icon: BarChart2 },
       { label: 'Sector Map', href: '/sector', icon: Map },
+      { label: 'Macro & Commodities', href: '/macro', icon: Fuel },
       { label: 'Top Movers', href: '/top-movers', icon: Activity, exact: true },
       { label: 'Big Lot', href: '/top-movers/biglot', icon: Package, indent: true },
       { label: 'รายงาน 59-2', href: '/top-movers/r59', icon: FileText, indent: true },
