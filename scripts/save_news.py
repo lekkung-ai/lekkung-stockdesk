@@ -28,9 +28,9 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 # Kept in sync with the live feed list in app/api/news/[ticker]/route.ts.
 # See that file's "Verified NOT usable" comment block for why other
-# candidates (HoonSmart, Share2Trade, Wealthy Thai, Bangkokbiznews,
-# Prachachat, Thansettakij, MGR Online, The Standard Wealth, Settrade
-# feedburner) are excluded.
+# candidates (Share2Trade, Wealthy Thai, Bangkokbiznews, Prachachat,
+# Thansettakij, MGR Online, The Standard Wealth, Settrade feedburner) are
+# excluded.
 FEEDS = {
     'InfoQuest': 'https://www.infoquest.co.th/stock/feed/',
     'ข่าวหุ้น': 'https://www.kaohoon.com/feed',
@@ -42,7 +42,20 @@ FEEDS = {
     'มติชน': 'https://www.matichon.co.th/economy/feed',
     'Investing.com': 'https://th.investing.com/rss/news_25.rss',
     'RYT9 (IPO)': 'https://www.ryt9.com/tag/IPO/rss.xml',
+    # HoonSmart's domain is consistently slow (15-30s+ for any path, not just
+    # /feed/) - too slow for the live web route (12s timeout, one page load =
+    # unacceptable wait), but this batch script runs once per pipeline cycle
+    # and can afford to wait it out (see FEED_TIMEOUT_OVERRIDES below). Items
+    # land in the daily archive only, so freshness here is "per pipeline run",
+    # not realtime - acceptable since that's already true of this whole file.
+    'HOONSMART': 'https://hoonsmart.com/feed/',
 }
+
+# Per-feed timeout override (seconds). Feeds not listed use DEFAULT_TIMEOUT.
+FEED_TIMEOUT_OVERRIDES = {
+    'HOONSMART': 60,
+}
+DEFAULT_TIMEOUT = 15
 
 HISTORY_DIR = os.path.join(os.path.dirname(__file__), '..', 'public', 'data', 'history')
 BANGKOK_TZ = timezone(timedelta(hours=7))
@@ -139,10 +152,11 @@ def main():
 
     fetched_items = []
     for name, url in FEEDS.items():
-        print(f"Fetching {name}...")
+        timeout = FEED_TIMEOUT_OVERRIDES.get(name, DEFAULT_TIMEOUT)
+        print(f"Fetching {name}... (timeout {timeout}s)")
         try:
             req = urllib.request.Request(url, headers=headers)
-            resp = urllib.request.urlopen(req, timeout=15, context=ctx)
+            resp = urllib.request.urlopen(req, timeout=timeout, context=ctx)
             xml = resp.read().decode('utf-8')
             items = parse_rss(xml, name)
             print(f" -> Got {len(items)} items")

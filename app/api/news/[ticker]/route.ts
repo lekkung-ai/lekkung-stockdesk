@@ -33,7 +33,10 @@ const FEEDS: Feed[] = [
 //   Settrade feedburner (saaDailyUpdate / researchAll / researchMarket /
 //     researchTechnique / researchStock) -> Incapsula bot-protection HTML page
 //   HoonSmart https://hoonsmart.com/feed/            -> reachable but ~19-20s
-//     response time, effectively times out under FEED_TIMEOUT_MS
+//     response time, effectively times out under FEED_TIMEOUT_MS. Not usable
+//     live, but scripts/save_news.py fetches it once per pipeline run (60s
+//     timeout budget) into the daily archive, so it still appears here via
+//     loadHistoricalItems() below - just at "pipeline run" freshness, not live.
 //   Thunhoon https://thunhoon.com/feed (+ category feeds) -> 200 but returns
 //     the site's SPA shell HTML, not RSS (no feed at that path)
 //   MGR Online (mgronline.com)                       -> no working RSS path
@@ -54,6 +57,20 @@ const FEEDS: Feed[] = [
 
 const FEED_TIMEOUT_MS = 12000;
 const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
+
+// Shared across concurrent page loads via Next.js's fetch Data Cache, instead
+// of every single request hitting all 10 upstream feeds directly (that was
+// cache: 'no-store' until 2026-07-11 - see git history - and correlates with
+// several sources starting to fail/rate-limit in production shortly after).
+// The route handler itself stays dynamic (no revalidate on the route/response
+// itself), only the upstream feed fetches are batched.
+const LIVE_REVALIDATE_SEC = 60;
+
+// If a feed's live fetch fails outright or comes back with 0 items (both
+// abnormal for a rolling news RSS), fall back to that source's most recent
+// items from the daily archive rather than letting the source vanish from
+// the page silently.
+const STALE_FALLBACK_COUNT = 10;
 
 // ── Sentiment ───────────────────────────────────────────────────────────────
 const POS_KEYWORDS = [
@@ -118,18 +135,52 @@ export async function GET(
   // and resolves to [], but allSettled is the belt-and-suspenders guarantee
   // that one broken feed (a thrown rejection we didn't anticipate) can never
   // take down the whole page — it's just logged and skipped.
-  const settled = await Promise.allSettled(FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS)));
+  const settled = await Promise.allSettled(
+    FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC))
+  );
   let allLive: NewsItem[] = [];
+  const failedFeeds: Feed[] = [];
   settled.forEach((result, i) => {
-    if (result.status === 'fulfilled') {
+    if (result.status === 'fulfilled' && result.value.length > 0) {
       allLive.push(...result.value);
     } else {
-      console.log(`[news] REJECTED ${FEEDS[i].name} -> ${result.reason}  (${FEEDS[i].url})`);
+      if (result.status === 'rejected') {
+        console.log(`[news] REJECTED ${FEEDS[i].name} -> ${result.reason}  (${FEEDS[i].url})`);
+      }
+      // A fulfilled-but-empty result is already logged inside fetchFeed()
+      // itself (FAIL / ERROR / "200 but 0 items"), so no duplicate log here.
+      failedFeeds.push(FEEDS[i]);
     }
   });
 
   // Load daily snapshots for the past HISTORY_DAYS days
   const archivedItems: NewsItem[] = loadHistoricalItems();
+
+  // Any feed that failed live gets its most recent archived items injected
+  // instead, flagged `stale: true`, so a blocked/rate-limited/slow source
+  // degrades to "a bit old" rather than disappearing from the page entirely.
+  const staleSources: string[] = [];
+  if (failedFeeds.length > 0) {
+    const archivedBySource = new Map<string, NewsItem[]>();
+    for (const item of archivedItems) {
+      const list = archivedBySource.get(item.source);
+      if (list) list.push(item);
+      else archivedBySource.set(item.source, [item]);
+    }
+    for (const feed of failedFeeds) {
+      const fallback = (archivedBySource.get(feed.name) ?? [])
+        .sort((a, b) => b.ts - a.ts)
+        .slice(0, STALE_FALLBACK_COUNT)
+        .map(item => ({ ...item, stale: true }));
+      if (fallback.length > 0) {
+        allLive.push(...fallback);
+        staleSources.push(feed.name);
+        console.log(`[news] STALE FALLBACK ${feed.name} -> using ${fallback.length} archived item(s), live fetch failed/empty`);
+      } else {
+        console.log(`[news] STALE FALLBACK ${feed.name} -> no archived items available either`);
+      }
+    }
+  }
 
   // Merge live and archived items, deduplicating across feeds. Different
   // sources can syndicate the same story with slightly different tracking
@@ -178,10 +229,11 @@ export async function GET(
     source: item.source,
     tickers: extractTickers(item.title),
     sentiment: getSentiment(item.title),
+    stale: item.stale ?? false,
   }));
 
   return Response.json(
-    { news, isGeneral },
+    { news, isGeneral, staleSources },
     { headers: { 'Cache-Control': 'no-store' } }
   );
 }

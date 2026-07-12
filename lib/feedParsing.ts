@@ -10,6 +10,7 @@ export interface FeedItem {
   pubDate: string;
   source: string;
   ts: number; // parsed pubDate (ms) for sorting; 0 if unknown
+  stale?: boolean; // true when this item came from the archive fallback, not a live fetch
 }
 
 export interface Feed {
@@ -87,14 +88,26 @@ export function parseRSS(xml: string, sourceName: string): FeedItem[] {
   return items;
 }
 
-export async function fetchFeed(feed: Feed, logPrefix: string, timeoutMs: number): Promise<FeedItem[]> {
+// revalidateSec omitted -> always fetch live (cache: 'no-store'), used by the
+// research route. Passing it shares one upstream fetch across all requests
+// within that window (Next.js Data Cache) instead of hitting the source on
+// every single page view — the news route passes 60 here specifically
+// because no-store on every one of 10 feeds turned out to trigger
+// rate-limiting/blocking on several upstream sites (see git history on
+// app/api/news/[ticker]/route.ts around 2026-07-13 for the incident).
+export async function fetchFeed(
+  feed: Feed,
+  logPrefix: string,
+  timeoutMs: number,
+  revalidateSec?: number
+): Promise<FeedItem[]> {
   try {
     const res = await fetch(feed.url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 Chrome/120',
         Accept: 'application/rss+xml, application/xml, text/xml, */*',
       },
-      cache: 'no-store',
+      ...(revalidateSec != null ? { next: { revalidate: revalidateSec } } : { cache: 'no-store' as const }),
       signal: AbortSignal.timeout(timeoutMs),
     });
     if (!res.ok) {

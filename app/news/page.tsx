@@ -13,6 +13,7 @@ interface NewsItem {
   source: string;
   tickers: string[];
   sentiment: 'pos' | 'neg' | 'neu';
+  stale?: boolean;
 }
 
 const PAGE_SIZE = 20;
@@ -35,6 +36,7 @@ const SOURCE_STYLE: Record<string, string> = {
   'มติชน': 'bg-[#DFF3EE] text-[#0F5C4C]',
   'Investing.com': 'bg-[#E5EDFB] text-[#1A4A8A]',
   'RYT9 (IPO)': 'bg-[#F2EDF9] text-[#4F2D7F]',
+  HOONSMART: 'bg-[#FBE8E8] text-[#8A1A1A]',
 };
 const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 
@@ -92,6 +94,7 @@ function NewsPageContent() {
 
   const [allNews, setAllNews] = useState<NewsItem[] | null>(null);
   const [error, setError] = useState(false);
+  const [staleSources, setStaleSources] = useState<string[]>([]);
 
   // filters
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
@@ -113,7 +116,10 @@ function NewsPageContent() {
     fetch('/api/news/all')
       .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then(d => {
-        if (active) setAllNews(d.news ?? []);
+        if (active) {
+          setAllNews(d.news ?? []);
+          setStaleSources(d.staleSources ?? []);
+        }
       })
       .catch(() => {
         if (active) {
@@ -245,15 +251,20 @@ function NewsPageContent() {
           </button>
           {sources.map(s => {
             const on = selectedSources.includes(s);
+            const isStale = staleSources.includes(s);
             return (
               <button
                 key={s}
                 onClick={() => toggleSource(s)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
+                title={isStale ? `${s} — fetch สดล้มเหลว กำลังแสดงข่าวเก่าจาก archive แทน` : undefined}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
                   on ? sourceCls(s) : 'bg-white/[0.04] text-white/40 hover:text-white/70'
                 }`}
               >
                 {s}
+                {isStale && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#EF9F27] flex-shrink-0" aria-hidden="true" />
+                )}
               </button>
             );
           })}
