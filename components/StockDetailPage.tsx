@@ -67,6 +67,16 @@ interface NewsItem {
   source: string;
   sentiment: 'pos' | 'neg' | 'neu';
 }
+interface ResearchItem {
+  title: string;
+  link: string;
+  pubDate: string;
+  ts: number;
+  source: string;
+  broker: string | null;
+  targetPrice: number | null;
+  rating: 'ซื้อ' | 'ขาย' | 'ถือ' | null;
+}
 
 const NEWS_SOURCE_STYLE: Record<string, string> = {
   InfoQuest: 'bg-[#E6F1FB] text-[#0C447C]',
@@ -224,6 +234,7 @@ export default function StockDetailPage({
   const [fundamental, setFundamental] = useState<FundamentalData | null>(null);
   const [news, setNews] = useState<NewsItem[] | null>(null);
   const [newsIsGeneral, setNewsIsGeneral] = useState(false);
+  const [research, setResearch] = useState<ResearchItem[] | null>(null);
   const [sec59, setSec59] = useState<SecData | null>(null);
   const [sec246, setSec246] = useState<SecData | null>(null);
   const [upcomingCA, setUpcomingCA] = useState<CalendarRow[]>([]);
@@ -262,6 +273,13 @@ export default function StockDetailPage({
         setNewsIsGeneral(data.isGeneral ?? false);
       })
       .catch(() => setNews([]));
+  }, [ticker]);
+
+  useEffect(() => {
+    fetch(`/api/research/${encodeURIComponent(ticker)}`)
+      .then(r => r.json())
+      .then(data => setResearch(data.research ?? []))
+      .catch(() => setResearch([]));
   }, [ticker]);
 
   useEffect(() => {
@@ -668,6 +686,58 @@ export default function StockDetailPage({
         sector={sectorInfo?.sector ?? null}
         subsector={sectorInfo?.subsector ?? null}
       />
+
+      {/* ── Related research ── */}
+      {research && research.length > 0 && (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between">
+            <h2 className="text-[13px] font-semibold text-white">บทวิเคราะห์ที่เกี่ยวข้อง</h2>
+            <a
+              href={`/news?tab=research&ticker=${encodeURIComponent(ticker)}`}
+              className="text-[11.5px] text-[#5B9BD5] hover:text-[#8FC1EA] transition-colors"
+            >
+              ดูทั้งหมด →
+            </a>
+          </div>
+          <div className="divide-y divide-white/[0.04]">
+            {research.slice(0, 5).map((item, i) => (
+              <a
+                key={(item.link || '') + i}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-5 py-3.5 hover:bg-white/[0.025] transition-colors"
+              >
+                <p className="text-[12.5px] text-white/80 leading-snug line-clamp-2">{item.title}</p>
+                <div className="flex flex-wrap items-center gap-2 mt-1.5">
+                  {item.broker && (
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#7F77DD]/15 text-[#7F77DD]">
+                      {item.broker}
+                    </span>
+                  )}
+                  {item.rating && (
+                    <span
+                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                        item.rating === 'ซื้อ' ? 'bg-[#1D9E75]/15 text-[#1D9E75]' :
+                        item.rating === 'ขาย' ? 'bg-[#E24B4A]/15 text-[#E24B4A]' :
+                        'bg-[#EF9F27]/15 text-[#EF9F27]'
+                      }`}
+                    >
+                      {item.rating}
+                    </span>
+                  )}
+                  {item.targetPrice != null && (
+                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50">
+                      เป้า {item.targetPrice} บาท
+                    </span>
+                  )}
+                  <span className="text-[10.5px] text-white/25 ml-auto">{item.source}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── News section ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">

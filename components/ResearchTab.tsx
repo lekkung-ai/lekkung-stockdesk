@@ -1,46 +1,35 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import TableSkeleton from '@/components/TableSkeleton';
-import ResearchTab from '@/components/ResearchTab';
 
-interface NewsItem {
+interface ResearchItem {
   title: string;
   link: string;
   pubDate: string;
   ts: number;
   source: string;
   tickers: string[];
-  sentiment: 'pos' | 'neg' | 'neu';
+  broker: string | null;
+  targetPrice: number | null;
+  rating: 'ซื้อ' | 'ขาย' | 'ถือ' | null;
 }
 
 const PAGE_SIZE = 20;
 
-// Per-source badge colours (unknown sources fall back to grey).
 const SOURCE_STYLE: Record<string, string> = {
-  InfoQuest: 'bg-[#E6F1FB] text-[#0C447C]',
-  'ข่าวหุ้น': 'bg-[#FAEEDA] text-[#633806]',
-  'ข่าวหุ้น (ด่วน)': 'bg-[#FAEEDA] text-[#633806]',
-  'ข่าวหุ้น (ทั่วไป)': 'bg-[#FAEEDA] text-[#633806]',
-  'RYT9 (SET)': 'bg-[#F2EDF9] text-[#4F2D7F]',
-  'RYT9 (หุ้น)': 'bg-[#F2EDF9] text-[#4F2D7F]',
-  'กรุงเทพธุรกิจ': 'bg-[#EAF3DE] text-[#27500A]',
+  Kaohoon: 'bg-[#FAEEDA] text-[#633806]',
   'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
-  'หุ้นสมาร์ท': 'bg-[#FBE8E8] text-[#8A1A1A]',
-  'Share2Trade': 'bg-[#F3E8FB] text-[#5B2A86]',
-  'Wealthy Thai': 'bg-[#FCEBEB] text-[#791F1F]',
-  'ประชาชาติธุรกิจ': 'bg-[#EAF3DE] text-[#27500A]',
-  'ฐานเศรษฐกิจ': 'bg-[#E6F1FB] text-[#0C447C]',
-  'มติชน': 'bg-[#DFF3EE] text-[#0F5C4C]',
-  'Investing.com': 'bg-[#E5EDFB] text-[#1A4A8A]',
-  'RYT9 (IPO)': 'bg-[#F2EDF9] text-[#4F2D7F]',
 };
 const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 
-// ── helpers ──────────────────────────────────────────────────────────────────
+const RATING_STYLE: Record<string, string> = {
+  'ซื้อ': 'bg-[#1D9E75]/15 text-[#1D9E75] ring-1 ring-[#1D9E75]/30',
+  'ขาย': 'bg-[#E24B4A]/15 text-[#E24B4A] ring-1 ring-[#E24B4A]/30',
+  'ถือ': 'bg-[#EF9F27]/15 text-[#EF9F27] ring-1 ring-[#EF9F27]/30',
+};
+
 function localDate(ts: number): string {
-  // YYYY-MM-DD in the viewer's local timezone
   return new Date(ts).toLocaleDateString('en-CA');
 }
 
@@ -53,12 +42,7 @@ function postTime(ts: number): string {
   if (mins < 60) return `เมื่อ ${mins} นาที`;
   if (hrs < 24) return `เมื่อ ${hrs} ชม.`;
   return (
-    new Date(ts).toLocaleString('th-TH', {
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit',
-    }) + ' น.'
+    new Date(ts).toLocaleString('th-TH', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' น.'
   );
 }
 
@@ -72,52 +56,54 @@ function pageList(cur: number, total: number): (number | '…')[] {
   return out;
 }
 
-function NewsPageContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const tab: 'news' | 'research' = searchParams.get('tab') === 'research' ? 'research' : 'news';
-  const initialResearchTicker = searchParams.get('ticker') ?? '';
-
-  function switchTab(next: 'news' | 'research') {
-    const params = new URLSearchParams(searchParams.toString());
-    if (next === 'news') {
-      params.delete('tab');
-      params.delete('ticker');
-    } else {
-      params.set('tab', 'research');
-    }
-    const qs = params.toString();
-    router.push(qs ? `/news?${qs}` : '/news');
-  }
-
-  const [allNews, setAllNews] = useState<NewsItem[] | null>(null);
+// Same filter-bar / pagination shape as app/news/page.tsx's news tab, adapted
+// for research-specific fields (broker instead of source-only filtering,
+// target price + rating badges). Items where parsing found nothing (no
+// broker/target/rating) still render — just as a plain headline card, same
+// as a regular news item — per the "never drop on parse failure" rule.
+export default function ResearchTab({ initialTicker = '' }: { initialTicker?: string }) {
+  const [items, setItems] = useState<ResearchItem[] | null>(null);
   const [error, setError] = useState(false);
 
-  // filters
-  const [selectedSources, setSelectedSources] = useState<string[]>([]);
-  const [tickerInput, setTickerInput] = useState('');
-  const [tickerFilter, setTickerFilter] = useState('');
+  const [selectedBrokers, setSelectedBrokers] = useState<string[]>([]);
+  const [tickerInput, setTickerInput] = useState(initialTicker);
+  const [tickerFilter, setTickerFilter] = useState(initialTicker);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const today = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
-  const minDate = useMemo(
-    () => new Date(Date.now() - 6 * 86400000).toLocaleDateString('en-CA'),
-    []
-  );
+  const minDate = useMemo(() => new Date(Date.now() - 6 * 86400000).toLocaleDateString('en-CA'), []);
   const [selectedDate, setSelectedDate] = useState(today);
   const [page, setPage] = useState(0);
 
   const tickerBoxRef = useRef<HTMLDivElement>(null);
+  const dateAutoSet = useRef(false);
 
   useEffect(() => {
     let active = true;
-    fetch('/api/news/all')
+    fetch('/api/research/all')
       .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then(d => {
-        if (active) setAllNews(d.news ?? []);
+        if (!active) return;
+        const list: ResearchItem[] = d.research ?? [];
+        setItems(list);
+        // Broker research only publishes on trading days, unlike general
+        // news — defaulting to "today" leaves the tab looking broken (empty)
+        // on weekends/holidays or before the day's batch is out. Jump to the
+        // newest date that actually has data instead, once, on first load.
+        if (!dateAutoSet.current && list.length > 0) {
+          dateAutoSet.current = true;
+          // If we landed here filtered to a specific ticker (from a stock
+          // page's "ดูทั้งหมด" link), base the date on that ticker's newest
+          // item, not the feed's newest overall — otherwise the two filters
+          // can fight and still show empty.
+          const tk = initialTicker.trim().toUpperCase();
+          const relevant = tk ? list.filter(it => it.tickers.includes(tk)) : list;
+          const basis = relevant.length > 0 ? relevant : list;
+          setSelectedDate(localDate(basis[0].ts));
+        }
       })
       .catch(() => {
         if (active) {
-          setAllNews([]);
+          setItems([]);
           setError(true);
         }
       });
@@ -126,7 +112,6 @@ function NewsPageContent() {
     };
   }, []);
 
-  // close ticker dropdown on outside click
   useEffect(() => {
     function onDown(e: MouseEvent) {
       if (tickerBoxRef.current && !tickerBoxRef.current.contains(e.target as Node)) {
@@ -137,26 +122,23 @@ function NewsPageContent() {
     return () => document.removeEventListener('mousedown', onDown);
   }, []);
 
-  // reset to first page whenever a filter changes
   useEffect(() => {
     setPage(0);
-  }, [selectedSources, tickerFilter, selectedDate]);
+  }, [selectedBrokers, tickerFilter, selectedDate]);
 
-  // distinct sources present in the data (for the chip bar)
-  const sources = useMemo(() => {
-    if (!allNews) return [];
+  const brokers = useMemo(() => {
+    if (!items) return [];
     const seen: string[] = [];
-    for (const n of allNews) if (!seen.includes(n.source)) seen.push(n.source);
+    for (const it of items) if (it.broker && !seen.includes(it.broker)) seen.push(it.broker);
     return seen;
-  }, [allNews]);
+  }, [items]);
 
-  // tickers present in the data (for the search dropdown)
   const tickerOptions = useMemo(() => {
-    if (!allNews) return [];
+    if (!items) return [];
     const set = new Set<string>();
-    for (const n of allNews) for (const t of n.tickers) set.add(t);
+    for (const it of items) for (const t of it.tickers) set.add(t);
     return [...set].sort();
-  }, [allNews]);
+  }, [items]);
 
   const suggestions = useMemo(() => {
     const q = tickerInput.trim().toUpperCase();
@@ -165,30 +147,26 @@ function NewsPageContent() {
   }, [tickerInput, tickerOptions]);
 
   const filtered = useMemo(() => {
-    if (!allNews) return [];
-    return allNews.filter(n => {
-      if (localDate(n.ts) !== selectedDate) return false;
-      if (selectedSources.length && !selectedSources.includes(n.source)) return false;
-      if (tickerFilter && !n.tickers.includes(tickerFilter)) return false;
+    if (!items) return [];
+    return items.filter(it => {
+      if (localDate(it.ts) !== selectedDate) return false;
+      if (selectedBrokers.length && (!it.broker || !selectedBrokers.includes(it.broker))) return false;
+      if (tickerFilter && !it.tickers.includes(tickerFilter)) return false;
       return true;
     });
-  }, [allNews, selectedDate, selectedSources, tickerFilter]);
+  }, [items, selectedDate, selectedBrokers, tickerFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageItems = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
 
-  function toggleSource(s: string) {
-    setSelectedSources(prev =>
-      prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]
-    );
+  function toggleBroker(b: string) {
+    setSelectedBrokers(prev => (prev.includes(b) ? prev.filter(x => x !== b) : [...prev, b]));
   }
-
   function commitTicker(t: string) {
     setTickerFilter(t);
     setTickerInput(t);
     setDropdownOpen(false);
   }
-
   function clearTicker() {
     setTickerFilter('');
     setTickerInput('');
@@ -196,71 +174,36 @@ function NewsPageContent() {
   }
 
   return (
-    <div className="p-4 md:p-6 space-y-4">
-      <div>
-        <h1 className="text-[18px] font-bold text-white">ข่าว & บทวิเคราะห์</h1>
-        <p className="text-[12px] text-white/35 mt-0.5">
-          {tab === 'news' ? 'รวมข่าวล่าสุดจากหลายแหล่ง · กรองตามแหล่ง หุ้น และวันที่' : 'บทวิเคราะห์จากโบรกเกอร์ · กรองตามโบรก หุ้น และวันที่'}
-        </p>
-      </div>
-
-      {/* ── Tab bar ── */}
-      <div className="flex gap-1.5">
-        <button
-          onClick={() => switchTab('news')}
-          className={`px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
-            tab === 'news' ? 'bg-white/10 text-white' : 'bg-white/[0.03] text-white/40 hover:text-white/70'
-          }`}
-        >
-          ข่าว
-        </button>
-        <button
-          onClick={() => switchTab('research')}
-          className={`px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
-            tab === 'research' ? 'bg-white/10 text-white' : 'bg-white/[0.03] text-white/40 hover:text-white/70'
-          }`}
-        >
-          บทวิเคราะห์
-        </button>
-      </div>
-
-      {tab === 'research' ? (
-        <ResearchTab initialTicker={initialResearchTicker} />
-      ) : (
-        <>
+    <>
       {/* ── Filter bar ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-3 md:p-4 space-y-3">
-        {/* [1] sources */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[10px] uppercase tracking-wider text-white/25 mr-1">แหล่งข่าว</span>
+          <span className="text-[10px] uppercase tracking-wider text-white/25 mr-1">โบรกเกอร์</span>
           <button
-            onClick={() => setSelectedSources([])}
+            onClick={() => setSelectedBrokers([])}
             className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-              selectedSources.length === 0
-                ? 'bg-white/15 text-white'
-                : 'bg-white/[0.04] text-white/40 hover:text-white/70'
+              selectedBrokers.length === 0 ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-white/40 hover:text-white/70'
             }`}
           >
             ทั้งหมด
           </button>
-          {sources.map(s => {
-            const on = selectedSources.includes(s);
+          {brokers.map(b => {
+            const on = selectedBrokers.includes(b);
             return (
               <button
-                key={s}
-                onClick={() => toggleSource(s)}
+                key={b}
+                onClick={() => toggleBroker(b)}
                 className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-                  on ? sourceCls(s) : 'bg-white/[0.04] text-white/40 hover:text-white/70'
+                  on ? 'bg-[#7F77DD]/20 text-[#7F77DD]' : 'bg-white/[0.04] text-white/40 hover:text-white/70'
                 }`}
               >
-                {s}
+                {b}
               </button>
             );
           })}
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          {/* [2] ticker search */}
           <div ref={tickerBoxRef} className="relative flex-1 min-w-0">
             <label className="text-[10px] uppercase tracking-wider text-white/25 block mb-1">หุ้นที่เกี่ยวข้อง</label>
             <div className="flex items-center gap-2">
@@ -282,10 +225,7 @@ function NewsPageContent() {
                 className="flex-1 min-w-0 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-[12px] text-white placeholder:text-white/25 focus:outline-none focus:border-white/20"
               />
               {tickerFilter && (
-                <button
-                  onClick={clearTicker}
-                  className="flex-shrink-0 text-[11px] text-white/40 hover:text-white/70 px-2 py-1"
-                >
+                <button onClick={clearTicker} className="flex-shrink-0 text-[11px] text-white/40 hover:text-white/70 px-2 py-1">
                   ล้าง ✕
                 </button>
               )}
@@ -305,7 +245,6 @@ function NewsPageContent() {
             )}
           </div>
 
-          {/* [3] date */}
           <div className="sm:w-44 flex-shrink-0">
             <label className="text-[10px] uppercase tracking-wider text-white/25 block mb-1">วันที่</label>
             <input
@@ -323,21 +262,19 @@ function NewsPageContent() {
       {/* ── Results ── */}
       <div className="flex items-center justify-between px-1">
         <span className="text-[11px] text-white/30">
-          {allNews === null ? 'กำลังโหลด…' : `${filtered.length} ข่าว`}
+          {items === null ? 'กำลังโหลด…' : `${filtered.length} บทวิเคราะห์`}
           {tickerFilter && ` · กรอง ${tickerFilter}`}
         </span>
-        {totalPages > 1 && (
-          <span className="text-[11px] text-white/25">หน้า {page + 1}/{totalPages}</span>
-        )}
+        {totalPages > 1 && <span className="text-[11px] text-white/25">หน้า {page + 1}/{totalPages}</span>}
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
-        {allNews === null ? (
+        {items === null ? (
           <TableSkeleton rows={10} />
         ) : pageItems.length === 0 ? (
           <div className="px-5 py-10 text-center">
             <p className="text-[13px] text-white/30">
-              {error ? 'โหลดข่าวไม่สำเร็จ ลองใหม่อีกครั้ง' : 'ไม่พบข่าวตามเงื่อนไขที่เลือก'}
+              {error ? 'โหลดบทวิเคราะห์ไม่สำเร็จ ลองใหม่อีกครั้ง' : 'ไม่พบบทวิเคราะห์ตามเงื่อนไขที่เลือก'}
             </p>
           </div>
         ) : (
@@ -356,6 +293,11 @@ function NewsPageContent() {
                   <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${sourceCls(item.source)}`}>
                     {item.source}
                   </span>
+                  {item.broker && (
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#7F77DD]/15 text-[#7F77DD] ring-1 ring-[#7F77DD]/30">
+                      {item.broker}
+                    </span>
+                  )}
                   {item.tickers.map(t => (
                     <button
                       key={t}
@@ -369,6 +311,16 @@ function NewsPageContent() {
                       {t}
                     </button>
                   ))}
+                  {item.rating && (
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${RATING_STYLE[item.rating]}`}>
+                      {item.rating}
+                    </span>
+                  )}
+                  {item.targetPrice != null && (
+                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/60">
+                      เป้า {item.targetPrice} บาท
+                    </span>
+                  )}
                   <span className="text-[11px] text-white/25 ml-auto">{postTime(item.ts)}</span>
                 </div>
               </div>
@@ -395,9 +347,7 @@ function NewsPageContent() {
                 key={p}
                 onClick={() => setPage(p)}
                 className={`min-w-[32px] px-2 py-1.5 rounded-lg text-[12px] transition-colors ${
-                  p === page
-                    ? 'bg-white/15 text-white font-semibold'
-                    : 'text-white/50 hover:text-white hover:bg-white/[0.06]'
+                  p === page ? 'bg-white/15 text-white font-semibold' : 'text-white/50 hover:text-white hover:bg-white/[0.06]'
                 }`}
               >
                 {p + 1}
@@ -413,28 +363,6 @@ function NewsPageContent() {
           </button>
         </div>
       )}
-        </>
-      )}
-    </div>
-  );
-}
-
-function NewsPageSkeleton() {
-  return (
-    <div className="p-4 md:p-6 space-y-4">
-      <div className="h-6 w-48 rounded bg-white/[0.06] animate-pulse" />
-      <div className="h-9 w-40 rounded-lg bg-white/[0.04] animate-pulse" />
-      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
-        <TableSkeleton rows={10} />
-      </div>
-    </div>
-  );
-}
-
-export default function NewsPage() {
-  return (
-    <Suspense fallback={<NewsPageSkeleton />}>
-      <NewsPageContent />
-    </Suspense>
+    </>
   );
 }

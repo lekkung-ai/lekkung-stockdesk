@@ -1,39 +1,15 @@
 import type { NextRequest } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import rawSectorMap from '@/data/scans/sector_map.json';
-
-// Known SET tickers (keys of ticker_to_sector) used to tag each headline.
-const TICKER_SET = new Set<string>(
-  Object.keys((rawSectorMap as { ticker_to_sector: Record<string, unknown> }).ticker_to_sector)
-);
-
-// Common English/finance words that collide with real ticker symbols — skip them
-// to cut false positives from English headlines ("speed UP THAI", "dip AS ...").
-const TICKER_STOPWORDS = new Set<string>([
-  'NEW', 'BIG', 'TOP', 'ALL', 'AND', 'FOR', 'THE', 'WAS', 'NOW', 'NEWS', 'NEXT',
-  'ASIA', 'ASIAN', 'THAI', 'CEO', 'CFO', 'USD', 'THB', 'GDP', 'ETF', 'IPO', 'ESG',
-  'AGM', 'EGM', 'NPL', 'SET', 'MAI', 'WHO', 'OUT', 'OUR', 'ARE', 'HAS', 'CAN',
-  'GET', 'ONE', 'TWO', 'BUY', 'NET', 'WIN', 'WORK', 'PLAN', 'BEAUTY', 'PANEL', 'STAR',
-]);
-
-// Extract SET tickers that appear as standalone tokens in a headline.
-// Require >= 3 chars (drops noise like AS/UP/AI/OR/IT) and skip the stopword list.
-function extractTickers(title: string): string[] {
-  const found = new Set<string>();
-  const tokens = title.toUpperCase().match(/[A-Z][A-Z0-9]{2,}/g) ?? [];
-  for (const tok of tokens) {
-    if (TICKER_STOPWORDS.has(tok)) continue;
-    if (TICKER_SET.has(tok)) found.add(tok);
-  }
-  return [...found];
-}
-
-// ── Sources (all fetched server-side) ──────────────────────────────────────
-interface Feed {
-  name: string; // short badge label
-  url: string;
-}
+import {
+  type Feed,
+  type FeedItem as NewsItem,
+  extractTickers,
+  fetchFeed as fetchFeedShared,
+  normalizeUrl,
+  normalizeTitle,
+  titleHasTicker,
+} from '@/lib/feedParsing';
 
 // Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
 // works (see console output). A failing feed is skipped, not fatal.
@@ -107,137 +83,6 @@ function getSentiment(text: string): 'pos' | 'neg' | 'neu' {
   return 'neu';
 }
 
-// ── RSS parsing ──────────────────────────────────────────────────────────────
-interface NewsItem {
-  title: string;
-  link: string;
-  pubDate: string;
-  source: string;
-  ts: number; // parsed pubDate (ms) for sorting; 0 if unknown
-}
-
-const NAMED_ENTITIES: Record<string, string> = {
-  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', hellip: '…',
-  ldquo: '“', rdquo: '”', lsquo: '‘', rsquo: '’',
-  mdash: '—', ndash: '–', laquo: '«', raquo: '»',
-};
-
-function decodeEntities(s: string): string {
-  // Loop until stable to handle double-encoded entities (e.g. "&amp;#8220;").
-  let out = s;
-  let prev: string;
-  let guard = 0;
-  do {
-    prev = out;
-    out = out
-      .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
-      .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
-      .replace(/&([a-zA-Z]+);/g, (m, n) => NAMED_ENTITIES[n] ?? NAMED_ENTITIES[n.toLowerCase()] ?? m);
-    guard++;
-  } while (out !== prev && guard < 5);
-  return out;
-}
-
-// Parse an RSS pubDate to epoch ms. Some Thai feeds (e.g. ThaiPBS) omit the
-// timezone; since every source is Thai, assume Asia/Bangkok (+07:00) so sorting
-// stays correct regardless of the server's timezone (Vercel runs in UTC).
-function parsePubDate(raw: string): number {
-  if (!raw) return 0;
-  let s = raw.trim();
-  if (!/([+-]\d{2}:?\d{2}|Z|GMT|UTC?)\s*$/i.test(s)) {
-    s += ' +0700';
-  }
-  const t = Date.parse(s);
-  return Number.isNaN(t) ? 0 : t;
-}
-
-function extractCdata(raw: string): string {
-  const m = raw.match(/<!\[CDATA\[([\s\S]*?)\]\]>/);
-  return m ? m[1].trim() : raw.replace(/<[^>]+>/g, '').trim();
-}
-
-function parseRSS(xml: string, sourceName: string): NewsItem[] {
-  const items: NewsItem[] = [];
-  const re = /<item\b[\s\S]*?<\/item>/g;
-  const blocks = xml.match(re) ?? [];
-
-  for (const block of blocks) {
-    const titleRaw = block.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? '';
-    const title = decodeEntities(extractCdata(titleRaw));
-    if (!title) continue;
-
-    // <link> in RSS often has a trailing text node — fall back to <guid>
-    const linkRaw =
-      block.match(/<link>([\s\S]*?)<\/link>/)?.[1] ??
-      block.match(/<guid[^>]*>([\s\S]*?)<\/guid>/)?.[1] ??
-      '';
-    const link = extractCdata(linkRaw).replace(/\s+/g, '');
-
-    const pubDate = block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1]?.trim() ?? '';
-
-    items.push({
-      title,
-      link,
-      pubDate,
-      source: sourceName,
-      ts: parsePubDate(pubDate),
-    });
-  }
-  return items;
-}
-
-async function fetchFeed(feed: Feed): Promise<NewsItem[]> {
-  try {
-    const res = await fetch(feed.url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 Chrome/120',
-        Accept: 'application/rss+xml, application/xml, text/xml, */*',
-      },
-      cache: 'no-store',
-      signal: AbortSignal.timeout(FEED_TIMEOUT_MS),
-    });
-    if (!res.ok) {
-      console.log(`[news] FAIL  ${feed.name} -> HTTP ${res.status}  (${feed.url})`);
-      return [];
-    }
-    const xml = await res.text();
-    const items = parseRSS(xml, feed.name);
-    if (items.length === 0) {
-      console.log(`[news] FAIL  ${feed.name} -> 200 but 0 items (not RSS?)  (${feed.url})`);
-      return [];
-    }
-    console.log(`[news] OK    ${feed.name} -> ${items.length} items  (${feed.url})`);
-    return items;
-  } catch (err) {
-    // a single broken/slow feed must not break the rest
-    const e = err as Error;
-    console.log(`[news] ERROR ${feed.name} -> ${e.name}: ${e.message}  (${feed.url})`);
-    return [];
-  }
-}
-
-// Cross-feed dedup helpers — different outlets can syndicate the same story
-// with tracking params on the URL or trivial whitespace/case differences in
-// the title, so compare normalized forms rather than raw strings.
-function normalizeUrl(url: string): string {
-  try {
-    const u = new URL(url);
-    return (u.hostname.replace(/^www\./, '') + u.pathname.replace(/\/+$/, '')).toLowerCase();
-  } catch {
-    return url.trim().toLowerCase();
-  }
-}
-
-function normalizeTitle(title: string): string {
-  return title.trim().toLowerCase().replace(/\s+/g, ' ').replace(/["'".,!?…„“”‘’]/g, '');
-}
-
-// Match the ticker as a standalone token (avoids "TU" matching "STATUS" etc.)
-function titleHasTicker(title: string, ticker: string): boolean {
-  const re = new RegExp(`(?:^|[^A-Z0-9])${ticker}(?:[^A-Z0-9]|$)`, 'i');
-  return re.test(title);
-}
-
 // Daily snapshots written by scripts/save_news.py, same layout as Big Lot's
 // public/data/history/<date>/biglot.json. Read at request time (not a static
 // import) so new days show up without a redeploy — the batch script commits
@@ -273,7 +118,7 @@ export async function GET(
   // and resolves to [], but allSettled is the belt-and-suspenders guarantee
   // that one broken feed (a thrown rejection we didn't anticipate) can never
   // take down the whole page — it's just logged and skipped.
-  const settled = await Promise.allSettled(FEEDS.map(fetchFeed));
+  const settled = await Promise.allSettled(FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS)));
   let allLive: NewsItem[] = [];
   settled.forEach((result, i) => {
     if (result.status === 'fulfilled') {

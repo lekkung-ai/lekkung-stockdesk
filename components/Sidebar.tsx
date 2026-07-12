@@ -46,7 +46,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'รายงาน 59-2', href: '/top-movers/r59', icon: FileText, indent: true },
       { label: 'รายงาน 246-2', href: '/top-movers/r246', icon: FileText, indent: true },
       { label: 'Fund Flow (NVDR)', href: '/nvdr', icon: Activity },
-      { label: 'ข่าว', href: '/news', icon: Newspaper },
+      { label: 'ข่าว & บทวิเคราะห์', href: '/news', icon: Newspaper },
       { label: 'ปฏิทินหลักทรัพย์', href: '/calendar', icon: CalendarDays },
       { label: 'เครื่องคำนวณ Warrant', href: '/calculator', icon: Calculator },
       { label: 'My Stocks', href: '/my-stocks', icon: LayoutDashboard },
