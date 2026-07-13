@@ -1,25 +1,26 @@
 """
-save_news.py  –  Fetch news RSS feeds and save as daily snapshot JSON, same
-pattern as save_biglot.py.
+save_research.py  –  Fetch broker-research RSS feeds and save as daily
+snapshot JSON, same pattern as save_news.py.
 
 Usage:
-    python save_news.py                  # writes real snapshot files
-    python save_news.py --dry-run        # fetch + print counts, write nothing
-    python save_news.py --out <dir>      # write into <dir> instead of the
+    python save_research.py              # writes real snapshot files
+    python save_research.py --dry-run    # fetch + print counts, write nothing
+    python save_research.py --out <dir>  # write into <dir> instead of the
                                           # real public/data/history/ tree
-                                          # (e.g. a scratchpad dir for testing)
+
+Always use --dry-run or --out when testing manually - see save_news.py's
+docstring for why (a manual test run writing straight into the real history
+tree caused a git rebase conflict against the scheduled pipeline on
+2026-07-13).
 
 Output:
-    stockdesk/public/data/history/YYYY-MM-DD/news.json  (one file per day,
-    bucketed by each item's own pubDate — a single run can touch several
-    days' files since some feeds' latest items span more than one day)
+    stockdesk/public/data/history/YYYY-MM-DD/research.json  (one file per
+    day, bucketed by each item's own pubDate)
 
-Always use --dry-run or --out when testing manually - writing straight into
-the real history tree collides with the scheduled pipeline
-(update_stockdesk.bat / GitHub Actions) if it runs while you're testing,
-producing a diverged commit it can't cleanly rebase past (see the
-2026-07-13 incident: a manual test run here left the local git repo mid
-rebase-conflict on that day's news.json).
+Only raw feed fields (title, link, pubDate, ts, source) are stored — broker
+name / ticker / target price / rating are parsed from the title at request
+time by app/api/research/[ticker]/route.ts, the same way for live and
+archived items, so there's nothing extra to precompute here.
 """
 
 import argparse
@@ -32,41 +33,20 @@ import sys
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
-# Console output includes Thai feed names; reconfigure stdout to UTF-8 so this
-# doesn't depend on the caller's console codepage (cmd.exe defaults to cp1252
-# unless `chcp 65001` was run first).
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-# Kept in sync with the live feed list in app/api/news/[ticker]/route.ts.
-# See that file's "Verified NOT usable" comment block for why other
-# candidates (Share2Trade, Wealthy Thai, Bangkokbiznews, Prachachat,
-# Thansettakij, MGR Online, The Standard Wealth, Settrade feedburner) are
-# excluded.
+# Kept in sync with the live feed list in app/api/research/[ticker]/route.ts.
 FEEDS = {
-    'InfoQuest': 'https://www.infoquest.co.th/stock/feed/',
-    'ข่าวหุ้น': 'https://www.kaohoon.com/feed',
-    'ข่าวหุ้น (ด่วน)': 'https://www.kaohoon.com/breakingnews/feed',
-    'ข่าวหุ้น (ทั่วไป)': 'https://www.kaohoon.com/news/feed',
-    'RYT9 (SET)': 'https://www.ryt9.com/tag/SET/rss.xml',
-    'RYT9 (หุ้น)': 'https://www.ryt9.com/tag/%E0%B8%AB%E0%B8%B8%E0%B9%89%E0%B8%99/rss.xml',
-    'มิติหุ้น': 'https://www.mitihoon.com/feed/',
-    'มติชน': 'https://www.matichon.co.th/economy/feed',
-    'Investing.com': 'https://th.investing.com/rss/news_25.rss',
-    'RYT9 (IPO)': 'https://www.ryt9.com/tag/IPO/rss.xml',
-    # HoonSmart's domain is consistently slow (15-30s+ for any path, not just
-    # /feed/) - too slow for the live web route (12s timeout, one page load =
-    # unacceptable wait), but this batch script runs once per pipeline cycle
-    # and can afford to wait it out (see FEED_TIMEOUT_OVERRIDES below). Items
-    # land in the daily archive only, so freshness here is "per pipeline run",
-    # not realtime - acceptable since that's already true of this whole file.
-    'HOONSMART': 'https://hoonsmart.com/feed/',
+    'Kaohoon': 'https://www.kaohoon.com/stockanalysis/feed',
+    # Vercel's production egress IP has been rate-limited/blocked on
+    # mitihoon.com since 2026-07-11 (see app/api/news/[ticker]/route.ts) and
+    # hadn't recovered as of 2026-07-13, so the research route dropped it
+    # from its live FEEDS too - this script (run from a non-blocked machine)
+    # is now its only path into the research tab, batch-freshness only.
+    'มิติหุ้น': 'https://www.mitihoon.com/category/%e0%b8%9a%e0%b8%97%e0%b8%a7%e0%b8%b4%e0%b9%80%e0%b8%84%e0%b8%a3%e0%b8%b2%e0%b8%b0%e0%b8%ab%e0%b9%8c/feed',
 }
 
-# Per-feed timeout override (seconds). Feeds not listed use DEFAULT_TIMEOUT.
-FEED_TIMEOUT_OVERRIDES = {
-    'HOONSMART': 60,
-}
 DEFAULT_TIMEOUT = 15
 
 HISTORY_DIR = os.path.join(os.path.dirname(__file__), '..', 'public', 'data', 'history')
@@ -137,7 +117,7 @@ def bangkok_date(ts_ms):
     return dt.strftime('%Y-%m-%d')
 
 def load_day_file(date_str, history_dir):
-    path = os.path.join(history_dir, date_str, 'news.json')
+    path = os.path.join(history_dir, date_str, 'research.json')
     if os.path.exists(path):
         try:
             with open(path, 'r', encoding='utf-8') as f:
@@ -149,7 +129,7 @@ def load_day_file(date_str, history_dir):
 def save_day_file(date_str, items, history_dir):
     dir_path = os.path.join(history_dir, date_str)
     os.makedirs(dir_path, exist_ok=True)
-    path = os.path.join(dir_path, 'news.json')
+    path = os.path.join(dir_path, 'research.json')
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
 
@@ -175,11 +155,10 @@ def main():
 
     fetched_items = []
     for name, url in FEEDS.items():
-        timeout = FEED_TIMEOUT_OVERRIDES.get(name, DEFAULT_TIMEOUT)
-        print(f"Fetching {name}... (timeout {timeout}s)")
+        print(f"Fetching {name}... (timeout {DEFAULT_TIMEOUT}s)")
         try:
             req = urllib.request.Request(url, headers=headers)
-            resp = urllib.request.urlopen(req, timeout=timeout, context=ctx)
+            resp = urllib.request.urlopen(req, timeout=DEFAULT_TIMEOUT, context=ctx)
             xml = resp.read().decode('utf-8')
             items = parse_rss(xml, name)
             print(f" -> Got {len(items)} items")
@@ -187,9 +166,6 @@ def main():
         except Exception as e:
             print(f" -> ERROR: {e}")
 
-    # Bucket newly fetched items by the Bangkok-local date they were published,
-    # not the date the script ran — a single scrape can touch more than one
-    # day's file (e.g. a quiet feed's latest items still being from yesterday).
     by_date = {}
     skipped_unknown_date = 0
     for item in fetched_items:

@@ -20,7 +20,6 @@ const FEEDS: Feed[] = [
   { name: 'ข่าวหุ้น (ทั่วไป)', url: 'https://www.kaohoon.com/news/feed' },
   { name: 'RYT9 (SET)', url: 'https://www.ryt9.com/tag/SET/rss.xml' },
   { name: 'RYT9 (หุ้น)', url: 'https://www.ryt9.com/tag/%E0%B8%AB%E0%B8%B8%E0%B9%89%E0%B8%99/rss.xml' },
-  { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/feed/' },
   { name: 'มติชน', url: 'https://www.matichon.co.th/economy/feed' },
   { name: 'Investing.com', url: 'https://th.investing.com/rss/news_25.rss' },
   { name: 'RYT9 (IPO)', url: 'https://www.ryt9.com/tag/IPO/rss.xml' },
@@ -37,6 +36,14 @@ const FEEDS: Feed[] = [
 //     live, but scripts/save_news.py fetches it once per pipeline run (60s
 //     timeout budget) into the daily archive, so it still appears here via
 //     loadHistoricalItems() below - just at "pipeline run" freshness, not live.
+//   มิติหุ้น https://www.mitihoon.com/feed/            -> reachable fine from
+//     save_news.py's runner (local machine / GitHub Actions), but Vercel's
+//     production egress IP got itself rate-limited/blocked there starting
+//     2026-07-11 (see PR history) and never recovered after 1.5+ hours of
+//     monitoring post-fix (2026-07-13) - moved to the same batch-only
+//     treatment as HoonSmart rather than keep attempting (and logging) a
+//     live fetch that's confirmed persistently dead. Revisit adding it back
+//     to FEEDS if/when the block clears.
 //   Thunhoon https://thunhoon.com/feed (+ category feeds) -> 200 but returns
 //     the site's SPA shell HTML, not RSS (no feed at that path)
 //   MGR Online (mgronline.com)                       -> no working RSS path
@@ -182,33 +189,46 @@ export async function GET(
     }
   }
 
-  // Merge live and archived items, deduplicating across feeds. Different
-  // sources can syndicate the same story with slightly different tracking
-  // params on the URL or minor whitespace/case differences in the title, so
-  // an exact-link match alone isn't enough once multiple outlets are mixed in.
+  // Sort BEFORE dedup so the winner of any duplicate is deterministic —
+  // newest ts wins, ties broken by source name — instead of "whichever
+  // array happened to list it first" (previously: allLive-then-archivedItems
+  // concat order, which depended on FEEDS array order, not content). Stable
+  // sort means true ties (a stale-fallback item and its own archive copy
+  // share identical ts+source) keep their relative order from the concat
+  // below, so the stale:true copy - listed first via allLive - still wins.
+  const candidates = [...allLive, ...archivedItems].sort((a, b) => {
+    if (b.ts !== a.ts) return b.ts - a.ts;
+    return a.source.localeCompare(b.source);
+  });
+
+  // Dedup across feeds. Different sources can syndicate the same story with
+  // slightly different tracking params on the URL or minor whitespace/case
+  // differences in the title, so an exact-link match alone isn't enough once
+  // multiple outlets are mixed in.
   const seenLinks = new Set<string>();
   const seenTitles = new Set<string>();
-  const merged: NewsItem[] = [];
+  const all: NewsItem[] = [];
 
-  for (const item of [...allLive, ...archivedItems]) {
+  for (const item of candidates) {
     if (!item.link) continue;
     const normLink = normalizeUrl(item.link);
     const normTitle = normalizeTitle(item.title);
     if (seenLinks.has(normLink) || (normTitle && seenTitles.has(normTitle))) continue;
     seenLinks.add(normLink);
     if (normTitle) seenTitles.add(normTitle);
-    merged.push(item);
+    all.push(item); // candidates was already sorted, dedup preserves order
   }
-
-  // Sort newest first
-  const all = merged.sort((a, b) => b.ts - a.ts);
 
   let selected: NewsItem[];
   let isGeneral: boolean;
 
   if (wantGeneral) {
-    // Return more items since we have an archive now
-    selected = all.slice(0, 500);
+    // Cut by age (matches the archive window), not by count — a fixed
+    // count cap meant the visible cutoff point shifted around on every
+    // request as new items arrived, silently pushing out whatever was at
+    // the boundary regardless of how old it actually was.
+    const cutoffTs = Date.now() - HISTORY_DAYS * 86400000;
+    selected = all.filter(item => item.ts >= cutoffTs);
     isGeneral = true;
   } else {
     const matches = all.filter(item => titleHasTicker(item.title, t));

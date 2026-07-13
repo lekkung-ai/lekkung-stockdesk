@@ -1,4 +1,6 @@
 import type { NextRequest } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import {
   type Feed,
   type FeedItem,
@@ -21,13 +23,41 @@ import {
 //     navigation hangs the full 300s on every attempt (3x), and curl only
 //     gets the Nuxt.js SPA shell HTML — the actual consensus data loads via
 //     a client-side API call this session could never observe
+//   มิติหุ้น (category บทวิเคราะห์) -> reachable fine outside Vercel, but
+//     production's egress IP has been blocked on mitihoon.com since
+//     2026-07-11 (same block as the main news route - see
+//     app/api/news/[ticker]/route.ts). scripts/save_research.py fetches it
+//     from a non-blocked runner into the daily archive instead; merged in
+//     below via loadHistoricalResearch(), same pattern as the news route's
+//     HoonSmart/มิติหุ้น batch-only sources.
 const FEEDS: Feed[] = [
   { name: 'Kaohoon', url: 'https://www.kaohoon.com/stockanalysis/feed' },
-  { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/category/%e0%b8%9a%e0%b8%97%e0%b8%a7%e0%b8%b4%e0%b9%80%e0%b8%84%e0%b8%a3%e0%b8%b2%e0%b8%b0%e0%b8%ab%e0%b9%8c/feed' },
 ];
 
 const FEED_TIMEOUT_MS = 12000;
+const LIVE_REVALIDATE_SEC = 60; // same reasoning as the news route - share one upstream fetch per minute instead of hitting Kaohoon on every page view
 const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
+
+// Daily snapshots written by scripts/save_research.py, same layout/reasoning
+// as app/api/news/[ticker]/route.ts's loadHistoricalItems().
+const HISTORY_DAYS = 7;
+const HISTORY_DIR = path.join(process.cwd(), 'public', 'data', 'history');
+
+function loadHistoricalResearch(): FeedItem[] {
+  const items: FeedItem[] = [];
+  const now = Date.now();
+  for (let i = 0; i < HISTORY_DAYS; i++) {
+    const date = new Date(now - i * 86400000).toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
+    const filePath = path.join(HISTORY_DIR, date, 'research.json');
+    try {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      items.push(...(JSON.parse(raw) as FeedItem[]));
+    } catch {
+      // no snapshot for this day yet — not an error, just nothing to add
+    }
+  }
+  return items;
+}
 
 // ── Best-effort title parsing ────────────────────────────────────────────────
 // Headlines follow a fairly consistent Thai financial-press convention —
@@ -99,31 +129,44 @@ export async function GET(
   const t = ticker.toUpperCase();
   const wantGeneral = GENERAL_TOKENS.has(t);
 
-  const settled = await Promise.allSettled(FEEDS.map(f => fetchFeed(f, 'research', FEED_TIMEOUT_MS)));
-  let all: FeedItem[] = [];
+  const settled = await Promise.allSettled(
+    FEEDS.map(f => fetchFeed(f, 'research', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC))
+  );
+  let allLive: FeedItem[] = [];
   settled.forEach((result, i) => {
     if (result.status === 'fulfilled') {
-      all.push(...result.value);
+      allLive.push(...result.value);
     } else {
       console.log(`[research] REJECTED ${FEEDS[i].name} -> ${result.reason}  (${FEEDS[i].url})`);
     }
   });
 
+  // Archive is always merged in as a base (same reasoning as the news
+  // route) - not just for มิติหุ้น's batch-only path, but so Kaohoon itself
+  // degrades gracefully to its own archived items if its live fetch ever
+  // fails, instead of the tab going blank.
+  const archivedItems = loadHistoricalResearch();
+
+  // Sort BEFORE dedup so the winner of any duplicate is deterministic -
+  // newest ts wins, ties broken by source name (same fix as the news route).
+  const candidates = [...allLive, ...archivedItems].sort((a, b) => {
+    if (b.ts !== a.ts) return b.ts - a.ts;
+    return a.source.localeCompare(b.source);
+  });
+
   // Dedup across feeds (same convention as /api/news)
   const seenLinks = new Set<string>();
   const seenTitles = new Set<string>();
-  const merged: FeedItem[] = [];
-  for (const item of all) {
+  const sorted: FeedItem[] = [];
+  for (const item of candidates) {
     if (!item.link) continue;
     const normLink = normalizeUrl(item.link);
     const normTitle = normalizeTitle(item.title);
     if (seenLinks.has(normLink) || (normTitle && seenTitles.has(normTitle))) continue;
     seenLinks.add(normLink);
     if (normTitle) seenTitles.add(normTitle);
-    merged.push(item);
+    sorted.push(item); // candidates was already sorted, dedup preserves order
   }
-
-  const sorted = merged.sort((a, b) => b.ts - a.ts);
 
   let selected: FeedItem[];
   if (wantGeneral) {
