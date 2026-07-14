@@ -1,4 +1,12 @@
 import type { NextRequest } from 'next/server';
+import { parseF45Detail, type F45Data } from '@/lib/parseF45';
+import { classifyBucket } from '@/lib/earningsBucket';
+
+export type { F45Data };
+
+// Kept in sync with classify_kind()'s mda branch in scripts/fetch_earnings.py.
+const MDA_PATTERN = /คำอธิบายและวิเคราะห์ของฝ่ายจัดการ|คำอธิบายและการวิเคราะห์ของฝ่ายจัดการ|MD&A/;
+const MDA_MATCH_MS = 3 * 24 * 3600 * 1000;
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 // Widened from a strict 2 months: SET's 45-day filing deadline means an
@@ -31,8 +39,8 @@ async function getSessionCookie(ticker: string): Promise<string> {
   }
 }
 
-interface NewsListItem { uuid: string; title: string; publishDate: string }
-interface RawNewsInfo { id: string; headline: string; datetime: string }
+interface NewsListItem { uuid: string; title: string; publishDate: string; url: string | null }
+interface RawNewsInfo { id: string; headline: string; datetime: string; url?: string }
 
 // The rendered news page (…/equities/quote/{ticker}/news) only ever shows the
 // 5 most recent items — enough to silently miss an F45 that's within the
@@ -55,75 +63,10 @@ async function fetchNewsList(ticker: string, cookie: string, limit = 50): Promis
     if (!res.ok) return [];
     const json = await res.json();
     const raw: RawNewsInfo[] = Array.isArray(json?.newsInfoList) ? json.newsInfoList : [];
-    return raw.map(n => ({ uuid: n.id, title: n.headline, publishDate: n.datetime }));
+    return raw.map(n => ({ uuid: n.id, title: n.headline, publishDate: n.datetime, url: n.url ?? null }));
   } catch {
     return [];
   }
-}
-
-export interface F45Data {
-  found: boolean;
-  quarter: string | null;
-  periodEnd: string | null;
-  netProfit: number | null;
-  netProfitPrior: number | null;
-  netProfitYoY: number | null;
-  eps: number | null;
-  epsPrior: number | null;
-  epsYoY: number | null;
-  auditorOpinion: string | null;
-  publishDate: string | null;
-  newsUrl: string | null;
-}
-
-function parseNumber(s: string): number | null {
-  const n = parseFloat(s.replace(/,/g, ''));
-  return Number.isNaN(n) ? null : n;
-}
-
-function yoyPct(curr: number | null, prior: number | null): number | null {
-  if (curr == null || prior == null || prior === 0) return null;
-  return ((curr - prior) / Math.abs(prior)) * 100;
-}
-
-// The F45 filing is a plain-text template inside a single <pre> block —
-// "แบบสรุปผลการดำเนินงาน (F45)" — with a fixed set of labeled rows. Verified
-// against a live PTT Q1 filing.
-function parseF45Detail(html: string): Partial<F45Data> {
-  const preMatch = html.match(/<pre>([\s\S]*?)<\/pre>/);
-  if (!preMatch) return {};
-  const text = preMatch[1];
-
-  const quarterMatch = text.match(/ไตรมาสที่\s*(\d)/);
-  const isAnnual = !quarterMatch && /ประจำปี/.test(text);
-  const yearMatch = text.match(/ปี\s*[\r\n\s\t]+(\d{4})\s+(\d{4})/);
-  const periodEndMatch = text.match(/สิ้นสุดวันที่[\s\S]{0,60}?(\d{1,2}\s+\S+)\s*[\r\n]/);
-  const opinionMatch = text.match(/ประเภทรายงานของผู้สอบบัญชีในงบการเงิน[\s\S]{0,30}?[\r\n]\s*([^\r\n]+)/);
-  const unitIsThousand = /หน่วย\s*:\s*พันบาท/.test(text);
-  const scale = unitIsThousand ? 1000 : 1;
-
-  // First "กำไร (ขาดทุน)" pair = net profit; second = EPS (บาท/หุ้น, no scaling).
-  const profitPairs = [...text.matchAll(/กำไร \(ขาดทุน\)\s*([\d,.\-]+)\s+([\d,.\-]+)/g)];
-  const netProfit = profitPairs[0] ? parseNumber(profitPairs[0][1]) : null;
-  const netProfitPrior = profitPairs[0] ? parseNumber(profitPairs[0][2]) : null;
-  const eps = profitPairs[1] ? parseNumber(profitPairs[1][1]) : null;
-  const epsPrior = profitPairs[1] ? parseNumber(profitPairs[1][2]) : null;
-
-  const netProfitScaled = netProfit != null ? netProfit * scale : null;
-  const netProfitPriorScaled = netProfitPrior != null ? netProfitPrior * scale : null;
-  const year = yearMatch?.[1] ?? '';
-
-  return {
-    quarter: quarterMatch ? `ไตรมาส ${quarterMatch[1]}/${year}` : isAnnual ? `ประจำปี ${year}` : null,
-    periodEnd: periodEndMatch ? `${periodEndMatch[1].trim()} ${year}`.trim() : null,
-    netProfit: netProfitScaled,
-    netProfitPrior: netProfitPriorScaled,
-    netProfitYoY: yoyPct(netProfitScaled, netProfitPriorScaled),
-    eps,
-    epsPrior,
-    epsYoY: yoyPct(eps, epsPrior),
-    auditorOpinion: opinionMatch ? opinionMatch[1].trim() : null,
-  };
 }
 
 export async function GET(
@@ -164,6 +107,13 @@ export async function GET(
     const detailHtml = detailRes.ok ? await detailRes.text() : '';
     const parsed = parseF45Detail(detailHtml);
 
+    // Nearest MD&A filing to this F45's own publish date (same-day/adjacent
+    // in practice - companies file F45, งบการเงิน and MD&A together).
+    const anchorTime = Date.parse(latest.publishDate);
+    const mdaItem = items.find(
+      it => MDA_PATTERN.test(it.title) && Math.abs(Date.parse(it.publishDate) - anchorTime) <= MDA_MATCH_MS
+    );
+
     const data: F45Data = {
       found: true,
       quarter: parsed.quarter ?? null,
@@ -177,6 +127,8 @@ export async function GET(
       auditorOpinion: parsed.auditorOpinion ?? null,
       publishDate: latest.publishDate ? latest.publishDate.slice(0, 10) : null,
       newsUrl: detailUrl,
+      mdaUrl: mdaItem?.url ?? null,
+      bucket: classifyBucket(parsed.netProfit ?? null, parsed.netProfitPrior ?? null),
     };
 
     return Response.json(data, { headers: cacheHeaders });

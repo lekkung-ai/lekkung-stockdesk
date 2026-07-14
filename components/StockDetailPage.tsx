@@ -9,6 +9,7 @@ import AiAssistant from './AiAssistant';
 import PeerComparisonTable from './PeerComparisonTable';
 import MacroFactorCard from './MacroFactorCard';
 import { classifyRating, RATING_BUCKET_STYLE } from '@/lib/researchRating';
+import { BUCKET_LABEL, BUCKET_BADGE_STYLE } from '@/lib/earningsBucket';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
 import type { F45Data } from '@/app/api/f45/[ticker]/route';
@@ -531,7 +532,14 @@ export default function StockDetailPage({
 
       {/* ── F45 - สรุปผลประกอบการล่าสุด ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5">
-        <h2 className="text-[13px] font-semibold text-white mb-4">F45 - สรุปผลประกอบการล่าสุด</h2>
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          <h2 className="text-[13px] font-semibold text-white">F45 - สรุปผลประกอบการล่าสุด</h2>
+          {f45?.found && f45.bucket && (
+            <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold ${BUCKET_BADGE_STYLE[f45.bucket]}`}>
+              {BUCKET_LABEL[f45.bucket]}
+            </span>
+          )}
+        </div>
         {f45 === null ? (
           <p className="text-[12px] text-white/25 text-center py-6 animate-pulse">กำลังโหลด...</p>
         ) : !f45.found ? (
@@ -575,6 +583,9 @@ export default function StockDetailPage({
               ที่มา: SET (ผ่าน Settrade) · อัปเดตทุก 6 ชม.
               {f45.newsUrl && (
                 <> · <a href={f45.newsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">ดูข่าวเต็ม</a></>
+              )}
+              {f45.mdaUrl && (
+                <> · <a href={f45.mdaUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">MD&A</a></>
               )}
             </p>
           </>

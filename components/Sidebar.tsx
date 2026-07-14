@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
-  X, FileText, Package, CalendarDays, Calculator, BookOpen, Award,
+  X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 
@@ -48,6 +48,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'รายงาน 246-2', href: '/top-movers/r246', icon: FileText, indent: true },
       { label: 'Fund Flow (NVDR)', href: '/nvdr', icon: Activity },
       { label: 'ข่าว & บทวิเคราะห์', href: '/news', icon: Newspaper },
+      { label: 'ประกาศงบ', href: '/earnings', icon: FileBarChart },
       { label: 'ปฏิทินหลักทรัพย์', href: '/calendar', icon: CalendarDays },
       { label: 'เครื่องคำนวณ Warrant', href: '/calculator', icon: Calculator },
       { label: 'My Stocks', href: '/my-stocks', icon: LayoutDashboard },
