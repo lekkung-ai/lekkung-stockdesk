@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import TableSkeleton from '@/components/TableSkeleton';
+import { classifyRating, RATING_BUCKET_STYLE, IAA_SOURCE_NAME } from '@/lib/researchRating';
 
 interface ResearchItem {
   title: string;
@@ -12,7 +13,9 @@ interface ResearchItem {
   tickers: string[];
   broker: string | null;
   targetPrice: number | null;
-  rating: 'ซื้อ' | 'ขาย' | 'ถือ' | null;
+  rating: string | null;
+  companyName?: string | null;
+  fileUrl?: string | null;
 }
 
 const PAGE_SIZE = 20;
@@ -20,14 +23,9 @@ const PAGE_SIZE = 20;
 const SOURCE_STYLE: Record<string, string> = {
   Kaohoon: 'bg-[#FAEEDA] text-[#633806]',
   'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
+  [IAA_SOURCE_NAME]: 'bg-[#E5EDFB] text-[#1A4A8A]',
 };
 const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
-
-const RATING_STYLE: Record<string, string> = {
-  'ซื้อ': 'bg-[#1D9E75]/15 text-[#1D9E75] ring-1 ring-[#1D9E75]/30',
-  'ขาย': 'bg-[#E24B4A]/15 text-[#E24B4A] ring-1 ring-[#E24B4A]/30',
-  'ถือ': 'bg-[#EF9F27]/15 text-[#EF9F27] ring-1 ring-[#EF9F27]/30',
-};
 
 function localDate(ts: number): string {
   return new Date(ts).toLocaleDateString('en-CA');
@@ -156,6 +154,21 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
     });
   }, [items, selectedDate, selectedBrokers, tickerFilter]);
 
+  // Quick-glance summary: today's items with both broker+rating resolved
+  // (mostly IAA, which guarantees both - Kaohoon/มิติหุ้น only sometimes do)
+  // bucketed into buy/neutral/sell.
+  const todaySummary = useMemo(() => {
+    if (!items) return null;
+    const counts = { buy: 0, neutral: 0, sell: 0 };
+    let any = false;
+    for (const it of items) {
+      if (localDate(it.ts) !== today || !it.broker || !it.rating) continue;
+      any = true;
+      counts[classifyRating(it.rating)]++;
+    }
+    return any ? counts : null;
+  }, [items, today]);
+
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageItems = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
 
@@ -259,6 +272,25 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
         </div>
       </div>
 
+      {/* ── Today's rating summary ── */}
+      {todaySummary && (
+        <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#13161e] border border-white/[0.07] text-[12px]">
+          <span className="text-white/40">วันนี้</span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1D9E75]" />
+            <span className="text-white/70">Buy {todaySummary.buy}</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
+            <span className="text-white/70">Neutral {todaySummary.neutral}</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E24B4A]" />
+            <span className="text-white/70">Sell {todaySummary.sell}</span>
+          </span>
+        </div>
+      )}
+
       {/* ── Results ── */}
       <div className="flex items-center justify-between px-1">
         <span className="text-[11px] text-white/30">
@@ -312,7 +344,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                     </button>
                   ))}
                   {item.rating && (
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${RATING_STYLE[item.rating]}`}>
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${RATING_BUCKET_STYLE[classifyRating(item.rating)]}`}>
                       {item.rating}
                     </span>
                   )}
@@ -320,6 +352,17 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                     <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/60">
                       เป้า {item.targetPrice} บาท
                     </span>
+                  )}
+                  {item.fileUrl && (
+                    <a
+                      href={item.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={e => e.stopPropagation()}
+                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50 hover:text-white hover:bg-white/[0.1] transition-colors"
+                    >
+                      PDF
+                    </a>
                   )}
                   <span className="text-[11px] text-white/25 ml-auto">{postTime(item.ts)}</span>
                 </div>

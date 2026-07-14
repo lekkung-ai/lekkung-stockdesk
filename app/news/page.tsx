@@ -37,6 +37,7 @@ const SOURCE_STYLE: Record<string, string> = {
   'Investing.com': 'bg-[#E5EDFB] text-[#1A4A8A]',
   'RYT9 (IPO)': 'bg-[#F2EDF9] text-[#4F2D7F]',
   HOONSMART: 'bg-[#FBE8E8] text-[#8A1A1A]',
+  EFIN: 'bg-[#FDF0DC] text-[#8A5A0C]',
 };
 const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 

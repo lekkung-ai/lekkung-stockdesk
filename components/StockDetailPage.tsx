@@ -8,6 +8,7 @@ import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
 import PeerComparisonTable from './PeerComparisonTable';
 import MacroFactorCard from './MacroFactorCard';
+import { classifyRating, RATING_BUCKET_STYLE } from '@/lib/researchRating';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
 import type { F45Data } from '@/app/api/f45/[ticker]/route';
@@ -76,7 +77,9 @@ interface ResearchItem {
   source: string;
   broker: string | null;
   targetPrice: number | null;
-  rating: 'ซื้อ' | 'ขาย' | 'ถือ' | null;
+  rating: string | null;
+  companyName?: string | null;
+  fileUrl?: string | null;
 }
 
 const NEWS_SOURCE_STYLE: Record<string, string> = {
@@ -705,14 +708,15 @@ export default function StockDetailPage({
           </div>
           <div className="divide-y divide-white/[0.04]">
             {research.slice(0, 5).map((item, i) => (
-              <a
-                key={(item.link || '') + i}
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block px-5 py-3.5 hover:bg-white/[0.025] transition-colors"
-              >
-                <p className="text-[12.5px] text-white/80 leading-snug line-clamp-2">{item.title}</p>
+              <div key={(item.link || '') + i} className="px-5 py-3.5 hover:bg-white/[0.025] transition-colors">
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-[12.5px] text-white/80 leading-snug line-clamp-2 hover:text-[#5B9BD5] transition-colors"
+                >
+                  {item.title}
+                </a>
                 <div className="flex flex-wrap items-center gap-2 mt-1.5">
                   {item.broker && (
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#7F77DD]/15 text-[#7F77DD]">
@@ -720,13 +724,7 @@ export default function StockDetailPage({
                     </span>
                   )}
                   {item.rating && (
-                    <span
-                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                        item.rating === 'ซื้อ' ? 'bg-[#1D9E75]/15 text-[#1D9E75]' :
-                        item.rating === 'ขาย' ? 'bg-[#E24B4A]/15 text-[#E24B4A]' :
-                        'bg-[#EF9F27]/15 text-[#EF9F27]'
-                      }`}
-                    >
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${RATING_BUCKET_STYLE[classifyRating(item.rating)]}`}>
                       {item.rating}
                     </span>
                   )}
@@ -735,9 +733,19 @@ export default function StockDetailPage({
                       เป้า {item.targetPrice} บาท
                     </span>
                   )}
+                  {item.fileUrl && (
+                    <a
+                      href={item.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50 hover:text-white hover:bg-white/[0.1] transition-colors"
+                    >
+                      PDF
+                    </a>
+                  )}
                   <span className="text-[10.5px] text-white/25 ml-auto">{item.source}</span>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>

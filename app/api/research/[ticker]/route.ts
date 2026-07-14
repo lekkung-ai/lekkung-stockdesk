@@ -10,6 +10,8 @@ import {
   normalizeTitle,
   titleHasTicker,
 } from '@/lib/feedParsing';
+import rawIaaResearch from '@/data/scans/research_iaa.json';
+import { IAA_SOURCE_NAME } from '@/lib/researchRating';
 
 // Broker-research feeds — probed 2026-07-12. Both are WordPress category
 // feeds (same /feed pattern as the general news route), containing actual
@@ -118,7 +120,51 @@ interface ResearchItem extends FeedItem {
   broker: string | null;
   tickers: string[];
   targetPrice: number | null;
-  rating: 'ซื้อ' | 'ขาย' | 'ถือ' | null;
+  // Kaohoon/มิติหุ้น only ever produce the 3 fixed Thai words; SETTrade IAA
+  // (see below) contributes open-ended English broker text ("BUY", "Trading
+  // (Maintain)", ...) - widened to a plain string so both fit one field.
+  // lib/researchRating.ts's classifyRating() buckets either vocabulary into
+  // buy/sell/neutral for display.
+  rating: string | null;
+  companyName?: string | null;
+  fileUrl?: string | null; // PDF link (IAA only) - link out only, never downloaded/stored
+}
+
+// SETTrade IAA (ศูนย์รวมบทวิเคราะห์) - fetched by data_engine's
+// tools/research/fetch_iaa_research.py (Playwright batch, see that file for
+// why: Incapsula blocks plain HTTP clients) into data/scans/research_iaa.json,
+// same static-import pattern as data/scans/macro_commodities.json. Structured
+// (broker/ticker/rating/date are real fields, not title-guessed), so no
+// heuristic parsing needed here - just reshape into ResearchItem.
+interface IaaRawItem {
+  uuid: string;
+  title: string;
+  url: string;
+  tickers: string[];
+  broker: string | null;
+  rating: string | null;
+  companyName: string | null;
+  date: string;
+  ts: number;
+  fileUrl: string | null;
+}
+
+const iaaRawItems: IaaRawItem[] = (rawIaaResearch as { items?: IaaRawItem[] }).items ?? [];
+
+function iaaToResearchItem(raw: IaaRawItem): ResearchItem {
+  return {
+    title: raw.title,
+    link: raw.url,
+    pubDate: raw.date,
+    ts: raw.ts,
+    source: IAA_SOURCE_NAME,
+    broker: raw.broker,
+    tickers: raw.tickers,
+    targetPrice: null,
+    rating: raw.rating,
+    companyName: raw.companyName,
+    fileUrl: raw.fileUrl,
+  };
 }
 
 export async function GET(
@@ -169,14 +215,17 @@ export async function GET(
   }
 
   let selected: FeedItem[];
+  let iaaSelected: IaaRawItem[];
   if (wantGeneral) {
     selected = sorted.slice(0, 200);
+    iaaSelected = iaaRawItems;
   } else {
     const matches = sorted.filter(item => titleHasTicker(item.title, t));
     selected = matches.slice(0, 20);
+    iaaSelected = iaaRawItems.filter(item => item.tickers.includes(t));
   }
 
-  const research: ResearchItem[] = selected.map(item => {
+  const feedResearch: ResearchItem[] = selected.map(item => {
     const broker = extractBroker(item.title);
     // Broker acronyms (SCB EIC, GCAP GOLD, KGI, CGS...) frequently collide
     // with real ticker symbols (SCB, GCAP...). If the broker name we just
@@ -192,6 +241,20 @@ export async function GET(
       rating: extractRating(item.title),
     };
   });
+
+  const iaaResearch: ResearchItem[] = iaaSelected.map(iaaToResearchItem);
+
+  // General/tab view: plain chronological (IAA and Kaohoon/มิติหุ้น
+  // interleaved by date). Single-ticker view (feeds /stock/[ticker]'s
+  // related-research section): IAA first, since it's structured data
+  // (real broker/ticker/rating fields) rather than title-guessed - then by
+  // date within each group.
+  const research: ResearchItem[] = wantGeneral
+    ? [...feedResearch, ...iaaResearch].sort((a, b) => b.ts - a.ts)
+    : [
+        ...iaaResearch.sort((a, b) => b.ts - a.ts),
+        ...feedResearch.sort((a, b) => b.ts - a.ts),
+      ];
 
   return Response.json(
     { research },

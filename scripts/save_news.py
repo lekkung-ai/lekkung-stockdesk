@@ -63,6 +63,11 @@ FEEDS = {
     'HOONSMART': 'https://hoonsmart.com/feed/',
 }
 
+# efinancethai has no RSS - fetched separately via fetch_efin() (custom JSON
+# API, not RSS XML like everything in FEEDS above). Kept in sync with
+# lib/efinanceThai.ts on the web side.
+EFIN_URL = 'https://www.efinancethai.com/ServiceNew/ServiceController.ashx?colTypeID=21&pageNumber=1&pageSize=20&typeColumn=true'
+
 # Per-feed timeout override (seconds). Feeds not listed use DEFAULT_TIMEOUT.
 FEED_TIMEOUT_OVERRIDES = {
     'HOONSMART': 60,
@@ -130,6 +135,43 @@ def parse_rss(xml, source_name):
             })
     return items
 
+def fetch_efin(headers, ctx, timeout):
+    """efinancethai's API - not RSS, custom JSON, and declares
+    charset=windows-874 (Thai legacy codepage) regardless of what we ask for
+    -> decode with cp874 (Python's name for windows-874), not utf-8, or Thai
+    text comes out as mojibake. Verified against the live API 2026-07-14."""
+    req = urllib.request.Request(EFIN_URL, headers=headers)
+    resp = urllib.request.urlopen(req, timeout=timeout, context=ctx)
+    raw_bytes = resp.read()
+    data = json.loads(raw_bytes.decode('cp874'))
+    items = []
+    for row in data.get('Data', []):
+        last_update = row.get('LastUpdate', '')
+        ts = 0
+        if last_update:
+            try:
+                dt = datetime.strptime(last_update, '%Y-%m-%d %H:%M:%S').replace(tzinfo=BANGKOK_TZ)
+                ts = int(dt.timestamp() * 1000)
+            except Exception:
+                pass
+        title = row.get('title', '')
+        link = row.get('full_path_link', '')
+        if not title or not link:
+            continue
+        security = (row.get('security') or '').strip()
+        item = {
+            'title': title,
+            'link': link,
+            'pubDate': last_update,
+            'ts': ts,
+            'source': 'EFIN',
+        }
+        if security:
+            item['tickerHint'] = security
+        items.append(item)
+    return items
+
+
 def bangkok_date(ts_ms):
     if not ts_ms:
         return None
@@ -186,6 +228,14 @@ def main():
             fetched_items.extend(items)
         except Exception as e:
             print(f" -> ERROR: {e}")
+
+    print("Fetching EFIN... (timeout 15s, custom JSON API, not RSS)")
+    try:
+        efin_items = fetch_efin(headers, ctx, 15)
+        print(f" -> Got {len(efin_items)} items")
+        fetched_items.extend(efin_items)
+    except Exception as e:
+        print(f" -> ERROR: {e}")
 
     # Bucket newly fetched items by the Bangkok-local date they were published,
     # not the date the script ran — a single scrape can touch more than one

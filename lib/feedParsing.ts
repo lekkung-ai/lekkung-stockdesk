@@ -11,6 +11,7 @@ export interface FeedItem {
   source: string;
   ts: number; // parsed pubDate (ms) for sorting; 0 if unknown
   stale?: boolean; // true when this item came from the archive fallback, not a live fetch
+  tickerHint?: string; // ticker the SOURCE itself already tagged this item with (e.g. efinancethai's `security` field) - more reliable than title-scanning, use directly instead of extractTickers() when present
 }
 
 export interface Feed {
@@ -155,6 +156,13 @@ export function titleHasTicker(title: string, ticker: string): boolean {
 const TICKER_SET = new Set<string>(
   Object.keys((rawSectorMap as { ticker_to_sector: Record<string, unknown> }).ticker_to_sector)
 );
+
+// For sources that already tag an item with its own ticker (e.g.
+// efinancethai's `security` field) - validates it's a real SET ticker before
+// trusting it outright, in case the source's own tag is empty/stale/off-market.
+export function isKnownTicker(symbol: string): boolean {
+  return TICKER_SET.has(symbol.toUpperCase());
+}
 
 // Common English/finance words that collide with real ticker symbols — skip
 // them to cut false positives from English headlines ("speed UP THAI", "dip AS ...").

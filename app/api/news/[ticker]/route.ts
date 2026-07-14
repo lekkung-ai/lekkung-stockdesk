@@ -9,7 +9,9 @@ import {
   normalizeUrl,
   normalizeTitle,
   titleHasTicker,
+  isKnownTicker,
 } from '@/lib/feedParsing';
+import { fetchEfinanceThai } from '@/lib/efinanceThai';
 
 // Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
 // works (see console output). A failing feed is skipped, not fatal.
@@ -78,6 +80,14 @@ const LIVE_REVALIDATE_SEC = 60;
 // items from the daily archive rather than letting the source vanish from
 // the page silently.
 const STALE_FALLBACK_COUNT = 10;
+
+// efinancethai (EFIN) - added 2026-07-14, no RSS, custom JSON API (see
+// lib/efinanceThai.ts). New source -> deliberately more cautious cache
+// window than the RSS feeds above (300s vs 60s) until it's proven not to
+// trip any rate-limiting over a few days of production traffic; if nothing
+// odd shows up by ~2026-07-17, lower EFIN_REVALIDATE_SEC to LIVE_REVALIDATE_SEC.
+const EFIN_REVALIDATE_SEC = 300;
+const EFIN_PAGE_SIZE = 20;
 
 // ── Sentiment ───────────────────────────────────────────────────────────────
 const POS_KEYWORDS = [
@@ -160,6 +170,18 @@ export async function GET(
     }
   });
 
+  // efinancethai isn't RSS (custom JSON API, see lib/efinanceThai.ts) so it's
+  // not part of FEEDS/fetchFeedShared above - fetched separately here, but
+  // pushed into the same failedFeeds list on failure so it gets the exact
+  // same archive-fallback treatment as every RSS source (feed.name 'EFIN'
+  // must match the `source` value scripts/save_news.py writes to the archive).
+  const efinItems = await fetchEfinanceThai(1, EFIN_PAGE_SIZE, EFIN_REVALIDATE_SEC, FEED_TIMEOUT_MS);
+  if (efinItems.length > 0) {
+    allLive.push(...efinItems);
+  } else {
+    failedFeeds.push({ name: 'EFIN', url: 'efinancethai.com' });
+  }
+
   // Load daily snapshots for the past HISTORY_DAYS days
   const archivedItems: NewsItem[] = loadHistoricalItems();
 
@@ -231,7 +253,13 @@ export async function GET(
     selected = all.filter(item => item.ts >= cutoffTs);
     isGeneral = true;
   } else {
-    const matches = all.filter(item => titleHasTicker(item.title, t));
+    // A tickerHint (e.g. efinancethai's own `security` tag) is authoritative
+    // even when the title itself doesn't literally spell out the symbol
+    // (e.g. "บริษัท ปตท." without "PTT") - match on it too, not just the
+    // title-text scan.
+    const matches = all.filter(
+      item => (item.tickerHint && item.tickerHint.toUpperCase() === t) || titleHasTicker(item.title, t)
+    );
     if (matches.length > 0) {
       selected = matches.slice(0, 20);
       isGeneral = false;
@@ -241,16 +269,22 @@ export async function GET(
     }
   }
 
-  const news = selected.map(item => ({
-    title: item.title,
-    link: item.link,
-    pubDate: item.pubDate,
-    ts: item.ts,
-    source: item.source,
-    tickers: extractTickers(item.title),
-    sentiment: getSentiment(item.title),
-    stale: item.stale ?? false,
-  }));
+  const news = selected.map(item => {
+    const hint = item.tickerHint?.toUpperCase();
+    return {
+      title: item.title,
+      link: item.link,
+      pubDate: item.pubDate,
+      ts: item.ts,
+      source: item.source,
+      // A source-provided ticker tag (efinancethai's `security` field) is
+      // more reliable than scanning the title text, so prefer it when
+      // present and valid; fall back to the usual title-scan otherwise.
+      tickers: hint && isKnownTicker(hint) ? [hint] : extractTickers(item.title),
+      sentiment: getSentiment(item.title),
+      stale: item.stale ?? false,
+    };
+  });
 
   return Response.json(
     { news, isGeneral, staleSources },
