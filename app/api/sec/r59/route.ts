@@ -1,102 +1,112 @@
 import type { NextRequest } from 'next/server';
-import { parseHtmlTable } from '@/lib/parseHtmlTable';
+import {
+  enumerateDaysISO,
+  getCachedSecDay,
+  isoToBELabel,
+  sleep,
+  thaiDateToISO,
+  businessDaysBetween,
+  todayISOBangkok,
+} from '@/lib/secScrape';
 
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 const BASE = 'https://market.sec.or.th/public/idisc/th/r59';
+const ROUTE_KEY = 'r59';
+const TX_COL = 'วันที่ได้มา/จำหน่าย'; // transaction date - the only date column SEC's own table exposes
+// Form 59 has no "วันที่เผยแพร่" radio option like r246 - its closest analog is
+// "วันที่ สนง.รับเอกสาร" (date the SEC office received the document), which is
+// what rblDateType=2 actually means here (confirmed live against the form's
+// own radio labels 2026-07-14).
+const PUBLISH_COL = 'วันที่ สนง.รับเอกสาร';
+const HEADER_SIGNATURE = ['ชื่อบริษัท', 'ชื่อผู้บริหาร', TX_COL, 'วิธีการได้มา/จำหน่าย'];
+const LIVE_FETCH_DELAY_MS = 350;
 
-function todayTH() {
-  const d = new Date();
-  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+function buildFields(secDateStr: string) {
+  return {
+    'ctl00$CPH$ddlCompany': '',
+    'ctl00$CPH$rblDateType': '2',
+    'ctl00$CPH$BSDateFrom': secDateStr,
+    'ctl00$CPH$BSDateTo': secDateStr,
+    'ctl00$CPH$btSearch': 'Search',
+  };
 }
 
-function daysAgoTH(days: number) {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+function daysAgoISO(days: number): string {
+  const d = new Date(Date.now() + 7 * 60 * 60 * 1000);
+  d.setUTCDate(d.getUTCDate() - days);
+  return d.toISOString().slice(0, 10);
 }
 
-// ISO "YYYY-MM-DD" -> SEC form date "DD/MM/YYYY" (Gregorian, same format the form accepts)
-function isoToSecDate(iso: string): string {
-  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  return m ? `${m[3]}/${m[2]}/${m[1]}` : '';
-}
-
-function extractToken(html: string, id: string): string {
-  const m = html.match(new RegExp(`id="${id}"[^>]+value="([^"]+)"`));
-  return m?.[1] ?? '';
-}
-
-function thaiDateToSortKey(thai: string): string {
-  const m = thai.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-  if (!m) return '0000-00-00';
-  return `${parseInt(m[3]) - 543}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
+// r59's table has no explicit report-number column (unlike r246's "หมายเลข")
+// - the closest thing to a stable per-filing id is the batchNo+transId pair
+// embedded in the row's "Link" href (e.g.
+// .../report?batchNo=592002292607&transId=163740_2_1&...).
+function reportKeyFromHref(href: string | undefined): string | null {
+  if (!href) return null;
+  const batch = href.match(/batchNo=([^&]+)/)?.[1];
+  const trans = href.match(/transId=([^&]+)/)?.[1];
+  return batch && trans ? `${batch}_${trans}` : null;
 }
 
 export async function GET(req: NextRequest) {
   const fromParam = req.nextUrl.searchParams.get('from');
   const toParam = req.nextUrl.searchParams.get('to');
-  const dateFrom = fromParam ? isoToSecDate(fromParam) : daysAgoTH(30);
-  const dateTo = toParam ? isoToSecDate(toParam) : todayTH();
+  const toISO = toParam || todayISOBangkok();
+  const fromISO = fromParam || daysAgoISO(6); // default: last 7 days (inclusive) by receive date
 
   try {
-    // Step 1: GET to acquire ASP.NET form tokens + session
-    const page1 = await fetch(BASE, {
-      headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml', 'Accept-Language': 'th-TH,th;q=0.9' },
-      cache: 'no-store',
-    });
-    if (!page1.ok) return Response.json({ headers: [], rows: [], error: `page1_${page1.status}` });
+    const { days, truncated } = enumerateDaysISO(fromISO, toISO);
+    const todayISOStr = todayISOBangkok();
+    const allRows: Record<string, string>[] = [];
+    let anyParseFailure = false;
 
-    const html1 = await page1.text();
-    const sessionCookie = (page1.headers.get('set-cookie') ?? '').split(';')[0];
+    for (const dayISO of days) {
+      const isToday = dayISO === todayISOStr;
+      const result = await getCachedSecDay(ROUTE_KEY, BASE, buildFields, HEADER_SIGNATURE, h => h, dayISO, isToday);
+      if (!result.found) { anyParseFailure = true; continue; }
 
-    // Step 2: POST search filtered by "วันที่ สนง.รับเอกสาร" (SEC office received date) = rblDateType 2
-    const body = new URLSearchParams({
-      '__VIEWSTATE': extractToken(html1, '__VIEWSTATE'),
-      '__VIEWSTATEGENERATOR': extractToken(html1, '__VIEWSTATEGENERATOR'),
-      '__EVENTVALIDATION': extractToken(html1, '__EVENTVALIDATION'),
-      'ctl00$CPH$ddlCompany': '',
-      'ctl00$CPH$rblDateType': '2',
-      'ctl00$CPH$BSDateFrom': dateFrom,
-      'ctl00$CPH$BSDateTo': dateTo,
-      'ctl00$CPH$btSearch': 'Search',
-    });
-
-    const page2 = await fetch(BASE, {
-      method: 'POST',
-      headers: {
-        'User-Agent': UA,
-        Accept: 'text/html,application/xhtml+xml',
-        'Accept-Language': 'th-TH,th;q=0.9',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Referer: BASE,
-        ...(sessionCookie ? { Cookie: sessionCookie } : {}),
-      },
-      body: body.toString(),
-      cache: 'no-store',
-    });
-    if (!page2.ok) return Response.json({ headers: [], rows: [], error: `page2_${page2.status}` });
-
-    const html2 = await page2.text();
-    const fetchDate = new Date().toISOString().slice(0, 10);
-
-    for (let i = 0; i < 6; i++) {
-      const { headers, rows } = parseHtmlTable(html2, i);
-      if (rows.length > 2) {
-        const dateCol = headers.find(h => /วันที่/.test(h));
-        if (dateCol) {
-          rows.sort((a, b) =>
-            thaiDateToSortKey(b[dateCol] ?? '').localeCompare(thaiDateToSortKey(a[dateCol] ?? ''))
-          );
-        }
-        return Response.json(
-          { headers, rows, fetchDate, dateBasis: 'วันที่ สนง.รับเอกสาร', from: dateFrom, to: dateTo },
-          { headers: { 'Cache-Control': 'public, max-age=300, s-maxage=300, stale-while-revalidate=60' } }
-        );
+      const beLabel = isoToBELabel(dayISO);
+      for (const row of result.rows) {
+        const txISO = thaiDateToISO(row[TX_COL]);
+        row[PUBLISH_COL] = beLabel;
+        row['__publishISO'] = dayISO;
+        row['__txISO'] = txISO ?? '';
+        row['__retroactive'] = txISO && businessDaysBetween(txISO, dayISO) > 2 ? '1' : '';
+        allRows.push(row);
       }
+      if (result.live) await sleep(LIVE_FETCH_DELAY_MS);
     }
+
+    // Dedupe by batchNo+transId (from the row's link) - falls back to a
+    // composite key if a row somehow has no link. Keep the most recently
+    // received version on conflict.
+    const byKey = new Map<string, Record<string, string>>();
+    for (const row of allRows) {
+      const key = reportKeyFromHref(row['__href'])
+        || `${row['ชื่อบริษัท']}|${row['ชื่อผู้บริหาร']}|${row[TX_COL]}|${row['จำนวน']}|${row['วิธีการได้มา/จำหน่าย']}`;
+      const existing = byKey.get(key);
+      if (!existing || row['__publishISO'] > existing['__publishISO']) byKey.set(key, row);
+    }
+    const rows = [...byKey.values()].sort((a, b) => b['__publishISO'].localeCompare(a['__publishISO']));
+    // __href was only needed for dedupe keying - strip it before returning.
+    rows.forEach(r => { delete r['__href']; });
+
+    const headers = rows.length > 0
+      ? Object.keys(rows[0]).filter(h => !h.startsWith('__'))
+      : ['ชื่อบริษัท', 'ชื่อผู้บริหาร', 'วิธีการได้มา/จำหน่าย', PUBLISH_COL, TX_COL];
+
+    const fetchDate = new Date().toISOString().slice(0, 10);
     return Response.json(
-      { headers: [], rows: [], fetchDate, dateBasis: 'วันที่ สนง.รับเอกสาร' },
-      { headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60' } }
+      {
+        headers,
+        rows,
+        fetchDate,
+        dateBasis: PUBLISH_COL,
+        from: fromISO,
+        to: toISO,
+        truncated,
+        ...(anyParseFailure ? { partial: true } : {}),
+      },
+      { headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60, stale-while-revalidate=300' } }
     );
   } catch {
     return Response.json({ headers: [], rows: [], error: 'fetch_failed' });

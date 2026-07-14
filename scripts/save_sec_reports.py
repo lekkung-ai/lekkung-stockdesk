@@ -127,10 +127,17 @@ def _post(url: str, fields: dict, session_cookie: str) -> str:
         return resp.read().decode("utf-8", errors="replace")
 
 
-def _pick_table(html: str):
+def _pick_table(html: str, header_signature: list[str], header_cleaner=lambda h: h):
+    """Pick the real results table by header signature, not row count - a
+    genuine 1-2 row result (a quiet day) is not distinguishable from a
+    layout/nav table by count alone. Mirrors selectResultTable in
+    lib/secScrape.ts."""
     for i in range(6):
         raw_headers, rows = parse_html_table(html, i)
-        if len(rows) > 2:
+        if not raw_headers:
+            continue
+        headers = [header_cleaner(h) for h in raw_headers]
+        if all(any(sig in h for h in headers) for sig in header_signature):
             return raw_headers, rows
     return [], []
 
@@ -150,7 +157,7 @@ def fetch_r59(date_from: str, date_to: str):
         "ctl00$CPH$btSearch": "Search",
     }
     html2 = _post(R59_URL, fields, cookie)
-    headers, rows = _pick_table(html2)
+    headers, rows = _pick_table(html2, ["ชื่อบริษัท", "ชื่อผู้บริหาร", "วันที่ได้มา/จำหน่าย", "วิธีการได้มา/จำหน่าย"])
     date_col = next((h for h in headers if "วันที่" in h), None)
     if date_col:
         rows.sort(key=lambda r: thai_date_sort_key(r.get(date_col, "")), reverse=True)
@@ -173,7 +180,7 @@ def fetch_r246(date_from: str, date_to: str):
         "ctl00$CPH$btSearch": "Search",
     }
     html2 = _post(R246_URL, fields, cookie)
-    raw_headers, rows = _pick_table(html2)
+    raw_headers, rows = _pick_table(html2, ["หลักทรัพย์", "วิธีการ", "วันที่ได้มา/จำหน่าย", "หมายเลข"], clean_header)
     if not raw_headers:
         return [], []
     headers = [clean_header(h) for h in raw_headers]

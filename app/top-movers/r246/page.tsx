@@ -11,6 +11,12 @@ const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','�
 
 function todayISO() { return new Date().toISOString().slice(0, 10); }
 
+function daysAgoISO(days: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
 function isoToThaiLabel(iso: string): string {
   const [y, m, d] = iso.split('-');
   return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${parseInt(y) + 543}`;
@@ -53,10 +59,22 @@ function MethodBadge({ method }: { method: string }) {
   );
 }
 
+function RetroactiveBadge() {
+  return (
+    <span
+      title="เผยแพร่ห่างจากวันทำรายการเกิน 2 วันทำการ"
+      className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/15 text-amber-400 ring-1 ring-amber-500/25 ml-1.5"
+    >
+      ประกาศย้อนหลัง
+    </span>
+  );
+}
+
 const COL_TICKER = 'หลักทรัพย์';
 const COL_PERSON = 'ชื่อผู้ได้มา/จำหน่าย';
 const COL_METHOD = 'วิธีการ';
-const COL_DATE = 'วันที่ได้มา/จำหน่าย';
+const COL_PUBLISH = 'วันที่เผยแพร่'; // primary sort - the field actually queried by
+const COL_DATE = 'วันที่ได้มา/จำหน่าย'; // transaction date - secondary, distinct field
 const COL_BEFORE = '% ก่อนได้มา/จำหน่าย';
 const COL_CHANGE = '% ได้มา/จำหน่าย';
 const COL_AFTER = '% หลังได้มา/จำหน่าย';
@@ -70,10 +88,10 @@ export default function Report246Page() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
-  const [fromDate, setFromDate] = useState(todayISO());
+  const [fromDate, setFromDate] = useState(daysAgoISO(6)); // default: last 7 days by publish date
   const [toDate, setToDate] = useState(todayISO());
   const [page, setPage] = useState(1);
-  const [sortCol, setSortCol] = useState('');
+  const [sortCol, setSortCol] = useState(COL_PUBLISH);
   const [sortDesc, setSortDesc] = useState(true);
 
   const handleSort = (col: string) => {
@@ -101,33 +119,8 @@ export default function Report246Page() {
     }
   }, []);
 
-  // Default (today) view: paint the static JSON snapshot instantly, then refresh
-  // live in the background. Custom date ranges fetch live directly (with spinner).
   useEffect(() => {
-    let cancelled = false;
-    const today = todayISO();
-    const isDefault = fromDate === today && toDate === today;
-    if (!isDefault) { loadData(fromDate, toDate); return; }
-
-    (async () => {
-      let painted = false;
-      try {
-        const jr = await fetch('/data/sec/r246.json', { cache: 'no-store' });
-        if (jr.ok) {
-          const j = await jr.json();
-          if (!cancelled && j?.date === today && Array.isArray(j.rows)) {
-            setHeaders(j.headers ?? []);
-            setRawRows(j.rows ?? []);
-            setFetchDate(j.fetchDate ?? j.date ?? '');
-            setLoading(false);
-            painted = true;
-          }
-        }
-      } catch { /* fall through to live */ }
-      if (!cancelled) loadData(today, today, painted);
-    })();
-
-    return () => { cancelled = true; };
+    loadData(fromDate, toDate);
   }, [loadData, fromDate, toDate]);
 
   const filteredRows = useMemo(() => {
@@ -143,7 +136,16 @@ export default function Report246Page() {
     });
 
     if (sortCol) {
+      // Publish/transaction date columns show a Thai BE "DD/MM/YYYY" label,
+      // which does not sort correctly as a plain string - use the ISO dates
+      // the API already computed for these two columns instead.
+      const isoKey = sortCol === COL_PUBLISH ? '__publishISO' : sortCol === COL_DATE ? '__txISO' : null;
       result.sort((a, b) => {
+        if (isoKey) {
+          const va = a[isoKey] ?? '';
+          const vb = b[isoKey] ?? '';
+          return sortDesc ? vb.localeCompare(va) : va.localeCompare(vb);
+        }
         const va = a[sortCol] ?? '';
         const vb = b[sortCol] ?? '';
         const numA = parseFloat(va.replace(/,/g, ''));
@@ -234,14 +236,14 @@ export default function Report246Page() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
-                  {[COL_TICKER, COL_PERSON, COL_METHOD, COL_DATE].map(h => (
+                  {[COL_TICKER, COL_PERSON, COL_METHOD, COL_PUBLISH, COL_DATE].map(h => (
                     <th
                       key={h}
                       onClick={() => handleSort(h)}
                       className={`px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group ${h === COL_TICKER ? 'sticky left-0 z-10 bg-[#13161e]' : ''}`}
                     >
                       <div className="flex items-center gap-1">
-                        {h === COL_TICKER ? 'หลักทรัพย์' : h === COL_PERSON ? 'ผู้ถือหุ้น' : h === COL_METHOD ? 'วิธีการ' : 'วันที่'}
+                        {h === COL_TICKER ? 'หลักทรัพย์' : h === COL_PERSON ? 'ผู้ถือหุ้น' : h === COL_METHOD ? 'วิธีการ' : h === COL_PUBLISH ? 'วันที่เผยแพร่' : 'วันที่ทำรายการ'}
                         <div className="flex flex-col opacity-0 group-hover:opacity-100 data-[active=true]:opacity-100 transition-opacity" data-active={sortCol === h}>
                           {sortCol === h ? (
                             sortDesc ? <ArrowDown size={10} className="text-white/50" /> : <ArrowUp size={10} className="text-white/50" />
@@ -290,6 +292,12 @@ export default function Report246Page() {
                       <MethodBadge method={row[COL_METHOD] ?? ''} />
                     </td>
                     <td className="px-3 py-2.5 text-[13px] text-white/55 whitespace-nowrap">
+                      <span className="inline-flex items-center">
+                        {row[COL_PUBLISH] ?? '—'}
+                        {row['__retroactive'] === '1' && <RetroactiveBadge />}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-[13px] text-white/40 whitespace-nowrap">
                       {row[COL_DATE] ?? '—'}
                     </td>
                     {hasBeforeAfter && (

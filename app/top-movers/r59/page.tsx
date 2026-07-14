@@ -11,6 +11,12 @@ const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','�
 
 function todayISO() { return new Date().toISOString().slice(0, 10); }
 
+function daysAgoISO(days: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
 function isoToThaiLabel(iso: string): string {
   const [y, m, d] = iso.split('-');
   return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${parseInt(y) + 543}`;
@@ -34,9 +40,22 @@ function BuySellBadge({ action }: { action: string }) {
   );
 }
 
+function RetroactiveBadge() {
+  return (
+    <span
+      title="เผยแพร่ห่างจากวันทำรายการเกิน 2 วันทำการ"
+      className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/15 text-amber-400 ring-1 ring-amber-500/25 ml-1.5"
+    >
+      ประกาศย้อนหลัง
+    </span>
+  );
+}
+
 const COL_METHOD = 'วิธีการได้มา/จำหน่าย';
 const COL_COMPANY = 'ชื่อบริษัท';
 const COL_PERSON = 'ชื่อผู้บริหาร';
+const COL_PUBLISH = 'วันที่ สนง.รับเอกสาร'; // primary sort - the field actually queried by (form 59 has no literal "publish date" option, this is the closest analog)
+const COL_DATE = 'วันที่ได้มา/จำหน่าย'; // transaction date - secondary, distinct field
 
 export default function Report59Page() {
   const router = useRouter();
@@ -47,10 +66,10 @@ export default function Report59Page() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
-  const [fromDate, setFromDate] = useState(todayISO());
+  const [fromDate, setFromDate] = useState(daysAgoISO(6)); // default: last 7 days by receive date
   const [toDate, setToDate] = useState(todayISO());
   const [page, setPage] = useState(1);
-  const [sortCol, setSortCol] = useState('');
+  const [sortCol, setSortCol] = useState(COL_PUBLISH);
   const [sortDesc, setSortDesc] = useState(true);
 
   const handleSort = (col: string) => {
@@ -78,33 +97,8 @@ export default function Report59Page() {
     }
   }, []);
 
-  // Default (today) view: paint the static JSON snapshot instantly, then refresh
-  // live in the background. Custom date ranges fetch live directly (with spinner).
   useEffect(() => {
-    let cancelled = false;
-    const today = todayISO();
-    const isDefault = fromDate === today && toDate === today;
-    if (!isDefault) { loadData(fromDate, toDate); return; }
-
-    (async () => {
-      let painted = false;
-      try {
-        const jr = await fetch('/data/sec/r59.json', { cache: 'no-store' });
-        if (jr.ok) {
-          const j = await jr.json();
-          if (!cancelled && j?.date === today && Array.isArray(j.rows)) {
-            setHeaders(j.headers ?? []);
-            setRawRows(j.rows ?? []);
-            setFetchDate(j.fetchDate ?? j.date ?? '');
-            setLoading(false);
-            painted = true;
-          }
-        }
-      } catch { /* fall through to live */ }
-      if (!cancelled) loadData(today, today, painted);
-    })();
-
-    return () => { cancelled = true; };
+    loadData(fromDate, toDate);
   }, [loadData, fromDate, toDate]);
 
   const filteredRows = useMemo(() => {
@@ -120,7 +114,16 @@ export default function Report59Page() {
     });
 
     if (sortCol) {
+      // Publish/transaction date columns show a Thai BE "DD/MM/YYYY" label,
+      // which does not sort correctly as a plain string - use the ISO dates
+      // the API already computed for these two columns instead.
+      const isoKey = sortCol === COL_PUBLISH ? '__publishISO' : sortCol === COL_DATE ? '__txISO' : null;
       result.sort((a, b) => {
+        if (isoKey) {
+          const va = a[isoKey] ?? '';
+          const vb = b[isoKey] ?? '';
+          return sortDesc ? vb.localeCompare(va) : va.localeCompare(vb);
+        }
         const va = a[sortCol] ?? '';
         const vb = b[sortCol] ?? '';
         const numA = parseFloat(va.replace(/,/g, ''));
@@ -141,7 +144,9 @@ export default function Report59Page() {
 
   // Company is rendered as its own sticky first column (see table below) so it
   // stays visible while scrolling the rest horizontally on narrow screens.
-  const displayHeaders = headers.filter(h => h !== COL_METHOD && h !== COL_COMPANY);
+  // Publish/transaction date also get fixed columns (with sort + badge
+  // handling) rather than the generic dynamic-column treatment below.
+  const displayHeaders = headers.filter(h => ![COL_METHOD, COL_COMPANY, COL_PUBLISH, COL_DATE].includes(h));
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -242,9 +247,9 @@ export default function Report59Page() {
                       </div>
                     </div>
                   </th>
-                  {displayHeaders.map(h => (
-                    <th 
-                      key={h} 
+                  {[COL_PUBLISH, COL_DATE, ...displayHeaders].map(h => (
+                    <th
+                      key={h}
                       onClick={() => handleSort(h)}
                       className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
                     >
@@ -278,6 +283,15 @@ export default function Report59Page() {
                       </td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
                         <BuySellBadge action={row[COL_METHOD] ?? ''} />
+                      </td>
+                      <td className="px-3 py-2.5 text-[13px] text-white/55 whitespace-nowrap">
+                        <span className="inline-flex items-center">
+                          {row[COL_PUBLISH] ?? '—'}
+                          {row['__retroactive'] === '1' && <RetroactiveBadge />}
+                        </span>
+                      </td>
+                      <td className="px-3 py-2.5 text-[13px] text-white/40 whitespace-nowrap">
+                        {row[COL_DATE] ?? '—'}
                       </td>
                       {displayHeaders.map(h => {
                         const val = row[h] ?? '—';
