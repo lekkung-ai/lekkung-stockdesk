@@ -2,21 +2,43 @@
 save_biglot.py  –  Fetch Big Lot summary from RYT9 and save as static history JSON.
 
 Usage:
-    python save_biglot.py [YYYY-MM-DD]
+    python save_biglot.py [YYYY-MM-DD]  # YYYY-MM-DD is advisory only (logging) -
+                                          # the snapshot is always saved under the
+                                          # article's own publish date, not this
+    python save_biglot.py --dry-run      # fetch + print, write nothing
+    python save_biglot.py --out <dir>    # write into <dir> instead of the real
+                                          # public/data/history/ tree (testing)
 
 Output:
     stockdesk/public/data/history/YYYY-MM-DD/biglot.json
+
+The snapshot is labeled with the RSS item's own pubDate (converted to a
+Bangkok-local date), not the date the script happened to run. Bucketing by
+run-date used to silently relabel a stale article as today's data on any day
+RYT9 hadn't published a fresh summary yet (holidays, or a pipeline run before
+~17:00 ICT) - see the 2026-07-09 incident: that folder's biglot.json turned
+out to be 07-08's article duplicated under the wrong date. Always use
+--dry-run or --out when testing manually - same reasoning as save_news.py.
 """
 
+import argparse
 import json
 import os
 import sys
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
 import re
+
+# Console output includes Thai article titles; reconfigure stdout to UTF-8 so
+# this doesn't depend on the caller's console codepage (cmd.exe defaults to
+# cp1252 unless `chcp 65001` was run first) - same fix as save_news.py.
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 RSS_URL = "https://www.ryt9.com/tag/BIG+LOT%3A/rss.xml"
+BANGKOK_TZ = timezone(timedelta(hours=7))
 
 def inner_content(tag: str, html: str) -> list[str]:
     open_re = re.compile(rf"<{tag}(?:[^>\"']|\"[^\"]*\"|'[^']*')*>", re.IGNORECASE)
@@ -103,39 +125,84 @@ def fetch_article(url: str):
     with urllib.request.urlopen(req, timeout=30) as resp:
         return resp.read().decode("utf-8", errors="replace")
 
+def bangkok_date_from_pubdate(pub_date: str):
+    """RSS pubDate -> 'YYYY-MM-DD' in Asia/Bangkok. None if unparseable."""
+    if not pub_date:
+        return None
+    try:
+        s = pub_date
+        if not re.search(r"([+-]\d{2}:?\d{2}|Z|GMT|UTC?)\s*$", s, re.IGNORECASE):
+            s += " +0700"
+        dt = parsedate_to_datetime(s)
+        return dt.astimezone(BANGKOK_TZ).strftime("%Y-%m-%d")
+    except Exception:
+        return None
+
 def main():
-    date_str = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime("%Y-%m-%d")
-    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("run_date", nargs="?", default=None, help="advisory only - logging/comparison, not the save target")
+    parser.add_argument("--dry-run", action="store_true", help="fetch and print, write nothing")
+    parser.add_argument("--out", default=None, help="write into this dir instead of the real public/data/history/ tree (for manual testing)")
+    args = parser.parse_args()
+
+    requested_date = args.run_date or datetime.now().strftime("%Y-%m-%d")
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     stockdesk_dir = os.path.dirname(script_dir)
-    out_dir = os.path.join(stockdesk_dir, "public", "data", "history", date_str)
-    os.makedirs(out_dir, exist_ok=True)
-    out_file = os.path.join(out_dir, "biglot.json")
+    history_root = args.out if args.out else os.path.join(stockdesk_dir, "public", "data", "history")
+    if args.out:
+        print(f"  [--out] Writing into {history_root} instead of the real history tree")
+    if args.dry_run:
+        print("  [--dry-run] Fetching only - nothing will be written")
 
-    print(f"  Fetching Big Lot Summary for {date_str}...")
-    
+    print(f"  Fetching Big Lot Summary (pipeline run date {requested_date})...")
+
     items = fetch_rss()
     if not items:
-        print("  Warning: No summary article found in RSS today.")
+        print("  Warning: No summary article found in RSS.")
         return
-        
+
     item = items[0]
     print(f"    Found: {item['title']}")
-    
+
+    # Label the snapshot by the article's own publish date, not the day the
+    # script happened to run (see module docstring for why).
+    article_date = bangkok_date_from_pubdate(item["pubDate"]) or requested_date
+    if article_date != requested_date:
+        print(f"    Note: newest article is dated {article_date}, not {requested_date} - saving under its own date instead of mislabeling it.")
+
+    out_dir = os.path.join(history_root, article_date)
+    out_file = os.path.join(out_dir, "biglot.json")
+
+    if os.path.exists(out_file):
+        try:
+            with open(out_file, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            if existing.get("publishedAt") == item["pubDate"]:
+                print(f"    Already have this article's snapshot at {out_file} - skipping.")
+                return
+        except Exception:
+            pass
+
     html = fetch_article(item["link"])
     rows = parse_html_table(html)
-    
+
     if not rows:
         print("    Warning: No table or rows found in the article.")
         return
-        
+
     result = {
-        "date": date_str,
+        "date": article_date,
         "publishedAt": item["pubDate"],
         "source": "InfoQuest/RYT9",
         "rows": rows
     }
-    
+
+    if args.dry_run:
+        print(f"    (dry-run) Would save {len(rows)} rows to: {out_file}")
+        return
+
+    os.makedirs(out_dir, exist_ok=True)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, separators=(",", ":"))
     print(f"    Saved {len(rows)} rows to: {out_file}")
