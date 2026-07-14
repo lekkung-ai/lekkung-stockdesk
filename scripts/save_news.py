@@ -20,6 +20,32 @@ the real history tree collides with the scheduled pipeline
 producing a diverged commit it can't cleanly rebase past (see the
 2026-07-13 incident: a manual test run here left the local git repo mid
 rebase-conflict on that day's news.json).
+
+TWO WRITERS, BY DESIGN - DO NOT "SIMPLIFY" THIS TO OVERWRITE:
+public/data/history/<date>/news.json has two independent writers that can
+run within minutes of each other: the cloud pipeline (daily-scan.yml /
+iaa-research-morning.yml, GitHub Actions) and this machine's local Task
+Scheduler job (update_stockdesk.bat). Each runs this script in its own
+checkout, so neither sees the other's fetch. If this script just overwrote
+the day file with whatever it fetched, whichever writer's git push landed
+second would silently discard the other's items - no error, no conflict,
+just lost news. The load_day_file() -> union -> dedupe-by-link -> sort
+below (see main()) exists specifically to make two independent runs
+converge to the same superset instead of clobbering each other.
+
+That merge logic alone didn't stop the 2026-07-13/07-14 conflicts though -
+those were git-level, not application-level: update_stockdesk.bat used to
+run this script (and the other save_*.py scripts) BEFORE its own
+`git pull --rebase` on this repo, so the merge above ran against a stale
+local base, and by the time the pull finally happened the local commit and
+the actual remote had already diverged on this file. Fixed by moving the
+stockdesk pull earlier in update_stockdesk.bat (see its Step 5.65) so the
+merge above runs against a base that's as fresh as possible - and by
+sorting deterministically (ts, then link) below so two runs that do end up
+with an identical merged item set always serialize to byte-identical JSON
+instead of differing only in tie-order. Keep both fixes if you touch this
+file again - the plain "just write what you fetched" version is what
+caused the incidents.
 """
 
 import argparse
@@ -263,7 +289,13 @@ def main():
                 seen_links.add(link)
                 merged.append(item)
                 added += 1
-        merged.sort(key=lambda x: x.get('ts', 0), reverse=True)
+        # Sort key includes link as a tiebreaker (not just ts) so that two
+        # independent runs which end up merging to the identical item set -
+        # the common case, since both are unioning against a shared history -
+        # always produce byte-identical JSON, regardless of the order each
+        # run happened to fetch/append items in. ts-only sorting is stable
+        # per-run but not deterministic ACROSS runs when two items share a ts.
+        merged.sort(key=lambda x: (-x.get('ts', 0), x.get('link', '')))
         if args.dry_run:
             print(f"{date_str}: +{added} new -> {len(merged)} total (dry-run, not written)")
         else:
