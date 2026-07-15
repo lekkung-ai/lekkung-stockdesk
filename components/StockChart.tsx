@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { createChart, CandlestickSeries, LineSeries, HistogramSeries, ColorType } from 'lightweight-charts';
+import { createChart, CandlestickSeries, LineSeries, HistogramSeries, ColorType, createSeriesMarkers } from 'lightweight-charts';
 import type { IChartApi, Time } from 'lightweight-charts';
 
 type Timeframe = '1M' | '3M' | '6M' | '1Y';
@@ -91,7 +91,7 @@ function getPpbpTimes(data: OhlcvPoint[]): Set<string> {
   return times;
 }
 
-export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean }) {
+export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
@@ -159,6 +159,20 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
       wickDownColor: '#E24B4A',
     });
     candles.setData(chartData);
+
+    if (highlightDates && highlightDates.length) {
+      const validTimes = new Set(chartData.map(d => d.time));
+      const markers = highlightDates
+        .filter(d => validTimes.has(d))
+        .sort()
+        .map(d => ({
+          time: d as Time,
+          position: 'belowBar' as const,
+          shape: 'arrowUp' as const,
+          color: '#F9C942',
+        }));
+      if (markers.length) createSeriesMarkers(candles, markers);
+    }
 
     const ema10 = calcEMA(chartData, 10);
     if (showEma10 && ema10.length) {
@@ -235,7 +249,7 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
     ro.observe(containerRef.current);
 
     return () => { ro.disconnect(); chart.remove(); chartRef.current = null; };
-  }, [status, chartData, height, isPpbp]);
+  }, [status, chartData, height, isPpbp, highlightDates]);
 
   // Update visible range when timeframe changes (chart already created)
   useEffect(() => {

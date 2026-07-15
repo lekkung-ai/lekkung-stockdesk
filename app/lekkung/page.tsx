@@ -10,7 +10,11 @@ import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
+import ScanHistoryView from '@/components/ScanHistoryView';
+import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
+
+const incompleteCount = Array.isArray(rawIncomplete) ? rawIncomplete.length : 0;
 
 export default function LekkungPage() {
   const [profitMin, setProfitMin] = useState(20);
@@ -19,7 +23,14 @@ export default function LekkungPage() {
   const [mcapMin, setMcapMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [mode, setMode] = useState<'today' | 'history'>('today');
+  const [historyInitialTicker, setHistoryInitialTicker] = useState<string | null>(null);
   const { priceMap, fetchDone } = useLivePrices(lekkungData.map(s => s.Ticker));
+
+  const goToHistory = (ticker: string) => {
+    setHistoryInitialTicker(ticker);
+    setMode('history');
+  };
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -54,14 +65,48 @@ export default function LekkungPage() {
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <PageHeader
-        title="Lekkung Growth"
-        subtitle="Growth Stocks Focus Strategy"
-        count={filtered.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
-        total={lekkungData.length}
-      />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <PageHeader
+          title="Lekkung Growth"
+          subtitle="Growth Stocks Focus Strategy"
+          count={filtered.length}
+          updatedAt={formatThaiDate(scanGeneratedAt)}
+          total={lekkungData.length}
+        />
+        <div className="flex items-center gap-3">
+          {incompleteCount > 0 && (
+            <span
+              title="ผ่านเงื่อนไขราคา/สภาพคล่องแล้ว แต่ข้อมูลงบการเงินยังไม่ครบ (Yahoo/F45 ยังดึงไม่สำเร็จ) - รอรอบถัดไป"
+              className="text-[11px] text-white/35 cursor-help"
+            >
+              รอข้อมูล {incompleteCount} ตัว
+            </span>
+          )}
+          <div className="flex items-center gap-0.5 bg-[#13161e] border border-white/[0.07] rounded-xl p-0.5">
+            <button
+              onClick={() => setMode('today')}
+              className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors ${
+                mode === 'today' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              วันนี้
+            </button>
+            <button
+              onClick={() => setMode('history')}
+              className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors ${
+                mode === 'history' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              ย้อนหลัง
+            </button>
+          </div>
+        </div>
+      </div>
 
+      {mode === 'history' ? (
+        <ScanHistoryView scanName="lekkung" initialTicker={historyInitialTicker} />
+      ) : (
+      <>
       <FilterBar>
         <SliderField label="Profit Growth (QoQY) %" min={0} max={100} value={profitMin} onChange={setProfitMin} />
         <Divider />
@@ -107,7 +152,13 @@ export default function LekkungPage() {
                 <LivePriceCell jsonPrice={s.Close} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>
               <Td right mono>
-                <span className="text-white/60">{daysInScan('lekkung', s.Ticker) ?? '—'}</span>
+                <span
+                  onClick={(e) => { e.stopPropagation(); goToHistory(s.Ticker); }}
+                  title="ดูประวัติการติด scan ย้อนหลัง"
+                  className="text-white/60 hover:text-white underline decoration-dotted underline-offset-2 cursor-pointer"
+                >
+                  {daysInScan('lekkung', s.Ticker) ?? '—'}
+                </span>
               </Td>
               <Td right mono>{s.PE_Ratio?.toFixed(2) || '-'}</Td>
               <Td right mono>
@@ -171,6 +222,8 @@ export default function LekkungPage() {
         </tbody>
       </TableWrap>
       </div>
+      </>
+      )}
     </div>
   );
 }
