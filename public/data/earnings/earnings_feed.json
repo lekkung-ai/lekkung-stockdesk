@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T21:52:55.993544+07:00",
+  "generatedAt": "2026-07-15T16:38:04.713852+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -74,7 +74,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-14T08:30:24+07:00",
+      "announceDate": "2026-07-14T08:30:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 1763850000.0,
@@ -403,7 +403,7 @@
     },
     {
       "ticker": "TISCO",
-      "date": "2026-07-14T08:30:24+07:00",
+      "date": "2026-07-14T08:30:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -6552,6 +6552,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-28T20:21:00+07:00"
+    },
+    {
+      "ticker": "MC",
+      "date": "2026-08-29T07:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-29T07:01:00+07:00"
     }
   ]
 }
