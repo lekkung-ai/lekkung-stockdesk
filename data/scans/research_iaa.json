@@ -1,8 +1,897 @@
 {
-  "generated_at": "2026-07-14T11:22:10+07:00",
+  "generated_at": "2026-07-15T16:38:01+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "ce019c5a-9f3c-43c0-b6e8-d7eb9bee69b8",
+      "title": "Trading by ASP | HOME PRODUCT CENTER PUBLIC COMPANY LIMITED (HMPRO) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118112-trading-asp-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "ASP",
+      "rating": "Trading",
+      "companyName": "HOME PRODUCT CENTER PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T16:15:15+07:00",
+      "ts": 1784106915000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/HMPRO260715.pdf"
+    },
+    {
+      "uuid": "89c98ae9-6114-4ac9-a650-e6932f2e12af",
+      "title": "Unrated by KSS | Advice IT Infinite Public Company Limited (ADVICE) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118111-unrated-kss-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "KSS",
+      "rating": "Unrated",
+      "companyName": "Advice IT Infinite Public Company Limited",
+      "date": "2026-07-15T16:15:15+07:00",
+      "ts": 1784106915000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260714_ADVICE_QC-(E).pdf"
+    },
+    {
+      "uuid": "d0261efd-9919-4edc-b9b9-85648a45af87",
+      "title": "Buy by ASP | TIDLOR HOLDINGS PUBLIC COMPANY LIMITED (TIDLOR) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118105-buy-asp-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "ASP",
+      "rating": "Buy",
+      "companyName": "TIDLOR HOLDINGS PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:52:07+07:00",
+      "ts": 1784101927000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/TIDLOR260715.pdf"
+    },
+    {
+      "uuid": "f76bd22e-70ea-4fab-96a2-1156d7f681bc",
+      "title": "Trading by ASP | TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED (TISCO) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118104-trading-asp-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "ASP",
+      "rating": "Trading",
+      "companyName": "TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:48:38+07:00",
+      "ts": 1784101718000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/TISCO20260715.pdf"
+    },
+    {
+      "uuid": "58341be2-b72a-42ad-a48f-4f0c60366af2",
+      "title": "BUY by KSS | Moshi Moshi Retail Corporation Public Company Limited (MOSHI) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118103-buy-kss-moshi",
+      "tickers": [
+        "MOSHI"
+      ],
+      "symbolId": "114628",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "Moshi Moshi Retail Corporation Public Company Limited",
+      "date": "2026-07-15T14:48:37+07:00",
+      "ts": 1784101717000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715_MOSHI_QC(E).pdf"
+    },
+    {
+      "uuid": "b63fc3cb-f1b6-4acc-9389-71305223b1c1",
+      "title": "TRINITY | QUICK WIN AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118102-trinity-quick-win-afternoon-stock",
+      "tickers": [
+        "STGT"
+      ],
+      "symbolId": "98047",
+      "broker": "TRIS",
+      "rating": null,
+      "companyName": "QUICK WIN AFTERNOON Stock",
+      "date": "2026-07-15T14:47:21+07:00",
+      "ts": 1784101641000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/AFTERNOON-STOCK-15JULY26-STGT.pdf"
+    },
+    {
+      "uuid": "78e1d0fa-1f1c-461f-93f1-620fe7d53d3e",
+      "title": "BBB โดย TRIS | ทรัสต์เพื่อการลงทุนในสิทธิการเช่าอสังหาริมทรัพย์ แอล เอช โฮเทล (LHHOTEL) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118100-bbb-tris-lhhotel",
+      "tickers": [
+        "LHHOTEL"
+      ],
+      "symbolId": "77497",
+      "broker": "TRIS",
+      "rating": "BBB",
+      "companyName": "ทรัสต์เพื่อการลงทุนในสิทธิการเช่าอสังหาริมทรัพย์ แอล เอช โฮเทล",
+      "date": "2026-07-15T14:44:49+07:00",
+      "ts": 1784101489000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/LHHOTEL15Jul26-t.pdf"
+    },
+    {
+      "uuid": "42174875-9509-4f34-aa0b-d0e3b94d6475",
+      "title": "BBB by TRIS | LH HOTEL LEASEHOLD REAL ESTATE INVESTMENT TRUST (LHHOTEL) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118099-bbb-tris-lhhotel",
+      "tickers": [
+        "LHHOTEL"
+      ],
+      "symbolId": "77497",
+      "broker": "TRIS",
+      "rating": "BBB",
+      "companyName": "LH HOTEL LEASEHOLD REAL ESTATE INVESTMENT TRUST",
+      "date": "2026-07-15T14:20:58+07:00",
+      "ts": 1784100058000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/LHHOTEL15Jul26-e.pdf"
+    },
+    {
+      "uuid": "b6487a30-b552-4069-b30c-e2b40d37091d",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118096-lhs-trading-ideas",
+      "tickers": [
+        "GLOBAL",
+        "GULF"
+      ],
+      "symbolId": "10459,126614",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-07-15T14:20:56+07:00",
+      "ts": 1784100056000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Trading-Ideas_20260715.pdf"
+    },
+    {
+      "uuid": "e8517a57-c335-4479-80ba-78f6e5fd43cd",
+      "title": "BUY by KSS | BUMRUNGRAD HOSPITAL PUBLIC COMPANY LIMITED (BH) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118094-buy-kss-bh",
+      "tickers": [
+        "BH"
+      ],
+      "symbolId": "478",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "BUMRUNGRAD HOSPITAL PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:17:38+07:00",
+      "ts": 1784099858000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715_BH_EP-(E).pdf"
+    },
+    {
+      "uuid": "f3f4c98e-7b3f-47ab-aa95-fd31bcf8744c",
+      "title": "Reduce by KSS | TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED (TISCO) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118093-reduce-kss-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "KSS",
+      "rating": "Reduce",
+      "companyName": "TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:17:37+07:00",
+      "ts": 1784099857000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_TISCO_2026_07_15_e_th.pdf"
+    },
+    {
+      "uuid": "60ab06a7-ca26-4d1d-b554-c1ef38ca1af5",
+      "title": "Not Rate by KSS | BANPU PUBLIC COMPANY LIMITED (BANPU) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118094-not-rate-kss-banpu",
+      "tickers": [
+        "BANPU"
+      ],
+      "symbolId": "416",
+      "broker": "KSS",
+      "rating": "Not Rate",
+      "companyName": "BANPU PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:17:37+07:00",
+      "ts": 1784099857000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715-BANPU_QC-(E).pdf"
+    },
+    {
+      "uuid": "8b341c8d-d5b8-4851-ae15-4a2d4b9cad55",
+      "title": "Outperform (Initiate) โดย KGI | บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน) (PR9) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118091-outperform-initiate-kgi-pr9",
+      "tickers": [
+        "PR9"
+      ],
+      "symbolId": "89402",
+      "broker": "KGI",
+      "rating": "Outperform (Initiate)",
+      "companyName": "บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน)",
+      "date": "2026-07-15T14:13:21+07:00",
+      "ts": 1784099601000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_PR9_2026_07_15_th.pdf"
+    },
+    {
+      "uuid": "989e92d1-e2e2-4176-a339-ac44b13e5930",
+      "title": "Neutral (Maintained) โดย KGI | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118089-neutral-maintained-kgi-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-15T14:13:19+07:00",
+      "ts": 1784099599000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_TISCO_2026_07_15_th-thai.pdf"
+    },
+    {
+      "uuid": "599eb15e-a4c6-4232-957f-a5bb8ab1d152",
+      "title": "Outperform (Initiate) by KGI | PRARAM 9 HOSPITAL PUBLIC COMPANY LIMITED (PR9) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118090-outperform-initiate-kgi-pr9",
+      "tickers": [
+        "PR9"
+      ],
+      "symbolId": "89402",
+      "broker": "KGI",
+      "rating": "Outperform (Initiate)",
+      "companyName": "PRARAM 9 HOSPITAL PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:13:19+07:00",
+      "ts": 1784099599000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_PR9_2026_07_15_e_th.pdf"
+    },
+    {
+      "uuid": "8530d4d7-a810-49f1-975f-0dc185860990",
+      "title": "Neutral (Maintained) by KGI | TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED (TISCO) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118088-neutral-maintained-kgi-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:13:18+07:00",
+      "ts": 1784099598000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_TISCO_2026_07_15_e_th.pdf"
+    },
+    {
+      "uuid": "73fded72-d423-4f81-a67c-a004a220ca5c",
+      "title": "Outperform (Maintained) by KGI | SYNNEX (THAILAND) PUBLIC COMPANY LIMITED (SYNEX) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118086-outperform-maintained-kgi-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "SYNNEX (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:13:18+07:00",
+      "ts": 1784099598000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_SYNEX_2026_07_15_e_th.pdf"
+    },
+    {
+      "uuid": "7829cd3e-45e0-40d3-9e3e-2bfdc8b6526c",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน) (SYNEX) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118085-outperform-maintained-kgi-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-07-15T14:13:18+07:00",
+      "ts": 1784099598000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_SYNEX_2026_07_15_th_THAI.pdf"
+    },
+    {
+      "uuid": "8b3aacdc-8edd-4a3a-a612-e853e5b66f27",
+      "title": "Outperform (Maintained) by KGI | SIAM WELLNESS GROUP PUBLIC COMPANY LIMITED (SPA) | Research as of 15 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118087-outperform-maintained-kgi-spa",
+      "tickers": [
+        "SPA"
+      ],
+      "symbolId": "22269",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "SIAM WELLNESS GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-15T14:13:18+07:00",
+      "ts": 1784099598000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_SPA_2026_07_15_e_th.pdf"
+    },
+    {
+      "uuid": "cc4c49b4-cbe6-496a-b420-5e498a548edd",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน) (KCE) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118078-trading-maintain-yuanta-kce",
+      "tickers": [
+        "KCE"
+      ],
+      "symbolId": "330",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน)",
+      "date": "2026-07-15T13:51:07+07:00",
+      "ts": 1784098267000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/KCE_Company_Update_150726.pdf"
+    },
+    {
+      "uuid": "880bef57-f0af-4d3f-b7af-e9cf118cf241",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118079-trading-maintain-yuanta-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-15T13:51:07+07:00",
+      "ts": 1784098267000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/TISCO_Earnings_result_15072026.pdf"
+    },
+    {
+      "uuid": "9cc32a2f-c010-4da7-97b3-640c6a76db75",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน) (GUNKUL) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118077-buy-maintain-yuanta-gunkul",
+      "tickers": [
+        "GUNKUL"
+      ],
+      "symbolId": "13590",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน)",
+      "date": "2026-07-15T13:51:06+07:00",
+      "ts": 1784098266000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/GUNKUL_Update_150726.pdf"
+    },
+    {
+      "uuid": "76d8a256-438f-4b31-929e-4f99063e57b2",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เคซีจี คอร์ปอเรชั่น จำกัด (มหาชน) (KCG) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118076-buy-maintain-yuanta-kcg",
+      "tickers": [
+        "KCG"
+      ],
+      "symbolId": "116900",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เคซีจี คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-15T13:51:06+07:00",
+      "ts": 1784098266000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/KCG_Update_150726.pdf"
+    },
+    {
+      "uuid": "574a4097-fd96-42c0-abe1-db75da5ed5b8",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน) (GUNKUL) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118075-buy-maintain-yuanta-gunkul",
+      "tickers": [
+        "GUNKUL"
+      ],
+      "symbolId": "13590",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน)",
+      "date": "2026-07-15T13:51:06+07:00",
+      "ts": 1784098266000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/GUNKUL_Update_150726.pdf"
+    },
+    {
+      "uuid": "068bb98c-f137-4d1a-9f7a-de17b524ee1d",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท บ้านปู จำกัด (มหาชน) (BANPU) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118074-buy-maintain-yuanta-banpu",
+      "tickers": [
+        "BANPU"
+      ],
+      "symbolId": "416",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท บ้านปู จำกัด (มหาชน)",
+      "date": "2026-07-15T13:51:06+07:00",
+      "ts": 1784098266000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BANPU_Company_update_150726.pdf"
+    },
+    {
+      "uuid": "ba2428a4-612b-4072-88d0-b4016213d7fe",
+      "title": "Not Rate โดย KSS | บริษัท บ้านปู จำกัด (มหาชน) (BANPU) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118070-not-rate-kss-banpu",
+      "tickers": [
+        "BANPU"
+      ],
+      "symbolId": "416",
+      "broker": "KSS",
+      "rating": "Not Rate",
+      "companyName": "บริษัท บ้านปู จำกัด (มหาชน)",
+      "date": "2026-07-15T13:20:20+07:00",
+      "ts": 1784096420000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715-BANPU_QC.pdf"
+    },
+    {
+      "uuid": "4eedb91c-447a-4e14-8081-6ff22e3de71c",
+      "title": "BUY โดย LHS | บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน) (SYNEX) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118067-buy-lhs-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-07-15T13:02:27+07:00",
+      "ts": 1784095347000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/SYNEX_20260715.pdf"
+    },
+    {
+      "uuid": "48657ace-a68d-4a0c-9656-05608d2889c6",
+      "title": "Earning Result โดย SBITO | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118061-earning-result-sbito-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "KSS",
+      "rating": "Earning Result",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-15T11:46:03+07:00",
+      "ts": 1784090763000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Earning-Result-150769-TISCO.pdf"
+    },
+    {
+      "uuid": "39139c7e-177b-4046-af55-fae8b840d12b",
+      "title": "HOLD โดย SBITO | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118062-hold-sbito-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "SBITO",
+      "rating": "HOLD",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-15T11:46:03+07:00",
+      "ts": 1784090763000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Fundamental-150769---TISCO.pdf"
+    },
+    {
+      "uuid": "fc8de03b-89ee-4a6a-aa56-8cb86d1d2ef4",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118054-trinity-quick-win---moring-stock",
+      "tickers": [
+        "HMPRO",
+        "TOP"
+      ],
+      "symbolId": "2574,5170",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-07-15T11:37:37+07:00",
+      "ts": 1784090257000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/MORNING-STOCKs15JULY26-top_hmpro.pdf"
+    },
+    {
+      "uuid": "b1b7554c-b2ca-4f11-b82e-d88e107bceb4",
+      "title": "BUY โดย KSS | บริษัท โรงพยาบาลบำรุงราษฎร์ จำกัด (มหาชน) (BH) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118051-buy-kss-bh",
+      "tickers": [
+        "BH"
+      ],
+      "symbolId": "478",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท โรงพยาบาลบำรุงราษฎร์ จำกัด (มหาชน)",
+      "date": "2026-07-15T11:34:13+07:00",
+      "ts": 1784090053000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715_BH_EP.pdf"
+    },
+    {
+      "uuid": "fba7f930-da42-422b-ba65-ae8561dabdd8",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118041-trinity-block-trade--moring-stock",
+      "tickers": [
+        "ADVANC",
+        "DELTA"
+      ],
+      "symbolId": "743,1353",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-07-15T10:46:20+07:00",
+      "ts": 1784087180000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BlockTrade-Morning-15JULY26__advanc_DELTA.pdf"
+    },
+    {
+      "uuid": "4e0c0f97-5601-4f4f-b553-1e2c49bf130a",
+      "title": "Reduce โดย KSS | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118039-reduce-kss-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "KSS",
+      "rating": "Reduce",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-15T10:46:13+07:00",
+      "ts": 1784087173000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715_TISCO_QC.pdf"
+    },
+    {
+      "uuid": "9b182cb9-2b2f-4e2e-b3db-3ed7e9badb22",
+      "title": "BUY โดย KSS | บริษัท อินฟราเซท จำกัด (มหาชน) (INSET) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118028-buy-kss-inset",
+      "tickers": [
+        "INSET"
+      ],
+      "symbolId": "93653",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท อินฟราเซท จำกัด (มหาชน)",
+      "date": "2026-07-15T10:22:43+07:00",
+      "ts": 1784085763000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715_INSET_QC.pdf"
+    },
+    {
+      "uuid": "b1001a41-6025-454b-a663-d0f3f2c227de",
+      "title": "BUY โดย KSS | บริษัท โมชิ โมชิ รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (MOSHI) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118027-buy-kss-moshi",
+      "tickers": [
+        "MOSHI"
+      ],
+      "symbolId": "114628",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท โมชิ โมชิ รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-15T10:22:42+07:00",
+      "ts": 1784085762000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715_MOSHI_QC.pdf"
+    },
+    {
+      "uuid": "9e566c43-ec9e-4b4b-a77a-b1eb03a48f43",
+      "title": "Buy (Maintain recommendation) โดย PST | บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน) (BDMS) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118020-buy-maintain-recommendation-pst-bdms",
+      "tickers": [
+        "BDMS"
+      ],
+      "symbolId": "731",
+      "broker": "PST",
+      "rating": "Buy (Maintain recommendation)",
+      "companyName": "บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน)",
+      "date": "2026-07-15T10:01:54+07:00",
+      "ts": 1784084514000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BDMS071526_t.pdf"
+    },
+    {
+      "uuid": "829da66e-0c3e-4e86-a05e-c8b46df4ce07",
+      "title": "Gradual buying (Maintain recommendation) โดย PST | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118021-gradual-buying-maintain-recommendation-pst-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "PST",
+      "rating": "Gradual buying (Maintain recommendation)",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-15T10:01:54+07:00",
+      "ts": 1784084514000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/TISCO071526_t.pdf"
+    },
+    {
+      "uuid": "4e45e3c5-9a7e-4166-835e-2e210c8d984f",
+      "title": "HOLD โดย MST | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118006-hold-mst-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "MST",
+      "rating": "HOLD",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-15T09:09:23+07:00",
+      "ts": 1784081363000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715_TISCO-2Q-results_press.pdf"
+    },
+    {
+      "uuid": "c290a04b-054f-4cdd-b735-ebc09660f06f",
+      "title": "HOLD โดย MST | บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน) (BDMS) | บทวิเคราะห์ประจำวันที่ 15 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118003-hold-mst-bdms",
+      "tickers": [
+        "BDMS"
+      ],
+      "symbolId": "731",
+      "broker": "MST",
+      "rating": "HOLD",
+      "companyName": "บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน)",
+      "date": "2026-07-15T09:08:53+07:00",
+      "ts": 1784081333000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260715-BDMS-2Q6E-preview_press.pdf"
+    },
+    {
+      "uuid": "76036e02-7488-4dc8-9631-264953ae6892",
+      "title": "BBB- โดย TRIS | บริษัท เจมาร์ท กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน) (JMART) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118000-bbb--tris-jmart",
+      "tickers": [
+        "JMART"
+      ],
+      "symbolId": "11404",
+      "broker": "TRIS",
+      "rating": "BBB-",
+      "companyName": "บริษัท เจมาร์ท กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-07-14T17:34:54+07:00",
+      "ts": 1784025294000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/JMART14Jul26-t.pdf"
+    },
+    {
+      "uuid": "5b956628-591b-461c-b29d-50dc5e206f1f",
+      "title": "BBB- by TRIS | JAYMART GROUP HOLDINGS PUBLIC COMPANY LIMITED (JMART) | Research as of 14 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117999-bbb--tris-jmart",
+      "tickers": [
+        "JMART"
+      ],
+      "symbolId": "11404",
+      "broker": "TRIS",
+      "rating": "BBB-",
+      "companyName": "JAYMART GROUP HOLDINGS PUBLIC COMPANY LIMITED",
+      "date": "2026-07-14T16:00:21+07:00",
+      "ts": 1784019621000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/JMART14Jul26-e.pdf"
+    },
+    {
+      "uuid": "1af64677-8f18-4afb-b606-5643f8b3a6ff",
+      "title": "BUY โดย TRINITY | บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน) (TIDLOR) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117994-buy-trinity-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-07-14T15:36:25+07:00",
+      "ts": 1784018185000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/TIDLOR_Thai_20260714.pdf"
+    },
+    {
+      "uuid": "ec0b79dd-8720-41cc-9a4a-38c50500405e",
+      "title": "Buy by ASP | BANGKOK DUSIT MEDICAL SERVICES PUBLIC COMPANY LIMITED (BDMS) | Research as of 14 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/market/117989-buy-asp-bdms",
+      "tickers": [
+        "BDMS"
+      ],
+      "symbolId": "731",
+      "broker": "ASP",
+      "rating": "Buy",
+      "companyName": "BANGKOK DUSIT MEDICAL SERVICES PUBLIC COMPANY LIMITED",
+      "date": "2026-07-14T14:59:34+07:00",
+      "ts": 1784015974000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BDMS260714.pdf"
+    },
+    {
+      "uuid": "8ffd335e-d54a-4c93-b6a0-bd408afb8250",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117986-lhs-trading-ideas",
+      "tickers": [
+        "BDMS",
+        "CPALL"
+      ],
+      "symbolId": "731,4086",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-07-14T14:55:40+07:00",
+      "ts": 1784015740000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Trading-Ideas_20260714.pdf"
+    },
+    {
+      "uuid": "918c2cac-ca47-42fb-8608-2e78492d59fe",
+      "title": "Underperform (Maintained) by KGI | PRUKSA HOLDING PUBLIC COMPANY LIMITED (PSH) | Research as of 14 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117980-underperform-maintained-kgi-psh",
+      "tickers": [
+        "PSH"
+      ],
+      "symbolId": "80396",
+      "broker": "KGI",
+      "rating": "Underperform (Maintained)",
+      "companyName": "PRUKSA HOLDING PUBLIC COMPANY LIMITED",
+      "date": "2026-07-14T14:38:43+07:00",
+      "ts": 1784014723000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_PSH_2026_07_14_e_th.pdf"
+    },
+    {
+      "uuid": "4094a51a-b4e5-4f97-880f-63c76066c26f",
+      "title": "Underperform (Maintained) โดย KGI | บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน) (PSH) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117981-underperform-maintained-kgi-psh",
+      "tickers": [
+        "PSH"
+      ],
+      "symbolId": "80396",
+      "broker": "KGI",
+      "rating": "Underperform (Maintained)",
+      "companyName": "บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)",
+      "date": "2026-07-14T14:38:43+07:00",
+      "ts": 1784014723000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_PSH_2026_07_14_th.pdf"
+    },
+    {
+      "uuid": "b6e7bfed-eb8f-434b-a8c7-c6023e8439d9",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน) (STA) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117977-buy-maintain-yuanta-sta",
+      "tickers": [
+        "STA"
+      ],
+      "symbolId": "709",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน)",
+      "date": "2026-07-14T14:04:05+07:00",
+      "ts": 1784012645000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/STA_Update_140726.pdf"
+    },
+    {
+      "uuid": "77700e7c-9159-4936-afcb-b5e90e8d3bc7",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน) (NER) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117976-buy-maintain-yuanta-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน)",
+      "date": "2026-07-14T14:04:05+07:00",
+      "ts": 1784012645000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/NER_Update_140726.pdf"
+    },
+    {
+      "uuid": "494401d4-ad8c-45a6-a195-432e58e9dd63",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน) (STA) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117975-buy-maintain-yuanta-sta",
+      "tickers": [
+        "STA"
+      ],
+      "symbolId": "709",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน)",
+      "date": "2026-07-14T14:04:05+07:00",
+      "ts": 1784012645000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/STA_Update_140726.pdf"
+    },
+    {
+      "uuid": "14ebd66c-9876-422e-849f-a151471eb3ac",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน) (BDMS) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117974-buy-maintain-yuanta-bdms",
+      "tickers": [
+        "BDMS"
+      ],
+      "symbolId": "731",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน)",
+      "date": "2026-07-14T14:00:26+07:00",
+      "ts": 1784012426000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BDMS_Company_Update_14.07.26.pdf"
+    },
+    {
+      "uuid": "80942e30-b867-4967-b2d4-375161941b00",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน) (ADVICE) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117973-buy-maintain-yuanta-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "KSS",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน)",
+      "date": "2026-07-14T14:00:24+07:00",
+      "ts": 1784012424000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ADVICE_Company_Update_140726.pdf"
+    },
+    {
+      "uuid": "989f98ba-7495-40d8-bb7e-a511688f9c47",
+      "title": "BUY by KSS | ICHITAN GROUP PUBLIC COMPANY LIMITED (ICHI) | Research as of 14 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117966-buy-kss-ichi",
+      "tickers": [
+        "ICHI"
+      ],
+      "symbolId": "20792",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ICHITAN GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-14T13:34:49+07:00",
+      "ts": 1784010889000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260714_ICHI_EP(E).pdf"
+    },
+    {
+      "uuid": "286e0c76-ace0-4d27-85e4-6e57a52569b8",
+      "title": "Reduce by KSS | TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED (TISCO) | Research as of 14 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117965-reduce-kss-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "KSS",
+      "rating": "Reduce",
+      "companyName": "TISCO FINANCIAL GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-14T13:34:49+07:00",
+      "ts": 1784010889000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260714_TISCO_ER-(E).pdf"
+    },
+    {
+      "uuid": "4bc79591-51d0-45d6-866b-79a5fa99a3e1",
+      "title": "BUY by KSS | BANGKOK DUSIT MEDICAL SERVICES PUBLIC COMPANY LIMITED (BDMS) | Research as of 14 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117964-buy-kss-bdms",
+      "tickers": [
+        "BDMS"
+      ],
+      "symbolId": "731",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "BANGKOK DUSIT MEDICAL SERVICES PUBLIC COMPANY LIMITED",
+      "date": "2026-07-14T13:25:40+07:00",
+      "ts": 1784010340000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260714_BDMS_EP-(E).pdf"
+    },
+    {
+      "uuid": "223de05c-335b-4e10-be9a-4ba0da0dba9d",
+      "title": "Reduce โดย KSS | บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน) (TISCO) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117962-reduce-kss-tisco",
+      "tickers": [
+        "TISCO"
+      ],
+      "symbolId": "10978",
+      "broker": "KSS",
+      "rating": "Reduce",
+      "companyName": "บริษัท ทิสโก้ไฟแนนเชียลกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-14T13:25:39+07:00",
+      "ts": 1784010339000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260714_TISCO_ER.pdf"
+    },
+    {
+      "uuid": "01669b92-8aeb-4960-812a-e034fad717a1",
+      "title": "Unrated by KSS | Advice IT Infinite Public Company Limited (ADVICE) | Research as of 14 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117953-unrated-kss-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "KSS",
+      "rating": "Unrated",
+      "companyName": "Advice IT Infinite Public Company Limited",
+      "date": "2026-07-14T13:01:20+07:00",
+      "ts": 1784008880000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260714_ADVICE_QC.pdf"
+    },
+    {
+      "uuid": "b3d3e915-8059-48bf-9dd0-d6ea7b68f905",
+      "title": "Top Pick โดย SBITO | บริษัท เคซีจี คอร์ปอเรชั่น จำกัด (มหาชน) (KCG) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117952-top-pick-sbito-kcg",
+      "tickers": [
+        "KCG"
+      ],
+      "symbolId": "116900",
+      "broker": "SBITO",
+      "rating": "Top Pick",
+      "companyName": "บริษัท เคซีจี คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-14T13:01:20+07:00",
+      "ts": 1784008880000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Top-Pick-140769-KCG.pdf"
+    },
+    {
+      "uuid": "5e0afd2a-330f-44e6-aaea-b1e880ea2106",
+      "title": "BUY โดย LHS | บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน) (ADVICE) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117938-buy-lhs-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน)",
+      "date": "2026-07-14T11:06:33+07:00",
+      "ts": 1784001993000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ADVICE_20260714.pdf"
+    },
+    {
+      "uuid": "6d1f2b40-dfa5-4393-b969-621e8f391c54",
+      "title": "BUY โดย LHS | บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน) (BDMS) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/117937-buy-lhs-bdms",
+      "tickers": [
+        "BDMS"
+      ],
+      "symbolId": "731",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท กรุงเทพดุสิตเวชการ จำกัด(มหาชน)",
+      "date": "2026-07-14T11:01:53+07:00",
+      "ts": 1784001713000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BDMS_20260714.pdf"
+    },
     {
       "uuid": "ffd293c5-5943-4b76-8479-c93bb8e07a41",
       "title": "Neutral โดย KSS | บริษัท ออริจิ้น พร็อพเพอร์ตี้ จำกัด (มหาชน) (ORI) | บทวิเคราะห์ประจำวันที่ 14 กรกฎาคม 2569",
