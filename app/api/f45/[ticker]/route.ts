@@ -1,6 +1,24 @@
 import type { NextRequest } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import { parseF45Detail, type F45Data } from '@/lib/parseF45';
 import { classifyBucket } from '@/lib/earningsBucket';
+import type { EarningsFeed } from '@/app/api/earnings/route';
+
+const FEED_PATH = path.join(process.cwd(), 'public', 'data', 'earnings', 'earnings_feed.json');
+
+// Batch-only field (extract_reason.py never runs live) - best-effort lookup
+// by ticker+quarter against the same 45-day-window feed /api/earnings reads.
+function lookupReason(ticker: string, quarter: string | null): { reason: string; reason_source: 'mda_extract' | 'none' } {
+  try {
+    const feed: EarningsFeed = JSON.parse(fs.readFileSync(FEED_PATH, 'utf-8'));
+    const match = feed.announcements.find(a => a.ticker === ticker && (!quarter || a.quarter === quarter));
+    if (match) return { reason: match.reason, reason_source: match.reason_source };
+  } catch {
+    // batch file missing/unreadable - fall through to the "not extracted yet" default
+  }
+  return { reason: '', reason_source: 'none' };
+}
 
 export type { F45Data };
 
@@ -114,6 +132,8 @@ export async function GET(
       it => MDA_PATTERN.test(it.title) && Math.abs(Date.parse(it.publishDate) - anchorTime) <= MDA_MATCH_MS
     );
 
+    const { reason, reason_source } = lookupReason(t, parsed.quarter ?? null);
+
     const data: F45Data = {
       found: true,
       quarter: parsed.quarter ?? null,
@@ -129,6 +149,8 @@ export async function GET(
       newsUrl: detailUrl,
       mdaUrl: mdaItem?.url ?? null,
       bucket: classifyBucket(parsed.netProfit ?? null, parsed.netProfitPrior ?? null),
+      reason,
+      reason_source,
     };
 
     return Response.json(data, { headers: cacheHeaders });

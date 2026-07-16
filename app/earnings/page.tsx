@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart } from 'lucide-react';
 import TableSkeleton from '@/components/TableSkeleton';
+import TrendSparkline from '@/components/TrendSparkline';
+import { sparklineMap } from '@/lib/sparklineData';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, BUCKET_BADGE_STYLE, type EarningsBucket } from '@/lib/earningsBucket';
 import type { EarningsFeed, EarningsAnnouncement, EarningsCalendarEntry } from '@/app/api/earnings/route';
 
@@ -223,6 +225,7 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
 
 const BUCKET_FILTER_OPTS = ['ทั้งหมด', ...BUCKET_ORDER] as const;
 type BucketFilterOpt = (typeof BUCKET_FILTER_OPTS)[number];
+type ProfitFilterOpt = 'all' | 'profit' | 'loss';
 
 function YoyBadge({ value }: { value: number | null }) {
   if (value == null) return <span className="text-white/20">—</span>;
@@ -234,9 +237,18 @@ function YoyBadge({ value }: { value: number | null }) {
   );
 }
 
-function AnnouncementsTable({ announcements }: { announcements: EarningsAnnouncement[] }) {
+function AnnouncementsTable({
+  announcements,
+  onSelect,
+  selectedTicker,
+}: {
+  announcements: EarningsAnnouncement[];
+  onSelect: (a: EarningsAnnouncement) => void;
+  selectedTicker: string | null;
+}) {
   const router = useRouter();
   const [bucketFilter, setBucketFilter] = useState<BucketFilterOpt>('ทั้งหมด');
+  const [profitFilter, setProfitFilter] = useState<ProfitFilterOpt>('all');
   const [quarterFilter, setQuarterFilter] = useState('ทั้งหมด');
   const [query, setQuery] = useState('');
 
@@ -249,10 +261,19 @@ function AnnouncementsTable({ announcements }: { announcements: EarningsAnnounce
   const filtered = useMemo(() => {
     return announcements
       .filter(a => bucketFilter === 'ทั้งหมด' || a.bucket === bucketFilter)
+      .filter(a => profitFilter === 'all' || (profitFilter === 'profit' ? (a.netProfit ?? -1) > 0 : a.netProfit != null && a.netProfit <= 0))
       .filter(a => quarterFilter === 'ทั้งหมด' || a.quarter === quarterFilter)
       .filter(a => !query.trim() || a.ticker.toLowerCase().includes(query.trim().toLowerCase()))
       .sort((a, b) => (b.announceDate || '').localeCompare(a.announceDate || ''));
-  }, [announcements, bucketFilter, quarterFilter, query]);
+  }, [announcements, bucketFilter, profitFilter, quarterFilter, query]);
+
+  function handleRowClick(a: EarningsAnnouncement) {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      onSelect(a);
+    } else {
+      router.push(`/stock/${a.ticker}`);
+    }
+  }
 
   return (
     <div className="space-y-3">
@@ -271,6 +292,23 @@ function AnnouncementsTable({ announcements }: { announcements: EarningsAnnounce
               {b === 'ทั้งหมด' ? 'ทั้งหมด' : BUCKET_LABEL[b as EarningsBucket]}
             </button>
           ))}
+          <span className="w-px self-stretch bg-white/[0.08] mx-0.5" />
+          <button
+            onClick={() => setProfitFilter(f => (f === 'profit' ? 'all' : 'profit'))}
+            className={`px-3 py-1.5 rounded text-[12px] font-semibold transition-all ${
+              profitFilter === 'profit' ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+            }`}
+          >
+            มีกำไร
+          </button>
+          <button
+            onClick={() => setProfitFilter(f => (f === 'loss' ? 'all' : 'loss'))}
+            className={`px-3 py-1.5 rounded text-[12px] font-semibold transition-all ${
+              profitFilter === 'loss' ? 'bg-[#E24B4A]/15 text-[#E24B4A]' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+            }`}
+          >
+            ขาดทุน
+          </button>
         </div>
         <select
           value={quarterFilter}
@@ -314,14 +352,20 @@ function AnnouncementsTable({ announcements }: { announcements: EarningsAnnounce
               </thead>
               <tbody className="divide-y divide-white/[0.03]">
                 {filtered.map((a, i) => (
-                  <tr key={`${a.ticker}-${a.announceDate}-${i}`} className="hover:bg-white/[0.02] transition-colors">
+                  <tr
+                    key={`${a.ticker}-${a.announceDate}-${i}`}
+                    onClick={() => handleRowClick(a)}
+                    className={`cursor-pointer transition-colors ${
+                      selectedTicker === a.ticker ? 'bg-white/[0.05]' : 'hover:bg-white/[0.02]'
+                    }`}
+                  >
                     <td className="px-3 py-3 text-[12.5px] text-white/55 whitespace-nowrap">
                       <div>{isoDateTimeToThai(a.announceDate).replace(/ \d{2}:\d{2} น\.$/, '')}</div>
                       <div className="text-[10px] text-white/30">{timeOnly(a.announceDate)} น.</div>
                     </td>
                     <td className="px-3 py-3 whitespace-nowrap">
                       <button
-                        onClick={() => router.push(`/stock/${a.ticker}`)}
+                        onClick={(e) => { e.stopPropagation(); router.push(`/stock/${a.ticker}`); }}
                         className="text-[14px] font-semibold text-blue-400 hover:text-blue-300"
                       >
                         {a.ticker}
@@ -346,7 +390,7 @@ function AnnouncementsTable({ announcements }: { announcements: EarningsAnnounce
                       {a.eps != null ? a.eps.toFixed(2) : '—'}
                     </td>
                     <td className="px-3 py-3 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
                         {a.statementUrl && (
                           <a href={a.statementUrl} target="_blank" rel="noopener noreferrer"
                              className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10.5px] font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
@@ -361,7 +405,13 @@ function AnnouncementsTable({ announcements }: { announcements: EarningsAnnounce
                         )}
                       </div>
                     </td>
-                    <td className="px-3 py-3 text-[12px] text-white/15">—</td>
+                    <td className="px-3 py-3 text-[12px] max-w-[220px]">
+                      {a.reason ? (
+                        <div className="text-white/50 line-clamp-2" title={a.reason}>{a.reason}</div>
+                      ) : (
+                        <span className="text-white/15">—</span>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -373,16 +423,124 @@ function AnnouncementsTable({ announcements }: { announcements: EarningsAnnounce
   );
 }
 
+// ── Desktop side panel (row click, >=1024px only - mobile navigates instead) ──
+
+function AnnouncementSidePanel({
+  announcement,
+  onClose,
+}: {
+  announcement: EarningsAnnouncement;
+  onClose: () => void;
+}) {
+  const router = useRouter();
+  const spark = sparklineMap[announcement.ticker];
+
+  return (
+    <div className="w-[320px] flex-shrink-0 bg-[#13161e] border border-white/[0.07] rounded-xl p-4 h-fit sticky top-4 space-y-3.5">
+      <div className="flex items-start justify-between">
+        <div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[16px] font-bold text-white">{announcement.ticker}</span>
+            {announcement.isCorrection && (
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-bold bg-[#EF9F27]/15 text-[#EF9F27]">
+                แก้ไข
+              </span>
+            )}
+          </div>
+          <div className="text-[12px] text-white/40 mt-0.5">{announcement.quarter ?? '—'}</div>
+          <div className="text-[10.5px] text-white/25 mt-0.5">ประกาศ {isoDateTimeToThai(announcement.announceDate)}</div>
+        </div>
+        <button onClick={onClose} className="text-white/30 hover:text-white/60 text-[16px] leading-none p-1">
+          ✕
+        </button>
+      </div>
+
+      {spark && spark.length >= 2 && (
+        <div className="bg-white/[0.02] rounded-lg p-2 flex justify-center">
+          <TrendSparkline data={spark} width={280} height={64} />
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 gap-2">
+        <div className="bg-white/[0.03] rounded-lg px-3 py-2">
+          <div className="text-[10px] text-white/35 mb-0.5">กำไรสุทธิ</div>
+          <div className={`text-[13px] font-semibold ${announcement.netProfit != null && announcement.netProfit < 0 ? 'text-[#E24B4A]' : 'text-white'}`}>
+            {fmtMoney(announcement.netProfit)}
+          </div>
+        </div>
+        <div className="bg-white/[0.03] rounded-lg px-3 py-2">
+          <div className="text-[10px] text-white/35 mb-0.5">ปีก่อน</div>
+          <div className="text-[13px] font-semibold text-white/60">{fmtMoney(announcement.netProfitPrior)}</div>
+        </div>
+        <div className="bg-white/[0.03] rounded-lg px-3 py-2">
+          <div className="text-[10px] text-white/35 mb-0.5">%YoY</div>
+          <YoyBadge value={announcement.netProfitYoY} />
+        </div>
+        <div className="bg-white/[0.03] rounded-lg px-3 py-2">
+          <div className="text-[10px] text-white/35 mb-0.5">EPS</div>
+          <div className="text-[13px] font-semibold text-white/80">
+            {announcement.eps != null ? announcement.eps.toFixed(2) : '—'}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="text-[11px] text-white/35 mb-1">สาเหตุ</div>
+        {announcement.reason ? (
+          <div className="text-[12.5px] text-white/70 leading-relaxed">{announcement.reason}</div>
+        ) : (
+          <div className="text-[12px] text-white/20">— ไม่พบข้อมูลสาเหตุจากเอกสาร MD&amp;A</div>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-1.5 pt-2 border-t border-white/[0.06]">
+        <button
+          onClick={() => router.push(`/stock/${announcement.ticker}`)}
+          className="w-full py-2 rounded-lg bg-white/10 hover:bg-white/15 text-[12.5px] font-semibold text-white transition-colors"
+        >
+          เปิดหน้าหุ้น {announcement.ticker}
+        </button>
+        <div className="flex gap-1.5">
+          {announcement.statementUrl && (
+            <a
+              href={announcement.statementUrl} target="_blank" rel="noopener noreferrer"
+              className="flex-1 text-center py-1.5 rounded-lg text-[11px] font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors"
+            >
+              งบการเงิน
+            </a>
+          )}
+          {announcement.mdaUrl && (
+            <a
+              href={announcement.mdaUrl} target="_blank" rel="noopener noreferrer"
+              className="flex-1 text-center py-1.5 rounded-lg text-[11px] font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors"
+            >
+              MD&amp;A
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function EarningsPage() {
   const [feed, setFeed] = useState<EarningsFeed>(EMPTY_FEED);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [selected, setSelected] = useState<EarningsAnnouncement | null>(null);
+
+  const announcedCount = useMemo(() => new Set(feed.announcements.map(a => a.ticker)).size, [feed.announcements]);
+  const quarterCount = useMemo(
+    () => new Set(feed.announcements.map(a => a.quarter).filter(Boolean)).size,
+    [feed.announcements]
+  );
 
   const loadData = async () => {
     setLoading(true);
     setError(false);
+    setSelected(null);
     try {
       const res = await fetch('/api/earnings');
       if (!res.ok) throw new Error();
@@ -412,6 +570,11 @@ export default function EarningsPage() {
               ? `ข้อมูล ณ ${isoDateTimeToThai(feed.generatedAt)} (อัปเดตจากรอบ batch 09:45 / 17:30 — ไม่ใช่ real-time)`
               : 'ยังไม่มีข้อมูล — รอรอบ batch ถัดไป'}
           </p>
+          {feed.announcements.length > 0 && (
+            <p className="text-[11px] text-white/30 mt-1 font-medium">
+              ประกาศแล้ว {announcedCount} บริษัท · {quarterCount} งวด
+            </p>
+          )}
         </div>
         <button
           onClick={loadData}
@@ -432,12 +595,21 @@ export default function EarningsPage() {
         </div>
       ) : (
         <>
-          <WeekCalendarStrip feed={feed} />
-          <BucketCards feed={feed} />
-          <AnnouncementsTable announcements={feed.announcements} />
-          <p className="text-[10px] text-white/20 text-right">
-            แหล่งข้อมูล: SET (ผ่าน Settrade) · ลิงก์เอกสารเปิดที่ set.or.th โดยตรง · ครอบคลุม {feed.universeSize} หลักทรัพย์
-          </p>
+          <div className="flex gap-4 items-start">
+            <div className="flex-1 min-w-0 space-y-4">
+              <WeekCalendarStrip feed={feed} />
+              <BucketCards feed={feed} />
+              <AnnouncementsTable announcements={feed.announcements} onSelect={setSelected} selectedTicker={selected?.ticker ?? null} />
+              <p className="text-[10px] text-white/20 text-right">
+                แหล่งข้อมูล: SET (ผ่าน Settrade) · ลิงก์เอกสารเปิดที่ set.or.th โดยตรง · ครอบคลุม {feed.universeSize} หลักทรัพย์
+              </p>
+            </div>
+            {selected && (
+              <div className="hidden lg:block">
+                <AnnouncementSidePanel announcement={selected} onClose={() => setSelected(null)} />
+              </div>
+            )}
+          </div>
         </>
       )}
     </div>

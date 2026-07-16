@@ -24,6 +24,12 @@ export interface F45Data {
   // <pre> body itself).
   mdaUrl: string | null;
   bucket: import('./earningsBucket').EarningsBucket | null;
+  // Cross-referenced from the batch earnings_feed.json (scripts/extract_reason.py)
+  // by ticker+quarter - this route fetches F45 live, it doesn't extract
+  // reasons itself. Absent (empty/'none') if this filing hasn't been through
+  // that batch run yet.
+  reason: string;
+  reason_source: 'mda_extract' | 'none';
 }
 
 // SET's F45 template writes losses as "(34,882)" (accounting parens), not

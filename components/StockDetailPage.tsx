@@ -579,6 +579,12 @@ export default function StockDetailPage({
                 <div className="text-[14px] font-semibold text-white">{f45.auditorOpinion ?? '—'}</div>
               </div>
             </div>
+            {f45.reason && (
+              <div className="mt-3 bg-white/[0.03] rounded-lg px-3 py-2.5">
+                <div className="text-[11px] text-white/35 mb-1">สาเหตุ</div>
+                <div className="text-[12.5px] text-white/70 leading-relaxed">{f45.reason}</div>
+              </div>
+            )}
             <p className="text-[10px] text-white/20 mt-3 text-right">
               ที่มา: SET (ผ่าน Settrade) · อัปเดตทุก 6 ชม.
               {f45.newsUrl && (

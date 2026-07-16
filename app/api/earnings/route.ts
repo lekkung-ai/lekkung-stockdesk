@@ -23,6 +23,12 @@ export interface EarningsAnnouncement {
   statementUrl: string | null;
   mdaUrl: string | null;
   headline: string;
+  // Rule-based extraction from the MD&A PDF (scripts/extract_reason.py) - no
+  // AI involved. reason_source distinguishes how it was produced so this
+  // same shape can carry an "ai_summary" source later without a schema
+  // change; the frontend only needs reason to be non-empty.
+  reason: string;
+  reason_source: 'mda_extract' | 'none';
 }
 
 export interface EarningsCalendarEntry {
