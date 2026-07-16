@@ -3,7 +3,8 @@
 import { useState, useMemo } from 'react';
 import { oneilData } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
-import { scanGeneratedAt } from '@/lib/scanData';
+import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
@@ -55,9 +56,10 @@ export default function OneilPage() {
         title="CAN SLIM (O'Neil)"
         subtitle="William O'Neil Growth Strategy"
         count={filtered.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
+        updatedAt={formatThaiDate(getScanGeneratedAt('oneil'))}
         total={oneilData.length}
       />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('oneil')} />
 
       <FilterBar>
         <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={setRsMin} />

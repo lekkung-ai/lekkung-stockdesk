@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import { breakoutData } from '@/lib/strategyData';
-import { scanGeneratedAt } from '@/lib/scanData';
+import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
@@ -45,9 +46,10 @@ export default function BreakoutPage() {
         title="Breakout Setup"
         subtitle="VDU / Box Pattern — ยิ่ง To_Break น้อย ยิ่งจ่อ break"
         count={filtered.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
+        updatedAt={formatThaiDate(getScanGeneratedAt('breakout'))}
         total={breakoutData.length}
       />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('breakout')} />
 
       <FilterBar>
         <SliderField

@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import { stageData } from '@/lib/strategyData';
-import { scanGeneratedAt } from '@/lib/scanData';
+import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
@@ -75,9 +76,10 @@ export default function MarketStagePage() {
         title="Market Stage"
         subtitle="Wyckoff/Weinstein Stage Analysis"
         count={filtered.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
+        updatedAt={formatThaiDate(getScanGeneratedAt('market_stage'))}
         total={stageData.length}
       />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('market_stage')} />
 
       <FilterBar>
         <span className="text-[10px] text-white/20 uppercase tracking-wider flex-shrink-0">Stage</span>

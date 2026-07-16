@@ -4,7 +4,8 @@ import { useState, useMemo } from 'react';
 import { Check, X } from 'lucide-react';
 import { sepaData, SepaEntry } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
-import { scanGeneratedAt } from '@/lib/scanData';
+import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
@@ -112,9 +113,10 @@ export default function SepaPage() {
         title="SEPA Trend Template"
         subtitle="Stan Weinstein + O'Neil SEPA criteria"
         count={filtered.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
+        updatedAt={formatThaiDate(getScanGeneratedAt('sepa'))}
         total={sepaData.length}
       />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('sepa')} />
 
       <FilterBar>
         <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={setRsMin} />

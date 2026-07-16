@@ -3,7 +3,8 @@
 import { useState, useMemo } from 'react';
 import { kellData } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
-import { scanGeneratedAt } from '@/lib/scanData';
+import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
@@ -60,9 +61,10 @@ export default function KellPage() {
         title="Oliver Kell EMAC"
         subtitle="EMA 10 Channel — ยิ่งแนบ EMA ยิ่งดี"
         count={filtered.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
+        updatedAt={formatThaiDate(getScanGeneratedAt('oliver_kell'))}
         total={kellData.length}
       />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('oliver_kell')} />
 
       <FilterBar>
         <div className="flex items-center gap-1.5">

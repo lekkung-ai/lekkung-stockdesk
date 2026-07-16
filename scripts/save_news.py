@@ -221,6 +221,36 @@ def save_day_file(date_str, items, history_dir):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
 
+def merge_news_items(existing, new_items):
+    """Union two news-item lists, deduped by link, sorted deterministically.
+
+    This is the exact fix for the two-writers problem described in this
+    file's module docstring - also reused as-is by scripts/safe_push.py to
+    resolve a git-level news.json conflict between two independently-fetched
+    versions (call with existing=ours, new_items=theirs; the result is what
+    both sides should have converged to). Do not duplicate this logic
+    elsewhere - import this function instead, or the two copies will drift.
+
+    Returns (merged_list, added_count).
+    """
+    seen_links = {it.get('link') for it in existing if it.get('link')}
+    merged = list(existing)
+    added = 0
+    for item in new_items:
+        link = item.get('link')
+        if link and link not in seen_links:
+            seen_links.add(link)
+            merged.append(item)
+            added += 1
+    # Sort key includes link as a tiebreaker (not just ts) so that two
+    # independent runs which end up merging to the identical item set -
+    # the common case, since both are unioning against a shared history -
+    # always produce byte-identical JSON, regardless of the order each
+    # run happened to fetch/append items in. ts-only sorting is stable
+    # per-run but not deterministic ACROSS runs when two items share a ts.
+    merged.sort(key=lambda x: (-x.get('ts', 0), x.get('link', '')))
+    return merged, added
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='fetch and print counts, write nothing')
@@ -280,22 +310,7 @@ def main():
 
     for date_str, new_items in by_date.items():
         existing = load_day_file(date_str, history_dir)
-        seen_links = {it.get('link') for it in existing if it.get('link')}
-        merged = list(existing)
-        added = 0
-        for item in new_items:
-            link = item.get('link')
-            if link and link not in seen_links:
-                seen_links.add(link)
-                merged.append(item)
-                added += 1
-        # Sort key includes link as a tiebreaker (not just ts) so that two
-        # independent runs which end up merging to the identical item set -
-        # the common case, since both are unioning against a shared history -
-        # always produce byte-identical JSON, regardless of the order each
-        # run happened to fetch/append items in. ts-only sorting is stable
-        # per-run but not deterministic ACROSS runs when two items share a ts.
-        merged.sort(key=lambda x: (-x.get('ts', 0), x.get('link', '')))
+        merged, added = merge_news_items(existing, new_items)
         if args.dry_run:
             print(f"{date_str}: +{added} new -> {len(merged)} total (dry-run, not written)")
         else:

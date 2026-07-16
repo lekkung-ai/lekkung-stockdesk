@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import { weinsteinData } from '@/lib/strategyData';
-import { scanGeneratedAt } from '@/lib/scanData';
+import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
@@ -61,9 +62,10 @@ export default function StageAnalysisPage() {
         title="Stage Analysis"
         subtitle="Stan Weinstein's Market Stages (Weekly 30-MA & 10-MA)"
         count={filtered.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
+        updatedAt={formatThaiDate(getScanGeneratedAt('weinstein'))}
         total={weinsteinData.length}
       />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('weinstein')} />
 
       <FilterBar>
         <div className="flex flex-col gap-1.5 min-w-[120px]">

@@ -9,6 +9,7 @@ import rawPpbp from '@/data/scans/ppbp.json';
 import rawStageAll from '@/data/scans/stage_all.json';
 import rawWeinstein from '@/data/scans/weinstein.json';
 import { scanGeneratedAt } from '@/lib/scanData';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import TrendSparkline from '@/components/TrendSparkline';
@@ -252,6 +253,7 @@ function QuantScannerContent() {
         total={allRows.length}
         updatedAt={formatThaiDate(scanGeneratedAt)}
       />
+      <StaleDataBanner generatedAt={scanGeneratedAt} />
 
       {/* Mobile filter toggle */}
       <button

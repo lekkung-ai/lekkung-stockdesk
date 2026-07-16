@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { lekkungData } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
-import { scanGeneratedAt } from '@/lib/scanData';
+import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
+import StaleDataBanner from '@/components/StaleDataBanner';
 import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
 
@@ -70,7 +71,7 @@ export default function LekkungPage() {
           title="Lekkung Growth"
           subtitle="Growth Stocks Focus Strategy"
           count={filtered.length}
-          updatedAt={formatThaiDate(scanGeneratedAt)}
+          updatedAt={formatThaiDate(getScanGeneratedAt('lekkung'))}
           total={lekkungData.length}
         />
         <div className="flex items-center gap-3">
@@ -102,6 +103,8 @@ export default function LekkungPage() {
           </div>
         </div>
       </div>
+
+      <StaleDataBanner generatedAt={getScanGeneratedAt('lekkung')} />
 
       {mode === 'history' ? (
         <ScanHistoryView scanName="lekkung" initialTicker={historyInitialTicker} />
