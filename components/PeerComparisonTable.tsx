@@ -63,12 +63,24 @@ interface Row {
   sepa: boolean;
   kell: boolean;
   breakout: boolean;
+  hasScanData: boolean;
 }
 
 type SortKey = 'ticker' | 'price' | 'rs' | 'stage' | 'dist52wh' | 'pe' | 'roe' | 'revGrowth' | 'npGrowth';
+const DEFAULT_WINDOW = 10;
+const GROWTH_CAP = 1000; // beyond this the base is small enough that %YoY stops being a meaningful comparison
 
 function fmt(n: number | null, digits = 2, suffix = ''): string {
   return n == null ? '—' : `${n.toFixed(digits)}${suffix}`;
+}
+
+// Growth off a tiny base (e.g. 14991.5%) isn't comparable to anything - cap
+// the displayed figure but keep the real number in a tooltip.
+function fmtGrowth(n: number | null): { text: string; title?: string } {
+  if (n == null) return { text: '—' };
+  if (n > GROWTH_CAP) return { text: `>${GROWTH_CAP}%`, title: `${n.toFixed(1)}%` };
+  if (n < -GROWTH_CAP) return { text: `<-${GROWTH_CAP}%`, title: `${n.toFixed(1)}%` };
+  return { text: `${n.toFixed(1)}%` };
 }
 
 export default function PeerComparisonTable({
@@ -83,6 +95,7 @@ export default function PeerComparisonTable({
   const router = useRouter();
   const [sortKey, setSortKey] = useState<SortKey>('rs');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [expanded, setExpanded] = useState(false);
 
   const { peers, groupLabel, usedFallback } = useMemo(() => {
     if (!sector) return { peers: [] as string[], groupLabel: '', usedFallback: false };
@@ -124,13 +137,17 @@ export default function PeerComparisonTable({
         sepa: c?.sepa ?? false,
         kell: c?.kell ?? false,
         breakout: c?.breakout ?? false,
+        // Funds/REITs etc that sit in the sector map but never entered the
+        // scan universe (e.g. BRRGIF, KBSPIF) - neither source file has an
+        // entry at all, not just missing individual fields.
+        hasScanData: c != null || w != null,
       };
     });
   }, [peers, priceMap, changePctMap]);
 
-  const sorted = useMemo(() => {
+  const sortRows = (list: Row[]) => {
     const dir = sortDir === 'asc' ? 1 : -1;
-    return [...rows].sort((a, b) => {
+    return [...list].sort((a, b) => {
       if (sortKey === 'ticker') return dir * a.ticker.localeCompare(b.ticker);
       if (sortKey === 'stage') {
         const ai = a.stage ? STAGE_ORDER.indexOf(a.stage) : 99;
@@ -144,7 +161,25 @@ export default function PeerComparisonTable({
       if (bv == null) return -1;
       return dir * ((av as number) - (bv as number));
     });
-  }, [rows, sortKey, sortDir]);
+  };
+
+  const scanned = useMemo(() => sortRows(rows.filter(r => r.hasScanData)), [rows, sortKey, sortDir]);
+  const unscanned = useMemo(() => sortRows(rows.filter(r => !r.hasScanData)), [rows, sortKey, sortDir]);
+
+  // Default view centers a 10-row window on the ticker being viewed (ranked
+  // by whatever column is currently sorted) instead of dumping the full
+  // peer group - "ดูทั้งหมด" expands to everything.
+  const visibleScanned = useMemo(() => {
+    if (expanded || scanned.length <= DEFAULT_WINDOW) return scanned;
+    const idx = scanned.findIndex(r => r.ticker === ticker);
+    if (idx === -1) return scanned.slice(0, DEFAULT_WINDOW);
+    let start = Math.max(0, idx - Math.floor(DEFAULT_WINDOW / 2));
+    const end = Math.min(scanned.length, start + DEFAULT_WINDOW);
+    start = Math.max(0, end - DEFAULT_WINDOW);
+    return scanned.slice(start, end);
+  }, [scanned, expanded, ticker]);
+
+  const sorted = visibleScanned;
 
   function handleSort(key: SortKey) {
     if (key === sortKey) {
@@ -160,8 +195,8 @@ export default function PeerComparisonTable({
     return (
       <th
         onClick={() => handleSort(k)}
-        className={`px-3 py-2 text-[10px] font-semibold uppercase tracking-wider cursor-pointer select-none whitespace-nowrap transition-colors ${
-          active ? 'text-white/70' : 'text-white/25 hover:text-white/45'
+        className={`px-3 py-2 text-label font-semibold cursor-pointer select-none whitespace-nowrap transition-colors ${
+          active ? 'text-white/70' : 'text-meta hover:text-white/70'
         } ${className}`}
       >
         {label}{active && <span className="ml-1">{sortDir === 'asc' ? '▲' : '▼'}</span>}
@@ -169,17 +204,89 @@ export default function PeerComparisonTable({
     );
   }
 
+  function PeerRow({ r }: { r: Row }) {
+    const isCurrent = r.ticker === ticker;
+    const rev = fmtGrowth(r.revGrowth);
+    const np = fmtGrowth(r.npGrowth);
+    return (
+      <tr
+        onClick={() => !isCurrent && router.push(`/stock/${r.ticker}`)}
+        className={`transition-colors ${
+          isCurrent ? 'bg-[#7F77DD]/[0.10] cursor-default' : 'hover:bg-white/[0.03] cursor-pointer'
+        }`}
+      >
+        <td className="px-3 py-2.5 text-body font-bold whitespace-nowrap" style={{ color: isCurrent ? '#7F77DD' : 'var(--color-ink)' }}>
+          {r.ticker}
+        </td>
+        <td className="px-3 py-2.5 text-label tabular-nums whitespace-nowrap">
+          <span className="text-ink">{r.price != null ? r.price.toFixed(2) : '—'}</span>
+          {r.change1d != null && (
+            <span className={`ml-1.5 ${r.change1d > 0 ? 'text-[#1D9E75]' : r.change1d < 0 ? 'text-[#E24B4A]' : 'text-meta'}`}>
+              {r.change1d > 0 ? '+' : ''}{r.change1d.toFixed(2)}%
+            </span>
+          )}
+        </td>
+        <td className="px-3 py-2.5 text-label tabular-nums font-semibold" style={{ color: r.rs != null ? (r.rs >= 80 ? '#1D9E75' : r.rs >= 50 ? '#BA7517' : '#E24B4A') : 'var(--color-meta)' }}>
+          {r.rs ?? '—'}
+        </td>
+        <td className="px-3 py-2.5">
+          {r.stage ? (
+            <span
+              className="inline-flex items-center px-2 py-0.5 rounded text-label font-semibold"
+              style={{ background: STAGE_COLORS[r.stage] ?? '#424242', color: ['Warning', 'Accumulation', 'Recovery', 'Bull'].includes(r.stage) ? 'black' : 'white' }}
+            >
+              {r.stage}
+            </span>
+          ) : <span className="text-meta text-label">—</span>}
+        </td>
+        <td className="px-3 py-2.5 text-label tabular-nums text-meta whitespace-nowrap">{fmt(r.dist52wh, 1, '%')}</td>
+        <td className="px-3 py-2.5 text-label tabular-nums text-meta hidden md:table-cell">{fmt(r.pe, 1)}</td>
+        <td className="px-3 py-2.5 text-label tabular-nums text-meta hidden md:table-cell">{fmt(r.roe, 1, '%')}</td>
+        <td
+          className={`px-3 py-2.5 text-label tabular-nums whitespace-nowrap ${r.revGrowth != null ? (r.revGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-meta'}`}
+          title={rev.title}
+        >
+          {rev.text}
+        </td>
+        <td
+          className={`px-3 py-2.5 text-label tabular-nums whitespace-nowrap ${r.npGrowth != null ? (r.npGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-meta'}`}
+          title={np.title}
+        >
+          {np.text}
+        </td>
+        <td className="px-3 py-2.5">
+          <div className="flex items-center gap-1 flex-wrap">
+            {r.sepa && <span className="px-1.5 py-0.5 rounded text-label font-bold bg-[#1D9E75]/15 text-[#1D9E75]">SEPA</span>}
+            {r.kell && <span className="px-1.5 py-0.5 rounded text-label font-bold bg-[#378ADD]/15 text-[#378ADD]">Kell</span>}
+            {r.breakout && <span className="px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27]">BO</span>}
+            {!r.sepa && !r.kell && !r.breakout && <span className="text-meta text-label">—</span>}
+          </div>
+        </td>
+      </tr>
+    );
+  }
+
   if (!sector || peers.length === 0) return null;
 
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
-      <div className="px-5 py-4 border-b border-white/[0.06]">
-        <h2 className="text-[13px] font-semibold text-white">เทียบกลุ่ม {groupLabel}</h2>
-        <p className="text-[11px] text-white/25 mt-0.5">
-          {usedFallback
-            ? `กลุ่ม ${subsector} มีน้อยกว่า 3 ตัว แสดงระดับ sector "${sector}" แทน (${peers.length} ตัว)`
-            : `${peers.length} หุ้นใน subsector เดียวกัน`}
-        </p>
+      <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-section text-ink">เทียบกลุ่ม {groupLabel}</h2>
+          <p className="text-label text-meta mt-0.5">
+            {usedFallback
+              ? `กลุ่ม ${subsector} มีน้อยกว่า 3 ตัว แสดงระดับ sector "${sector}" แทน (${peers.length} ตัว)`
+              : `${peers.length} หุ้นใน subsector เดียวกัน`}
+          </p>
+        </div>
+        {!expanded && scanned.length > DEFAULT_WINDOW && (
+          <button
+            onClick={() => setExpanded(true)}
+            className="flex-shrink-0 px-3 py-1.5 rounded-lg text-label font-semibold bg-white/[0.06] text-white/70 hover:bg-white/[0.1] hover:text-white transition-colors"
+          >
+            ดูทั้งหมด ({scanned.length})
+          </button>
+        )}
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left">
@@ -194,69 +301,28 @@ export default function PeerComparisonTable({
               <SortTh label="ROE" k="roe" className="hidden md:table-cell" />
               <SortTh label="RevGrowth" k="revGrowth" />
               <SortTh label="NPGrowth" k="npGrowth" />
-              <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25">Signals</th>
+              <th className="px-3 py-2 text-label font-semibold text-meta">Signals</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/[0.04]">
-            {sorted.map(r => {
-              const isCurrent = r.ticker === ticker;
-              return (
-                <tr
-                  key={r.ticker}
-                  onClick={() => !isCurrent && router.push(`/stock/${r.ticker}`)}
-                  className={`transition-colors ${
-                    isCurrent
-                      ? 'bg-[#7F77DD]/[0.10] cursor-default'
-                      : 'hover:bg-white/[0.03] cursor-pointer'
-                  }`}
-                >
-                  <td className="px-3 py-2.5 text-[12.5px] font-bold whitespace-nowrap" style={{ color: isCurrent ? '#7F77DD' : 'white' }}>
-                    {r.ticker}
-                  </td>
-                  <td className="px-3 py-2.5 text-[12px] tabular-nums whitespace-nowrap">
-                    <span className="text-white/80">{r.price != null ? r.price.toFixed(2) : '—'}</span>
-                    {r.change1d != null && (
-                      <span className={`ml-1.5 ${r.change1d > 0 ? 'text-[#1D9E75]' : r.change1d < 0 ? 'text-[#E24B4A]' : 'text-white/30'}`}>
-                        {r.change1d > 0 ? '+' : ''}{r.change1d.toFixed(2)}%
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2.5 text-[12px] tabular-nums font-semibold" style={{ color: r.rs != null ? (r.rs >= 80 ? '#1D9E75' : r.rs >= 50 ? '#BA7517' : '#E24B4A') : 'rgba(255,255,255,0.3)' }}>
-                    {r.rs ?? '—'}
-                  </td>
-                  <td className="px-3 py-2.5">
-                    {r.stage ? (
-                      <span
-                        className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold"
-                        style={{ background: STAGE_COLORS[r.stage] ?? '#424242', color: ['Warning', 'Accumulation', 'Recovery', 'Bull'].includes(r.stage) ? 'black' : 'white' }}
-                      >
-                        {r.stage}
-                      </span>
-                    ) : <span className="text-white/20 text-[11px]">—</span>}
-                  </td>
-                  <td className="px-3 py-2.5 text-[12px] tabular-nums text-white/60 whitespace-nowrap">{fmt(r.dist52wh, 1, '%')}</td>
-                  <td className="px-3 py-2.5 text-[12px] tabular-nums text-white/60 hidden md:table-cell">{fmt(r.pe, 1)}</td>
-                  <td className="px-3 py-2.5 text-[12px] tabular-nums text-white/60 hidden md:table-cell">{fmt(r.roe, 1, '%')}</td>
-                  <td className={`px-3 py-2.5 text-[12px] tabular-nums whitespace-nowrap ${r.revGrowth != null ? (r.revGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-white/20'}`}>
-                    {fmt(r.revGrowth, 1, '%')}
-                  </td>
-                  <td className={`px-3 py-2.5 text-[12px] tabular-nums whitespace-nowrap ${r.npGrowth != null ? (r.npGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-white/20'}`}>
-                    {fmt(r.npGrowth, 1, '%')}
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <div className="flex items-center gap-1 flex-wrap">
-                      {r.sepa && <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#1D9E75]/15 text-[#1D9E75]">SEPA</span>}
-                      {r.kell && <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#378ADD]/15 text-[#378ADD]">Kell</span>}
-                      {r.breakout && <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EF9F27]/15 text-[#EF9F27]">BO</span>}
-                      {!r.sepa && !r.kell && !r.breakout && <span className="text-white/15 text-[10px]">—</span>}
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+            {sorted.map(r => <PeerRow key={r.ticker} r={r} />)}
           </tbody>
         </table>
       </div>
+      {unscanned.length > 0 && (
+        <details className="border-t border-white/[0.06]">
+          <summary className="px-5 py-2.5 text-label text-meta cursor-pointer hover:text-white/70 transition-colors select-none">
+            ไม่มีข้อมูลสแกน ({unscanned.length} ตัว) — กองทุนอสังหา/REIT ที่ไม่อยู่ในชุดสแกน
+          </summary>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <tbody className="divide-y divide-white/[0.04]">
+                {unscanned.map(r => <PeerRow key={r.ticker} r={r} />)}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      )}
     </div>
   );
 }

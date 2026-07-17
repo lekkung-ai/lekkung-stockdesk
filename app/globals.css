@@ -3,6 +3,37 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* ---- Central type scale (2026-07-17) --------------------------------
+     Every text size on the site should come from one of these - never
+     hardcode text-[Npx] ad hoc. Thai text stacks sara-bon/sara-lang and up
+     to 3 tiers of vowel/tone marks, which blur below 13px, so --text-label
+     is a hard floor, not a suggestion.
+       text-section  - 17px semibold - section headings
+       text-body     - 15px - primary content (headlines, table numbers,
+                       names) - what the user is here to read
+       text-stat     - 20px semibold - prominent inline numbers
+       text-stat-lg  - 24px semibold - hero numbers (price headers)
+       text-label    - 13px - metadata/labels, paired with --color-meta
+                       below for >=4.5:1 contrast on dark cards           */
+  --text-section: 17px;
+  --text-section--line-height: 1.5;
+  --text-body: 15px;
+  --text-body--line-height: 1.6;
+  --text-stat: 20px;
+  --text-stat--line-height: 1.3;
+  --text-stat-lg: 24px;
+  --text-stat-lg--line-height: 1.2;
+  --text-label: 13px;
+  --text-label--line-height: 1.6;
+
+  /* Near-white ink for headings/body (not pure #fff), and the metadata/
+     label tier's floor color - rgba(255,255,255,.6) measures ~7:1 against
+     the site's #13161e card background, well past the 4.5:1 AA minimum
+     (the previously-used white/25-white/40 range measured 3-4:1, which is
+     why labels read as too faint). */
+  --color-ink: #e8eaed;
+  --color-meta: rgba(255, 255, 255, 0.6);
 }
 
 * {

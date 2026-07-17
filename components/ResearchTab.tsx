@@ -191,11 +191,11 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
       {/* ── Filter bar ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-3 md:p-4 space-y-3">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[10px] uppercase tracking-wider text-white/25 mr-1">โบรกเกอร์</span>
+          <span className="text-label uppercase tracking-wider text-meta mr-1">โบรกเกอร์</span>
           <button
             onClick={() => setSelectedBrokers([])}
-            className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-              selectedBrokers.length === 0 ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-white/40 hover:text-white/70'
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-colors ${
+              selectedBrokers.length === 0 ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-meta hover:text-white/70'
             }`}
           >
             ทั้งหมด
@@ -206,8 +206,8 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
               <button
                 key={b}
                 onClick={() => toggleBroker(b)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-                  on ? 'bg-[#7F77DD]/20 text-[#7F77DD]' : 'bg-white/[0.04] text-white/40 hover:text-white/70'
+                className={`px-2.5 py-1 rounded-lg text-label font-medium transition-colors ${
+                  on ? 'bg-[#7F77DD]/20 text-[#7F77DD]' : 'bg-white/[0.04] text-meta hover:text-white/70'
                 }`}
               >
                 {b}
@@ -218,7 +218,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
 
         <div className="flex flex-col sm:flex-row gap-3">
           <div ref={tickerBoxRef} className="relative flex-1 min-w-0">
-            <label className="text-[10px] uppercase tracking-wider text-white/25 block mb-1">หุ้นที่เกี่ยวข้อง</label>
+            <label className="text-label uppercase tracking-wider text-meta block mb-1">หุ้นที่เกี่ยวข้อง</label>
             <div className="flex items-center gap-2">
               <input
                 value={tickerInput}
@@ -235,10 +235,10 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                   }
                 }}
                 placeholder="พิมพ์ ticker เช่น DELTA"
-                className="flex-1 min-w-0 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-[12px] text-white placeholder:text-white/25 focus:outline-none focus:border-white/20"
+                className="flex-1 min-w-0 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-label text-white placeholder:text-meta focus:outline-none focus:border-white/20"
               />
               {tickerFilter && (
-                <button onClick={clearTicker} className="flex-shrink-0 text-[11px] text-white/40 hover:text-white/70 px-2 py-1">
+                <button onClick={clearTicker} className="flex-shrink-0 text-label text-meta hover:text-white/70 px-2 py-1">
                   ล้าง ✕
                 </button>
               )}
@@ -249,7 +249,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                   <button
                     key={t}
                     onClick={() => commitTicker(t)}
-                    className="block w-full text-left px-3 py-2 text-[12px] text-white/70 hover:bg-white/[0.06] hover:text-white"
+                    className="block w-full text-left px-3 py-2 text-label text-white/70 hover:bg-white/[0.06] hover:text-white"
                   >
                     {t}
                   </button>
@@ -259,14 +259,14 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
           </div>
 
           <div className="sm:w-44 flex-shrink-0">
-            <label className="text-[10px] uppercase tracking-wider text-white/25 block mb-1">วันที่</label>
+            <label className="text-label uppercase tracking-wider text-meta block mb-1">วันที่</label>
             <input
               type="date"
               value={selectedDate}
               min={minDate}
               max={today}
               onChange={e => setSelectedDate(e.target.value || today)}
-              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-[12px] text-white focus:outline-none focus:border-white/20 [color-scheme:dark]"
+              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-label text-white focus:outline-none focus:border-white/20 [color-scheme:dark]"
             />
           </div>
         </div>
@@ -274,8 +274,8 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
 
       {/* ── Today's rating summary ── */}
       {todaySummary && (
-        <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#13161e] border border-white/[0.07] text-[12px]">
-          <span className="text-white/40">วันนี้</span>
+        <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#13161e] border border-white/[0.07] text-label">
+          <span className="text-meta">วันนี้</span>
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#1D9E75]" />
             <span className="text-white/70">Buy {todaySummary.buy}</span>
@@ -293,11 +293,11 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
 
       {/* ── Results ── */}
       <div className="flex items-center justify-between px-1">
-        <span className="text-[11px] text-white/30">
+        <span className="text-label text-meta">
           {items === null ? 'กำลังโหลด…' : `${filtered.length} บทวิเคราะห์`}
           {tickerFilter && ` · กรอง ${tickerFilter}`}
         </span>
-        {totalPages > 1 && <span className="text-[11px] text-white/25">หน้า {page + 1}/{totalPages}</span>}
+        {totalPages > 1 && <span className="text-label text-meta">หน้า {page + 1}/{totalPages}</span>}
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
@@ -305,7 +305,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
           <TableSkeleton rows={10} />
         ) : pageItems.length === 0 ? (
           <div className="px-5 py-10 text-center">
-            <p className="text-[13px] text-white/30">
+            <p className="text-label text-meta">
               {error ? 'โหลดบทวิเคราะห์ไม่สำเร็จ ลองใหม่อีกครั้ง' : 'ไม่พบบทวิเคราะห์ตามเงื่อนไขที่เลือก'}
             </p>
           </div>
@@ -317,16 +317,16 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-[13px] text-white/85 leading-snug hover:text-[#5B9BD5] transition-colors"
+                  className="block text-label text-white/85 leading-snug hover:text-[#5B9BD5] transition-colors"
                 >
                   {item.title}
                 </a>
                 <div className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${sourceCls(item.source)}`}>
+                  <span className={`text-label font-semibold px-1.5 py-0.5 rounded ${sourceCls(item.source)}`}>
                     {item.source}
                   </span>
                   {item.broker && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#7F77DD]/15 text-[#7F77DD] ring-1 ring-[#7F77DD]/30">
+                    <span className="text-label font-bold px-1.5 py-0.5 rounded bg-[#7F77DD]/15 text-[#7F77DD] ring-1 ring-[#7F77DD]/30">
                       {item.broker}
                     </span>
                   )}
@@ -334,7 +334,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                     <button
                       key={t}
                       onClick={() => commitTicker(t)}
-                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ring-1 transition-colors ${
+                      className={`text-label font-bold px-1.5 py-0.5 rounded ring-1 transition-colors ${
                         tickerFilter === t
                           ? 'bg-[#5B9BD5] text-white ring-[#5B9BD5]'
                           : 'bg-[#5B9BD5]/15 text-[#8FC1EA] ring-[#5B9BD5]/30 hover:bg-[#5B9BD5]/25 hover:text-white'
@@ -344,12 +344,12 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                     </button>
                   ))}
                   {item.rating && (
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${RATING_BUCKET_STYLE[classifyRating(item.rating)]}`}>
+                    <span className={`text-label font-bold px-1.5 py-0.5 rounded ${RATING_BUCKET_STYLE[classifyRating(item.rating)]}`}>
                       {item.rating}
                     </span>
                   )}
                   {item.targetPrice != null && (
-                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/60">
+                    <span className="text-label font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/60">
                       เป้า {item.targetPrice} บาท
                     </span>
                   )}
@@ -359,12 +359,12 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={e => e.stopPropagation()}
-                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50 hover:text-white hover:bg-white/[0.1] transition-colors"
+                      className="text-label font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50 hover:text-white hover:bg-white/[0.1] transition-colors"
                     >
                       PDF
                     </a>
                   )}
-                  <span className="text-[11px] text-white/25 ml-auto">{postTime(item.ts)}</span>
+                  <span className="text-label text-meta ml-auto">{postTime(item.ts)}</span>
                 </div>
               </div>
             ))}
@@ -378,18 +378,18 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
           <button
             onClick={() => setPage(p => Math.max(0, p - 1))}
             disabled={page === 0}
-            className="px-2.5 py-1.5 rounded-lg text-[12px] text-white/50 hover:text-white hover:bg-white/[0.06] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+            className="px-2.5 py-1.5 rounded-lg text-label text-white/50 hover:text-white hover:bg-white/[0.06] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
           >
             ‹
           </button>
           {pageList(page, totalPages).map((p, idx) =>
             p === '…' ? (
-              <span key={`e${idx}`} className="px-1 text-[12px] text-white/25">…</span>
+              <span key={`e${idx}`} className="px-1 text-label text-meta">…</span>
             ) : (
               <button
                 key={p}
                 onClick={() => setPage(p)}
-                className={`min-w-[32px] px-2 py-1.5 rounded-lg text-[12px] transition-colors ${
+                className={`min-w-[32px] px-2 py-1.5 rounded-lg text-label transition-colors ${
                   p === page ? 'bg-white/15 text-white font-semibold' : 'text-white/50 hover:text-white hover:bg-white/[0.06]'
                 }`}
               >
@@ -400,7 +400,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
           <button
             onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
             disabled={page === totalPages - 1}
-            className="px-2.5 py-1.5 rounded-lg text-[12px] text-white/50 hover:text-white hover:bg-white/[0.06] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+            className="px-2.5 py-1.5 rounded-lg text-label text-white/50 hover:text-white hover:bg-white/[0.06] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
           >
             ›
           </button>

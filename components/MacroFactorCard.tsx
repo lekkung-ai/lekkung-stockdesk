@@ -15,8 +15,8 @@ export default function MacroFactorCard({ ticker }: { ticker: string }) {
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
       <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between">
-        <h2 className="text-[13px] font-semibold text-white">ปัจจัยมหภาคที่เกี่ยวข้อง</h2>
-        <Link href="/macro" className="text-[11.5px] text-[#5B9BD5] hover:text-[#8FC1EA] transition-colors">
+        <h2 className="text-section text-ink">ปัจจัยมหภาคที่เกี่ยวข้อง</h2>
+        <Link href="/macro" className="text-label text-[#5B9BD5] hover:text-[#8FC1EA] transition-colors">
           ดู Macro & Commodities →
         </Link>
       </div>
@@ -24,8 +24,8 @@ export default function MacroFactorCard({ ticker }: { ticker: string }) {
         {commodities.map(c => (
           <div key={c.symbol} className="px-5 py-3.5 flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-[12.5px] font-medium text-white/80 truncate">{c.name_th}</p>
-              <p className="text-[10.5px] text-white/25 truncate">
+              <p className="text-body text-ink font-medium truncate">{c.name_th}</p>
+              <p className="text-label text-meta truncate">
                 {c.symbol} · {formatPrice(c.latest.close)} {c.unit}
               </p>
             </div>
