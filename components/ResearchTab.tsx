@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import TableSkeleton from '@/components/TableSkeleton';
-import { classifyRating, RATING_BUCKET_STYLE, IAA_SOURCE_NAME } from '@/lib/researchRating';
+import ResearchCard from '@/components/ResearchCard';
+import { classifyRating } from '@/lib/researchRating';
 
 interface ResearchItem {
   title: string;
@@ -20,28 +21,8 @@ interface ResearchItem {
 
 const PAGE_SIZE = 20;
 
-const SOURCE_STYLE: Record<string, string> = {
-  Kaohoon: 'bg-[#FAEEDA] text-[#633806]',
-  'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
-  [IAA_SOURCE_NAME]: 'bg-[#E5EDFB] text-[#1A4A8A]',
-};
-const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
-
 function localDate(ts: number): string {
   return new Date(ts).toLocaleDateString('en-CA');
-}
-
-function postTime(ts: number): string {
-  if (!ts) return '';
-  const diff = Date.now() - ts;
-  const mins = Math.floor(diff / 60000);
-  const hrs = Math.floor(diff / 3600000);
-  if (mins < 1) return 'เมื่อสักครู่';
-  if (mins < 60) return `เมื่อ ${mins} นาที`;
-  if (hrs < 24) return `เมื่อ ${hrs} ชม.`;
-  return (
-    new Date(ts).toLocaleString('th-TH', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' น.'
-  );
 }
 
 function pageList(cur: number, total: number): (number | '…')[] {
@@ -96,7 +77,26 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
           const tk = initialTicker.trim().toUpperCase();
           const relevant = tk ? list.filter(it => it.tickers.includes(tk)) : list;
           const basis = relevant.length > 0 ? relevant : list;
-          setSelectedDate(localDate(basis[0].ts));
+          // Default to the date with the MOST items, not just whichever
+          // date the single newest timestamp happens to fall on - a lone
+          // live-fetched item that posts a few minutes into a new day would
+          // otherwise land the view on an almost-empty day while 30-50 real
+          // items from the actual batch sit on the previous day (confirmed
+          // live: 2026-07-17 had 1 item, 2026-07-15 had 55).
+          const counts = new Map<string, number>();
+          for (const it of basis) {
+            const d = localDate(it.ts);
+            counts.set(d, (counts.get(d) ?? 0) + 1);
+          }
+          let bestDate = localDate(basis[0].ts);
+          let bestCount = 0;
+          for (const [d, n] of counts) {
+            if (n > bestCount || (n === bestCount && d > bestDate)) {
+              bestDate = d;
+              bestCount = n;
+            }
+          }
+          setSelectedDate(bestDate);
         }
       })
       .catch(() => {
@@ -312,61 +312,12 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
         ) : (
           <div className="divide-y divide-white/[0.04]">
             {pageItems.map((item, i) => (
-              <div key={(item.link || '') + i} className="px-5 py-4">
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-label text-white/85 leading-snug hover:text-[#5B9BD5] transition-colors"
-                >
-                  {item.title}
-                </a>
-                <div className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className={`text-label font-semibold px-1.5 py-0.5 rounded ${sourceCls(item.source)}`}>
-                    {item.source}
-                  </span>
-                  {item.broker && (
-                    <span className="text-label font-bold px-1.5 py-0.5 rounded bg-[#7F77DD]/15 text-[#7F77DD] ring-1 ring-[#7F77DD]/30">
-                      {item.broker}
-                    </span>
-                  )}
-                  {item.tickers.map(t => (
-                    <button
-                      key={t}
-                      onClick={() => commitTicker(t)}
-                      className={`text-label font-bold px-1.5 py-0.5 rounded ring-1 transition-colors ${
-                        tickerFilter === t
-                          ? 'bg-[#5B9BD5] text-white ring-[#5B9BD5]'
-                          : 'bg-[#5B9BD5]/15 text-[#8FC1EA] ring-[#5B9BD5]/30 hover:bg-[#5B9BD5]/25 hover:text-white'
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                  {item.rating && (
-                    <span className={`text-label font-bold px-1.5 py-0.5 rounded ${RATING_BUCKET_STYLE[classifyRating(item.rating)]}`}>
-                      {item.rating}
-                    </span>
-                  )}
-                  {item.targetPrice != null && (
-                    <span className="text-label font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/60">
-                      เป้า {item.targetPrice} บาท
-                    </span>
-                  )}
-                  {item.fileUrl && (
-                    <a
-                      href={item.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={e => e.stopPropagation()}
-                      className="text-label font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50 hover:text-white hover:bg-white/[0.1] transition-colors"
-                    >
-                      PDF
-                    </a>
-                  )}
-                  <span className="text-label text-meta ml-auto">{postTime(item.ts)}</span>
-                </div>
-              </div>
+              <ResearchCard
+                key={(item.link || '') + i}
+                item={item}
+                tickerFilter={tickerFilter}
+                onTickerClick={commitTicker}
+              />
             ))}
           </div>
         )}

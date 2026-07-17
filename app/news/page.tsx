@@ -4,6 +4,8 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TableSkeleton from '@/components/TableSkeleton';
 import ResearchTab from '@/components/ResearchTab';
+import NewsCard from '@/components/NewsCard';
+import { newsSourceCls } from '@/lib/newsSourceStyle';
 
 interface NewsItem {
   title: string;
@@ -18,51 +20,10 @@ interface NewsItem {
 
 const PAGE_SIZE = 20;
 
-// Per-source badge colours (unknown sources fall back to grey).
-const SOURCE_STYLE: Record<string, string> = {
-  InfoQuest: 'bg-[#E6F1FB] text-[#0C447C]',
-  'ข่าวหุ้น': 'bg-[#FAEEDA] text-[#633806]',
-  'ข่าวหุ้น (ด่วน)': 'bg-[#FAEEDA] text-[#633806]',
-  'ข่าวหุ้น (ทั่วไป)': 'bg-[#FAEEDA] text-[#633806]',
-  'RYT9 (SET)': 'bg-[#F2EDF9] text-[#4F2D7F]',
-  'RYT9 (หุ้น)': 'bg-[#F2EDF9] text-[#4F2D7F]',
-  'กรุงเทพธุรกิจ': 'bg-[#EAF3DE] text-[#27500A]',
-  'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
-  'หุ้นสมาร์ท': 'bg-[#FBE8E8] text-[#8A1A1A]',
-  'Share2Trade': 'bg-[#F3E8FB] text-[#5B2A86]',
-  'Wealthy Thai': 'bg-[#FCEBEB] text-[#791F1F]',
-  'ประชาชาติธุรกิจ': 'bg-[#EAF3DE] text-[#27500A]',
-  'ฐานเศรษฐกิจ': 'bg-[#E6F1FB] text-[#0C447C]',
-  'มติชน': 'bg-[#DFF3EE] text-[#0F5C4C]',
-  'Investing.com': 'bg-[#E5EDFB] text-[#1A4A8A]',
-  'RYT9 (IPO)': 'bg-[#F2EDF9] text-[#4F2D7F]',
-  HOONSMART: 'bg-[#FBE8E8] text-[#8A1A1A]',
-  EFIN: 'bg-[#FDF0DC] text-[#8A5A0C]',
-};
-const sourceCls = (s: string) => SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
-
 // ── helpers ──────────────────────────────────────────────────────────────────
 function localDate(ts: number): string {
   // YYYY-MM-DD in the viewer's local timezone
   return new Date(ts).toLocaleDateString('en-CA');
-}
-
-function postTime(ts: number): string {
-  if (!ts) return '';
-  const diff = Date.now() - ts;
-  const mins = Math.floor(diff / 60000);
-  const hrs = Math.floor(diff / 3600000);
-  if (mins < 1) return 'เมื่อสักครู่';
-  if (mins < 60) return `เมื่อ ${mins} นาที`;
-  if (hrs < 24) return `เมื่อ ${hrs} ชม.`;
-  return (
-    new Date(ts).toLocaleString('th-TH', {
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit',
-    }) + ' น.'
-  );
 }
 
 function pageList(cur: number, total: number): (number | '…')[] {
@@ -81,16 +42,19 @@ function NewsPageContent() {
   const tab: 'news' | 'research' = searchParams.get('tab') === 'research' ? 'research' : 'news';
   const initialResearchTicker = searchParams.get('ticker') ?? '';
 
+  // tab always comes from the URL, never a parallel useState - both buttons
+  // navigate the same way (router.push with an explicit ?tab=), and news is
+  // never a bare /news with no query string. A bare URL for one tab and a
+  // parametrized one for the other made the two tabs take different
+  // rendering paths on this Next version, which could leave a navigation
+  // stuck (confirmed: /news?tab=research got stuck on the Suspense fallback
+  // indefinitely on some loads, bare /news did not) - always having a query
+  // string keeps every tab switch on the same code path.
   function switchTab(next: 'news' | 'research') {
     const params = new URLSearchParams(searchParams.toString());
-    if (next === 'news') {
-      params.delete('tab');
-      params.delete('ticker');
-    } else {
-      params.set('tab', 'research');
-    }
-    const qs = params.toString();
-    router.push(qs ? `/news?${qs}` : '/news');
+    params.set('tab', next);
+    if (next === 'news') params.delete('ticker');
+    router.push(`/news?${params.toString()}`);
   }
 
   const [allNews, setAllNews] = useState<NewsItem[] | null>(null);
@@ -258,8 +222,8 @@ function NewsPageContent() {
                 key={s}
                 onClick={() => toggleSource(s)}
                 title={isStale ? `${s} — fetch สดล้มเหลว กำลังแสดงข่าวเก่าจาก archive แทน` : undefined}
-                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-                  on ? sourceCls(s) : 'bg-white/[0.04] text-white/40 hover:text-white/70'
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-label font-medium transition-colors ${
+                  on ? newsSourceCls(s) : 'bg-white/[0.04] text-meta hover:text-white/70'
                 }`}
               >
                 {s}
@@ -355,35 +319,12 @@ function NewsPageContent() {
         ) : (
           <div className="divide-y divide-white/[0.04]">
             {pageItems.map((item, i) => (
-              <div key={(item.link || '') + i} className="px-5 py-4">
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-[13px] text-white/85 leading-snug hover:text-[#5B9BD5] transition-colors"
-                >
-                  {item.title}
-                </a>
-                <div className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${sourceCls(item.source)}`}>
-                    {item.source}
-                  </span>
-                  {item.tickers.map(t => (
-                    <button
-                      key={t}
-                      onClick={() => commitTicker(t)}
-                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ring-1 transition-colors ${
-                        tickerFilter === t
-                          ? 'bg-[#5B9BD5] text-white ring-[#5B9BD5]'
-                          : 'bg-[#5B9BD5]/15 text-[#8FC1EA] ring-[#5B9BD5]/30 hover:bg-[#5B9BD5]/25 hover:text-white'
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                  <span className="text-[11px] text-white/25 ml-auto">{postTime(item.ts)}</span>
-                </div>
-              </div>
+              <NewsCard
+                key={(item.link || '') + i}
+                item={item}
+                tickerFilter={tickerFilter}
+                onTickerClick={commitTicker}
+              />
             ))}
           </div>
         )}

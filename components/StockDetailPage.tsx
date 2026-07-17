@@ -8,7 +8,8 @@ import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
 import PeerComparisonTable from './PeerComparisonTable';
 import MacroFactorCard from './MacroFactorCard';
-import { classifyRating, RATING_BUCKET_STYLE } from '@/lib/researchRating';
+import NewsCard from './NewsCard';
+import ResearchCard from './ResearchCard';
 import { BUCKET_LABEL, BUCKET_BADGE_STYLE } from '@/lib/earningsBucket';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
@@ -67,6 +68,7 @@ interface NewsItem {
   title: string;
   link: string;
   pubDate: string;
+  ts: number;
   source: string;
   sentiment: 'pos' | 'neg' | 'neu';
 }
@@ -83,14 +85,6 @@ interface ResearchItem {
   fileUrl?: string | null;
 }
 
-const NEWS_SOURCE_STYLE: Record<string, string> = {
-  InfoQuest: 'bg-[#E6F1FB] text-[#0C447C]',
-  'ข่าวหุ้น': 'bg-[#FAEEDA] text-[#633806]',
-  'มิติหุ้น': 'bg-[#EAF3DE] text-[#27500A]',
-  'มติชน': 'bg-[#F3E8FB] text-[#5B2A86]',
-  'Bangkok Post': 'bg-[#FCEBEB] text-[#791F1F]',
-};
-const newsSourceCls = (s: string) => NEWS_SOURCE_STYLE[s] ?? 'bg-white/[0.07] text-white/50';
 interface SecData {
   headers: string[];
   rows: Record<string, string>[];
@@ -733,44 +727,7 @@ export default function StockDetailPage({
           </div>
           <div className="divide-y divide-white/[0.04]">
             {research.slice(0, 5).map((item, i) => (
-              <div key={(item.link || '') + i} className="px-5 py-3.5 hover:bg-white/[0.025] transition-colors">
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-label text-white/80 leading-snug line-clamp-2 hover:text-[#5B9BD5] transition-colors"
-                >
-                  {item.title}
-                </a>
-                <div className="flex flex-wrap items-center gap-2 mt-1.5">
-                  {item.broker && (
-                    <span className="text-label font-bold px-1.5 py-0.5 rounded bg-[#7F77DD]/15 text-[#7F77DD]">
-                      {item.broker}
-                    </span>
-                  )}
-                  {item.rating && (
-                    <span className={`text-label font-bold px-1.5 py-0.5 rounded ${RATING_BUCKET_STYLE[classifyRating(item.rating)]}`}>
-                      {item.rating}
-                    </span>
-                  )}
-                  {item.targetPrice != null && (
-                    <span className="text-label font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50">
-                      เป้า {item.targetPrice} บาท
-                    </span>
-                  )}
-                  {item.fileUrl && (
-                    <a
-                      href={item.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-label font-semibold px-1.5 py-0.5 rounded bg-white/[0.06] text-white/50 hover:text-white hover:bg-white/[0.1] transition-colors"
-                    >
-                      PDF
-                    </a>
-                  )}
-                  <span className="text-label text-meta ml-auto">{item.source}</span>
-                </div>
-              </div>
+              <ResearchCard key={(item.link || '') + i} item={item} className="px-5 py-3.5" />
             ))}
           </div>
         </div>
@@ -795,47 +752,9 @@ export default function StockDetailPage({
           </div>
         ) : (
           <div className="divide-y divide-white/[0.04]">
-            {news.map((item, i) => {
-              // Neutral carries no information - shown items skip the badge
-              // entirely instead of a "Neutral" tag nobody needs to read.
-              const sentCls = item.sentiment === 'pos' ? 'bg-[#EAF3DE] text-[#27500A]' : 'bg-[#FCEBEB] text-[#791F1F]';
-              const sentLabel = item.sentiment === 'pos' ? 'Positive' : 'Negative';
-              const formattedDate = (() => {
-                try {
-                  const d = new Date(item.pubDate);
-                  const diff = Date.now() - d.getTime();
-                  const mins = Math.floor(diff / 60000);
-                  const hrs = Math.floor(diff / 3600000);
-                  if (mins < 60) return `${mins} นาทีที่แล้ว`;
-                  if (hrs < 24) return `${hrs} ชั่วโมงที่แล้ว`;
-                  return d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
-                } catch { return item.pubDate; }
-              })();
-
-              return (
-                <a
-                  key={i}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-5 py-4 hover:bg-white/[0.025] transition-colors"
-                >
-                  <p className="text-body text-ink leading-snug line-clamp-2">{item.title}</p>
-                  <div className="flex flex-wrap items-center gap-2 mt-1.5 text-label text-meta">
-                    {item.sentiment !== 'neu' && (
-                      <span className={`font-semibold px-1.5 py-0.5 rounded text-label ${sentCls}`}>
-                        {sentLabel}
-                      </span>
-                    )}
-                    <span className={`font-semibold px-1.5 py-0.5 rounded text-label ${newsSourceCls(item.source)}`}>
-                      {item.source}
-                    </span>
-                    <span>·</span>
-                    <span>{formattedDate}</span>
-                  </div>
-                </a>
-              );
-            })}
+            {news.map((item, i) => (
+              <NewsCard key={i} item={item} />
+            ))}
           </div>
         )}
       </div>

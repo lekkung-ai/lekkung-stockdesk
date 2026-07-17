@@ -7,7 +7,6 @@ import {
   extractTickers,
   fetchFeed,
   normalizeUrl,
-  normalizeTitle,
   titleHasTicker,
 } from '@/lib/feedParsing';
 import rawIaaResearch from '@/data/scans/research_iaa.json';
@@ -200,17 +199,21 @@ export async function GET(
     return a.source.localeCompare(b.source);
   });
 
-  // Dedup across feeds (same convention as /api/news)
+  // Dedup by link only - title-similarity dedup (as /api/news still does)
+  // silently drops distinct research reports here. IAA's own title template
+  // repeats the generic "บทวิเคราะห์ประจำวันที่ X" suffix across many
+  // different companies/brokers on the same day; confirmed live on
+  // 2026-07-16 data: 141 IAA items normalized down to 136 unique titles,
+  // i.e. title-based dedup was discarding real distinct reports that happen
+  // to share a templated headline. Each item already carries its own
+  // uuid-backed link, so link-only dedup is both correct and sufficient.
   const seenLinks = new Set<string>();
-  const seenTitles = new Set<string>();
   const sorted: FeedItem[] = [];
   for (const item of candidates) {
     if (!item.link) continue;
     const normLink = normalizeUrl(item.link);
-    const normTitle = normalizeTitle(item.title);
-    if (seenLinks.has(normLink) || (normTitle && seenTitles.has(normTitle))) continue;
+    if (seenLinks.has(normLink)) continue;
     seenLinks.add(normLink);
-    if (normTitle) seenTitles.add(normTitle);
     sorted.push(item); // candidates was already sorted, dedup preserves order
   }
 
