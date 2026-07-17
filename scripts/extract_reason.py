@@ -260,6 +260,13 @@ def main():
     announcements = feed.get('announcements', [])
     print(f"Announcements in feed: {len(announcements)}")
 
+    # Snapshot which specific filings had a reason before anything below
+    # mutates announcements in place - the regression guard at the end
+    # compares against this set (not just a raw count), so a filing that
+    # legitimately ages out of the 45-day window doesn't false-positive as
+    # a regression the way a plain before/after count would.
+    prev_keys_with_reason = {cache_key(a) for a in announcements if a.get('reason_source') == 'mda_extract'}
+
     to_extract = []
     for a in announcements:
         key = cache_key(a)
@@ -267,6 +274,17 @@ def main():
         if cached:
             a['reason'] = cached['reason']
             a['reason_source'] = cached['reason_source']
+        elif a.get('reason_source') == 'mda_extract' and a.get('reason'):
+            # fetch_earnings.py's own merge-on-write already restored this
+            # one from the previous file (our cache.json is missing/behind)
+            # - trust it and backfill the cache, instead of attempting a
+            # fresh extraction that could fail and overwrite a good value
+            # with an empty one.
+            cache[key] = {
+                'reason': a['reason'],
+                'reason_source': a['reason_source'],
+                'extractedAt': datetime.now(BANGKOK_TZ).isoformat(),
+            }
         else:
             to_extract.append((key, a))
 
@@ -329,6 +347,25 @@ def main():
     print("\n3 failed examples:")
     for ticker, quarter, cat in fail_examples:
         print(f"  [{ticker} {quarter}] {FAIL_LABELS.get(cat, cat)}")
+
+    # Regression guard: a filing that was in the window before AND still is
+    # now must not have lost its reason - that's exactly the two incidents
+    # (2026-07-16, 2026-07-17) this whole file exists to stop happening a
+    # third time. A filing aging out of the 45-day window is not a
+    # regression (it's just gone), so this only checks filings present in
+    # both snapshots - fail loud and refuse to write rather than silently
+    # push a worse file.
+    current_keys_with_reason = {cache_key(a) for a in announcements if a.get('reason_source') == 'mda_extract'}
+    still_present_keys = {cache_key(a) for a in announcements}
+    regressed = (prev_keys_with_reason & still_present_keys) - current_keys_with_reason
+    if regressed:
+        print("\n" + "=" * 70, file=sys.stderr)
+        print(f"ERROR: REASON REGRESSION DETECTED - {len(regressed)} filing(s) that had a reason "
+              f"before this run lost it. Refusing to write - investigate before retrying.", file=sys.stderr)
+        for k in list(regressed)[:10]:
+            print(f"  - {k}", file=sys.stderr)
+        print("=" * 70, file=sys.stderr)
+        sys.exit(1)
 
     if args.dry_run:
         print("\n[--dry-run] Not writing feed/cache files.")

@@ -370,6 +370,32 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
     return result
 
 
+# Same key strategy as scripts/extract_reason.py's cache_key() - must stay
+# in sync. Used to carry `reason`/`reason_source` forward across a full
+# regeneration of this file, the same merge-on-write principle save_news.py
+# already uses for its own two-writers problem. Without this, a run where
+# extract_reason.py doesn't get a chance to fill reason back in (step
+# failure, ordering change, anything) silently wipes real extracted reasons
+# back to nothing - happened twice (2026-07-16, 2026-07-17) before this fix.
+def _reason_key(a):
+    return a.get('f45Url') or f"{a.get('ticker')}|{a.get('quarter')}|{a.get('announceDate')}"
+
+
+def load_existing_reasons(out_path):
+    if not os.path.exists(out_path):
+        return {}
+    try:
+        with open(out_path, 'r', encoding='utf-8') as f:
+            existing = json.load(f)
+    except Exception:
+        return {}
+    result = {}
+    for a in existing.get('announcements', []):
+        if a.get('reason_source') == 'mda_extract' and a.get('reason'):
+            result[_reason_key(a)] = (a['reason'], a['reason_source'])
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true', help='fetch and print summary, write nothing')
@@ -431,6 +457,26 @@ def main():
 
     announcements.sort(key=lambda a: a['announceDate'] or '', reverse=True)
     calendar.sort(key=lambda c: c['date'] or '')
+
+    # Merge-on-write: carry forward any reason already extracted for a
+    # filing that's still in this run's window, so this file never
+    # regresses to reason-less even if extract_reason.py never gets to run
+    # afterward this time. A record that never had a reason gets none here
+    # either way - extract_reason.py (or the next run once it does succeed)
+    # is what actually fills new ones in.
+    out_path_for_merge = os.path.join(args.out if args.out else OUTPUT_DIR, 'earnings_feed.json')
+    existing_reasons = load_existing_reasons(out_path_for_merge)
+    restored = 0
+    for a in announcements:
+        prior = existing_reasons.get(_reason_key(a))
+        if prior:
+            a['reason'], a['reason_source'] = prior
+            restored += 1
+        else:
+            a.setdefault('reason', '')
+            a.setdefault('reason_source', 'none')
+    if restored:
+        print(f"Carried forward {restored} previously-extracted reason(s) from the existing file")
 
     buckets = {}
     for key, label in BUCKET_LABELS.items():

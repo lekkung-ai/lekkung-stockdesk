@@ -267,12 +267,12 @@ function AnnouncementsTable({
       .sort((a, b) => (b.announceDate || '').localeCompare(a.announceDate || ''));
   }, [announcements, bucketFilter, profitFilter, quarterFilter, query]);
 
+  // Row click always opens the detail panel now - desktop docks it beside
+  // the table, narrow screens get a bottom sheet instead (see
+  // AnnouncementSidePanel/AnnouncementBottomSheet below). The ticker button
+  // itself still navigates straight to the stock page on any screen size.
   function handleRowClick(a: EarningsAnnouncement) {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
-      onSelect(a);
-    } else {
-      router.push(`/stock/${a.ticker}`);
-    }
+    onSelect(a);
   }
 
   return (
@@ -355,8 +355,10 @@ function AnnouncementsTable({
                   <tr
                     key={`${a.ticker}-${a.announceDate}-${i}`}
                     onClick={() => handleRowClick(a)}
-                    className={`cursor-pointer transition-colors ${
-                      selectedTicker === a.ticker ? 'bg-white/[0.05]' : 'hover:bg-white/[0.02]'
+                    className={`cursor-pointer transition-colors border-l-2 ${
+                      selectedTicker === a.ticker
+                        ? 'bg-[#7F77DD]/[0.14] border-l-[#7F77DD]'
+                        : 'border-l-transparent hover:bg-white/[0.02]'
                     }`}
                   >
                     <td className="px-3 py-3 text-label text-white/55 whitespace-nowrap">
@@ -425,7 +427,10 @@ function AnnouncementsTable({
 
 // ── Desktop side panel (row click, >=1024px only - mobile navigates instead) ──
 
-function AnnouncementSidePanel({
+// Shared content for both the desktop docked panel and the mobile bottom
+// sheet - only the outer wrapper (positioning/backdrop) differs between the
+// two, so this stays a single source of truth for "what the panel shows".
+function AnnouncementPanelContent({
   announcement,
   onClose,
 }: {
@@ -436,7 +441,7 @@ function AnnouncementSidePanel({
   const spark = sparklineMap[announcement.ticker];
 
   return (
-    <div className="w-[320px] flex-shrink-0 bg-[#13161e] border border-white/[0.07] rounded-xl p-4 h-fit sticky top-4 space-y-3.5">
+    <div className="space-y-3.5">
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-1.5">
@@ -523,6 +528,49 @@ function AnnouncementSidePanel({
   );
 }
 
+// Desktop (>=1024px): docked beside the table. `top` accounts for the
+// app's 56px (h-14) header, sticky so it stays in view when the table
+// scrolls past it, capped to the viewport with its own scrollbar so a long
+// reason never pushes the buttons below off-screen (the previous
+// unbounded-height version needed a page-level scroll to reach them).
+function AnnouncementSidePanel({
+  announcement,
+  onClose,
+}: {
+  announcement: EarningsAnnouncement;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      className="w-[320px] flex-shrink-0 bg-[#13161e] border border-white/[0.07] rounded-xl p-4 sticky overflow-y-auto"
+      style={{ top: '4.5rem', maxHeight: 'calc(100vh - 5.5rem)' }}
+    >
+      <AnnouncementPanelContent announcement={announcement} onClose={onClose} />
+    </div>
+  );
+}
+
+// Narrow screens (<1024px): a bottom sheet instead of a side dock (a
+// 320px-wide column doesn't fit) - slides up over the table with a
+// backdrop, capped at 85% of the viewport with its own scroll.
+function AnnouncementBottomSheet({
+  announcement,
+  onClose,
+}: {
+  announcement: EarningsAnnouncement;
+  onClose: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end" role="dialog" aria-modal="true">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="relative w-full bg-[#13161e] border-t border-white/[0.1] rounded-t-2xl p-4 pb-6 max-h-[85vh] overflow-y-auto">
+        <div className="w-10 h-1 rounded-full bg-white/15 mx-auto mb-3" />
+        <AnnouncementPanelContent announcement={announcement} onClose={onClose} />
+      </div>
+    </div>
+  );
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function EarningsPage() {
@@ -601,7 +649,16 @@ export default function EarningsPage() {
         </div>
       ) : (
         <>
-          <div className="flex gap-4 items-start">
+          {/* items-stretch (not items-start) is load-bearing: a sticky
+              child only has room to stick while its OWN containing block
+              (this row's second flex item) is taller than the child
+              itself. items-start made that wrapper hug the panel's own
+              height exactly, so the panel had zero room to detach from
+              document flow and scrolled away immediately - looked
+              identical to position:static. Stretching both columns to the
+              row's full height (the table column, being taller, is
+              unaffected) fixes it. */}
+          <div className="flex gap-4 items-stretch">
             <div className="flex-1 min-w-0 space-y-4">
               <WeekCalendarStrip feed={feed} />
               <BucketCards feed={feed} />
@@ -616,6 +673,11 @@ export default function EarningsPage() {
               </div>
             )}
           </div>
+          {selected && (
+            <div className="lg:hidden">
+              <AnnouncementBottomSheet announcement={selected} onClose={() => setSelected(null)} />
+            </div>
+          )}
         </>
       )}
     </div>
