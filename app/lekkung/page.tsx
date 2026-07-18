@@ -11,11 +11,18 @@ import {
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
+import ModeToggle from '@/components/ModeToggle';
 import StaleDataBanner from '@/components/StaleDataBanner';
+import IncompletePopover from '@/components/IncompletePopover';
+import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
+import DroppedTickersList from '@/components/DroppedTickersList';
+import NewBadge from '@/components/NewBadge';
+import ReportCardBar from '@/components/ReportCardBar';
+import { getScanDiff } from '@/lib/scanDiff';
 import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
 
-const incompleteCount = Array.isArray(rawIncomplete) ? rawIncomplete.length : 0;
+const incompleteItems = Array.isArray(rawIncomplete) ? rawIncomplete : [];
 
 export default function LekkungPage() {
   const [profitMin, setProfitMin] = useState(20);
@@ -26,7 +33,9 @@ export default function LekkungPage() {
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [historyInitialTicker, setHistoryInitialTicker] = useState<string | null>(null);
+  const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(lekkungData.map(s => s.Ticker));
+  const newSet = useMemo(() => new Set(getScanDiff('lekkung')?.newTickers ?? []), []);
 
   const goToHistory = (ticker: string) => {
     setHistoryInitialTicker(ticker);
@@ -42,8 +51,9 @@ export default function LekkungPage() {
       .filter(s => s.NetProfit_Growth_QoQY >= profitMin)
       .filter(s => s.Revenue_Growth_YoY >= revMin)
       .filter(s => (s.ROE * 100) >= roeMin)
-      .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin);
-      
+      .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin)
+      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+
     if (sortConfig) {
       result = result.sort((a, b) => {
         if (sortConfig.key === '__days') {
@@ -62,7 +72,7 @@ export default function LekkungPage() {
       result = result.sort((a, b) => b.NetProfit_Growth_QoQY - a.NetProfit_Growth_QoQY);
     }
     return result;
-  }, [profitMin, revMin, roeMin, mcapMin, sortConfig]);
+  }, [profitMin, revMin, roeMin, mcapMin, sortConfig, diffFilter, newSet]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -75,36 +85,13 @@ export default function LekkungPage() {
           total={lekkungData.length}
         />
         <div className="flex items-center gap-3">
-          {incompleteCount > 0 && (
-            <span
-              title="ผ่านเงื่อนไขราคา/สภาพคล่องแล้ว แต่ข้อมูลงบการเงินยังไม่ครบ (Yahoo/F45 ยังดึงไม่สำเร็จ) - รอรอบถัดไป"
-              className="text-[11px] text-white/35 cursor-help"
-            >
-              รอข้อมูล {incompleteCount} ตัว
-            </span>
-          )}
-          <div className="flex items-center gap-0.5 bg-[#13161e] border border-white/[0.07] rounded-xl p-0.5">
-            <button
-              onClick={() => setMode('today')}
-              className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors ${
-                mode === 'today' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
-              }`}
-            >
-              วันนี้
-            </button>
-            <button
-              onClick={() => setMode('history')}
-              className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors ${
-                mode === 'history' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
-              }`}
-            >
-              ย้อนหลัง
-            </button>
-          </div>
+          <IncompletePopover items={incompleteItems} />
+          <ModeToggle mode={mode} onChange={setMode} />
         </div>
       </div>
 
       <StaleDataBanner generatedAt={getScanGeneratedAt('lekkung')} />
+      <ReportCardBar scanKey="lekkung_growth" />
 
       {mode === 'history' ? (
         <ScanHistoryView scanName="lekkung" initialTicker={historyInitialTicker} />
@@ -118,9 +105,14 @@ export default function LekkungPage() {
         <SliderField label="ROE %" min={15} max={50} value={roeMin} onChange={setRoeMin} />
         <Divider />
         <SliderField label="Market Cap (MB)" min={0} max={50000} value={mcapMin} onChange={setMcapMin} step={1000} />
+        <Divider />
+        <ScanDiffChips scanName="lekkung" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
 
-      <div className="[&_td]:text-[14px] [&_th]:text-[11px]">
+      {diffFilter === 'dropped' ? (
+        <DroppedTickersList scanName="lekkung" />
+      ) : (
+      <div>
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
@@ -148,7 +140,10 @@ export default function LekkungPage() {
             >
               <Td className="text-white/40"><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
-                <div className="font-bold text-white">{s.Ticker}</div>
+                <div className="font-bold text-white">
+                  {s.Ticker}
+                  {newSet.has(s.Ticker) && <NewBadge />}
+                </div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
               <Td right mono>
@@ -180,7 +175,7 @@ export default function LekkungPage() {
                 </span>
               </Td>
               <Td right mono>
-                <div className="flex flex-col items-end leading-tight text-[11px]">
+                <div className="flex flex-col items-end leading-tight text-label">
                   <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
                   <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
                 </div>
@@ -199,11 +194,11 @@ export default function LekkungPage() {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-baseline gap-2">
                         <h2 className="text-[16px] font-bold text-white tracking-wide">{s.Ticker}</h2>
-                        <span className="text-[11px] text-white/40">Technical Chart</span>
+                        <span className="text-label text-white/40">Technical Chart</span>
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); setSelectedTicker(null); }}
-                        className="text-[11px] text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
+                        className="text-label text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
                       >
                         ปิดกราฟ
                       </button>
@@ -225,6 +220,7 @@ export default function LekkungPage() {
         </tbody>
       </TableWrap>
       </div>
+      )}
       </>
       )}
     </div>

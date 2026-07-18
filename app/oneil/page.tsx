@@ -10,6 +10,15 @@ import { useLivePrices } from '@/lib/useLivePrices';
 import {
   rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
+import ScanHistoryView from '@/components/ScanHistoryView';
+import ModeToggle from '@/components/ModeToggle';
+import TrendSparkline from '@/components/TrendSparkline';
+import { sparklineMap } from '@/lib/sparklineData';
+import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
+import DroppedTickersList from '@/components/DroppedTickersList';
+import NewBadge from '@/components/NewBadge';
+import { getScanDiff } from '@/lib/scanDiff';
+import ReportCardBar from '@/components/ReportCardBar';
 
 export default function OneilPage() {
   const [rsMin, setRsMin] = useState(80);
@@ -17,7 +26,10 @@ export default function OneilPage() {
   const [roeMin, setRoeMin] = useState(15);
   const [mcapMin, setMcapMin] = useState(0);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [mode, setMode] = useState<'today' | 'history'>('today');
+  const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(oneilData.map(s => s.Ticker));
+  const newSet = useMemo(() => new Set(getScanDiff('oneil')?.newTickers ?? []), []);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -28,8 +40,9 @@ export default function OneilPage() {
       .filter(s => s.RS_Rating >= rsMin)
       .filter(s => s.Profit_Growth_YoY >= profitMin)
       .filter(s => (s.ROE * 100) >= roeMin)
-      .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin);
-      
+      .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin)
+      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+
     if (sortConfig) {
       result = result.sort((a, b) => {
         if (sortConfig.key === '__days') {
@@ -48,19 +61,27 @@ export default function OneilPage() {
       result = result.sort((a, b) => b.RS_Rating - a.RS_Rating);
     }
     return result;
-  }, [rsMin, profitMin, roeMin, mcapMin, sortConfig]);
+  }, [rsMin, profitMin, roeMin, mcapMin, sortConfig, diffFilter, newSet]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <PageHeader
-        title="CAN SLIM (O'Neil)"
-        subtitle="William O'Neil Growth Strategy"
-        count={filtered.length}
-        updatedAt={formatThaiDate(getScanGeneratedAt('oneil'))}
-        total={oneilData.length}
-      />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <PageHeader
+          title="CAN SLIM (O'Neil)"
+          subtitle="William O'Neil Growth Strategy"
+          count={filtered.length}
+          updatedAt={formatThaiDate(getScanGeneratedAt('oneil'))}
+          total={oneilData.length}
+        />
+        <ModeToggle mode={mode} onChange={setMode} />
+      </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('oneil')} />
+      <ReportCardBar scanKey="oneil" />
 
+      {mode === 'history' ? (
+        <ScanHistoryView scanName="oneil" />
+      ) : (
+      <>
       <FilterBar>
         <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={setRsMin} />
         <Divider />
@@ -69,15 +90,21 @@ export default function OneilPage() {
         <SliderField label="ROE %" min={15} max={50} value={roeMin} onChange={setRoeMin} />
         <Divider />
         <SliderField label="Market Cap (MB)" min={0} max={50000} value={mcapMin} onChange={setMcapMin} step={1000} />
+        <Divider />
+        <ScanDiffChips scanName="oneil" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
 
-      <div className="[&_td]:text-[14px] [&_th]:text-[11px]">
+      {diffFilter === 'dropped' ? (
+        <DroppedTickersList scanName="oneil" />
+      ) : (
+      <div>
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W H/L</SortableTh>
             <SortableTh right sortKey="%_From_52W_High" currentSort={sortConfig} onSort={handleSort}>% From 52W High</SortableTh>
@@ -94,17 +121,23 @@ export default function OneilPage() {
             <tr key={s.Ticker} className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
               <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
-                <div className="font-bold text-white">{s.Ticker}</div>
+                <div className="font-bold text-white">
+                  {s.Ticker}
+                  {newSet.has(s.Ticker) && <NewBadge />}
+                </div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>
+              <Td right>
+                <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
+              </Td>
               <Td right mono>
                 <span className="text-white/60">{daysInScan('oneil', s.Ticker) ?? '—'}</span>
               </Td>
               <Td right mono>
-                <div className="flex flex-col items-end leading-tight text-[11px]">
+                <div className="flex flex-col items-end leading-tight text-label">
                   <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
                   <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
                 </div>
@@ -140,7 +173,7 @@ export default function OneilPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={12} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={13} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
@@ -148,6 +181,9 @@ export default function OneilPage() {
         </tbody>
       </TableWrap>
       </div>
+      )}
+      </>
+      )}
     </div>
   );
 }

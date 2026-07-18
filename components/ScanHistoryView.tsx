@@ -5,6 +5,7 @@ import { Calendar, ArrowDown, ArrowUp } from 'lucide-react';
 import { getScanHistory } from '@/lib/scanHistory';
 import { Th, Td, TableWrap, SortableTh, SortConfig } from '@/components/StrategyTable';
 import StockChart from './StockChart';
+import ThaiDateInput from './ThaiDateInput';
 
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
@@ -18,6 +19,11 @@ function isoToThaiLabel(iso: string): string {
   const [y, m, d] = iso.split('-');
   const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
   return `${parseInt(d)} ${months[parseInt(m) - 1]} ${parseInt(y) + 543}`;
+}
+function daySpan(fromIso: string, toIso: string): number {
+  const a = new Date(fromIso + 'T00:00:00Z').getTime();
+  const b = new Date(toIso + 'T00:00:00Z').getTime();
+  return Math.round((b - a) / 86400000) + 1;
 }
 
 interface RangedRow {
@@ -39,9 +45,25 @@ export default function ScanHistoryView({
   initialTicker?: string | null;
 }) {
   const data = useMemo(() => getScanHistory(scanName), [scanName]);
-  const maxWindow = data?.windowDays ?? 90;
-  const [fromDate, setFromDate] = useState(daysAgoISO(29)); // default: last 30 days
-  const [toDate, setToDate] = useState(todayISO());
+
+  // The actual span of data on disk is very often much shorter than
+  // windowDays (a fixed 90-day cap on the aggregator) - e.g. only 18 days
+  // in if the batch has only been running since July 1st. Deriving the real
+  // earliest/latest hit date from the data itself, instead of trusting
+  // windowDays, keeps the label and the date-picker bounds honest.
+  const { earliestDate, latestDate } = useMemo(() => {
+    if (!data || data.tickers.length === 0) return { earliestDate: null as string | null, latestDate: null as string | null };
+    let min = data.tickers[0].firstSeen;
+    let max = data.tickers[0].lastSeen;
+    for (const t of data.tickers) {
+      if (t.firstSeen < min) min = t.firstSeen;
+      if (t.lastSeen > max) max = t.lastSeen;
+    }
+    return { earliestDate: min, latestDate: max };
+  }, [data]);
+
+  const [fromDate, setFromDate] = useState(earliestDate ?? daysAgoISO(29));
+  const [toDate, setToDate] = useState(latestDate ?? todayISO());
   const [selectedTicker, setSelectedTicker] = useState<string | null>(initialTicker ?? null);
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'pctChange', dir: 'desc' });
 
@@ -76,7 +98,7 @@ export default function ScanHistoryView({
   if (!data || data.tickers.length === 0) {
     return (
       <div className="py-16 text-center">
-        <p className="text-[13px] text-white/30">ยังไม่มีข้อมูลย้อนหลัง (ต้องรอ batch สะสมข้อมูลอย่างน้อย 1 วัน)</p>
+        <p className="text-label text-white/30">ยังไม่มีข้อมูลย้อนหลัง (ต้องรอ batch สะสมข้อมูลอย่างน้อย 1 วัน)</p>
       </div>
     );
   }
@@ -87,26 +109,29 @@ export default function ScanHistoryView({
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
         <Calendar size={12} className="text-white/30" />
-        <input
-          type="date"
+        <ThaiDateInput
           value={fromDate}
           max={toDate}
-          min={daysAgoISO(maxWindow - 1)}
-          onChange={e => setFromDate(e.target.value)}
-          className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
+          min={earliestDate ?? undefined}
+          onChange={setFromDate}
         />
-        <span className="text-white/25 text-[11px]">ถึง</span>
-        <input
-          type="date"
+        <span className="text-white/25 text-label">ถึง</span>
+        <ThaiDateInput
           value={toDate}
-          max={todayISO()}
-          onChange={e => setToDate(e.target.value)}
-          className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
+          max={latestDate ?? todayISO()}
+          min={fromDate}
+          onChange={setToDate}
         />
-        <span className="text-[11px] text-white/25 ml-1">
-          ข้อมูลย้อนหลังสูงสุด {maxWindow} วัน · อัปเดตล่าสุด {isoToThaiLabel(data.generatedAt.slice(0, 10))}
+        <span className="text-label text-white/25 ml-1">
+          {earliestDate && latestDate && (
+            <>ข้อมูลย้อนหลัง {isoToThaiLabel(earliestDate)} – {isoToThaiLabel(latestDate)} ({daySpan(earliestDate, latestDate)} วัน) · </>
+          )}
+          อัปเดตล่าสุด {isoToThaiLabel(data.generatedAt.slice(0, 10))}
         </span>
       </div>
+      <p className="text-label text-white/25">
+        * ราคาในตารางนี้คือราคา ณ วันสแกน (batch) ไม่ใช่ราคาเรียลไทม์
+      </p>
 
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
@@ -131,7 +156,7 @@ export default function ScanHistoryView({
               <Td className="text-white/40"><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td><div className="font-bold text-white">{r.ticker}</div></Td>
               <Td right mono>{r.hitCount}</Td>
-              <Td className="text-[11px] text-white/50">
+              <Td className="text-label text-white/50">
                 {isoToThaiLabel(r.firstSeen)} → {isoToThaiLabel(r.lastSeen)}
               </Td>
               <Td right mono>
@@ -150,7 +175,7 @@ export default function ScanHistoryView({
           ))}
           {rows.length === 0 && (
             <tr>
-              <td colSpan={6} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={6} className="py-12 text-center text-label text-white/25">
                 ไม่มีหุ้นติด scan ในช่วงวันที่เลือก
               </td>
             </tr>
@@ -163,13 +188,13 @@ export default function ScanHistoryView({
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-baseline gap-2">
               <h2 className="text-[16px] font-bold text-white tracking-wide">{selectedTicker}</h2>
-              <span className="text-[11px] text-white/40">
+              <span className="text-label text-white/40">
                 จุดสีเหลืองใต้แท่งเทียน = วันที่ติด scan ({selectedRow?.hitCount ?? 0} วันในช่วงที่เลือก)
               </span>
             </div>
             <button
               onClick={() => setSelectedTicker(null)}
-              className="text-[11px] text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
+              className="text-label text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
             >
               ปิดกราฟ
             </button>

@@ -257,7 +257,7 @@ function QuantScannerContent() {
 
       {/* Mobile filter toggle */}
       <button
-        className="md:hidden flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.07] text-[12px] text-white/60 hover:text-white/80 transition-colors min-h-[44px]"
+        className="md:hidden flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.07] text-label text-white/60 hover:text-white/80 transition-colors min-h-[44px]"
         onClick={() => setFilterOpen(f => !f)}
       >
         <span>Filter ⚙️</span>
@@ -303,7 +303,7 @@ function QuantScannerContent() {
         {(sigFilter !== 'ทั้งหมด' || !allStagesSelected) && (
           <button
             onClick={() => { setSigFilter('ทั้งหมด'); setStages(new Set(ALL_STAGES)); }}
-            className="ml-auto text-[11px] text-white/25 hover:text-white/60 transition-colors"
+            className="ml-auto text-label text-white/25 hover:text-white/60 transition-colors"
           >
             Reset
           </button>
@@ -315,7 +315,7 @@ function QuantScannerContent() {
         <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden">
           <button
             onClick={() => setViewMode('table')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold transition-colors ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-label font-semibold transition-colors ${
               viewMode === 'table' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
             }`}
           >
@@ -323,7 +323,7 @@ function QuantScannerContent() {
           </button>
           <button
             onClick={() => setViewMode('scatter')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold transition-colors border-l border-white/[0.07] ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-label font-semibold transition-colors border-l border-white/[0.07] ${
               viewMode === 'scatter' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
             }`}
           >
@@ -401,7 +401,7 @@ function QuantScannerContent() {
                         {row.stage}
                       </span>
                     ) : (
-                      <span className="text-white/20 text-[11px]">—</span>
+                      <span className="text-white/20 text-label">—</span>
                     )}
                     {row.barCount != null && (
                       <span className="text-[10px] text-white/25 tabular-nums">{row.barCount}d</span>
@@ -442,7 +442,7 @@ function QuantScannerContent() {
                       </span>
                     )}
                     {!row.ppbp && !row.lekkung && !row.oneil && !row.sepa && !row.kell && !row.breakout && (
-                      <span className="text-white/15 text-[11px]">—</span>
+                      <span className="text-white/15 text-label">—</span>
                     )}
                   </div>
                 </Td>
@@ -474,7 +474,7 @@ function QuantScannerContent() {
 
                 <Td right mono className="hidden md:table-cell">
                   {w52Map.get(row.ticker) ? (
-                    <div className="flex flex-col items-end leading-tight text-[11px]">
+                    <div className="flex flex-col items-end leading-tight text-label">
                       <span className="text-[#E24B4A]">{w52Map.get(row.ticker)!.high.toFixed(2)}</span>
                       <span className="text-[#1D9E75]">{w52Map.get(row.ticker)!.low.toFixed(2)}</span>
                     </div>
@@ -511,16 +511,16 @@ function QuantScannerContent() {
 
                 <Td>
                   {row.entry === 'ppbp' && (
-                    <span className="text-[11px] font-semibold text-[#7F77DD]">⚡ เข้าได้เลย</span>
+                    <span className="text-label font-semibold text-[#7F77DD]">⚡ เข้าได้เลย</span>
                   )}
                   {row.entry === 'pullback' && (
-                    <span className="text-[11px] text-white/50">⏳ รอ pullback</span>
+                    <span className="text-label text-white/50">⏳ รอ pullback</span>
                   )}
                   {row.entry === 'breakout' && (
-                    <span className="text-[11px] text-white/50">⏳ รอ breakout</span>
+                    <span className="text-label text-white/50">⏳ รอ breakout</span>
                   )}
                   {row.entry === 'none' && (
-                    <span className="text-white/15 text-[11px]">—</span>
+                    <span className="text-white/15 text-label">—</span>
                   )}
                 </Td>
 

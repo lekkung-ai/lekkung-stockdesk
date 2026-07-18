@@ -19,6 +19,9 @@ SCANNERS = {
     "oneil": "oneil",
     "sepa": "sepa",
     "kell": "oliver_kell",
+    "breakout": "breakout",
+    "market-stage": "market_stage",
+    "stage-analysis": "weinstein",
 }
 
 

@@ -27,7 +27,7 @@ export function SectorChip({ ticker }: { ticker: string }) {
   const s = tickerToSector[ticker];
   if (!s) return null;
   return (
-    <span className="text-[10px] text-white/25 truncate max-w-[120px] block mt-0.5">
+    <span className="text-label text-white/40 truncate max-w-[120px] block mt-0.5">
       {s.sector}
     </span>
   );
@@ -36,7 +36,7 @@ export function SectorChip({ ticker }: { ticker: string }) {
 export function Th({ children, right, className }: { children: ReactNode; right?: boolean; className?: string }) {
   return (
     <th
-      className={`px-3 py-2.5 text-[10px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${
+      className={`px-3 py-2.5 text-label font-semibold uppercase tracking-wider text-white/35 whitespace-nowrap ${
         right ? 'text-right' : 'text-left'
       } ${className ?? ''}`}
     >
@@ -68,9 +68,9 @@ export function SortableTh({
   return (
     <th
       onClick={() => onSort(sortKey)}
-      className={`px-3 py-2.5 text-[10px] font-semibold uppercase tracking-wider whitespace-nowrap cursor-pointer hover:text-white/60 transition-colors select-none ${
+      className={`px-3 py-2.5 text-label font-semibold uppercase tracking-wider whitespace-nowrap cursor-pointer hover:text-white/60 transition-colors select-none ${
         right ? 'text-right' : 'text-left'
-      } ${isSorted ? 'text-white/80' : 'text-white/25'} ${className ?? ''}`}
+      } ${isSorted ? 'text-white/80' : 'text-white/35'} ${className ?? ''}`}
     >
       <div className={`flex items-center gap-1.5 ${right ? 'justify-end' : 'justify-start'}`}>
         {children}
@@ -86,7 +86,7 @@ export function SortableTh({
 export function Td({ children, right, mono, className }: { children: ReactNode; right?: boolean; mono?: boolean; className?: string }) {
   return (
     <td
-      className={`px-3 py-2.5 text-[12px] text-white/70 whitespace-nowrap ${
+      className={`px-3 py-2.5 text-body text-white/70 whitespace-nowrap ${
         right ? 'text-right' : ''
       } ${mono ? 'tabular-nums' : ''} ${className ?? ''}`}
     >

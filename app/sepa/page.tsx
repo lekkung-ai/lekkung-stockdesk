@@ -11,6 +11,15 @@ import { useLivePrices } from '@/lib/useLivePrices';
 import {
   rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
+import ScanHistoryView from '@/components/ScanHistoryView';
+import ModeToggle from '@/components/ModeToggle';
+import TrendSparkline from '@/components/TrendSparkline';
+import { sparklineMap } from '@/lib/sparklineData';
+import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
+import DroppedTickersList from '@/components/DroppedTickersList';
+import NewBadge from '@/components/NewBadge';
+import { getScanDiff } from '@/lib/scanDiff';
+import ReportCardBar from '@/components/ReportCardBar';
 
 // Trend Template — 8 เงื่อนไขตาม Minervini (Trade Like a Stock Market Wizard, p.79)
 const TREND_TEMPLATE_CONDITIONS: { key: keyof SepaEntry; label: string }[] = [
@@ -76,7 +85,10 @@ export default function SepaPage() {
   const [rsMin, setRsMin] = useState(60);
   const [fromHighMax, setFromHighMax] = useState(15);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [mode, setMode] = useState<'today' | 'history'>('today');
+  const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(sepaData.map(s => s.Ticker));
+  const newSet = useMemo(() => new Set(getScanDiff('sepa')?.newTickers ?? []), []);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -85,8 +97,9 @@ export default function SepaPage() {
   const filtered = useMemo(() => {
     let result = sepaData
       .filter(s => s.RS_Rating >= rsMin)
-      .filter(s => s['%_From_High'] >= -fromHighMax);
-      
+      .filter(s => s['%_From_High'] >= -fromHighMax)
+      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+
     if (sortConfig) {
       result = result.sort((a, b) => {
         if (sortConfig.key === '__days') {
@@ -105,25 +118,33 @@ export default function SepaPage() {
       result = result.sort((a, b) => b.RS_Rating - a.RS_Rating);
     }
     return result;
-  }, [rsMin, fromHighMax, sortConfig]);
+  }, [rsMin, fromHighMax, sortConfig, diffFilter, newSet]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <PageHeader
-        title="SEPA Trend Template"
-        subtitle="Stan Weinstein + O'Neil SEPA criteria"
-        count={filtered.length}
-        updatedAt={formatThaiDate(getScanGeneratedAt('sepa'))}
-        total={sepaData.length}
-      />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <PageHeader
+          title="SEPA Trend Template"
+          subtitle="Stan Weinstein + O'Neil SEPA criteria"
+          count={filtered.length}
+          updatedAt={formatThaiDate(getScanGeneratedAt('sepa'))}
+          total={sepaData.length}
+        />
+        <ModeToggle mode={mode} onChange={setMode} />
+      </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('sepa')} />
+      <ReportCardBar scanKey="sepa" />
 
+      {mode === 'history' ? (
+        <ScanHistoryView scanName="sepa" />
+      ) : (
+      <>
       <FilterBar>
         <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={setRsMin} />
         <button
           onClick={() => setRsMin(rsMin >= 80 ? 60 : 80)}
           title="Minervini แนะนำ RS ≥ 80 สำหรับหุ้นเกรด A"
-          className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
+          className={`px-2.5 py-1 rounded text-label font-semibold transition-all ${
             rsMin >= 80 ? 'bg-[#1D9E75]/20 text-[#1D9E75]' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
           }`}
         >
@@ -139,17 +160,23 @@ export default function SepaPage() {
           unit="%"
           dir="lte"
         />
-        <span className="text-[11px] text-white/25 ml-auto">
+        <span className="text-label text-white/25 ml-auto">
           ยิ่งใกล้ High = momentum แข็ง
         </span>
+        <Divider />
+        <ScanDiffChips scanName="sepa" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
 
+      {diffFilter === 'dropped' ? (
+        <DroppedTickersList scanName="sepa" />
+      ) : (
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>
             <SortableTh right sortKey="SMA_200" currentSort={sortConfig} onSort={handleSort}>SMA 200</SortableTh>
@@ -167,11 +194,15 @@ export default function SepaPage() {
                 <div className="font-bold text-white">
                   {s.Ticker}
                   <FundamentalBadge pass={s.Fundamental_Pass} />
+                  {newSet.has(s.Ticker) && <NewBadge />}
                 </div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+              </Td>
+              <Td right>
+                <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
               </Td>
               <Td right mono>
                 <span className="text-white/60">{daysInScan('sepa', s.Ticker) ?? '—'}</span>
@@ -198,13 +229,16 @@ export default function SepaPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={10} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={11} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
           )}
         </tbody>
       </TableWrap>
+      )}
+      </>
+      )}
     </div>
   );
 }

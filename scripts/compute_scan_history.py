@@ -44,6 +44,12 @@ from datetime import datetime, timedelta, timezone
 # nothing else in this file needs to change.
 SCANNERS = {
     "lekkung": "lekkung",
+    "sepa": "sepa",
+    "kell": "oliver_kell",
+    "oneil": "oneil",
+    "breakout": "breakout",
+    "market-stage": "market_stage",
+    "stage-analysis": "weinstein",
 }
 
 WINDOW_DAYS = 90

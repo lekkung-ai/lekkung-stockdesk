@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { breakoutData } from '@/lib/strategyData';
+import { daysInScan } from '@/lib/scanDays';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
@@ -9,12 +10,24 @@ import { useLivePrices } from '@/lib/useLivePrices';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
+import ScanHistoryView from '@/components/ScanHistoryView';
+import ModeToggle from '@/components/ModeToggle';
+import TrendSparkline from '@/components/TrendSparkline';
+import { sparklineMap } from '@/lib/sparklineData';
+import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
+import DroppedTickersList from '@/components/DroppedTickersList';
+import NewBadge from '@/components/NewBadge';
+import { getScanDiff } from '@/lib/scanDiff';
+import ReportCardBar from '@/components/ReportCardBar';
 
 export default function BreakoutPage() {
   const [toBreakMax, setToBreakMax] = useState(10);
   const [boxWidthMax, setBoxWidthMax] = useState(20);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [mode, setMode] = useState<'today' | 'history'>('today');
+  const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(breakoutData.map(s => s.Ticker));
+  const newSet = useMemo(() => new Set(getScanDiff('breakout')?.newTickers ?? []), []);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -23,10 +36,16 @@ export default function BreakoutPage() {
   const filtered = useMemo(() => {
     let result = breakoutData
       .filter(s => s['To_Break'] <= toBreakMax)
-      .filter(s => s['Box_Width'] <= boxWidthMax);
-      
+      .filter(s => s['Box_Width'] <= boxWidthMax)
+      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+
     if (sortConfig) {
       result = result.sort((a, b) => {
+        if (sortConfig.key === '__days') {
+          const aVal = daysInScan('breakout', a.Ticker) ?? -1;
+          const bVal = daysInScan('breakout', b.Ticker) ?? -1;
+          return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
         const aVal = (a as any)[sortConfig.key];
         const bVal = (b as any)[sortConfig.key];
         if (typeof aVal === 'string' && typeof bVal === 'string') {
@@ -38,19 +57,27 @@ export default function BreakoutPage() {
       result = result.sort((a, b) => a['To_Break'] - b['To_Break']);
     }
     return result;
-  }, [toBreakMax, boxWidthMax, sortConfig]);
+  }, [toBreakMax, boxWidthMax, sortConfig, diffFilter, newSet]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <PageHeader
-        title="Breakout Setup"
-        subtitle="VDU / Box Pattern — ยิ่ง To_Break น้อย ยิ่งจ่อ break"
-        count={filtered.length}
-        updatedAt={formatThaiDate(getScanGeneratedAt('breakout'))}
-        total={breakoutData.length}
-      />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <PageHeader
+          title="Breakout Setup"
+          subtitle="VDU / Box Pattern — ยิ่ง To_Break น้อย ยิ่งจ่อ break"
+          count={filtered.length}
+          updatedAt={formatThaiDate(getScanGeneratedAt('breakout'))}
+          total={breakoutData.length}
+        />
+        <ModeToggle mode={mode} onChange={setMode} />
+      </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('breakout')} />
+      <ReportCardBar scanKey="breakout" />
 
+      {mode === 'history' ? (
+        <ScanHistoryView scanName="breakout" />
+      ) : (
+      <>
       <FilterBar>
         <SliderField
           label="To Break"
@@ -71,17 +98,24 @@ export default function BreakoutPage() {
           unit="%"
           dir="lte"
         />
-        <span className="text-[11px] text-white/25 ml-auto">
+        <span className="text-label text-white/25 ml-auto">
           ค่าติดลบ = broke แล้ว
         </span>
+        <Divider />
+        <ScanDiffChips scanName="breakout" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
 
+      {diffFilter === 'dropped' ? (
+        <DroppedTickersList scanName="breakout" />
+      ) : (
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Trend</Th>
+            <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="Box_High(Break)" currentSort={sortConfig} onSort={handleSort}>Break Price</SortableTh>
             <SortableTh right sortKey="To_Break" currentSort={sortConfig} onSort={handleSort}>% To Break</SortableTh>
             <SortableTh right sortKey="Box_Width" currentSort={sortConfig} onSort={handleSort}>Box Width</SortableTh>
@@ -104,11 +138,18 @@ export default function BreakoutPage() {
                         BROKE
                       </span>
                     )}
+                    {newSet.has(s.Ticker) && <NewBadge />}
                   </div>
                   <SectorChip ticker={s.Ticker} />
                 </Td>
                 <Td right mono>
                   <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+                </Td>
+                <Td right>
+                  <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
+                </Td>
+                <Td right mono>
+                  <span className="text-white/60">{daysInScan('breakout', s.Ticker) ?? '—'}</span>
                 </Td>
                 <Td right mono>
                   <span className="text-white/50">{s['Box_High(Break)'].toFixed(2)}</span>
@@ -134,13 +175,16 @@ export default function BreakoutPage() {
           })}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={8} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={10} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
           )}
         </tbody>
       </TableWrap>
+      )}
+      </>
+      )}
     </div>
   );
 }

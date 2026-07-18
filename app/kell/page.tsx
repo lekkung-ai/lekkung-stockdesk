@@ -10,6 +10,15 @@ import { useLivePrices } from '@/lib/useLivePrices';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
+import ScanHistoryView from '@/components/ScanHistoryView';
+import ModeToggle from '@/components/ModeToggle';
+import TrendSparkline from '@/components/TrendSparkline';
+import { sparklineMap } from '@/lib/sparklineData';
+import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
+import DroppedTickersList from '@/components/DroppedTickersList';
+import NewBadge from '@/components/NewBadge';
+import { getScanDiff } from '@/lib/scanDiff';
+import ReportCardBar from '@/components/ReportCardBar';
 
 const SIGNALS = ['ทั้งหมด', 'EMAC Buy', 'Trend Riding'] as const;
 type SignalFilter = (typeof SIGNALS)[number];
@@ -24,7 +33,10 @@ export default function KellPage() {
   const [signalFilter, setSignalFilter] = useState<SignalFilter>('ทั้งหมด');
   const [distMax, setDistMax] = useState(8);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [mode, setMode] = useState<'today' | 'history'>('today');
+  const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(kellData.map(s => s.Ticker));
+  const newSet = useMemo(() => new Set(getScanDiff('kell')?.newTickers ?? []), []);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -33,8 +45,9 @@ export default function KellPage() {
   const filtered = useMemo(() => {
     let result = kellData
       .filter(s => signalFilter === 'ทั้งหมด' || s.Signal === signalFilter)
-      .filter(s => s['Dist_EMA10_%'] <= distMax);
-      
+      .filter(s => s['Dist_EMA10_%'] <= distMax)
+      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+
     if (sortConfig) {
       result = result.sort((a, b) => {
         if (sortConfig.key === '__days') {
@@ -53,27 +66,35 @@ export default function KellPage() {
       result = result.sort((a, b) => Math.abs(a['Dist_EMA10_%']) - Math.abs(b['Dist_EMA10_%']));
     }
     return result;
-  }, [signalFilter, distMax, sortConfig]);
+  }, [signalFilter, distMax, sortConfig, diffFilter, newSet]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <PageHeader
-        title="Oliver Kell EMAC"
-        subtitle="EMA 10 Channel — ยิ่งแนบ EMA ยิ่งดี"
-        count={filtered.length}
-        updatedAt={formatThaiDate(getScanGeneratedAt('oliver_kell'))}
-        total={kellData.length}
-      />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <PageHeader
+          title="Oliver Kell EMAC"
+          subtitle="EMA 10 Channel — ยิ่งแนบ EMA ยิ่งดี"
+          count={filtered.length}
+          updatedAt={formatThaiDate(getScanGeneratedAt('oliver_kell'))}
+          total={kellData.length}
+        />
+        <ModeToggle mode={mode} onChange={setMode} />
+      </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('oliver_kell')} />
+      <ReportCardBar scanKey="kell" />
 
+      {mode === 'history' ? (
+        <ScanHistoryView scanName="kell" />
+      ) : (
+      <>
       <FilterBar>
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-white/40 mr-1">Signal</span>
+          <span className="text-label text-white/40 mr-1">Signal</span>
           {SIGNALS.map(sig => (
             <button
               key={sig}
               onClick={() => setSignalFilter(sig)}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all border ${
+              className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all border ${
                 signalFilter === sig
                   ? 'bg-[#1D9E75]/10 text-[#1D9E75] border-[#1D9E75]/25'
                   : 'bg-white/[0.04] text-white/35 border-white/[0.06] hover:text-white/60'
@@ -93,8 +114,13 @@ export default function KellPage() {
           unit="%"
           dir="lte"
         />
+        <Divider />
+        <ScanDiffChips scanName="kell" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
 
+      {diffFilter === 'dropped' ? (
+        <DroppedTickersList scanName="kell" />
+      ) : (
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
@@ -102,6 +128,7 @@ export default function KellPage() {
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh sortKey="Signal" currentSort={sortConfig} onSort={handleSort}>Signal</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>
             <SortableTh right sortKey="Dist_EMA10_%" currentSort={sortConfig} onSort={handleSort}>% Dist EMA10</SortableTh>
@@ -114,7 +141,10 @@ export default function KellPage() {
             <tr key={s.Ticker} className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
               <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
-                <div className="font-bold text-white">{s.Ticker}</div>
+                <div className="font-bold text-white">
+                  {s.Ticker}
+                  {newSet.has(s.Ticker) && <NewBadge />}
+                </div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
               <Td>
@@ -129,6 +159,9 @@ export default function KellPage() {
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>
+              <Td right>
+                <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
+              </Td>
               <Td right mono>
                 <span className="text-white/60">{daysInScan('kell', s.Ticker) ?? '—'}</span>
               </Td>
@@ -140,7 +173,7 @@ export default function KellPage() {
               </Td>
               <Td right mono>{s['ADTV(MB)'].toFixed(0)}</Td>
               <Td>
-                <span className={`text-[11px] ${
+                <span className={`text-label ${
                   s.Status === 'ชิด EMA' ? 'text-[#1D9E75]'
                   : s.Status === 'Trend OK' ? 'text-[#EF9F27]'
                   : 'text-white/35'
@@ -152,13 +185,16 @@ export default function KellPage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={9} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={10} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
           )}
         </tbody>
       </TableWrap>
+      )}
+      </>
+      )}
     </div>
   );
 }

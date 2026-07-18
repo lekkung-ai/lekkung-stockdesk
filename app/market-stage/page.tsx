@@ -10,6 +10,15 @@ import {
   stageCls, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
+import ScanHistoryView from '@/components/ScanHistoryView';
+import ModeToggle from '@/components/ModeToggle';
+import TrendSparkline from '@/components/TrendSparkline';
+import { sparklineMap } from '@/lib/sparklineData';
+import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
+import DroppedTickersList from '@/components/DroppedTickersList';
+import NewBadge from '@/components/NewBadge';
+import { getScanDiff } from '@/lib/scanDiff';
+import ReportCardBar from '@/components/ReportCardBar';
 import React from 'react';
 
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear', 'UNKNOWN'];
@@ -29,7 +38,10 @@ export default function MarketStagePage() {
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
+  const [mode, setMode] = useState<'today' | 'history'>('today');
+  const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(stageData.map(s => s.Ticker));
+  const newSet = useMemo(() => new Set(getScanDiff('market-stage')?.newTickers ?? []), []);
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
 
@@ -45,7 +57,9 @@ export default function MarketStagePage() {
   }
 
   const filtered = useMemo(() => {
-    let result = stageData.filter(s => allStagesSelected || stages.has(s.Stage));
+    let result = stageData
+      .filter(s => allStagesSelected || stages.has(s.Stage))
+      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
     if (sortConfig) {
       result = result.sort((a, b) => {
         const aVal = (a as any)[sortConfig.key] || 0;
@@ -68,19 +82,27 @@ export default function MarketStagePage() {
       });
     }
     return result;
-  }, [stages, allStagesSelected, sortConfig]);
+  }, [stages, allStagesSelected, sortConfig, diffFilter, newSet]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <PageHeader
-        title="Market Stage"
-        subtitle="Wyckoff/Weinstein Stage Analysis"
-        count={filtered.length}
-        updatedAt={formatThaiDate(getScanGeneratedAt('market_stage'))}
-        total={stageData.length}
-      />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <PageHeader
+          title="Market Stage"
+          subtitle="Wyckoff/Weinstein Stage Analysis"
+          count={filtered.length}
+          updatedAt={formatThaiDate(getScanGeneratedAt('market_stage'))}
+          total={stageData.length}
+        />
+        <ModeToggle mode={mode} onChange={setMode} />
+      </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('market_stage')} />
+      <ReportCardBar scanKey="market-stage" />
 
+      {mode === 'history' ? (
+        <ScanHistoryView scanName="market-stage" />
+      ) : (
+      <>
       <FilterBar>
         <span className="text-[10px] text-white/20 uppercase tracking-wider flex-shrink-0">Stage</span>
         {ALL_STAGES.map(s => (
@@ -97,19 +119,26 @@ export default function MarketStagePage() {
         {!allStagesSelected && (
           <button
             onClick={() => setStages(new Set(ALL_STAGES))}
-            className="ml-auto text-[11px] text-white/25 hover:text-white/60 transition-colors"
+            className="text-label text-white/25 hover:text-white/60 transition-colors"
           >
             Reset
           </button>
         )}
+        <div className="ml-auto">
+          <ScanDiffChips scanName="market-stage" filter={diffFilter} onChange={setDiffFilter} />
+        </div>
       </FilterBar>
 
+      {diffFilter === 'dropped' ? (
+        <DroppedTickersList scanName="market-stage" />
+      ) : (
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
             <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <Th right>Trend</Th>
             <SortableTh sortKey="Stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <SortableTh right sortKey="Bar_Count" currentSort={sortConfig} onSort={handleSort}>Days In Stage</SortableTh>
             <SortableTh right sortKey="EMA50" currentSort={sortConfig} onSort={handleSort}>EMA50</SortableTh>
@@ -128,11 +157,17 @@ export default function MarketStagePage() {
             >
               <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
-                <div className="font-bold text-white">{s.Ticker}</div>
+                <div className="font-bold text-white">
+                  {s.Ticker}
+                  {newSet.has(s.Ticker) && <NewBadge />}
+                </div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+              </Td>
+              <Td right>
+                <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
               </Td>
               <Td>
                 <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(s.Stage)}`}>
@@ -156,16 +191,16 @@ export default function MarketStagePage() {
             </tr>
             {selectedTicker === s.Ticker && (
               <tr key={`${s.Ticker}-chart`} className="bg-black/20 border-b border-white/[0.04]">
-                <td colSpan={8} className="p-4">
+                <td colSpan={9} className="p-4">
                   <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 shadow-lg relative">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-baseline gap-2">
                         <h2 className="text-[16px] font-bold text-white tracking-wide">{s.Ticker}</h2>
-                        <span className="text-[11px] text-white/40">EMA50 / EMA200</span>
+                        <span className="text-label text-white/40">EMA50 / EMA200</span>
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); setSelectedTicker(null); }}
-                        className="text-[11px] text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
+                        className="text-label text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
                       >
                         ปิดกราฟ
                       </button>
@@ -179,13 +214,16 @@ export default function MarketStagePage() {
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan={8} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={9} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
           )}
         </tbody>
       </TableWrap>
+      )}
+      </>
+      )}
     </div>
   );
 }
