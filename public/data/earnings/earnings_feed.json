@@ -1,16 +1,12 @@
 {
-  "generatedAt": "2026-07-18T11:08:38.021762+07:00",
+  "generatedAt": "2026-07-18T16:24:33.872775+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 5,
+      "count": 4,
       "top3": [
-        {
-          "ticker": "KSL",
-          "netProfitYoY": 112.86983050847456
-        },
         {
           "ticker": "KTC",
           "netProfitYoY": 17.44339220347141
@@ -18,24 +14,28 @@
         {
           "ticker": "TSTH",
           "netProfitYoY": 9.806496569468267
+        },
+        {
+          "ticker": "TISCO",
+          "netProfitYoY": 7.321611324001319
         }
       ]
     },
     "turnaround": {
       "label": "ฟื้นตัว-พลิกกำไร",
-      "count": 4,
+      "count": 3,
       "top3": [
         {
           "ticker": "PICO",
           "netProfitYoY": 74.28843026841444
         },
         {
-          "ticker": "CITY",
-          "netProfitYoY": 71.98932503057934
-        },
-        {
           "ticker": "CHO",
           "netProfitYoY": 39.8878616540406
+        },
+        {
+          "ticker": "DEXON",
+          "netProfitYoY": 3.0516953863257363
         }
       ]
     },
@@ -263,17 +263,17 @@
       "subsector": "& Food Industry Food & Beverage",
       "market": "SET",
       "announceDate": "2026-06-12T17:39:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 เมษายน 2569",
-      "netProfit": 313983000.0,
-      "netProfitPrior": 147500000.0,
-      "netProfitYoY": 112.86983050847456,
-      "eps": 0.071,
-      "epsPrior": 0.033,
-      "epsYoY": 115.15151515151511,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "quarter": null,
+      "periodEnd": null,
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": null,
       "isCorrection": false,
-      "bucket": "profit_growth",
+      "bucket": null,
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085101&symbol=KSL",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210347521&symbol=KSL",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085201&symbol=KSL",
@@ -287,17 +287,17 @@
       "subsector": "Steel",
       "market": "SET",
       "announceDate": "2026-06-12T08:03:00+07:00",
-      "quarter": "ไตรมาส 3/2569",
-      "periodEnd": "30 เมษายน 2569",
-      "netProfit": -2519000.0,
-      "netProfitPrior": -8993000.0,
-      "netProfitYoY": 71.98932503057934,
-      "eps": -0.0084,
-      "epsPrior": -0.02998,
-      "epsYoY": 71.98132088058706,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "quarter": null,
+      "periodEnd": null,
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": null,
       "isCorrection": false,
-      "bucket": "turnaround",
+      "bucket": null,
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056401&symbol=CITY",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210331321&symbol=CITY",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056501&symbol=CITY",
@@ -371,13 +371,13 @@
       "ticker": "CITY",
       "date": "2026-06-12T08:03:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 3/2569"
+      "quarter": null
     },
     {
       "ticker": "KSL",
       "date": "2026-06-12T17:39:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "DEXON",
@@ -2185,14 +2185,14 @@
       "basedOnLastYear": "2025-08-13T06:46:00+07:00"
     },
     {
-      "ticker": "AMATA",
+      "ticker": "ALPHAX",
       "date": "2026-08-13T06:49:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T06:49:00+07:00"
     },
     {
-      "ticker": "ALPHAX",
+      "ticker": "AMATA",
       "date": "2026-08-13T06:49:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -4558,14 +4558,14 @@
       "basedOnLastYear": "2025-08-14T08:26:00+07:00"
     },
     {
-      "ticker": "PJW",
+      "ticker": "PIS",
       "date": "2026-08-14T08:27:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-14T08:27:00+07:00"
     },
     {
-      "ticker": "PIS",
+      "ticker": "PJW",
       "date": "2026-08-14T08:27:00+07:00",
       "status": "predicted",
       "quarter": null,
