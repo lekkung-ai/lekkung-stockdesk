@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-18T11:06:46+07:00",
+  "generated_at": "2026-07-18T16:22:47+07:00",
   "data": [
     {
       "ticker": "TISCO",
@@ -28,7 +28,7 @@
       "stage": "S.Bull",
       "rs_score": 75,
       "combo_score": 5,
-      "growth_yoy": -5.912487672580038,
+      "growth_yoy": -5.91248767258003,
       "growth_qoq": 16.86
     },
     {
@@ -283,7 +283,7 @@
       "stage": "S.Bull",
       "rs_score": 87,
       "combo_score": 4,
-      "growth_yoy": 9.14313494867605,
+      "growth_yoy": 9.143134948676057,
       "growth_qoq": 0.87
     },
     {
@@ -403,7 +403,7 @@
       "stage": "S.Bull",
       "rs_score": 84,
       "combo_score": 4,
-      "growth_yoy": -0.50084414426886,
+      "growth_yoy": -0.5008441442688685,
       "growth_qoq": -14.91
     },
     {
@@ -1453,7 +1453,7 @@
       "stage": "S.Bull",
       "rs_score": 71,
       "combo_score": 3,
-      "growth_yoy": 7.231722422796362,
+      "growth_yoy": 7.231722422796361,
       "growth_qoq": 4.93
     },
     {
@@ -2218,7 +2218,7 @@
       "stage": "S.Bull",
       "rs_score": 91,
       "combo_score": 2,
-      "growth_yoy": -19.633863095627618,
+      "growth_yoy": -19.63386309562761,
       "growth_qoq": 105.92
     },
     {
@@ -3292,7 +3292,7 @@
       "sepa": false,
       "kell": false,
       "breakout": false,
-      "lekkung": true,
+      "lekkung": false,
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
@@ -3553,7 +3553,7 @@
       "stage": "S.Bull",
       "rs_score": 76,
       "combo_score": 2,
-      "growth_yoy": 186.64803982409688,
+      "growth_yoy": 186.6480398240969,
       "growth_qoq": -15.8
     },
     {
@@ -4243,7 +4243,7 @@
       "stage": "S.Bull",
       "rs_score": 68,
       "combo_score": 2,
-      "growth_yoy": -8.119643759806685,
+      "growth_yoy": -8.11964375980668,
       "growth_qoq": -21.41
     },
     {
@@ -4513,7 +4513,7 @@
       "stage": "S.Bull",
       "rs_score": 65,
       "combo_score": 2,
-      "growth_yoy": -19.453584784517638,
+      "growth_yoy": -19.45358478451763,
       "growth_qoq": -16.96
     },
     {
@@ -4918,7 +4918,7 @@
       "stage": "S.Bull",
       "rs_score": 61,
       "combo_score": 2,
-      "growth_yoy": 3.33450031221231,
+      "growth_yoy": 3.334500312212316,
       "growth_qoq": -1.91
     },
     {
@@ -6853,7 +6853,7 @@
       "stage": "Distribution",
       "rs_score": 58,
       "combo_score": 1,
-      "growth_yoy": -21.932589097323916,
+      "growth_yoy": -21.93258909732391,
       "growth_qoq": -54.65
     },
     {
@@ -7258,7 +7258,7 @@
       "stage": "Accumulation",
       "rs_score": 49,
       "combo_score": 1,
-      "growth_yoy": -24.725844070608375,
+      "growth_yoy": -24.72584407060838,
       "growth_qoq": 20.37
     },
     {
@@ -8368,7 +8368,7 @@
       "stage": "Accumulation",
       "rs_score": 37,
       "combo_score": 1,
-      "growth_yoy": 4.37815122687764,
+      "growth_yoy": 4.37815122687765,
       "growth_qoq": 125.17
     },
     {
@@ -9238,7 +9238,7 @@
       "stage": "Recovery",
       "rs_score": 29,
       "combo_score": 1,
-      "growth_yoy": -17.57071935636059,
+      "growth_yoy": -17.570719356360595,
       "growth_qoq": 189.87
     },
     {
@@ -9523,7 +9523,7 @@
       "stage": "Recovery",
       "rs_score": 27,
       "combo_score": 1,
-      "growth_yoy": -4.4840382043870735,
+      "growth_yoy": -4.48403820438707,
       "growth_qoq": -38.48
     },
     {
@@ -9767,8 +9767,8 @@
       "growth_qoq": 19.43
     },
     {
-      "ticker": "NEW",
-      "price": 104.0,
+      "ticker": "M-PAT",
+      "price": 1.65,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -9778,8 +9778,8 @@
       "stage": "Recovery",
       "rs_score": 25,
       "combo_score": 1,
-      "growth_yoy": -1.668773173293076,
-      "growth_qoq": 30.47
+      "growth_yoy": null,
+      "growth_qoq": null
     },
     {
       "ticker": "SAFE",
@@ -9872,6 +9872,21 @@
       "growth_qoq": 84.56
     },
     {
+      "ticker": "NEW",
+      "price": 104.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 24,
+      "combo_score": 1,
+      "growth_yoy": -1.668773173293076,
+      "growth_qoq": 30.47
+    },
+    {
       "ticker": "PANEL",
       "price": 1.18,
       "sepa": false,
@@ -9915,21 +9930,6 @@
       "combo_score": 1,
       "growth_yoy": 6.33113346378838,
       "growth_qoq": -13.98
-    },
-    {
-      "ticker": "PROEN",
-      "price": 1.02,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 24,
-      "combo_score": 1,
-      "growth_yoy": -19.893408824925448,
-      "growth_qoq": 22.86
     },
     {
       "ticker": "SNNP",
@@ -10003,23 +10003,8 @@
       "stage": "Bear",
       "rs_score": 23,
       "combo_score": 1,
-      "growth_yoy": 1.1786180176293202,
+      "growth_yoy": 1.1786180176293288,
       "growth_qoq": 64.85
-    },
-    {
-      "ticker": "FNS",
-      "price": 0.65,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 23,
-      "combo_score": 1,
-      "growth_yoy": 24.996740264255912,
-      "growth_qoq": 42.41
     },
     {
       "ticker": "FTI",
@@ -10050,6 +10035,21 @@
       "combo_score": 1,
       "growth_yoy": 14.779743243158292,
       "growth_qoq": -36.27
+    },
+    {
+      "ticker": "PROEN",
+      "price": 1.02,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 23,
+      "combo_score": 1,
+      "growth_yoy": -19.893408824925448,
+      "growth_qoq": 22.86
     },
     {
       "ticker": "SDC",
@@ -10172,6 +10172,21 @@
       "growth_qoq": -223.89
     },
     {
+      "ticker": "FNS",
+      "price": 0.65,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 22,
+      "combo_score": 1,
+      "growth_yoy": 24.996740264255912,
+      "growth_qoq": 42.41
+    },
+    {
       "ticker": "NKT",
       "price": 3.7,
       "sepa": false,
@@ -10202,21 +10217,6 @@
       "growth_qoq": -31.3
     },
     {
-      "ticker": "TKN",
-      "price": 4.12,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 22,
-      "combo_score": 1,
-      "growth_yoy": -7.07970001415301,
-      "growth_qoq": 2.57
-    },
-    {
       "ticker": "TNDT",
       "price": 0.14,
       "sepa": false,
@@ -10245,21 +10245,6 @@
       "combo_score": 1,
       "growth_yoy": 10.701257433073486,
       "growth_qoq": -16.49
-    },
-    {
-      "ticker": "MANRIN",
-      "price": 21.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 21,
-      "combo_score": 1,
-      "growth_yoy": -3.554174949968434,
-      "growth_qoq": -5.98
     },
     {
       "ticker": "NC",
@@ -10305,6 +10290,21 @@
       "combo_score": 1,
       "growth_yoy": -34.85264499179978,
       "growth_qoq": 11.59
+    },
+    {
+      "ticker": "TKN",
+      "price": 4.12,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 21,
+      "combo_score": 1,
+      "growth_yoy": -7.07970001415301,
+      "growth_qoq": 2.57
     },
     {
       "ticker": "TNITY",
@@ -10397,6 +10397,21 @@
       "growth_qoq": -54.6
     },
     {
+      "ticker": "MANRIN",
+      "price": 21.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 20,
+      "combo_score": 1,
+      "growth_yoy": -3.554174949968434,
+      "growth_qoq": -5.98
+    },
+    {
       "ticker": "SISB",
       "price": 10.3,
       "sepa": false,
@@ -10410,21 +10425,6 @@
       "combo_score": 1,
       "growth_yoy": 6.82715172982402,
       "growth_qoq": -9.28
-    },
-    {
-      "ticker": "THG",
-      "price": 7.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 20,
-      "combo_score": 1,
-      "growth_yoy": -4.0323184604646105,
-      "growth_qoq": 105.84
     },
     {
       "ticker": "TPIPP",
@@ -10592,21 +10592,6 @@
       "growth_qoq": -60.16
     },
     {
-      "ticker": "SGF",
-      "price": 0.15,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 19,
-      "combo_score": 1,
-      "growth_yoy": -24.918416118907142,
-      "growth_qoq": 97.17
-    },
-    {
       "ticker": "SHANG",
       "price": 45.25,
       "sepa": false,
@@ -10620,6 +10605,21 @@
       "combo_score": 1,
       "growth_yoy": -8.639761895920211,
       "growth_qoq": 26.13
+    },
+    {
+      "ticker": "THG",
+      "price": 7.5,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 19,
+      "combo_score": 1,
+      "growth_yoy": -4.0323184604646105,
+      "growth_qoq": 105.84
     },
     {
       "ticker": "AAV",
@@ -10667,19 +10667,19 @@
       "growth_qoq": 64.8
     },
     {
-      "ticker": "APCS",
-      "price": 1.4,
+      "ticker": "SGF",
+      "price": 0.15,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 18,
       "combo_score": 1,
-      "growth_yoy": -31.56888134493194,
-      "growth_qoq": -55.09
+      "growth_yoy": -24.918416118907142,
+      "growth_qoq": 97.17
     },
     {
       "ticker": "STI",
@@ -10740,6 +10740,21 @@
       "combo_score": 1,
       "growth_yoy": -5.2486369603087,
       "growth_qoq": -52.05
+    },
+    {
+      "ticker": "APCS",
+      "price": 1.4,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 17,
+      "combo_score": 1,
+      "growth_yoy": -31.56888134493194,
+      "growth_qoq": -55.09
     },
     {
       "ticker": "BSBM",
@@ -10817,21 +10832,6 @@
       "growth_qoq": 100.14
     },
     {
-      "ticker": "MADAME",
-      "price": 0.64,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 17,
-      "combo_score": 1,
-      "growth_yoy": -30.39546689943674,
-      "growth_qoq": -90.56
-    },
-    {
       "ticker": "MEB",
       "price": 12.9,
       "sepa": false,
@@ -10907,8 +10907,8 @@
       "growth_qoq": 60.4
     },
     {
-      "ticker": "MJD",
-      "price": 0.32,
+      "ticker": "MADAME",
+      "price": 0.64,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10918,8 +10918,8 @@
       "stage": "Recovery",
       "rs_score": 16,
       "combo_score": 1,
-      "growth_yoy": -15.987602464520211,
-      "growth_qoq": 35.76
+      "growth_yoy": -30.39546689943674,
+      "growth_qoq": -90.56
     },
     {
       "ticker": "MSC",
@@ -11057,19 +11057,19 @@
       "growth_qoq": -71.56
     },
     {
-      "ticker": "NEP",
-      "price": 0.19,
+      "ticker": "MJD",
+      "price": 0.32,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 15,
       "combo_score": 1,
-      "growth_yoy": 202.6220948993458,
-      "growth_qoq": -57.43
+      "growth_yoy": -15.987602464520211,
+      "growth_qoq": 35.76
     },
     {
       "ticker": "SIRIPRT",
@@ -11177,6 +11177,21 @@
       "growth_qoq": -512.2
     },
     {
+      "ticker": "NEP",
+      "price": 0.19,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 14,
+      "combo_score": 1,
+      "growth_yoy": 202.6220948993458,
+      "growth_qoq": -57.43
+    },
+    {
       "ticker": "PERM",
       "price": 0.24,
       "sepa": false,
@@ -11237,21 +11252,6 @@
       "growth_qoq": 168.33
     },
     {
-      "ticker": "VARO",
-      "price": 3.96,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 14,
-      "combo_score": 1,
-      "growth_yoy": -6.72143296734906,
-      "growth_qoq": -5.29
-    },
-    {
       "ticker": "WINMED",
       "price": 0.9,
       "sepa": false,
@@ -11310,21 +11310,6 @@
       "combo_score": 1,
       "growth_yoy": -21.45902726560133,
       "growth_qoq": -4478.28
-    },
-    {
-      "ticker": "M-PAT",
-      "price": 1.5,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 13,
-      "combo_score": 1,
-      "growth_yoy": null,
-      "growth_qoq": null
     },
     {
       "ticker": "MTW",
@@ -11400,6 +11385,21 @@
       "combo_score": 1,
       "growth_yoy": -1.32829513323192,
       "growth_qoq": -64.71
+    },
+    {
+      "ticker": "VARO",
+      "price": 3.96,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 13,
+      "combo_score": 1,
+      "growth_yoy": -6.72143296734906,
+      "growth_qoq": -5.29
     },
     {
       "ticker": "AUCT",
@@ -12808,7 +12808,7 @@
       "stage": "Bear",
       "rs_score": 2,
       "combo_score": 1,
-      "growth_yoy": -44.539137870093896,
+      "growth_yoy": -44.5391378700939,
       "growth_qoq": -67.47
     },
     {
