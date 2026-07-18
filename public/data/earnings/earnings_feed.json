@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-17T16:32:29.109480+07:00",
+  "generatedAt": "2026-07-18T09:49:18.858928+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 3,
+      "count": 5,
       "top3": [
         {
           "ticker": "KSL",
           "netProfitYoY": 112.86983050847456
         },
         {
-          "ticker": "TISCO",
-          "netProfitYoY": 7.321611324001319
+          "ticker": "KTC",
+          "netProfitYoY": 17.44339220347141
         },
         {
-          "ticker": "AEONTS",
-          "netProfitYoY": 2.742929548778955
+          "ticker": "TSTH",
+          "netProfitYoY": 9.806496569468267
         }
       ]
     },
@@ -65,6 +65,54 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "TSTH",
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET",
+      "announceDate": "2026-07-17T18:32:00+07:00",
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 409710000.0,
+      "netProfitPrior": 373120000.0,
+      "netProfitYoY": 9.806496569468267,
+      "eps": 0.04865,
+      "epsPrior": 0.04431,
+      "epsYoY": 9.794628751974715,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105465101&symbol=TSTH",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17842454404221&symbol=TSTH",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105459601&symbol=TSTH",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
+      "reason": "รายได้จากการขายและบริการที่เกี่ยวข้อง ปริมาณการส่งมอบสินค้าของบริษัทในไตรมาสนี้อยู่ที่ 334,000 ตัน ลดลงเล็กน้อย ร้อยละ 2 เมื่อเทียบกับ ไตรมาสก่อน และลดลงร้อยละ 1 เมื่อเทียบกับไตรมาสเดียวกันของปีก่อน",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "KTC",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-07-17T17:29:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 2225308000.0,
+      "netProfitPrior": 1894792000.0,
+      "netProfitYoY": 17.44339220347141,
+      "eps": 0.86,
+      "epsPrior": 0.73,
+      "epsYoY": 17.808219178082194,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105460301&symbol=KTC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17842454401491&symbol=KTC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105466701&symbol=KTC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (ก่อนสอบทาน)",
+      "reason": "เป็นผลจากการบริหารจัดการคุณภาพพอร์ต 2) ค่าใช้จ่ายทางการเงินที่ ลดลง 16.1% (YoY) จากต้นทุนเงินกู้ยืมใหม่ที่ต ่าลง และ 3) ค่าใช้จ่ายในการบริหารปรับตัวลดลงเล็กน้อยที่ 0.8% (YoY) เป็นผลให้",
+      "reason_source": "mda_extract"
+    },
     {
       "ticker": "TISCO",
       "sector": "Financials",
@@ -368,11 +416,16 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
+      "ticker": "KTC",
+      "date": "2026-07-17T17:29:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
       "ticker": "TSTH",
-      "date": "2026-07-17T17:14:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-07-17T17:14:00+07:00"
+      "date": "2026-07-17T18:32:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "BAREIT",
@@ -2545,14 +2598,14 @@
       "basedOnLastYear": "2025-08-13T08:17:00+07:00"
     },
     {
-      "ticker": "RWI",
+      "ticker": "SAF",
       "date": "2026-08-13T08:17:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T08:17:00+07:00"
     },
     {
-      "ticker": "SAF",
+      "ticker": "RWI",
       "date": "2026-08-13T08:17:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -3362,13 +3415,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T17:47:00+07:00"
-    },
-    {
-      "ticker": "KTC",
-      "date": "2026-08-13T17:50:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T17:50:00+07:00"
     },
     {
       "ticker": "MATI",
@@ -4848,13 +4894,6 @@
       "basedOnLastYear": "2025-08-14T17:03:00+07:00"
     },
     {
-      "ticker": "DPAINT",
-      "date": "2026-08-14T17:04:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-14T17:04:00+07:00"
-    },
-    {
       "ticker": "ICHI",
       "date": "2026-08-14T17:04:00+07:00",
       "status": "predicted",
@@ -4863,6 +4902,13 @@
     },
     {
       "ticker": "M-PAT",
+      "date": "2026-08-14T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:04:00+07:00"
+    },
+    {
+      "ticker": "DPAINT",
       "date": "2026-08-14T17:04:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -6519,6 +6565,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-29T07:01:00+07:00"
+    },
+    {
+      "ticker": "BYD",
+      "date": "2026-09-01T06:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-09-01T06:41:00+07:00"
     }
   ]
 }
