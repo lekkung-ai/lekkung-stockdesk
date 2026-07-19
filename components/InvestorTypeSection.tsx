@@ -155,7 +155,10 @@ export default function InvestorTypeSection() {
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
       <div className="mb-3">
         <h2 className="text-[14px] font-semibold text-white">แรงซื้อ-ขาย</h2>
-        <p className="text-[11px] text-white/30 mt-0.5">มูลค่าซื้อขายสุทธิตามประเภทนักลงทุน · ล้านบาท</p>
+        <p className="text-[11px] text-white/30 mt-0.5">
+          <span className="md:hidden">มูลค่าซื้อขายสุทธิ · ล้านบาท</span>
+          <span className="hidden md:inline">มูลค่าซื้อขายสุทธิตามประเภทนักลงทุน · ล้านบาท</span>
+        </p>
       </div>
 
       {loading || !data || data.length === 0 ? (

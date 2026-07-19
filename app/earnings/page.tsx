@@ -73,7 +73,7 @@ const EMPTY_FEED: EarningsFeed = {
 
 function BucketCards({ feed }: { feed: EarningsFeed }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
       {BUCKET_ORDER.map(key => {
         const b = feed.buckets[key];
         const color = BUCKET_COLOR[key];

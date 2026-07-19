@@ -113,7 +113,10 @@ export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
       ].join(' ')}
     >
       {/* Logo row */}
-      <div className="h-14 flex items-center justify-between px-3 md:px-4 border-b border-white/[0.07] flex-shrink-0">
+      <div
+        className="min-h-14 flex items-center justify-between px-3 md:px-4 border-b border-white/[0.07] flex-shrink-0"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
         <span className={`font-bold text-[15px] text-white tracking-tight whitespace-nowrap ${labelCls}`}>
           StockDesk
         </span>

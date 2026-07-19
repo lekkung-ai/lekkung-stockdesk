@@ -82,9 +82,11 @@ OUTPUT_DIR = os.path.join(SCRIPT_DIR, '..', 'public', 'data', 'earnings')
 
 BUCKET_LABELS = {
     'profit_growth': 'กำไรโต',
-    'turnaround': 'ฟื้นตัว-พลิกกำไร',
+    'turnaround': 'พลิกกำไร',
     'profit_shrink': 'กำไรหด',
+    'loss_shrink': 'ขาดทุนลดลง',
     'loss_worse': 'ขาดทุน-แย่ลง',
+    'no_base': 'ไม่มีฐานเทียบ',
 }
 
 
@@ -257,13 +259,32 @@ def parse_f45_detail(html):
 
 
 def classify_bucket(net_profit, net_profit_prior):
-    if net_profit is None or net_profit_prior is None:
+    # Kept in sync with classifyBucket() in lib/earningsBucket.ts - 6 buckets:
+    #   profit_growth - profit both periods, this period >= last year
+    #   profit_shrink - profit both periods, this period <  last year
+    #   loss_shrink   - loss both periods, this period's loss <  last year's
+    #   loss_worse    - loss both periods (this period's loss >= last year's),
+    #                   OR profit last year but a loss this period
+    #   turnaround    - last year was a loss (not zero/missing), profit this period
+    #   no_base       - last year's netProfit is 0 or missing (new IPO, no
+    #                   comparable prior-year period) - YoY undefined, must
+    #                   never be folded into profit_growth/turnaround
+    if net_profit is None:
         return None
-    if net_profit > 0 and net_profit_prior > 0:
+
+    if net_profit_prior is None or net_profit_prior == 0:
+        return 'no_base'
+
+    was_profit = net_profit_prior > 0
+    is_profit = net_profit > 0
+
+    if is_profit and was_profit:
         return 'profit_growth' if net_profit >= net_profit_prior else 'profit_shrink'
-    if net_profit_prior <= 0:
-        return 'turnaround' if net_profit > net_profit_prior else 'loss_worse'
-    return 'loss_worse'  # net_profit <= 0 and net_profit_prior > 0: profit -> loss
+    if not is_profit and was_profit:
+        return 'loss_worse'  # profit -> loss
+    if is_profit and not was_profit:
+        return 'turnaround'  # loss -> profit
+    return 'loss_shrink' if net_profit > net_profit_prior else 'loss_worse'
 
 
 # ── Universe ─────────────────────────────────────────────────────────────────
@@ -371,17 +392,14 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
 
 
 # Same key strategy as scripts/extract_reason.py's cache_key() - must stay
-# in sync. Used to carry `reason`/`reason_source` forward across a full
-# regeneration of this file, the same merge-on-write principle save_news.py
-# already uses for its own two-writers problem. Without this, a run where
-# extract_reason.py doesn't get a chance to fill reason back in (step
-# failure, ordering change, anything) silently wipes real extracted reasons
-# back to nothing - happened twice (2026-07-16, 2026-07-17) before this fix.
+# in sync. Used to carry data forward across a full regeneration of this
+# file, the same merge-on-write principle save_news.py already uses for its
+# own two-writers problem.
 def _reason_key(a):
     return a.get('f45Url') or f"{a.get('ticker')}|{a.get('quarter')}|{a.get('announceDate')}"
 
 
-def load_existing_reasons(out_path):
+def load_existing_announcements(out_path):
     if not os.path.exists(out_path):
         return {}
     try:
@@ -389,11 +407,48 @@ def load_existing_reasons(out_path):
             existing = json.load(f)
     except Exception:
         return {}
-    result = {}
-    for a in existing.get('announcements', []):
-        if a.get('reason_source') == 'mda_extract' and a.get('reason'):
-            result[_reason_key(a)] = (a['reason'], a['reason_source'])
-    return result
+    return {_reason_key(a): a for a in existing.get('announcements', [])}
+
+
+# reason/reason_source are carried forward by their own dedicated,
+# key-matched restore (see the main-loop merge below) rather than by this
+# generic pass, since a "fresh but empty" reason is the normal, expected
+# state for a filing extract_reason.py hasn't processed yet - not something
+# to unconditionally treat as data loss.
+_FIELD_MERGE_EXCLUDE = {'reason', 'reason_source'}
+
+
+def _is_empty(v):
+    return v is None or v == ''
+
+
+def merge_announcement_fields(new_a, old_a):
+    """Field-level merge, not whole-record replacement: a run that only
+    managed to fetch partial data for a ticker (e.g. the F45 detail-page
+    fetch failed, so parse_f45_detail() returned {} and every derived field
+    on the fresh record is None) must not blank out a previously-good field.
+    A non-empty fresh value always wins - this is what lets a genuine
+    correction filing actually update the numbers. Only an empty fresh value
+    falls back to the old one, and never the reverse. This is the general
+    form of the reason-loss bug fixed 2026-07-16/17 (which only patched the
+    `reason` field) - the same partial-fetch failure could just as easily
+    have blanked netProfit/quarter/etc, and did, which is why "-" was still
+    showing up for tickers with a real prior filing."""
+    if not old_a:
+        return new_a
+    merged = dict(new_a)
+    for key, new_val in new_a.items():
+        if key in _FIELD_MERGE_EXCLUDE:
+            continue
+        if _is_empty(new_val) and not _is_empty(old_a.get(key)):
+            merged[key] = old_a[key]
+    # netProfitYoY/epsYoY/bucket are derived from the fields just merged
+    # above, not independent data - recompute rather than trust whichever
+    # run's derived value happened to survive the merge.
+    merged['netProfitYoY'] = yoy_pct(merged.get('netProfit'), merged.get('netProfitPrior'))
+    merged['epsYoY'] = yoy_pct(merged.get('eps'), merged.get('epsPrior'))
+    merged['bucket'] = classify_bucket(merged.get('netProfit'), merged.get('netProfitPrior'))
+    return merged
 
 
 def main():
@@ -458,25 +513,37 @@ def main():
     announcements.sort(key=lambda a: a['announceDate'] or '', reverse=True)
     calendar.sort(key=lambda c: c['date'] or '')
 
-    # Merge-on-write: carry forward any reason already extracted for a
-    # filing that's still in this run's window, so this file never
-    # regresses to reason-less even if extract_reason.py never gets to run
-    # afterward this time. A record that never had a reason gets none here
-    # either way - extract_reason.py (or the next run once it does succeed)
-    # is what actually fills new ones in.
+    # Merge-on-write: (1) field-level merge so a run that only got partial
+    # data for a ticker (a failed detail-page fetch, say) can't blank out
+    # fields a previous successful run already captured, and (2) carry
+    # forward any reason already extracted for a filing still in this run's
+    # window, so this file never regresses to reason-less even if
+    # extract_reason.py never gets to run afterward this time. A record that
+    # never had a reason gets none here either way - extract_reason.py (or
+    # the next run once it does succeed) is what actually fills new ones in.
     out_path_for_merge = os.path.join(args.out if args.out else OUTPUT_DIR, 'earnings_feed.json')
-    existing_reasons = load_existing_reasons(out_path_for_merge)
-    restored = 0
+    existing_by_key = load_existing_announcements(out_path_for_merge)
+    restored_reason = 0
+    restored_fields = 0
+    merged_announcements = []
     for a in announcements:
-        prior = existing_reasons.get(_reason_key(a))
-        if prior:
-            a['reason'], a['reason_source'] = prior
-            restored += 1
+        old = existing_by_key.get(_reason_key(a))
+        merged = merge_announcement_fields(a, old)
+        if old and merged != a:
+            restored_fields += 1
+
+        if old and old.get('reason_source') == 'mda_extract' and old.get('reason'):
+            merged['reason'], merged['reason_source'] = old['reason'], old['reason_source']
+            restored_reason += 1
         else:
-            a.setdefault('reason', '')
-            a.setdefault('reason_source', 'none')
-    if restored:
-        print(f"Carried forward {restored} previously-extracted reason(s) from the existing file")
+            merged.setdefault('reason', '')
+            merged.setdefault('reason_source', 'none')
+        merged_announcements.append(merged)
+    announcements = merged_announcements
+    if restored_reason:
+        print(f"Carried forward {restored_reason} previously-extracted reason(s) from the existing file")
+    if restored_fields:
+        print(f"Backfilled empty field(s) on {restored_fields} record(s) from the existing file (partial-fetch protection)")
 
     buckets = {}
     for key, label in BUCKET_LABELS.items():
@@ -484,7 +551,7 @@ def main():
         members_sorted = sorted(
             (a for a in members if a['netProfitYoY'] is not None),
             key=lambda a: a['netProfitYoY'],
-            reverse=(key in ('profit_growth', 'turnaround')),
+            reverse=(key in ('profit_growth', 'turnaround', 'loss_shrink')),
         )
         buckets[key] = {
             'label': label,

@@ -186,7 +186,7 @@ export function PageHeader({
         {total} หุ้น · {subtitle}
       </p>
       {updatedAt !== undefined && (
-        <p className="text-[11px] text-white/25 mt-1">อัปเดตล่าสุด: {updatedAt}</p>
+        <p className="hidden md:block text-[11px] text-white/25 mt-1">อัปเดตล่าสุด: {updatedAt}</p>
       )}
     </div>
   );

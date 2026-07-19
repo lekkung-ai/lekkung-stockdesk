@@ -15,7 +15,10 @@ export default function TopBar({ onMenuClick, sidebarDesktopOpen }: { onMenuClic
   const { selectedMarket, setSelectedMarket } = useStock();
 
   return (
-    <header className="h-14 flex items-center gap-2 px-3 md:px-4 border-b border-white/[0.07] bg-[#0d0f15] flex-shrink-0">
+    <header
+      className="min-h-14 flex items-center gap-2 px-3 md:px-4 border-b border-white/[0.07] bg-[#0d0f15] flex-shrink-0"
+      style={{ paddingTop: 'env(safe-area-inset-top)' }}
+    >
       {/* Sidebar toggle — opens the drawer on phone, collapses/expands the static sidebar on desktop */}
       <button
         onClick={onMenuClick}

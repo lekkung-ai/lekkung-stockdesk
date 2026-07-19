@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Clock, X } from 'lucide-react';
 import { newsBySymbol } from '@/lib/mockData';
@@ -32,6 +32,7 @@ export default function SearchBox() {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -69,6 +70,12 @@ export default function SearchBox() {
   const topTicker = results[0];
   const topNews = topTicker ? (newsBySymbol[topTicker] ?? []).slice(0, 3) : [];
 
+  // Reset keyboard selection whenever the candidate list changes, so an old
+  // highlight doesn't point at a since-shifted row.
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [query]);
+
   const handleSelect = useCallback(
     (ticker: string) => {
       const updated = [ticker, ...recent.filter(s => s !== ticker)].slice(0, 5);
@@ -81,6 +88,42 @@ export default function SearchBox() {
       router.push(`/stock/${ticker}`);
     },
     [recent, router]
+  );
+
+  const handleInputKeyDown = useCallback(
+    (e: ReactKeyboardEvent<HTMLInputElement>) => {
+      const list = query.trim() ? results : recent;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (list.length === 0) return;
+        setOpen(true);
+        setActiveIndex(prev => (prev + 1) % list.length);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (list.length === 0) return;
+        setOpen(true);
+        setActiveIndex(prev => (prev - 1 + list.length) % list.length);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (list.length === 0) return;
+        // Highlighted row wins; otherwise an exact ticker match; otherwise
+        // just go to the top result — matches how the dropdown is displayed.
+        if (activeIndex >= 0 && activeIndex < list.length) {
+          handleSelect(list[activeIndex]);
+          return;
+        }
+        const exact = query.trim().toUpperCase();
+        if (query.trim() && list.includes(exact)) {
+          handleSelect(exact);
+          return;
+        }
+        handleSelect(list[0]);
+      } else if (e.key === 'Escape') {
+        setOpen(false);
+        inputRef.current?.blur();
+      }
+    },
+    [query, results, recent, activeIndex, handleSelect]
   );
 
   return (
@@ -96,6 +139,11 @@ export default function SearchBox() {
           value={query}
           onChange={e => { setQuery(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
+          onKeyDown={handleInputKeyDown}
+          role="combobox"
+          aria-expanded={open}
+          aria-controls="search-listbox"
+          aria-activedescendant={activeIndex >= 0 ? `search-option-${activeIndex}` : undefined}
           placeholder="ค้นหา ticker เช่น KBANK, DELTA..."
           className="flex-1 bg-transparent text-[13px] text-white/90 placeholder:text-white/28 outline-none min-w-0"
         />
@@ -112,7 +160,7 @@ export default function SearchBox() {
       </div>
 
       {open && (
-        <div className="absolute top-full mt-2 left-0 right-0 z-50 bg-[#13161e] border border-white/[0.1] rounded-xl shadow-2xl overflow-hidden max-h-[70vh] overflow-y-auto">
+        <div id="search-listbox" role="listbox" className="absolute top-full mt-2 left-0 right-0 z-50 bg-[#13161e] border border-white/[0.1] rounded-xl shadow-2xl overflow-hidden max-h-[70vh] overflow-y-auto">
 
           {/* Recent searches */}
           {!query.trim() && (
@@ -122,13 +170,19 @@ export default function SearchBox() {
                   <p className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-white/25">
                     ดูล่าสุด
                   </p>
-                  {recent.map(sym => {
+                  {recent.map((sym, i) => {
                     const sec = SECTOR_INFO[sym];
                     return (
                       <button
                         key={sym}
+                        id={`search-option-${i}`}
+                        role="option"
+                        aria-selected={activeIndex === i}
                         onClick={() => handleSelect(sym)}
-                        className="w-full flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white/[0.05] text-left transition-colors"
+                        onMouseEnter={() => setActiveIndex(i)}
+                        className={`w-full flex items-center gap-3 px-2 py-2 rounded-lg text-left transition-colors ${
+                          activeIndex === i ? 'bg-white/[0.08]' : 'hover:bg-white/[0.05]'
+                        }`}
                       >
                         <Clock size={12} className="text-white/25 flex-shrink-0" />
                         <span className="text-[13px] font-semibold text-white">{sym}</span>
@@ -153,14 +207,20 @@ export default function SearchBox() {
           {/* Search results */}
           {query.trim() && results.length > 0 && (
             <div className="p-2">
-              {results.map(ticker => {
+              {results.map((ticker, i) => {
                 const sec = SECTOR_INFO[ticker];
                 const name = stockNames[ticker];
                 return (
                   <button
                     key={ticker}
+                    id={`search-option-${i}`}
+                    role="option"
+                    aria-selected={activeIndex === i}
                     onClick={() => handleSelect(ticker)}
-                    className="w-full flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-white/[0.05] text-left transition-colors"
+                    onMouseEnter={() => setActiveIndex(i)}
+                    className={`w-full flex items-center gap-3 px-2 py-2.5 rounded-lg text-left transition-colors ${
+                      activeIndex === i ? 'bg-white/[0.08]' : 'hover:bg-white/[0.05]'
+                    }`}
                   >
                     <div className="w-8 h-8 rounded-lg bg-white/[0.07] flex items-center justify-center flex-shrink-0 text-[10px] font-bold text-white/45">
                       {ticker.slice(0, 2)}

@@ -83,8 +83,26 @@ CONNECTOR_KEYWORDS_RE = re.compile(r'(เนื่องจาก|เป็น�
 # identifiers (downloadUrl:"...", not "downloadUrl":"...").
 DOWNLOAD_URL_RE = re.compile(r'downloadUrl\s*:\s*"([^"]*)"')
 BOILERPLATE_PREFIX_RE = re.compile(
-    r'^.*?(?:บริษัทฯ?\s*ขอชี้แจง(?:ผลการดำเนินงาน)?|ขอเรียนชี้แจง(?:ผลการดำเนินงาน)?)', re.S
+    r'^.*?(?:บริษัทฯ?\s*ขอชี้แจง(?:ผลการดำเนินงาน)?|ขอเรียนชี้แจง(?:ผลการดำเนินงาน)?'
+    r'|เรียน\s*กรรมการและผู้จัดการ|ตลาดหลักทรัพย์แห่งประเทศไทย)', re.S
 )
+# PDF page-number footers/headers ("หน้า 1/3", "Page 2 of 5") and stray
+# control/replacement characters left behind by the PDF's font remapping -
+# both are extraction noise, never part of the actual narrative sentence.
+PAGE_NUM_RE = re.compile(r'(?:หน้า(?:ที่)?|page)\s*\d+(?:\s*(?:/|of)\s*\d+)?', re.I)
+CONTROL_CHARS_RE = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f�]')
+# Some of these PDFs remap accented Latin glyphs (Latin-1 Supplement / Latin
+# Extended-A, e.g. ř ś š Š É Ê) onto what should be plain digits/Thai vowels -
+# a font-embedding failure distinct from the sara-am one below. Unlike that
+# one there's no safe character-level fix, so a sentence containing any of
+# these is unrecoverably garbled and must be discarded rather than shown.
+GARBLED_CHARS_RE = re.compile(r'[À-ɏ]')
+# Thai vowel/tone marks that only ever attach to a preceding consonant and
+# can never legitimately open a word on their own - if a candidate sentence
+# starts with one, the cut landed inside a glyph cluster (a "mid-word" cut).
+# ั mai han-akat, ิ-ฺ above/below vowels + phinthu,
+# ็-๎ mai taikhu/tone marks/thanthakhat/yamakkan, ำ sara am.
+THAI_NON_INITIAL_RE = re.compile(r'^[ัำิ-ฺ็-๎]')
 
 FAIL_LABELS = {
     'no_mda_url': 'ไม่มีเอกสาร MD&A แนบ (mdaUrl ว่าง)',
@@ -93,6 +111,7 @@ FAIL_LABELS = {
     'no_pdf_url': 'ไม่พบลิงก์ PDF (downloadUrl) ในหน้ารายละเอียด',
     'pdf_fetch_failed': 'ดึงไฟล์ PDF ไม่สำเร็จ',
     'pdf_extract_failed': 'เปิด/อ่านข้อความจาก PDF ไม่สำเร็จ',
+    'no_text_layer': 'PDF ไม่มีชั้นข้อความ (เอกสารสแกนเป็นภาพ)',
     'no_sentence_match': 'อ่านข้อความได้ แต่ไม่พบประโยคที่เข้าเงื่อนไข heuristic',
 }
 
@@ -159,10 +178,14 @@ def extract_pdf_text(pdf_bytes):
 
 def clean_text(raw):
     # SET's PDF generator emits the sara-am vowel (ำ) as a stray space
-    # followed by า (e.g. "จ ากัด" for "จำกัด") - a broken glyph->Unicode
-    # mapping in the embedded font. า never legitimately starts a word right
-    # after whitespace in Thai, so this rewrite is unconditionally safe.
-    text = raw.replace(' ำ', 'ำ')
+    # followed by า (e.g. "จ ากัด" for "จำกัด" - confirmed against real
+    # extracted text) - a broken glyph->Unicode mapping in the embedded font.
+    # า never legitimately starts a word right after whitespace in Thai (it's
+    # a dependent vowel, never a word-initial character), so collapsing
+    # " า" -> "ำ" is unconditionally safe.
+    text = raw.replace(' า', 'ำ')
+    text = CONTROL_CHARS_RE.sub(' ', text)
+    text = PAGE_NUM_RE.sub(' ', text)
     text = re.sub(r'[ \t\r\n]+', ' ', text).strip()
     return text
 
@@ -170,6 +193,35 @@ def clean_text(raw):
 def strip_leading_boilerplate(text):
     m = BOILERPLATE_PREFIX_RE.match(text)
     return text[m.end():].strip() if m else text
+
+
+def _sentence_bounds(window, anchor):
+    """Find a safe [start, end) span around `anchor` that begins and ends on
+    a real sentence boundary (right after ". ", or at whitespace) - never a
+    hard character-count cut that could land mid-word. Returns None when no
+    such safe span exists within the length budget, so the caller can drop
+    the candidate instead of emitting a mangled fragment."""
+    limit = min(len(window), anchor + SENTENCE_MAX_CHARS)
+
+    period_start = window.rfind('. ', 0, anchor)
+    space_start = window.rfind(' ', 0, anchor)
+    if period_start != -1 and anchor - period_start <= SENTENCE_MAX_CHARS:
+        start = period_start + 2
+    elif space_start != -1:
+        start = space_start + 1
+    else:
+        start = 0  # anchor is near the very start of the window - text start is a safe boundary
+
+    period_end = window.find('. ', anchor, limit)
+    if period_end != -1:
+        end = period_end + 1  # keep the period itself, drop the trailing space
+    else:
+        space_end = window.rfind(' ', max(anchor, start + SENTENCE_TARGET_CHARS - 40), limit)
+        if space_end == -1 or space_end <= anchor:
+            return None  # can't reach a safe end boundary without cutting mid-word
+        end = space_end
+
+    return start, end
 
 
 def extract_reason_sentence(text):
@@ -180,16 +232,18 @@ def extract_reason_sentence(text):
         if not RESULT_KEYWORDS_RE.search(window[ctx_start:ctx_end]):
             continue
 
-        start = window.rfind(' ', 0, m.start())
-        start = start + 1 if start != -1 else max(0, m.start() - 80)
-        end = window.find(' ', start + SENTENCE_TARGET_CHARS)
-        if end == -1 or end - start > SENTENCE_MAX_CHARS:
-            end = min(len(window), start + SENTENCE_TARGET_CHARS)
+        bounds = _sentence_bounds(window, m.start())
+        if bounds is None:
+            continue
+        sentence = window[bounds[0]:bounds[1]].strip()
 
-        sentence = window[start:end].strip()
-        if len(sentence) > SENTENCE_MAX_CHARS:
-            cut = sentence.rfind(' ', 0, SENTENCE_TARGET_CHARS)
-            sentence = sentence[:cut if cut > 40 else SENTENCE_TARGET_CHARS].strip()
+        # Reject anything that still looks broken: too short to be a real
+        # sentence, starting on a combining vowel/tone mark (proof the start
+        # boundary landed inside a word/glyph cluster), or containing
+        # font-remapping garbage this PDF's embedded font produced instead
+        # of real digits/vowels.
+        if len(sentence) < 20 or THAI_NON_INITIAL_RE.match(sentence) or GARBLED_CHARS_RE.search(sentence):
+            continue
         return sentence
     return None
 
@@ -220,6 +274,8 @@ def extract_reason_for_announcement(a, cookie):
         raw_text = extract_pdf_text(pdf_bytes)
     except Exception:
         return '', 'none', 'pdf_extract_failed'
+    if not raw_text.strip():
+        return '', 'none', 'no_text_layer'  # scanned/image-only PDF, nothing to extract from
 
     text = strip_leading_boilerplate(clean_text(raw_text))
     sentence = extract_reason_sentence(text)
@@ -271,7 +327,7 @@ def main():
     for a in announcements:
         key = cache_key(a)
         cached = cache.get(key)
-        if cached:
+        if cached and cached.get('reason_source') == 'mda_extract':
             a['reason'] = cached['reason']
             a['reason_source'] = cached['reason_source']
         elif a.get('reason_source') == 'mda_extract' and a.get('reason'):
@@ -286,6 +342,10 @@ def main():
                 'extractedAt': datetime.now(BANGKOK_TZ).isoformat(),
             }
         else:
+            # No cached success (a past failure is never cached as final -
+            # see the write-back below - so this also retries anything that
+            # failed on a previous run, instead of getting stuck at "—"
+            # forever the way a cached failure would).
             to_extract.append((key, a))
 
     cache_hit_count = len(announcements) - len(to_extract)
@@ -316,13 +376,17 @@ def main():
 
             a['reason'] = reason
             a['reason_source'] = reason_source
-            cache[key] = {
-                'reason': reason,
-                'reason_source': reason_source,
-                'extractedAt': datetime.now(BANGKOK_TZ).isoformat(),
-            }
 
             if reason_source == 'mda_extract':
+                # Only successes are cached. A failure is left out of the
+                # cache entirely so the next run retries it instead of being
+                # stuck at "—" forever - this is what let TISCO/AEONTS/TNH's
+                # 2026-07-16 extraction failures go unretried indefinitely.
+                cache[key] = {
+                    'reason': reason,
+                    'reason_source': reason_source,
+                    'extractedAt': datetime.now(BANGKOK_TZ).isoformat(),
+                }
                 fresh_success += 1
                 if len(success_examples) < 5:
                     success_examples.append((a.get('ticker'), a.get('quarter'), reason))

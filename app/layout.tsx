@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { StockProvider } from '@/context/stock';
@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     default: 'StockDesk — Personal Stock Dashboard',
   },
   description: 'ดูข้อมูลหุ้น SET ส่วนตัว',
+};
+
+// viewport-fit=cover is required for env(safe-area-inset-*) to resolve to a
+// real value on iPhones with a Dynamic Island/notch instead of always 0.
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

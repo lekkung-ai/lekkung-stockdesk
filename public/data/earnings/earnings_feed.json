@@ -22,7 +22,22 @@
       ]
     },
     "turnaround": {
-      "label": "ฟื้นตัว-พลิกกำไร",
+      "label": "พลิกกำไร",
+      "count": 0,
+      "top3": []
+    },
+    "profit_shrink": {
+      "label": "กำไรหด",
+      "count": 1,
+      "top3": [
+        {
+          "ticker": "TNH",
+          "netProfitYoY": -31.635122485788
+        }
+      ]
+    },
+    "loss_shrink": {
+      "label": "ขาดทุนลดลง",
       "count": 3,
       "top3": [
         {
@@ -39,16 +54,6 @@
         }
       ]
     },
-    "profit_shrink": {
-      "label": "กำไรหด",
-      "count": 1,
-      "top3": [
-        {
-          "ticker": "TNH",
-          "netProfitYoY": -31.635122485788
-        }
-      ]
-    },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
       "count": 2,
@@ -62,6 +67,11 @@
           "netProfitYoY": -263.0451794657763
         }
       ]
+    },
+    "no_base": {
+      "label": "ไม่มีฐานเทียบ",
+      "count": 0,
+      "top3": []
     }
   },
   "announcements": [
@@ -73,8 +83,8 @@
       "announceDate": "2026-07-17T18:32:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 409710000.0,
-      "netProfitPrior": 373120000.0,
+      "netProfit": 409710000,
+      "netProfitPrior": 373120000,
       "netProfitYoY": 9.806496569468267,
       "eps": 0.04865,
       "epsPrior": 0.04431,
@@ -86,7 +96,7 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17842454404221&symbol=TSTH",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105459601&symbol=TSTH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการขายและบริการที่เกี่ยวข้อง ปริมาณการส่งมอบสินค้าของบริษัทในไตรมาสนี้อยู่ที่ 334,000 ตัน ลดลงเล็กน้อย ร้อยละ 2 เมื่อเทียบกับ ไตรมาสก่อน และลดลงร้อยละ 1 เมื่อเทียบกับไตรมาสเดียวกันของปีก่อน",
+      "reason": "ผลการดำเนินงานและผลประกอบการทางการเงินเปรียบเทียบกับไตรมาสก่อนและปีก่อน 1.1 รายได้จากการขายและบริการที่เกี่ยวข้อง ปริมาณการส่งมอบสินค้าของบริษัทในไตรมาสนี้อยู่ที่ 334,000 ตัน ลดลงเล็กน้อย ร้อยละ 2 เมื่อเทียบกับ ไตรมาสก่อน และลดลงร้อยละ 1 เมื่อเทียบกับไตรมาสเดียวกันของปีก่อน โดยมีสาเหตุหลักมาจากยอดขาย",
       "reason_source": "mda_extract"
     },
     {
@@ -97,8 +107,8 @@
       "announceDate": "2026-07-17T17:29:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 2225308000.0,
-      "netProfitPrior": 1894792000.0,
+      "netProfit": 2225308000,
+      "netProfitPrior": 1894792000,
       "netProfitYoY": 17.44339220347141,
       "eps": 0.86,
       "epsPrior": 0.73,
@@ -110,7 +120,7 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17842454401491&symbol=KTC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105466701&symbol=KTC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (ก่อนสอบทาน)",
-      "reason": "เป็นผลจากการบริหารจัดการคุณภาพพอร์ต 2) ค่าใช้จ่ายทางการเงินที่ ลดลง 16.1% (YoY) จากต้นทุนเงินกู้ยืมใหม่ที่ต ่าลง และ 3) ค่าใช้จ่ายในการบริหารปรับตัวลดลงเล็กน้อยที่ 0.8% (YoY) เป็นผลให้",
+      "reason": "เป็นผลจากการบริหารจัดการคุณภาพพอร์ต 2) ค่าใช้จ่ายทางการเงินที่ ลดลง 16.1% (YoY) จากต้นทุนเงินกู้ยืมใหม่ที่ต ่าลง และ 3) ค่าใช้จ่ายในการบริหารปรับตัวลดลงเล็กน้อยที่ 0.8% (YoY) เป็นผลให้ Cost to Income Ratio",
       "reason_source": "mda_extract"
     },
     {
@@ -121,8 +131,8 @@
       "announceDate": "2026-07-14T08:30:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 1763850000.0,
-      "netProfitPrior": 1643518000.0,
+      "netProfit": 1763850000,
+      "netProfitPrior": 1643518000,
       "netProfitYoY": 7.321611324001319,
       "eps": 2.2,
       "epsPrior": 2.05,
@@ -145,20 +155,20 @@
       "announceDate": "2026-07-10T08:31:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 มีนาคม 2569",
-      "netProfit": -76334000.0,
-      "netProfitPrior": -126986000.0,
+      "netProfit": -76334000,
+      "netProfitPrior": -126986000,
       "netProfitYoY": 39.8878616540406,
       "eps": -0.0996,
       "epsPrior": -0.1775,
       "epsYoY": 43.88732394366197,
       "auditorOpinion": "ไม่แสดงความเชื่อมั่น",
       "isCorrection": true,
-      "bucket": "turnaround",
+      "bucket": "loss_shrink",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105374301&symbol=CHO",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105375901&symbol=CHO",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105370401&symbol=CHO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว) (แก้ไข)",
-      "reason": "ประสบกับความท้าทายทางการเงินอย่างต่อเนื่องจาก ภาวะขาดทุนสะสม หนี้สินที่สูงกว่าสินทรัพย์ และความไม่แน่นอนในการเจรจากับเจ้าหนี้เพื่อขยายเวลาช าระหนี้ สรุปรายได้ งวดไตรมาส 1 ปี 2569 บริษัทและบริษัทย่อยมีผลขาดทุนส",
+      "reason": "ภาพรวมผลการดำเนินงาน ในไตรมาสที่ 1/2569 และไตมาส 1/2568 บริษัทฯ และบริษัทย่อย ประสบกับความท้าทายทางการเงินอย่างต่อเนื่องจาก ภาวะขาดทุนสะสม หนี้สินที่สูงกว่าสินทรัพย์ และความไม่แน่นอนในการเจรจากับเจ้าหนี้เพื่อขยายเวลาชำระหนี้ สรุปรายได้ งวดไตรมาส 1 ปี 2569 บริษัทและบริษัทย่อยมีผลขาดทุนสำหรับงวด 76.33 ล้านบาท ขาดทุนลดลง 50.65 ล้านบาท",
       "reason_source": "mda_extract"
     },
     {
@@ -169,8 +179,8 @@
       "announceDate": "2026-07-08T17:26:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 พฤษภาคม 2569",
-      "netProfit": 793010000.0,
-      "netProfitPrior": 771839000.0,
+      "netProfit": 793010000,
+      "netProfitPrior": 771839000,
       "netProfitYoY": 2.742929548778955,
       "eps": 3.2,
       "epsPrior": 3.09,
@@ -193,8 +203,8 @@
       "announceDate": "2026-07-06T08:16:00+07:00",
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": -262112000.0,
-      "netProfitPrior": -10696000.0,
+      "netProfit": -262112000,
+      "netProfitPrior": -10696000,
       "netProfitYoY": -2350.56095736724,
       "eps": -0.2508,
       "epsPrior": -0.0102,
@@ -206,8 +216,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17830350614901&symbol=SAM",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105316201&symbol=SAM",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "บริษัทฯมีรายได้จากการขายจํานวน ř,śšš.Šř ล้านบาท เพิÉมขึÊนจากปีก่อน śŜ.Šś ล้านบาท หรือร้อยละ Ś.ŝŝ เนืÉองมาจากลูกค้า สัÉงซืÊอสินค้ากับบริษัทฯ เพิÉมมากขึÊน เพราะลูกค้ามีความเชืÉอมัÉนในชืÉอเสียงและคุณภาพสินค้าของบริษัท",
-      "reason_source": "mda_extract"
+      "reason": "",
+      "reason_source": "none"
     },
     {
       "ticker": "TAPAC",
@@ -217,8 +227,8 @@
       "announceDate": "2026-06-15T17:32:00+07:00",
       "quarter": "ประจำปี 2567",
       "periodEnd": "31 ตุลาคม 2567",
-      "netProfit": -278354000.0,
-      "netProfitPrior": -76672000.0,
+      "netProfit": -278354000,
+      "netProfitPrior": -76672000,
       "netProfitYoY": -263.0451794657763,
       "eps": -1.08,
       "epsPrior": -0.5,
@@ -230,7 +240,7 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17815662380341&symbol=TAPAC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105100601&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1. บริษัทฯ และบริษัทย่อย มีรายได้จากการขายสินค้าและให้บริการผลิตภัณฑ์พลาสติก, แม่พิมพ์ ทั้งสิ้น 1,475.631 ล้านบาท เพิ่มขึ้นเมื่อเทียบกับช่วง",
+      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
       "reason_source": "mda_extract"
     },
     {
@@ -241,20 +251,20 @@
       "announceDate": "2026-06-15T17:02:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 มีนาคม 2569",
-      "netProfit": -34882000.0,
-      "netProfitPrior": -35980000.0,
+      "netProfit": -34882000,
+      "netProfitPrior": -35980000,
       "netProfitYoY": 3.0516953863257363,
       "eps": -0.073,
       "epsPrior": -0.076,
       "epsYoY": 3.9473684210526354,
       "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
       "isCorrection": false,
-      "bucket": "turnaround",
+      "bucket": "loss_shrink",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105096001&symbol=DEXON",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105108401&symbol=DEXON",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105095701&symbol=DEXON",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการให้บริการ  153 155 2% รายได้อื่น  0 0 33% รายได้รวม  153 156 2% ต้นทุนค่าบริการ  (135) (138) 2% ค่าใช้จ่ายในการขายและบริหาร  (52) (50) (3%) ต้นทุนทางการเงิน  (2) 1 (139%)",
+      "reason": "รายได้จากการให้บริการ  153 155 2% รายได้อื่น  0 0 33% รายได้รวม  153 156 2% ต้นทุนค่าบริการ  (135) (138) 2% ค่าใช้จ่ายในการขายและบริหาร  (52) (50) (3%) ต้นทุนทางการเงิน  (2) 1 (139%) ค่าใช้จ่ายอื่นๆ (1) (2) 100%",
       "reason_source": "mda_extract"
     },
     {
@@ -278,7 +288,7 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210347521&symbol=KSL",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085201&symbol=KSL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "เนื่องจากราคาขาย น้ำตาลเฉลี่ยโดยรวมทุกชองทางการจำหนายลดลงรอยละ 30 และเปนการขายสินคาที่ผลิตจากปกอน โดยมีตนทุน คาวัตถุดิบที่มีราคาสูง ผลการดำเนินงานของกลุมบริษัท ผลการดำเนินงานของบริษัท",
+      "reason": "เนื่องจากราคาขาย น้ำตาลเฉลี่ยโดยรวมทุกชองทางการจำหนายลดลงรอยละ 30 และเปนการขายสินคาที่ผลิตจากปกอน โดยมีตนทุน คาวัตถุดิบที่มีราคาสูง ผลการดำเนินงานของกลุมบริษัท ผลการดำเนินงานของบริษัท น้ำตาลขอนแกน จำกัด",
       "reason_source": "mda_extract"
     },
     {
@@ -302,7 +312,7 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210331321&symbol=CITY",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056501&symbol=CITY",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้มีสาเหตุหลักมาจากสงครามในภูมิภาคตะวันออกกลางระหว่างอิหร่าน อิสราเอล และสหรัฐอเมริกา ซึ่งส่งผล กระทบต่อการขนส่ง ห่วงโซ่อุปทาน ตลอดจนการปรับตัวเพิ่มขึ้นของราคานํ้ามันและพลังงาน",
+      "reason": "รายได้มีสาเหตุหลักมาจากสงครามในภูมิภาคตะวันออกกลางระหว่างอิหร่าน อิสราเอล และสหรัฐอเมริกา ซึ่งส่งผล กระทบต่อการขนส่ง ห่วงโซ่อุปทาน ตลอดจนการปรับตัวเพิ่มขึ้นของราคานํ้ามันและพลังงาน สําหรับอุตสาหกรรม ยานยนต์",
       "reason_source": "mda_extract"
     },
     {
@@ -313,8 +323,8 @@
       "announceDate": "2026-06-08T19:20:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 เมษายน 2569",
-      "netProfit": 59889000.0,
-      "netProfitPrior": 87602000.0,
+      "netProfit": 59889000,
+      "netProfitPrior": 87602000,
       "netProfitYoY": -31.635122485788,
       "eps": 0.33272,
       "epsPrior": 0.48668,
@@ -337,20 +347,20 @@
       "announceDate": "2026-06-05T17:47:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 เมษายน 2569",
-      "netProfit": -7662670.0,
-      "netProfitPrior": -29802420.0,
+      "netProfit": -7662670,
+      "netProfitPrior": -29802420,
       "netProfitYoY": 74.28843026841444,
       "eps": -0.03559,
       "epsPrior": -0.13843,
       "epsYoY": 74.29025500252835,
       "auditorOpinion": "ไม่มีเงื่อนไข",
       "isCorrection": false,
-      "bucket": "turnaround",
+      "bucket": "loss_shrink",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=104985101&symbol=PICO",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17806158051181&symbol=PICO",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105008301&symbol=PICO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการให้บริการสำหรับไตรมาสสิ้นสุดวันที่ 30 เมษายน 2569 จำนวน 220.6 ล้านบาท ลดลง 14.4 ล้านบาท หรือ ร้อยละ 6 โดยรวมเป็นผลมาจากรายได้จาก ธุรกิจงานแสดงสินค้าและนิทรรศการ ลดลง 11.5",
+      "reason": "รายได้จากการให้บริการสำหรับไตรมาสสิ้นสุดวันที่ 30 เมษายน 2569 จำนวน 220.6 ล้านบาท ลดลง 14.4 ล้านบาท หรือ ร้อยละ 6 โดยรวมเป็นผลมาจากรายได้จาก ธุรกิจงานแสดงสินค้าและนิทรรศการ ลดลง 11.5 ล้านบาท เป็น 122.1 ล้าน บาท",
       "reason_source": "mda_extract"
     }
   ],

@@ -68,6 +68,30 @@ function SectorCard({
       }}
       onClick={onToggle}
     >
+      {/* Mobile collapsed view — one line: name + %change + bar. Hidden once
+          expanded (mobile) or at md+ (desktop always shows the full card). */}
+      <div className={`${expanded ? 'hidden' : 'flex'} md:hidden items-center gap-3`}>
+        <span className="text-[13px] font-semibold text-white/85 truncate flex-shrink min-w-0">
+          {s.sector}
+        </span>
+        <span
+          className="text-[14px] font-bold tabular-nums leading-none flex-shrink-0"
+          style={{ color: accent }}
+        >
+          {s.pct_change >= 0 ? '+' : ''}
+          {s.pct_change.toFixed(2)}%
+        </span>
+        <div className="flex-1 h-1.5 bg-white/[0.07] rounded-full overflow-hidden min-w-[32px]">
+          <div
+            className="h-full rounded-full"
+            style={{ width: `${barWidth}%`, background: accent, transition: 'width 0.5s ease' }}
+          />
+        </div>
+        <span className="text-[9px] text-white/20 flex-shrink-0">▼</span>
+      </div>
+
+      {/* Full detail — always at md+, or on mobile once expanded */}
+      <div className={expanded ? 'block' : 'hidden md:block'}>
       {/* Header row */}
       <div className="flex items-start justify-between gap-2 mb-2.5">
         <span className="text-[13px] font-semibold text-white/85 leading-tight">{s.sector}</span>
@@ -189,6 +213,7 @@ function SectorCard({
       <div className="mt-2.5 pt-2 border-t border-white/[0.05] text-[9.5px] text-white/20">
         %เปลี่ยน = realtime · breadth/stage ณ สแกน {scanDateLabel}
       </div>
+      </div>
     </div>
   );
 }
@@ -251,7 +276,8 @@ export default function SectorOverview({ breadthBySector, scanDateLabel }: Props
         <div>
           <h2 className="text-[13px] font-semibold text-white">Sector</h2>
           <p className="text-[11px] text-white/30 mt-0.5">
-            % เปลี่ยนแปลง realtime + breadth/stage ต่อ sector · กด card เพื่อดู subsector
+            <span className="md:hidden">% realtime · แตะดู subsector</span>
+            <span className="hidden md:inline">% เปลี่ยนแปลง realtime + breadth/stage ต่อ sector · กด card เพื่อดู subsector</span>
           </p>
         </div>
 

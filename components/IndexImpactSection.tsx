@@ -110,7 +110,10 @@ export default function IndexImpactSection() {
           <p className="text-[11px] font-semibold uppercase tracking-wider text-white/25 mb-0.5">
             Index Impact วันนี้
           </p>
-          <p className="text-[12px] text-white/30">SET100 · คำนวณจาก market-cap weighted</p>
+          <p className="text-[12px] text-white/30">
+            <span className="md:hidden">SET100</span>
+            <span className="hidden md:inline">SET100 · คำนวณจาก market-cap weighted</span>
+          </p>
         </div>
         {setIdx && setIdx.current > 0 && (
           <div className="text-right">

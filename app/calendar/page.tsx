@@ -6,6 +6,8 @@ import { RefreshCw, Search, Calendar as CalendarIcon, ArrowDown, ArrowUp } from 
 import Pagination from '@/components/Pagination';
 import TableSkeleton from '@/components/TableSkeleton';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
+import type { EarningsAnnouncement, EarningsFeed } from '@/app/api/earnings/route';
+import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
 
 type SortKey = 'xDate' | 'ticker' | 'caType' | 'detail' | 'payDate';
 type SortConfig = { key: SortKey; dir: 'asc' | 'desc' } | null;
@@ -102,6 +104,54 @@ function BucketBadge({ row }: { row: CalendarRow }) {
   );
 }
 
+// Earnings-performance dot for a ticker, colored via the shared bucket
+// classification (see lib/earningsBucket.ts) - "—" when the ticker has no
+// recent earnings announcement on file.
+function EarningsDot({ ann }: { ann: EarningsAnnouncement | undefined }) {
+  if (!ann || !ann.bucket) return <span className="text-[13px] text-white/20">—</span>;
+  const yoy = ann.netProfitYoY;
+  const title = `${BUCKET_LABEL[ann.bucket]}${ann.quarter ? ` · ${ann.quarter}` : ''}${yoy != null ? ` · YoY ${yoy >= 0 ? '+' : ''}${yoy.toFixed(1)}%` : ''}`;
+  return (
+    <span title={title} className="inline-flex items-center gap-1.5 whitespace-nowrap">
+      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[ann.bucket] }} />
+      <span className="text-[12px] font-medium" style={{ color: BUCKET_COLOR[ann.bucket] }}>
+        {BUCKET_LABEL[ann.bucket]}
+      </span>
+    </span>
+  );
+}
+
+function EarningsLegend() {
+  // Mobile: collapsed by default to a row of color dots + short label (tap
+  // to see what each color means) so it doesn't eat vertical space above the
+  // table. Desktop always shows the full legend - there's room for it.
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className="px-1">
+      <button
+        onClick={() => setExpanded(v => !v)}
+        className="md:hidden flex items-center gap-2 text-left"
+      >
+        <span className="flex items-center gap-1">
+          {BUCKET_ORDER.map(b => (
+            <span key={b} className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[b] }} />
+          ))}
+        </span>
+        <span className="text-[11px] text-white/25">สีผลประกอบการ {expanded ? '▲' : '▼'}</span>
+      </button>
+      <div className={`${expanded ? 'flex' : 'hidden'} md:flex flex-wrap gap-x-4 gap-y-1.5 items-center mt-2 md:mt-0`}>
+        <span className="text-[11px] text-white/25">สีผลประกอบการ (เทียบงวดเดียวกันปีก่อน):</span>
+        {BUCKET_ORDER.map(b => (
+          <span key={b} className="inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[b] }} />
+            <span className="text-[11px] text-white/45">{BUCKET_LABEL[b]}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function CalendarPage() {
   const router = useRouter();
   const [rows, setRows] = useState<CalendarRow[]>([]);
@@ -113,6 +163,25 @@ export default function CalendarPage() {
   const [toDate, setToDate] = useState(addDaysISO(todayISO(), 30));
   const [page, setPage] = useState(1);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  const [earningsByTicker, setEarningsByTicker] = useState<Record<string, EarningsAnnouncement>>({});
+
+  // Earnings performance is independent of the CA date-range filter, so fetch
+  // it once - not tied to loadData()/fromDate/toDate.
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch('/api/earnings');
+        if (!res.ok) return;
+        const data: EarningsFeed = await res.json();
+        const map: Record<string, EarningsAnnouncement> = {};
+        for (const ann of data.announcements ?? []) {
+          const prev = map[ann.ticker];
+          if (!prev || ann.announceDate > prev.announceDate) map[ann.ticker] = ann;
+        }
+        setEarningsByTicker(map);
+      } catch { /* earnings dot just shows "—" on failure */ }
+    })();
+  }, []);
 
   const handleSort = (key: SortKey) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'asc' });
@@ -167,7 +236,8 @@ export default function CalendarPage() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-[18px] font-bold text-white">ปฏิทินหลักทรัพย์</h1>
-          <p className="text-[12px] text-white/35 mt-0.5">XD / XR / XW / XM / อื่นๆ (XA) · SET Corporate Action Calendar</p>
+          <p className="text-[12px] text-white/35 mt-0.5 md:hidden">CA + สีผลประกอบการ</p>
+          <p className="hidden md:block text-[12px] text-white/35 mt-0.5">XD / XR / XW / XM / อื่นๆ (XA) · SET Corporate Action Calendar</p>
         </div>
         <button
           onClick={() => loadData(fromDate, toDate)}
@@ -226,6 +296,8 @@ export default function CalendarPage() {
         </div>
       </div>
 
+      <EarningsLegend />
+
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #4B9EF5' }}>
         {loading ? (
           <TableSkeleton rows={10} />
@@ -255,6 +327,7 @@ export default function CalendarPage() {
                   <SortTh sortKey="caType" label="เครื่องหมาย" sortConfig={sortConfig} onSort={handleSort} />
                   <SortTh sortKey="detail" label="รายละเอียด" sortConfig={sortConfig} onSort={handleSort} className="!normal-case" />
                   <SortTh sortKey="payDate" label="วันจ่าย/ประชุม" sortConfig={sortConfig} onSort={handleSort} />
+                  <th className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider whitespace-nowrap text-white/25">ผลประกอบการ</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.03]">
@@ -278,6 +351,9 @@ export default function CalendarPage() {
                     </td>
                     <td className="px-3 py-3 text-[14px] text-white/55 whitespace-nowrap">
                       {isoToThaiLabel(row.payDate)}
+                    </td>
+                    <td className="px-3 py-3 whitespace-nowrap">
+                      <EarningsDot ann={earningsByTicker[row.ticker]} />
                     </td>
                   </tr>
                 ))}
