@@ -24,10 +24,6 @@
     "Reason": "missing: PE_Ratio"
   },
   {
-    "Ticker": "KCG",
-    "Reason": "missing: ROE, PE_Ratio"
-  },
-  {
     "Ticker": "MICRO",
     "Reason": "missing: Revenue_Growth_YoY, NetProfit_Growth_QoQY"
   },
@@ -73,6 +69,10 @@
   },
   {
     "Ticker": "BANPU",
+    "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
+  },
+  {
+    "Ticker": "SVI",
     "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
   }
 ]

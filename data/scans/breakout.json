@@ -1,23 +1,13 @@
 [
   {
-    "Ticker": "RATCH",
-    "Price": 38.0,
-    "Box_Low": 27.47,
-    "Box_High(Break)": 38.0,
+    "Ticker": "CKP",
+    "Price": 2.68,
+    "Box_Low": 2.12,
+    "Box_High(Break)": 2.68,
     "To_Break": "0.0%",
-    "ADTV(MB)": 176.1,
-    "Box_Width": "38.33%",
-    "SMA150_Chg": 0.725
-  },
-  {
-    "Ticker": "TVO",
-    "Price": 27.0,
-    "Box_Low": 20.13,
-    "Box_High(Break)": 27.0,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 16.6,
-    "Box_Width": "34.12%",
-    "SMA150_Chg": 0.564
+    "ADTV(MB)": 24.0,
+    "Box_Width": "26.45%",
+    "SMA150_Chg": 0.043
   },
   {
     "Ticker": "BEM",
@@ -40,26 +30,6 @@
     "SMA150_Chg": 0.285
   },
   {
-    "Ticker": "THANI",
-    "Price": 2.18,
-    "Box_Low": 1.51,
-    "Box_High(Break)": 2.18,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 30.6,
-    "Box_Width": "44.48%",
-    "SMA150_Chg": 0.035
-  },
-  {
-    "Ticker": "CKP",
-    "Price": 2.68,
-    "Box_Low": 2.12,
-    "Box_High(Break)": 2.68,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 24.0,
-    "Box_Width": "26.45%",
-    "SMA150_Chg": 0.043
-  },
-  {
     "Ticker": "EGCO",
     "Price": 131.5,
     "Box_Low": 107.36,
@@ -68,6 +38,16 @@
     "ADTV(MB)": 146.9,
     "Box_Width": "22.48%",
     "SMA150_Chg": 1.299
+  },
+  {
+    "Ticker": "TISCO",
+    "Price": 128.5,
+    "Box_Low": 101.17,
+    "Box_High(Break)": 128.5,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 412.2,
+    "Box_Width": "27.01%",
+    "SMA150_Chg": 2.501
   },
   {
     "Ticker": "TTW",
@@ -80,14 +60,34 @@
     "SMA150_Chg": 0.142
   },
   {
-    "Ticker": "TISCO",
-    "Price": 128.5,
-    "Box_Low": 101.17,
-    "Box_High(Break)": 128.5,
+    "Ticker": "THANI",
+    "Price": 2.18,
+    "Box_Low": 1.51,
+    "Box_High(Break)": 2.18,
     "To_Break": "0.0%",
-    "ADTV(MB)": 412.2,
-    "Box_Width": "27.01%",
-    "SMA150_Chg": 2.501
+    "ADTV(MB)": 30.6,
+    "Box_Width": "44.48%",
+    "SMA150_Chg": 0.035
+  },
+  {
+    "Ticker": "RATCH",
+    "Price": 38.0,
+    "Box_Low": 27.47,
+    "Box_High(Break)": 38.0,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 176.1,
+    "Box_Width": "38.33%",
+    "SMA150_Chg": 0.725
+  },
+  {
+    "Ticker": "TVO",
+    "Price": 27.0,
+    "Box_Low": 20.13,
+    "Box_High(Break)": 27.0,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 16.6,
+    "Box_Width": "34.12%",
+    "SMA150_Chg": 0.564
   },
   {
     "Ticker": "SJWD",

@@ -7,6 +7,9 @@ import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { useInfiniteRows } from '@/lib/useInfiniteRows';
+import MobileScanProgress from '@/components/MobileScanProgress';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
@@ -59,6 +62,12 @@ export default function BreakoutPage() {
     return result;
   }, [toBreakMax, boxWidthMax, sortConfig, diffFilter, newSet]);
 
+  const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
+    filtered,
+    [toBreakMax, boxWidthMax, sortConfig, diffFilter, newSet]
+  );
+  const displayRows = isMobile ? visibleRows : filtered;
+
   return (
     <div className="p-4 md:p-6 space-y-4">
       <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -108,6 +117,8 @@ export default function BreakoutPage() {
       {diffFilter === 'dropped' ? (
         <DroppedTickersList scanName="breakout" />
       ) : (
+      <>
+      <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
@@ -124,7 +135,7 @@ export default function BreakoutPage() {
           </tr>
         </thead>
         <tbody>
-          {filtered.map((s, i) => {
+          {displayRows.map((s, i) => {
             const toBrk = s['To_Break'];
             const broke = toBrk <= 0;
             return (
@@ -173,6 +184,13 @@ export default function BreakoutPage() {
               </tr>
             );
           })}
+          {isMobile && visibleCount < totalCount && (
+            <tr ref={sentinelRef}>
+              <td colSpan={10} className="py-3 text-center text-[11px] text-white/25">
+                กำลังโหลดเพิ่ม…
+              </td>
+            </tr>
+          )}
           {filtered.length === 0 && (
             <tr>
               <td colSpan={10} className="py-12 text-center text-[13px] text-white/25">
@@ -182,9 +200,11 @@ export default function BreakoutPage() {
           )}
         </tbody>
       </TableWrap>
+      </>
       )}
       </>
       )}
+      <ScrollToTopButton />
     </div>
   );
 }

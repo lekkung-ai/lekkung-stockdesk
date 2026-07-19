@@ -12,6 +12,9 @@ import { scanGeneratedAt } from '@/lib/scanData';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { useInfiniteRows } from '@/lib/useInfiniteRows';
+import MobileScanProgress from '@/components/MobileScanProgress';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 import TrendSparkline from '@/components/TrendSparkline';
 import { ChangeBadge } from '@/components/ChangeBadge';
 import { sparklineMap } from '@/lib/sparklineData';
@@ -225,6 +228,13 @@ function QuantScannerContent() {
   const safePage = Math.min(page, totalPages);
   const pageRows = rows.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
 
+  const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
+    rows,
+    [sigFilter, stages, sortConfig],
+    'scanner'
+  );
+  const displayRows = isMobile ? visibleRows : pageRows;
+
   // scatter mode ใช้ rows ทั้งหมดที่ผ่าน filter ปัจจุบัน (ไม่ตัดหน้าเหมือนตาราง)
   const scatterPoints: ScatterPoint[] = useMemo(() => {
     return rows
@@ -339,6 +349,8 @@ function QuantScannerContent() {
       )}
 
       {viewMode === 'table' && (
+      <>
+      <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
@@ -357,8 +369,8 @@ function QuantScannerContent() {
           </tr>
         </thead>
         <tbody>
-          {pageRows.map((row, i) => {
-            const rank = (safePage - 1) * PER_PAGE + i + 1;
+          {displayRows.map((row, i) => {
+            const rank = isMobile ? i + 1 : (safePage - 1) * PER_PAGE + i + 1;
             const livePrice = priceMap[row.ticker];
             const changePct = changePctMap[row.ticker];
             const displayPrice = livePrice ?? row.price;
@@ -531,6 +543,14 @@ function QuantScannerContent() {
             );
           })}
 
+          {isMobile && visibleCount < totalCount && (
+            <tr ref={sentinelRef}>
+              <td colSpan={12} className="py-3 text-center text-[11px] text-white/25">
+                กำลังโหลดเพิ่ม…
+              </td>
+            </tr>
+          )}
+
           {rows.length === 0 && (
             <tr>
               <td colSpan={12} className="py-12 text-center text-[13px] text-white/25">
@@ -540,11 +560,15 @@ function QuantScannerContent() {
           )}
         </tbody>
       </TableWrap>
+      </>
       )}
 
       {viewMode === 'table' && totalPages > 1 && (
-        <Pagination page={safePage} totalPages={totalPages} onChange={setPage} />
+        <div className="hidden md:block">
+          <Pagination page={safePage} totalPages={totalPages} onChange={setPage} />
+        </div>
       )}
+      <ScrollToTopButton />
     </div>
   );
 }

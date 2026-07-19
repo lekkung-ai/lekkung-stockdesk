@@ -44,7 +44,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-1 flex-col min-w-0 overflow-hidden">
         <TopBar onMenuClick={toggleSidebar} sidebarDesktopOpen={desktopOpen} />
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <main id="app-scroll" className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>
   );
