@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-20T17:14:52.746761+07:00",
+  "generatedAt": "2026-07-20T19:03:20.818699+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 6,
+      "count": 7,
       "top3": [
         {
           "ticker": "KSL",
           "netProfitYoY": 112.86983050847456
         },
         {
-          "ticker": "KTC",
-          "netProfitYoY": 17.44339220347141
+          "ticker": "LHFG",
+          "netProfitYoY": 26.341352742056973
         },
         {
-          "ticker": "TTB",
-          "netProfitYoY": 10.16528291450418
+          "ticker": "KTC",
+          "netProfitYoY": 17.44339220347141
         }
       ]
     },
@@ -38,12 +38,8 @@
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 4,
+      "count": 3,
       "top3": [
-        {
-          "ticker": "PICO",
-          "netProfitYoY": 74.28843026841444
-        },
         {
           "ticker": "CITY",
           "netProfitYoY": 71.98932503057934
@@ -51,6 +47,10 @@
         {
           "ticker": "CHO",
           "netProfitYoY": 39.8878616540406
+        },
+        {
+          "ticker": "DEXON",
+          "netProfitYoY": 3.0516953863257363
         }
       ]
     },
@@ -75,6 +75,30 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "LHFG",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-20T17:44:01+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 696084000.0,
+      "netProfitPrior": 550955000.0,
+      "netProfitYoY": 26.341352742056973,
+      "eps": 0.033,
+      "epsPrior": 0.026,
+      "epsYoY": 26.923076923076934,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105478001&symbol=LHFG",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845038234321&symbol=LHFG",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105478101&symbol=LHFG",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "TTB",
       "sector": "Financials",
@@ -362,39 +386,9 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none"
-    },
-    {
-      "ticker": "PICO",
-      "sector": "Services",
-      "subsector": "Services",
-      "market": "MAI",
-      "announceDate": "2026-06-05T17:47:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 เมษายน 2569",
-      "netProfit": -7662670.0,
-      "netProfitPrior": -29802420.0,
-      "netProfitYoY": 74.28843026841444,
-      "eps": -0.03559,
-      "epsPrior": -0.13843,
-      "epsYoY": 74.29025500252835,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "loss_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=104985101&symbol=PICO",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17806158051181&symbol=PICO",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105008301&symbol=PICO",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการให้บริการสำหรับไตรมาสสิ้นสุดวันที่ 30 เมษายน 2569 จำนวน 220.6 ล้านบาท ลดลง 14.4 ล้านบาท หรือ ร้อยละ 6 โดยรวมเป็นผลมาจากรายได้จาก ธุรกิจงานแสดงสินค้าและนิทรรศการ ลดลง 11.5 ล้านบาท เป็น 122.1 ล้าน บาท",
-      "reason_source": "mda_extract"
     }
   ],
   "calendar": [
-    {
-      "ticker": "PICO",
-      "date": "2026-06-05T17:47:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
     {
       "ticker": "TNH",
       "date": "2026-06-08T19:20:00+07:00",
@@ -464,6 +458,12 @@
     {
       "ticker": "TTB",
       "date": "2026-07-20T12:32:05+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "LHFG",
+      "date": "2026-07-20T17:44:01+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -6535,13 +6535,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-25T17:03:00+07:00"
-    },
-    {
-      "ticker": "LHFG",
-      "date": "2026-08-25T17:41:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-25T17:41:00+07:00"
     },
     {
       "ticker": "CREDIT",
