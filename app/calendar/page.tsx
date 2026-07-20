@@ -458,31 +458,38 @@ export default function CalendarPage() {
         ))}
       </div>
 
-      {/* Event-type filter - default "all" so rare XR events are never hidden */}
-      <div className="flex flex-wrap gap-1.5 items-center">
-        {EVENT_FILTER_OPTS.map(o => (
-          <button
-            key={o.key}
-            onClick={() => setEventFilter(o.key)}
-            className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
-              eventFilter === o.key ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
-            }`}
-          >
-            {o.label}
-          </button>
-        ))}
-        <span className="text-white/15 mx-1">·</span>
-        {SCOPE_FILTER_OPTS.map(o => (
-          <button
-            key={o.key}
-            onClick={() => setScopeFilter(o.key)}
-            className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
-              scopeFilter === o.key ? 'bg-white/10 text-white/80' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
-            }`}
-          >
-            {o.label}
-          </button>
-        ))}
+      {/* Two independent dimensions, each labeled and on its own row so this
+          doesn't read as one flat row of 8 buttons - event TYPE (default
+          "all" so rare XR events are never hidden) and STOCK scope. */}
+      <div className="space-y-1.5">
+        <div className="flex flex-wrap gap-1.5 items-center">
+          <span className="text-[11px] text-white/30 w-14 flex-shrink-0">ประเภท</span>
+          {EVENT_FILTER_OPTS.map(o => (
+            <button
+              key={o.key}
+              onClick={() => setEventFilter(o.key)}
+              className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
+                eventFilter === o.key ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
+        <div className="flex flex-wrap gap-1.5 items-center">
+          <span className="text-[11px] text-white/30 w-14 flex-shrink-0">หุ้น</span>
+          {SCOPE_FILTER_OPTS.map(o => (
+            <button
+              key={o.key}
+              onClick={() => setScopeFilter(o.key)}
+              className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
+                scopeFilter === o.key ? 'bg-white/10 text-white/80' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {viewMode === 'week' ? (

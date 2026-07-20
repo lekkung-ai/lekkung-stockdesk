@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart } from 'lucide-react';
+import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart, X } from 'lucide-react';
 import TableSkeleton from '@/components/TableSkeleton';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
@@ -70,18 +70,30 @@ const EMPTY_FEED: EarningsFeed = {
   buckets: {} as EarningsFeed['buckets'], announcements: [], calendar: [],
 };
 
-// ── Bucket summary cards ────────────────────────────────────────────────────
+// ── Bucket summary cards - clickable, IS the status filter (not a separate
+// row of filter buttons duplicating the same 6 states below) ───────────────
 
-function BucketCards({ feed }: { feed: EarningsFeed }) {
+function BucketCards({
+  feed, activeFilter, onFilterChange,
+}: {
+  feed: EarningsFeed;
+  activeFilter: BucketFilterOpt;
+  onFilterChange: (b: BucketFilterOpt) => void;
+}) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
       {BUCKET_ORDER.map(key => {
         const b = feed.buckets[key];
         const color = BUCKET_COLOR[key];
+        const isActive = activeFilter === key;
         return (
-          <div
+          <button
             key={key}
-            className="bg-[#13161e] border border-white/[0.07] rounded-xl p-3.5"
+            onClick={() => onFilterChange(isActive ? 'ทั้งหมด' : key)}
+            title={isActive ? 'แตะเพื่อยกเลิกกรอง' : `กรองตาราง: ${BUCKET_LABEL[key]}`}
+            className={`text-left bg-[#13161e] border rounded-xl p-3.5 transition-colors ${
+              isActive ? 'border-white/25 bg-white/[0.04]' : 'border-white/[0.07] hover:border-white/15'
+            }`}
             style={{ borderLeft: `3px solid ${color}` }}
           >
             <div className="text-label font-semibold" style={{ color }}>{BUCKET_LABEL[key]}</div>
@@ -100,7 +112,7 @@ function BucketCards({ feed }: { feed: EarningsFeed }) {
                 ))
               )}
             </div>
-          </div>
+          </button>
         );
       })}
     </div>
@@ -232,7 +244,6 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
 
 const BUCKET_FILTER_OPTS = ['ทั้งหมด', ...BUCKET_ORDER] as const;
 type BucketFilterOpt = (typeof BUCKET_FILTER_OPTS)[number];
-type ProfitFilterOpt = 'all' | 'profit' | 'loss';
 
 function YoyBadge({ value }: { value: number | null }) {
   if (value == null) return <span className="text-meta">—</span>;
@@ -248,14 +259,16 @@ function AnnouncementsTable({
   announcements,
   onSelect,
   selectedTicker,
+  bucketFilter,
+  onClearBucketFilter,
 }: {
   announcements: EarningsAnnouncement[];
   onSelect: (a: EarningsAnnouncement) => void;
   selectedTicker: string | null;
+  bucketFilter: BucketFilterOpt;
+  onClearBucketFilter: () => void;
 }) {
   const router = useRouter();
-  const [bucketFilter, setBucketFilter] = useState<BucketFilterOpt>('ทั้งหมด');
-  const [profitFilter, setProfitFilter] = useState<ProfitFilterOpt>('all');
   const [quarterFilter, setQuarterFilter] = useState('ทั้งหมด');
   const [query, setQuery] = useState('');
 
@@ -268,11 +281,10 @@ function AnnouncementsTable({
   const filtered = useMemo(() => {
     return announcements
       .filter(a => bucketFilter === 'ทั้งหมด' || a.bucket === bucketFilter)
-      .filter(a => profitFilter === 'all' || (profitFilter === 'profit' ? (a.netProfit ?? -1) > 0 : a.netProfit != null && a.netProfit <= 0))
       .filter(a => quarterFilter === 'ทั้งหมด' || a.quarter === quarterFilter)
       .filter(a => !query.trim() || a.ticker.toLowerCase().includes(query.trim().toLowerCase()))
       .sort((a, b) => (b.announceDate || '').localeCompare(a.announceDate || ''));
-  }, [announcements, bucketFilter, profitFilter, quarterFilter, query]);
+  }, [announcements, bucketFilter, quarterFilter, query]);
 
   // Row click always opens the detail panel now - desktop docks it beside
   // the table, narrow screens get a bottom sheet instead (see
@@ -285,38 +297,15 @@ function AnnouncementsTable({
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap gap-2 items-center">
-        <div className="flex flex-wrap gap-1.5">
-          {BUCKET_FILTER_OPTS.map(b => (
-            <button
-              key={b}
-              onClick={() => setBucketFilter(b)}
-              className={`px-3 py-1.5 rounded text-label font-semibold transition-all ${
-                bucketFilter === b
-                  ? (b === 'ทั้งหมด' ? 'bg-white/15 text-white' : BUCKET_BADGE_STYLE[b as EarningsBucket])
-                  : 'bg-white/[0.04] text-meta hover:text-white/60'
-              }`}
-            >
-              {b === 'ทั้งหมด' ? 'ทั้งหมด' : BUCKET_LABEL[b as EarningsBucket]}
+        <span className="text-label text-meta whitespace-nowrap">กรองเพิ่ม:</span>
+        {bucketFilter !== 'ทั้งหมด' && (
+          <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-label font-semibold ${BUCKET_BADGE_STYLE[bucketFilter as EarningsBucket]}`}>
+            {BUCKET_LABEL[bucketFilter as EarningsBucket]}
+            <button onClick={onClearBucketFilter} className="hover:opacity-70" title="ล้างตัวกรองสถานะ">
+              <X size={11} />
             </button>
-          ))}
-          <span className="w-px self-stretch bg-white/[0.08] mx-0.5" />
-          <button
-            onClick={() => setProfitFilter(f => (f === 'profit' ? 'all' : 'profit'))}
-            className={`px-3 py-1.5 rounded text-label font-semibold transition-all ${
-              profitFilter === 'profit' ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-white/[0.04] text-meta hover:text-white/60'
-            }`}
-          >
-            มีกำไร
-          </button>
-          <button
-            onClick={() => setProfitFilter(f => (f === 'loss' ? 'all' : 'loss'))}
-            className={`px-3 py-1.5 rounded text-label font-semibold transition-all ${
-              profitFilter === 'loss' ? 'bg-[#E24B4A]/15 text-[#E24B4A]' : 'bg-white/[0.04] text-meta hover:text-white/60'
-            }`}
-          >
-            ขาดทุน
-          </button>
-        </div>
+          </span>
+        )}
         <select
           value={quarterFilter}
           onChange={e => setQuarterFilter(e.target.value)}
@@ -585,6 +574,7 @@ export default function EarningsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState<EarningsAnnouncement | null>(null);
+  const [bucketFilter, setBucketFilter] = useState<BucketFilterOpt>('ทั้งหมด');
 
   const announcedCount = useMemo(() => new Set(feed.announcements.map(a => a.ticker)).size, [feed.announcements]);
   const quarterCount = useMemo(
@@ -668,8 +658,14 @@ export default function EarningsPage() {
           <div className="flex gap-4 items-stretch">
             <div className="flex-1 min-w-0 space-y-4">
               <WeekCalendarStrip feed={feed} />
-              <BucketCards feed={feed} />
-              <AnnouncementsTable announcements={feed.announcements} onSelect={setSelected} selectedTicker={selected?.ticker ?? null} />
+              <BucketCards feed={feed} activeFilter={bucketFilter} onFilterChange={setBucketFilter} />
+              <AnnouncementsTable
+                announcements={feed.announcements}
+                onSelect={setSelected}
+                selectedTicker={selected?.ticker ?? null}
+                bucketFilter={bucketFilter}
+                onClearBucketFilter={() => setBucketFilter('ทั้งหมด')}
+              />
               <p className="text-label text-meta text-right">
                 แหล่งข้อมูล: SET (ผ่าน Settrade) · ลิงก์เอกสารเปิดที่ set.or.th โดยตรง · ครอบคลุม {feed.universeSize} หลักทรัพย์
               </p>
