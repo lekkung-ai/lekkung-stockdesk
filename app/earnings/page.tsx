@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart } from 'lucide-react';
 import TableSkeleton from '@/components/TableSkeleton';
@@ -159,6 +160,12 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
           >
             <ChevronRight size={13} />
           </button>
+          <Link
+            href="/calendar"
+            className="ml-1.5 text-label text-blue-400 hover:text-blue-300 whitespace-nowrap"
+          >
+            ดูปฏิทินเต็ม →
+          </Link>
         </div>
       </div>
 

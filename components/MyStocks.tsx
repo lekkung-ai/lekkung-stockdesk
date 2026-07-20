@@ -5,23 +5,10 @@ import { Plus, X, Search, Star } from 'lucide-react';
 import { useStock } from '@/context/stock';
 import { stockNames } from '@/lib/stockNames';
 import { peColor, roeColor } from '@/lib/utils';
+import { loadMyStockSymbols as loadSymbols, saveMyStockSymbols } from '@/lib/myStocks';
 import PriceChart from './PriceChart';
 
-const STORAGE_KEY = 'mystocks:symbols';
-
 type LivePrice = { price: number; changePercent: number };
-
-function loadSymbols(): string[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter((s): s is string => typeof s === 'string') : [];
-  } catch {
-    return [];
-  }
-}
 
 export default function MyStocks() {
   const { selectedMarket } = useStock();
@@ -43,8 +30,8 @@ export default function MyStocks() {
   // Persist whenever the list changes — but only after the initial load, so the
   // empty starting value doesn't overwrite the stored list on remount.
   useEffect(() => {
-    if (!hydrated || typeof window === 'undefined') return;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(symbols));
+    if (!hydrated) return;
+    saveMyStockSymbols(symbols);
   }, [symbols, hydrated]);
 
   // Fetch live prices for the current list whenever it changes.

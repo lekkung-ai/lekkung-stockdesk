@@ -61,14 +61,38 @@ function returnColor(n: number | null): string {
   return 'rgba(255,255,255,0.5)';
 }
 
-function TickerChip({ entry }: { entry: BestWorstEntry }) {
+const SHORT_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+function fmtShortDate(iso: string): string {
+  const [, m, d] = iso.split('-');
+  return `${parseInt(d)} ${SHORT_MONTHS[parseInt(m) - 1]}`;
+}
+
+function countOccurrences(entries: BestWorstEntry[]): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const e of entries) counts[e.ticker] = (counts[e.ticker] ?? 0) + 1;
+  return counts;
+}
+
+// Same ticker can legitimately appear more than once in a Best/Worst list -
+// different scan-signal dates, not a rendering bug - so always show the date
+// and flag the repeat count (×2) rather than let two identical-looking rows
+// silently sit side by side.
+function TickerChip({ entry, occurrenceCount }: { entry: BestWorstEntry; occurrenceCount: number }) {
   return (
     <Link
       href={`/stock/${entry.ticker}`}
       className="flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.07] transition-colors"
     >
-      <span className="text-[11.5px] font-semibold text-white/80">{entry.ticker}</span>
-      <span className="text-[11px] font-medium tabular-nums" style={{ color: returnColor(entry.return_pct) }}>
+      <span className="flex items-center gap-1.5 min-w-0">
+        <span className="text-label font-semibold text-white/80 truncate">{entry.ticker}</span>
+        {occurrenceCount > 1 && (
+          <span className="text-[10px] text-white/30 flex-shrink-0" title={`ติดลิสต์นี้ ${occurrenceCount} ครั้ง คนละวันสัญญาณ`}>
+            ×{occurrenceCount}
+          </span>
+        )}
+        <span className="text-[10px] text-white/25 tabular-nums flex-shrink-0">{fmtShortDate(entry.entry_date)}</span>
+      </span>
+      <span className="text-label font-medium tabular-nums flex-shrink-0" style={{ color: returnColor(entry.return_pct) }}>
         {fmtPct(entry.return_pct)}
       </span>
     </Link>
@@ -78,12 +102,14 @@ function TickerChip({ entry }: { entry: BestWorstEntry }) {
 function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard }) {
   const headline = card.horizons['5'];
   const color = SCAN_COLORS[scanKey] ?? '#7F77DD';
+  const bestCounts = countOccurrences(headline.best5);
+  const worstCounts = countOccurrences(headline.worst5);
 
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-[13px] font-bold text-white">{SCAN_LABELS[scanKey] ?? scanKey}</h3>
-        <span className="text-[10.5px] text-white/30 tabular-nums">{card.total_picks} picks สะสม</span>
+        <span className="text-label text-white/30 tabular-nums">{card.total_picks} picks สะสม</span>
       </div>
 
       <div>
@@ -91,7 +117,7 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
         <div className="text-[32px] font-bold tabular-nums leading-none" style={{ color }}>
           {headline.win_rate_pct != null ? `${headline.win_rate_pct.toFixed(0)}%` : '—'}
         </div>
-        <div className="text-[10.5px] text-white/25 mt-1">
+        <div className="text-label text-white/25 mt-1">
           {headline.n > 0 ? `จาก ${headline.n} entries ที่ครบ D+5 แล้ว` : 'ยังไม่มี entry ที่ครบ D+5'}
         </div>
       </div>
@@ -105,8 +131,11 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
               <div className="text-[13px] font-semibold tabular-nums" style={{ color: returnColor(m.avg_return_pct) }}>
                 {fmtPct(m.avg_return_pct)}
               </div>
-              <div className="text-[9px] text-white/20 mt-0.5">
-                {m.excess_return_pct != null ? `excess ${fmtPct(m.excess_return_pct)}` : 'excess —'}
+              <div
+                className="text-[9px] text-white/20 mt-0.5"
+                title="ส่วนต่าง = ผลตอบแทนเฉลี่ยของ scan ลบผลตอบแทน SET ช่วงเดียวกัน"
+              >
+                {m.excess_return_pct != null ? `ส่วนต่าง ${fmtPct(m.excess_return_pct)}` : 'ส่วนต่าง —'}
               </div>
             </div>
           );
@@ -118,13 +147,13 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
           <div>
             <div className="text-[9.5px] uppercase tracking-wider text-[#1D9E75]/70 mb-1.5">Best 5 (D+5)</div>
             <div className="space-y-1">
-              {headline.best5.map(e => <TickerChip key={e.ticker + e.entry_date} entry={e} />)}
+              {headline.best5.map(e => <TickerChip key={e.ticker + e.entry_date} entry={e} occurrenceCount={bestCounts[e.ticker]} />)}
             </div>
           </div>
           <div>
             <div className="text-[9.5px] uppercase tracking-wider text-[#E24B4A]/70 mb-1.5">Worst 5 (D+5)</div>
             <div className="space-y-1">
-              {headline.worst5.map(e => <TickerChip key={e.ticker + e.entry_date} entry={e} />)}
+              {headline.worst5.map(e => <TickerChip key={e.ticker + e.entry_date} entry={e} occurrenceCount={worstCounts[e.ticker]} />)}
             </div>
           </div>
         </div>
@@ -144,8 +173,18 @@ function ComparisonTable({ horizon }: { horizon: string }) {
             <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">Avg Return</th>
             <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">Median</th>
             <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">Win Rate</th>
-            <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">vs SET</th>
-            <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">Excess</th>
+            <th
+              className="px-3 py-2 text-label font-semibold text-white/25 text-right"
+              title="ผลตอบแทนของดัชนี SET ในช่วง D+1 ถึง D+N เดียวกันกับที่ scan ถืออยู่"
+            >
+              SET ช่วงเดียวกัน
+            </th>
+            <th
+              className="px-3 py-2 text-label font-semibold text-white/25 text-right"
+              title="ส่วนต่าง = ผลตอบแทนเฉลี่ยของ scan ลบผลตอบแทนของ SET ช่วงเดียวกัน — ค่าบวกแปลว่า scan นี้ชนะตลาดจริง"
+            >
+              ส่วนต่าง
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-white/[0.04]">
@@ -186,8 +225,20 @@ export default function ReportCardPage() {
     <div className="p-4 md:p-6 space-y-5">
       <div>
         <h1 className="text-[18px] font-bold text-white">Report Card</h1>
-        <p className="text-[12px] text-white/35 mt-0.5">
+        <p className="text-label text-meta mt-0.5">
           ผลตอบแทนย้อนหลังของแต่ละ scan · ข้อมูล {data.history_range.first_date} ถึง {data.history_range.last_date} ({data.history_range.n_dates} วัน)
+        </p>
+      </div>
+
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-2">
+        <p className="text-body text-ink leading-relaxed">
+          หน้านี้วัดว่า &ldquo;ถ้าซื้อหุ้นทุกตัวที่ scan เจอ ตามราคาปิดของวันทำการถัดไป แล้วถือไว้ 5 / 10 / 20 วันทำการ
+          จะได้ผลตอบแทนเฉลี่ยเท่าไหร่ และเทียบกับดัชนี SET ในช่วงเวลาเดียวกันแล้วชนะหรือแพ้&rdquo;
+        </p>
+        <p className="text-label text-white/45 leading-relaxed">
+          วิธีอ่าน: เทียบ &ldquo;ส่วนต่าง&rdquo; (ไม่ใช่แค่ผลตอบแทนเฉลี่ยเฉยๆ) ว่า scan ไหนเอาชนะตลาดได้จริง — ถ้า Win Rate สูง
+          แต่ส่วนต่างติดลบ แปลว่า scan นั้นให้กำไรบ่อยก็จริง แต่กำไรน้อยกว่าที่ถือดัชนี SET เฉยๆ เสียอีก (ตลาดโดยรวมช่วงนั้นวิ่งดีกว่า)
+          ควรดูทั้งสองตัวเลขคู่กันเสมอ
         </p>
       </div>
 
@@ -218,7 +269,7 @@ export default function ReportCardPage() {
         <div className="divide-y divide-white/[0.06]">
           {HORIZONS.map(h => (
             <div key={h} className="p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-white/30 mb-2 px-1">D+{h} วันทำการ</p>
+              <p className="text-label font-semibold text-white/30 mb-2 px-1">D+{h} วันทำการ</p>
               <ComparisonTable horizon={h} />
             </div>
           ))}
@@ -227,20 +278,20 @@ export default function ReportCardPage() {
 
       {/* ── Assumptions & disclaimer ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-3">
-        <h2 className="text-[12px] font-semibold text-white/70">หมายเหตุ</h2>
+        <h2 className="text-label font-semibold text-white/70">หมายเหตุ</h2>
         <ul className="space-y-1.5">
           {Object.entries(data.assumptions).map(([key, text]) => (
-            <li key={key} className="text-[11.5px] text-white/40 leading-relaxed flex items-start gap-2">
+            <li key={key} className="text-label text-white/40 leading-relaxed flex items-start gap-2">
               <span className="text-white/20 flex-shrink-0">•</span>
               <span>{text}</span>
             </li>
           ))}
         </ul>
-        <p className="text-[11.5px] text-white/50 font-medium pt-2 border-t border-white/[0.06]">
+        <p className="text-label text-white/50 font-medium pt-2 border-t border-white/[0.06]">
           ผลตอบแทนย้อนหลังไม่ได้การันตีผลลัพธ์ในอนาคต ใช้เพื่อประกอบการตัดสินใจเท่านั้น ไม่ใช่คำแนะนำการลงทุน
         </p>
         {data.generated_at && (
-          <p className="text-[10px] text-white/20">คำนวณล่าสุด: {formatThaiDate(data.generated_at)}</p>
+          <p className="text-label text-white/20">คำนวณล่าสุด: {formatThaiDate(data.generated_at)}</p>
         )}
       </div>
     </div>

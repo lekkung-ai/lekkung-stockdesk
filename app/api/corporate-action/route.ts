@@ -63,6 +63,13 @@ export interface CalendarRow {
   xDate: string;    // ISO date (yyyy-mm-dd)
   detail: string;
   payDate: string | null;
+  // Structured fields for the unified /calendar view's richer badges (kept
+  // alongside `detail` rather than replacing it, so existing consumers of
+  // the plain-text `detail` string are unaffected). null when not
+  // applicable to this row's caType or not present in the source data.
+  dividendAmount: number | null;    // XD: baht/share
+  ratio: string | null;             // XR/XW: e.g. "4:1"
+  subscriptionPrice: number | null; // XR: baht/share
 }
 
 const KNOWN_BUCKETS = new Set(['XD', 'XR', 'XW', 'XM']);
@@ -77,6 +84,13 @@ function toISODate(iso: string | null | undefined): string | null {
 
 function truncate(s: string, n: number): string {
   return s.length > n ? s.slice(0, n - 1) + '…' : s;
+}
+
+function parseNumeric(v: string | number | null | undefined): number | null {
+  if (v == null) return null;
+  if (typeof v === 'number') return Number.isFinite(v) ? v : null;
+  const n = parseFloat(v.replace(/,/g, ''));
+  return Number.isFinite(n) ? n : null;
 }
 
 function formatDetail(ca: RawCA): string {
@@ -175,6 +189,11 @@ export async function GET(req: NextRequest) {
               xDate,
               detail: formatDetail(ca),
               payDate: payDateOf(ca),
+              dividendAmount: ca.caType === 'XD'
+                ? (ca.dividend ?? parseNumeric(ca.dividendPayment) ?? parseNumeric(ca.tentativeDividend))
+                : null,
+              ratio: (ca.caType === 'XR' || ca.caType === 'XW') ? (ca.ratio ?? null) : null,
+              subscriptionPrice: ca.caType === 'XR' ? (ca.price ?? null) : null,
             });
           }
         }

@@ -86,7 +86,12 @@ def tickers_of(data) -> set:
 
 
 def load_ticker_prices(ticker: str):
-    """Returns a sorted list of (date_str, close_float) for one ticker, or [] if missing."""
+    """Returns a sorted list of (date_str, close_float, volume_float_or_None) for
+    one ticker, or [] if missing. Volume is carried alongside Close so
+    forward_return() can detect a trading halt (0 volume) inside the window -
+    a stock frozen at a stale Close during a suspension isn't tradeable at
+    that price, so a huge return spanning a halt is a data-quality issue, not
+    a real, actionable outcome."""
     path = os.path.join(DATA_ENGINE_HISTORY_DIR, f"{ticker}.csv")
     if not os.path.exists(path):
         return []
@@ -101,50 +106,86 @@ def load_ticker_prices(ticker: str):
             if not date_str or not close_raw:
                 continue
             try:
-                out.append((date_str, float(close_raw)))
+                close = float(close_raw)
             except ValueError:
                 continue
+            volume_raw = row.get("Volume")
+            try:
+                volume = float(volume_raw) if volume_raw not in (None, "") else None
+            except ValueError:
+                volume = None
+            out.append((date_str, close, volume))
     out.sort(key=lambda x: x[0])
     return out
 
 
 def load_set_index_series():
-    """Returns a sorted list of (date_str, close_float) for the SET Index, from breadth.json."""
+    """Returns a sorted list of (date_str, close_float, volume) for the SET
+    Index, from breadth.json. Volume is a constant non-zero placeholder (the
+    index itself is never "halted") purely so this series has the same
+    3-tuple shape forward_return() expects for both stock and benchmark
+    series."""
     breadth = load_json(os.path.join(SCANS_DIR, "breadth.json"))
     if not breadth or "set_index" not in breadth:
         return []
     rows = breadth["set_index"]
     if isinstance(rows, dict):
         rows = list(rows.values())
-    out = [(r["date"], float(r["close"])) for r in rows if r.get("date") and r.get("close") is not None]
+    out = [(r["date"], float(r["close"]), 1.0) for r in rows if r.get("date") and r.get("close") is not None]
     out.sort(key=lambda x: x[0])
     return out
 
 
 def build_date_index(series):
-    """date_str -> row index, for O(1) lookups into a sorted (date, close) list."""
-    return {d: i for i, (d, _c) in enumerate(series)}
+    """date_str -> row index, for O(1) lookups into a sorted (date, close, volume) list."""
+    return {row[0]: i for i, row in enumerate(series)}
+
+
+OUTLIER_RETURN_THRESHOLD_PCT = 40.0
+
+
+def _has_volume_halt(series, entry_idx: int, exit_idx: int) -> bool:
+    """True if any day in [entry_idx, exit_idx] (inclusive) has zero/missing
+    volume - the signature of a trading halt/suspension. A stock frozen at a
+    stale Close while suspended isn't tradeable at that price, so a Close-to-
+    Close return spanning a halt doesn't reflect a real, actionable outcome
+    (confirmed against real data: INGRS's reported -61% D+5 return was two
+    weeks of zero-volume suspension followed by the market's first real
+    repricing on resumption, not a stock anyone could have bought or sold at
+    the "entry" price used here)."""
+    for i in range(entry_idx, exit_idx + 1):
+        vol = series[i][2]
+        if vol is None or vol <= 0:
+            return True
+    return False
 
 
 def forward_return(series, date_index, signal_date: str, horizon: int):
     """
     Entry = close at D+1 (row after signal_date). Exit = close at D+horizon
-    (measured from signal_date, per the stated assumption). Returns None if
-    the signal date isn't in the series, or D+1 / D+horizon fall past the
-    end of available price history (not enough forward data yet).
+    (measured from signal_date, per the stated assumption). Returns
+    (return_pct, is_outlier) - return_pct is None if the signal date isn't in
+    the series, or D+1 / D+horizon fall past the end of available price
+    history (not enough forward data yet). is_outlier is True when the return
+    exceeds +/-40% AND the window contains a volume-halt signature - the
+    caller drops these from the stats (they're a data-quality artifact, not a
+    real tradeable outcome) rather than folding an unreachable price into
+    "average return".
     """
     if signal_date not in date_index:
-        return None
+        return None, False
     d_idx = date_index[signal_date]
     entry_idx = d_idx + 1
     exit_idx = d_idx + horizon
     if exit_idx >= len(series) or entry_idx >= len(series):
-        return None
+        return None, False
     entry_price = series[entry_idx][1]
     exit_price = series[exit_idx][1]
     if entry_price <= 0:
-        return None
-    return (exit_price / entry_price - 1.0) * 100.0
+        return None, False
+    ret = (exit_price / entry_price - 1.0) * 100.0
+    is_outlier = abs(ret) > OUTLIER_RETURN_THRESHOLD_PCT and _has_volume_halt(series, entry_idx, exit_idx)
+    return ret, is_outlier
 
 
 def first_appearances(dates, date_sets):
@@ -223,6 +264,7 @@ def main():
 
     result_scans = {}
     total_missing_price_file = 0
+    total_excluded_outliers = 0
 
     for scan_key, fname in SCANNERS.items():
         date_sets = {}
@@ -238,10 +280,13 @@ def main():
                 total_missing_price_file += 1
                 continue
             for h in HORIZONS:
-                ret = forward_return(series, tdate_index, entry_date, h)
+                ret, is_outlier = forward_return(series, tdate_index, entry_date, h)
                 if ret is None:
                     continue
-                set_ret = forward_return(set_series, set_index, entry_date, h) if set_series else None
+                if is_outlier:
+                    total_excluded_outliers += 1
+                    continue
+                set_ret, _ = forward_return(set_series, set_index, entry_date, h) if set_series else (None, False)
                 horizon_rows[h].append({
                     "ticker": ticker, "entry_date": entry_date,
                     "return_pct": ret, "set_return_pct": set_ret,
@@ -257,16 +302,24 @@ def main():
     if total_missing_price_file:
         print(f"[report-card] {total_missing_price_file} (ticker, entry) pairs skipped - no price CSV found "
               f"in {DATA_ENGINE_HISTORY_DIR}")
+    if total_excluded_outliers:
+        print(f"[report-card] {total_excluded_outliers} (ticker, horizon) pair(s) excluded as trading-halt outliers "
+              f"(|return| > {OUTLIER_RETURN_THRESHOLD_PCT:.0f}% with a zero-volume day in the window)")
 
     now = datetime.now(timezone(timedelta(hours=7))).isoformat()
     output = {
         "generated_at": now,
         "assumptions": {
-            "entry_price": "Close of D+1 (the trading day after the scan signal date D) — scans run after market close, so D+1 is the earliest realistic fill",
-            "horizons_measured_from": "D (the scan signal date), not the entry day — e.g. the D+5 return is close(D+5) / close(D+1) - 1",
-            "dedup": "a ticker appearing on consecutive scan dates counts as one entry, taken on the first day of that streak — not re-counted every day it stays on the list",
-            "excess_return": "scan's average return minus the SET Index's return over the identical D+1..D+N window",
-            "horizons_excluded_if_incomplete": "a (ticker, horizon) pair is dropped from that horizon's metrics if there isn't yet enough forward price history to reach D+N",
+            "entry_price": "ราคาเข้าซื้อ = ราคาปิดของวันทำการถัดไปหลังวันที่ scan ขึ้นสัญญาณ (scan รันหลังตลาดปิด วันถัดไปคือวันแรกที่ซื้อได้จริง)",
+            "horizons_measured_from": "นับระยะเวลาจากวันที่ scan ขึ้นสัญญาณ ไม่ใช่จากวันที่เข้าซื้อ เช่น ผลตอบแทน D+5 คือ ราคาปิด(D+5) หาร ราคาปิด(D+1) ลบ 1",
+            "dedup": "หุ้นที่ติด scan ต่อเนื่องหลายวัน นับเป็น 1 ครั้งจากวันแรกที่ติดเท่านั้น ไม่นับซ้ำทุกวันที่ยังอยู่ในลิสต์",
+            "excess_return": "ผลตอบแทนเฉลี่ยของ scan ลบผลตอบแทนดัชนี SET ในช่วงเวลาเดียวกัน (D+1 ถึง D+N)",
+            "horizons_excluded_if_incomplete": "คู่ (หุ้น, ช่วงเวลา) จะถูกตัดออกจากสถิติของช่วงนั้น ถ้ายังไม่มีข้อมูลราคาย้อนหลังพอจะไปถึง D+N",
+            "outlier_guard": (
+                f"รายการที่ผลตอบแทนเกิน ±{OUTLIER_RETURN_THRESHOLD_PCT:.0f}% และในช่วงเวลานั้นหุ้นมีวันที่ไม่มีการซื้อขายเลย "
+                "(หยุดพักการซื้อขาย/ขึ้นเครื่องหมายห้ามซื้อขาย) ถูกตัดออกจากสถิติ เพราะราคาที่ใช้คำนวณไม่ใช่ราคาที่ซื้อขายได้จริง — "
+                f"ตัดรายการผิดปกติ {total_excluded_outliers} รายการ"
+            ),
         },
         "history_range": {"first_date": dates[0], "last_date": dates[-1], "n_dates": len(dates)},
         "scans": result_scans,

@@ -1,19 +1,24 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-import { RefreshCw, Search, Calendar as CalendarIcon, ArrowDown, ArrowUp } from 'lucide-react';
-import Pagination from '@/components/Pagination';
+import Link from 'next/link';
+import { AlertTriangle, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import TableSkeleton from '@/components/TableSkeleton';
+import rawCombined from '@/data/scans/combined.json';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { EarningsAnnouncement, EarningsFeed } from '@/app/api/earnings/route';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
+import { loadMyStockSymbols } from '@/lib/myStocks';
 
-type SortKey = 'xDate' | 'ticker' | 'caType' | 'detail' | 'payDate';
-type SortConfig = { key: SortKey; dir: 'asc' | 'desc' } | null;
+// ─── Combined-scan price/universe lookup (for XD yield calc + "scan scope" filter) ───
+type CombinedEntry = { ticker: string; price: number };
+const _rawC = rawCombined as unknown as CombinedEntry[] | { data: CombinedEntry[] };
+const combinedData: CombinedEntry[] = Array.isArray(_rawC) ? _rawC : _rawC.data;
+const PRICE_MAP = new Map(combinedData.map(c => [c.ticker, c.price]));
+const SCAN_TICKERS = new Set(combinedData.map(c => c.ticker));
 
-const PER_PAGE = 20;
-const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+const WEEKDAYS_TH = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
 
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
@@ -23,128 +28,184 @@ function addDaysISO(iso: string, n: number): string {
   d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().slice(0, 10);
 }
-function isoToThaiLabel(iso: string | null): string {
+function isoToThaiLabel(iso: string | null | undefined): string {
   if (!iso) return '—';
   const [y, m, d] = iso.split('-');
   return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${parseInt(y) + 543}`;
 }
-
-const BUCKET_OPTS = ['ทั้งหมด', 'XD', 'XR', 'XW', 'XM'] as const;
-type BucketOpt = (typeof BUCKET_OPTS)[number];
-
-const BUCKET_STYLE: Record<string, string> = {
-  XD: 'bg-green-500/20 text-green-400',
-  XR: 'bg-blue-500/20 text-blue-400',
-  XW: 'bg-purple-500/20 text-purple-400',
-  XM: 'bg-white/10 text-white/60',
-  XA: 'bg-orange-500/20 text-orange-400',
-};
-
-// Days from today until the given ISO date (yyyy-mm-dd), timezone-safe.
 function daysUntil(iso: string): number {
   const target = new Date(iso + 'T00:00:00Z').getTime();
   const today = new Date(todayISO() + 'T00:00:00Z').getTime();
   return Math.round((target - today) / 86400000);
 }
 
-// Color tier by proximity to the X-Date itself (applies to every bucket,
-// not just XR/XW): grayed once it's passed/today, red inside 3 days, orange
-// inside a week, otherwise the bucket's normal color.
-function xDateTierCls(row: CalendarRow): string {
-  const days = daysUntil(row.xDate);
-  if (days <= 0) return 'bg-white/10 text-white/35';
-  if (days <= 3) return 'bg-[#E24B4A]/20 text-[#E24B4A]';
-  if (days <= 7) return 'bg-[#EF9F27]/20 text-[#EF9F27]';
-  return BUCKET_STYLE[row.bucket] ?? BUCKET_STYLE.XA;
+// ─── Unified event model - earnings (real+predicted) and every corporate-action
+// type, merged so the calendar shows everything in one layer instead of
+// requiring two separate pages to get the full picture ───
+type EventKind = 'earnings' | 'XD' | 'XR' | 'XW' | 'XM' | 'XA';
+
+interface UnifiedEvent {
+  key: string;
+  kind: EventKind;
+  ticker: string;
+  date: string; // primary sort/group date - announceDate (earnings) or xDate (CA)
+  // earnings-only
+  earningsStatus?: 'confirmed' | 'predicted';
+  bucket?: EarningsBucket | null;
+  bucketIsLastKnown?: boolean; // true => this is the ticker's last confirmed bucket, shown faded, not this event's own result
+  quarter?: string | null;
+  // corporate-action-only
+  detail?: string;
+  payDate?: string | null;
+  dividendAmount?: number | null;
+  ratio?: string | null;
+  subscriptionPrice?: number | null;
 }
 
-function DaysLeftBadge({ xDate }: { xDate: string }) {
-  const days = daysUntil(xDate);
-  if (days < 0) {
-    return <span className="text-[10px] text-white/25 ml-1.5 whitespace-nowrap">ผ่านมาแล้ว {Math.abs(days)} วัน</span>;
+const CA_COLOR: Record<Exclude<EventKind, 'earnings'>, string> = {
+  XD: '#EAB308',  // yellow - cash event
+  XR: '#A855F7',  // purple - dilution, must stand out
+  XW: '#EF9F27',  // orange
+  XM: 'rgba(255,255,255,0.5)', // gray - lowest priority
+  XA: 'rgba(255,255,255,0.35)',
+};
+const CA_LABEL: Record<Exclude<EventKind, 'earnings'>, string> = {
+  XD: 'เงินปันผล (XD)', XR: 'เพิ่มทุน (XR)', XW: 'แจกวอร์แรนต์ (XW)', XM: 'ประชุมผู้ถือหุ้น (XM)', XA: 'อื่นๆ',
+};
+const CA_BADGE_CLS: Record<Exclude<EventKind, 'earnings'>, string> = {
+  XD: 'bg-[#EAB308]/15 text-[#EAB308] ring-1 ring-[#EAB308]/30',
+  XR: 'bg-[#A855F7]/15 text-[#A855F7] ring-1 ring-[#A855F7]/30',
+  XW: 'bg-[#EF9F27]/15 text-[#EF9F27] ring-1 ring-[#EF9F27]/30',
+  XM: 'bg-white/10 text-white/50 ring-1 ring-white/10',
+  XA: 'bg-white/[0.07] text-white/40 ring-1 ring-white/10',
+};
+
+type EventFilter = 'all' | 'earnings' | 'XD' | 'XR_XW' | 'XM';
+const EVENT_FILTER_OPTS: { key: EventFilter; label: string }[] = [
+  { key: 'all', label: 'ทั้งหมด' },
+  { key: 'earnings', label: 'ประกาศงบ' },
+  { key: 'XD', label: 'XD' },
+  { key: 'XR_XW', label: 'XR+XW' },
+  { key: 'XM', label: 'XM' },
+];
+function passesEventFilter(e: UnifiedEvent, f: EventFilter): boolean {
+  if (f === 'all') return true;
+  if (f === 'earnings') return e.kind === 'earnings';
+  if (f === 'XD') return e.kind === 'XD';
+  if (f === 'XR_XW') return e.kind === 'XR' || e.kind === 'XW';
+  if (f === 'XM') return e.kind === 'XM';
+  return true;
+}
+
+type ScopeFilter = 'all' | 'mystocks' | 'scan';
+const SCOPE_FILTER_OPTS: { key: ScopeFilter; label: string }[] = [
+  { key: 'all', label: 'ทั้งหมด' },
+  { key: 'mystocks', label: 'My Stocks' },
+  { key: 'scan', label: 'ในผลสแกนปัจจุบัน' },
+];
+
+// ─── Event row (shared shell across all kinds) ───
+function EarningsBadge({ bucket, isLastKnown }: { bucket: EarningsBucket | null | undefined; isLastKnown: boolean }) {
+  if (!bucket) {
+    return <span className="text-[13px] text-white/20">—</span>;
   }
-  if (days === 0) {
-    return <span className="text-[10px] font-semibold text-white/45 bg-white/[0.06] px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap">วันนี้</span>;
-  }
-  const cls = days <= 3 ? 'bg-[#E24B4A]/15 text-[#E24B4A]' : days <= 7 ? 'bg-[#EF9F27]/15 text-[#EF9F27]' : 'bg-white/[0.05] text-white/30';
-  return <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap ${cls}`}>เหลือ {days} วัน</span>;
-}
-
-function SortTh({
-  sortKey, label, sortConfig, onSort, className = '',
-}: {
-  sortKey: SortKey; label: string; sortConfig: SortConfig; onSort: (k: SortKey) => void; className?: string;
-}) {
-  const active = sortConfig?.key === sortKey;
   return (
-    <th
-      onClick={() => onSort(sortKey)}
-      className={`px-3 py-3 text-[11px] font-semibold uppercase tracking-wider whitespace-nowrap cursor-pointer select-none group ${active ? 'text-white/60' : 'text-white/25 hover:text-white/40'} ${className}`}
-    >
-      <div className="flex items-center gap-1">
-        {label}
-        <div className={`flex flex-col opacity-0 group-hover:opacity-100 transition-opacity ${active ? 'opacity-100' : ''}`}>
-          {active ? (
-            sortConfig!.dir === 'asc' ? <ArrowUp size={10} className="text-white/50" /> : <ArrowDown size={10} className="text-white/50" />
-          ) : (
-            <ArrowDown size={10} className="text-white/20" />
-          )}
-        </div>
-      </div>
-    </th>
-  );
-}
-
-function BucketBadge({ row }: { row: CalendarRow }) {
-  const cls = xDateTierCls(row);
-  return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold ${cls}`}>
-      {row.caType}
-    </span>
-  );
-}
-
-// Earnings-performance dot for a ticker, colored via the shared bucket
-// classification (see lib/earningsBucket.ts) - "—" when the ticker has no
-// recent earnings announcement on file.
-function EarningsDot({ ann }: { ann: EarningsAnnouncement | undefined }) {
-  if (!ann || !ann.bucket) return <span className="text-[13px] text-white/20">—</span>;
-  const yoy = ann.netProfitYoY;
-  const title = `${BUCKET_LABEL[ann.bucket]}${ann.quarter ? ` · ${ann.quarter}` : ''}${yoy != null ? ` · YoY ${yoy >= 0 ? '+' : ''}${yoy.toFixed(1)}%` : ''}`;
-  return (
-    <span title={title} className="inline-flex items-center gap-1.5 whitespace-nowrap">
-      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[ann.bucket] }} />
-      <span className="text-[12px] font-medium" style={{ color: BUCKET_COLOR[ann.bucket] }}>
-        {BUCKET_LABEL[ann.bucket]}
+    <span className={`inline-flex items-center gap-1.5 whitespace-nowrap ${isLastKnown ? 'opacity-45' : ''}`}>
+      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[bucket] }} />
+      <span className="text-[12px] font-medium" style={{ color: BUCKET_COLOR[bucket] }}>
+        {BUCKET_LABEL[bucket]}{isLastKnown ? ' (งวดก่อน)' : ''}
       </span>
     </span>
   );
 }
 
-function EarningsLegend() {
-  // Mobile: collapsed by default to a row of color dots + short label (tap
-  // to see what each color means) so it doesn't eat vertical space above the
-  // table. Desktop always shows the full legend - there's room for it.
+function EventRow({ event }: { event: UnifiedEvent }) {
+  const days = daysUntil(event.date);
+  const dayBadge =
+    days < 0 ? <span className="text-[10px] text-white/25 ml-1.5 whitespace-nowrap">ผ่านมาแล้ว {Math.abs(days)} วัน</span>
+    : days === 0 ? <span className="text-[10px] font-semibold text-white/45 bg-white/[0.06] px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap">วันนี้</span>
+    : <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap ${days <= 3 ? 'bg-[#E24B4A]/15 text-[#E24B4A]' : days <= 7 ? 'bg-[#EF9F27]/15 text-[#EF9F27]' : 'bg-white/[0.05] text-white/30'}`}>เหลือ {days} วัน</span>;
+
+  const price = PRICE_MAP.get(event.ticker);
+  const yieldPct = event.kind === 'XD' && event.dividendAmount != null && price ? (event.dividendAmount / price) * 100 : null;
+
+  return (
+    <div className="flex items-start gap-3 px-3 py-3 hover:bg-white/[0.02] transition-colors border-b border-white/[0.04] last:border-0">
+      <div className="w-[110px] flex-shrink-0 text-[13px] text-white/55">
+        {isoToThaiLabel(event.date)}
+        {dayBadge}
+      </div>
+      <div className="w-[70px] flex-shrink-0">
+        <Link href={`/stock/${event.ticker}`} className="text-[14px] font-semibold text-blue-400 hover:text-blue-300">
+          {event.ticker}
+        </Link>
+      </div>
+      <div className="w-[90px] flex-shrink-0">
+        {event.kind === 'earnings' ? (
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-white/10 text-white/60">
+            {event.earningsStatus === 'predicted' ? 'คาดการณ์' : 'ประกาศงบ'}
+          </span>
+        ) : (
+          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${CA_BADGE_CLS[event.kind]}`}>
+            {event.kind === 'XR' && <AlertTriangle size={11} className="flex-shrink-0" />}
+            {event.kind}
+          </span>
+        )}
+      </div>
+      <div className="flex-1 min-w-0 text-[13px] text-white/65">
+        {event.kind === 'earnings' ? (
+          <div className="flex items-center gap-2 flex-wrap">
+            <EarningsBadge bucket={event.bucket} isLastKnown={!!event.bucketIsLastKnown} />
+            {event.quarter && <span className="text-white/30 text-[11px]">{event.quarter}</span>}
+          </div>
+        ) : event.kind === 'XD' ? (
+          <span>
+            เงินปันผล {event.dividendAmount != null ? `${event.dividendAmount} บาท/หุ้น` : '—'}
+            {yieldPct != null && <span className="text-[#1D9E75] ml-1.5">(yield ~{yieldPct.toFixed(2)}%)</span>}
+          </span>
+        ) : event.kind === 'XR' ? (
+          <span className="text-[#A855F7]">
+            {event.ratio ? `อัตราส่วน ${event.ratio}` : ''}{event.subscriptionPrice != null ? ` ราคาใช้สิทธิ ${event.subscriptionPrice} บาท` : ''}
+            {!event.ratio && event.subscriptionPrice == null && event.detail}
+          </span>
+        ) : event.kind === 'XW' ? (
+          <span>{event.ratio ? `อัตราส่วน ${event.ratio}` : event.detail}</span>
+        ) : (
+          <span>{event.detail}</span>
+        )}
+      </div>
+      <div className="w-[100px] flex-shrink-0 text-[12px] text-white/40 text-right">
+        {event.payDate ? isoToThaiLabel(event.payDate) : ''}
+      </div>
+    </div>
+  );
+}
+
+// ─── Legend (collapsible on mobile, matches the existing earnings-color legend pattern) ───
+function Legend() {
   const [expanded, setExpanded] = useState(false);
   return (
     <div className="px-1">
-      <button
-        onClick={() => setExpanded(v => !v)}
-        className="md:hidden flex items-center gap-2 text-left"
-      >
+      <button onClick={() => setExpanded(v => !v)} className="md:hidden flex items-center gap-2 text-left">
         <span className="flex items-center gap-1">
-          {BUCKET_ORDER.map(b => (
-            <span key={b} className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[b] }} />
-          ))}
+          {BUCKET_ORDER.map(b => <span key={b} className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[b] }} />)}
+          {(['XD', 'XR', 'XW', 'XM'] as const).map(k => <span key={k} className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CA_COLOR[k] }} />)}
         </span>
-        <span className="text-[11px] text-white/25">สีผลประกอบการ {expanded ? '▲' : '▼'}</span>
+        <span className="text-[11px] text-white/25">สีของ event {expanded ? '▲' : '▼'}</span>
       </button>
       <div className={`${expanded ? 'flex' : 'hidden'} md:flex flex-wrap gap-x-4 gap-y-1.5 items-center mt-2 md:mt-0`}>
-        <span className="text-[11px] text-white/25">สีผลประกอบการ (เทียบงวดเดียวกันปีก่อน):</span>
+        <span className="text-[11px] text-white/25">ผลประกอบการ:</span>
         {BUCKET_ORDER.map(b => (
           <span key={b} className="inline-flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: BUCKET_COLOR[b] }} />
             <span className="text-[11px] text-white/45">{BUCKET_LABEL[b]}</span>
+          </span>
+        ))}
+        <span className="text-[11px] text-white/25 ml-2">Corporate action:</span>
+        {(['XD', 'XR', 'XW', 'XM'] as const).map(k => (
+          <span key={k} className="inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CA_COLOR[k] }} />
+            <span className="text-[11px] text-white/45">{CA_LABEL[k]}</span>
           </span>
         ))}
       </div>
@@ -152,51 +213,128 @@ function EarningsLegend() {
   );
 }
 
+// ─── Month grid view ───
+function MonthGrid({
+  year, month, events, selectedDate, onSelectDate,
+}: {
+  year: number; month: number; events: UnifiedEvent[]; selectedDate: string; onSelectDate: (d: string) => void;
+}) {
+  const eventsByDate = useMemo(() => {
+    const map = new Map<string, UnifiedEvent[]>();
+    for (const e of events) {
+      const arr = map.get(e.date) ?? [];
+      arr.push(e);
+      map.set(e.date, arr);
+    }
+    return map;
+  }, [events]);
+
+  const firstOfMonth = new Date(Date.UTC(year, month, 1));
+  const startWeekday = firstOfMonth.getUTCDay();
+  const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const cells: { iso: string; inMonth: boolean }[] = [];
+  for (let i = 0; i < startWeekday; i++) {
+    const d = new Date(Date.UTC(year, month, 1 - (startWeekday - i)));
+    cells.push({ iso: d.toISOString().slice(0, 10), inMonth: false });
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    cells.push({ iso: new Date(Date.UTC(year, month, d)).toISOString().slice(0, 10), inMonth: true });
+  }
+  while (cells.length % 7 !== 0) {
+    const last = cells[cells.length - 1];
+    const d = new Date(last.iso + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() + 1);
+    cells.push({ iso: d.toISOString().slice(0, 10), inMonth: false });
+  }
+
+  return (
+    <div>
+      <div className="grid grid-cols-7 text-center text-[10px] text-white/25 mb-1">
+        {WEEKDAYS_TH.map(w => <div key={w} className="py-1">{w}</div>)}
+      </div>
+      <div className="grid grid-cols-7 gap-1">
+        {cells.map(({ iso, inMonth }) => {
+          const dayEvents = eventsByDate.get(iso) ?? [];
+          const isSelected = iso === selectedDate;
+          const isToday = iso === todayISO();
+          return (
+            <button
+              key={iso}
+              onClick={() => onSelectDate(iso)}
+              className={`aspect-square rounded-lg p-1 text-left flex flex-col transition-colors ${
+                isSelected ? 'bg-white/15 ring-1 ring-white/25' : 'bg-white/[0.03] hover:bg-white/[0.07]'
+              } ${!inMonth ? 'opacity-30' : ''}`}
+            >
+              <span className={`text-[11px] ${isToday ? 'font-bold text-[#1D9E75]' : 'text-white/50'}`}>
+                {parseInt(iso.slice(8, 10))}
+              </span>
+              <div className="flex flex-wrap gap-0.5 mt-auto">
+                {dayEvents.slice(0, 4).map((e, i) => (
+                  <span
+                    key={i}
+                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: e.kind === 'earnings' ? (e.bucket ? BUCKET_COLOR[e.bucket] : 'rgba(255,255,255,0.3)') : CA_COLOR[e.kind] }}
+                    title={`${e.ticker} · ${e.kind === 'earnings' ? 'ประกาศงบ' : e.kind}`}
+                  />
+                ))}
+                {dayEvents.length > 4 && <span className="text-[8px] text-white/30">+{dayEvents.length - 4}</span>}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function CalendarPage() {
-  const router = useRouter();
-  const [rows, setRows] = useState<CalendarRow[]>([]);
+  const [viewMode, setViewMode] = useState<'week' | 'month'>('week');
+  const [eventFilter, setEventFilter] = useState<EventFilter>('all');
+  const [scopeFilter, setScopeFilter] = useState<ScopeFilter>('all');
+  const [myStocks, setMyStocks] = useState<Set<string>>(new Set());
+
+  const [fromDate, setFromDate] = useState(todayISO());
+  const [toDate, setToDate] = useState(addDaysISO(todayISO(), 14));
+  const [monthCursor, setMonthCursor] = useState(() => {
+    const d = new Date();
+    return { year: d.getFullYear(), month: d.getMonth() };
+  });
+  const [selectedDate, setSelectedDate] = useState(todayISO());
+
+  const [caRows, setCaRows] = useState<CalendarRow[]>([]);
+  const [earningsFeed, setEarningsFeed] = useState<EarningsFeed | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [query, setQuery] = useState('');
-  const [bucket, setBucket] = useState<BucketOpt>('ทั้งหมด');
-  const [fromDate, setFromDate] = useState(todayISO());
-  const [toDate, setToDate] = useState(addDaysISO(todayISO(), 30));
-  const [page, setPage] = useState(1);
-  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
-  const [earningsByTicker, setEarningsByTicker] = useState<Record<string, EarningsAnnouncement>>({});
 
-  // Earnings performance is independent of the CA date-range filter, so fetch
-  // it once - not tied to loadData()/fromDate/toDate.
+  // My Stocks is localStorage-only - hydrate client-side after mount.
+  useEffect(() => { setMyStocks(new Set(loadMyStockSymbols())); }, []);
+
+  // Earnings feed covers its own fixed window (real + predicted) regardless
+  // of view mode - fetched once, filtered client-side same as CA events.
   useEffect(() => {
     (async () => {
       try {
         const res = await fetch('/api/earnings');
-        if (!res.ok) return;
-        const data: EarningsFeed = await res.json();
-        const map: Record<string, EarningsAnnouncement> = {};
-        for (const ann of data.announcements ?? []) {
-          const prev = map[ann.ticker];
-          if (!prev || ann.announceDate > prev.announceDate) map[ann.ticker] = ann;
-        }
-        setEarningsByTicker(map);
-      } catch { /* earnings dot just shows "—" on failure */ }
+        if (res.ok) setEarningsFeed(await res.json());
+      } catch { /* earnings events just won't show */ }
     })();
   }, []);
 
-  const handleSort = (key: SortKey) => {
-    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'asc' });
-    setPage(1);
-  };
+  const rangeFrom = viewMode === 'month'
+    ? new Date(Date.UTC(monthCursor.year, monthCursor.month, 1)).toISOString().slice(0, 10)
+    : fromDate;
+  const rangeTo = viewMode === 'month'
+    ? new Date(Date.UTC(monthCursor.year, monthCursor.month + 1, 0)).toISOString().slice(0, 10)
+    : toDate;
 
-  const loadData = useCallback(async (from: string, to: string) => {
+  const loadCA = useCallback(async (from: string, to: string) => {
     setLoading(true);
     setError(false);
-    setPage(1);
     try {
       const res = await fetch(`/api/corporate-action?from=${from}&to=${to}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
-      setRows(data.rows ?? []);
+      setCaRows(data.rows ?? []);
     } catch {
       setError(true);
     } finally {
@@ -204,80 +342,151 @@ export default function CalendarPage() {
     }
   }, []);
 
-  useEffect(() => { loadData(fromDate, toDate); }, [loadData, fromDate, toDate]);
+  useEffect(() => { loadCA(rangeFrom, rangeTo); }, [loadCA, rangeFrom, rangeTo]);
 
-  const filteredRows = useMemo(() => {
-    const result = rows.filter(r => {
-      if (bucket !== 'ทั้งหมด' && r.bucket !== bucket) return false;
-      if (query.trim() && !r.ticker.toLowerCase().includes(query.trim().toLowerCase())) return false;
-      return true;
-    });
+  // ─── Merge earnings (real + predicted) and every CA type into one list ───
+  const allEvents = useMemo<UnifiedEvent[]>(() => {
+    const events: UnifiedEvent[] = [];
 
-    if (sortConfig) {
-      const { key, dir } = sortConfig;
-      result.sort((a, b) => {
-        const va = a[key];
-        const vb = b[key];
-        if (va == null && vb == null) return 0;
-        if (va == null) return 1;   // nulls (e.g. missing payDate) always sort last
-        if (vb == null) return -1;
-        return dir === 'asc' ? va.localeCompare(vb, 'th') : vb.localeCompare(va, 'th');
+    if (earningsFeed) {
+      const latestByTicker = new Map<string, EarningsAnnouncement>();
+      for (const ann of earningsFeed.announcements ?? []) {
+        const prev = latestByTicker.get(ann.ticker);
+        if (!prev || ann.announceDate > prev.announceDate) latestByTicker.set(ann.ticker, ann);
+      }
+      for (const entry of earningsFeed.calendar ?? []) {
+        // entry.date is a full ISO datetime for predicted entries (isoformat()
+        // on the Python side) but a plain date for confirmed ones - normalize
+        // both to YYYY-MM-DD before any comparison/date-math, or daysUntil()
+        // and the range filter below silently produce NaN/wrong results.
+        const dateOnly = entry.date.slice(0, 10);
+        if (dateOnly < rangeFrom || dateOnly > rangeTo) continue;
+        if (entry.status === 'confirmed') {
+          const match = (earningsFeed.announcements ?? []).find(a => a.ticker === entry.ticker && a.announceDate.slice(0, 10) === dateOnly);
+          events.push({
+            key: `earn-${entry.ticker}-${dateOnly}`, kind: 'earnings', ticker: entry.ticker, date: dateOnly,
+            earningsStatus: 'confirmed', bucket: match?.bucket ?? null, bucketIsLastKnown: false, quarter: entry.quarter,
+          });
+        } else {
+          const last = latestByTicker.get(entry.ticker);
+          events.push({
+            key: `earn-${entry.ticker}-${dateOnly}`, kind: 'earnings', ticker: entry.ticker, date: dateOnly,
+            earningsStatus: 'predicted', bucket: last?.bucket ?? null, bucketIsLastKnown: true, quarter: entry.quarter,
+          });
+        }
+      }
+    }
+
+    for (const row of caRows) {
+      events.push({
+        key: `ca-${row.ticker}-${row.caType}-${row.xDate}`, kind: row.bucket, ticker: row.ticker, date: row.xDate,
+        detail: row.detail, payDate: row.payDate, dividendAmount: row.dividendAmount, ratio: row.ratio, subscriptionPrice: row.subscriptionPrice,
       });
     }
-    // Default (no sort clicked): server already returns ascending by X-Date (closest first)
-    return result;
-  }, [rows, bucket, query, sortConfig]);
 
-  const totalPages = Math.ceil(filteredRows.length / PER_PAGE);
-  const pageRows = filteredRows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+    events.sort((a, b) => a.date.localeCompare(b.date) || a.ticker.localeCompare(b.ticker));
+    return events;
+  }, [earningsFeed, caRows, rangeFrom, rangeTo]);
+
+  const filteredEvents = useMemo(() => {
+    return allEvents.filter(e => {
+      if (!passesEventFilter(e, eventFilter)) return false;
+      if (scopeFilter === 'mystocks' && !myStocks.has(e.ticker)) return false;
+      if (scopeFilter === 'scan' && !SCAN_TICKERS.has(e.ticker)) return false;
+      return true;
+    });
+  }, [allEvents, eventFilter, scopeFilter, myStocks]);
+
+  // My Stocks holding an XR/XW within 14 days - dilution/warrant events are
+  // rare but high-impact, worth a standing warning regardless of filters.
+  const dilutionWarnings = useMemo(() => {
+    return allEvents.filter(e =>
+      (e.kind === 'XR' || e.kind === 'XW') && myStocks.has(e.ticker) &&
+      daysUntil(e.date) >= 0 && daysUntil(e.date) <= 14
+    );
+  }, [allEvents, myStocks]);
+
+  const monthEvents = viewMode === 'month' ? filteredEvents : [];
+  const selectedDayEvents = viewMode === 'month' ? filteredEvents.filter(e => e.date === selectedDate) : filteredEvents;
 
   return (
     <div className="p-4 md:p-6 space-y-4">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-[18px] font-bold text-white">ปฏิทินหลักทรัพย์</h1>
-          <p className="text-[12px] text-white/35 mt-0.5 md:hidden">CA + สีผลประกอบการ</p>
-          <p className="hidden md:block text-[12px] text-white/35 mt-0.5">XD / XR / XW / XM / อื่นๆ (XA) · SET Corporate Action Calendar</p>
+          <p className="text-[12px] text-white/35 mt-0.5 md:hidden">งบ + XD/XR/XW/XM ชั้นเดียว</p>
+          <p className="hidden md:block text-[12px] text-white/35 mt-0.5">
+            ประกาศงบ (จริง+คาดการณ์) และ corporate action ทุกชนิด ในปฏิทินเดียว
+          </p>
         </div>
         <button
-          onClick={() => loadData(fromDate, toDate)}
+          onClick={() => loadCA(rangeFrom, rangeTo)}
           className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0"
         >
           <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
         </button>
       </div>
 
-      {/* Filter chips */}
-      <div className="flex flex-wrap gap-1.5 items-center">
-        {BUCKET_OPTS.map(b => (
+      {dilutionWarnings.length > 0 && (
+        <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-[#A855F7]/10 border border-[#A855F7]/30 text-[12.5px] text-[#A855F7]">
+          <AlertTriangle size={16} className="flex-shrink-0 mt-0.5" />
+          <span>
+            หุ้นที่คุณถือกำลังจะเพิ่มทุน/แจกวอร์แรนต์:{' '}
+            {dilutionWarnings.map((e, i) => (
+              <span key={e.key}>
+                {i > 0 && ', '}
+                <Link href={`/stock/${e.ticker}`} className="font-semibold underline decoration-dotted">{e.ticker}</Link>
+                {' '}วันที่ {isoToThaiLabel(e.date)}
+              </span>
+            ))}
+          </span>
+        </div>
+      )}
+
+      {/* View toggle */}
+      <div className="flex items-center gap-1.5">
+        {(['week', 'month'] as const).map(v => (
           <button
-            key={b}
-            onClick={() => { setBucket(b); setPage(1); }}
-            className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
-              bucket === b
-                ? (b === 'ทั้งหมด' ? 'bg-white/15 text-white' : BUCKET_STYLE[b])
-                : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+            key={v}
+            onClick={() => setViewMode(v)}
+            className={`px-3 py-1.5 rounded-lg text-[12.5px] font-semibold transition-all ${
+              viewMode === v ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
             }`}
           >
-            {b}
+            {v === 'week' ? 'สัปดาห์' : 'เดือน'}
           </button>
         ))}
       </div>
 
-      {/* Search + date range */}
-      <div className="flex flex-wrap gap-2 items-center">
-        <div className="relative flex-1 min-w-[180px]">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
-          <input
-            type="text"
-            placeholder="ค้นหาหลักทรัพย์..."
-            value={query}
-            onChange={e => { setQuery(e.target.value); setPage(1); }}
-            className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
-          />
-        </div>
-        <div className="flex items-center gap-1.5 flex-shrink-0">
-          <CalendarIcon size={12} className="text-white/30" />
+      {/* Event-type filter - default "all" so rare XR events are never hidden */}
+      <div className="flex flex-wrap gap-1.5 items-center">
+        {EVENT_FILTER_OPTS.map(o => (
+          <button
+            key={o.key}
+            onClick={() => setEventFilter(o.key)}
+            className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
+              eventFilter === o.key ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+            }`}
+          >
+            {o.label}
+          </button>
+        ))}
+        <span className="text-white/15 mx-1">·</span>
+        {SCOPE_FILTER_OPTS.map(o => (
+          <button
+            key={o.key}
+            onClick={() => setScopeFilter(o.key)}
+            className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
+              scopeFilter === o.key ? 'bg-white/10 text-white/80' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
+            }`}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      {viewMode === 'week' ? (
+        <div className="flex items-center gap-1.5">
           <input
             type="date"
             value={fromDate}
@@ -294,78 +503,71 @@ export default function CalendarPage() {
             className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
           />
         </div>
-      </div>
+      ) : (
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setMonthCursor(c => c.month === 0 ? { year: c.year - 1, month: 11 } : { year: c.year, month: c.month - 1 })}
+            className="p-1.5 rounded-lg border border-white/[0.07] text-white/40 hover:text-white/70"
+          >
+            <ChevronLeft size={14} />
+          </button>
+          <span className="text-[13px] font-semibold text-white/80 min-w-[110px] text-center">
+            {MONTHS[monthCursor.month]} {monthCursor.year + 543}
+          </span>
+          <button
+            onClick={() => setMonthCursor(c => c.month === 11 ? { year: c.year + 1, month: 0 } : { year: c.year, month: c.month + 1 })}
+            className="p-1.5 rounded-lg border border-white/[0.07] text-white/40 hover:text-white/70"
+          >
+            <ChevronRight size={14} />
+          </button>
+        </div>
+      )}
 
-      <EarningsLegend />
+      <Legend />
+
+      {viewMode === 'month' && (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-3">
+          <MonthGrid
+            year={monthCursor.year}
+            month={monthCursor.month}
+            events={monthEvents}
+            selectedDate={selectedDate}
+            onSelectDate={setSelectedDate}
+          />
+        </div>
+      )}
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #4B9EF5' }}>
-        {loading ? (
-          <TableSkeleton rows={10} />
+        {viewMode === 'month' && (
+          <div className="px-3 py-2 border-b border-white/[0.06] text-[12px] text-white/40">
+            เหตุการณ์วันที่ {isoToThaiLabel(selectedDate)}
+          </div>
+        )}
+        {loading && viewMode === 'week' ? (
+          <TableSkeleton rows={8} />
         ) : error ? (
           <div className="py-16 text-center space-y-3">
             <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
             <button
-              onClick={() => loadData(fromDate, toDate)}
+              onClick={() => loadCA(rangeFrom, rangeTo)}
               className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors"
             >
               ลองอีกครั้ง
             </button>
           </div>
-        ) : pageRows.length === 0 ? (
+        ) : selectedDayEvents.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-[13px] text-white/30">
-              {rows.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกับตัวกรอง' : 'ไม่พบข้อมูลในช่วงวันที่เลือก'}
-            </p>
+            <p className="text-[13px] text-white/30">ไม่พบเหตุการณ์ที่ตรงกับตัวกรอง</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-white/[0.06]">
-                  <SortTh sortKey="xDate" label="วันขึ้นเครื่องหมาย (X-Date)" sortConfig={sortConfig} onSort={handleSort} />
-                  <SortTh sortKey="ticker" label="หลักทรัพย์" sortConfig={sortConfig} onSort={handleSort} />
-                  <SortTh sortKey="caType" label="เครื่องหมาย" sortConfig={sortConfig} onSort={handleSort} />
-                  <SortTh sortKey="detail" label="รายละเอียด" sortConfig={sortConfig} onSort={handleSort} className="!normal-case" />
-                  <SortTh sortKey="payDate" label="วันจ่าย/ประชุม" sortConfig={sortConfig} onSort={handleSort} />
-                  <th className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider whitespace-nowrap text-white/25">ผลประกอบการ</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/[0.03]">
-                {pageRows.map((row, i) => (
-                  <tr key={`${row.ticker}-${row.caType}-${row.xDate}-${i}`} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-3 py-3 text-[14px] text-white/55 whitespace-nowrap">
-                      {isoToThaiLabel(row.xDate)}
-                      <DaysLeftBadge xDate={row.xDate} />
-                    </td>
-                    <td
-                      onClick={() => router.push(`/stock/${row.ticker}`)}
-                      className="px-3 py-3 text-[15px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
-                    >
-                      {row.ticker}
-                    </td>
-                    <td className="px-3 py-3 whitespace-nowrap">
-                      <BucketBadge row={row} />
-                    </td>
-                    <td className="px-3 py-3 text-[14px] text-white/65 max-w-[360px]">
-                      {row.detail}
-                    </td>
-                    <td className="px-3 py-3 text-[14px] text-white/55 whitespace-nowrap">
-                      {isoToThaiLabel(row.payDate)}
-                    </td>
-                    <td className="px-3 py-3 whitespace-nowrap">
-                      <EarningsDot ann={earningsByTicker[row.ticker]} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div>
+            {selectedDayEvents.map(e => <EventRow key={e.key} event={e} />)}
           </div>
         )}
       </div>
 
-      {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onChange={setPage} />}
       <p className="text-[10px] text-white/20 text-right">
-        แหล่งข้อมูล: SET (ผ่าน Settrade) · Stock Calendar{filteredRows.length > 0 ? ` · ${filteredRows.length} รายการ` : ''}
+        แหล่งข้อมูล: SET (ผ่าน Settrade) + earnings feed · {filteredEvents.length} รายการ
       </p>
     </div>
   );

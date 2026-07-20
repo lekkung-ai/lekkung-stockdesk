@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
-  X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart,
+  X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 
@@ -173,7 +173,6 @@ export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
         ))}
       </nav>
 
-      {/* TODO: Backlog #1 — /settings page doesn't exist yet; link hidden to avoid 404 prefetch.
       <div className="p-1 md:p-2 border-t border-white/[0.07] flex-shrink-0">
         <Link
           href="/settings"
@@ -184,7 +183,6 @@ export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
           <span className={`whitespace-nowrap ${labelCls}`}>Settings</span>
         </Link>
       </div>
-      */}
     </aside>
   );
 }
