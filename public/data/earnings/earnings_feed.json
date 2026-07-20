@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-18T16:24:33.872775+07:00",
+  "generatedAt": "2026-07-20T17:14:52.746761+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 4,
+      "count": 6,
       "top3": [
+        {
+          "ticker": "KSL",
+          "netProfitYoY": 112.86983050847456
+        },
         {
           "ticker": "KTC",
           "netProfitYoY": 17.44339220347141
         },
         {
-          "ticker": "TSTH",
-          "netProfitYoY": 9.806496569468267
-        },
-        {
-          "ticker": "TISCO",
-          "netProfitYoY": 7.321611324001319
+          "ticker": "TTB",
+          "netProfitYoY": 10.16528291450418
         }
       ]
     },
@@ -38,19 +38,19 @@
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 3,
+      "count": 4,
       "top3": [
         {
           "ticker": "PICO",
           "netProfitYoY": 74.28843026841444
         },
         {
-          "ticker": "CHO",
-          "netProfitYoY": 39.8878616540406
+          "ticker": "CITY",
+          "netProfitYoY": 71.98932503057934
         },
         {
-          "ticker": "DEXON",
-          "netProfitYoY": 3.0516953863257363
+          "ticker": "CHO",
+          "netProfitYoY": 39.8878616540406
         }
       ]
     },
@@ -76,6 +76,30 @@
   },
   "announcements": [
     {
+      "ticker": "TTB",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-20T12:32:05+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 5512966000.0,
+      "netProfitPrior": 5004268000.0,
+      "netProfitYoY": 10.16528291450418,
+      "eps": 0.06,
+      "epsPrior": 0.05,
+      "epsYoY": 19.99999999999999,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105471301&symbol=TTB",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845038225161&symbol=TTB",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "TSTH",
       "sector": "Industrials",
       "subsector": "Steel",
@@ -83,8 +107,8 @@
       "announceDate": "2026-07-17T18:32:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 409710000,
-      "netProfitPrior": 373120000,
+      "netProfit": 409710000.0,
+      "netProfitPrior": 373120000.0,
       "netProfitYoY": 9.806496569468267,
       "eps": 0.04865,
       "epsPrior": 0.04431,
@@ -107,8 +131,8 @@
       "announceDate": "2026-07-17T17:29:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 2225308000,
-      "netProfitPrior": 1894792000,
+      "netProfit": 2225308000.0,
+      "netProfitPrior": 1894792000.0,
       "netProfitYoY": 17.44339220347141,
       "eps": 0.86,
       "epsPrior": 0.73,
@@ -131,8 +155,8 @@
       "announceDate": "2026-07-14T08:30:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 1763850000,
-      "netProfitPrior": 1643518000,
+      "netProfit": 1763850000.0,
+      "netProfitPrior": 1643518000.0,
       "netProfitYoY": 7.321611324001319,
       "eps": 2.2,
       "epsPrior": 2.05,
@@ -155,8 +179,8 @@
       "announceDate": "2026-07-10T08:31:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 มีนาคม 2569",
-      "netProfit": -76334000,
-      "netProfitPrior": -126986000,
+      "netProfit": -76334000.0,
+      "netProfitPrior": -126986000.0,
       "netProfitYoY": 39.8878616540406,
       "eps": -0.0996,
       "epsPrior": -0.1775,
@@ -179,8 +203,8 @@
       "announceDate": "2026-07-08T17:26:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 พฤษภาคม 2569",
-      "netProfit": 793010000,
-      "netProfitPrior": 771839000,
+      "netProfit": 793010000.0,
+      "netProfitPrior": 771839000.0,
       "netProfitYoY": 2.742929548778955,
       "eps": 3.2,
       "epsPrior": 3.09,
@@ -203,8 +227,8 @@
       "announceDate": "2026-07-06T08:16:00+07:00",
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": -262112000,
-      "netProfitPrior": -10696000,
+      "netProfit": -262112000.0,
+      "netProfitPrior": -10696000.0,
       "netProfitYoY": -2350.56095736724,
       "eps": -0.2508,
       "epsPrior": -0.0102,
@@ -227,8 +251,8 @@
       "announceDate": "2026-06-15T17:32:00+07:00",
       "quarter": "ประจำปี 2567",
       "periodEnd": "31 ตุลาคม 2567",
-      "netProfit": -278354000,
-      "netProfitPrior": -76672000,
+      "netProfit": -278354000.0,
+      "netProfitPrior": -76672000.0,
       "netProfitYoY": -263.0451794657763,
       "eps": -1.08,
       "epsPrior": -0.5,
@@ -251,8 +275,8 @@
       "announceDate": "2026-06-15T17:02:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 มีนาคม 2569",
-      "netProfit": -34882000,
-      "netProfitPrior": -35980000,
+      "netProfit": -34882000.0,
+      "netProfitPrior": -35980000.0,
       "netProfitYoY": 3.0516953863257363,
       "eps": -0.073,
       "epsPrior": -0.076,
@@ -273,17 +297,17 @@
       "subsector": "& Food Industry Food & Beverage",
       "market": "SET",
       "announceDate": "2026-06-12T17:39:00+07:00",
-      "quarter": null,
-      "periodEnd": null,
-      "netProfit": null,
-      "netProfitPrior": null,
-      "netProfitYoY": null,
-      "eps": null,
-      "epsPrior": null,
-      "epsYoY": null,
-      "auditorOpinion": null,
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 เมษายน 2569",
+      "netProfit": 313983000.0,
+      "netProfitPrior": 147500000.0,
+      "netProfitYoY": 112.86983050847456,
+      "eps": 0.071,
+      "epsPrior": 0.033,
+      "epsYoY": 115.15151515151511,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
       "isCorrection": false,
-      "bucket": null,
+      "bucket": "profit_growth",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085101&symbol=KSL",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210347521&symbol=KSL",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085201&symbol=KSL",
@@ -297,17 +321,17 @@
       "subsector": "Steel",
       "market": "SET",
       "announceDate": "2026-06-12T08:03:00+07:00",
-      "quarter": null,
-      "periodEnd": null,
-      "netProfit": null,
-      "netProfitPrior": null,
-      "netProfitYoY": null,
-      "eps": null,
-      "epsPrior": null,
-      "epsYoY": null,
-      "auditorOpinion": null,
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 เมษายน 2569",
+      "netProfit": -2519000.0,
+      "netProfitPrior": -8993000.0,
+      "netProfitYoY": 71.98932503057934,
+      "eps": -0.0084,
+      "epsPrior": -0.02998,
+      "epsYoY": 71.98132088058706,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
       "isCorrection": false,
-      "bucket": null,
+      "bucket": "loss_shrink",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056401&symbol=CITY",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210331321&symbol=CITY",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056501&symbol=CITY",
@@ -323,8 +347,8 @@
       "announceDate": "2026-06-08T19:20:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 เมษายน 2569",
-      "netProfit": 59889000,
-      "netProfitPrior": 87602000,
+      "netProfit": 59889000.0,
+      "netProfitPrior": 87602000.0,
       "netProfitYoY": -31.635122485788,
       "eps": 0.33272,
       "epsPrior": 0.48668,
@@ -347,8 +371,8 @@
       "announceDate": "2026-06-05T17:47:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 เมษายน 2569",
-      "netProfit": -7662670,
-      "netProfitPrior": -29802420,
+      "netProfit": -7662670.0,
+      "netProfitPrior": -29802420.0,
       "netProfitYoY": 74.28843026841444,
       "eps": -0.03559,
       "epsPrior": -0.13843,
@@ -381,13 +405,13 @@
       "ticker": "CITY",
       "date": "2026-06-12T08:03:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "KSL",
       "date": "2026-06-12T17:39:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "DEXON",
@@ -436,6 +460,12 @@
       "date": "2026-07-17T18:32:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 1/2569"
+    },
+    {
+      "ticker": "TTB",
+      "date": "2026-07-20T12:32:05+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BAREIT",
@@ -6512,13 +6542,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-25T17:41:00+07:00"
-    },
-    {
-      "ticker": "TTB",
-      "date": "2026-08-26T17:03:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-26T17:03:00+07:00"
     },
     {
       "ticker": "CREDIT",
