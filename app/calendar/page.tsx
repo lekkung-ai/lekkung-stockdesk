@@ -119,6 +119,42 @@ function EarningsBadge({ bucket, isLastKnown }: { bucket: EarningsBucket | null 
   );
 }
 
+function EventTypeBadge({ event }: { event: UnifiedEvent }) {
+  return event.kind === 'earnings' ? (
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-white/10 text-white/60 whitespace-nowrap">
+      {event.earningsStatus === 'predicted' ? 'คาดการณ์' : 'ประกาศงบ'}
+    </span>
+  ) : (
+    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap ${CA_BADGE_CLS[event.kind]}`}>
+      {event.kind === 'XR' && <AlertTriangle size={11} className="flex-shrink-0" />}
+      {event.kind}
+    </span>
+  );
+}
+
+function EventDetail({ event, yieldPct }: { event: UnifiedEvent; yieldPct: number | null }) {
+  return event.kind === 'earnings' ? (
+    <div className="flex items-center gap-2 flex-wrap">
+      <EarningsBadge bucket={event.bucket} isLastKnown={!!event.bucketIsLastKnown} />
+      {event.quarter && <span className="text-white/30 text-[11px]">{event.quarter}</span>}
+    </div>
+  ) : event.kind === 'XD' ? (
+    <span>
+      เงินปันผล {event.dividendAmount != null ? `${event.dividendAmount} บาท/หุ้น` : '—'}
+      {yieldPct != null && <span className="text-[#1D9E75] ml-1.5">(yield ~{yieldPct.toFixed(2)}%)</span>}
+    </span>
+  ) : event.kind === 'XR' ? (
+    <span className="text-[#A855F7]">
+      {event.ratio ? `อัตราส่วน ${event.ratio}` : ''}{event.subscriptionPrice != null ? ` ราคาใช้สิทธิ ${event.subscriptionPrice} บาท` : ''}
+      {!event.ratio && event.subscriptionPrice == null && event.detail}
+    </span>
+  ) : event.kind === 'XW' ? (
+    <span>{event.ratio ? `อัตราส่วน ${event.ratio}` : event.detail}</span>
+  ) : (
+    <span>{event.detail}</span>
+  );
+}
+
 function EventRow({ event }: { event: UnifiedEvent }) {
   const days = daysUntil(event.date);
   const dayBadge =
@@ -130,54 +166,51 @@ function EventRow({ event }: { event: UnifiedEvent }) {
   const yieldPct = event.kind === 'XD' && event.dividendAmount != null && price ? (event.dividendAmount / price) * 100 : null;
 
   return (
-    <div className="flex items-start gap-3 px-3 py-3 hover:bg-white/[0.02] transition-colors border-b border-white/[0.04] last:border-0">
-      <div className="w-[110px] flex-shrink-0 text-[13px] text-white/55">
-        {isoToThaiLabel(event.date)}
-        {dayBadge}
-      </div>
-      <div className="w-[70px] flex-shrink-0">
-        <Link href={`/stock/${event.ticker}`} className="text-[14px] font-semibold text-blue-400 hover:text-blue-300">
-          {event.ticker}
-        </Link>
-      </div>
-      <div className="w-[90px] flex-shrink-0">
-        {event.kind === 'earnings' ? (
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-white/10 text-white/60">
-            {event.earningsStatus === 'predicted' ? 'คาดการณ์' : 'ประกาศงบ'}
-          </span>
-        ) : (
-          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${CA_BADGE_CLS[event.kind]}`}>
-            {event.kind === 'XR' && <AlertTriangle size={11} className="flex-shrink-0" />}
-            {event.kind}
-          </span>
-        )}
-      </div>
-      <div className="flex-1 min-w-0 text-[13px] text-white/65">
-        {event.kind === 'earnings' ? (
-          <div className="flex items-center gap-2 flex-wrap">
-            <EarningsBadge bucket={event.bucket} isLastKnown={!!event.bucketIsLastKnown} />
-            {event.quarter && <span className="text-white/30 text-[11px]">{event.quarter}</span>}
+    <>
+      {/* Mobile: 2-line card - no fixed-width columns, nothing can push past
+          the viewport edge. Desktop: original fixed-width row layout. */}
+      <div className="md:hidden px-3 py-3 hover:bg-white/[0.02] transition-colors border-b border-white/[0.04] last:border-0">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <Link href={`/stock/${event.ticker}`} className="text-[14px] font-semibold text-blue-400 hover:text-blue-300 flex-shrink-0">
+              {event.ticker}
+            </Link>
+            <EventTypeBadge event={event} />
           </div>
-        ) : event.kind === 'XD' ? (
-          <span>
-            เงินปันผล {event.dividendAmount != null ? `${event.dividendAmount} บาท/หุ้น` : '—'}
-            {yieldPct != null && <span className="text-[#1D9E75] ml-1.5">(yield ~{yieldPct.toFixed(2)}%)</span>}
-          </span>
-        ) : event.kind === 'XR' ? (
-          <span className="text-[#A855F7]">
-            {event.ratio ? `อัตราส่วน ${event.ratio}` : ''}{event.subscriptionPrice != null ? ` ราคาใช้สิทธิ ${event.subscriptionPrice} บาท` : ''}
-            {!event.ratio && event.subscriptionPrice == null && event.detail}
-          </span>
-        ) : event.kind === 'XW' ? (
-          <span>{event.ratio ? `อัตราส่วน ${event.ratio}` : event.detail}</span>
-        ) : (
-          <span>{event.detail}</span>
+          <span className="text-[12px] text-white/55 whitespace-nowrap flex-shrink-0">{isoToThaiLabel(event.date)}</span>
+        </div>
+        <div className="flex items-center justify-between gap-2 mt-1.5">
+          <div className="text-[12.5px] text-white/65 min-w-0 truncate">
+            <EventDetail event={event} yieldPct={yieldPct} />
+          </div>
+          {dayBadge}
+        </div>
+        {event.payDate && (
+          <div className="text-[11px] text-white/35 mt-1">จ่ายเงิน {isoToThaiLabel(event.payDate)}</div>
         )}
       </div>
-      <div className="w-[100px] flex-shrink-0 text-[12px] text-white/40 text-right">
-        {event.payDate ? isoToThaiLabel(event.payDate) : ''}
+
+      <div className="hidden md:flex items-start gap-3 px-3 py-3 hover:bg-white/[0.02] transition-colors border-b border-white/[0.04] last:border-0">
+        <div className="w-[110px] flex-shrink-0 text-[13px] text-white/55">
+          {isoToThaiLabel(event.date)}
+          {dayBadge}
+        </div>
+        <div className="w-[70px] flex-shrink-0">
+          <Link href={`/stock/${event.ticker}`} className="text-[14px] font-semibold text-blue-400 hover:text-blue-300">
+            {event.ticker}
+          </Link>
+        </div>
+        <div className="w-[90px] flex-shrink-0">
+          <EventTypeBadge event={event} />
+        </div>
+        <div className="flex-1 min-w-0 text-[13px] text-white/65">
+          <EventDetail event={event} yieldPct={yieldPct} />
+        </div>
+        <div className="w-[100px] flex-shrink-0 text-[12px] text-white/40 text-right">
+          {event.payDate ? isoToThaiLabel(event.payDate) : ''}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

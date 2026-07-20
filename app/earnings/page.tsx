@@ -181,6 +181,7 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
         </div>
       </div>
 
+      <div className="relative">
       <div className="overflow-x-auto">
         <div className="grid grid-cols-5 gap-2 min-w-[600px]">
           {weekDates.map((date, i) => {
@@ -226,6 +227,11 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
             );
           })}
         </div>
+      </div>
+      {/* Scroll affordance - this grid intentionally scrolls horizontally on
+          narrow screens (5 fixed-width day columns), matching TableWrap's
+          pattern elsewhere. */}
+      <div className="md:hidden pointer-events-none absolute top-0 right-0 bottom-0 w-6 bg-gradient-to-l from-[#13161e] to-transparent" />
       </div>
 
       <div className="flex items-center gap-3 mt-3 text-label text-meta">
@@ -331,7 +337,65 @@ function AnnouncementsTable({
             {announcements.length === 0 ? 'ยังไม่มีประกาศงบในช่วง 45 วันล่าสุด' : 'ไม่พบผลลัพธ์ที่ตรงกับตัวกรอง'}
           </div>
         ) : (
-          <div className="overflow-x-auto">
+          <>
+          {/* Mobile: card per row - the 9-column table below is far wider
+              than any phone viewport, so <768px gets a stacked card instead
+              of a horizontally-scrolling table. */}
+          <div className="md:hidden divide-y divide-white/[0.03]">
+            {filtered.map((a, i) => (
+              <div
+                key={`${a.ticker}-${a.announceDate}-${i}`}
+                onClick={() => handleRowClick(a)}
+                className={`px-3 py-3 cursor-pointer transition-colors border-l-2 ${
+                  selectedTicker === a.ticker ? 'bg-[#7F77DD]/[0.14] border-l-[#7F77DD]' : 'border-l-transparent active:bg-white/[0.03]'
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); router.push(`/stock/${a.ticker}`); }}
+                      className="text-body font-semibold text-blue-400 hover:text-blue-300 flex-shrink-0"
+                    >
+                      {a.ticker}
+                    </button>
+                    {a.isCorrection && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27] flex-shrink-0">
+                        แก้ไข
+                      </span>
+                    )}
+                    <span className="text-label text-meta truncate">{a.quarter ?? '—'}</span>
+                  </div>
+                  <YoyBadge value={a.netProfitYoY} />
+                </div>
+                <div className="flex items-center justify-between gap-2 mt-1.5">
+                  <span className={`text-label font-semibold tabular-nums ${a.netProfit != null && a.netProfit < 0 ? 'text-[#E24B4A]' : 'text-white/80'}`}>
+                    {fmtMoney(a.netProfit)}
+                  </span>
+                  <span className="text-label text-meta whitespace-nowrap">
+                    {isoDateTimeToThai(a.announceDate).replace(/ \d{2}:\d{2} น\.$/, '')} · {timeOnly(a.announceDate)} น.
+                  </span>
+                </div>
+                {a.reason && (
+                  <div className="text-label text-white/50 line-clamp-2 mt-1.5">{a.reason}</div>
+                )}
+                <div className="flex items-center gap-1.5 mt-1.5" onClick={(e) => e.stopPropagation()}>
+                  {a.statementUrl && (
+                    <a href={a.statementUrl} target="_blank" rel="noopener noreferrer"
+                       className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
+                      งบ <ExternalLink size={9} />
+                    </a>
+                  )}
+                  {a.mdaUrl && (
+                    <a href={a.mdaUrl} target="_blank" rel="noopener noreferrer"
+                       className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
+                      MD&A <ExternalLink size={9} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/[0.06]">
@@ -415,6 +479,7 @@ function AnnouncementsTable({
               </tbody>
             </table>
           </div>
+          </>
         )}
       </div>
     </div>

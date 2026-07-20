@@ -11,9 +11,16 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const [desktopOpen, setDesktopOpen] = useState(true);
 
   // Restore the user's collapse preference after mount (avoids SSR/localStorage mismatch).
+  // If they've never touched the toggle, default tablet widths (iPad - roughly
+  // 768-1024px, the md breakpoint but not yet lg) to collapsed so the narrower
+  // viewport gets more room for content instead of a full-width nav.
   useEffect(() => {
     const stored = localStorage.getItem(DESKTOP_OPEN_KEY);
-    if (stored !== null) setDesktopOpen(stored === '1');
+    if (stored !== null) {
+      setDesktopOpen(stored === '1');
+    } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+      setDesktopOpen(false);
+    }
   }, []);
 
   const toggleSidebar = () => {

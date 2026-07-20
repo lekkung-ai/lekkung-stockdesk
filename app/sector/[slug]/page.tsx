@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { allSectorEntries, slugToSector, sectorToSlug } from '@/lib/sectorData';
 import { scanData } from '@/lib/scanData';
 import { ChevronLeft } from 'lucide-react';
-import SectorTickerGrid from '@/components/SectorTickerGrid';
+import SectorViewToggle from '@/components/SectorViewToggle';
 
 const SECTOR_COLORS: Record<string, string> = {
   'Agro':             '#5D9E4A',
@@ -84,7 +84,7 @@ export default async function SectorDetailPage({
         </div>
       </div>
 
-      <SectorTickerGrid subsectors={subsectorData} />
+      <SectorViewToggle subsectors={subsectorData} />
     </div>
   );
 }
