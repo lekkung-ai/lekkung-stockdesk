@@ -1,9 +1,10 @@
 import type { NextRequest } from 'next/server';
 
-// Bulk P/BV + ROE for every ticker in a sector, one upstream call instead of
+// Bulk P/BV + ROE + P/E for any list of tickers, one upstream call instead of
 // N per-stock ones - same TradingView "thailand" scanner /api/fundamental/[ticker]
 // already uses, just queried with an `in_range` membership filter instead of
-// a single `equal` ticker.
+// a single `equal` ticker. Used by the sector valuation scatter and by Top
+// Movers' P/E column.
 export async function GET(req: NextRequest) {
   const tickersParam = req.nextUrl.searchParams.get('tickers');
   if (!tickersParam) {
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest) {
       filter: [{ left: 'name', operation: 'in_range', right: tickers }],
       options: { lang: 'en' },
       markets: ['thailand'],
-      columns: ['name', 'price_book_ratio', 'return_on_equity'],
+      columns: ['name', 'price_book_ratio', 'return_on_equity', 'price_earnings_ttm'],
       range: [0, tickers.length],
     };
 
@@ -34,10 +35,11 @@ export async function GET(req: NextRequest) {
     }
 
     const json = await res.json();
-    const data = (json.data ?? []).map((row: { d: [string, number | null, number | null] }) => ({
+    const data = (json.data ?? []).map((row: { d: [string, number | null, number | null, number | null] }) => ({
       ticker: row.d[0],
       pb: row.d[1],
       roe: row.d[2],
+      pe: row.d[3],
     }));
 
     return Response.json(
