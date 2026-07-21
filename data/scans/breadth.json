@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-21T19:21:44+07:00",
+  "generated_at": "2026-07-21T21:42:04+07:00",
   "universe": {
-    "count": 857,
+    "count": 866,
     "min_history_days": 252,
     "note": "ticker ที่มีข้อมูลราคาปิดย้อนหลัง >= min_history_days วัน ใน data/history/ (universe เดียวกับที่ scan_*.py อื่นๆ ใช้กรอง MIN_HISTORY_DAYS)"
   },
@@ -33,7 +33,7 @@
       "low": 1299.64,
       "close": 1317.56,
       "volume": 3970000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-01-22",
@@ -51,7 +51,7 @@
       "low": 1309.65,
       "close": 1314.39,
       "volume": 3439400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-01-26",
@@ -60,7 +60,7 @@
       "low": 1302.74,
       "close": 1307.07,
       "volume": 3038200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-01-27",
@@ -69,7 +69,7 @@
       "low": 1308.14,
       "close": 1334.45,
       "volume": 3225400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-01-28",
@@ -78,7 +78,7 @@
       "low": 1331.7,
       "close": 1338.9,
       "volume": 2872600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-01-29",
@@ -96,7 +96,7 @@
       "low": 1322.35,
       "close": 1325.62,
       "volume": 2731300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-02",
@@ -105,7 +105,7 @@
       "low": 1308.04,
       "close": 1321.42,
       "volume": 2656600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-03",
@@ -114,7 +114,7 @@
       "low": 1328.27,
       "close": 1336.11,
       "volume": 3388500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-04",
@@ -123,7 +123,7 @@
       "low": 1337.87,
       "close": 1346.54,
       "volume": 3409900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-05",
@@ -132,7 +132,7 @@
       "low": 1338.32,
       "close": 1346.23,
       "volume": 3426900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-06",
@@ -141,7 +141,7 @@
       "low": 1341.55,
       "close": 1354.01,
       "volume": 2661500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-09",
@@ -150,7 +150,7 @@
       "low": 1384.61,
       "close": 1400.89,
       "volume": 8061300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-10",
@@ -159,7 +159,7 @@
       "low": 1402.29,
       "close": 1410.44,
       "volume": 4664900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-11",
@@ -168,7 +168,7 @@
       "low": 1408.69,
       "close": 1411.7,
       "volume": 4482200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-12",
@@ -177,7 +177,7 @@
       "low": 1412.45,
       "close": 1441.53,
       "volume": 5686200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-13",
@@ -186,7 +186,7 @@
       "low": 1426.41,
       "close": 1430.41,
       "volume": 5445500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-16",
@@ -195,7 +195,7 @@
       "low": 1432.74,
       "close": 1438.09,
       "volume": 4228200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-17",
@@ -204,7 +204,7 @@
       "low": 1433.91,
       "close": 1459.68,
       "volume": 5407800,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-18",
@@ -213,7 +213,7 @@
       "low": 1456.9,
       "close": 1466.67,
       "volume": 5924000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-19",
@@ -222,7 +222,7 @@
       "low": 1471.12,
       "close": 1493.91,
       "volume": 6408300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-20",
@@ -240,7 +240,7 @@
       "low": 1468.02,
       "close": 1480.24,
       "volume": 6123100,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-24",
@@ -249,7 +249,7 @@
       "low": 1468.0,
       "close": 1490.4,
       "volume": 4664300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-25",
@@ -258,7 +258,7 @@
       "low": 1502.67,
       "close": 1516.01,
       "volume": 5357500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-26",
@@ -267,7 +267,7 @@
       "low": 1519.2,
       "close": 1533.64,
       "volume": 4450000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-02-27",
@@ -303,7 +303,7 @@
       "low": 1386.7,
       "close": 1417.29,
       "volume": 6515500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-06",
@@ -312,7 +312,7 @@
       "low": 1404.31,
       "close": 1410.37,
       "volume": 3670600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-09",
@@ -330,7 +330,7 @@
       "low": 1393.03,
       "close": 1405.76,
       "volume": 4203400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-11",
@@ -339,7 +339,7 @@
       "low": 1407.34,
       "close": 1407.34,
       "volume": 4415900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-12",
@@ -348,7 +348,7 @@
       "low": 1396.85,
       "close": 1429.8,
       "volume": 3954000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-13",
@@ -366,7 +366,7 @@
       "low": 1403.31,
       "close": 1405.02,
       "volume": 3659800,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-17",
@@ -375,7 +375,7 @@
       "low": 1418.68,
       "close": 1433.88,
       "volume": 4624000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-18",
@@ -384,7 +384,7 @@
       "low": 1438.13,
       "close": 1440.85,
       "volume": 4231300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-19",
@@ -402,7 +402,7 @@
       "low": 1419.88,
       "close": 1432.99,
       "volume": 5262000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-23",
@@ -411,7 +411,7 @@
       "low": 1396.11,
       "close": 1397.34,
       "volume": 4831200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-24",
@@ -420,7 +420,7 @@
       "low": 1407.0,
       "close": 1410.39,
       "volume": 3858100,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-25",
@@ -429,7 +429,7 @@
       "low": 1431.18,
       "close": 1457.91,
       "volume": 4732700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-26",
@@ -438,7 +438,7 @@
       "low": 1439.38,
       "close": 1442.92,
       "volume": 4729800,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-27",
@@ -447,7 +447,7 @@
       "low": 1442.16,
       "close": 1447.05,
       "volume": 4141600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-30",
@@ -456,7 +456,7 @@
       "low": 1432.57,
       "close": 1449.62,
       "volume": 3768300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-03-31",
@@ -465,7 +465,7 @@
       "low": 1439.46,
       "close": 1448.14,
       "volume": 4583600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-01",
@@ -474,7 +474,7 @@
       "low": 1464.28,
       "close": 1470.99,
       "volume": 5748500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-02",
@@ -483,7 +483,7 @@
       "low": 1459.5,
       "close": 1465.72,
       "volume": 3857700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-03",
@@ -492,7 +492,7 @@
       "low": 1453.77,
       "close": 1454.0,
       "volume": 3494300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-07",
@@ -501,7 +501,7 @@
       "low": 1449.43,
       "close": 1464.43,
       "volume": 3176200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-08",
@@ -510,7 +510,7 @@
       "low": 1479.98,
       "close": 1485.03,
       "volume": 4358200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-09",
@@ -519,7 +519,7 @@
       "low": 1482.12,
       "close": 1489.66,
       "volume": 3386100,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-10",
@@ -528,7 +528,7 @@
       "low": 1494.6,
       "close": 1506.84,
       "volume": 2674400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-16",
@@ -555,7 +555,7 @@
       "low": 1472.24,
       "close": 1481.85,
       "volume": 2611700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-21",
@@ -564,7 +564,7 @@
       "low": 1476.57,
       "close": 1483.5,
       "volume": 3253700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-22",
@@ -591,7 +591,7 @@
       "low": 1438.33,
       "close": 1456.1,
       "volume": 3093400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-27",
@@ -600,7 +600,7 @@
       "low": 1463.0,
       "close": 1479.13,
       "volume": 3352200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-28",
@@ -609,7 +609,7 @@
       "low": 1467.67,
       "close": 1480.2,
       "volume": 3908400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-29",
@@ -618,7 +618,7 @@
       "low": 1475.3,
       "close": 1491.74,
       "volume": 4207300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-04-30",
@@ -627,7 +627,7 @@
       "low": 1481.05,
       "close": 1493.69,
       "volume": 3747700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-05",
@@ -645,7 +645,7 @@
       "low": 1494.23,
       "close": 1516.91,
       "volume": 5401800,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-07",
@@ -654,7 +654,7 @@
       "low": 1507.53,
       "close": 1507.53,
       "volume": 4755700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-08",
@@ -663,7 +663,7 @@
       "low": 1498.13,
       "close": 1500.36,
       "volume": 4227600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-11",
@@ -672,7 +672,7 @@
       "low": 1483.95,
       "close": 1489.29,
       "volume": 3754800,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-12",
@@ -690,7 +690,7 @@
       "low": 1493.28,
       "close": 1517.26,
       "volume": 4140900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-14",
@@ -699,7 +699,7 @@
       "low": 1514.56,
       "close": 1539.12,
       "volume": 4679200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-15",
@@ -708,7 +708,7 @@
       "low": 1512.91,
       "close": 1517.95,
       "volume": 4628200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-18",
@@ -717,7 +717,7 @@
       "low": 1510.42,
       "close": 1517.74,
       "volume": 4087300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-19",
@@ -726,7 +726,7 @@
       "low": 1509.26,
       "close": 1516.69,
       "volume": 4524500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-20",
@@ -735,7 +735,7 @@
       "low": 1516.78,
       "close": 1528.43,
       "volume": 3703900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-21",
@@ -744,7 +744,7 @@
       "low": 1530.93,
       "close": 1532.67,
       "volume": 4037000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-22",
@@ -753,7 +753,7 @@
       "low": 1533.03,
       "close": 1538.67,
       "volume": 5144900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-25",
@@ -762,7 +762,7 @@
       "low": 1545.63,
       "close": 1550.33,
       "volume": 10641200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-26",
@@ -771,7 +771,7 @@
       "low": 1547.86,
       "close": 1553.36,
       "volume": 4326700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-27",
@@ -780,7 +780,7 @@
       "low": 1559.58,
       "close": 1570.95,
       "volume": 5330900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-28",
@@ -789,7 +789,7 @@
       "low": 1552.85,
       "close": 1568.97,
       "volume": 5171700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-05-29",
@@ -798,7 +798,7 @@
       "low": 1566.34,
       "close": 1568.37,
       "volume": 5562000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-02",
@@ -807,7 +807,7 @@
       "low": 1567.0,
       "close": 1588.06,
       "volume": 5679000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-04",
@@ -816,7 +816,7 @@
       "low": 1586.2,
       "close": 1594.79,
       "volume": 6373300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-05",
@@ -825,7 +825,7 @@
       "low": 1580.36,
       "close": 1582.6,
       "volume": 5319300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-08",
@@ -834,7 +834,7 @@
       "low": 1558.97,
       "close": 1561.68,
       "volume": 4442800,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-09",
@@ -843,7 +843,7 @@
       "low": 1570.48,
       "close": 1584.14,
       "volume": 4040200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-10",
@@ -852,7 +852,7 @@
       "low": 1563.59,
       "close": 1563.59,
       "volume": 3478600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-11",
@@ -861,7 +861,7 @@
       "low": 1559.45,
       "close": 1572.32,
       "volume": 3619400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-12",
@@ -870,7 +870,7 @@
       "low": 1582.26,
       "close": 1592.41,
       "volume": 3820100,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-15",
@@ -879,7 +879,7 @@
       "low": 1585.61,
       "close": 1591.72,
       "volume": 9058700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-16",
@@ -888,7 +888,7 @@
       "low": 1583.96,
       "close": 1588.05,
       "volume": 3951600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-17",
@@ -897,7 +897,7 @@
       "low": 1574.14,
       "close": 1587.07,
       "volume": 4751200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-18",
@@ -906,7 +906,7 @@
       "low": 1583.24,
       "close": 1585.06,
       "volume": 5005700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-19",
@@ -915,7 +915,7 @@
       "low": 1570.1,
       "close": 1572.5,
       "volume": 3836300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-22",
@@ -924,7 +924,7 @@
       "low": 1568.05,
       "close": 1574.13,
       "volume": 3155300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-23",
@@ -942,7 +942,7 @@
       "low": 1536.37,
       "close": 1548.22,
       "volume": 3063200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-25",
@@ -951,7 +951,7 @@
       "low": 1554.51,
       "close": 1558.55,
       "volume": 5322400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-26",
@@ -960,7 +960,7 @@
       "low": 1537.96,
       "close": 1542.34,
       "volume": 3838200,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-29",
@@ -969,7 +969,7 @@
       "low": 1550.14,
       "close": 1577.81,
       "volume": 4271100,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-06-30",
@@ -978,7 +978,7 @@
       "low": 1576.0,
       "close": 1591.24,
       "volume": 5357000,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-01",
@@ -987,7 +987,7 @@
       "low": 1587.88,
       "close": 1588.23,
       "volume": 4019500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-02",
@@ -996,7 +996,7 @@
       "low": 1583.28,
       "close": 1593.56,
       "volume": 4017400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-03",
@@ -1005,7 +1005,7 @@
       "low": 1598.3,
       "close": 1611.28,
       "volume": 4539400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-06",
@@ -1014,7 +1014,7 @@
       "low": 1605.09,
       "close": 1616.88,
       "volume": 3837300,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-07",
@@ -1041,7 +1041,7 @@
       "low": 1586.03,
       "close": 1608.3,
       "volume": 4665600,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-10",
@@ -1050,7 +1050,7 @@
       "low": 1612.12,
       "close": 1621.55,
       "volume": 4783400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-13",
@@ -1059,7 +1059,7 @@
       "low": 1613.6,
       "close": 1627.9,
       "volume": 5226400,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-14",
@@ -1068,7 +1068,7 @@
       "low": 1606.27,
       "close": 1626.03,
       "volume": 5652500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-15",
@@ -1077,7 +1077,7 @@
       "low": 1627.19,
       "close": 1630.21,
       "volume": 5589900,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-16",
@@ -1086,7 +1086,7 @@
       "low": 1629.34,
       "close": 1635.29,
       "volume": 5280500,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-17",
@@ -1095,7 +1095,7 @@
       "low": 1628.6,
       "close": 1639.04,
       "volume": 5745700,
-      "marker": NaN
+      "marker": null
     },
     {
       "date": "2026-07-21",
@@ -1104,1185 +1104,1185 @@
       "low": 1642.28,
       "close": 1652.97,
       "volume": 0,
-      "marker": NaN
+      "marker": null
     }
   ],
   "breadth": [
     {
       "date": "2026-01-21",
-      "pct_above_ma10": 69.09,
-      "denom_ma10": 854,
-      "pct_above_ma20": 59.79,
-      "denom_ma20": 853,
-      "pct_above_ma50": 50.41,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.68,
-      "denom_ma200": 848,
-      "pct_new_52wh": 3.19,
-      "pct_new_52wl": 4.73,
-      "denom_52w": 846
+      "pct_above_ma10": 68.71,
+      "denom_ma10": 863,
+      "pct_above_ma20": 59.63,
+      "denom_ma20": 862,
+      "pct_above_ma50": 50.12,
+      "denom_ma50": 862,
+      "pct_above_ma200": 38.74,
+      "denom_ma200": 857,
+      "pct_new_52wh": 3.16,
+      "pct_new_52wl": 4.68,
+      "denom_52w": 855
     },
     {
       "date": "2026-01-22",
-      "pct_above_ma10": 58.67,
-      "denom_ma10": 854,
-      "pct_above_ma20": 51.58,
-      "denom_ma20": 853,
-      "pct_above_ma50": 47.48,
-      "denom_ma50": 853,
-      "pct_above_ma200": 37.85,
-      "denom_ma200": 848,
-      "pct_new_52wh": 2.01,
-      "pct_new_52wl": 6.38,
-      "denom_52w": 846
+      "pct_above_ma10": 58.52,
+      "denom_ma10": 863,
+      "pct_above_ma20": 51.51,
+      "denom_ma20": 862,
+      "pct_above_ma50": 47.33,
+      "denom_ma50": 862,
+      "pct_above_ma200": 37.92,
+      "denom_ma200": 857,
+      "pct_new_52wh": 1.99,
+      "pct_new_52wl": 6.55,
+      "denom_52w": 855
     },
     {
       "date": "2026-01-23",
-      "pct_above_ma10": 58.2,
-      "denom_ma10": 854,
-      "pct_above_ma20": 50.76,
-      "denom_ma20": 853,
-      "pct_above_ma50": 47.01,
-      "denom_ma50": 853,
-      "pct_above_ma200": 36.91,
-      "denom_ma200": 848,
-      "pct_new_52wh": 2.96,
-      "pct_new_52wl": 6.38,
-      "denom_52w": 846
+      "pct_above_ma10": 58.05,
+      "denom_ma10": 863,
+      "pct_above_ma20": 50.7,
+      "denom_ma20": 862,
+      "pct_above_ma50": 46.87,
+      "denom_ma50": 862,
+      "pct_above_ma200": 36.99,
+      "denom_ma200": 857,
+      "pct_new_52wh": 2.92,
+      "pct_new_52wl": 6.43,
+      "denom_52w": 855
     },
     {
       "date": "2026-01-26",
-      "pct_above_ma10": 48.71,
-      "denom_ma10": 854,
-      "pct_above_ma20": 46.54,
-      "denom_ma20": 853,
-      "pct_above_ma50": 45.96,
-      "denom_ma50": 853,
-      "pct_above_ma200": 36.08,
-      "denom_ma200": 848,
-      "pct_new_52wh": 2.13,
-      "pct_new_52wl": 6.74,
-      "denom_52w": 846
+      "pct_above_ma10": 48.67,
+      "denom_ma10": 863,
+      "pct_above_ma20": 46.17,
+      "denom_ma20": 862,
+      "pct_above_ma50": 45.71,
+      "denom_ma50": 862,
+      "pct_above_ma200": 36.17,
+      "denom_ma200": 857,
+      "pct_new_52wh": 2.22,
+      "pct_new_52wl": 6.78,
+      "denom_52w": 855
     },
     {
       "date": "2026-01-27",
-      "pct_above_ma10": 56.26,
-      "denom_ma10": 855,
-      "pct_above_ma20": 53.11,
-      "denom_ma20": 853,
-      "pct_above_ma50": 49.0,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.44,
-      "denom_ma200": 848,
-      "pct_new_52wh": 3.31,
-      "pct_new_52wl": 4.96,
-      "denom_52w": 846
+      "pct_above_ma10": 56.13,
+      "denom_ma10": 864,
+      "pct_above_ma20": 52.67,
+      "denom_ma20": 862,
+      "pct_above_ma50": 48.72,
+      "denom_ma50": 862,
+      "pct_above_ma200": 38.51,
+      "denom_ma200": 857,
+      "pct_new_52wh": 3.27,
+      "pct_new_52wl": 5.03,
+      "denom_52w": 855
     },
     {
       "date": "2026-01-28",
-      "pct_above_ma10": 50.76,
-      "denom_ma10": 855,
-      "pct_above_ma20": 52.17,
-      "denom_ma20": 853,
-      "pct_above_ma50": 48.89,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.33,
-      "denom_ma200": 848,
-      "pct_new_52wh": 3.43,
-      "pct_new_52wl": 6.74,
-      "denom_52w": 846
+      "pct_above_ma10": 50.69,
+      "denom_ma10": 864,
+      "pct_above_ma20": 51.86,
+      "denom_ma20": 862,
+      "pct_above_ma50": 48.61,
+      "denom_ma50": 862,
+      "pct_above_ma200": 38.39,
+      "denom_ma200": 857,
+      "pct_new_52wh": 3.51,
+      "pct_new_52wl": 6.78,
+      "denom_52w": 855
     },
     {
       "date": "2026-01-29",
-      "pct_above_ma10": 42.81,
-      "denom_ma10": 855,
-      "pct_above_ma20": 48.07,
-      "denom_ma20": 853,
-      "pct_above_ma50": 48.53,
-      "denom_ma50": 853,
-      "pct_above_ma200": 37.62,
-      "denom_ma200": 848,
-      "pct_new_52wh": 2.72,
-      "pct_new_52wl": 7.09,
-      "denom_52w": 846
+      "pct_above_ma10": 42.48,
+      "denom_ma10": 864,
+      "pct_above_ma20": 47.68,
+      "denom_ma20": 862,
+      "pct_above_ma50": 48.38,
+      "denom_ma50": 862,
+      "pct_above_ma200": 37.69,
+      "denom_ma200": 857,
+      "pct_new_52wh": 2.69,
+      "pct_new_52wl": 7.02,
+      "denom_52w": 855
     },
     {
       "date": "2026-01-30",
-      "pct_above_ma10": 40.58,
-      "denom_ma10": 855,
-      "pct_above_ma20": 47.71,
-      "denom_ma20": 853,
-      "pct_above_ma50": 47.83,
-      "denom_ma50": 853,
-      "pct_above_ma200": 37.15,
-      "denom_ma200": 848,
-      "pct_new_52wh": 2.96,
-      "pct_new_52wl": 7.33,
-      "denom_52w": 846
+      "pct_above_ma10": 40.74,
+      "denom_ma10": 864,
+      "pct_above_ma20": 47.68,
+      "denom_ma20": 862,
+      "pct_above_ma50": 47.68,
+      "denom_ma50": 862,
+      "pct_above_ma200": 37.22,
+      "denom_ma200": 857,
+      "pct_new_52wh": 3.04,
+      "pct_new_52wl": 7.37,
+      "denom_52w": 855
     },
     {
       "date": "2026-02-02",
-      "pct_above_ma10": 33.1,
-      "denom_ma10": 855,
-      "pct_above_ma20": 41.74,
-      "denom_ma20": 853,
-      "pct_above_ma50": 43.38,
-      "denom_ma50": 853,
-      "pct_above_ma200": 37.5,
-      "denom_ma200": 848,
-      "pct_new_52wh": 2.25,
-      "pct_new_52wl": 9.57,
-      "denom_52w": 846
+      "pct_above_ma10": 32.99,
+      "denom_ma10": 864,
+      "pct_above_ma20": 41.53,
+      "denom_ma20": 862,
+      "pct_above_ma50": 43.16,
+      "denom_ma50": 862,
+      "pct_above_ma200": 37.57,
+      "denom_ma200": 857,
+      "pct_new_52wh": 2.34,
+      "pct_new_52wl": 9.59,
+      "denom_52w": 855
     },
     {
       "date": "2026-02-03",
-      "pct_above_ma10": 44.68,
-      "denom_ma10": 855,
-      "pct_above_ma20": 51.99,
-      "denom_ma20": 854,
-      "pct_above_ma50": 47.36,
-      "denom_ma50": 853,
-      "pct_above_ma200": 37.57,
-      "denom_ma200": 849,
-      "pct_new_52wh": 2.84,
-      "pct_new_52wl": 7.21,
-      "denom_52w": 846
+      "pct_above_ma10": 44.21,
+      "denom_ma10": 864,
+      "pct_above_ma20": 51.45,
+      "denom_ma20": 863,
+      "pct_above_ma50": 47.1,
+      "denom_ma50": 862,
+      "pct_above_ma200": 37.65,
+      "denom_ma200": 858,
+      "pct_new_52wh": 2.81,
+      "pct_new_52wl": 7.37,
+      "denom_52w": 855
     },
     {
       "date": "2026-02-04",
-      "pct_above_ma10": 45.61,
-      "denom_ma10": 855,
-      "pct_above_ma20": 50.94,
-      "denom_ma20": 854,
-      "pct_above_ma50": 47.48,
-      "denom_ma50": 853,
-      "pct_above_ma200": 37.53,
-      "denom_ma200": 850,
-      "pct_new_52wh": 3.42,
-      "pct_new_52wl": 7.44,
-      "denom_52w": 847
+      "pct_above_ma10": 45.37,
+      "denom_ma10": 864,
+      "pct_above_ma20": 50.64,
+      "denom_ma20": 863,
+      "pct_above_ma50": 47.22,
+      "denom_ma50": 862,
+      "pct_above_ma200": 37.6,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.5,
+      "pct_new_52wl": 7.48,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-05",
-      "pct_above_ma10": 49.59,
-      "denom_ma10": 855,
-      "pct_above_ma20": 52.46,
-      "denom_ma20": 854,
-      "pct_above_ma50": 48.65,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.0,
-      "denom_ma200": 850,
-      "pct_new_52wh": 3.07,
-      "pct_new_52wl": 7.2,
-      "denom_52w": 847
+      "pct_above_ma10": 49.42,
+      "denom_ma10": 864,
+      "pct_above_ma20": 52.14,
+      "denom_ma20": 863,
+      "pct_above_ma50": 48.49,
+      "denom_ma50": 862,
+      "pct_above_ma200": 38.07,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.15,
+      "pct_new_52wl": 7.24,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-06",
-      "pct_above_ma10": 50.29,
-      "denom_ma10": 855,
-      "pct_above_ma20": 53.4,
-      "denom_ma20": 854,
-      "pct_above_ma50": 49.82,
-      "denom_ma50": 853,
-      "pct_above_ma200": 39.06,
-      "denom_ma200": 850,
-      "pct_new_52wh": 2.72,
-      "pct_new_52wl": 6.73,
-      "denom_52w": 847
+      "pct_above_ma10": 50.0,
+      "denom_ma10": 864,
+      "pct_above_ma20": 53.19,
+      "denom_ma20": 863,
+      "pct_above_ma50": 49.54,
+      "denom_ma50": 862,
+      "pct_above_ma200": 39.12,
+      "denom_ma200": 859,
+      "pct_new_52wh": 2.8,
+      "pct_new_52wl": 6.78,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-09",
-      "pct_above_ma10": 67.21,
-      "denom_ma10": 854,
-      "pct_above_ma20": 65.06,
-      "denom_ma20": 853,
-      "pct_above_ma50": 57.56,
-      "denom_ma50": 853,
-      "pct_above_ma200": 41.29,
-      "denom_ma200": 850,
-      "pct_new_52wh": 5.67,
-      "pct_new_52wl": 4.96,
-      "denom_52w": 847
+      "pct_above_ma10": 67.09,
+      "denom_ma10": 863,
+      "pct_above_ma20": 64.73,
+      "denom_ma20": 862,
+      "pct_above_ma50": 57.31,
+      "denom_ma50": 862,
+      "pct_above_ma200": 41.33,
+      "denom_ma200": 859,
+      "pct_new_52wh": 5.72,
+      "pct_new_52wl": 5.02,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-10",
-      "pct_above_ma10": 73.42,
-      "denom_ma10": 854,
-      "pct_above_ma20": 69.32,
-      "denom_ma20": 854,
-      "pct_above_ma50": 61.9,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.65,
-      "denom_ma200": 850,
-      "pct_new_52wh": 6.02,
-      "pct_new_52wl": 4.13,
-      "denom_52w": 847
+      "pct_above_ma10": 73.23,
+      "denom_ma10": 863,
+      "pct_above_ma20": 68.83,
+      "denom_ma20": 863,
+      "pct_above_ma50": 61.6,
+      "denom_ma50": 862,
+      "pct_above_ma200": 43.66,
+      "denom_ma200": 859,
+      "pct_new_52wh": 5.96,
+      "pct_new_52wl": 4.09,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-11",
-      "pct_above_ma10": 72.37,
-      "denom_ma10": 854,
-      "pct_above_ma20": 67.8,
-      "denom_ma20": 854,
-      "pct_above_ma50": 62.13,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.65,
-      "denom_ma200": 850,
-      "pct_new_52wh": 5.67,
-      "pct_new_52wl": 4.49,
-      "denom_52w": 847
+      "pct_above_ma10": 72.42,
+      "denom_ma10": 863,
+      "pct_above_ma20": 67.44,
+      "denom_ma20": 863,
+      "pct_above_ma50": 61.95,
+      "denom_ma50": 862,
+      "pct_above_ma200": 43.77,
+      "denom_ma200": 859,
+      "pct_new_52wh": 5.72,
+      "pct_new_52wl": 4.44,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-12",
-      "pct_above_ma10": 81.5,
-      "denom_ma10": 854,
-      "pct_above_ma20": 77.52,
-      "denom_ma20": 854,
-      "pct_above_ma50": 71.75,
-      "denom_ma50": 853,
-      "pct_above_ma200": 48.0,
-      "denom_ma200": 850,
-      "pct_new_52wh": 8.97,
-      "pct_new_52wl": 3.07,
-      "denom_52w": 847
+      "pct_above_ma10": 81.34,
+      "denom_ma10": 863,
+      "pct_above_ma20": 77.06,
+      "denom_ma20": 863,
+      "pct_above_ma50": 71.35,
+      "denom_ma50": 862,
+      "pct_above_ma200": 48.08,
+      "denom_ma200": 859,
+      "pct_new_52wh": 8.88,
+      "pct_new_52wl": 3.04,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-13",
-      "pct_above_ma10": 81.26,
-      "denom_ma10": 854,
-      "pct_above_ma20": 78.1,
-      "denom_ma20": 854,
-      "pct_above_ma50": 71.98,
-      "denom_ma50": 853,
-      "pct_above_ma200": 48.47,
-      "denom_ma200": 850,
-      "pct_new_52wh": 7.08,
-      "pct_new_52wl": 3.19,
-      "denom_52w": 847
+      "pct_above_ma10": 81.23,
+      "denom_ma10": 863,
+      "pct_above_ma20": 77.75,
+      "denom_ma20": 863,
+      "pct_above_ma50": 71.58,
+      "denom_ma50": 862,
+      "pct_above_ma200": 48.54,
+      "denom_ma200": 859,
+      "pct_new_52wh": 7.13,
+      "pct_new_52wl": 3.15,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-16",
-      "pct_above_ma10": 78.81,
-      "denom_ma10": 854,
-      "pct_above_ma20": 77.87,
-      "denom_ma20": 854,
-      "pct_above_ma50": 73.51,
-      "denom_ma50": 853,
-      "pct_above_ma200": 50.24,
-      "denom_ma200": 850,
-      "pct_new_52wh": 8.85,
-      "pct_new_52wl": 3.78,
-      "denom_52w": 847
+      "pct_above_ma10": 78.68,
+      "denom_ma10": 863,
+      "pct_above_ma20": 77.75,
+      "denom_ma20": 863,
+      "pct_above_ma50": 73.2,
+      "denom_ma50": 862,
+      "pct_above_ma200": 50.29,
+      "denom_ma200": 859,
+      "pct_new_52wh": 8.88,
+      "pct_new_52wl": 3.74,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-17",
-      "pct_above_ma10": 84.78,
-      "denom_ma10": 854,
-      "pct_above_ma20": 83.96,
-      "denom_ma20": 854,
-      "pct_above_ma50": 77.14,
-      "denom_ma50": 853,
+      "pct_above_ma10": 84.7,
+      "denom_ma10": 863,
+      "pct_above_ma20": 83.89,
+      "denom_ma20": 863,
+      "pct_above_ma50": 77.03,
+      "denom_ma50": 862,
       "pct_above_ma200": 54.71,
-      "denom_ma200": 850,
-      "pct_new_52wh": 10.15,
-      "pct_new_52wl": 2.13,
-      "denom_52w": 847
+      "denom_ma200": 859,
+      "pct_new_52wh": 10.16,
+      "pct_new_52wl": 2.1,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-18",
-      "pct_above_ma10": 86.08,
-      "denom_ma10": 855,
-      "pct_above_ma20": 86.3,
-      "denom_ma20": 854,
-      "pct_above_ma50": 80.3,
-      "denom_ma50": 853,
-      "pct_above_ma200": 57.81,
-      "denom_ma200": 851,
-      "pct_new_52wh": 11.1,
-      "pct_new_52wl": 2.24,
-      "denom_52w": 847
+      "pct_above_ma10": 86.11,
+      "denom_ma10": 864,
+      "pct_above_ma20": 86.21,
+      "denom_ma20": 863,
+      "pct_above_ma50": 80.16,
+      "denom_ma50": 862,
+      "pct_above_ma200": 57.79,
+      "denom_ma200": 860,
+      "pct_new_52wh": 10.98,
+      "pct_new_52wl": 2.22,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-19",
-      "pct_above_ma10": 86.08,
-      "denom_ma10": 855,
-      "pct_above_ma20": 87.59,
-      "denom_ma20": 854,
-      "pct_above_ma50": 82.88,
-      "denom_ma50": 853,
-      "pct_above_ma200": 59.81,
-      "denom_ma200": 851,
-      "pct_new_52wh": 12.75,
-      "pct_new_52wl": 2.01,
-      "denom_52w": 847
+      "pct_above_ma10": 85.88,
+      "denom_ma10": 864,
+      "pct_above_ma20": 87.6,
+      "denom_ma20": 863,
+      "pct_above_ma50": 82.6,
+      "denom_ma50": 862,
+      "pct_above_ma200": 59.65,
+      "denom_ma200": 860,
+      "pct_new_52wh": 12.62,
+      "pct_new_52wl": 1.99,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-20",
       "pct_above_ma10": 77.08,
-      "denom_ma10": 855,
-      "pct_above_ma20": 83.37,
-      "denom_ma20": 854,
-      "pct_above_ma50": 79.48,
-      "denom_ma50": 853,
-      "pct_above_ma200": 57.23,
-      "denom_ma200": 851,
-      "pct_new_52wh": 7.2,
-      "pct_new_52wl": 1.65,
-      "denom_52w": 847
+      "denom_ma10": 864,
+      "pct_above_ma20": 83.2,
+      "denom_ma20": 863,
+      "pct_above_ma50": 79.12,
+      "denom_ma50": 862,
+      "pct_above_ma200": 57.21,
+      "denom_ma200": 860,
+      "pct_new_52wh": 7.13,
+      "pct_new_52wl": 1.64,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-23",
-      "pct_above_ma10": 61.99,
-      "denom_ma10": 855,
-      "pct_above_ma20": 78.92,
-      "denom_ma20": 854,
-      "pct_above_ma50": 76.79,
-      "denom_ma50": 853,
-      "pct_above_ma200": 53.82,
-      "denom_ma200": 851,
-      "pct_new_52wh": 6.38,
-      "pct_new_52wl": 2.36,
-      "denom_52w": 847
+      "pct_above_ma10": 61.81,
+      "denom_ma10": 864,
+      "pct_above_ma20": 78.68,
+      "denom_ma20": 863,
+      "pct_above_ma50": 76.45,
+      "denom_ma50": 862,
+      "pct_above_ma200": 53.84,
+      "denom_ma200": 860,
+      "pct_new_52wh": 6.31,
+      "pct_new_52wl": 2.34,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-24",
-      "pct_above_ma10": 61.64,
-      "denom_ma10": 855,
+      "pct_above_ma10": 61.69,
+      "denom_ma10": 864,
       "pct_above_ma20": 78.1,
-      "denom_ma20": 854,
-      "pct_above_ma50": 75.97,
-      "denom_ma50": 853,
+      "denom_ma20": 863,
+      "pct_above_ma50": 75.75,
+      "denom_ma50": 862,
       "pct_above_ma200": 55.58,
-      "denom_ma200": 851,
-      "pct_new_52wh": 7.44,
-      "pct_new_52wl": 2.95,
-      "denom_52w": 847
+      "denom_ma200": 860,
+      "pct_new_52wh": 7.48,
+      "pct_new_52wl": 2.92,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-25",
-      "pct_above_ma10": 59.3,
-      "denom_ma10": 855,
-      "pct_above_ma20": 76.11,
-      "denom_ma20": 854,
-      "pct_above_ma50": 76.91,
-      "denom_ma50": 853,
-      "pct_above_ma200": 56.29,
-      "denom_ma200": 851,
-      "pct_new_52wh": 8.38,
-      "pct_new_52wl": 3.07,
-      "denom_52w": 847
+      "pct_above_ma10": 59.38,
+      "denom_ma10": 864,
+      "pct_above_ma20": 76.36,
+      "denom_ma20": 863,
+      "pct_above_ma50": 76.8,
+      "denom_ma50": 862,
+      "pct_above_ma200": 56.28,
+      "denom_ma200": 860,
+      "pct_new_52wh": 8.41,
+      "pct_new_52wl": 3.04,
+      "denom_52w": 856
     },
     {
       "date": "2026-02-26",
-      "pct_above_ma10": 55.14,
-      "denom_ma10": 856,
-      "pct_above_ma20": 74.12,
-      "denom_ma20": 854,
-      "pct_above_ma50": 75.26,
-      "denom_ma50": 853,
-      "pct_above_ma200": 55.82,
-      "denom_ma200": 851,
-      "pct_new_52wh": 8.49,
-      "pct_new_52wl": 2.83,
-      "denom_52w": 848
+      "pct_above_ma10": 55.03,
+      "denom_ma10": 865,
+      "pct_above_ma20": 74.16,
+      "denom_ma20": 863,
+      "pct_above_ma50": 75.17,
+      "denom_ma50": 862,
+      "pct_above_ma200": 55.81,
+      "denom_ma200": 860,
+      "pct_new_52wh": 8.52,
+      "pct_new_52wl": 2.8,
+      "denom_52w": 857
     },
     {
       "date": "2026-02-27",
-      "pct_above_ma10": 48.48,
-      "denom_ma10": 856,
-      "pct_above_ma20": 69.09,
-      "denom_ma20": 854,
-      "pct_above_ma50": 72.68,
-      "denom_ma50": 853,
+      "pct_above_ma10": 48.32,
+      "denom_ma10": 865,
+      "pct_above_ma20": 69.06,
+      "denom_ma20": 863,
+      "pct_above_ma50": 72.39,
+      "denom_ma50": 862,
       "pct_above_ma200": 55.23,
-      "denom_ma200": 851,
-      "pct_new_52wh": 7.43,
-      "pct_new_52wl": 3.77,
-      "denom_52w": 848
+      "denom_ma200": 860,
+      "pct_new_52wh": 7.47,
+      "pct_new_52wl": 3.85,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-02",
-      "pct_above_ma10": 19.74,
-      "denom_ma10": 856,
-      "pct_above_ma20": 39.34,
-      "denom_ma20": 854,
-      "pct_above_ma50": 56.62,
-      "denom_ma50": 853,
-      "pct_above_ma200": 45.59,
-      "denom_ma200": 851,
-      "pct_new_52wh": 1.89,
-      "pct_new_52wl": 7.08,
-      "denom_52w": 848
+      "pct_above_ma10": 20.12,
+      "denom_ma10": 865,
+      "pct_above_ma20": 39.75,
+      "denom_ma20": 863,
+      "pct_above_ma50": 56.5,
+      "denom_ma50": 862,
+      "pct_above_ma200": 45.7,
+      "denom_ma200": 860,
+      "pct_new_52wh": 1.87,
+      "pct_new_52wl": 7.12,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-04",
-      "pct_above_ma10": 9.46,
-      "denom_ma10": 856,
-      "pct_above_ma20": 20.96,
-      "denom_ma20": 854,
-      "pct_above_ma50": 37.63,
-      "denom_ma50": 853,
-      "pct_above_ma200": 34.78,
-      "denom_ma200": 851,
+      "pct_above_ma10": 9.83,
+      "denom_ma10": 865,
+      "pct_above_ma20": 21.32,
+      "denom_ma20": 863,
+      "pct_above_ma50": 37.47,
+      "denom_ma50": 862,
+      "pct_above_ma200": 35.0,
+      "denom_ma200": 860,
       "pct_new_52wh": 0.47,
-      "pct_new_52wl": 12.03,
-      "denom_52w": 848
+      "pct_new_52wl": 12.02,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-05",
-      "pct_above_ma10": 14.5,
-      "denom_ma10": 855,
-      "pct_above_ma20": 27.72,
-      "denom_ma20": 855,
-      "pct_above_ma50": 44.31,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.54,
-      "denom_ma200": 851,
-      "pct_new_52wh": 0.83,
-      "pct_new_52wl": 7.43,
-      "denom_52w": 848
+      "pct_above_ma10": 14.81,
+      "denom_ma10": 864,
+      "pct_above_ma20": 28.01,
+      "denom_ma20": 864,
+      "pct_above_ma50": 44.2,
+      "denom_ma50": 862,
+      "pct_above_ma200": 38.72,
+      "denom_ma200": 860,
+      "pct_new_52wh": 0.82,
+      "pct_new_52wl": 7.47,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-06",
-      "pct_above_ma10": 20.58,
-      "denom_ma10": 855,
-      "pct_above_ma20": 29.59,
-      "denom_ma20": 855,
-      "pct_above_ma50": 46.54,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.9,
-      "denom_ma200": 851,
-      "pct_new_52wh": 2.0,
-      "pct_new_52wl": 6.13,
-      "denom_52w": 848
+      "pct_above_ma10": 20.95,
+      "denom_ma10": 864,
+      "pct_above_ma20": 29.98,
+      "denom_ma20": 864,
+      "pct_above_ma50": 46.4,
+      "denom_ma50": 862,
+      "pct_above_ma200": 39.07,
+      "denom_ma200": 860,
+      "pct_new_52wh": 1.98,
+      "pct_new_52wl": 6.18,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-09",
-      "pct_above_ma10": 18.6,
-      "denom_ma10": 855,
-      "pct_above_ma20": 24.8,
-      "denom_ma20": 855,
-      "pct_above_ma50": 42.09,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.31,
-      "denom_ma200": 851,
-      "pct_new_52wh": 0.83,
-      "pct_new_52wl": 8.14,
-      "denom_52w": 848
+      "pct_above_ma10": 18.98,
+      "denom_ma10": 864,
+      "pct_above_ma20": 25.23,
+      "denom_ma20": 864,
+      "pct_above_ma50": 42.0,
+      "denom_ma50": 862,
+      "pct_above_ma200": 38.49,
+      "denom_ma200": 860,
+      "pct_new_52wh": 0.93,
+      "pct_new_52wl": 8.17,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-10",
-      "pct_above_ma10": 27.49,
-      "denom_ma10": 855,
-      "pct_above_ma20": 30.29,
-      "denom_ma20": 855,
-      "pct_above_ma50": 46.31,
-      "denom_ma50": 853,
-      "pct_above_ma200": 39.6,
-      "denom_ma200": 851,
-      "pct_new_52wh": 1.89,
-      "pct_new_52wl": 5.9,
-      "denom_52w": 848
+      "pct_above_ma10": 27.43,
+      "denom_ma10": 864,
+      "pct_above_ma20": 30.56,
+      "denom_ma20": 864,
+      "pct_above_ma50": 46.17,
+      "denom_ma50": 862,
+      "pct_above_ma200": 39.77,
+      "denom_ma200": 860,
+      "pct_new_52wh": 1.87,
+      "pct_new_52wl": 5.95,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-11",
-      "pct_above_ma10": 33.8,
-      "denom_ma10": 855,
-      "pct_above_ma20": 30.88,
-      "denom_ma20": 855,
-      "pct_above_ma50": 47.71,
-      "denom_ma50": 853,
-      "pct_above_ma200": 40.54,
-      "denom_ma200": 851,
-      "pct_new_52wh": 2.0,
-      "pct_new_52wl": 5.54,
-      "denom_52w": 848
+      "pct_above_ma10": 33.56,
+      "denom_ma10": 864,
+      "pct_above_ma20": 31.02,
+      "denom_ma20": 864,
+      "pct_above_ma50": 47.56,
+      "denom_ma50": 862,
+      "pct_above_ma200": 40.7,
+      "denom_ma200": 860,
+      "pct_new_52wh": 1.98,
+      "pct_new_52wl": 5.6,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-12",
-      "pct_above_ma10": 47.49,
-      "denom_ma10": 855,
-      "pct_above_ma20": 35.32,
-      "denom_ma20": 855,
-      "pct_above_ma50": 51.7,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.66,
-      "denom_ma200": 852,
-      "pct_new_52wh": 3.89,
-      "pct_new_52wl": 4.01,
-      "denom_52w": 848
+      "pct_above_ma10": 47.34,
+      "denom_ma10": 864,
+      "pct_above_ma20": 35.53,
+      "denom_ma20": 864,
+      "pct_above_ma50": 51.51,
+      "denom_ma50": 862,
+      "pct_above_ma200": 43.79,
+      "denom_ma200": 861,
+      "pct_new_52wh": 3.85,
+      "pct_new_52wl": 4.08,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-13",
-      "pct_above_ma10": 47.13,
-      "denom_ma10": 855,
-      "pct_above_ma20": 31.46,
-      "denom_ma20": 855,
-      "pct_above_ma50": 49.59,
-      "denom_ma50": 853,
-      "pct_above_ma200": 42.25,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.83,
-      "pct_new_52wl": 5.54,
-      "denom_52w": 848
+      "pct_above_ma10": 46.99,
+      "denom_ma10": 864,
+      "pct_above_ma20": 31.48,
+      "denom_ma20": 864,
+      "pct_above_ma50": 49.42,
+      "denom_ma50": 862,
+      "pct_above_ma200": 42.39,
+      "denom_ma200": 861,
+      "pct_new_52wh": 2.8,
+      "pct_new_52wl": 5.6,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-16",
-      "pct_above_ma10": 49.47,
-      "denom_ma10": 855,
-      "pct_above_ma20": 31.81,
-      "denom_ma20": 855,
-      "pct_above_ma50": 47.36,
-      "denom_ma50": 853,
-      "pct_above_ma200": 42.25,
-      "denom_ma200": 852,
-      "pct_new_52wh": 3.3,
-      "pct_new_52wl": 5.78,
-      "denom_52w": 848
+      "pct_above_ma10": 49.19,
+      "denom_ma10": 864,
+      "pct_above_ma20": 31.94,
+      "denom_ma20": 864,
+      "pct_above_ma50": 47.22,
+      "denom_ma50": 862,
+      "pct_above_ma200": 42.39,
+      "denom_ma200": 861,
+      "pct_new_52wh": 3.27,
+      "pct_new_52wl": 5.83,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-17",
-      "pct_above_ma10": 60.58,
-      "denom_ma10": 855,
-      "pct_above_ma20": 34.39,
-      "denom_ma20": 855,
-      "pct_above_ma50": 49.36,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.54,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.83,
-      "pct_new_52wl": 4.6,
-      "denom_52w": 848
+      "pct_above_ma10": 60.19,
+      "denom_ma10": 864,
+      "pct_above_ma20": 34.72,
+      "denom_ma20": 864,
+      "pct_above_ma50": 49.42,
+      "denom_ma50": 862,
+      "pct_above_ma200": 43.67,
+      "denom_ma200": 861,
+      "pct_new_52wh": 2.8,
+      "pct_new_52wl": 4.67,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-18",
-      "pct_above_ma10": 58.25,
-      "denom_ma10": 855,
-      "pct_above_ma20": 35.56,
-      "denom_ma20": 855,
-      "pct_above_ma50": 49.36,
-      "denom_ma50": 853,
-      "pct_above_ma200": 44.25,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.83,
-      "pct_new_52wl": 4.13,
-      "denom_52w": 848
+      "pct_above_ma10": 57.99,
+      "denom_ma10": 864,
+      "pct_above_ma20": 35.76,
+      "denom_ma20": 864,
+      "pct_above_ma50": 49.42,
+      "denom_ma50": 862,
+      "pct_above_ma200": 44.37,
+      "denom_ma200": 861,
+      "pct_new_52wh": 2.8,
+      "pct_new_52wl": 4.2,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-19",
-      "pct_above_ma10": 37.31,
-      "denom_ma10": 855,
-      "pct_above_ma20": 27.84,
-      "denom_ma20": 855,
-      "pct_above_ma50": 43.38,
-      "denom_ma50": 853,
-      "pct_above_ma200": 40.85,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.71,
-      "pct_new_52wl": 7.08,
-      "denom_52w": 848
+      "pct_above_ma10": 37.27,
+      "denom_ma10": 864,
+      "pct_above_ma20": 28.12,
+      "denom_ma20": 864,
+      "pct_above_ma50": 43.39,
+      "denom_ma50": 862,
+      "pct_above_ma200": 41.0,
+      "denom_ma200": 861,
+      "pct_new_52wh": 2.68,
+      "pct_new_52wl": 7.12,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-20",
-      "pct_above_ma10": 48.54,
-      "denom_ma10": 855,
-      "pct_above_ma20": 35.32,
-      "denom_ma20": 855,
-      "pct_above_ma50": 47.6,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.31,
-      "denom_ma200": 852,
-      "pct_new_52wh": 3.07,
-      "pct_new_52wl": 4.95,
-      "denom_52w": 848
+      "pct_above_ma10": 48.38,
+      "denom_ma10": 864,
+      "pct_above_ma20": 35.65,
+      "denom_ma20": 864,
+      "pct_above_ma50": 47.56,
+      "denom_ma50": 862,
+      "pct_above_ma200": 43.44,
+      "denom_ma200": 861,
+      "pct_new_52wh": 3.03,
+      "pct_new_52wl": 5.02,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-23",
-      "pct_above_ma10": 25.03,
-      "denom_ma10": 855,
-      "pct_above_ma20": 26.08,
-      "denom_ma20": 855,
-      "pct_above_ma50": 38.8,
-      "denom_ma50": 853,
-      "pct_above_ma200": 38.62,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.59,
-      "pct_new_52wl": 8.96,
-      "denom_52w": 848
+      "pct_above_ma10": 25.23,
+      "denom_ma10": 864,
+      "pct_above_ma20": 26.39,
+      "denom_ma20": 864,
+      "pct_above_ma50": 38.86,
+      "denom_ma50": 862,
+      "pct_above_ma200": 38.79,
+      "denom_ma200": 861,
+      "pct_new_52wh": 2.57,
+      "pct_new_52wl": 8.98,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-24",
-      "pct_above_ma10": 28.92,
-      "denom_ma10": 854,
-      "pct_above_ma20": 28.92,
-      "denom_ma20": 854,
-      "pct_above_ma50": 39.98,
-      "denom_ma50": 853,
-      "pct_above_ma200": 39.91,
-      "denom_ma200": 852,
-      "pct_new_52wh": 1.3,
-      "pct_new_52wl": 6.37,
-      "denom_52w": 848
+      "pct_above_ma10": 28.97,
+      "denom_ma10": 863,
+      "pct_above_ma20": 28.97,
+      "denom_ma20": 863,
+      "pct_above_ma50": 40.02,
+      "denom_ma50": 862,
+      "pct_above_ma200": 39.95,
+      "denom_ma200": 861,
+      "pct_new_52wh": 1.28,
+      "pct_new_52wl": 6.42,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-25",
-      "pct_above_ma10": 45.67,
-      "denom_ma10": 854,
-      "pct_above_ma20": 38.06,
-      "denom_ma20": 854,
-      "pct_above_ma50": 43.56,
-      "denom_ma50": 854,
-      "pct_above_ma200": 43.08,
-      "denom_ma200": 852,
-      "pct_new_52wh": 1.77,
-      "pct_new_52wl": 4.25,
-      "denom_52w": 848
+      "pct_above_ma10": 45.42,
+      "denom_ma10": 863,
+      "pct_above_ma20": 37.89,
+      "denom_ma20": 863,
+      "pct_above_ma50": 43.57,
+      "denom_ma50": 863,
+      "pct_above_ma200": 43.21,
+      "denom_ma200": 861,
+      "pct_new_52wh": 1.75,
+      "pct_new_52wl": 4.32,
+      "denom_52w": 857
     },
     {
       "date": "2026-03-26",
-      "pct_above_ma10": 36.89,
-      "denom_ma10": 854,
-      "pct_above_ma20": 36.07,
-      "denom_ma20": 854,
-      "pct_above_ma50": 40.52,
-      "denom_ma50": 854,
-      "pct_above_ma200": 41.43,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.0,
-      "pct_new_52wl": 5.54,
-      "denom_52w": 848
+      "pct_above_ma10": 36.77,
+      "denom_ma10": 862,
+      "pct_above_ma20": 36.08,
+      "denom_ma20": 862,
+      "pct_above_ma50": 40.6,
+      "denom_ma50": 862,
+      "pct_above_ma200": 41.51,
+      "denom_ma200": 860,
+      "pct_new_52wh": 1.99,
+      "pct_new_52wl": 5.61,
+      "denom_52w": 856
     },
     {
       "date": "2026-03-27",
-      "pct_above_ma10": 45.78,
-      "denom_ma10": 854,
-      "pct_above_ma20": 42.04,
-      "denom_ma20": 854,
-      "pct_above_ma50": 42.27,
-      "denom_ma50": 854,
-      "pct_above_ma200": 41.9,
-      "denom_ma200": 852,
-      "pct_new_52wh": 3.07,
-      "pct_new_52wl": 4.36,
-      "denom_52w": 848
+      "pct_above_ma10": 45.59,
+      "denom_ma10": 862,
+      "pct_above_ma20": 42.0,
+      "denom_ma20": 862,
+      "pct_above_ma50": 42.34,
+      "denom_ma50": 862,
+      "pct_above_ma200": 41.98,
+      "denom_ma200": 860,
+      "pct_new_52wh": 3.04,
+      "pct_new_52wl": 4.44,
+      "denom_52w": 856
     },
     {
       "date": "2026-03-30",
-      "pct_above_ma10": 50.0,
-      "denom_ma10": 854,
-      "pct_above_ma20": 47.07,
-      "denom_ma20": 854,
-      "pct_above_ma50": 44.38,
-      "denom_ma50": 854,
-      "pct_above_ma200": 42.02,
-      "denom_ma200": 852,
-      "pct_new_52wh": 4.25,
-      "pct_new_52wl": 4.36,
-      "denom_52w": 848
+      "pct_above_ma10": 49.88,
+      "denom_ma10": 862,
+      "pct_above_ma20": 46.87,
+      "denom_ma20": 862,
+      "pct_above_ma50": 44.55,
+      "denom_ma50": 862,
+      "pct_above_ma200": 42.09,
+      "denom_ma200": 860,
+      "pct_new_52wh": 4.21,
+      "pct_new_52wl": 4.44,
+      "denom_52w": 856
     },
     {
       "date": "2026-03-31",
-      "pct_above_ma10": 59.6,
-      "denom_ma10": 854,
-      "pct_above_ma20": 54.1,
-      "denom_ma20": 854,
-      "pct_above_ma50": 45.9,
-      "denom_ma50": 854,
-      "pct_above_ma200": 44.72,
-      "denom_ma200": 852,
-      "pct_new_52wh": 3.54,
-      "pct_new_52wl": 3.54,
-      "denom_52w": 848
+      "pct_above_ma10": 59.4,
+      "denom_ma10": 862,
+      "pct_above_ma20": 53.94,
+      "denom_ma20": 862,
+      "pct_above_ma50": 46.06,
+      "denom_ma50": 862,
+      "pct_above_ma200": 44.77,
+      "denom_ma200": 860,
+      "pct_new_52wh": 3.5,
+      "pct_new_52wl": 3.62,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-01",
-      "pct_above_ma10": 70.26,
-      "denom_ma10": 854,
-      "pct_above_ma20": 65.81,
-      "denom_ma20": 854,
-      "pct_above_ma50": 51.76,
-      "denom_ma50": 854,
-      "pct_above_ma200": 46.24,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.83,
-      "pct_new_52wl": 2.71,
-      "denom_52w": 848
+      "pct_above_ma10": 69.84,
+      "denom_ma10": 862,
+      "pct_above_ma20": 65.43,
+      "denom_ma20": 862,
+      "pct_above_ma50": 51.86,
+      "denom_ma50": 862,
+      "pct_above_ma200": 46.28,
+      "denom_ma200": 860,
+      "pct_new_52wh": 2.8,
+      "pct_new_52wl": 2.8,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-02",
-      "pct_above_ma10": 68.38,
-      "denom_ma10": 854,
-      "pct_above_ma20": 62.65,
-      "denom_ma20": 854,
-      "pct_above_ma50": 49.77,
-      "denom_ma50": 854,
-      "pct_above_ma200": 46.71,
-      "denom_ma200": 852,
-      "pct_new_52wh": 3.07,
-      "pct_new_52wl": 2.83,
-      "denom_52w": 848
+      "pct_above_ma10": 68.21,
+      "denom_ma10": 862,
+      "pct_above_ma20": 62.53,
+      "denom_ma20": 862,
+      "pct_above_ma50": 49.88,
+      "denom_ma50": 862,
+      "pct_above_ma200": 46.74,
+      "denom_ma200": 860,
+      "pct_new_52wh": 3.04,
+      "pct_new_52wl": 2.92,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-03",
-      "pct_above_ma10": 56.09,
-      "denom_ma10": 854,
-      "pct_above_ma20": 52.81,
-      "denom_ma20": 854,
-      "pct_above_ma50": 46.02,
-      "denom_ma50": 854,
-      "pct_above_ma200": 44.67,
-      "denom_ma200": 853,
-      "pct_new_52wh": 2.24,
-      "pct_new_52wl": 4.36,
-      "denom_52w": 848
+      "pct_above_ma10": 55.92,
+      "denom_ma10": 862,
+      "pct_above_ma20": 52.55,
+      "denom_ma20": 862,
+      "pct_above_ma50": 46.17,
+      "denom_ma50": 862,
+      "pct_above_ma200": 44.6,
+      "denom_ma200": 861,
+      "pct_new_52wh": 2.34,
+      "pct_new_52wl": 4.44,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-07",
-      "pct_above_ma10": 48.95,
-      "denom_ma10": 854,
-      "pct_above_ma20": 48.83,
-      "denom_ma20": 854,
-      "pct_above_ma50": 43.79,
-      "denom_ma50": 854,
-      "pct_above_ma200": 43.49,
-      "denom_ma200": 853,
-      "pct_new_52wh": 2.48,
-      "pct_new_52wl": 4.48,
-      "denom_52w": 848
+      "pct_above_ma10": 48.66,
+      "denom_ma10": 861,
+      "pct_above_ma20": 48.66,
+      "denom_ma20": 861,
+      "pct_above_ma50": 44.02,
+      "denom_ma50": 861,
+      "pct_above_ma200": 43.37,
+      "denom_ma200": 860,
+      "pct_new_52wh": 2.46,
+      "pct_new_52wl": 4.56,
+      "denom_52w": 855
     },
     {
       "date": "2026-04-08",
-      "pct_above_ma10": 59.72,
-      "denom_ma10": 854,
-      "pct_above_ma20": 58.9,
-      "denom_ma20": 854,
-      "pct_above_ma50": 48.71,
-      "denom_ma50": 854,
-      "pct_above_ma200": 46.19,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.07,
-      "pct_new_52wl": 3.42,
-      "denom_52w": 848
+      "pct_above_ma10": 59.35,
+      "denom_ma10": 861,
+      "pct_above_ma20": 58.54,
+      "denom_ma20": 861,
+      "pct_above_ma50": 48.9,
+      "denom_ma50": 861,
+      "pct_above_ma200": 46.05,
+      "denom_ma200": 860,
+      "pct_new_52wh": 3.04,
+      "pct_new_52wl": 3.51,
+      "denom_52w": 855
     },
     {
       "date": "2026-04-09",
-      "pct_above_ma10": 46.96,
-      "denom_ma10": 854,
-      "pct_above_ma20": 51.05,
-      "denom_ma20": 854,
-      "pct_above_ma50": 45.32,
-      "denom_ma50": 854,
-      "pct_above_ma200": 44.78,
-      "denom_ma200": 853,
-      "pct_new_52wh": 2.59,
-      "pct_new_52wl": 4.83,
-      "denom_52w": 848
+      "pct_above_ma10": 46.81,
+      "denom_ma10": 861,
+      "pct_above_ma20": 50.75,
+      "denom_ma20": 861,
+      "pct_above_ma50": 45.53,
+      "denom_ma50": 861,
+      "pct_above_ma200": 44.65,
+      "denom_ma200": 860,
+      "pct_new_52wh": 2.57,
+      "pct_new_52wl": 4.91,
+      "denom_52w": 855
     },
     {
       "date": "2026-04-10",
-      "pct_above_ma10": 47.89,
-      "denom_ma10": 854,
-      "pct_above_ma20": 54.57,
-      "denom_ma20": 854,
-      "pct_above_ma50": 47.19,
-      "denom_ma50": 854,
-      "pct_above_ma200": 45.84,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.54,
-      "pct_new_52wl": 4.48,
-      "denom_52w": 848
+      "pct_above_ma10": 47.62,
+      "denom_ma10": 861,
+      "pct_above_ma20": 54.3,
+      "denom_ma20": 860,
+      "pct_above_ma50": 47.33,
+      "denom_ma50": 860,
+      "pct_above_ma200": 45.63,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.51,
+      "pct_new_52wl": 4.57,
+      "denom_52w": 854
     },
     {
       "date": "2026-04-16",
-      "pct_above_ma10": 50.59,
-      "denom_ma10": 854,
-      "pct_above_ma20": 57.14,
-      "denom_ma20": 854,
-      "pct_above_ma50": 47.07,
-      "denom_ma50": 854,
-      "pct_above_ma200": 46.07,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.42,
-      "pct_new_52wl": 4.95,
-      "denom_52w": 848
+      "pct_above_ma10": 50.52,
+      "denom_ma10": 861,
+      "pct_above_ma20": 56.86,
+      "denom_ma20": 860,
+      "pct_above_ma50": 47.21,
+      "denom_ma50": 860,
+      "pct_above_ma200": 45.87,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.4,
+      "pct_new_52wl": 5.04,
+      "denom_52w": 854
     },
     {
       "date": "2026-04-17",
-      "pct_above_ma10": 47.31,
-      "denom_ma10": 854,
-      "pct_above_ma20": 55.5,
-      "denom_ma20": 854,
-      "pct_above_ma50": 46.25,
-      "denom_ma50": 854,
-      "pct_above_ma200": 46.42,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.18,
-      "pct_new_52wl": 3.3,
-      "denom_52w": 848
+      "pct_above_ma10": 47.15,
+      "denom_ma10": 861,
+      "pct_above_ma20": 55.23,
+      "denom_ma20": 860,
+      "pct_above_ma50": 46.4,
+      "denom_ma50": 860,
+      "pct_above_ma200": 46.22,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.16,
+      "pct_new_52wl": 3.4,
+      "denom_52w": 854
     },
     {
       "date": "2026-04-20",
-      "pct_above_ma10": 41.5,
-      "denom_ma10": 853,
-      "pct_above_ma20": 50.53,
-      "denom_ma20": 853,
-      "pct_above_ma50": 43.85,
-      "denom_ma50": 853,
-      "pct_above_ma200": 44.31,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.07,
-      "pct_new_52wl": 4.6,
-      "denom_52w": 848
+      "pct_above_ma10": 41.51,
+      "denom_ma10": 860,
+      "pct_above_ma20": 50.29,
+      "denom_ma20": 859,
+      "pct_above_ma50": 44.0,
+      "denom_ma50": 859,
+      "pct_above_ma200": 44.12,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.04,
+      "pct_new_52wl": 4.68,
+      "denom_52w": 854
     },
     {
       "date": "2026-04-21",
-      "pct_above_ma10": 47.89,
-      "denom_ma10": 854,
-      "pct_above_ma20": 56.15,
-      "denom_ma20": 853,
-      "pct_above_ma50": 47.13,
-      "denom_ma50": 853,
-      "pct_above_ma200": 45.96,
-      "denom_ma200": 853,
-      "pct_new_52wh": 2.71,
-      "pct_new_52wl": 4.36,
-      "denom_52w": 848
+      "pct_above_ma10": 47.85,
+      "denom_ma10": 861,
+      "pct_above_ma20": 55.88,
+      "denom_ma20": 859,
+      "pct_above_ma50": 47.03,
+      "denom_ma50": 859,
+      "pct_above_ma200": 45.75,
+      "denom_ma200": 859,
+      "pct_new_52wh": 2.69,
+      "pct_new_52wl": 4.68,
+      "denom_52w": 854
     },
     {
       "date": "2026-04-22",
-      "pct_above_ma10": 49.18,
-      "denom_ma10": 854,
-      "pct_above_ma20": 53.22,
-      "denom_ma20": 853,
-      "pct_above_ma50": 45.96,
-      "denom_ma50": 853,
-      "pct_above_ma200": 45.25,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.07,
-      "pct_new_52wl": 4.25,
-      "denom_52w": 848
+      "pct_above_ma10": 49.01,
+      "denom_ma10": 861,
+      "pct_above_ma20": 52.97,
+      "denom_ma20": 859,
+      "pct_above_ma50": 45.87,
+      "denom_ma50": 859,
+      "pct_above_ma200": 45.05,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.04,
+      "pct_new_52wl": 4.45,
+      "denom_52w": 854
     },
     {
       "date": "2026-04-23",
-      "pct_above_ma10": 37.59,
-      "denom_ma10": 854,
-      "pct_above_ma20": 45.6,
-      "denom_ma20": 853,
-      "pct_above_ma50": 40.91,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.73,
-      "denom_ma200": 853,
-      "pct_new_52wh": 1.88,
-      "pct_new_52wl": 5.18,
-      "denom_52w": 849
+      "pct_above_ma10": 37.63,
+      "denom_ma10": 861,
+      "pct_above_ma20": 45.52,
+      "denom_ma20": 859,
+      "pct_above_ma50": 40.86,
+      "denom_ma50": 859,
+      "pct_above_ma200": 43.54,
+      "denom_ma200": 859,
+      "pct_new_52wh": 1.87,
+      "pct_new_52wl": 5.38,
+      "denom_52w": 855
     },
     {
       "date": "2026-04-24",
-      "pct_above_ma10": 40.21,
-      "denom_ma10": 853,
-      "pct_above_ma20": 45.84,
-      "denom_ma20": 853,
-      "pct_above_ma50": 42.91,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.85,
-      "denom_ma200": 853,
-      "pct_new_52wh": 2.47,
-      "pct_new_52wl": 4.94,
-      "denom_52w": 850
+      "pct_above_ma10": 40.12,
+      "denom_ma10": 860,
+      "pct_above_ma20": 45.75,
+      "denom_ma20": 859,
+      "pct_above_ma50": 42.84,
+      "denom_ma50": 859,
+      "pct_above_ma200": 43.66,
+      "denom_ma200": 859,
+      "pct_new_52wh": 2.45,
+      "pct_new_52wl": 5.02,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-27",
-      "pct_above_ma10": 42.79,
-      "denom_ma10": 853,
-      "pct_above_ma20": 44.43,
-      "denom_ma20": 853,
-      "pct_above_ma50": 39.86,
-      "denom_ma50": 853,
-      "pct_above_ma200": 42.56,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.06,
-      "pct_new_52wl": 4.82,
-      "denom_52w": 850
+      "pct_above_ma10": 42.56,
+      "denom_ma10": 860,
+      "pct_above_ma20": 44.35,
+      "denom_ma20": 859,
+      "pct_above_ma50": 39.81,
+      "denom_ma50": 859,
+      "pct_above_ma200": 42.37,
+      "denom_ma200": 859,
+      "pct_new_52wh": 3.04,
+      "pct_new_52wl": 4.91,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-28",
-      "pct_above_ma10": 41.38,
-      "denom_ma10": 853,
-      "pct_above_ma20": 43.96,
-      "denom_ma20": 853,
-      "pct_above_ma50": 39.74,
-      "denom_ma50": 853,
-      "pct_above_ma200": 43.73,
-      "denom_ma200": 853,
-      "pct_new_52wh": 2.82,
-      "pct_new_52wl": 5.53,
-      "denom_52w": 850
+      "pct_above_ma10": 41.16,
+      "denom_ma10": 860,
+      "pct_above_ma20": 44.0,
+      "denom_ma20": 859,
+      "pct_above_ma50": 39.7,
+      "denom_ma50": 859,
+      "pct_above_ma200": 43.54,
+      "denom_ma200": 859,
+      "pct_new_52wh": 2.8,
+      "pct_new_52wl": 5.72,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-29",
-      "pct_above_ma10": 51.58,
-      "denom_ma10": 853,
-      "pct_above_ma20": 50.29,
-      "denom_ma20": 853,
-      "pct_above_ma50": 45.25,
-      "denom_ma50": 853,
-      "pct_above_ma200": 45.25,
-      "denom_ma200": 853,
-      "pct_new_52wh": 4.12,
-      "pct_new_52wl": 3.76,
-      "denom_52w": 850
+      "pct_above_ma10": 51.28,
+      "denom_ma10": 860,
+      "pct_above_ma20": 50.23,
+      "denom_ma20": 860,
+      "pct_above_ma50": 45.17,
+      "denom_ma50": 859,
+      "pct_above_ma200": 45.05,
+      "denom_ma200": 859,
+      "pct_new_52wh": 4.09,
+      "pct_new_52wl": 3.97,
+      "denom_52w": 856
     },
     {
       "date": "2026-04-30",
-      "pct_above_ma10": 53.22,
-      "denom_ma10": 853,
-      "pct_above_ma20": 50.06,
-      "denom_ma20": 853,
-      "pct_above_ma50": 46.89,
-      "denom_ma50": 853,
-      "pct_above_ma200": 45.13,
-      "denom_ma200": 853,
-      "pct_new_52wh": 5.18,
-      "pct_new_52wl": 3.88,
-      "denom_52w": 850
+      "pct_above_ma10": 52.79,
+      "denom_ma10": 860,
+      "pct_above_ma20": 49.88,
+      "denom_ma20": 860,
+      "pct_above_ma50": 46.8,
+      "denom_ma50": 859,
+      "pct_above_ma200": 44.94,
+      "denom_ma200": 859,
+      "pct_new_52wh": 5.14,
+      "pct_new_52wl": 4.09,
+      "denom_52w": 856
     },
     {
       "date": "2026-05-05",
-      "pct_above_ma10": 55.45,
-      "denom_ma10": 853,
-      "pct_above_ma20": 50.53,
-      "denom_ma20": 853,
-      "pct_above_ma50": 46.89,
-      "denom_ma50": 853,
-      "pct_above_ma200": 45.37,
-      "denom_ma200": 853,
-      "pct_new_52wh": 4.94,
-      "pct_new_52wl": 4.35,
-      "denom_52w": 850
+      "pct_above_ma10": 55.26,
+      "denom_ma10": 856,
+      "pct_above_ma20": 50.35,
+      "denom_ma20": 856,
+      "pct_above_ma50": 46.73,
+      "denom_ma50": 856,
+      "pct_above_ma200": 45.21,
+      "denom_ma200": 856,
+      "pct_new_52wh": 4.92,
+      "pct_new_52wl": 4.57,
+      "denom_52w": 853
     },
     {
       "date": "2026-05-06",
-      "pct_above_ma10": 62.37,
-      "denom_ma10": 853,
-      "pct_above_ma20": 56.04,
-      "denom_ma20": 853,
-      "pct_above_ma50": 50.53,
-      "denom_ma50": 853,
-      "pct_above_ma200": 47.83,
-      "denom_ma200": 853,
-      "pct_new_52wh": 6.59,
-      "pct_new_52wl": 4.35,
-      "denom_52w": 850
+      "pct_above_ma10": 62.15,
+      "denom_ma10": 856,
+      "pct_above_ma20": 55.84,
+      "denom_ma20": 856,
+      "pct_above_ma50": 50.35,
+      "denom_ma50": 856,
+      "pct_above_ma200": 47.66,
+      "denom_ma200": 856,
+      "pct_new_52wh": 6.57,
+      "pct_new_52wl": 4.57,
+      "denom_52w": 853
     },
     {
       "date": "2026-05-07",
-      "pct_above_ma10": 64.6,
-      "denom_ma10": 853,
-      "pct_above_ma20": 61.2,
-      "denom_ma20": 853,
-      "pct_above_ma50": 53.11,
-      "denom_ma50": 853,
-      "pct_above_ma200": 49.47,
-      "denom_ma200": 853,
-      "pct_new_52wh": 5.53,
-      "pct_new_52wl": 4.24,
-      "denom_52w": 850
+      "pct_above_ma10": 64.37,
+      "denom_ma10": 856,
+      "pct_above_ma20": 60.98,
+      "denom_ma20": 856,
+      "pct_above_ma50": 52.92,
+      "denom_ma50": 856,
+      "pct_above_ma200": 49.3,
+      "denom_ma200": 856,
+      "pct_new_52wh": 5.51,
+      "pct_new_52wl": 4.45,
+      "denom_52w": 853
     },
     {
       "date": "2026-05-08",
-      "pct_above_ma10": 62.95,
-      "denom_ma10": 853,
-      "pct_above_ma20": 58.85,
-      "denom_ma20": 853,
-      "pct_above_ma50": 53.81,
-      "denom_ma50": 853,
-      "pct_above_ma200": 49.24,
-      "denom_ma200": 853,
-      "pct_new_52wh": 5.53,
-      "pct_new_52wl": 5.18,
-      "denom_52w": 850
+      "pct_above_ma10": 62.73,
+      "denom_ma10": 856,
+      "pct_above_ma20": 58.64,
+      "denom_ma20": 856,
+      "pct_above_ma50": 53.62,
+      "denom_ma50": 856,
+      "pct_above_ma200": 49.07,
+      "denom_ma200": 856,
+      "pct_new_52wh": 5.51,
+      "pct_new_52wl": 5.28,
+      "denom_52w": 853
     },
     {
       "date": "2026-05-11",
-      "pct_above_ma10": 56.39,
-      "denom_ma10": 853,
-      "pct_above_ma20": 56.15,
-      "denom_ma20": 853,
-      "pct_above_ma50": 54.28,
-      "denom_ma50": 853,
-      "pct_above_ma200": 49.0,
-      "denom_ma200": 853,
-      "pct_new_52wh": 4.71,
-      "pct_new_52wl": 5.65,
-      "denom_52w": 850
+      "pct_above_ma10": 56.07,
+      "denom_ma10": 856,
+      "pct_above_ma20": 55.96,
+      "denom_ma20": 856,
+      "pct_above_ma50": 54.09,
+      "denom_ma50": 856,
+      "pct_above_ma200": 48.83,
+      "denom_ma200": 856,
+      "pct_new_52wh": 4.69,
+      "pct_new_52wl": 5.98,
+      "denom_52w": 853
     },
     {
       "date": "2026-05-12",
-      "pct_above_ma10": 47.31,
-      "denom_ma10": 854,
-      "pct_above_ma20": 53.81,
-      "denom_ma20": 853,
-      "pct_above_ma50": 52.75,
-      "denom_ma50": 853,
-      "pct_above_ma200": 47.6,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.29,
-      "pct_new_52wl": 6.11,
-      "denom_52w": 851
+      "pct_above_ma10": 47.37,
+      "denom_ma10": 857,
+      "pct_above_ma20": 53.62,
+      "denom_ma20": 856,
+      "pct_above_ma50": 52.57,
+      "denom_ma50": 856,
+      "pct_above_ma200": 47.43,
+      "denom_ma200": 856,
+      "pct_new_52wh": 3.28,
+      "pct_new_52wl": 6.21,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-13",
-      "pct_above_ma10": 44.85,
-      "denom_ma10": 854,
-      "pct_above_ma20": 52.05,
-      "denom_ma20": 853,
-      "pct_above_ma50": 53.11,
-      "denom_ma50": 853,
-      "pct_above_ma200": 47.48,
-      "denom_ma200": 853,
-      "pct_new_52wh": 3.17,
-      "pct_new_52wl": 6.82,
-      "denom_52w": 851
+      "pct_above_ma10": 44.92,
+      "denom_ma10": 857,
+      "pct_above_ma20": 51.87,
+      "denom_ma20": 856,
+      "pct_above_ma50": 52.92,
+      "denom_ma50": 856,
+      "pct_above_ma200": 47.31,
+      "denom_ma200": 856,
+      "pct_new_52wh": 3.16,
+      "pct_new_52wl": 6.91,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-14",
-      "pct_above_ma10": 53.63,
-      "denom_ma10": 854,
-      "pct_above_ma20": 56.98,
-      "denom_ma20": 853,
-      "pct_above_ma50": 56.74,
-      "denom_ma50": 853,
-      "pct_above_ma200": 49.12,
-      "denom_ma200": 853,
-      "pct_new_52wh": 4.94,
-      "pct_new_52wl": 5.76,
-      "denom_52w": 851
+      "pct_above_ma10": 53.56,
+      "denom_ma10": 857,
+      "pct_above_ma20": 56.78,
+      "denom_ma20": 856,
+      "pct_above_ma50": 56.54,
+      "denom_ma50": 856,
+      "pct_above_ma200": 48.95,
+      "denom_ma200": 856,
+      "pct_new_52wh": 4.92,
+      "pct_new_52wl": 5.97,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-15",
-      "pct_above_ma10": 49.01,
-      "denom_ma10": 855,
-      "pct_above_ma20": 54.04,
-      "denom_ma20": 853,
-      "pct_above_ma50": 57.21,
-      "denom_ma50": 853,
-      "pct_above_ma200": 47.83,
-      "denom_ma200": 853,
-      "pct_new_52wh": 5.17,
-      "pct_new_52wl": 6.11,
-      "denom_52w": 851
+      "pct_above_ma10": 49.07,
+      "denom_ma10": 858,
+      "pct_above_ma20": 53.86,
+      "denom_ma20": 856,
+      "pct_above_ma50": 57.01,
+      "denom_ma50": 856,
+      "pct_above_ma200": 47.66,
+      "denom_ma200": 856,
+      "pct_new_52wh": 5.15,
+      "pct_new_52wl": 6.21,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-18",
-      "pct_above_ma10": 43.63,
-      "denom_ma10": 855,
-      "pct_above_ma20": 51.93,
-      "denom_ma20": 853,
-      "pct_above_ma50": 56.39,
-      "denom_ma50": 853,
-      "pct_above_ma200": 48.42,
-      "denom_ma200": 853,
-      "pct_new_52wh": 4.58,
-      "pct_new_52wl": 6.11,
-      "denom_52w": 851
+      "pct_above_ma10": 43.71,
+      "denom_ma10": 858,
+      "pct_above_ma20": 51.87,
+      "denom_ma20": 856,
+      "pct_above_ma50": 56.19,
+      "denom_ma50": 856,
+      "pct_above_ma200": 48.25,
+      "denom_ma200": 856,
+      "pct_new_52wh": 4.57,
+      "pct_new_52wl": 6.21,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-19",
-      "pct_above_ma10": 45.2,
-      "denom_ma10": 854,
-      "pct_above_ma20": 52.05,
-      "denom_ma20": 853,
-      "pct_above_ma50": 56.98,
-      "denom_ma50": 853,
-      "pct_above_ma200": 48.65,
-      "denom_ma200": 853,
-      "pct_new_52wh": 4.94,
-      "pct_new_52wl": 6.58,
-      "denom_52w": 851
+      "pct_above_ma10": 45.16,
+      "denom_ma10": 857,
+      "pct_above_ma20": 51.99,
+      "denom_ma20": 856,
+      "pct_above_ma50": 56.78,
+      "denom_ma50": 856,
+      "pct_above_ma200": 48.48,
+      "denom_ma200": 856,
+      "pct_new_52wh": 4.92,
+      "pct_new_52wl": 6.79,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-20",
-      "pct_above_ma10": 47.42,
-      "denom_ma10": 854,
-      "pct_above_ma20": 53.11,
-      "denom_ma20": 853,
-      "pct_above_ma50": 56.98,
-      "denom_ma50": 853,
-      "pct_above_ma200": 49.12,
-      "denom_ma200": 853,
-      "pct_new_52wh": 5.17,
-      "pct_new_52wl": 6.11,
-      "denom_52w": 851
+      "pct_above_ma10": 47.37,
+      "denom_ma10": 857,
+      "pct_above_ma20": 53.04,
+      "denom_ma20": 856,
+      "pct_above_ma50": 56.78,
+      "denom_ma50": 856,
+      "pct_above_ma200": 48.95,
+      "denom_ma200": 856,
+      "pct_new_52wh": 5.15,
+      "pct_new_52wl": 6.32,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-21",
-      "pct_above_ma10": 49.77,
-      "denom_ma10": 854,
-      "pct_above_ma20": 53.81,
-      "denom_ma20": 853,
-      "pct_above_ma50": 56.98,
-      "denom_ma50": 853,
-      "pct_above_ma200": 49.59,
-      "denom_ma200": 853,
-      "pct_new_52wh": 4.58,
-      "pct_new_52wl": 6.11,
-      "denom_52w": 851
+      "pct_above_ma10": 49.71,
+      "denom_ma10": 857,
+      "pct_above_ma20": 53.74,
+      "denom_ma20": 856,
+      "pct_above_ma50": 56.78,
+      "denom_ma50": 856,
+      "pct_above_ma200": 49.42,
+      "denom_ma200": 856,
+      "pct_new_52wh": 4.57,
+      "pct_new_52wl": 6.21,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-22",
-      "pct_above_ma10": 55.5,
-      "denom_ma10": 854,
-      "pct_above_ma20": 56.27,
-      "denom_ma20": 853,
-      "pct_above_ma50": 59.09,
-      "denom_ma50": 853,
-      "pct_above_ma200": 50.88,
-      "denom_ma200": 853,
-      "pct_new_52wh": 5.88,
-      "pct_new_52wl": 4.82,
-      "denom_52w": 851
+      "pct_above_ma10": 55.43,
+      "denom_ma10": 857,
+      "pct_above_ma20": 56.19,
+      "denom_ma20": 856,
+      "pct_above_ma50": 58.88,
+      "denom_ma50": 856,
+      "pct_above_ma200": 50.7,
+      "denom_ma200": 856,
+      "pct_new_52wh": 5.85,
+      "pct_new_52wl": 4.92,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-25",
-      "pct_above_ma10": 62.06,
-      "denom_ma10": 854,
-      "pct_above_ma20": 59.32,
-      "denom_ma20": 853,
-      "pct_above_ma50": 60.96,
-      "denom_ma50": 853,
-      "pct_above_ma200": 52.75,
-      "denom_ma200": 853,
-      "pct_new_52wh": 7.64,
-      "pct_new_52wl": 4.7,
-      "denom_52w": 851
+      "pct_above_ma10": 61.96,
+      "denom_ma10": 857,
+      "pct_above_ma20": 59.23,
+      "denom_ma20": 856,
+      "pct_above_ma50": 60.75,
+      "denom_ma50": 856,
+      "pct_above_ma200": 52.57,
+      "denom_ma200": 856,
+      "pct_new_52wh": 7.61,
+      "pct_new_52wl": 4.8,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-26",
-      "pct_above_ma10": 60.42,
-      "denom_ma10": 854,
-      "pct_above_ma20": 58.15,
-      "denom_ma20": 853,
-      "pct_above_ma50": 60.61,
-      "denom_ma50": 853,
-      "pct_above_ma200": 51.58,
-      "denom_ma200": 853,
-      "pct_new_52wh": 7.64,
-      "pct_new_52wl": 4.11,
-      "denom_52w": 851
+      "pct_above_ma10": 60.44,
+      "denom_ma10": 857,
+      "pct_above_ma20": 58.06,
+      "denom_ma20": 856,
+      "pct_above_ma50": 60.4,
+      "denom_ma50": 856,
+      "pct_above_ma200": 51.4,
+      "denom_ma200": 856,
+      "pct_new_52wh": 7.61,
+      "pct_new_52wl": 4.22,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-27",
-      "pct_above_ma10": 61.94,
-      "denom_ma10": 854,
-      "pct_above_ma20": 61.9,
-      "denom_ma20": 853,
-      "pct_above_ma50": 62.37,
-      "denom_ma50": 853,
-      "pct_above_ma200": 52.4,
-      "denom_ma200": 853,
-      "pct_new_52wh": 8.93,
-      "pct_new_52wl": 4.82,
-      "denom_52w": 851
+      "pct_above_ma10": 61.96,
+      "denom_ma10": 857,
+      "pct_above_ma20": 61.8,
+      "denom_ma20": 856,
+      "pct_above_ma50": 62.15,
+      "denom_ma50": 856,
+      "pct_above_ma200": 52.22,
+      "denom_ma200": 856,
+      "pct_new_52wh": 8.9,
+      "pct_new_52wl": 4.92,
+      "denom_52w": 854
     },
     {
       "date": "2026-05-28",
@@ -2468,7 +2468,7 @@
     },
     {
       "date": "2026-06-18",
-      "pct_above_ma10": 60.89,
+      "pct_above_ma10": 61.01,
       "denom_ma10": 854,
       "pct_above_ma20": 58.31,
       "denom_ma20": 854,
@@ -2526,7 +2526,7 @@
       "date": "2026-06-24",
       "pct_above_ma10": 52.22,
       "denom_ma10": 854,
-      "pct_above_ma20": 51.76,
+      "pct_above_ma20": 51.87,
       "denom_ma20": 854,
       "pct_above_ma50": 60.02,
       "denom_ma50": 853,
@@ -2540,7 +2540,7 @@
       "date": "2026-06-25",
       "pct_above_ma10": 49.06,
       "denom_ma10": 854,
-      "pct_above_ma20": 52.11,
+      "pct_above_ma20": 52.22,
       "denom_ma20": 854,
       "pct_above_ma50": 59.44,
       "denom_ma50": 853,
@@ -2748,17 +2748,17 @@
     },
     {
       "date": "2026-07-16",
-      "pct_above_ma10": 73.55,
-      "denom_ma10": 847,
-      "pct_above_ma20": 77.21,
-      "denom_ma20": 847,
-      "pct_above_ma50": 76.33,
-      "denom_ma50": 845,
-      "pct_above_ma200": 68.28,
-      "denom_ma200": 845,
-      "pct_new_52wh": 13.49,
+      "pct_above_ma10": 73.52,
+      "denom_ma10": 846,
+      "pct_above_ma20": 77.19,
+      "denom_ma20": 846,
+      "pct_above_ma50": 76.3,
+      "denom_ma50": 844,
+      "pct_above_ma200": 68.25,
+      "denom_ma200": 844,
+      "pct_new_52wh": 13.51,
       "pct_new_52wl": 2.25,
-      "denom_52w": 845
+      "denom_52w": 844
     },
     {
       "date": "2026-07-17",
