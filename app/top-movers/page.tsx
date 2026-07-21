@@ -1,16 +1,21 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import MiniCandlestick from '@/components/MiniCandlestick';
+import TrendSparkline from '@/components/TrendSparkline';
+import ModeToggle from '@/components/ModeToggle';
+import ThaiDateInput from '@/components/ThaiDateInput';
 import { ChangeBadge } from '@/components/ChangeBadge';
 import TableSkeleton from '@/components/TableSkeleton';
 import { scanData } from '@/lib/scanData';
+import { sparklineMap } from '@/lib/sparklineData';
 import marketStageRaw from '@/data/scans/market_stage.json';
 import rawWeinstein from '@/data/scans/weinstein.json';
 
 type Market = 'set' | 'mai';
 type VolMode = 'volume' | 'value';
+type RankingType = 'topGainer' | 'topLoser' | 'mostActiveValue' | 'mostActiveVolume';
 
 // market_stage.json uses "Ticker" (capital T) and "Stage" (capital S)
 const stageMap = new Map(
@@ -22,6 +27,11 @@ const stageMap = new Map(
 const sigMap = new Map(scanData.map(e => [e.ticker.toUpperCase(), e]));
 
 // 52W High/Low — same weinstein.json bundle + lookup the scanner page uses.
+// Always "today's" snapshot regardless of realtime/ย้อนหลัง mode - a
+// deliberate simplification (52W range and P/E below barely move day to
+// day, so showing the current value next to an older price row is close
+// enough; a fully historical version of these would need its own daily
+// archive, which is out of scope here).
 const w52Map = new Map<string, { high: number; low: number }>(
   (rawWeinstein as unknown as { Ticker: string; '52W_High': number; '52W_Low': number }[])
     .map(w => [w.Ticker.toUpperCase(), { high: w['52W_High'], low: w['52W_Low'] }])
@@ -37,6 +47,34 @@ interface MoverItem {
   totalVolume?: number;
   totalValue?: number;
   [key: string]: unknown;
+}
+
+type MarketRanking = Record<RankingType, MoverItem[]>;
+
+function todayISO(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+// Rough SET trading-hours window (continuous trading 10:00-16:30 ICT,
+// Mon-Fri) - close enough for labeling "still moving" vs "settled for the
+// day"; doesn't account for public holidays, same approximation the
+// weekend-aware stale-data banner elsewhere in this app already makes.
+function isMarketOpenNowBangkok(): boolean {
+  const bkk = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Bangkok' }));
+  const day = bkk.getDay();
+  if (day === 0 || day === 6) return false;
+  const mins = bkk.getHours() * 60 + bkk.getMinutes();
+  return mins >= 10 * 60 && mins <= 16 * 60 + 30;
+}
+
+function nowThaiTime(): string {
+  return new Date().toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit' });
+}
+
+function isoToThaiLabel(iso: string): string {
+  const [y, m, d] = iso.split('-');
+  const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+  return `${parseInt(d)} ${months[parseInt(m) - 1]} ${parseInt(y) + 543}`;
 }
 
 function fmt(n: number | undefined, decimals = 2): string {
@@ -67,15 +105,8 @@ const STAGE: Record<string, { color: string; bg: string }> = {
 function SignalBadges({ sym }: { sym: string }) {
   const key = sym.toUpperCase();
   const e = sigMap.get(key);
-
-  // Resolve stage: prefer combined.json, fall back to market_stage.json
   const resolvedStage = (e?.stage) || stageMap.get(key) || '';
   const stageStyle = resolvedStage ? STAGE[resolvedStage] : null;
-
-  // Debug logging for KBANK and GULF
-  if (key === 'KBANK' || key === 'GULF') {
-    console.log(`[TopMovers] ${key} — sigMap hit:`, e, '| stageMap stage:', stageMap.get(key), '| resolved:', resolvedStage);
-  }
 
   if (!e && !resolvedStage) {
     return <span className="text-[11px] text-white/20">—</span>;
@@ -117,11 +148,13 @@ interface PanelProps {
   chartMap: Record<string, ChartEntry>;
   feMap: Record<string, Fundamental>;
   emptyReason?: string;
+  useCandlestick: boolean;
 }
 
 function emptyStateMessage(reason: string | undefined): string {
   if (reason === 'market_not_open') return 'ตลาดยังไม่เปิด — ยังไม่มีข้อมูล ranking วันนี้';
   if (reason === 'blocked') return 'เชื่อมต่อ SETTrade ไม่สำเร็จ ลองรีเฟรชอีกครั้ง';
+  if (reason === 'no_history') return 'ยังไม่มีข้อมูลย้อนหลังของวันที่เลือก';
   return 'ไม่พบข้อมูล';
 }
 
@@ -135,7 +168,7 @@ function fmtPe(n: number | null | undefined): string {
   return n.toFixed(1);
 }
 
-function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, chartMap, feMap, emptyReason }: PanelProps) {
+function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, chartMap, feMap, emptyReason, useCandlestick }: PanelProps) {
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden flex flex-col">
       <div
@@ -233,9 +266,18 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, cha
                     <td className="px-2" style={{ paddingTop: 12, paddingBottom: 12 }}>
                       <SignalBadges sym={sym} />
                     </td>
-                    {/* CHART — rightmost, hidden on mobile */}
+                    {/* CHART — rightmost, hidden on mobile. Candlestick for
+                        live/today data; a plain sparkline for any historical
+                        date (see useCandlestick prop) - building an
+                        as-of-that-date candlestick would mean archiving the
+                        ~2MB chart bundle every single day forever, which
+                        isn't worth it for a rarely-used ย้อนหลัง view. */}
                     <td className="hidden sm:table-cell" style={{ paddingTop: 10, paddingBottom: 10, paddingLeft: 8, paddingRight: 8 }}>
-                      {sym && <MiniCandlestick bars={chart?.bars} ema200={chart?.ema200} width={180} height={32} />}
+                      {sym && (
+                        useCandlestick
+                          ? <MiniCandlestick bars={chart?.bars} ema200={chart?.ema200} width={180} height={32} />
+                          : <TrendSparkline data={sparklineMap[symKey]} width={180} height={32} />
+                      )}
                     </td>
                   </tr>
                 );
@@ -250,92 +292,222 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, cha
   );
 }
 
+const EMPTY_RANKING: MarketRanking = { topGainer: [], topLoser: [], mostActiveValue: [], mostActiveVolume: [] };
+
 export default function TopMoversPage() {
   const router = useRouter();
   const [market, setMarket] = useState<Market>('set');
   const [mobilePanel, setMobilePanel] = useState<'gainers' | 'losers'>('gainers');
+  const [viewMode, setViewMode] = useState<'today' | 'history'>('today');
+
+  const [historyDates, setHistoryDates] = useState<string[]>([]);
+  const [selectedDate, setSelectedDate] = useState(todayISO());
 
   const [gainers,     setGainers]     = useState<MoverItem[]>([]);
   const [losers,      setLosers]      = useState<MoverItem[]>([]);
   const [activeValue, setActiveValue] = useState<MoverItem[]>([]);
   const [activeVolume,setActiveVolume]= useState<MoverItem[]>([]);
   const [reasons, setReasons] = useState<{ gainers?: string; losers?: string; activeValue?: string; activeVolume?: string }>({});
+  const [label, setLabel] = useState('');
+  const [useCandlestick, setUseCandlestick] = useState(true);
   const [loading, setLoading] = useState(false);
   const [chartMap, setChartMap] = useState<Record<string, ChartEntry>>({});
   const [feMap, setFeMap] = useState<Record<string, Fundamental>>({});
 
-  const fetchAll = useCallback(async (m: Market) => {
+  // Bumped on every loadData call so a slower-resolving request that's no
+  // longer current (mode/date/market changed again before it finished, e.g.
+  // rapid clicking between วันนี้/ย้อนหลัง) can detect it's stale and skip
+  // committing its results over a newer, already-applied load.
+  const requestIdRef = useRef(0);
+
+  // Lightweight metadata only (date list) - the full ~MB-scale history file
+  // stays server-side, same principle as /api/topmover-charts.
+  useEffect(() => {
+    fetch('/api/topmover-history')
+      .then(r => r.json())
+      .then(json => {
+        const dates: string[] = json.dates ?? [];
+        setHistoryDates(dates);
+        if (dates.length > 0) setSelectedDate(dates[dates.length - 1]);
+      })
+      .catch(() => {});
+  }, []);
+
+  const applyRanking = useCallback((m: Market, ranking: { set: MarketRanking; mai: MarketRanking } | MarketRanking, reasonByType?: Partial<Record<RankingType, string>>) => {
+    const r: MarketRanking = 'topGainer' in ranking ? ranking : ranking[m];
+    setGainers(r.topGainer);
+    setLosers(r.topLoser);
+    setActiveValue(r.mostActiveValue);
+    setActiveVolume(r.mostActiveVolume);
+    setReasons({
+      gainers: reasonByType?.topGainer,
+      losers: reasonByType?.topLoser,
+      activeValue: reasonByType?.mostActiveValue,
+      activeVolume: reasonByType?.mostActiveVolume,
+    });
+  }, []);
+
+  const fetchLive = useCallback(async (m: Market) => {
+    const [g, l, v, vol] = await Promise.all([
+      fetch(`/api/settrade?type=topGainer&market=${m}`).then(r => r.json()),
+      fetch(`/api/settrade?type=topLoser&market=${m}`).then(r => r.json()),
+      fetch(`/api/settrade?type=mostActiveValue&market=${m}`).then(r => r.json()),
+      fetch(`/api/settrade?type=mostActiveVolume&market=${m}`).then(r => r.json()),
+    ]);
+    return { g, l, v, vol };
+  }, []);
+
+  const fetchChartsAndPe = useCallback(async (allSyms: string[], needCharts: boolean) => {
+    if (allSyms.length === 0) return { charts: {}, pe: {} };
+    const [chartsRes, feRes] = await Promise.all([
+      needCharts
+        ? fetch(`/api/topmover-charts?tickers=${allSyms.map(encodeURIComponent).join(',')}`).then(r => r.json()).catch(() => null)
+        : Promise.resolve(null),
+      fetch(`/api/sector-fundamentals?tickers=${allSyms.map(encodeURIComponent).join(',')}`).then(r => r.json()).catch(() => null),
+    ]);
+    const pe: Record<string, Fundamental> = Array.isArray(feRes?.data)
+      ? Object.fromEntries(feRes.data.map((d: { ticker: string; pe: number | null }) => [d.ticker.toUpperCase(), { pe: d.pe }]))
+      : {};
+    return { charts: chartsRes?.data ?? {}, pe };
+  }, []);
+
+  const loadHistoryDate = useCallback(async (m: Market, date: string, reqId: number) => {
+    const res = await fetch(`/api/topmover-history?date=${date}`).then(r => r.json()).catch(() => null);
+    if (reqId !== requestIdRef.current) return; // a newer load superseded this one - discard
+    if (res?.markets) {
+      applyRanking(m, res.markets);
+      setLabel(`ณ ปิดตลาด ${isoToThaiLabel(res.resolvedDate)}`);
+      setUseCandlestick(false);
+      const allSyms = Array.from(new Set(
+        [res.markets.topGainer, res.markets.topLoser, res.markets.mostActiveValue, res.markets.mostActiveVolume]
+          .flat().map((it: MoverItem) => it.symbol?.toUpperCase()).filter((s: string | undefined): s is string => !!s)
+      ));
+      const { pe } = await fetchChartsAndPe(allSyms, false);
+      if (reqId !== requestIdRef.current) return;
+      setFeMap(pe);
+      setChartMap({});
+    } else {
+      applyRanking(m, EMPTY_RANKING, {
+        topGainer: 'no_history', topLoser: 'no_history', mostActiveValue: 'no_history', mostActiveVolume: 'no_history',
+      });
+      setLabel('');
+      setChartMap({});
+      setFeMap({});
+    }
+  }, [applyRanking, fetchChartsAndPe]);
+
+  const loadToday = useCallback(async (m: Market, reqId: number) => {
+    const { g, l, v, vol } = await fetchLive(m);
+    if (reqId !== requestIdRef.current) return; // a newer load superseded this one - discard
+    const allEmpty = [g, l, v, vol].every(r => r.error === 'market_not_open');
+
+    if (allEmpty) {
+      // A.3 fallback: realtime has nothing yet (pre-open) - show the most
+      // recent day's history instead of a bare "market not open" message.
+      const latest = historyDates[historyDates.length - 1];
+      if (latest) {
+        await loadHistoryDate(m, latest, reqId);
+        return;
+      }
+    }
+
+    setGainers(g.items ?? []);
+    setLosers(l.items ?? []);
+    setActiveValue(v.items ?? []);
+    setActiveVolume(vol.items ?? []);
+    setReasons({ gainers: g.error, losers: l.error, activeValue: v.error, activeVolume: vol.error });
+    setLabel(isMarketOpenNowBangkok() ? 'ระหว่างวัน · realtime' : `ล่าสุด ${nowThaiTime()}`);
+    setUseCandlestick(true);
+
+    const allSyms = Array.from(new Set(
+      [g.items, l.items, v.items, vol.items]
+        .flat()
+        .map((it: MoverItem) => (it.symbol as string | undefined)?.toUpperCase())
+        .filter((s): s is string => !!s)
+    ));
+    const { charts, pe } = await fetchChartsAndPe(allSyms, true);
+    if (reqId !== requestIdRef.current) return;
+    setChartMap(charts);
+    setFeMap(pe);
+  }, [applyRanking, fetchLive, fetchChartsAndPe, loadHistoryDate, historyDates]);
+
+  const loadData = useCallback(async (m: Market, mode: 'today' | 'history', date: string) => {
+    const reqId = ++requestIdRef.current;
     setLoading(true);
     try {
-      const [g, l, v, vol] = await Promise.all([
-        fetch(`/api/settrade?type=topGainer&market=${m}`).then(r => r.json()),
-        fetch(`/api/settrade?type=topLoser&market=${m}`).then(r => r.json()),
-        fetch(`/api/settrade?type=mostActiveValue&market=${m}`).then(r => r.json()),
-        fetch(`/api/settrade?type=mostActiveVolume&market=${m}`).then(r => r.json()),
-      ]);
-      setGainers(g.items ?? []);
-      setLosers(l.items ?? []);
-      setActiveValue(v.items ?? []);
-      setActiveVolume(vol.items ?? []);
-      setReasons({ gainers: g.error, losers: l.error, activeValue: v.error, activeVolume: vol.error });
-
-      // One batched request each for chart data + P/E, covering every ticker
-      // visible across all 4 panels combined - not per-row, not per-panel.
-      const allSyms = Array.from(new Set(
-        [g.items, l.items, v.items, vol.items]
-          .flat()
-          .map((it: MoverItem) => (it.symbol as string | undefined)?.toUpperCase())
-          .filter((s): s is string => !!s)
-      ));
-      if (allSyms.length > 0) {
-        const [chartsRes, feRes] = await Promise.all([
-          fetch(`/api/topmover-charts?tickers=${allSyms.map(encodeURIComponent).join(',')}`).then(r => r.json()).catch(() => null),
-          fetch(`/api/sector-fundamentals?tickers=${allSyms.map(encodeURIComponent).join(',')}`).then(r => r.json()).catch(() => null),
-        ]);
-        if (chartsRes?.data) setChartMap(chartsRes.data);
-        if (Array.isArray(feRes?.data)) {
-          setFeMap(Object.fromEntries(feRes.data.map((d: { ticker: string; pe: number | null }) => [d.ticker.toUpperCase(), { pe: d.pe }])));
-        }
+      if (mode === 'today' || date === todayISO()) {
+        await loadToday(m, reqId);
       } else {
-        setChartMap({});
-        setFeMap({});
+        await loadHistoryDate(m, date, reqId);
       }
     } catch {
       // keep existing state on error
     } finally {
-      setLoading(false);
+      if (reqId === requestIdRef.current) setLoading(false);
     }
-  }, []);
+  }, [loadToday, loadHistoryDate]);
 
-  useEffect(() => { fetchAll(market); }, [market, fetchAll]);
+  useEffect(() => {
+    // Wait for historyDates to have loaded at least once before the first
+    // "today" load, so the A.3 fallback has a real latest-date to use
+    // instead of always missing it on the very first render.
+    loadData(market, viewMode, selectedDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [market, viewMode, selectedDate, historyDates.length]);
+
   const go = useCallback((sym: string) => router.push(`/stock/${sym}`), [router]);
+
+  const marketNotOpenBanner = !loading && viewMode === 'today'
+    && Object.values(reasons).length > 0 && Object.values(reasons).every(r => r === 'market_not_open')
+    && historyDates.length === 0; // only show the bare banner if there's truly no fallback data at all
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
           <h1 className="text-[18px] font-bold text-white">Top Movers</h1>
-          <p className="text-[12px] text-white/35 mt-0.5">{market.toUpperCase()} · SETTrade real-time</p>
+          <p className="text-[12px] text-white/35 mt-0.5">
+            {market.toUpperCase()} · SETTrade{label ? ` · ${label}` : ''}
+          </p>
         </div>
-        <div className="flex gap-2 flex-shrink-0">
-          {(['set', 'mai'] as Market[]).map(m => (
-            <button
-              key={m}
-              onClick={() => setMarket(m)}
-              className={[
-                'px-4 py-1.5 rounded-lg text-[12px] font-bold uppercase tracking-wider transition-all border',
-                market === m
-                  ? 'bg-white/10 border-white/20 text-white'
-                  : 'border-white/[0.07] text-white/35 hover:text-white/60',
-              ].join(' ')}
-            >
-              {m}
-            </button>
-          ))}
+        <div className="flex items-center gap-2 flex-shrink-0 flex-wrap">
+          <ModeToggle mode={viewMode} onChange={m => { setViewMode(m); if (m === 'today') setSelectedDate(todayISO()); }} />
+          <div className="flex gap-2">
+            {(['set', 'mai'] as Market[]).map(m => (
+              <button
+                key={m}
+                onClick={() => setMarket(m)}
+                className={[
+                  'px-4 py-1.5 rounded-lg text-[12px] font-bold uppercase tracking-wider transition-all border',
+                  market === m
+                    ? 'bg-white/10 border-white/20 text-white'
+                    : 'border-white/[0.07] text-white/35 hover:text-white/60',
+                ].join(' ')}
+              >
+                {m}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {!loading && Object.values(reasons).length > 0 && Object.values(reasons).every(r => r === 'market_not_open') && (
+      {viewMode === 'history' && (
+        <div className="flex items-center gap-2 flex-wrap">
+          <ThaiDateInput
+            value={selectedDate}
+            min={historyDates[0]}
+            max={todayISO()}
+            onChange={setSelectedDate}
+          />
+          <span className="text-[11px] text-white/25">
+            {historyDates.length > 0
+              ? <>เริ่มสะสม {isoToThaiLabel(historyDates[0])} — มีข้อมูล {historyDates.length} วัน</>
+              : 'ยังไม่มีข้อมูลย้อนหลัง (ต้องรอ batch สะสมข้อมูลอย่างน้อย 1 วัน)'}
+          </span>
+        </div>
+      )}
+
+      {marketNotOpenBanner && (
         <div className="px-4 py-2.5 rounded-lg bg-[#EF9F27]/10 border border-[#EF9F27]/25 text-[12px] text-[#EF9F27]">
           ตลาดยังไม่เปิด — SETTrade ยังไม่คำนวณ ranking ของวันนี้ ลองรีเฟรชอีกครั้งหลังตลาดเปิด
         </div>
@@ -367,19 +539,19 @@ export default function TopMoversPage() {
       {/* Mobile: single panel */}
       <div className="md:hidden">
         {mobilePanel === 'gainers'
-          ? <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} />
-          : <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} />
+          ? <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} useCandlestick={useCandlestick} />
+          : <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} useCandlestick={useCandlestick} />
         }
       </div>
       {/* Desktop: side by side */}
       <div className="hidden md:grid md:grid-cols-2 gap-4">
-        <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} />
-        <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} />
+        <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} useCandlestick={useCandlestick} />
+        <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} useCandlestick={useCandlestick} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <MoverPanel title="Most Active Value"  accentColor="#378ADD" items={activeValue}  loading={loading} volMode="value"  onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeValue} />
-        <MoverPanel title="Most Active Volume" accentColor="#BA7517" items={activeVolume} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeVolume} />
+        <MoverPanel title="Most Active Value"  accentColor="#378ADD" items={activeValue}  loading={loading} volMode="value"  onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeValue} useCandlestick={useCandlestick} />
+        <MoverPanel title="Most Active Volume" accentColor="#BA7517" items={activeVolume} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeVolume} useCandlestick={useCandlestick} />
       </div>
 
       <p className="text-[10px] text-white/20 text-right">

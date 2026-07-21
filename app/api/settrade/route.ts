@@ -92,7 +92,7 @@ export async function GET(req: NextRequest) {
     return Response.json({ items: [] }, { status: 400 });
   }
   const mkt = ALLOWED_MARKETS.has(market) ? market : 'set';
-  const apiUrl = `https://www.settrade.com/api/set/ranking/${type}/${mkt}/S?count=20`;
+  const apiUrl = `https://www.settrade.com/api/set/ranking/${type}/${mkt}/S?count=30`;
 
   const outcome = await fetchWithRetry(apiUrl);
   if ('list' in outcome && outcome.list) {
