@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-21T17:42:41.557506+07:00",
+  "generatedAt": "2026-07-21T19:24:27.209444+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 12,
+      "count": 13,
       "top3": [
         {
           "ticker": "CIMBT",
@@ -28,19 +28,19 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 3,
+      "count": 4,
       "top3": [
         {
           "ticker": "TNH",
           "netProfitYoY": -31.635122485788
         },
         {
-          "ticker": "SCB",
-          "netProfitYoY": -13.056167006815622
+          "ticker": "BBL",
+          "netProfitYoY": -19.7802001965394
         },
         {
-          "ticker": "BAY",
-          "netProfitYoY": -0.01720237332477273
+          "ticker": "SCB",
+          "netProfitYoY": -13.056167006815622
         }
       ]
     },
@@ -88,6 +88,54 @@
   },
   "announcements": [
     {
+      "ticker": "KTB",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-21T19:23:15+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 12125223000.0,
+      "netProfitPrior": 11122004000.0,
+      "netProfitYoY": 9.02012802728717,
+      "eps": 0.87,
+      "epsPrior": 0.8,
+      "epsYoY": 8.749999999999995,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105496101&symbol=KTB",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902042141&symbol=KTB",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105496201&symbol=KTB",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "BBL",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-21T18:20:18+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 9497916000.0,
+      "netProfitPrior": 11839865000.0,
+      "netProfitYoY": -19.7802001965394,
+      "eps": 4.98,
+      "epsPrior": 6.2,
+      "epsYoY": -19.677419354838705,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105486601&symbol=BBL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902041291&symbol=BBL",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "CREDIT",
       "sector": "Financials",
       "subsector": "Banking",
@@ -108,8 +156,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902039491&symbol=CREDIT",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105493901&symbol=CREDIT",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "รวมรายได้จากการดำเนินงานสุทธิ 4,112.0 3,793.8 8.4 3,564.0 15.4 7,905.8 7,157.2 10.5 รวมค่าใช้จ่ายจากการดำเนินงานอื่นๆ 1,745.8 1,666.6 4.8 1,540.9 13.3 3,412.4 3,058.4 11.6 ผลขาดทุนด้านเครดิตที่คาดว่าจะเกิดขึ้น 1,127.0 664.2 69.7",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "SCGD",
@@ -132,8 +180,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902039351&symbol=SCGD",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105493301&symbol=SCGD",
       "headline": "สรุปผลการดำเนินงานไตรมาสที่ 2/2569 (F45) (ก่อนสอบทาน)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "จากการบริหารจัดการต้นทุนเพื่อลดผลกระทบจากความผันผวนของราคาพลังงาน อีกทั้งการบริหาร จัดการต้นทุนทางการเงิน และรักษาความสามารถในการทำกำไร 2.",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "SCB",
@@ -716,6 +764,18 @@
     {
       "ticker": "CREDIT",
       "date": "2026-07-21T17:22:51+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "BBL",
+      "date": "2026-07-21T18:20:18+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "KTB",
+      "date": "2026-07-21T19:23:15+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -6766,20 +6826,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-27T17:14:00+07:00"
-    },
-    {
-      "ticker": "BBL",
-      "date": "2026-08-28T17:16:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-28T17:16:00+07:00"
-    },
-    {
-      "ticker": "KTB",
-      "date": "2026-08-28T18:11:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-28T18:11:00+07:00"
     },
     {
       "ticker": "MC",
