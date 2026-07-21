@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-20T19:03:20.818699+07:00",
+  "generatedAt": "2026-07-21T11:53:33.787097+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 7,
+      "count": 10,
       "top3": [
+        {
+          "ticker": "CIMBT",
+          "netProfitYoY": 407.90931961055105
+        },
         {
           "ticker": "KSL",
           "netProfitYoY": 112.86983050847456
         },
         {
-          "ticker": "LHFG",
-          "netProfitYoY": 26.341352742056973
-        },
-        {
-          "ticker": "KTC",
-          "netProfitYoY": 17.44339220347141
+          "ticker": "KKP",
+          "netProfitYoY": 50.56648138714149
         }
       ]
     },
@@ -28,11 +28,15 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 1,
+      "count": 2,
       "top3": [
         {
           "ticker": "TNH",
           "netProfitYoY": -31.635122485788
+        },
+        {
+          "ticker": "BAY",
+          "netProfitYoY": -0.01720237332477273
         }
       ]
     },
@@ -76,11 +80,107 @@
   },
   "announcements": [
     {
+      "ticker": "KBANK",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-21T08:21:05+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 13247491000.0,
+      "netProfitPrior": 12488192000.0,
+      "netProfitYoY": 6.080135539235783,
+      "eps": 5.63,
+      "epsPrior": 5.27,
+      "epsYoY": 6.831119544592037,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105480901&symbol=KBANK",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902027761&symbol=KBANK",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "CIMBT",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-21T06:55:15+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 886317000.0,
+      "netProfitPrior": 174503000.0,
+      "netProfitYoY": 407.90931961055105,
+      "eps": 0.03,
+      "epsPrior": 0.01,
+      "epsYoY": 199.99999999999994,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105478701&symbol=CIMBT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902026611&symbol=CIMBT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105479901&symbol=CIMBT",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "BAY",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-20T20:38:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 8293940000.0,
+      "netProfitPrior": 8295367000.0,
+      "netProfitYoY": -0.01720237332477273,
+      "eps": 1.13,
+      "epsPrior": 1.13,
+      "epsYoY": 0.0,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105469801&symbol=BAY",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105474001&symbol=BAY",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105480301&symbol=BAY",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "KKP",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-07-20T19:20:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 2122087000.0,
+      "netProfitPrior": 1409402000.0,
+      "netProfitYoY": 50.56648138714149,
+      "eps": 2.54,
+      "epsPrior": 1.7,
+      "epsYoY": 49.41176470588236,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105469401&symbol=KKP",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845038236351&symbol=KKP",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105480401&symbol=KKP",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "LHFG",
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-20T17:44:01+07:00",
+      "announceDate": "2026-07-20T17:44:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 696084000.0,
@@ -104,7 +204,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-20T12:32:05+07:00",
+      "announceDate": "2026-07-20T12:32:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 5512966000.0,
@@ -457,13 +557,37 @@
     },
     {
       "ticker": "TTB",
-      "date": "2026-07-20T12:32:05+07:00",
+      "date": "2026-07-20T12:32:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "LHFG",
-      "date": "2026-07-20T17:44:01+07:00",
+      "date": "2026-07-20T17:44:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "KKP",
+      "date": "2026-07-20T19:20:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "BAY",
+      "date": "2026-07-20T20:38:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "CIMBT",
+      "date": "2026-07-21T06:55:15+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "KBANK",
+      "date": "2026-07-21T08:21:05+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -6530,13 +6654,6 @@
       "basedOnLastYear": "2025-08-25T17:03:00+07:00"
     },
     {
-      "ticker": "CIMBT",
-      "date": "2026-08-25T17:03:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-25T17:03:00+07:00"
-    },
-    {
       "ticker": "CREDIT",
       "date": "2026-08-26T20:34:00+07:00",
       "status": "predicted",
@@ -6551,20 +6668,6 @@
       "basedOnLastYear": "2025-08-27T17:14:00+07:00"
     },
     {
-      "ticker": "BAY",
-      "date": "2026-08-28T12:33:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-28T12:33:00+07:00"
-    },
-    {
-      "ticker": "KKP",
-      "date": "2026-08-28T12:34:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-28T12:34:00+07:00"
-    },
-    {
       "ticker": "BBL",
       "date": "2026-08-28T17:16:00+07:00",
       "status": "predicted",
@@ -6577,13 +6680,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-28T18:11:00+07:00"
-    },
-    {
-      "ticker": "KBANK",
-      "date": "2026-08-28T20:21:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-28T20:21:00+07:00"
     },
     {
       "ticker": "MC",
