@@ -28,18 +28,25 @@ async function getSettradeSessionCookie(): Promise<string> {
   }
 }
 
-function pickList(data: unknown): unknown[] {
+function pickList(data: unknown): unknown[] | null {
   if (Array.isArray(data)) return data;
   if (data && typeof data === 'object') {
     const d = data as Record<string, unknown>;
+    // SETTrade's own ranking shape (rankingType/market/stocks) - if this key
+    // is present at all, the upstream call genuinely succeeded and `stocks`
+    // being empty means "no ranking yet" (pre-open), not a failed fetch.
     for (const k of ['stocks', 'securityList', 'data', 'items', 'list', 'result']) {
       if (Array.isArray(d[k])) return d[k] as unknown[];
     }
   }
-  return [];
+  return null;
 }
 
-async function fetchWithRetry(url: string, maxTries = 3): Promise<unknown[] | null> {
+type FetchOutcome = { list: unknown[] } | { list: null; reason: 'blocked' | 'market_not_open' };
+
+async function fetchWithRetry(url: string, maxTries = 3): Promise<FetchOutcome> {
+  let sawValidEmptyResponse = false;
+
   for (let attempt = 1; attempt <= maxTries; attempt++) {
     const cookie = await getSettradeSessionCookie();
     const headers: Record<string, string> = {
@@ -60,15 +67,22 @@ async function fetchWithRetry(url: string, maxTries = 3): Promise<unknown[] | nu
       if (res.ok) {
         const data = await res.json();
         const list = pickList(data);
-        if (list.length > 0) return list;
+        if (list && list.length > 0) return { list };
+        if (list !== null) {
+          // Valid, well-shaped response - just no rows in it right now
+          // (typically: market hasn't opened yet, ranking not computed for
+          // today). Retrying won't change that within the same request, but
+          // keep trying anyway in case it's a transient partial response.
+          sawValidEmptyResponse = true;
+        }
       }
-      // got 403 or empty — wait before retry (except last attempt)
+      // got 403, malformed body, or empty — wait before retry (except last attempt)
       if (attempt < maxTries) await new Promise(r => setTimeout(r, 600 * attempt));
     } catch {
       if (attempt < maxTries) await new Promise(r => setTimeout(r, 600 * attempt));
     }
   }
-  return null;
+  return { list: null, reason: sawValidEmptyResponse ? 'market_not_open' : 'blocked' };
 }
 
 export async function GET(req: NextRequest) {
@@ -80,12 +94,12 @@ export async function GET(req: NextRequest) {
   const mkt = ALLOWED_MARKETS.has(market) ? market : 'set';
   const apiUrl = `https://www.settrade.com/api/set/ranking/${type}/${mkt}/S?count=20`;
 
-  const list = await fetchWithRetry(apiUrl);
-  if (list && list.length > 0) {
+  const outcome = await fetchWithRetry(apiUrl);
+  if ('list' in outcome && outcome.list) {
     return Response.json(
-      { items: list },
+      { items: outcome.list },
       { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=30' } }
     );
   }
-  return Response.json({ items: [], error: 'upstream_blocked' });
+  return Response.json({ items: [], error: outcome.reason });
 }

@@ -116,6 +116,13 @@ interface PanelProps {
   onSymbol: (sym: string) => void;
   chartMap: Record<string, ChartEntry>;
   feMap: Record<string, Fundamental>;
+  emptyReason?: string;
+}
+
+function emptyStateMessage(reason: string | undefined): string {
+  if (reason === 'market_not_open') return 'ตลาดยังไม่เปิด — ยังไม่มีข้อมูล ranking วันนี้';
+  if (reason === 'blocked') return 'เชื่อมต่อ SETTrade ไม่สำเร็จ ลองรีเฟรชอีกครั้ง';
+  return 'ไม่พบข้อมูล';
 }
 
 const STICKY_BG = '#13161e';
@@ -128,7 +135,7 @@ function fmtPe(n: number | null | undefined): string {
   return n.toFixed(1);
 }
 
-function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, chartMap, feMap }: PanelProps) {
+function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, chartMap, feMap, emptyReason }: PanelProps) {
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden flex flex-col">
       <div
@@ -142,7 +149,7 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, cha
         <TableSkeleton rows={6} />
       ) : items.length === 0 ? (
         <div className="flex-1 flex items-center justify-center py-10">
-          <span className="text-[12px] text-white/25">ไม่พบข้อมูล</span>
+          <span className="text-[12px] text-white/25">{emptyStateMessage(emptyReason)}</span>
         </div>
       ) : (
         <div className="relative overflow-x-auto">
@@ -252,6 +259,7 @@ export default function TopMoversPage() {
   const [losers,      setLosers]      = useState<MoverItem[]>([]);
   const [activeValue, setActiveValue] = useState<MoverItem[]>([]);
   const [activeVolume,setActiveVolume]= useState<MoverItem[]>([]);
+  const [reasons, setReasons] = useState<{ gainers?: string; losers?: string; activeValue?: string; activeVolume?: string }>({});
   const [loading, setLoading] = useState(false);
   const [chartMap, setChartMap] = useState<Record<string, ChartEntry>>({});
   const [feMap, setFeMap] = useState<Record<string, Fundamental>>({});
@@ -269,6 +277,7 @@ export default function TopMoversPage() {
       setLosers(l.items ?? []);
       setActiveValue(v.items ?? []);
       setActiveVolume(vol.items ?? []);
+      setReasons({ gainers: g.error, losers: l.error, activeValue: v.error, activeVolume: vol.error });
 
       // One batched request each for chart data + P/E, covering every ticker
       // visible across all 4 panels combined - not per-row, not per-panel.
@@ -326,6 +335,12 @@ export default function TopMoversPage() {
         </div>
       </div>
 
+      {!loading && Object.values(reasons).length > 0 && Object.values(reasons).every(r => r === 'market_not_open') && (
+        <div className="px-4 py-2.5 rounded-lg bg-[#EF9F27]/10 border border-[#EF9F27]/25 text-[12px] text-[#EF9F27]">
+          ตลาดยังไม่เปิด — SETTrade ยังไม่คำนวณ ranking ของวันนี้ ลองรีเฟรชอีกครั้งหลังตลาดเปิด
+        </div>
+      )}
+
       {/* Mobile: tab switcher for Gainers vs Losers */}
       <div className="md:hidden flex bg-white/[0.04] rounded-xl p-1 gap-1">
         <button
@@ -352,19 +367,19 @@ export default function TopMoversPage() {
       {/* Mobile: single panel */}
       <div className="md:hidden">
         {mobilePanel === 'gainers'
-          ? <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} />
-          : <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} />
+          ? <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} />
+          : <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} />
         }
       </div>
       {/* Desktop: side by side */}
       <div className="hidden md:grid md:grid-cols-2 gap-4">
-        <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} />
-        <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} />
+        <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} />
+        <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <MoverPanel title="Most Active Value"  accentColor="#378ADD" items={activeValue}  loading={loading} volMode="value"  onSymbol={go} chartMap={chartMap} feMap={feMap} />
-        <MoverPanel title="Most Active Volume" accentColor="#BA7517" items={activeVolume} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} />
+        <MoverPanel title="Most Active Value"  accentColor="#378ADD" items={activeValue}  loading={loading} volMode="value"  onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeValue} />
+        <MoverPanel title="Most Active Volume" accentColor="#BA7517" items={activeVolume} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeVolume} />
       </div>
 
       <p className="text-[10px] text-white/20 text-right">
