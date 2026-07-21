@@ -1,8 +1,562 @@
 {
-  "generated_at": "2026-07-21T11:52:27+07:00",
+  "generated_at": "2026-07-21T17:42:37+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "346daf2f-0e54-45e1-b162-e53feedaf18b",
+      "title": "BUY by KSS | KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED (KKP) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118601-buy-kss-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T17:24:26+07:00",
+      "ts": 1784629466000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_KKP_QC-(E).pdf"
+    },
+    {
+      "uuid": "cc3baf5d-b7ed-4f67-9c98-192acb714177",
+      "title": "BUY โดย KSS | ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) (KKP) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118600-buy-kss-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน)",
+      "date": "2026-07-21T17:24:24+07:00",
+      "ts": 1784629464000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_KKP_QC.pdf"
+    },
+    {
+      "uuid": "429b8753-8019-4727-a6f0-1bc333582e07",
+      "title": "BUY (from HOLD)  by GLOBLEX | SCG PACKAGING PUBLIC COMPANY LIMITED (SCGP) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118597-neutral-globlex-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "GLOBLEX",
+      "rating": "BUY (from HOLD)",
+      "companyName": "SCG PACKAGING PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T16:01:28+07:00",
+      "ts": 1784624488000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/research_35848_1_20260721-SCGP_R_EN.pdf"
+    },
+    {
+      "uuid": "f30b7743-d33f-4b09-a74a-3d704d773d36",
+      "title": "Neutral by KSS | THAI STANLEY ELECTRIC PUBLIC COMPANY LIMITED (STANLY) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118596-neutral-kss-stanly",
+      "tickers": [
+        "STANLY"
+      ],
+      "symbolId": "655",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "THAI STANLEY ELECTRIC PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T15:51:03+07:00",
+      "ts": 1784623863000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_STANLY_EP-(E).pdf"
+    },
+    {
+      "uuid": "c4be9e57-f5e2-4bfb-a4db-df516d64fa7c",
+      "title": "U.R. โดย KSS | บริษัท เอสซีบี เอกซ์ จำกัด (มหาชน) (SCB) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118595-ur-kss-scb",
+      "tickers": [
+        "SCB"
+      ],
+      "symbolId": "110272",
+      "broker": "KSS",
+      "rating": "U.R.",
+      "companyName": "บริษัท เอสซีบี เอกซ์ จำกัด (มหาชน)",
+      "date": "2026-07-21T15:27:29+07:00",
+      "ts": 1784622449000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_SCB_ER.pdf"
+    },
+    {
+      "uuid": "64822624-cec6-46b5-9059-158f1fddbcff",
+      "title": "Buy by ASP | KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED (KKP) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118594-buy-asp-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "ASP",
+      "rating": "Buy",
+      "companyName": "KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T15:27:29+07:00",
+      "ts": 1784622449000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/KKP20260721.pdf"
+    },
+    {
+      "uuid": "4b268d80-46d2-494c-8eb1-61bb6a517d09",
+      "title": "Trading by ASP | TMBTHANACHART BANK PUBLIC COMPANY LIMITED (TTB) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118593-trading-asp-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "ASP",
+      "rating": "Trading",
+      "companyName": "TMBTHANACHART BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T15:27:29+07:00",
+      "ts": 1784622449000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/TTB20260721.pdf"
+    },
+    {
+      "uuid": "5d4c860c-8957-404c-8f15-c3498ac42540",
+      "title": "TRINITY | Block Trade  AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118592-trinity-block-trade--afternoon-stock",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  AFTERNOON Stock",
+      "date": "2026-07-21T15:27:28+07:00",
+      "ts": 1784622448000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BlockTrade-Afternoon-21JULY26-CK.pdf"
+    },
+    {
+      "uuid": "d3f332a2-2793-4b13-b4c6-2db4837d5774",
+      "title": "BUY by KSS | SC ASSET CORPORATION PUBLIC COMPANY LIMITED (SC) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118589-buy-kss-sc",
+      "tickers": [
+        "SC"
+      ],
+      "symbolId": "4227",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "SC ASSET CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T15:08:56+07:00",
+      "ts": 1784621336000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_SC_EP(E).pdf"
+    },
+    {
+      "uuid": "63a58cee-2275-4e2c-832e-373dc08b5dde",
+      "title": "BUY โดย KSS | บริษัท เอสซี แอสเสท คอร์ปอเรชั่น จำกัด (มหาชน) (SC) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118588-buy-kss-sc",
+      "tickers": [
+        "SC"
+      ],
+      "symbolId": "4227",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสซี แอสเสท คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-21T15:08:56+07:00",
+      "ts": 1784621336000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_SC_EP.pdf"
+    },
+    {
+      "uuid": "4023c1ca-cf43-4182-9ad2-4332b9c9c915",
+      "title": "BUY by KSS | KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED (KKP) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118590-buy-kss-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T15:08:56+07:00",
+      "ts": 1784621336000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_KKP_ER-(E).pdf"
+    },
+    {
+      "uuid": "309c86ac-636d-49d5-85fa-1e68a71e311f",
+      "title": "HOLD โดย TRINITY | ธนาคารกสิกรไทย จำกัด (มหาชน) (KBANK) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118591-hold-trinity-kbank",
+      "tickers": [
+        "KBANK"
+      ],
+      "symbolId": "41",
+      "broker": "TRINITY",
+      "rating": "HOLD",
+      "companyName": "ธนาคารกสิกรไทย จำกัด (มหาชน)",
+      "date": "2026-07-21T15:08:56+07:00",
+      "ts": 1784621336000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/KBANK_Thai_20260721.pdf"
+    },
+    {
+      "uuid": "89b9104a-52fe-4f6e-833f-ed2b619e5c94",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118583-lhs-trading-ideas",
+      "tickers": [
+        "CBG",
+        "CPALL"
+      ],
+      "symbolId": "21988,4086",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-07-21T14:30:02+07:00",
+      "ts": 1784619002000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Trading-Ideas_20260721.pdf"
+    },
+    {
+      "uuid": "621e87d3-7fa4-43c4-a879-bd0ac535779a",
+      "title": "TRIS | เจาะลึกภูมิทัศน์ธุรกิจดาต้าเซ็นเตอร์ในประเทศไทย | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118582-tris-exploring-thailands-data-center-landscape",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "TRIS",
+      "rating": null,
+      "companyName": "เจาะลึกภูมิทัศน์ธุรกิจดาต้าเซ็นเตอร์ในประเทศไทย",
+      "date": "2026-07-21T14:30:02+07:00",
+      "ts": 1784619002000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Data-Center-21-July-2026-t.pdf"
+    },
+    {
+      "uuid": "aa112585-506c-40fa-a5e2-95723b7f1b62",
+      "title": "BUY (Upgrade) โดย YUANTA | ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) (KKP) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118577-buy-upgrade-yuanta-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "YUANTA",
+      "rating": "BUY (Upgrade)",
+      "companyName": "ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน)",
+      "date": "2026-07-21T14:27:03+07:00",
+      "ts": 1784618823000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/KKP_Company_Update_21072026.pdf"
+    },
+    {
+      "uuid": "210b0613-e2d5-46df-821a-8fdac671eae8",
+      "title": "TRADING (Maintain) โดย YUANTA | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118578-trading-maintain-yuanta-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-07-21T14:27:03+07:00",
+      "ts": 1784618823000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/TTB_Company_Update_21072026.pdf"
+    },
+    {
+      "uuid": "4d56802b-1894-462c-98c7-452dca13a606",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน) (AMATA) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118576-buy-maintain-yuanta-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน)",
+      "date": "2026-07-21T14:11:02+07:00",
+      "ts": 1784617862000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/AMATA_Company_Update_210726.pdf"
+    },
+    {
+      "uuid": "21090c06-3f83-4c52-b1f7-6f9e8f14c21a",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118575-buy-maintain-yuanta-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-07-21T14:11:01+07:00",
+      "ts": 1784617861000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BCPG_Company_Update_210726.pdf"
+    },
+    {
+      "uuid": "22090efd-8417-4064-8db5-8f8786a15fa4",
+      "title": "Not Rated โดย KGI | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118570-not-rated-kgi-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KGI",
+      "rating": "Not Rated",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-07-21T14:04:41+07:00",
+      "ts": 1784617481000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_BCPG_2026_07_21_th_.pdf"
+    },
+    {
+      "uuid": "21d4a2f7-0596-44b4-bd70-97317b4c2007",
+      "title": "Neutral (Maintained) โดย KGI | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118569-neutral-maintained-kgi-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-07-21T14:04:41+07:00",
+      "ts": 1784617481000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_TTB_2027_07_21_th-thai.pdf"
+    },
+    {
+      "uuid": "84e7e2bd-7026-4b10-9eeb-a3444f19e9a7",
+      "title": "Neutral (Maintained) by KGI | TMBTHANACHART BANK PUBLIC COMPANY LIMITED (TTB) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118568-neutral-maintained-kgi-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "TMBTHANACHART BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T14:01:43+07:00",
+      "ts": 1784617303000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_TTB_2026_07_21_e_th_.pdf"
+    },
+    {
+      "uuid": "30c2ac7e-0588-4d72-bba9-680e277d4fa7",
+      "title": "Outperform (Maintained) by KGI | AMATA CORPORATION PUBLIC COMPANY LIMITED (AMATA) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118567-outperform-maintained-kgi-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "AMATA CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T14:01:42+07:00",
+      "ts": 1784617302000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_AMATA_2026_07_21_e_th.pdf"
+    },
+    {
+      "uuid": "81e02e95-67e6-43a9-a280-dabfe4362e8b",
+      "title": "Outperform (Upgraded) by KGI | KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED (KKP) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118564-outperform-upgraded-kgi-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "KGI",
+      "rating": "Outperform (Upgraded)",
+      "companyName": "KIATNAKIN PHATRA BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T14:01:40+07:00",
+      "ts": 1784617300000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_KKP_2026_07_21_e_th.pdf"
+    },
+    {
+      "uuid": "40b73f25-f7a2-4315-885d-da8d3b8cf32b",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท เมเจอร์ ซีนีเพล็กซ์ กรุ้ป จำกัด (มหาชน) (MAJOR) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118566-outperform-maintained-kgi-major",
+      "tickers": [
+        "MAJOR"
+      ],
+      "symbolId": "2627",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท เมเจอร์ ซีนีเพล็กซ์ กรุ้ป จำกัด (มหาชน)",
+      "date": "2026-07-21T14:01:40+07:00",
+      "ts": 1784617300000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_MAJOR_2026_07_21_th.pdf"
+    },
+    {
+      "uuid": "7c81dae9-88ef-4e48-8ba2-7b088b6d3dcc",
+      "title": "Outperform (Upgraded) โดย KGI | ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) (KKP) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118563-outperform-upgraded-kgi-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "KGI",
+      "rating": "Outperform (Upgraded)",
+      "companyName": "ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน)",
+      "date": "2026-07-21T14:01:40+07:00",
+      "ts": 1784617300000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_KKP_2026_07_21_th-thai.pdf"
+    },
+    {
+      "uuid": "f7aa4be3-ed71-4064-b3cf-395534348963",
+      "title": "Outperform (Maintained) by KGI | MAJOR CINEPLEX GROUP PUBLIC COMPANY LIMITED (MAJOR) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118565-outperform-maintained-kgi-major",
+      "tickers": [
+        "MAJOR"
+      ],
+      "symbolId": "2627",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "MAJOR CINEPLEX GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T14:01:40+07:00",
+      "ts": 1784617300000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_MAJOR_2026_07_21_e_th.pdf"
+    },
+    {
+      "uuid": "2f8f6f23-447d-44fe-837e-1bc3e54a9957",
+      "title": "BUY โดย KSS | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118558-buy-kss-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-07-21T13:01:17+07:00",
+      "ts": 1784613677000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260720_TTB_ER.pdf"
+    },
+    {
+      "uuid": "9335ac32-1e77-4275-9026-3d65a9ea2a36",
+      "title": "BUY by KSS | TMBTHANACHART BANK PUBLIC COMPANY LIMITED (TTB) | Research as of 21 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118557-buy-kss-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "TMBTHANACHART BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-07-21T13:01:16+07:00",
+      "ts": 1784613676000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_TTB_QC.pdf"
+    },
+    {
+      "uuid": "2c2d1db0-9d27-405d-8f36-e107164e1fd5",
+      "title": "Neutral โดย KSS | บริษัท ไทยสแตนเลย์การไฟฟ้า จำกัด (มหาชน) (STANLY) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118556-neutral-kss-stanly",
+      "tickers": [
+        "STANLY"
+      ],
+      "symbolId": "655",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท ไทยสแตนเลย์การไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-07-21T13:01:16+07:00",
+      "ts": 1784613676000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_STANLY_EP.pdf"
+    },
+    {
+      "uuid": "2840f91b-e246-4fee-80e8-4d3fa9dab93c",
+      "title": "Earning Result โดย SBITO | ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) (KKP) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118553-earning-result-sbito-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "SBITO",
+      "rating": "Earning Result",
+      "companyName": "ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน)",
+      "date": "2026-07-21T12:59:26+07:00",
+      "ts": 1784613566000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Earning-Result-210769--KKP.pdf"
+    },
+    {
+      "uuid": "47ebbc97-c30e-4173-b18a-7f63f2b4e2dc",
+      "title": "HOLD โดย SBITO | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118551-hold-sbito-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "SBITO",
+      "rating": "HOLD",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-07-21T12:57:00+07:00",
+      "ts": 1784613420000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Fundamental-210769---TTB.pdf"
+    },
+    {
+      "uuid": "4696f3f1-e4c1-49cd-8adb-1a82c2785af9",
+      "title": "Earning Result โดย SBITO | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118552-earning-result-sbito-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "SBITO",
+      "rating": "Earning Result",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-07-21T12:57:00+07:00",
+      "ts": 1784613420000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Earning-Result-210769--TTB.pdf"
+    },
+    {
+      "uuid": "3c12f528-b365-4352-8703-fde545571b4d",
+      "title": "Neutral โดย KSS | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118547-neutral-kss-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-07-21T12:46:24+07:00",
+      "ts": 1784612784000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260721_BCPG_EP.pdf"
+    },
+    {
+      "uuid": "25d925fe-0c2f-4927-941b-624649d6d9b5",
+      "title": "TBUY โดย LHS | บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน) (AMATA) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118540-tbuy-lhs-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "LHS",
+      "rating": "TBUY",
+      "companyName": "บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน)",
+      "date": "2026-07-21T11:38:23+07:00",
+      "ts": 1784608703000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/AMATA_20260721.pdf"
+    },
+    {
+      "uuid": "96846699-c283-4c97-948e-054134516aa6",
+      "title": "HOLD โดย LHS | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118539-hold-lhs-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "LHS",
+      "rating": "HOLD",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-07-21T11:38:22+07:00",
+      "ts": 1784608702000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BCPG_20260721.pdf"
+    },
+    {
+      "uuid": "b8f69a2d-ef44-46de-891c-451adccacb43",
+      "title": "HOLD โดย ASL | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118526-hold-asl-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "ASL",
+      "rating": "HOLD",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-07-21T11:05:53+07:00",
+      "ts": 1784606753000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Company-report-2Q26-TTB-21072026.pdf"
+    },
+    {
+      "uuid": "ea7cb29a-8e1c-42ad-9a71-bab47a6ce560",
+      "title": "BUY โดย ASL | บริษัท บัตรกรุงไทย จำกัด (มหาชน) (KTC) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/118527-buy-asl-ktc",
+      "tickers": [
+        "KTC"
+      ],
+      "symbolId": "3182",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท บัตรกรุงไทย จำกัด (มหาชน)",
+      "date": "2026-07-21T11:05:53+07:00",
+      "ts": 1784606753000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Earnings-Result-2Q26-KTC-21072026.pdf"
+    },
     {
       "uuid": "fe5b64e6-659e-43d5-a2e6-cd2b2b76f9af",
       "title": "BUY โดย KSS | ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) (KKP) | บทวิเคราะห์ประจำวันที่ 21 กรกฎาคม 2569",
