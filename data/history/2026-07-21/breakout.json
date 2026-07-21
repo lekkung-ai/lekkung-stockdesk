@@ -1,13 +1,23 @@
 [
   {
-    "Ticker": "SIRI",
-    "Price": 1.51,
-    "Box_Low": 1.23,
-    "Box_High(Break)": 1.51,
+    "Ticker": "AXTRART",
+    "Price": 13.3,
+    "Box_Low": 11.89,
+    "Box_High(Break)": 13.3,
     "To_Break": "0.0%",
-    "ADTV(MB)": 49.8,
-    "Box_Width": "22.65%",
-    "SMA150_Chg": 0.024
+    "ADTV(MB)": 13.1,
+    "Box_Width": "11.82%",
+    "SMA150_Chg": 0.127
+  },
+  {
+    "Ticker": "CPF",
+    "Price": 22.6,
+    "Box_Low": 18.46,
+    "Box_High(Break)": 22.6,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 649.3,
+    "Box_Width": "22.44%",
+    "SMA150_Chg": 0.082
   },
   {
     "Ticker": "ICHI",
@@ -20,24 +30,14 @@
     "SMA150_Chg": 0.303
   },
   {
-    "Ticker": "AXTRART",
-    "Price": 13.3,
-    "Box_Low": 11.89,
-    "Box_High(Break)": 13.3,
+    "Ticker": "EGCO",
+    "Price": 135.5,
+    "Box_Low": 107.36,
+    "Box_High(Break)": 135.5,
     "To_Break": "0.0%",
-    "ADTV(MB)": 13.1,
-    "Box_Width": "11.82%",
-    "SMA150_Chg": 0.127
-  },
-  {
-    "Ticker": "SCCC",
-    "Price": 149.5,
-    "Box_Low": 134.81,
-    "Box_High(Break)": 149.5,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 10.2,
-    "Box_Width": "10.9%",
-    "SMA150_Chg": 1.633
+    "ADTV(MB)": 160.1,
+    "Box_Width": "26.21%",
+    "SMA150_Chg": 1.691
   },
   {
     "Ticker": "TTW",
@@ -60,24 +60,24 @@
     "SMA150_Chg": 0.202
   },
   {
-    "Ticker": "CPF",
-    "Price": 22.6,
-    "Box_Low": 18.46,
-    "Box_High(Break)": 22.6,
+    "Ticker": "SIRI",
+    "Price": 1.51,
+    "Box_Low": 1.23,
+    "Box_High(Break)": 1.51,
     "To_Break": "0.0%",
-    "ADTV(MB)": 649.3,
-    "Box_Width": "22.44%",
-    "SMA150_Chg": 0.082
+    "ADTV(MB)": 49.8,
+    "Box_Width": "22.65%",
+    "SMA150_Chg": 0.024
   },
   {
-    "Ticker": "EGCO",
-    "Price": 135.5,
-    "Box_Low": 107.36,
-    "Box_High(Break)": 135.5,
+    "Ticker": "SCCC",
+    "Price": 149.5,
+    "Box_Low": 134.81,
+    "Box_High(Break)": 149.5,
     "To_Break": "0.0%",
-    "ADTV(MB)": 160.1,
-    "Box_Width": "26.21%",
-    "SMA150_Chg": 1.691
+    "ADTV(MB)": 10.2,
+    "Box_Width": "10.9%",
+    "SMA150_Chg": 1.633
   },
   {
     "Ticker": "CKP",
