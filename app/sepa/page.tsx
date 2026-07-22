@@ -93,13 +93,31 @@ export default function SepaPage() {
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10;
   const { priceMap, fetchDone } = useLivePrices(sepaData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('sepa')?.newTickers ?? []), []);
 
   const sepaHistory = useMemo(() => getScanHistory('sepa'), []);
 
   const handleSort = (key: string) => {
+    setCurrentPage(1);
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
+  const handleRsChange = (val: number) => {
+    setCurrentPage(1);
+    setRsMin(val);
+  };
+
+  const handleFromHighChange = (val: number) => {
+    setCurrentPage(1);
+    setFromHighMax(val);
+  };
+
+  const handleDiffFilterChange = (val: DiffFilter) => {
+    setCurrentPage(1);
+    setDiffFilter(val);
   };
 
   const filtered = useMemo(() => {
@@ -132,7 +150,13 @@ export default function SepaPage() {
     filtered,
     [rsMin, fromHighMax, sortConfig, diffFilter, newSet]
   );
-  const displayRows = isMobile ? visibleRows : filtered;
+
+  const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+  const safePage = Math.min(currentPage, totalPages);
+  const displayRows = isMobile
+    ? visibleRows
+    : filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
   const firstSeenDate = useMemo(() => {
     if (!activeTicker || !sepaHistory) return null;
@@ -160,9 +184,9 @@ export default function SepaPage() {
       ) : (
       <>
       <FilterBar>
-        <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={setRsMin} />
+        <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={handleRsChange} />
         <button
-          onClick={() => setRsMin(rsMin >= 80 ? 60 : 80)}
+          onClick={() => handleRsChange(rsMin >= 80 ? 60 : 80)}
           title="Minervini แนะนำ RS ≥ 80 สำหรับหุ้นเกรด A"
           className={`px-2.5 py-1 rounded text-label font-semibold transition-all ${
             rsMin >= 80 ? 'bg-[#1D9E75]/20 text-[#1D9E75]' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
@@ -176,7 +200,7 @@ export default function SepaPage() {
           min={1}
           max={30}
           value={fromHighMax}
-          onChange={setFromHighMax}
+          onChange={handleFromHighChange}
           unit="%"
           dir="lte"
         />
@@ -184,7 +208,7 @@ export default function SepaPage() {
           ยิ่งใกล้ High = momentum แข็ง
         </span>
         <Divider />
-        <ScanDiffChips scanName="sepa" filter={diffFilter} onChange={setDiffFilter} />
+        <ScanDiffChips scanName="sepa" filter={diffFilter} onChange={handleDiffFilterChange} />
       </FilterBar>
 
       {diffFilter === 'dropped' ? (
@@ -241,7 +265,8 @@ export default function SepaPage() {
           </tr>
         </thead>
         <tbody>
-          {displayRows.map((s, i) => {
+          {displayRows.map((s, idx) => {
+            const globalIndex = isMobile ? idx : (safePage - 1) * pageSize + idx;
             const isActive = activeTicker === s.Ticker;
             return (
               <tr
@@ -251,7 +276,7 @@ export default function SepaPage() {
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
                 }`}
               >
-                <Td><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
+                <Td><span className="text-white/30 tabular-nums">{globalIndex + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-2">
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
@@ -270,7 +295,7 @@ export default function SepaPage() {
                 <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
               </Td>
               <Td right mono>
-                <span className="text-white/60">{daysInScan('sepa', s.Ticker) ?? '—'}</span>
+                <span className="text-white/60">{daysInScan('sepa', s.Ticker) ?? 1}</span>
               </Td>
               <Td right mono>
                 <span className={s.Price > s.SMA_50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
@@ -309,6 +334,53 @@ export default function SepaPage() {
           )}
         </tbody>
       </TableWrap>
+
+      {/* Pagination Controls for Desktop */}
+      {!isMobile && filtered.length > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] px-4 py-3 rounded-xl">
+          <p className="text-[12px] text-white/40">
+            แสดง <span className="font-semibold text-white">{(safePage - 1) * pageSize + 1}</span> -{' '}
+            <span className="font-semibold text-white">{Math.min(safePage * pageSize, filtered.length)}</span> จากทั้งหมด{' '}
+            <span className="font-semibold text-white">{filtered.length}</span> รายการ
+          </p>
+
+          {totalPages > 1 && (
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
+                disabled={safePage === 1}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ‹ ก่อนหน้า
+              </button>
+
+              <div className="flex items-center gap-1 px-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => setCurrentPage(p)}
+                    className={`w-7 h-7 rounded-lg text-[11px] font-bold transition-all ${
+                      p === safePage
+                        ? 'bg-emerald-500 text-black shadow-md'
+                        : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.09] hover:text-white'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
+                disabled={safePage >= totalPages}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ถัดไป ›
+              </button>
+            </div>
+          )}
+        </div>
+      )}
       </div>
       )}
       </>
