@@ -41,13 +41,31 @@ export default function KellPage() {
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10;
   const { priceMap, fetchDone } = useLivePrices(kellData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('kell')?.newTickers ?? []), []);
 
   const kellHistory = useMemo(() => getScanHistory('kell'), []);
 
   const handleSort = (key: string) => {
+    setCurrentPage(1);
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
+  const handleSignalChange = (sig: SignalFilter) => {
+    setCurrentPage(1);
+    setSignalFilter(sig);
+  };
+
+  const handleDistChange = (val: number) => {
+    setCurrentPage(1);
+    setDistMax(val);
+  };
+
+  const handleDiffFilterChange = (val: DiffFilter) => {
+    setCurrentPage(1);
+    setDiffFilter(val);
   };
 
   const filtered = useMemo(() => {
@@ -80,7 +98,13 @@ export default function KellPage() {
     filtered,
     [signalFilter, distMax, sortConfig, diffFilter, newSet]
   );
-  const displayRows = isMobile ? visibleRows : filtered;
+
+  const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+  const safePage = Math.min(currentPage, totalPages);
+  const displayRows = isMobile
+    ? visibleRows
+    : filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
   const firstSeenDate = useMemo(() => {
     if (!activeTicker || !kellHistory) return null;
@@ -113,7 +137,7 @@ export default function KellPage() {
           {SIGNALS.map(sig => (
             <button
               key={sig}
-              onClick={() => setSignalFilter(sig)}
+              onClick={() => handleSignalChange(sig)}
               className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all border ${
                 signalFilter === sig
                   ? 'bg-[#1D9E75]/10 text-[#1D9E75] border-[#1D9E75]/25'
@@ -130,12 +154,12 @@ export default function KellPage() {
           min={1}
           max={15}
           value={distMax}
-          onChange={setDistMax}
+          onChange={handleDistChange}
           unit="%"
           dir="lte"
         />
         <Divider />
-        <ScanDiffChips scanName="kell" filter={diffFilter} onChange={setDiffFilter} />
+        <ScanDiffChips scanName="kell" filter={diffFilter} onChange={handleDiffFilterChange} />
       </FilterBar>
 
       {diffFilter === 'dropped' ? (
@@ -191,7 +215,8 @@ export default function KellPage() {
           </tr>
         </thead>
         <tbody>
-          {displayRows.map((s, i) => {
+          {displayRows.map((s, idx) => {
+            const globalIndex = isMobile ? idx : (safePage - 1) * pageSize + idx;
             const isActive = activeTicker === s.Ticker;
             return (
               <tr
@@ -201,7 +226,7 @@ export default function KellPage() {
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
                 }`}
               >
-                <Td><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
+                <Td><span className="text-white/30 tabular-nums">{globalIndex + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-2">
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
@@ -265,6 +290,53 @@ export default function KellPage() {
           )}
         </tbody>
       </TableWrap>
+
+      {/* Pagination Controls for Desktop */}
+      {!isMobile && filtered.length > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] px-4 py-3 rounded-xl">
+          <p className="text-[12px] text-white/40">
+            แสดง <span className="font-semibold text-white">{(safePage - 1) * pageSize + 1}</span> -{' '}
+            <span className="font-semibold text-white">{Math.min(safePage * pageSize, filtered.length)}</span> จากทั้งหมด{' '}
+            <span className="font-semibold text-white">{filtered.length}</span> รายการ
+          </p>
+
+          {totalPages > 1 && (
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
+                disabled={safePage === 1}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ‹ ก่อนหน้า
+              </button>
+
+              <div className="flex items-center gap-1 px-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => setCurrentPage(p)}
+                    className={`w-7 h-7 rounded-lg text-[11px] font-bold transition-all ${
+                      p === safePage
+                        ? 'bg-emerald-500 text-black shadow-md'
+                        : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.09] hover:text-white'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
+                disabled={safePage >= totalPages}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ถัดไป ›
+              </button>
+            </div>
+          )}
+        </div>
+      )}
       </div>
       )}
       </>
