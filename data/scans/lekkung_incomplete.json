@@ -44,10 +44,6 @@
     "Reason": "missing: PE_Ratio"
   },
   {
-    "Ticker": "SCGP",
-    "Reason": "missing: PE_Ratio"
-  },
-  {
     "Ticker": "SMT",
     "Reason": "missing: PE_Ratio"
   },
@@ -56,23 +52,15 @@
     "Reason": "missing: PE_Ratio"
   },
   {
-    "Ticker": "TEAMG",
-    "Reason": "missing: ROE, PE_Ratio"
-  },
-  {
-    "Ticker": "TISCO",
-    "Reason": "missing: PE_Ratio"
-  },
-  {
-    "Ticker": "TTB",
-    "Reason": "missing: PE_Ratio"
-  },
-  {
     "Ticker": "UBE",
     "Reason": "missing: PE_Ratio"
   },
   {
     "Ticker": "BANPU",
+    "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
+  },
+  {
+    "Ticker": "SVI",
     "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
   }
 ]

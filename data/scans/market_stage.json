@@ -319,9 +319,9 @@
     "Stage": "S.Bull",
     "Price": 5.75,
     "EMA50": 5.58,
-    "EMA200": 5.32,
-    "Bar_Count": 4,
-    "ADTV(MB)": 217.3
+    "EMA200": 5.31,
+    "Bar_Count": 3,
+    "ADTV(MB)": 219.8
   },
   {
     "Ticker": "JMT",
@@ -846,21 +846,21 @@
     "ADTV(MB)": 18.3
   },
   {
-    "Ticker": "TVO",
-    "Stage": "S.Bull",
-    "Price": 27.25,
-    "EMA50": 26.0,
-    "EMA200": 24.14,
-    "Bar_Count": 14,
-    "ADTV(MB)": 16.5
-  },
-  {
     "Ticker": "TAE",
     "Stage": "S.Bull",
     "Price": 1.68,
     "EMA50": 1.47,
     "EMA200": 1.07,
     "Bar_Count": 11,
+    "ADTV(MB)": 16.5
+  },
+  {
+    "Ticker": "TVO",
+    "Stage": "S.Bull",
+    "Price": 27.25,
+    "EMA50": 26.0,
+    "EMA200": 24.14,
+    "Bar_Count": 14,
     "ADTV(MB)": 16.5
   },
   {
@@ -871,6 +871,15 @@
     "EMA200": 1.37,
     "Bar_Count": 18,
     "ADTV(MB)": 15.9
+  },
+  {
+    "Ticker": "SVI",
+    "Stage": "S.Bull",
+    "Price": 7.45,
+    "EMA50": 7.39,
+    "EMA200": 7.08,
+    "Bar_Count": 13,
+    "ADTV(MB)": 15.2
   },
   {
     "Ticker": "BLAND",
@@ -1143,21 +1152,21 @@
     "ADTV(MB)": 6.2
   },
   {
-    "Ticker": "LHSC",
-    "Stage": "S.Bull",
-    "Price": 15.3,
-    "EMA50": 14.71,
-    "EMA200": 13.28,
-    "Bar_Count": 19,
-    "ADTV(MB)": 6.0
-  },
-  {
     "Ticker": "BKIH",
     "Stage": "S.Bull",
     "Price": 372.0,
     "EMA50": 360.87,
     "EMA200": 321.53,
     "Bar_Count": 61,
+    "ADTV(MB)": 6.0
+  },
+  {
+    "Ticker": "LHSC",
+    "Stage": "S.Bull",
+    "Price": 15.3,
+    "EMA50": 14.71,
+    "EMA200": 13.28,
+    "Bar_Count": 19,
     "ADTV(MB)": 6.0
   },
   {
@@ -1287,6 +1296,15 @@
     "ADTV(MB)": 4.2
   },
   {
+    "Ticker": "SKR",
+    "Stage": "S.Bull",
+    "Price": 8.0,
+    "EMA50": 7.7,
+    "EMA200": 7.36,
+    "Bar_Count": 6,
+    "ADTV(MB)": 4.1
+  },
+  {
     "Ticker": "SSP",
     "Stage": "S.Bull",
     "Price": 4.3,
@@ -1302,15 +1320,6 @@
     "EMA50": 8.5,
     "EMA200": 6.97,
     "Bar_Count": 22,
-    "ADTV(MB)": 4.1
-  },
-  {
-    "Ticker": "SKR",
-    "Stage": "S.Bull",
-    "Price": 8.0,
-    "EMA50": 7.7,
-    "EMA200": 7.36,
-    "Bar_Count": 6,
     "ADTV(MB)": 4.1
   },
   {
@@ -1359,6 +1368,15 @@
     "ADTV(MB)": 3.6
   },
   {
+    "Ticker": "EGATIF",
+    "Stage": "S.Bull",
+    "Price": 6.2,
+    "EMA50": 6.06,
+    "EMA200": 5.76,
+    "Bar_Count": 2,
+    "ADTV(MB)": 3.6
+  },
+  {
     "Ticker": "IT",
     "Stage": "S.Bull",
     "Price": 8.5,
@@ -1386,15 +1404,6 @@
     "ADTV(MB)": 3.4
   },
   {
-    "Ticker": "SPVI",
-    "Stage": "S.Bull",
-    "Price": 3.42,
-    "EMA50": 3.26,
-    "EMA200": 2.75,
-    "Bar_Count": 10,
-    "ADTV(MB)": 3.3
-  },
-  {
     "Ticker": "HTC",
     "Stage": "S.Bull",
     "Price": 16.0,
@@ -1404,13 +1413,13 @@
     "ADTV(MB)": 3.3
   },
   {
-    "Ticker": "PIS",
+    "Ticker": "SPVI",
     "Stage": "S.Bull",
-    "Price": 5.0,
-    "EMA50": 4.26,
-    "EMA200": 3.82,
-    "Bar_Count": 21,
-    "ADTV(MB)": 3.1
+    "Price": 3.42,
+    "EMA50": 3.26,
+    "EMA200": 2.75,
+    "Bar_Count": 10,
+    "ADTV(MB)": 3.3
   },
   {
     "Ticker": "GABLE",
@@ -1422,13 +1431,13 @@
     "ADTV(MB)": 3.1
   },
   {
-    "Ticker": "SALEE",
+    "Ticker": "PIS",
     "Stage": "S.Bull",
-    "Price": 0.61,
-    "EMA50": 0.54,
-    "EMA200": 0.44,
-    "Bar_Count": 6,
-    "ADTV(MB)": 2.8
+    "Price": 5.0,
+    "EMA50": 4.26,
+    "EMA200": 3.82,
+    "Bar_Count": 21,
+    "ADTV(MB)": 3.1
   },
   {
     "Ticker": "AGE",
@@ -1437,6 +1446,15 @@
     "EMA50": 1.26,
     "EMA200": 1.22,
     "Bar_Count": 7,
+    "ADTV(MB)": 2.8
+  },
+  {
+    "Ticker": "BOFFICE",
+    "Stage": "S.Bull",
+    "Price": 5.55,
+    "EMA50": 5.39,
+    "EMA200": 5.07,
+    "Bar_Count": 20,
     "ADTV(MB)": 2.8
   },
   {
@@ -1449,12 +1467,12 @@
     "ADTV(MB)": 2.8
   },
   {
-    "Ticker": "BOFFICE",
+    "Ticker": "SALEE",
     "Stage": "S.Bull",
-    "Price": 5.55,
-    "EMA50": 5.39,
-    "EMA200": 5.07,
-    "Bar_Count": 20,
+    "Price": 0.61,
+    "EMA50": 0.54,
+    "EMA200": 0.44,
+    "Bar_Count": 6,
     "ADTV(MB)": 2.8
   },
   {
@@ -1485,6 +1503,15 @@
     "ADTV(MB)": 2.6
   },
   {
+    "Ticker": "AIE",
+    "Stage": "S.Bull",
+    "Price": 1.19,
+    "EMA50": 1.15,
+    "EMA200": 1.11,
+    "Bar_Count": 4,
+    "ADTV(MB)": 2.4
+  },
+  {
     "Ticker": "BIZ",
     "Stage": "S.Bull",
     "Price": 6.05,
@@ -1503,13 +1530,13 @@
     "ADTV(MB)": 2.4
   },
   {
-    "Ticker": "AIE",
+    "Ticker": "ACE",
     "Stage": "S.Bull",
-    "Price": 1.19,
-    "EMA50": 1.15,
-    "EMA200": 1.11,
+    "Price": 1.39,
+    "EMA50": 1.3,
+    "EMA200": 1.29,
     "Bar_Count": 4,
-    "ADTV(MB)": 2.4
+    "ADTV(MB)": 2.3
   },
   {
     "Ticker": "BLC",
@@ -1521,15 +1548,6 @@
     "ADTV(MB)": 2.3
   },
   {
-    "Ticker": "ACE",
-    "Stage": "S.Bull",
-    "Price": 1.39,
-    "EMA50": 1.3,
-    "EMA200": 1.29,
-    "Bar_Count": 4,
-    "ADTV(MB)": 2.3
-  },
-  {
     "Ticker": "BPP",
     "Stage": "S.Bull",
     "Price": 12.0,
@@ -1537,6 +1555,15 @@
     "EMA200": 11.08,
     "Bar_Count": 6,
     "ADTV(MB)": 2.3
+  },
+  {
+    "Ticker": "AKR",
+    "Stage": "S.Bull",
+    "Price": 0.91,
+    "EMA50": 0.9,
+    "EMA200": 0.86,
+    "Bar_Count": 1,
+    "ADTV(MB)": 2.2
   },
   {
     "Ticker": "DCC",
@@ -1566,30 +1593,21 @@
     "ADTV(MB)": 2.2
   },
   {
-    "Ticker": "SYNTEC",
-    "Stage": "S.Bull",
-    "Price": 1.89,
-    "EMA50": 1.71,
-    "EMA200": 1.64,
-    "Bar_Count": 14,
-    "ADTV(MB)": 2.2
-  },
-  {
-    "Ticker": "AKR",
-    "Stage": "S.Bull",
-    "Price": 0.91,
-    "EMA50": 0.9,
-    "EMA200": 0.86,
-    "Bar_Count": 1,
-    "ADTV(MB)": 2.2
-  },
-  {
     "Ticker": "SNC",
     "Stage": "S.Bull",
     "Price": 8.25,
     "EMA50": 7.29,
     "EMA200": 6.44,
     "Bar_Count": 21,
+    "ADTV(MB)": 2.2
+  },
+  {
+    "Ticker": "SYNTEC",
+    "Stage": "S.Bull",
+    "Price": 1.89,
+    "EMA50": 1.71,
+    "EMA200": 1.64,
+    "Bar_Count": 14,
     "ADTV(MB)": 2.2
   },
   {
@@ -1602,21 +1620,21 @@
     "ADTV(MB)": 2.1
   },
   {
-    "Ticker": "METCO",
-    "Stage": "S.Bull",
-    "Price": 301.0,
-    "EMA50": 290.62,
-    "EMA200": 258.63,
-    "Bar_Count": 17,
-    "ADTV(MB)": 2.0
-  },
-  {
     "Ticker": "CFRESH",
     "Stage": "S.Bull",
     "Price": 1.06,
     "EMA50": 1.0,
     "EMA200": 0.93,
     "Bar_Count": 2,
+    "ADTV(MB)": 2.0
+  },
+  {
+    "Ticker": "METCO",
+    "Stage": "S.Bull",
+    "Price": 301.0,
+    "EMA50": 290.62,
+    "EMA200": 258.63,
+    "Bar_Count": 17,
     "ADTV(MB)": 2.0
   },
   {
@@ -1638,15 +1656,6 @@
     "ADTV(MB)": 1.9
   },
   {
-    "Ticker": "LTMH",
-    "Stage": "S.Bull",
-    "Price": 8.1,
-    "EMA50": 6.31,
-    "EMA200": 5.14,
-    "Bar_Count": 36,
-    "ADTV(MB)": 1.8
-  },
-  {
     "Ticker": "IROYAL",
     "Stage": "S.Bull",
     "Price": 5.15,
@@ -1656,13 +1665,13 @@
     "ADTV(MB)": 1.8
   },
   {
-    "Ticker": "KYE",
+    "Ticker": "LTMH",
     "Stage": "S.Bull",
-    "Price": 323.0,
-    "EMA50": 308.92,
-    "EMA200": 296.33,
-    "Bar_Count": 29,
-    "ADTV(MB)": 1.7
+    "Price": 8.1,
+    "EMA50": 6.31,
+    "EMA200": 5.14,
+    "Bar_Count": 36,
+    "ADTV(MB)": 1.8
   },
   {
     "Ticker": "FTE",
@@ -1674,13 +1683,13 @@
     "ADTV(MB)": 1.7
   },
   {
-    "Ticker": "SEAOIL",
+    "Ticker": "KYE",
     "Stage": "S.Bull",
-    "Price": 3.34,
-    "EMA50": 3.2,
-    "EMA200": 3.08,
-    "Bar_Count": 1,
-    "ADTV(MB)": 1.6
+    "Price": 323.0,
+    "EMA50": 308.92,
+    "EMA200": 296.33,
+    "Bar_Count": 29,
+    "ADTV(MB)": 1.7
   },
   {
     "Ticker": "SCGD",
@@ -1692,13 +1701,13 @@
     "ADTV(MB)": 1.6
   },
   {
-    "Ticker": "SYMC",
+    "Ticker": "SEAOIL",
     "Stage": "S.Bull",
-    "Price": 5.8,
-    "EMA50": 5.13,
-    "EMA200": 4.5,
-    "Bar_Count": 17,
-    "ADTV(MB)": 1.5
+    "Price": 3.34,
+    "EMA50": 3.2,
+    "EMA200": 3.08,
+    "Bar_Count": 1,
+    "ADTV(MB)": 1.6
   },
   {
     "Ticker": "ITTHI",
@@ -1710,21 +1719,21 @@
     "ADTV(MB)": 1.5
   },
   {
-    "Ticker": "UNIQ",
+    "Ticker": "SYMC",
     "Stage": "S.Bull",
-    "Price": 2.86,
-    "EMA50": 2.73,
-    "EMA200": 2.69,
-    "Bar_Count": 4,
-    "ADTV(MB)": 1.3
+    "Price": 5.8,
+    "EMA50": 5.13,
+    "EMA200": 4.5,
+    "Bar_Count": 17,
+    "ADTV(MB)": 1.5
   },
   {
-    "Ticker": "SCP",
+    "Ticker": "KJL",
     "Stage": "S.Bull",
-    "Price": 9.05,
-    "EMA50": 8.85,
-    "EMA200": 7.95,
-    "Bar_Count": 1,
+    "Price": 6.75,
+    "EMA50": 6.24,
+    "EMA200": 6.01,
+    "Bar_Count": 15,
     "ADTV(MB)": 1.3
   },
   {
@@ -1737,12 +1746,21 @@
     "ADTV(MB)": 1.3
   },
   {
-    "Ticker": "KJL",
+    "Ticker": "SCP",
     "Stage": "S.Bull",
-    "Price": 6.75,
-    "EMA50": 6.24,
-    "EMA200": 6.01,
-    "Bar_Count": 15,
+    "Price": 9.05,
+    "EMA50": 8.85,
+    "EMA200": 7.95,
+    "Bar_Count": 1,
+    "ADTV(MB)": 1.3
+  },
+  {
+    "Ticker": "UNIQ",
+    "Stage": "S.Bull",
+    "Price": 2.86,
+    "EMA50": 2.73,
+    "EMA200": 2.69,
+    "Bar_Count": 4,
     "ADTV(MB)": 1.3
   },
   {
@@ -1755,12 +1773,39 @@
     "ADTV(MB)": 1.3
   },
   {
-    "Ticker": "S11",
+    "Ticker": "ADB",
     "Stage": "S.Bull",
-    "Price": 4.44,
-    "EMA50": 4.12,
-    "EMA200": 3.65,
-    "Bar_Count": 17,
+    "Price": 0.83,
+    "EMA50": 0.68,
+    "EMA200": 0.62,
+    "Bar_Count": 10,
+    "ADTV(MB)": 1.2
+  },
+  {
+    "Ticker": "APO",
+    "Stage": "S.Bull",
+    "Price": 2.16,
+    "EMA50": 2.08,
+    "EMA200": 1.95,
+    "Bar_Count": 3,
+    "ADTV(MB)": 1.2
+  },
+  {
+    "Ticker": "ASW",
+    "Stage": "S.Bull",
+    "Price": 7.45,
+    "EMA50": 7.11,
+    "EMA200": 6.63,
+    "Bar_Count": 15,
+    "ADTV(MB)": 1.2
+  },
+  {
+    "Ticker": "CMAN",
+    "Stage": "S.Bull",
+    "Price": 2.92,
+    "EMA50": 2.79,
+    "EMA200": 2.55,
+    "Bar_Count": 2,
     "ADTV(MB)": 1.2
   },
   {
@@ -1782,21 +1827,12 @@
     "ADTV(MB)": 1.2
   },
   {
-    "Ticker": "ADB",
+    "Ticker": "S11",
     "Stage": "S.Bull",
-    "Price": 0.83,
-    "EMA50": 0.68,
-    "EMA200": 0.62,
-    "Bar_Count": 10,
-    "ADTV(MB)": 1.2
-  },
-  {
-    "Ticker": "APO",
-    "Stage": "S.Bull",
-    "Price": 2.16,
-    "EMA50": 2.08,
-    "EMA200": 1.95,
-    "Bar_Count": 3,
+    "Price": 4.44,
+    "EMA50": 4.12,
+    "EMA200": 3.65,
+    "Bar_Count": 17,
     "ADTV(MB)": 1.2
   },
   {
@@ -1807,33 +1843,6 @@
     "EMA200": 1.48,
     "Bar_Count": 3,
     "ADTV(MB)": 1.2
-  },
-  {
-    "Ticker": "CMAN",
-    "Stage": "S.Bull",
-    "Price": 2.92,
-    "EMA50": 2.79,
-    "EMA200": 2.55,
-    "Bar_Count": 2,
-    "ADTV(MB)": 1.2
-  },
-  {
-    "Ticker": "ASW",
-    "Stage": "S.Bull",
-    "Price": 7.45,
-    "EMA50": 7.11,
-    "EMA200": 6.63,
-    "Bar_Count": 15,
-    "ADTV(MB)": 1.2
-  },
-  {
-    "Ticker": "SVT",
-    "Stage": "S.Bull",
-    "Price": 1.34,
-    "EMA50": 1.29,
-    "EMA200": 1.27,
-    "Bar_Count": 8,
-    "ADTV(MB)": 1.1
   },
   {
     "Ticker": "ASAP",
@@ -1863,21 +1872,21 @@
     "ADTV(MB)": 1.1
   },
   {
-    "Ticker": "KTBSTMR",
+    "Ticker": "SVT",
     "Stage": "S.Bull",
-    "Price": 6.5,
-    "EMA50": 6.17,
-    "EMA200": 5.58,
-    "Bar_Count": 2,
-    "ADTV(MB)": 1.0
+    "Price": 1.34,
+    "EMA50": 1.29,
+    "EMA200": 1.27,
+    "Bar_Count": 8,
+    "ADTV(MB)": 1.1
   },
   {
-    "Ticker": "PSTC",
+    "Ticker": "B-WORK",
     "Stage": "S.Bull",
-    "Price": 0.35,
-    "EMA50": 0.31,
-    "EMA200": 0.31,
-    "Bar_Count": 2,
+    "Price": 6.6,
+    "EMA50": 6.21,
+    "EMA200": 5.36,
+    "Bar_Count": 100,
     "ADTV(MB)": 1.0
   },
   {
@@ -1890,12 +1899,12 @@
     "ADTV(MB)": 1.0
   },
   {
-    "Ticker": "B-WORK",
+    "Ticker": "KTBSTMR",
     "Stage": "S.Bull",
-    "Price": 6.6,
-    "EMA50": 6.21,
-    "EMA200": 5.36,
-    "Bar_Count": 100,
+    "Price": 6.5,
+    "EMA50": 6.17,
+    "EMA200": 5.58,
+    "Bar_Count": 2,
     "ADTV(MB)": 1.0
   },
   {
@@ -1908,40 +1917,13 @@
     "ADTV(MB)": 1.0
   },
   {
-    "Ticker": "SITHAI",
+    "Ticker": "PSTC",
     "Stage": "S.Bull",
-    "Price": 1.08,
-    "EMA50": 1.04,
-    "EMA200": 1.02,
-    "Bar_Count": 7,
-    "ADTV(MB)": 0.9
-  },
-  {
-    "Ticker": "JAK",
-    "Stage": "S.Bull",
-    "Price": 1.24,
-    "EMA50": 0.99,
-    "EMA200": 0.82,
-    "Bar_Count": 22,
-    "ADTV(MB)": 0.9
-  },
-  {
-    "Ticker": "WHABT",
-    "Stage": "S.Bull",
-    "Price": 6.4,
-    "EMA50": 6.03,
-    "EMA200": 5.78,
-    "Bar_Count": 33,
-    "ADTV(MB)": 0.9
-  },
-  {
-    "Ticker": "GC",
-    "Stage": "S.Bull",
-    "Price": 5.1,
-    "EMA50": 4.71,
-    "EMA200": 4.3,
-    "Bar_Count": 30,
-    "ADTV(MB)": 0.9
+    "Price": 0.35,
+    "EMA50": 0.31,
+    "EMA200": 0.31,
+    "Bar_Count": 2,
+    "ADTV(MB)": 1.0
   },
   {
     "Ticker": "DRT",
@@ -1962,22 +1944,40 @@
     "ADTV(MB)": 0.9
   },
   {
-    "Ticker": "SPREME",
+    "Ticker": "GC",
     "Stage": "S.Bull",
-    "Price": 1.53,
-    "EMA50": 1.51,
-    "EMA200": 1.45,
-    "Bar_Count": 8,
-    "ADTV(MB)": 0.8
+    "Price": 5.1,
+    "EMA50": 4.71,
+    "EMA200": 4.3,
+    "Bar_Count": 30,
+    "ADTV(MB)": 0.9
   },
   {
-    "Ticker": "CRD",
+    "Ticker": "JAK",
     "Stage": "S.Bull",
-    "Price": 0.56,
-    "EMA50": 0.47,
-    "EMA200": 0.39,
-    "Bar_Count": 32,
-    "ADTV(MB)": 0.8
+    "Price": 1.24,
+    "EMA50": 0.99,
+    "EMA200": 0.82,
+    "Bar_Count": 22,
+    "ADTV(MB)": 0.9
+  },
+  {
+    "Ticker": "SITHAI",
+    "Stage": "S.Bull",
+    "Price": 1.08,
+    "EMA50": 1.04,
+    "EMA200": 1.02,
+    "Bar_Count": 7,
+    "ADTV(MB)": 0.9
+  },
+  {
+    "Ticker": "WHABT",
+    "Stage": "S.Bull",
+    "Price": 6.4,
+    "EMA50": 6.03,
+    "EMA200": 5.78,
+    "Bar_Count": 33,
+    "ADTV(MB)": 0.9
   },
   {
     "Ticker": "AYUD",
@@ -1986,15 +1986,6 @@
     "EMA50": 39.8,
     "EMA200": 36.4,
     "Bar_Count": 7,
-    "ADTV(MB)": 0.8
-  },
-  {
-    "Ticker": "TVH",
-    "Stage": "S.Bull",
-    "Price": 12.1,
-    "EMA50": 10.31,
-    "EMA200": 9.29,
-    "Bar_Count": 11,
     "ADTV(MB)": 0.8
   },
   {
@@ -2007,21 +1998,12 @@
     "ADTV(MB)": 0.8
   },
   {
-    "Ticker": "TOG",
+    "Ticker": "CRD",
     "Stage": "S.Bull",
-    "Price": 7.65,
-    "EMA50": 7.18,
-    "EMA200": 6.91,
-    "Bar_Count": 20,
-    "ADTV(MB)": 0.8
-  },
-  {
-    "Ticker": "SAMCO",
-    "Stage": "S.Bull",
-    "Price": 0.88,
-    "EMA50": 0.84,
-    "EMA200": 0.78,
-    "Bar_Count": 10,
+    "Price": 0.56,
+    "EMA50": 0.47,
+    "EMA200": 0.39,
+    "Bar_Count": 32,
     "ADTV(MB)": 0.8
   },
   {
@@ -2034,13 +2016,40 @@
     "ADTV(MB)": 0.8
   },
   {
-    "Ticker": "MOONG",
+    "Ticker": "SAMCO",
     "Stage": "S.Bull",
-    "Price": 2.38,
-    "EMA50": 2.3,
-    "EMA200": 2.08,
-    "Bar_Count": 15,
-    "ADTV(MB)": 0.7
+    "Price": 0.88,
+    "EMA50": 0.84,
+    "EMA200": 0.78,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.8
+  },
+  {
+    "Ticker": "SPREME",
+    "Stage": "S.Bull",
+    "Price": 1.53,
+    "EMA50": 1.51,
+    "EMA200": 1.45,
+    "Bar_Count": 8,
+    "ADTV(MB)": 0.8
+  },
+  {
+    "Ticker": "TOG",
+    "Stage": "S.Bull",
+    "Price": 7.65,
+    "EMA50": 7.18,
+    "EMA200": 6.91,
+    "Bar_Count": 20,
+    "ADTV(MB)": 0.8
+  },
+  {
+    "Ticker": "TVH",
+    "Stage": "S.Bull",
+    "Price": 12.1,
+    "EMA50": 10.31,
+    "EMA200": 9.29,
+    "Bar_Count": 11,
+    "ADTV(MB)": 0.8
   },
   {
     "Ticker": "ESTAR",
@@ -2049,42 +2058,6 @@
     "EMA50": 0.22,
     "EMA200": 0.2,
     "Bar_Count": 5,
-    "ADTV(MB)": 0.7
-  },
-  {
-    "Ticker": "JDF",
-    "Stage": "S.Bull",
-    "Price": 2.14,
-    "EMA50": 1.96,
-    "EMA200": 1.72,
-    "Bar_Count": 11,
-    "ADTV(MB)": 0.7
-  },
-  {
-    "Ticker": "RPH",
-    "Stage": "S.Bull",
-    "Price": 4.98,
-    "EMA50": 4.92,
-    "EMA200": 4.86,
-    "Bar_Count": 20,
-    "ADTV(MB)": 0.7
-  },
-  {
-    "Ticker": "QTC",
-    "Stage": "S.Bull",
-    "Price": 4.66,
-    "EMA50": 4.38,
-    "EMA200": 3.8,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.7
-  },
-  {
-    "Ticker": "SPC",
-    "Stage": "S.Bull",
-    "Price": 55.5,
-    "EMA50": 55.39,
-    "EMA200": 55.34,
-    "Bar_Count": 8,
     "ADTV(MB)": 0.7
   },
   {
@@ -2097,21 +2070,57 @@
     "ADTV(MB)": 0.7
   },
   {
-    "Ticker": "WINNER",
+    "Ticker": "JDF",
     "Stage": "S.Bull",
-    "Price": 2.18,
-    "EMA50": 2.12,
-    "EMA200": 2.04,
-    "Bar_Count": 19,
-    "ADTV(MB)": 0.6
+    "Price": 2.14,
+    "EMA50": 1.96,
+    "EMA200": 1.72,
+    "Bar_Count": 11,
+    "ADTV(MB)": 0.7
   },
   {
-    "Ticker": "SCL",
+    "Ticker": "MOONG",
     "Stage": "S.Bull",
-    "Price": 1.67,
-    "EMA50": 1.51,
-    "EMA200": 1.31,
-    "Bar_Count": 19,
+    "Price": 2.38,
+    "EMA50": 2.3,
+    "EMA200": 2.08,
+    "Bar_Count": 15,
+    "ADTV(MB)": 0.7
+  },
+  {
+    "Ticker": "QTC",
+    "Stage": "S.Bull",
+    "Price": 4.66,
+    "EMA50": 4.38,
+    "EMA200": 3.8,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.7
+  },
+  {
+    "Ticker": "RPH",
+    "Stage": "S.Bull",
+    "Price": 4.98,
+    "EMA50": 4.92,
+    "EMA200": 4.86,
+    "Bar_Count": 20,
+    "ADTV(MB)": 0.7
+  },
+  {
+    "Ticker": "SPC",
+    "Stage": "S.Bull",
+    "Price": 55.5,
+    "EMA50": 55.39,
+    "EMA200": 55.34,
+    "Bar_Count": 8,
+    "ADTV(MB)": 0.7
+  },
+  {
+    "Ticker": "GBX",
+    "Stage": "S.Bull",
+    "Price": 0.64,
+    "EMA50": 0.59,
+    "EMA200": 0.55,
+    "Bar_Count": 8,
     "ADTV(MB)": 0.6
   },
   {
@@ -2133,15 +2142,6 @@
     "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "PPM",
-    "Stage": "S.Bull",
-    "Price": 2.16,
-    "EMA50": 1.88,
-    "EMA200": 1.57,
-    "Bar_Count": 22,
-    "ADTV(MB)": 0.6
-  },
-  {
     "Ticker": "PMC",
     "Stage": "S.Bull",
     "Price": 0.92,
@@ -2151,30 +2151,39 @@
     "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "GBX",
+    "Ticker": "PPM",
     "Stage": "S.Bull",
-    "Price": 0.64,
-    "EMA50": 0.59,
-    "EMA200": 0.55,
-    "Bar_Count": 8,
+    "Price": 2.16,
+    "EMA50": 1.88,
+    "EMA200": 1.57,
+    "Bar_Count": 22,
     "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "UBA",
+    "Ticker": "SCL",
     "Stage": "S.Bull",
-    "Price": 1.13,
-    "EMA50": 1.08,
-    "EMA200": 0.98,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.5
+    "Price": 1.67,
+    "EMA50": 1.51,
+    "EMA200": 1.31,
+    "Bar_Count": 19,
+    "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "MBAX",
+    "Ticker": "WINNER",
     "Stage": "S.Bull",
-    "Price": 2.02,
-    "EMA50": 1.91,
-    "EMA200": 1.73,
-    "Bar_Count": 9,
+    "Price": 2.18,
+    "EMA50": 2.12,
+    "EMA200": 2.04,
+    "Bar_Count": 19,
+    "ADTV(MB)": 0.6
+  },
+  {
+    "Ticker": "ALUCON",
+    "Stage": "S.Bull",
+    "Price": 252.0,
+    "EMA50": 237.91,
+    "EMA200": 210.39,
+    "Bar_Count": 18,
     "ADTV(MB)": 0.5
   },
   {
@@ -2187,12 +2196,48 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "PIMO",
+    "Ticker": "BIG",
     "Stage": "S.Bull",
-    "Price": 1.15,
-    "EMA50": 1.08,
-    "EMA200": 1.05,
-    "Bar_Count": 12,
+    "Price": 0.32,
+    "EMA50": 0.3,
+    "EMA200": 0.3,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.5
+  },
+  {
+    "Ticker": "BSM",
+    "Stage": "S.Bull",
+    "Price": 0.82,
+    "EMA50": 0.6,
+    "EMA200": 0.53,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.5
+  },
+  {
+    "Ticker": "MBAX",
+    "Stage": "S.Bull",
+    "Price": 2.02,
+    "EMA50": 1.91,
+    "EMA200": 1.73,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.5
+  },
+  {
+    "Ticker": "MITSIB",
+    "Stage": "S.Bull",
+    "Price": 0.58,
+    "EMA50": 0.55,
+    "EMA200": 0.55,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.5
+  },
+  {
+    "Ticker": "MPJ",
+    "Stage": "S.Bull",
+    "Price": 3.84,
+    "EMA50": 3.64,
+    "EMA200": 3.46,
+    "Bar_Count": 17,
     "ADTV(MB)": 0.5
   },
   {
@@ -2214,21 +2259,12 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "MITSIB",
+    "Ticker": "PIMO",
     "Stage": "S.Bull",
-    "Price": 0.58,
-    "EMA50": 0.55,
-    "EMA200": 0.55,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.5
-  },
-  {
-    "Ticker": "BSM",
-    "Stage": "S.Bull",
-    "Price": 0.82,
-    "EMA50": 0.6,
-    "EMA200": 0.53,
-    "Bar_Count": 9,
+    "Price": 1.15,
+    "EMA50": 1.08,
+    "EMA200": 1.05,
+    "Bar_Count": 12,
     "ADTV(MB)": 0.5
   },
   {
@@ -2241,21 +2277,12 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "MPJ",
+    "Ticker": "SENA",
     "Stage": "S.Bull",
-    "Price": 3.84,
-    "EMA50": 3.64,
-    "EMA200": 3.46,
-    "Bar_Count": 17,
-    "ADTV(MB)": 0.5
-  },
-  {
-    "Ticker": "BIG",
-    "Stage": "S.Bull",
-    "Price": 0.32,
-    "EMA50": 0.3,
-    "EMA200": 0.3,
-    "Bar_Count": 3,
+    "Price": 1.81,
+    "EMA50": 1.76,
+    "EMA200": 1.74,
+    "Bar_Count": 4,
     "ADTV(MB)": 0.5
   },
   {
@@ -2277,22 +2304,31 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "SENA",
+    "Ticker": "UBA",
     "Stage": "S.Bull",
-    "Price": 1.81,
-    "EMA50": 1.76,
-    "EMA200": 1.74,
-    "Bar_Count": 4,
+    "Price": 1.13,
+    "EMA50": 1.08,
+    "EMA200": 0.98,
+    "Bar_Count": 6,
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "ALUCON",
+    "Ticker": "2S",
     "Stage": "S.Bull",
-    "Price": 252.0,
-    "EMA50": 237.91,
-    "EMA200": 210.39,
-    "Bar_Count": 18,
-    "ADTV(MB)": 0.5
+    "Price": 3.14,
+    "EMA50": 3.03,
+    "EMA200": 2.72,
+    "Bar_Count": 13,
+    "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "BPS",
+    "Stage": "S.Bull",
+    "Price": 0.58,
+    "EMA50": 0.51,
+    "EMA200": 0.48,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.4
   },
   {
     "Ticker": "CHOW",
@@ -2301,6 +2337,33 @@
     "EMA50": 1.35,
     "EMA200": 1.31,
     "Bar_Count": 5,
+    "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "FPT",
+    "Stage": "S.Bull",
+    "Price": 7.0,
+    "EMA50": 6.57,
+    "EMA200": 6.49,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "LST",
+    "Stage": "S.Bull",
+    "Price": 4.76,
+    "EMA50": 4.71,
+    "EMA200": 4.61,
+    "Bar_Count": 18,
+    "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "NNCL",
+    "Stage": "S.Bull",
+    "Price": 1.73,
+    "EMA50": 1.66,
+    "EMA200": 1.54,
+    "Bar_Count": 10,
     "ADTV(MB)": 0.4
   },
   {
@@ -2322,48 +2385,12 @@
     "ADTV(MB)": 0.4
   },
   {
-    "Ticker": "STP",
-    "Stage": "S.Bull",
-    "Price": 12.1,
-    "EMA50": 11.45,
-    "EMA200": 10.6,
-    "Bar_Count": 17,
-    "ADTV(MB)": 0.4
-  },
-  {
-    "Ticker": "NNCL",
-    "Stage": "S.Bull",
-    "Price": 1.73,
-    "EMA50": 1.66,
-    "EMA200": 1.54,
-    "Bar_Count": 10,
-    "ADTV(MB)": 0.4
-  },
-  {
-    "Ticker": "LST",
-    "Stage": "S.Bull",
-    "Price": 4.76,
-    "EMA50": 4.71,
-    "EMA200": 4.61,
-    "Bar_Count": 18,
-    "ADTV(MB)": 0.4
-  },
-  {
     "Ticker": "SAUCE",
     "Stage": "S.Bull",
     "Price": 41.25,
     "EMA50": 40.74,
     "EMA200": 39.1,
     "Bar_Count": 3,
-    "ADTV(MB)": 0.4
-  },
-  {
-    "Ticker": "BPS",
-    "Stage": "S.Bull",
-    "Price": 0.58,
-    "EMA50": 0.51,
-    "EMA200": 0.48,
-    "Bar_Count": 9,
     "ADTV(MB)": 0.4
   },
   {
@@ -2376,21 +2403,12 @@
     "ADTV(MB)": 0.4
   },
   {
-    "Ticker": "2S",
+    "Ticker": "STP",
     "Stage": "S.Bull",
-    "Price": 3.14,
-    "EMA50": 3.03,
-    "EMA200": 2.72,
-    "Bar_Count": 13,
-    "ADTV(MB)": 0.4
-  },
-  {
-    "Ticker": "FPT",
-    "Stage": "S.Bull",
-    "Price": 7.0,
-    "EMA50": 6.57,
-    "EMA200": 6.49,
-    "Bar_Count": 6,
+    "Price": 12.1,
+    "EMA50": 11.45,
+    "EMA200": 10.6,
+    "Bar_Count": 17,
     "ADTV(MB)": 0.4
   },
   {
@@ -2412,66 +2430,12 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "SSTRT",
-    "Stage": "S.Bull",
-    "Price": 4.68,
-    "EMA50": 4.54,
-    "EMA200": 4.33,
-    "Bar_Count": 26,
-    "ADTV(MB)": 0.3
-  },
-  {
     "Ticker": "CI",
     "Stage": "S.Bull",
     "Price": 0.38,
     "EMA50": 0.34,
     "EMA200": 0.34,
     "Bar_Count": 3,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "SAF",
-    "Stage": "S.Bull",
-    "Price": 0.42,
-    "EMA50": 0.37,
-    "EMA200": 0.37,
-    "Bar_Count": 4,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "SPI",
-    "Stage": "S.Bull",
-    "Price": 34.25,
-    "EMA50": 32.54,
-    "EMA200": 30.61,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "SMIT",
-    "Stage": "S.Bull",
-    "Price": 3.64,
-    "EMA50": 3.49,
-    "EMA200": 3.45,
-    "Bar_Count": 20,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "MGT",
-    "Stage": "S.Bull",
-    "Price": 1.93,
-    "EMA50": 1.86,
-    "EMA200": 1.77,
-    "Bar_Count": 5,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "MII",
-    "Stage": "S.Bull",
-    "Price": 6.5,
-    "EMA50": 5.83,
-    "EMA200": 5.07,
-    "Bar_Count": 66,
     "ADTV(MB)": 0.3
   },
   {
@@ -2493,6 +2457,24 @@
     "ADTV(MB)": 0.3
   },
   {
+    "Ticker": "MGT",
+    "Stage": "S.Bull",
+    "Price": 1.93,
+    "EMA50": 1.86,
+    "EMA200": 1.77,
+    "Bar_Count": 5,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "MII",
+    "Stage": "S.Bull",
+    "Price": 6.5,
+    "EMA50": 5.83,
+    "EMA200": 5.07,
+    "Bar_Count": 66,
+    "ADTV(MB)": 0.3
+  },
+  {
     "Ticker": "PCSGH",
     "Stage": "S.Bull",
     "Price": 3.06,
@@ -2502,30 +2484,48 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "STECH",
+    "Ticker": "SAF",
     "Stage": "S.Bull",
-    "Price": 1.27,
-    "EMA50": 1.14,
-    "EMA200": 1.04,
-    "Bar_Count": 29,
-    "ADTV(MB)": 0.2
+    "Price": 0.42,
+    "EMA50": 0.37,
+    "EMA200": 0.37,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "TPCS",
+    "Ticker": "SMIT",
     "Stage": "S.Bull",
-    "Price": 10.0,
-    "EMA50": 9.83,
-    "EMA200": 9.83,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.2
+    "Price": 3.64,
+    "EMA50": 3.49,
+    "EMA200": 3.45,
+    "Bar_Count": 20,
+    "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "VRANDA",
+    "Ticker": "SPI",
     "Stage": "S.Bull",
-    "Price": 4.58,
-    "EMA50": 4.41,
-    "EMA200": 4.3,
-    "Bar_Count": 16,
+    "Price": 34.25,
+    "EMA50": 32.54,
+    "EMA200": 30.61,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "SSTRT",
+    "Stage": "S.Bull",
+    "Price": 4.68,
+    "EMA50": 4.54,
+    "EMA200": 4.33,
+    "Bar_Count": 26,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "AHC",
+    "Stage": "S.Bull",
+    "Price": 13.8,
+    "EMA50": 13.03,
+    "EMA200": 12.97,
+    "Bar_Count": 3,
     "ADTV(MB)": 0.2
   },
   {
@@ -2535,6 +2535,24 @@
     "EMA50": 0.25,
     "EMA200": 0.25,
     "Bar_Count": 4,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "GGC",
+    "Stage": "S.Bull",
+    "Price": 4.36,
+    "EMA50": 3.87,
+    "EMA200": 3.79,
+    "Bar_Count": 8,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "GREEN",
+    "Stage": "S.Bull",
+    "Price": 0.72,
+    "EMA50": 0.71,
+    "EMA200": 0.7,
+    "Bar_Count": 2,
     "ADTV(MB)": 0.2
   },
   {
@@ -2565,66 +2583,12 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "SSSC",
-    "Stage": "S.Bull",
-    "Price": 2.26,
-    "EMA50": 2.18,
-    "EMA200": 2.07,
-    "Bar_Count": 25,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "TM",
-    "Stage": "S.Bull",
-    "Price": 0.93,
-    "EMA50": 0.9,
-    "EMA200": 0.9,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "YUASA",
-    "Stage": "S.Bull",
-    "Price": 14.5,
-    "EMA50": 14.21,
-    "EMA200": 13.1,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "GGC",
-    "Stage": "S.Bull",
-    "Price": 4.36,
-    "EMA50": 3.87,
-    "EMA200": 3.79,
-    "Bar_Count": 8,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "TK",
-    "Stage": "S.Bull",
-    "Price": 4.6,
-    "EMA50": 4.24,
-    "EMA200": 4.14,
-    "Bar_Count": 11,
-    "ADTV(MB)": 0.2
-  },
-  {
     "Ticker": "MORE",
     "Stage": "S.Bull",
     "Price": 0.06,
     "EMA50": 0.05,
     "EMA200": 0.04,
     "Bar_Count": 1,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "AHC",
-    "Stage": "S.Bull",
-    "Price": 13.8,
-    "EMA50": 13.03,
-    "EMA200": 12.97,
-    "Bar_Count": 3,
     "ADTV(MB)": 0.2
   },
   {
@@ -2646,39 +2610,93 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "GREEN",
+    "Ticker": "SSSC",
     "Stage": "S.Bull",
-    "Price": 0.72,
-    "EMA50": 0.71,
-    "EMA200": 0.7,
+    "Price": 2.26,
+    "EMA50": 2.18,
+    "EMA200": 2.07,
+    "Bar_Count": 25,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "STECH",
+    "Stage": "S.Bull",
+    "Price": 1.27,
+    "EMA50": 1.14,
+    "EMA200": 1.04,
+    "Bar_Count": 29,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "TK",
+    "Stage": "S.Bull",
+    "Price": 4.6,
+    "EMA50": 4.24,
+    "EMA200": 4.14,
+    "Bar_Count": 11,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "TM",
+    "Stage": "S.Bull",
+    "Price": 0.93,
+    "EMA50": 0.9,
+    "EMA200": 0.9,
     "Bar_Count": 2,
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "GENCO",
+    "Ticker": "TPCS",
     "Stage": "S.Bull",
-    "Price": 0.33,
-    "EMA50": 0.33,
-    "EMA200": 0.31,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "STOWER",
-    "Stage": "S.Bull",
-    "Price": 0.04,
-    "EMA50": 0.03,
-    "EMA200": 0.03,
-    "Bar_Count": 4,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "TPRIME",
-    "Stage": "S.Bull",
-    "Price": 7.75,
-    "EMA50": 7.57,
-    "EMA200": 7.11,
+    "Price": 10.0,
+    "EMA50": 9.83,
+    "EMA200": 9.83,
     "Bar_Count": 1,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "VRANDA",
+    "Stage": "S.Bull",
+    "Price": 4.58,
+    "EMA50": 4.41,
+    "EMA200": 4.3,
+    "Bar_Count": 16,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "YUASA",
+    "Stage": "S.Bull",
+    "Price": 14.5,
+    "EMA50": 14.21,
+    "EMA200": 13.1,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "AFC",
+    "Stage": "S.Bull",
+    "Price": 4.98,
+    "EMA50": 4.14,
+    "EMA200": 3.74,
+    "Bar_Count": 21,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "BCT",
+    "Stage": "S.Bull",
+    "Price": 50.0,
+    "EMA50": 49.27,
+    "EMA200": 49.12,
+    "Bar_Count": 7,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "BKD",
+    "Stage": "S.Bull",
+    "Price": 1.15,
+    "EMA50": 1.12,
+    "EMA200": 1.07,
+    "Bar_Count": 10,
     "ADTV(MB)": 0.1
   },
   {
@@ -2691,12 +2709,12 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "SIAM",
+    "Ticker": "GENCO",
     "Stage": "S.Bull",
-    "Price": 0.8,
-    "EMA50": 0.75,
-    "EMA200": 0.74,
-    "Bar_Count": 13,
+    "Price": 0.33,
+    "EMA50": 0.33,
+    "EMA200": 0.31,
+    "Bar_Count": 2,
     "ADTV(MB)": 0.1
   },
   {
@@ -2718,39 +2736,21 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "TERA",
+    "Ticker": "SCG",
     "Stage": "S.Bull",
-    "Price": 1.17,
-    "EMA50": 1.11,
-    "EMA200": 1.04,
-    "Bar_Count": 11,
+    "Price": 2.88,
+    "EMA50": 2.6,
+    "EMA200": 2.45,
+    "Bar_Count": 16,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "BCT",
+    "Ticker": "SIAM",
     "Stage": "S.Bull",
-    "Price": 50.0,
-    "EMA50": 49.27,
-    "EMA200": 49.12,
-    "Bar_Count": 7,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "AFC",
-    "Stage": "S.Bull",
-    "Price": 4.98,
-    "EMA50": 4.14,
-    "EMA200": 3.74,
-    "Bar_Count": 21,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "TEKA",
-    "Stage": "S.Bull",
-    "Price": 1.77,
-    "EMA50": 1.74,
-    "EMA200": 1.71,
-    "Bar_Count": 12,
+    "Price": 0.8,
+    "EMA50": 0.75,
+    "EMA200": 0.74,
+    "Bar_Count": 13,
     "ADTV(MB)": 0.1
   },
   {
@@ -2763,12 +2763,39 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "BKD",
+    "Ticker": "STARM",
     "Stage": "S.Bull",
-    "Price": 1.15,
-    "EMA50": 1.12,
-    "EMA200": 1.07,
-    "Bar_Count": 10,
+    "Price": 0.96,
+    "EMA50": 0.93,
+    "EMA200": 0.89,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "STOWER",
+    "Stage": "S.Bull",
+    "Price": 0.04,
+    "EMA50": 0.03,
+    "EMA200": 0.03,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "TEKA",
+    "Stage": "S.Bull",
+    "Price": 1.77,
+    "EMA50": 1.74,
+    "EMA200": 1.71,
+    "Bar_Count": 12,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "TERA",
+    "Stage": "S.Bull",
+    "Price": 1.17,
+    "EMA50": 1.11,
+    "EMA200": 1.04,
+    "Bar_Count": 11,
     "ADTV(MB)": 0.1
   },
   {
@@ -2781,24 +2808,6 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "STARM",
-    "Stage": "S.Bull",
-    "Price": 0.96,
-    "EMA50": 0.93,
-    "EMA200": 0.89,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "SCG",
-    "Stage": "S.Bull",
-    "Price": 2.88,
-    "EMA50": 2.6,
-    "EMA200": 2.45,
-    "Bar_Count": 16,
-    "ADTV(MB)": 0.1
-  },
-  {
     "Ticker": "TPP",
     "Stage": "S.Bull",
     "Price": 12.7,
@@ -2808,12 +2817,21 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "NCP",
+    "Ticker": "TPRIME",
     "Stage": "S.Bull",
-    "Price": 1.09,
-    "EMA50": 1.07,
-    "EMA200": 1.02,
-    "Bar_Count": 2,
+    "Price": 7.75,
+    "EMA50": 7.57,
+    "EMA200": 7.11,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "CHIC",
+    "Stage": "S.Bull",
+    "Price": 0.32,
+    "EMA50": 0.31,
+    "EMA200": 0.3,
+    "Bar_Count": 8,
     "ADTV(MB)": 0.0
   },
   {
@@ -2826,21 +2844,30 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "CHIC",
-    "Stage": "S.Bull",
-    "Price": 0.32,
-    "EMA50": 0.31,
-    "EMA200": 0.3,
-    "Bar_Count": 8,
-    "ADTV(MB)": 0.0
-  },
-  {
     "Ticker": "JCT",
     "Stage": "S.Bull",
     "Price": 83.0,
     "EMA50": 82.15,
     "EMA200": 79.65,
     "Bar_Count": 5,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "KWC",
+    "Stage": "S.Bull",
+    "Price": 281.0,
+    "EMA50": 275.06,
+    "EMA200": 271.54,
+    "Bar_Count": 15,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "NCP",
+    "Stage": "S.Bull",
+    "Price": 1.09,
+    "EMA50": 1.07,
+    "EMA200": 1.02,
+    "Bar_Count": 2,
     "ADTV(MB)": 0.0
   },
   {
@@ -2853,12 +2880,12 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "KWC",
+    "Ticker": "PICO",
     "Stage": "S.Bull",
-    "Price": 281.0,
-    "EMA50": 275.06,
-    "EMA200": 271.54,
-    "Bar_Count": 15,
+    "Price": 4.2,
+    "EMA50": 4.17,
+    "EMA200": 4.13,
+    "Bar_Count": 8,
     "ADTV(MB)": 0.0
   },
   {
@@ -3105,6 +3132,15 @@
     "ADTV(MB)": 11.4
   },
   {
+    "Ticker": "ML",
+    "Stage": "Bull",
+    "Price": 1.57,
+    "EMA50": 1.29,
+    "EMA200": 0.78,
+    "Bar_Count": 40,
+    "ADTV(MB)": 9.5
+  },
+  {
     "Ticker": "ROCTEC",
     "Stage": "Bull",
     "Price": 0.68,
@@ -3120,15 +3156,6 @@
     "EMA50": 15.66,
     "EMA200": 14.26,
     "Bar_Count": 79,
-    "ADTV(MB)": 9.5
-  },
-  {
-    "Ticker": "ML",
-    "Stage": "Bull",
-    "Price": 1.57,
-    "EMA50": 1.29,
-    "EMA200": 0.78,
-    "Bar_Count": 40,
     "ADTV(MB)": 9.5
   },
   {
@@ -3159,21 +3186,30 @@
     "ADTV(MB)": 7.0
   },
   {
-    "Ticker": "INET",
-    "Stage": "Bull",
-    "Price": 4.12,
-    "EMA50": 4.08,
-    "EMA200": 3.86,
-    "Bar_Count": 29,
-    "ADTV(MB)": 6.2
-  },
-  {
     "Ticker": "CSS",
     "Stage": "Bull",
     "Price": 1.0,
     "EMA50": 0.96,
     "EMA200": 0.85,
     "Bar_Count": 48,
+    "ADTV(MB)": 6.2
+  },
+  {
+    "Ticker": "DV8",
+    "Stage": "Bull",
+    "Price": 4.98,
+    "EMA50": 4.87,
+    "EMA200": 4.73,
+    "Bar_Count": 22,
+    "ADTV(MB)": 6.2
+  },
+  {
+    "Ticker": "INET",
+    "Stage": "Bull",
+    "Price": 4.12,
+    "EMA50": 4.08,
+    "EMA200": 3.86,
+    "Bar_Count": 29,
     "ADTV(MB)": 6.2
   },
   {
@@ -3231,15 +3267,6 @@
     "ADTV(MB)": 3.6
   },
   {
-    "Ticker": "CGH",
-    "Stage": "Bull",
-    "Price": 0.55,
-    "EMA50": 0.54,
-    "EMA200": 0.51,
-    "Bar_Count": 10,
-    "ADTV(MB)": 3.5
-  },
-  {
     "Ticker": "AIT",
     "Stage": "Bull",
     "Price": 4.86,
@@ -3254,6 +3281,15 @@
     "Price": 2.3,
     "EMA50": 1.98,
     "EMA200": 1.82,
+    "Bar_Count": 10,
+    "ADTV(MB)": 3.5
+  },
+  {
+    "Ticker": "CGH",
+    "Stage": "Bull",
+    "Price": 0.55,
+    "EMA50": 0.54,
+    "EMA200": 0.51,
     "Bar_Count": 10,
     "ADTV(MB)": 3.5
   },
@@ -3276,15 +3312,6 @@
     "ADTV(MB)": 3.4
   },
   {
-    "Ticker": "ILINK",
-    "Stage": "Bull",
-    "Price": 5.1,
-    "EMA50": 4.9,
-    "EMA200": 4.65,
-    "Bar_Count": 37,
-    "ADTV(MB)": 3.3
-  },
-  {
     "Ticker": "BKGI",
     "Stage": "Bull",
     "Price": 2.02,
@@ -3294,13 +3321,13 @@
     "ADTV(MB)": 3.3
   },
   {
-    "Ticker": "TRC",
+    "Ticker": "ILINK",
     "Stage": "Bull",
-    "Price": 0.58,
-    "EMA50": 0.57,
-    "EMA200": 0.55,
-    "Bar_Count": 5,
-    "ADTV(MB)": 3.0
+    "Price": 5.1,
+    "EMA50": 4.9,
+    "EMA200": 4.65,
+    "Bar_Count": 37,
+    "ADTV(MB)": 3.3
   },
   {
     "Ticker": "TFM",
@@ -3309,6 +3336,15 @@
     "EMA50": 6.53,
     "EMA200": 6.07,
     "Bar_Count": 9,
+    "ADTV(MB)": 3.0
+  },
+  {
+    "Ticker": "TRC",
+    "Stage": "Bull",
+    "Price": 0.58,
+    "EMA50": 0.57,
+    "EMA200": 0.55,
+    "Bar_Count": 5,
     "ADTV(MB)": 3.0
   },
   {
@@ -3447,15 +3483,6 @@
     "ADTV(MB)": 1.3
   },
   {
-    "Ticker": "TKC",
-    "Stage": "Bull",
-    "Price": 9.0,
-    "EMA50": 8.93,
-    "EMA200": 8.85,
-    "Bar_Count": 7,
-    "ADTV(MB)": 1.1
-  },
-  {
     "Ticker": "HARN",
     "Stage": "Bull",
     "Price": 2.04,
@@ -3465,21 +3492,30 @@
     "ADTV(MB)": 1.1
   },
   {
-    "Ticker": "TL",
-    "Stage": "Bull",
-    "Price": 0.4,
-    "EMA50": 0.4,
-    "EMA200": 0.39,
-    "Bar_Count": 4,
-    "ADTV(MB)": 1.1
-  },
-  {
     "Ticker": "I2",
     "Stage": "Bull",
     "Price": 0.8,
     "EMA50": 0.77,
     "EMA200": 0.76,
     "Bar_Count": 12,
+    "ADTV(MB)": 1.1
+  },
+  {
+    "Ticker": "TKC",
+    "Stage": "Bull",
+    "Price": 9.0,
+    "EMA50": 8.93,
+    "EMA200": 8.85,
+    "Bar_Count": 7,
+    "ADTV(MB)": 1.1
+  },
+  {
+    "Ticker": "TL",
+    "Stage": "Bull",
+    "Price": 0.4,
+    "EMA50": 0.4,
+    "EMA200": 0.39,
+    "Bar_Count": 4,
     "ADTV(MB)": 1.1
   },
   {
@@ -3510,12 +3546,12 @@
     "ADTV(MB)": 0.7
   },
   {
-    "Ticker": "RPC",
+    "Ticker": "DTCENT",
     "Stage": "Bull",
-    "Price": 0.36,
-    "EMA50": 0.36,
-    "EMA200": 0.33,
-    "Bar_Count": 9,
+    "Price": 0.95,
+    "EMA50": 0.94,
+    "EMA200": 0.9,
+    "Bar_Count": 62,
     "ADTV(MB)": 0.6
   },
   {
@@ -3528,21 +3564,21 @@
     "ADTV(MB)": 0.6
   },
   {
+    "Ticker": "RPC",
+    "Stage": "Bull",
+    "Price": 0.36,
+    "EMA50": 0.36,
+    "EMA200": 0.33,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.6
+  },
+  {
     "Ticker": "TC",
     "Stage": "Bull",
     "Price": 6.55,
     "EMA50": 6.12,
     "EMA200": 5.5,
     "Bar_Count": 75,
-    "ADTV(MB)": 0.6
-  },
-  {
-    "Ticker": "DTCENT",
-    "Stage": "Bull",
-    "Price": 0.95,
-    "EMA50": 0.94,
-    "EMA200": 0.9,
-    "Bar_Count": 62,
     "ADTV(MB)": 0.6
   },
   {
@@ -3564,15 +3600,6 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "SE",
-    "Stage": "Bull",
-    "Price": 0.5,
-    "EMA50": 0.49,
-    "EMA200": 0.46,
-    "Bar_Count": 24,
-    "ADTV(MB)": 0.5
-  },
-  {
     "Ticker": "KASET",
     "Stage": "Bull",
     "Price": 0.7,
@@ -3582,13 +3609,13 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "JUBILE",
+    "Ticker": "SE",
     "Stage": "Bull",
-    "Price": 7.35,
-    "EMA50": 7.27,
-    "EMA200": 7.27,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.4
+    "Price": 0.5,
+    "EMA50": 0.49,
+    "EMA200": 0.46,
+    "Bar_Count": 24,
+    "ADTV(MB)": 0.5
   },
   {
     "Ticker": "AMATAR",
@@ -3600,6 +3627,15 @@
     "ADTV(MB)": 0.4
   },
   {
+    "Ticker": "JUBILE",
+    "Stage": "Bull",
+    "Price": 7.35,
+    "EMA50": 7.27,
+    "EMA200": 7.27,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.4
+  },
+  {
     "Ticker": "PRAPAT",
     "Stage": "Bull",
     "Price": 0.8,
@@ -3607,24 +3643,6 @@
     "EMA200": 0.77,
     "Bar_Count": 21,
     "ADTV(MB)": 0.4
-  },
-  {
-    "Ticker": "CCP",
-    "Stage": "Bull",
-    "Price": 0.27,
-    "EMA50": 0.27,
-    "EMA200": 0.25,
-    "Bar_Count": 8,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "TMT",
-    "Stage": "Bull",
-    "Price": 3.46,
-    "EMA50": 3.39,
-    "EMA200": 3.23,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.3
   },
   {
     "Ticker": "ARIP",
@@ -3645,12 +3663,30 @@
     "ADTV(MB)": 0.3
   },
   {
+    "Ticker": "CCP",
+    "Stage": "Bull",
+    "Price": 0.27,
+    "EMA50": 0.27,
+    "EMA200": 0.25,
+    "Bar_Count": 8,
+    "ADTV(MB)": 0.3
+  },
+  {
     "Ticker": "EASON",
     "Stage": "Bull",
     "Price": 1.15,
     "EMA50": 1.12,
     "EMA200": 1.07,
     "Bar_Count": 64,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "TMT",
+    "Stage": "Bull",
+    "Price": 3.46,
+    "EMA50": 3.39,
+    "EMA200": 3.23,
+    "Bar_Count": 2,
     "ADTV(MB)": 0.3
   },
   {
@@ -3663,12 +3699,12 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "TQR",
+    "Ticker": "SLP",
     "Stage": "Bull",
-    "Price": 5.55,
-    "EMA50": 5.4,
-    "EMA200": 5.13,
-    "Bar_Count": 57,
+    "Price": 0.48,
+    "EMA50": 0.48,
+    "EMA200": 0.43,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.2
   },
   {
@@ -3681,21 +3717,21 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "SLP",
+    "Ticker": "TQR",
     "Stage": "Bull",
-    "Price": 0.48,
-    "EMA50": 0.48,
-    "EMA200": 0.43,
-    "Bar_Count": 1,
+    "Price": 5.55,
+    "EMA50": 5.4,
+    "EMA200": 5.13,
+    "Bar_Count": 57,
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "WFX",
+    "Ticker": "ACG",
     "Stage": "Bull",
-    "Price": 0.99,
-    "EMA50": 0.99,
-    "EMA200": 0.94,
-    "Bar_Count": 6,
+    "Price": 0.73,
+    "EMA50": 0.72,
+    "EMA200": 0.66,
+    "Bar_Count": 41,
     "ADTV(MB)": 0.1
   },
   {
@@ -3717,21 +3753,12 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "THANA",
+    "Ticker": "PDG",
     "Stage": "Bull",
-    "Price": 1.54,
-    "EMA50": 1.54,
-    "EMA200": 1.41,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "UP",
-    "Stage": "Bull",
-    "Price": 23.5,
-    "EMA50": 23.34,
-    "EMA200": 21.47,
-    "Bar_Count": 110,
+    "Price": 3.16,
+    "EMA50": 3.14,
+    "EMA200": 2.93,
+    "Bar_Count": 115,
     "ADTV(MB)": 0.1
   },
   {
@@ -3744,21 +3771,12 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "ACG",
+    "Ticker": "THANA",
     "Stage": "Bull",
-    "Price": 0.73,
-    "EMA50": 0.72,
-    "EMA200": 0.66,
-    "Bar_Count": 41,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "PDG",
-    "Stage": "Bull",
-    "Price": 3.16,
-    "EMA50": 3.14,
-    "EMA200": 2.93,
-    "Bar_Count": 115,
+    "Price": 1.54,
+    "EMA50": 1.54,
+    "EMA200": 1.41,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.1
   },
   {
@@ -3771,13 +3789,22 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "L&E",
+    "Ticker": "UP",
     "Stage": "Bull",
-    "Price": 1.2,
-    "EMA50": 1.19,
-    "EMA200": 1.13,
+    "Price": 23.5,
+    "EMA50": 23.34,
+    "EMA200": 21.47,
+    "Bar_Count": 110,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "WFX",
+    "Stage": "Bull",
+    "Price": 0.99,
+    "EMA50": 0.99,
+    "EMA200": 0.94,
     "Bar_Count": 6,
-    "ADTV(MB)": 0.0
+    "ADTV(MB)": 0.1
   },
   {
     "Ticker": "GYT",
@@ -3786,6 +3813,15 @@
     "EMA50": 182.0,
     "EMA200": 181.36,
     "Bar_Count": 13,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "L&E",
+    "Stage": "Bull",
+    "Price": 1.2,
+    "EMA50": 1.19,
+    "EMA200": 1.13,
+    "Bar_Count": 6,
     "ADTV(MB)": 0.0
   },
   {
@@ -4158,6 +4194,15 @@
     "ADTV(MB)": 0.5
   },
   {
+    "Ticker": "ASIMAR",
+    "Stage": "Accumulation",
+    "Price": 1.42,
+    "EMA50": 1.38,
+    "EMA200": 1.39,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.5
+  },
+  {
     "Ticker": "ASN",
     "Stage": "Accumulation",
     "Price": 1.04,
@@ -4176,30 +4221,12 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "ASIMAR",
-    "Stage": "Accumulation",
-    "Price": 1.42,
-    "EMA50": 1.38,
-    "EMA200": 1.39,
-    "Bar_Count": 9,
-    "ADTV(MB)": 0.5
-  },
-  {
     "Ticker": "AI",
     "Stage": "Accumulation",
     "Price": 2.96,
     "EMA50": 2.9,
     "EMA200": 2.96,
     "Bar_Count": 2,
-    "ADTV(MB)": 0.4
-  },
-  {
-    "Ticker": "KWM",
-    "Stage": "Accumulation",
-    "Price": 0.95,
-    "EMA50": 0.83,
-    "EMA200": 0.86,
-    "Bar_Count": 9,
     "ADTV(MB)": 0.4
   },
   {
@@ -4212,6 +4239,15 @@
     "ADTV(MB)": 0.4
   },
   {
+    "Ticker": "KWM",
+    "Stage": "Accumulation",
+    "Price": 0.95,
+    "EMA50": 0.83,
+    "EMA200": 0.86,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.4
+  },
+  {
     "Ticker": "SINO",
     "Stage": "Accumulation",
     "Price": 0.95,
@@ -4219,6 +4255,42 @@
     "EMA200": 0.9,
     "Bar_Count": 9,
     "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "AIMCG",
+    "Stage": "Accumulation",
+    "Price": 1.71,
+    "EMA50": 1.53,
+    "EMA200": 1.58,
+    "Bar_Count": 14,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "BSBM",
+    "Stage": "Accumulation",
+    "Price": 0.65,
+    "EMA50": 0.6,
+    "EMA200": 0.62,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "FPI",
+    "Stage": "Accumulation",
+    "Price": 1.65,
+    "EMA50": 1.54,
+    "EMA200": 1.58,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "IRCP",
+    "Stage": "Accumulation",
+    "Price": 0.31,
+    "EMA50": 0.27,
+    "EMA200": 0.29,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.3
   },
   {
     "Ticker": "MADAME",
@@ -4239,12 +4311,21 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "AIMCG",
+    "Ticker": "TNITY",
     "Stage": "Accumulation",
-    "Price": 1.71,
-    "EMA50": 1.53,
-    "EMA200": 1.58,
-    "Bar_Count": 14,
+    "Price": 2.66,
+    "EMA50": 2.53,
+    "EMA200": 2.6,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "TTT",
+    "Stage": "Accumulation",
+    "Price": 43.0,
+    "EMA50": 41.08,
+    "EMA200": 42.41,
+    "Bar_Count": 5,
     "ADTV(MB)": 0.3
   },
   {
@@ -4266,49 +4347,13 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "TNITY",
+    "Ticker": "EP",
     "Stage": "Accumulation",
-    "Price": 2.66,
-    "EMA50": 2.53,
-    "EMA200": 2.6,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "IRCP",
-    "Stage": "Accumulation",
-    "Price": 0.31,
-    "EMA50": 0.27,
-    "EMA200": 0.29,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "TTT",
-    "Stage": "Accumulation",
-    "Price": 43.0,
-    "EMA50": 41.08,
-    "EMA200": 42.41,
-    "Bar_Count": 5,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "FPI",
-    "Stage": "Accumulation",
-    "Price": 1.65,
-    "EMA50": 1.54,
-    "EMA200": 1.58,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "BSBM",
-    "Stage": "Accumulation",
-    "Price": 0.65,
-    "EMA50": 0.6,
-    "EMA200": 0.62,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.3
+    "Price": 1.24,
+    "EMA50": 1.12,
+    "EMA200": 1.18,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.2
   },
   {
     "Ticker": "KCAR",
@@ -4320,15 +4365,6 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "EP",
-    "Stage": "Accumulation",
-    "Price": 1.24,
-    "EMA50": 1.12,
-    "EMA200": 1.18,
-    "Bar_Count": 9,
-    "ADTV(MB)": 0.2
-  },
-  {
     "Ticker": "TGH",
     "Stage": "Accumulation",
     "Price": 11.8,
@@ -4336,6 +4372,24 @@
     "EMA200": 11.14,
     "Bar_Count": 16,
     "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "B",
+    "Stage": "Accumulation",
+    "Price": 0.04,
+    "EMA50": 0.04,
+    "EMA200": 0.04,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "GEL",
+    "Stage": "Accumulation",
+    "Price": 0.04,
+    "EMA50": 0.03,
+    "EMA200": 0.04,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
   },
   {
     "Ticker": "IFS",
@@ -4356,15 +4410,6 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "SR",
-    "Stage": "Accumulation",
-    "Price": 0.37,
-    "EMA50": 0.34,
-    "EMA200": 0.36,
-    "Bar_Count": 12,
-    "ADTV(MB)": 0.1
-  },
-  {
     "Ticker": "SHANG",
     "Stage": "Accumulation",
     "Price": 46.0,
@@ -4374,21 +4419,12 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "GEL",
+    "Ticker": "SR",
     "Stage": "Accumulation",
-    "Price": 0.04,
-    "EMA50": 0.03,
-    "EMA200": 0.04,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "B",
-    "Stage": "Accumulation",
-    "Price": 0.04,
-    "EMA50": 0.04,
-    "EMA200": 0.04,
-    "Bar_Count": 2,
+    "Price": 0.37,
+    "EMA50": 0.34,
+    "EMA200": 0.36,
+    "Bar_Count": 12,
     "ADTV(MB)": 0.1
   },
   {
@@ -4401,30 +4437,12 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "TNDT",
-    "Stage": "Accumulation",
-    "Price": 0.15,
-    "EMA50": 0.14,
-    "EMA200": 0.14,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.0
-  },
-  {
     "Ticker": "QLT",
     "Stage": "Accumulation",
     "Price": 2.12,
     "EMA50": 1.69,
     "EMA200": 1.72,
     "Bar_Count": 13,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "VS",
-    "Stage": "Accumulation",
-    "Price": 0.37,
-    "EMA50": 0.31,
-    "EMA200": 0.32,
-    "Bar_Count": 14,
     "ADTV(MB)": 0.0
   },
   {
@@ -4443,6 +4461,24 @@
     "EMA50": 0.05,
     "EMA200": 0.05,
     "Bar_Count": 8,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "TNDT",
+    "Stage": "Accumulation",
+    "Price": 0.15,
+    "EMA50": 0.14,
+    "EMA200": 0.14,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "VS",
+    "Stage": "Accumulation",
+    "Price": 0.37,
+    "EMA50": 0.31,
+    "EMA200": 0.32,
+    "Bar_Count": 14,
     "ADTV(MB)": 0.0
   },
   {
@@ -4662,21 +4698,21 @@
     "ADTV(MB)": 2.4
   },
   {
-    "Ticker": "BKA",
-    "Stage": "Recovery",
-    "Price": 0.82,
-    "EMA50": 0.79,
-    "EMA200": 0.94,
-    "Bar_Count": 20,
-    "ADTV(MB)": 2.0
-  },
-  {
     "Ticker": "AMANAH",
     "Stage": "Recovery",
     "Price": 0.74,
     "EMA50": 0.71,
     "EMA200": 0.75,
     "Bar_Count": 1,
+    "ADTV(MB)": 2.0
+  },
+  {
+    "Ticker": "BKA",
+    "Stage": "Recovery",
+    "Price": 0.82,
+    "EMA50": 0.79,
+    "EMA200": 0.94,
+    "Bar_Count": 20,
     "ADTV(MB)": 2.0
   },
   {
@@ -4734,21 +4770,21 @@
     "ADTV(MB)": 1.2
   },
   {
-    "Ticker": "SUN",
-    "Stage": "Recovery",
-    "Price": 2.46,
-    "EMA50": 2.44,
-    "EMA200": 2.7,
-    "Bar_Count": 5,
-    "ADTV(MB)": 1.1
-  },
-  {
     "Ticker": "LPN",
     "Stage": "Recovery",
     "Price": 1.6,
     "EMA50": 1.57,
     "EMA200": 1.61,
     "Bar_Count": 3,
+    "ADTV(MB)": 1.1
+  },
+  {
+    "Ticker": "SUN",
+    "Stage": "Recovery",
+    "Price": 2.46,
+    "EMA50": 2.44,
+    "EMA200": 2.7,
+    "Bar_Count": 5,
     "ADTV(MB)": 1.1
   },
   {
@@ -4806,21 +4842,21 @@
     "ADTV(MB)": 0.7
   },
   {
-    "Ticker": "IIG",
-    "Stage": "Recovery",
-    "Price": 1.54,
-    "EMA50": 1.44,
-    "EMA200": 1.67,
-    "Bar_Count": 7,
-    "ADTV(MB)": 0.7
-  },
-  {
     "Ticker": "ETL",
     "Stage": "Recovery",
     "Price": 0.46,
     "EMA50": 0.42,
     "EMA200": 0.52,
     "Bar_Count": 2,
+    "ADTV(MB)": 0.7
+  },
+  {
+    "Ticker": "IIG",
+    "Stage": "Recovery",
+    "Price": 1.54,
+    "EMA50": 1.44,
+    "EMA200": 1.67,
+    "Bar_Count": 7,
     "ADTV(MB)": 0.7
   },
   {
@@ -4833,21 +4869,12 @@
     "ADTV(MB)": 0.7
   },
   {
-    "Ticker": "PK",
+    "Ticker": "BRI",
     "Stage": "Recovery",
-    "Price": 0.49,
-    "EMA50": 0.47,
-    "EMA200": 0.49,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.6
-  },
-  {
-    "Ticker": "SEI",
-    "Stage": "Recovery",
-    "Price": 1.78,
-    "EMA50": 1.73,
-    "EMA200": 2.1,
-    "Bar_Count": 2,
+    "Price": 1.31,
+    "EMA50": 1.29,
+    "EMA200": 1.49,
+    "Bar_Count": 5,
     "ADTV(MB)": 0.6
   },
   {
@@ -4860,21 +4887,12 @@
     "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "XBIO",
+    "Ticker": "PK",
     "Stage": "Recovery",
-    "Price": 0.09,
-    "EMA50": 0.08,
-    "EMA200": 0.37,
-    "Bar_Count": 9,
-    "ADTV(MB)": 0.6
-  },
-  {
-    "Ticker": "BRI",
-    "Stage": "Recovery",
-    "Price": 1.31,
-    "EMA50": 1.29,
-    "EMA200": 1.49,
-    "Bar_Count": 5,
+    "Price": 0.49,
+    "EMA50": 0.47,
+    "EMA200": 0.49,
+    "Bar_Count": 3,
     "ADTV(MB)": 0.6
   },
   {
@@ -4887,11 +4905,29 @@
     "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "SVR",
+    "Ticker": "SEI",
     "Stage": "Recovery",
-    "Price": 0.36,
-    "EMA50": 0.32,
+    "Price": 1.78,
+    "EMA50": 1.73,
+    "EMA200": 2.1,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.6
+  },
+  {
+    "Ticker": "XBIO",
+    "Stage": "Recovery",
+    "Price": 0.09,
+    "EMA50": 0.08,
     "EMA200": 0.37,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.6
+  },
+  {
+    "Ticker": "CPL",
+    "Stage": "Recovery",
+    "Price": 0.68,
+    "EMA50": 0.68,
+    "EMA200": 0.71,
     "Bar_Count": 16,
     "ADTV(MB)": 0.5
   },
@@ -4905,12 +4941,12 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "CPL",
+    "Ticker": "KTMS",
     "Stage": "Recovery",
-    "Price": 0.68,
-    "EMA50": 0.68,
-    "EMA200": 0.71,
-    "Bar_Count": 16,
+    "Price": 1.35,
+    "EMA50": 1.32,
+    "EMA200": 1.57,
+    "Bar_Count": 9,
     "ADTV(MB)": 0.5
   },
   {
@@ -4923,6 +4959,15 @@
     "ADTV(MB)": 0.5
   },
   {
+    "Ticker": "SVR",
+    "Stage": "Recovery",
+    "Price": 0.36,
+    "EMA50": 0.32,
+    "EMA200": 0.37,
+    "Bar_Count": 16,
+    "ADTV(MB)": 0.5
+  },
+  {
     "Ticker": "TAN",
     "Stage": "Recovery",
     "Price": 3.88,
@@ -4932,21 +4977,12 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "KTMS",
+    "Ticker": "BRR",
     "Stage": "Recovery",
-    "Price": 1.35,
-    "EMA50": 1.32,
-    "EMA200": 1.57,
-    "Bar_Count": 9,
-    "ADTV(MB)": 0.5
-  },
-  {
-    "Ticker": "NC",
-    "Stage": "Recovery",
-    "Price": 1.9,
-    "EMA50": 1.83,
-    "EMA200": 1.98,
-    "Bar_Count": 11,
+    "Price": 3.64,
+    "EMA50": 3.6,
+    "EMA200": 3.64,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.4
   },
   {
@@ -4959,39 +4995,21 @@
     "ADTV(MB)": 0.4
   },
   {
-    "Ticker": "BRR",
+    "Ticker": "NC",
     "Stage": "Recovery",
-    "Price": 3.64,
-    "EMA50": 3.6,
-    "EMA200": 3.64,
-    "Bar_Count": 1,
+    "Price": 1.9,
+    "EMA50": 1.83,
+    "EMA200": 1.98,
+    "Bar_Count": 11,
     "ADTV(MB)": 0.4
   },
   {
-    "Ticker": "RICHY",
+    "Ticker": "APCO",
     "Stage": "Recovery",
-    "Price": 0.16,
-    "EMA50": 0.16,
-    "EMA200": 0.19,
-    "Bar_Count": 5,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "M-CHAI",
-    "Stage": "Recovery",
-    "Price": 19.0,
-    "EMA50": 18.98,
-    "EMA200": 19.94,
-    "Bar_Count": 10,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "SK",
-    "Stage": "Recovery",
-    "Price": 0.53,
-    "EMA50": 0.53,
-    "EMA200": 0.53,
-    "Bar_Count": 1,
+    "Price": 2.72,
+    "EMA50": 2.63,
+    "EMA200": 2.8,
+    "Bar_Count": 6,
     "ADTV(MB)": 0.3
   },
   {
@@ -5004,12 +5022,48 @@
     "ADTV(MB)": 0.3
   },
   {
+    "Ticker": "CEN",
+    "Stage": "Recovery",
+    "Price": 0.61,
+    "EMA50": 0.61,
+    "EMA200": 0.8,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.3
+  },
+  {
     "Ticker": "CMC",
     "Stage": "Recovery",
     "Price": 0.44,
     "EMA50": 0.41,
     "EMA200": 0.47,
     "Bar_Count": 1,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "HL",
+    "Stage": "Recovery",
+    "Price": 5.85,
+    "EMA50": 5.8,
+    "EMA200": 6.37,
+    "Bar_Count": 8,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "LPH",
+    "Stage": "Recovery",
+    "Price": 3.6,
+    "EMA50": 3.6,
+    "EMA200": 3.63,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "M-CHAI",
+    "Stage": "Recovery",
+    "Price": 19.0,
+    "EMA50": 18.98,
+    "EMA200": 19.94,
+    "Bar_Count": 10,
     "ADTV(MB)": 0.3
   },
   {
@@ -5031,30 +5085,21 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "APCO",
+    "Ticker": "RICHY",
     "Stage": "Recovery",
-    "Price": 2.72,
-    "EMA50": 2.63,
-    "EMA200": 2.8,
-    "Bar_Count": 6,
+    "Price": 0.16,
+    "EMA50": 0.16,
+    "EMA200": 0.19,
+    "Bar_Count": 5,
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "LPH",
+    "Ticker": "SK",
     "Stage": "Recovery",
-    "Price": 3.6,
-    "EMA50": 3.6,
-    "EMA200": 3.63,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "HL",
-    "Stage": "Recovery",
-    "Price": 5.85,
-    "EMA50": 5.8,
-    "EMA200": 6.37,
-    "Bar_Count": 8,
+    "Price": 0.53,
+    "EMA50": 0.53,
+    "EMA200": 0.53,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.3
   },
   {
@@ -5067,13 +5112,31 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "CEN",
+    "Ticker": "AMATAV",
     "Stage": "Recovery",
-    "Price": 0.61,
-    "EMA50": 0.61,
-    "EMA200": 0.8,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.3
+    "Price": 2.14,
+    "EMA50": 2.04,
+    "EMA200": 2.17,
+    "Bar_Count": 22,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "AMR",
+    "Stage": "Recovery",
+    "Price": 0.4,
+    "EMA50": 0.39,
+    "EMA200": 0.43,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "CSP",
+    "Stage": "Recovery",
+    "Price": 0.44,
+    "EMA50": 0.44,
+    "EMA200": 0.47,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.2
   },
   {
     "Ticker": "DDD",
@@ -5094,84 +5157,12 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "TRP",
-    "Stage": "Recovery",
-    "Price": 4.34,
-    "EMA50": 4.25,
-    "EMA200": 4.49,
-    "Bar_Count": 10,
-    "ADTV(MB)": 0.2
-  },
-  {
     "Ticker": "MJD",
     "Stage": "Recovery",
     "Price": 0.32,
     "EMA50": 0.32,
     "EMA200": 0.37,
     "Bar_Count": 1,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "AMATAV",
-    "Stage": "Recovery",
-    "Price": 2.14,
-    "EMA50": 2.04,
-    "EMA200": 2.17,
-    "Bar_Count": 22,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "CSP",
-    "Stage": "Recovery",
-    "Price": 0.44,
-    "EMA50": 0.44,
-    "EMA200": 0.47,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "AMR",
-    "Stage": "Recovery",
-    "Price": 0.4,
-    "EMA50": 0.39,
-    "EMA200": 0.43,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "TPS",
-    "Stage": "Recovery",
-    "Price": 3.2,
-    "EMA50": 3.18,
-    "EMA200": 3.2,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "TRV",
-    "Stage": "Recovery",
-    "Price": 1.53,
-    "EMA50": 1.53,
-    "EMA200": 1.62,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "TYCN",
-    "Stage": "Recovery",
-    "Price": 1.68,
-    "EMA50": 1.68,
-    "EMA200": 1.72,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "SORKON",
-    "Stage": "Recovery",
-    "Price": 3.54,
-    "EMA50": 3.53,
-    "EMA200": 3.54,
-    "Bar_Count": 2,
     "ADTV(MB)": 0.2
   },
   {
@@ -5193,93 +5184,66 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "LDC",
+    "Ticker": "SORKON",
     "Stage": "Recovery",
-    "Price": 0.25,
-    "EMA50": 0.25,
-    "EMA200": 0.29,
+    "Price": 3.54,
+    "EMA50": 3.53,
+    "EMA200": 3.54,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "TPS",
+    "Stage": "Recovery",
+    "Price": 3.2,
+    "EMA50": 3.18,
+    "EMA200": 3.2,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "TRP",
+    "Stage": "Recovery",
+    "Price": 4.34,
+    "EMA50": 4.25,
+    "EMA200": 4.49,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "TRV",
+    "Stage": "Recovery",
+    "Price": 1.53,
+    "EMA50": 1.53,
+    "EMA200": 1.62,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "TYCN",
+    "Stage": "Recovery",
+    "Price": 1.68,
+    "EMA50": 1.68,
+    "EMA200": 1.72,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "BGT",
+    "Stage": "Recovery",
+    "Price": 0.38,
+    "EMA50": 0.38,
+    "EMA200": 0.39,
     "Bar_Count": 1,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "NRF",
+    "Ticker": "BUI",
     "Stage": "Recovery",
-    "Price": 0.25,
-    "EMA50": 0.25,
-    "EMA200": 0.36,
-    "Bar_Count": 4,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "ZEN",
-    "Stage": "Recovery",
-    "Price": 5.45,
-    "EMA50": 5.45,
-    "EMA200": 5.62,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "WINMED",
-    "Stage": "Recovery",
-    "Price": 0.89,
-    "EMA50": 0.84,
-    "EMA200": 0.96,
-    "Bar_Count": 9,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "NKI",
-    "Stage": "Recovery",
-    "Price": 14.8,
-    "EMA50": 14.61,
-    "EMA200": 16.39,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "JR",
-    "Stage": "Recovery",
-    "Price": 1.75,
-    "EMA50": 1.74,
-    "EMA200": 1.75,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "RWI",
-    "Stage": "Recovery",
-    "Price": 0.17,
-    "EMA50": 0.17,
-    "EMA200": 0.2,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "TVT",
-    "Stage": "Recovery",
-    "Price": 0.23,
-    "EMA50": 0.22,
-    "EMA200": 0.24,
-    "Bar_Count": 5,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "SRS",
-    "Stage": "Recovery",
-    "Price": 1.88,
-    "EMA50": 1.81,
-    "EMA200": 2.02,
-    "Bar_Count": 5,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "NL",
-    "Stage": "Recovery",
-    "Price": 0.69,
-    "EMA50": 0.69,
-    "EMA200": 0.71,
-    "Bar_Count": 12,
+    "Price": 11.0,
+    "EMA50": 10.97,
+    "EMA200": 11.06,
+    "Bar_Count": 2,
     "ADTV(MB)": 0.1
   },
   {
@@ -5292,6 +5256,33 @@
     "ADTV(MB)": 0.1
   },
   {
+    "Ticker": "IHL",
+    "Stage": "Recovery",
+    "Price": 1.47,
+    "EMA50": 1.42,
+    "EMA200": 1.49,
+    "Bar_Count": 9,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "JR",
+    "Stage": "Recovery",
+    "Price": 1.75,
+    "EMA50": 1.74,
+    "EMA200": 1.75,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "LDC",
+    "Stage": "Recovery",
+    "Price": 0.25,
+    "EMA50": 0.25,
+    "EMA200": 0.29,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
     "Ticker": "NCH",
     "Stage": "Recovery",
     "Price": 0.43,
@@ -5301,11 +5292,38 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "WAVE",
+    "Ticker": "NKI",
     "Stage": "Recovery",
-    "Price": 0.03,
-    "EMA50": 0.03,
-    "EMA200": 0.03,
+    "Price": 14.8,
+    "EMA50": 14.61,
+    "EMA200": 16.39,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "NL",
+    "Stage": "Recovery",
+    "Price": 0.69,
+    "EMA50": 0.69,
+    "EMA200": 0.71,
+    "Bar_Count": 12,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "NRF",
+    "Stage": "Recovery",
+    "Price": 0.25,
+    "EMA50": 0.25,
+    "EMA200": 0.36,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "OHTL",
+    "Stage": "Recovery",
+    "Price": 270.0,
+    "EMA50": 266.14,
+    "EMA200": 286.12,
     "Bar_Count": 1,
     "ADTV(MB)": 0.1
   },
@@ -5319,30 +5337,12 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "BUI",
+    "Ticker": "PPS",
     "Stage": "Recovery",
-    "Price": 11.0,
-    "EMA50": 10.97,
-    "EMA200": 11.06,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "BGT",
-    "Stage": "Recovery",
-    "Price": 0.38,
-    "EMA50": 0.38,
-    "EMA200": 0.39,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "OHTL",
-    "Stage": "Recovery",
-    "Price": 270.0,
-    "EMA50": 266.14,
-    "EMA200": 286.12,
-    "Bar_Count": 1,
+    "Price": 0.18,
+    "EMA50": 0.18,
+    "EMA200": 0.19,
+    "Bar_Count": 4,
     "ADTV(MB)": 0.1
   },
   {
@@ -5355,6 +5355,24 @@
     "ADTV(MB)": 0.1
   },
   {
+    "Ticker": "RWI",
+    "Stage": "Recovery",
+    "Price": 0.17,
+    "EMA50": 0.17,
+    "EMA200": 0.2,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "SRS",
+    "Stage": "Recovery",
+    "Price": 1.88,
+    "EMA50": 1.81,
+    "EMA200": 2.02,
+    "Bar_Count": 5,
+    "ADTV(MB)": 0.1
+  },
+  {
     "Ticker": "TMC",
     "Stage": "Recovery",
     "Price": 0.7,
@@ -5364,67 +5382,40 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "PPS",
+    "Ticker": "TVT",
     "Stage": "Recovery",
-    "Price": 0.18,
-    "EMA50": 0.18,
-    "EMA200": 0.19,
-    "Bar_Count": 4,
+    "Price": 0.23,
+    "EMA50": 0.22,
+    "EMA200": 0.24,
+    "Bar_Count": 5,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "IHL",
+    "Ticker": "WAVE",
     "Stage": "Recovery",
-    "Price": 1.47,
-    "EMA50": 1.42,
-    "EMA200": 1.49,
+    "Price": 0.03,
+    "EMA50": 0.03,
+    "EMA200": 0.03,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "WINMED",
+    "Stage": "Recovery",
+    "Price": 0.89,
+    "EMA50": 0.84,
+    "EMA200": 0.96,
     "Bar_Count": 9,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "TCJ",
+    "Ticker": "ZEN",
     "Stage": "Recovery",
-    "Price": 2.46,
-    "EMA50": 2.41,
-    "EMA200": 2.48,
-    "Bar_Count": 14,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "M-PAT",
-    "Stage": "Recovery",
-    "Price": 1.65,
-    "EMA50": 1.45,
-    "EMA200": 1.82,
-    "Bar_Count": 15,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "FNS",
-    "Stage": "Recovery",
-    "Price": 0.61,
-    "EMA50": 0.58,
-    "EMA200": 0.73,
-    "Bar_Count": 24,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "MATI",
-    "Stage": "Recovery",
-    "Price": 3.08,
-    "EMA50": 2.97,
-    "EMA200": 3.26,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "TURTLE",
-    "Stage": "Recovery",
-    "Price": 3.3,
-    "EMA50": 3.09,
-    "EMA200": 3.54,
-    "Bar_Count": 33,
-    "ADTV(MB)": 0.0
+    "Price": 5.45,
+    "EMA50": 5.45,
+    "EMA200": 5.62,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
   },
   {
     "Ticker": "BROCK",
@@ -5433,24 +5424,6 @@
     "EMA50": 1.19,
     "EMA200": 1.28,
     "Bar_Count": 2,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "DTCI",
-    "Stage": "Recovery",
-    "Price": 18.0,
-    "EMA50": 17.44,
-    "EMA200": 19.9,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "QTCG",
-    "Stage": "Recovery",
-    "Price": 0.11,
-    "EMA50": 0.1,
-    "EMA200": 0.13,
-    "Bar_Count": 6,
     "ADTV(MB)": 0.0
   },
   {
@@ -5463,39 +5436,21 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "WACOAL",
+    "Ticker": "CIG",
     "Stage": "Recovery",
-    "Price": 15.9,
-    "EMA50": 15.89,
-    "EMA200": 16.88,
-    "Bar_Count": 3,
+    "Price": 0.03,
+    "EMA50": 0.03,
+    "EMA200": 0.03,
+    "Bar_Count": 15,
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "TSTE",
+    "Ticker": "DTCI",
     "Stage": "Recovery",
-    "Price": 10.5,
-    "EMA50": 10.44,
-    "EMA200": 10.63,
-    "Bar_Count": 10,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "PRECHA",
-    "Stage": "Recovery",
-    "Price": 0.44,
-    "EMA50": 0.42,
-    "EMA200": 0.5,
-    "Bar_Count": 13,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "WIN",
-    "Stage": "Recovery",
-    "Price": 0.3,
-    "EMA50": 0.29,
-    "EMA200": 0.31,
-    "Bar_Count": 4,
+    "Price": 18.0,
+    "EMA50": 17.44,
+    "EMA200": 19.9,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.0
   },
   {
@@ -5508,12 +5463,57 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "CIG",
+    "Ticker": "FNS",
     "Stage": "Recovery",
-    "Price": 0.03,
-    "EMA50": 0.03,
-    "EMA200": 0.03,
+    "Price": 0.61,
+    "EMA50": 0.58,
+    "EMA200": 0.73,
+    "Bar_Count": 24,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "M-PAT",
+    "Stage": "Recovery",
+    "Price": 1.65,
+    "EMA50": 1.45,
+    "EMA200": 1.82,
     "Bar_Count": 15,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "MATI",
+    "Stage": "Recovery",
+    "Price": 3.08,
+    "EMA50": 2.97,
+    "EMA200": 3.26,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "PRECHA",
+    "Stage": "Recovery",
+    "Price": 0.44,
+    "EMA50": 0.42,
+    "EMA200": 0.5,
+    "Bar_Count": 13,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "QTCG",
+    "Stage": "Recovery",
+    "Price": 0.11,
+    "EMA50": 0.1,
+    "EMA200": 0.13,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "TCJ",
+    "Stage": "Recovery",
+    "Price": 2.46,
+    "EMA50": 2.41,
+    "EMA200": 2.48,
+    "Bar_Count": 14,
     "ADTV(MB)": 0.0
   },
   {
@@ -5526,12 +5526,48 @@
     "ADTV(MB)": 0.0
   },
   {
+    "Ticker": "TSTE",
+    "Stage": "Recovery",
+    "Price": 10.5,
+    "EMA50": 10.44,
+    "EMA200": 10.63,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "TURTLE",
+    "Stage": "Recovery",
+    "Price": 3.3,
+    "EMA50": 3.09,
+    "EMA200": 3.54,
+    "Bar_Count": 33,
+    "ADTV(MB)": 0.0
+  },
+  {
     "Ticker": "UPF",
     "Stage": "Recovery",
     "Price": 21.8,
     "EMA50": 21.48,
     "EMA200": 22.81,
     "Bar_Count": 3,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "WACOAL",
+    "Stage": "Recovery",
+    "Price": 15.9,
+    "EMA50": 15.89,
+    "EMA200": 16.88,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "WIN",
+    "Stage": "Recovery",
+    "Price": 0.3,
+    "EMA50": 0.29,
+    "EMA200": 0.31,
+    "Bar_Count": 4,
     "ADTV(MB)": 0.0
   },
   {
@@ -5652,20 +5688,20 @@
     "ADTV(MB)": 2.8
   },
   {
-    "Ticker": "VIH",
-    "Stage": "Warning",
-    "Price": 8.3,
-    "EMA50": 8.41,
-    "EMA200": 8.2,
-    "Bar_Count": 1,
-    "ADTV(MB)": 1.9
-  },
-  {
     "Ticker": "CMO",
     "Stage": "Warning",
     "Price": 0.74,
     "EMA50": 0.74,
     "EMA200": 0.64,
+    "Bar_Count": 1,
+    "ADTV(MB)": 1.9
+  },
+  {
+    "Ticker": "VIH",
+    "Stage": "Warning",
+    "Price": 8.3,
+    "EMA50": 8.41,
+    "EMA200": 8.2,
     "Bar_Count": 1,
     "ADTV(MB)": 1.9
   },
@@ -5679,21 +5715,21 @@
     "ADTV(MB)": 1.8
   },
   {
-    "Ticker": "SGP",
-    "Stage": "Warning",
-    "Price": 8.0,
-    "EMA50": 8.21,
-    "EMA200": 7.77,
-    "Bar_Count": 27,
-    "ADTV(MB)": 1.8
-  },
-  {
     "Ticker": "MOTHER",
     "Stage": "Warning",
     "Price": 1.16,
     "EMA50": 1.16,
     "EMA200": 1.13,
     "Bar_Count": 1,
+    "ADTV(MB)": 1.8
+  },
+  {
+    "Ticker": "SGP",
+    "Stage": "Warning",
+    "Price": 8.0,
+    "EMA50": 8.21,
+    "EMA200": 7.77,
+    "Bar_Count": 27,
     "ADTV(MB)": 1.8
   },
   {
@@ -5742,6 +5778,15 @@
     "ADTV(MB)": 0.7
   },
   {
+    "Ticker": "HFT",
+    "Stage": "Warning",
+    "Price": 4.04,
+    "EMA50": 4.06,
+    "EMA200": 4.01,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.5
+  },
+  {
     "Ticker": "RT",
     "Stage": "Warning",
     "Price": 0.29,
@@ -5760,15 +5805,6 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "HFT",
-    "Stage": "Warning",
-    "Price": 4.04,
-    "EMA50": 4.06,
-    "EMA200": 4.01,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.5
-  },
-  {
     "Ticker": "TRU",
     "Stage": "Warning",
     "Price": 3.8,
@@ -5778,11 +5814,29 @@
     "ADTV(MB)": 0.4
   },
   {
+    "Ticker": "ALLA",
+    "Stage": "Warning",
+    "Price": 1.16,
+    "EMA50": 1.16,
+    "EMA200": 1.14,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.3
+  },
+  {
     "Ticker": "EVER",
     "Stage": "Warning",
     "Price": 0.07,
     "EMA50": 0.07,
     "EMA200": 0.06,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "IRC",
+    "Stage": "Warning",
+    "Price": 11.8,
+    "EMA50": 11.8,
+    "EMA200": 11.52,
     "Bar_Count": 1,
     "ADTV(MB)": 0.3
   },
@@ -5796,22 +5850,67 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "ALLA",
+    "Ticker": "CSR",
     "Stage": "Warning",
-    "Price": 1.16,
-    "EMA50": 1.16,
-    "EMA200": 1.14,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.3
+    "Price": 71.75,
+    "EMA50": 72.06,
+    "EMA200": 70.42,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "IRC",
+    "Ticker": "GJS",
     "Stage": "Warning",
-    "Price": 11.8,
-    "EMA50": 11.8,
-    "EMA200": 11.52,
+    "Price": 0.13,
+    "EMA50": 0.13,
+    "EMA200": 0.13,
     "Bar_Count": 1,
-    "ADTV(MB)": 0.3
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "GLORY",
+    "Stage": "Warning",
+    "Price": 1.06,
+    "EMA50": 1.07,
+    "EMA200": 0.95,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "KCM",
+    "Stage": "Warning",
+    "Price": 0.26,
+    "EMA50": 0.26,
+    "EMA200": 0.22,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "KOOL",
+    "Stage": "Warning",
+    "Price": 0.29,
+    "EMA50": 0.29,
+    "EMA200": 0.28,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "MODERN",
+    "Stage": "Warning",
+    "Price": 2.02,
+    "EMA50": 2.03,
+    "EMA200": 2.0,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "SELIC",
+    "Stage": "Warning",
+    "Price": 2.74,
+    "EMA50": 2.77,
+    "EMA200": 2.65,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.2
   },
   {
     "Ticker": "TNPC",
@@ -5832,67 +5931,13 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "MODERN",
+    "Ticker": "CHARAN",
     "Stage": "Warning",
-    "Price": 2.02,
-    "EMA50": 2.03,
-    "EMA200": 2.0,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "GJS",
-    "Stage": "Warning",
-    "Price": 0.13,
-    "EMA50": 0.13,
-    "EMA200": 0.13,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "SELIC",
-    "Stage": "Warning",
-    "Price": 2.74,
-    "EMA50": 2.77,
-    "EMA200": 2.65,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "KCM",
-    "Stage": "Warning",
-    "Price": 0.26,
-    "EMA50": 0.26,
-    "EMA200": 0.22,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "GLORY",
-    "Stage": "Warning",
-    "Price": 1.06,
-    "EMA50": 1.07,
-    "EMA200": 0.95,
-    "Bar_Count": 10,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "KOOL",
-    "Stage": "Warning",
-    "Price": 0.29,
-    "EMA50": 0.29,
-    "EMA200": 0.28,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "CSR",
-    "Stage": "Warning",
-    "Price": 71.75,
-    "EMA50": 72.06,
-    "EMA200": 70.42,
-    "Bar_Count": 4,
-    "ADTV(MB)": 0.2
+    "Price": 17.0,
+    "EMA50": 17.05,
+    "EMA200": 16.13,
+    "Bar_Count": 7,
+    "ADTV(MB)": 0.1
   },
   {
     "Ticker": "PMTA",
@@ -5913,15 +5958,6 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "CHARAN",
-    "Stage": "Warning",
-    "Price": 17.0,
-    "EMA50": 17.05,
-    "EMA200": 16.13,
-    "Bar_Count": 7,
-    "ADTV(MB)": 0.1
-  },
-  {
     "Ticker": "UPOIC",
     "Stage": "Warning",
     "Price": 6.85,
@@ -5929,6 +5965,15 @@
     "EMA200": 6.62,
     "Bar_Count": 1,
     "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "CHOTI",
+    "Stage": "Warning",
+    "Price": 66.0,
+    "EMA50": 66.32,
+    "EMA200": 65.47,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.0
   },
   {
     "Ticker": "KDH",
@@ -5940,12 +5985,12 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "TU-PF",
+    "Ticker": "MNIT2",
     "Stage": "Warning",
-    "Price": 1.13,
-    "EMA50": 1.17,
-    "EMA200": 1.1,
-    "Bar_Count": 3,
+    "Price": 4.96,
+    "EMA50": 4.98,
+    "EMA200": 4.86,
+    "Bar_Count": 7,
     "ADTV(MB)": 0.0
   },
   {
@@ -5958,21 +6003,12 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "CHOTI",
+    "Ticker": "TU-PF",
     "Stage": "Warning",
-    "Price": 66.0,
-    "EMA50": 66.32,
-    "EMA200": 65.47,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "MNIT2",
-    "Stage": "Warning",
-    "Price": 4.96,
-    "EMA50": 4.98,
-    "EMA200": 4.86,
-    "Bar_Count": 7,
+    "Price": 1.13,
+    "EMA50": 1.17,
+    "EMA200": 1.1,
+    "Bar_Count": 3,
     "ADTV(MB)": 0.0
   },
   {
@@ -6075,20 +6111,20 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "TCOAT",
-    "Stage": "Distribution",
-    "Price": 26.0,
-    "EMA50": 26.94,
-    "EMA200": 26.12,
-    "Bar_Count": 4,
-    "ADTV(MB)": 0.0
-  },
-  {
     "Ticker": "PG",
     "Stage": "Distribution",
     "Price": 6.4,
     "EMA50": 6.6,
     "EMA200": 6.59,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "TCOAT",
+    "Stage": "Distribution",
+    "Price": 26.0,
+    "EMA50": 26.94,
+    "EMA200": 26.12,
     "Bar_Count": 4,
     "ADTV(MB)": 0.0
   },
@@ -6210,21 +6246,21 @@
     "ADTV(MB)": 8.6
   },
   {
-    "Ticker": "MGI",
-    "Stage": "Bear",
-    "Price": 5.7,
-    "EMA50": 5.74,
-    "EMA200": 6.3,
-    "Bar_Count": 1,
-    "ADTV(MB)": 6.7
-  },
-  {
     "Ticker": "MAJOR",
     "Stage": "Bear",
     "Price": 6.7,
     "EMA50": 6.86,
     "EMA200": 7.33,
     "Bar_Count": 2,
+    "ADTV(MB)": 6.7
+  },
+  {
+    "Ticker": "MGI",
+    "Stage": "Bear",
+    "Price": 5.7,
+    "EMA50": 5.74,
+    "EMA200": 6.3,
+    "Bar_Count": 1,
     "ADTV(MB)": 6.7
   },
   {
@@ -6426,12 +6462,12 @@
     "ADTV(MB)": 0.9
   },
   {
-    "Ticker": "SAFE",
+    "Ticker": "DOD",
     "Stage": "Bear",
-    "Price": 5.6,
-    "EMA50": 5.72,
-    "EMA200": 6.2,
-    "Bar_Count": 2,
+    "Price": 1.16,
+    "EMA50": 1.39,
+    "EMA200": 1.59,
+    "Bar_Count": 41,
     "ADTV(MB)": 0.8
   },
   {
@@ -6444,12 +6480,12 @@
     "ADTV(MB)": 0.8
   },
   {
-    "Ticker": "DOD",
+    "Ticker": "SAFE",
     "Stage": "Bear",
-    "Price": 1.16,
-    "EMA50": 1.39,
-    "EMA200": 1.59,
-    "Bar_Count": 41,
+    "Price": 5.6,
+    "EMA50": 5.72,
+    "EMA200": 6.2,
+    "Bar_Count": 2,
     "ADTV(MB)": 0.8
   },
   {
@@ -6460,6 +6496,33 @@
     "EMA200": 2.6,
     "Bar_Count": 1,
     "ADTV(MB)": 0.8
+  },
+  {
+    "Ticker": "ATP30",
+    "Stage": "Bear",
+    "Price": 0.79,
+    "EMA50": 0.82,
+    "EMA200": 0.83,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.7
+  },
+  {
+    "Ticker": "HANN",
+    "Stage": "Bear",
+    "Price": 0.86,
+    "EMA50": 0.9,
+    "EMA200": 1.02,
+    "Bar_Count": 34,
+    "ADTV(MB)": 0.7
+  },
+  {
+    "Ticker": "NTV",
+    "Stage": "Bear",
+    "Price": 19.0,
+    "EMA50": 19.3,
+    "EMA200": 21.28,
+    "Bar_Count": 57,
+    "ADTV(MB)": 0.7
   },
   {
     "Ticker": "PSGC",
@@ -6480,48 +6543,12 @@
     "ADTV(MB)": 0.7
   },
   {
-    "Ticker": "NTV",
+    "Ticker": "PLANET",
     "Stage": "Bear",
-    "Price": 19.0,
-    "EMA50": 19.3,
-    "EMA200": 21.28,
-    "Bar_Count": 57,
-    "ADTV(MB)": 0.7
-  },
-  {
-    "Ticker": "HANN",
-    "Stage": "Bear",
-    "Price": 0.86,
-    "EMA50": 0.9,
-    "EMA200": 1.02,
-    "Bar_Count": 34,
-    "ADTV(MB)": 0.7
-  },
-  {
-    "Ticker": "ATP30",
-    "Stage": "Bear",
-    "Price": 0.79,
-    "EMA50": 0.82,
-    "EMA200": 0.83,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.7
-  },
-  {
-    "Ticker": "SOLAR",
-    "Stage": "Bear",
-    "Price": 0.22,
-    "EMA50": 0.25,
-    "EMA200": 0.27,
-    "Bar_Count": 21,
-    "ADTV(MB)": 0.6
-  },
-  {
-    "Ticker": "SKIN",
-    "Stage": "Bear",
-    "Price": 0.9,
-    "EMA50": 0.94,
-    "EMA200": 1.3,
-    "Bar_Count": 4,
+    "Price": 0.57,
+    "EMA50": 0.67,
+    "EMA200": 0.79,
+    "Bar_Count": 18,
     "ADTV(MB)": 0.6
   },
   {
@@ -6534,30 +6561,30 @@
     "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "PLANET",
+    "Ticker": "SKIN",
     "Stage": "Bear",
-    "Price": 0.57,
-    "EMA50": 0.67,
-    "EMA200": 0.79,
-    "Bar_Count": 18,
+    "Price": 0.9,
+    "EMA50": 0.94,
+    "EMA200": 1.3,
+    "Bar_Count": 4,
     "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "TMI",
+    "Ticker": "SOLAR",
     "Stage": "Bear",
-    "Price": 0.47,
-    "EMA50": 0.48,
-    "EMA200": 0.51,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.5
+    "Price": 0.22,
+    "EMA50": 0.25,
+    "EMA200": 0.27,
+    "Bar_Count": 21,
+    "ADTV(MB)": 0.6
   },
   {
-    "Ticker": "RS",
+    "Ticker": "CRANE",
     "Stage": "Bear",
-    "Price": 0.13,
-    "EMA50": 0.14,
-    "EMA200": 0.33,
-    "Bar_Count": 47,
+    "Price": 0.37,
+    "EMA50": 0.39,
+    "EMA200": 0.41,
+    "Bar_Count": 22,
     "ADTV(MB)": 0.5
   },
   {
@@ -6567,15 +6594,6 @@
     "EMA50": 0.2,
     "EMA200": 0.29,
     "Bar_Count": 93,
-    "ADTV(MB)": 0.5
-  },
-  {
-    "Ticker": "CRANE",
-    "Stage": "Bear",
-    "Price": 0.37,
-    "EMA50": 0.39,
-    "EMA200": 0.41,
-    "Bar_Count": 22,
     "ADTV(MB)": 0.5
   },
   {
@@ -6597,30 +6615,30 @@
     "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "WGE",
+    "Ticker": "RS",
     "Stage": "Bear",
-    "Price": 0.71,
-    "EMA50": 0.72,
-    "EMA200": 0.75,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.4
+    "Price": 0.13,
+    "EMA50": 0.14,
+    "EMA200": 0.33,
+    "Bar_Count": 47,
+    "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "YONG",
+    "Ticker": "TMI",
     "Stage": "Bear",
-    "Price": 0.7,
-    "EMA50": 0.72,
-    "EMA200": 0.74,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.4
+    "Price": 0.47,
+    "EMA50": 0.48,
+    "EMA200": 0.51,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.5
   },
   {
-    "Ticker": "WORK",
+    "Ticker": "ADD",
     "Stage": "Bear",
-    "Price": 3.48,
-    "EMA50": 3.5,
-    "EMA200": 3.83,
-    "Bar_Count": 3,
+    "Price": 3.28,
+    "EMA50": 3.28,
+    "EMA200": 3.29,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.4
   },
   {
@@ -6633,6 +6651,42 @@
     "ADTV(MB)": 0.4
   },
   {
+    "Ticker": "WGE",
+    "Stage": "Bear",
+    "Price": 0.71,
+    "EMA50": 0.72,
+    "EMA200": 0.75,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "WORK",
+    "Stage": "Bear",
+    "Price": 3.48,
+    "EMA50": 3.5,
+    "EMA200": 3.83,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "WSOL",
+    "Stage": "Bear",
+    "Price": 0.03,
+    "EMA50": 0.1,
+    "EMA200": 0.25,
+    "Bar_Count": 66,
+    "ADTV(MB)": 0.4
+  },
+  {
+    "Ticker": "YONG",
+    "Stage": "Bear",
+    "Price": 0.7,
+    "EMA50": 0.72,
+    "EMA200": 0.74,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.4
+  },
+  {
     "Ticker": "ZAA",
     "Stage": "Bear",
     "Price": 1.69,
@@ -6642,84 +6696,12 @@
     "ADTV(MB)": 0.4
   },
   {
-    "Ticker": "ADD",
-    "Stage": "Bear",
-    "Price": 3.28,
-    "EMA50": 3.28,
-    "EMA200": 3.29,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.4
-  },
-  {
-    "Ticker": "TCMC",
-    "Stage": "Bear",
-    "Price": 0.29,
-    "EMA50": 0.31,
-    "EMA200": 0.35,
-    "Bar_Count": 11,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "WINDOW",
-    "Stage": "Bear",
-    "Price": 0.73,
-    "EMA50": 0.73,
-    "EMA200": 0.74,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "JCK",
+    "Ticker": "AJA",
     "Stage": "Bear",
     "Price": 0.12,
-    "EMA50": 0.13,
-    "EMA200": 0.14,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "THIP",
-    "Stage": "Bear",
-    "Price": 21.0,
-    "EMA50": 21.04,
-    "EMA200": 21.94,
-    "Bar_Count": 54,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "PPPM",
-    "Stage": "Bear",
-    "Price": 0.22,
-    "EMA50": 0.22,
-    "EMA200": 0.29,
-    "Bar_Count": 56,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "SMD100",
-    "Stage": "Bear",
-    "Price": 1.15,
-    "EMA50": 1.23,
-    "EMA200": 1.92,
-    "Bar_Count": 201,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "PLE",
-    "Stage": "Bear",
-    "Price": 0.09,
-    "EMA50": 0.1,
+    "EMA50": 0.14,
     "EMA200": 0.15,
-    "Bar_Count": 84,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "CPH",
-    "Stage": "Bear",
-    "Price": 7.7,
-    "EMA50": 7.8,
-    "EMA200": 7.91,
-    "Bar_Count": 5,
+    "Bar_Count": 49,
     "ADTV(MB)": 0.3
   },
   {
@@ -6732,12 +6714,21 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "EFORL",
+    "Ticker": "CMR",
     "Stage": "Bear",
-    "Price": 0.12,
-    "EMA50": 0.13,
-    "EMA200": 0.14,
-    "Bar_Count": 3,
+    "Price": 1.26,
+    "EMA50": 1.28,
+    "EMA200": 1.32,
+    "Bar_Count": 33,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "CPH",
+    "Stage": "Bear",
+    "Price": 7.7,
+    "EMA50": 7.8,
+    "EMA200": 7.91,
+    "Bar_Count": 5,
     "ADTV(MB)": 0.3
   },
   {
@@ -6750,48 +6741,12 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "SKN",
-    "Stage": "Bear",
-    "Price": 5.3,
-    "EMA50": 5.44,
-    "EMA200": 5.7,
-    "Bar_Count": 10,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "CMR",
-    "Stage": "Bear",
-    "Price": 1.26,
-    "EMA50": 1.28,
-    "EMA200": 1.32,
-    "Bar_Count": 33,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "AJA",
+    "Ticker": "EFORL",
     "Stage": "Bear",
     "Price": 0.12,
-    "EMA50": 0.14,
-    "EMA200": 0.15,
-    "Bar_Count": 49,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "PROS",
-    "Stage": "Bear",
-    "Price": 0.18,
-    "EMA50": 0.19,
-    "EMA200": 0.34,
-    "Bar_Count": 101,
-    "ADTV(MB)": 0.3
-  },
-  {
-    "Ticker": "INGRS",
-    "Stage": "Bear",
-    "Price": 0.09,
-    "EMA50": 0.23,
-    "EMA200": 0.28,
-    "Bar_Count": 10,
+    "EMA50": 0.13,
+    "EMA200": 0.14,
+    "Bar_Count": 3,
     "ADTV(MB)": 0.3
   },
   {
@@ -6804,93 +6759,102 @@
     "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "MTW",
+    "Ticker": "INGRS",
     "Stage": "Bear",
-    "Price": 0.78,
-    "EMA50": 0.79,
-    "EMA200": 0.86,
-    "Bar_Count": 19,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "THREL",
-    "Stage": "Bear",
-    "Price": 0.98,
-    "EMA50": 1.0,
-    "EMA200": 1.07,
-    "Bar_Count": 11,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "PF",
-    "Stage": "Bear",
-    "Price": 0.04,
-    "EMA50": 0.05,
-    "EMA200": 0.06,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "THMUI",
-    "Stage": "Bear",
-    "Price": 0.31,
-    "EMA50": 0.31,
-    "EMA200": 0.32,
-    "Bar_Count": 7,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "ETE",
-    "Stage": "Bear",
-    "Price": 0.57,
-    "EMA50": 0.57,
-    "EMA200": 0.61,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "SNPS",
-    "Stage": "Bear",
-    "Price": 4.5,
-    "EMA50": 4.51,
-    "EMA200": 4.53,
-    "Bar_Count": 15,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "NCL",
-    "Stage": "Bear",
-    "Price": 0.17,
-    "EMA50": 0.19,
-    "EMA200": 0.23,
+    "Price": 0.09,
+    "EMA50": 0.23,
+    "EMA200": 0.28,
     "Bar_Count": 10,
-    "ADTV(MB)": 0.2
+    "ADTV(MB)": 0.3
   },
   {
-    "Ticker": "GFC",
+    "Ticker": "JCK",
     "Stage": "Bear",
-    "Price": 2.26,
-    "EMA50": 2.44,
-    "EMA200": 2.93,
-    "Bar_Count": 63,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "SA",
-    "Stage": "Bear",
-    "Price": 7.05,
-    "EMA50": 7.12,
-    "EMA200": 7.17,
-    "Bar_Count": 20,
-    "ADTV(MB)": 0.2
-  },
-  {
-    "Ticker": "READY",
-    "Stage": "Bear",
-    "Price": 3.0,
-    "EMA50": 3.02,
-    "EMA200": 3.13,
+    "Price": 0.12,
+    "EMA50": 0.13,
+    "EMA200": 0.14,
     "Bar_Count": 1,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "PLE",
+    "Stage": "Bear",
+    "Price": 0.09,
+    "EMA50": 0.1,
+    "EMA200": 0.15,
+    "Bar_Count": 84,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "PPPM",
+    "Stage": "Bear",
+    "Price": 0.22,
+    "EMA50": 0.22,
+    "EMA200": 0.29,
+    "Bar_Count": 56,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "PROS",
+    "Stage": "Bear",
+    "Price": 0.18,
+    "EMA50": 0.19,
+    "EMA200": 0.34,
+    "Bar_Count": 101,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "SKN",
+    "Stage": "Bear",
+    "Price": 5.3,
+    "EMA50": 5.44,
+    "EMA200": 5.7,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "SMD100",
+    "Stage": "Bear",
+    "Price": 1.15,
+    "EMA50": 1.23,
+    "EMA200": 1.92,
+    "Bar_Count": 201,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "TCMC",
+    "Stage": "Bear",
+    "Price": 0.29,
+    "EMA50": 0.31,
+    "EMA200": 0.35,
+    "Bar_Count": 11,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "THIP",
+    "Stage": "Bear",
+    "Price": 21.0,
+    "EMA50": 21.04,
+    "EMA200": 21.94,
+    "Bar_Count": 54,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "WINDOW",
+    "Stage": "Bear",
+    "Price": 0.73,
+    "EMA50": 0.73,
+    "EMA200": 0.74,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.3
+  },
+  {
+    "Ticker": "A5",
+    "Stage": "Bear",
+    "Price": 1.82,
+    "EMA50": 1.83,
+    "EMA200": 1.86,
+    "Bar_Count": 8,
     "ADTV(MB)": 0.2
   },
   {
@@ -6903,30 +6867,30 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "SPTX",
+    "Ticker": "ETE",
     "Stage": "Bear",
-    "Price": 0.01,
-    "EMA50": 0.01,
-    "EMA200": 0.01,
-    "Bar_Count": 167,
+    "Price": 0.57,
+    "EMA50": 0.57,
+    "EMA200": 0.61,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "YGG",
+    "Ticker": "GCAP",
     "Stage": "Bear",
-    "Price": 0.18,
-    "EMA50": 0.2,
-    "EMA200": 0.31,
-    "Bar_Count": 53,
+    "Price": 0.25,
+    "EMA50": 0.26,
+    "EMA200": 0.28,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "SENX",
+    "Ticker": "GFC",
     "Stage": "Bear",
-    "Price": 0.21,
-    "EMA50": 0.22,
-    "EMA200": 0.23,
-    "Bar_Count": 4,
+    "Price": 2.26,
+    "EMA50": 2.44,
+    "EMA200": 2.93,
+    "Bar_Count": 63,
     "ADTV(MB)": 0.2
   },
   {
@@ -6939,11 +6903,38 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "GCAP",
+    "Ticker": "META",
     "Stage": "Bear",
-    "Price": 0.25,
-    "EMA50": 0.26,
-    "EMA200": 0.28,
+    "Price": 0.02,
+    "EMA50": 0.03,
+    "EMA200": 0.05,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "MTW",
+    "Stage": "Bear",
+    "Price": 0.78,
+    "EMA50": 0.79,
+    "EMA200": 0.86,
+    "Bar_Count": 19,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "NCL",
+    "Stage": "Bear",
+    "Price": 0.17,
+    "EMA50": 0.19,
+    "EMA200": 0.23,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "PF",
+    "Stage": "Bear",
+    "Price": 0.04,
+    "EMA50": 0.05,
+    "EMA200": 0.06,
     "Bar_Count": 1,
     "ADTV(MB)": 0.2
   },
@@ -6957,21 +6948,21 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "META",
+    "Ticker": "READY",
     "Stage": "Bear",
-    "Price": 0.02,
-    "EMA50": 0.03,
-    "EMA200": 0.05,
-    "Bar_Count": 10,
+    "Price": 3.0,
+    "EMA50": 3.02,
+    "EMA200": 3.13,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "A5",
+    "Ticker": "SA",
     "Stage": "Bear",
-    "Price": 1.82,
-    "EMA50": 1.83,
-    "EMA200": 1.86,
-    "Bar_Count": 8,
+    "Price": 7.05,
+    "EMA50": 7.12,
+    "EMA200": 7.17,
+    "Bar_Count": 20,
     "ADTV(MB)": 0.2
   },
   {
@@ -6984,48 +6975,102 @@
     "ADTV(MB)": 0.2
   },
   {
-    "Ticker": "FANCY",
+    "Ticker": "SENX",
     "Stage": "Bear",
-    "Price": 0.25,
-    "EMA50": 0.28,
-    "EMA200": 0.3,
-    "Bar_Count": 13,
+    "Price": 0.21,
+    "EMA50": 0.22,
+    "EMA200": 0.23,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "SNPS",
+    "Stage": "Bear",
+    "Price": 4.5,
+    "EMA50": 4.51,
+    "EMA200": 4.53,
+    "Bar_Count": 15,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "SPTX",
+    "Stage": "Bear",
+    "Price": 0.01,
+    "EMA50": 0.01,
+    "EMA200": 0.01,
+    "Bar_Count": 167,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "THMUI",
+    "Stage": "Bear",
+    "Price": 0.31,
+    "EMA50": 0.31,
+    "EMA200": 0.32,
+    "Bar_Count": 7,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "THREL",
+    "Stage": "Bear",
+    "Price": 0.98,
+    "EMA50": 1.0,
+    "EMA200": 1.07,
+    "Bar_Count": 11,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "TTCL",
+    "Stage": "Bear",
+    "Price": 0.08,
+    "EMA50": 0.1,
+    "EMA200": 0.39,
+    "Bar_Count": 156,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "YGG",
+    "Stage": "Bear",
+    "Price": 0.18,
+    "EMA50": 0.2,
+    "EMA200": 0.31,
+    "Bar_Count": 53,
+    "ADTV(MB)": 0.2
+  },
+  {
+    "Ticker": "ABM",
+    "Stage": "Bear",
+    "Price": 0.48,
+    "EMA50": 0.5,
+    "EMA200": 0.58,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "TRITN",
+    "Ticker": "AE",
     "Stage": "Bear",
-    "Price": 0.02,
+    "Price": 0.1,
+    "EMA50": 0.1,
+    "EMA200": 0.16,
+    "Bar_Count": 76,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "AKS",
+    "Stage": "Bear",
+    "Price": 0.01,
     "EMA50": 0.02,
     "EMA200": 0.03,
-    "Bar_Count": 4,
+    "Bar_Count": 30,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "XYZ",
+    "Ticker": "APCS",
     "Stage": "Bear",
-    "Price": 0.27,
-    "EMA50": 0.31,
-    "EMA200": 0.5,
-    "Bar_Count": 192,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "KTIS",
-    "Stage": "Bear",
-    "Price": 1.83,
-    "EMA50": 1.86,
-    "EMA200": 1.98,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "QDC",
-    "Stage": "Bear",
-    "Price": 0.07,
-    "EMA50": 0.09,
-    "EMA200": 0.18,
-    "Bar_Count": 44,
+    "Price": 1.32,
+    "EMA50": 1.4,
+    "EMA200": 1.42,
+    "Bar_Count": 5,
     "ADTV(MB)": 0.1
   },
   {
@@ -7038,57 +7083,12 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "SAAM",
+    "Ticker": "CH",
     "Stage": "Bear",
-    "Price": 4.66,
-    "EMA50": 4.72,
-    "EMA200": 5.02,
-    "Bar_Count": 66,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "PTC",
-    "Stage": "Bear",
-    "Price": 0.59,
-    "EMA50": 0.59,
-    "EMA200": 0.66,
-    "Bar_Count": 11,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "PEACE",
-    "Stage": "Bear",
-    "Price": 1.49,
-    "EMA50": 1.55,
-    "EMA200": 1.74,
-    "Bar_Count": 70,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "SCI",
-    "Stage": "Bear",
-    "Price": 0.94,
-    "EMA50": 0.94,
-    "EMA200": 0.96,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "GRAND",
-    "Stage": "Bear",
-    "Price": 0.02,
-    "EMA50": 0.02,
-    "EMA200": 0.03,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "STI",
-    "Stage": "Bear",
-    "Price": 1.69,
-    "EMA50": 1.71,
-    "EMA200": 1.83,
-    "Bar_Count": 4,
+    "Price": 1.47,
+    "EMA50": 1.5,
+    "EMA200": 1.61,
+    "Bar_Count": 98,
     "ADTV(MB)": 0.1
   },
   {
@@ -7101,12 +7101,264 @@
     "ADTV(MB)": 0.1
   },
   {
+    "Ticker": "CHO",
+    "Stage": "Bear",
+    "Price": 0.02,
+    "EMA50": 0.04,
+    "EMA200": 0.07,
+    "Bar_Count": 109,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "CM",
+    "Stage": "Bear",
+    "Price": 1.52,
+    "EMA50": 1.55,
+    "EMA200": 1.6,
+    "Bar_Count": 29,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "CPANEL",
+    "Stage": "Bear",
+    "Price": 1.2,
+    "EMA50": 1.29,
+    "EMA200": 1.79,
+    "Bar_Count": 87,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "DCON",
+    "Stage": "Bear",
+    "Price": 0.18,
+    "EMA50": 0.19,
+    "EMA200": 0.22,
+    "Bar_Count": 40,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "DIMET",
+    "Stage": "Bear",
+    "Price": 0.06,
+    "EMA50": 0.06,
+    "EMA200": 0.07,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "FANCY",
+    "Stage": "Bear",
+    "Price": 0.25,
+    "EMA50": 0.28,
+    "EMA200": 0.3,
+    "Bar_Count": 13,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "FTI",
+    "Stage": "Bear",
+    "Price": 1.78,
+    "EMA50": 1.8,
+    "EMA200": 1.8,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "GRAMMY",
+    "Stage": "Bear",
+    "Price": 2.94,
+    "EMA50": 3.04,
+    "EMA200": 3.78,
+    "Bar_Count": 170,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "GRAND",
+    "Stage": "Bear",
+    "Price": 0.02,
+    "EMA50": 0.02,
+    "EMA200": 0.03,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "GTV",
+    "Stage": "Bear",
+    "Price": 0.02,
+    "EMA50": 0.03,
+    "EMA200": 0.04,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "ISSARA",
+    "Stage": "Bear",
+    "Price": 6.5,
+    "EMA50": 6.63,
+    "EMA200": 6.83,
+    "Bar_Count": 19,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "KC",
+    "Stage": "Bear",
+    "Price": 0.02,
+    "EMA50": 0.02,
+    "EMA200": 0.03,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "KTIS",
+    "Stage": "Bear",
+    "Price": 1.83,
+    "EMA50": 1.86,
+    "EMA200": 1.98,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "MILL",
+    "Stage": "Bear",
+    "Price": 0.01,
+    "EMA50": 0.03,
+    "EMA200": 0.06,
+    "Bar_Count": 132,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "MVP",
+    "Stage": "Bear",
+    "Price": 0.06,
+    "EMA50": 0.07,
+    "EMA200": 0.21,
+    "Bar_Count": 156,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "NAM",
+    "Stage": "Bear",
+    "Price": 3.38,
+    "EMA50": 3.49,
+    "EMA200": 3.68,
+    "Bar_Count": 53,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "NAT",
+    "Stage": "Bear",
+    "Price": 1.75,
+    "EMA50": 1.84,
+    "EMA200": 2.37,
+    "Bar_Count": 105,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "PANEL",
+    "Stage": "Bear",
+    "Price": 1.2,
+    "EMA50": 1.2,
+    "EMA200": 1.24,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "PATO",
+    "Stage": "Bear",
+    "Price": 6.1,
+    "EMA50": 6.19,
+    "EMA200": 6.51,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "PEACE",
+    "Stage": "Bear",
+    "Price": 1.49,
+    "EMA50": 1.55,
+    "EMA200": 1.74,
+    "Bar_Count": 70,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "PEER",
+    "Stage": "Bear",
+    "Price": 0.09,
+    "EMA50": 0.09,
+    "EMA200": 0.11,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "PERM",
+    "Stage": "Bear",
+    "Price": 0.24,
+    "EMA50": 0.24,
+    "EMA200": 0.27,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "PPP",
+    "Stage": "Bear",
+    "Price": 0.74,
+    "EMA50": 0.79,
+    "EMA200": 0.9,
+    "Bar_Count": 30,
+    "ADTV(MB)": 0.1
+  },
+  {
     "Ticker": "PRIME",
     "Stage": "Bear",
     "Price": 0.05,
     "EMA50": 0.05,
     "EMA200": 0.07,
     "Bar_Count": 2,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "PTC",
+    "Stage": "Bear",
+    "Price": 0.59,
+    "EMA50": 0.59,
+    "EMA200": 0.66,
+    "Bar_Count": 11,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "QDC",
+    "Stage": "Bear",
+    "Price": 0.07,
+    "EMA50": 0.09,
+    "EMA200": 0.18,
+    "Bar_Count": 44,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "RML",
+    "Stage": "Bear",
+    "Price": 0.09,
+    "EMA50": 0.1,
+    "EMA200": 0.12,
+    "Bar_Count": 17,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "SAAM",
+    "Stage": "Bear",
+    "Price": 4.66,
+    "EMA50": 4.72,
+    "EMA200": 5.02,
+    "Bar_Count": 66,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "SCI",
+    "Stage": "Bear",
+    "Price": 0.94,
+    "EMA50": 0.94,
+    "EMA200": 0.96,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.1
   },
   {
@@ -7119,11 +7371,47 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "DIMET",
+    "Ticker": "SDC",
     "Stage": "Bear",
-    "Price": 0.06,
-    "EMA50": 0.06,
-    "EMA200": 0.07,
+    "Price": 0.02,
+    "EMA50": 0.02,
+    "EMA200": 0.03,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "SFT",
+    "Stage": "Bear",
+    "Price": 1.41,
+    "EMA50": 1.47,
+    "EMA200": 1.75,
+    "Bar_Count": 148,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "SKE",
+    "Stage": "Bear",
+    "Price": 0.18,
+    "EMA50": 0.18,
+    "EMA200": 0.19,
+    "Bar_Count": 8,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "SQ",
+    "Stage": "Bear",
+    "Price": 0.2,
+    "EMA50": 0.21,
+    "EMA200": 0.32,
+    "Bar_Count": 4,
+    "ADTV(MB)": 0.1
+  },
+  {
+    "Ticker": "STI",
+    "Stage": "Bear",
+    "Price": 1.69,
+    "EMA50": 1.71,
+    "EMA200": 1.83,
     "Bar_Count": 4,
     "ADTV(MB)": 0.1
   },
@@ -7137,147 +7425,12 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "MILL",
-    "Stage": "Bear",
-    "Price": 0.01,
-    "EMA50": 0.03,
-    "EMA200": 0.06,
-    "Bar_Count": 132,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "CHO",
-    "Stage": "Bear",
-    "Price": 0.02,
-    "EMA50": 0.04,
-    "EMA200": 0.07,
-    "Bar_Count": 109,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "SDC",
-    "Stage": "Bear",
-    "Price": 0.02,
-    "EMA50": 0.02,
-    "EMA200": 0.03,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "TVDH",
-    "Stage": "Bear",
-    "Price": 0.05,
-    "EMA50": 0.05,
-    "EMA200": 0.07,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "PATO",
-    "Stage": "Bear",
-    "Price": 6.1,
-    "EMA50": 6.19,
-    "EMA200": 6.51,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "TWZ",
-    "Stage": "Bear",
-    "Price": 0.01,
-    "EMA50": 0.01,
-    "EMA200": 0.02,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "CPANEL",
-    "Stage": "Bear",
-    "Price": 1.2,
-    "EMA50": 1.29,
-    "EMA200": 1.79,
-    "Bar_Count": 87,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "FTI",
-    "Stage": "Bear",
-    "Price": 1.78,
-    "EMA50": 1.8,
-    "EMA200": 1.8,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "CH",
-    "Stage": "Bear",
-    "Price": 1.47,
-    "EMA50": 1.5,
-    "EMA200": 1.61,
-    "Bar_Count": 98,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "SFT",
-    "Stage": "Bear",
-    "Price": 1.41,
-    "EMA50": 1.47,
-    "EMA200": 1.75,
-    "Bar_Count": 148,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "CM",
-    "Stage": "Bear",
-    "Price": 1.52,
-    "EMA50": 1.55,
-    "EMA200": 1.6,
-    "Bar_Count": 29,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "SQ",
-    "Stage": "Bear",
-    "Price": 0.2,
-    "EMA50": 0.21,
-    "EMA200": 0.32,
-    "Bar_Count": 4,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "GRAMMY",
-    "Stage": "Bear",
-    "Price": 2.94,
-    "EMA50": 3.04,
-    "EMA200": 3.78,
-    "Bar_Count": 170,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "GTV",
-    "Stage": "Bear",
-    "Price": 0.02,
-    "EMA50": 0.03,
-    "EMA200": 0.04,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
     "Ticker": "TGPRO",
     "Stage": "Bear",
     "Price": 0.03,
     "EMA50": 0.03,
     "EMA200": 0.04,
     "Bar_Count": 2,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "AE",
-    "Stage": "Bear",
-    "Price": 0.1,
-    "EMA50": 0.1,
-    "EMA200": 0.16,
-    "Bar_Count": 76,
     "ADTV(MB)": 0.1
   },
   {
@@ -7290,65 +7443,38 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "PPP",
+    "Ticker": "TRITN",
     "Stage": "Bear",
-    "Price": 0.74,
-    "EMA50": 0.79,
-    "EMA200": 0.9,
-    "Bar_Count": 30,
+    "Price": 0.02,
+    "EMA50": 0.02,
+    "EMA200": 0.03,
+    "Bar_Count": 4,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "PANEL",
+    "Ticker": "TSR",
     "Stage": "Bear",
-    "Price": 1.2,
-    "EMA50": 1.2,
-    "EMA200": 1.24,
-    "Bar_Count": 10,
+    "Price": 0.04,
+    "EMA50": 0.08,
+    "EMA200": 0.15,
+    "Bar_Count": 64,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "APCS",
+    "Ticker": "TVDH",
     "Stage": "Bear",
-    "Price": 1.32,
-    "EMA50": 1.4,
-    "EMA200": 1.42,
-    "Bar_Count": 5,
+    "Price": 0.05,
+    "EMA50": 0.05,
+    "EMA200": 0.07,
+    "Bar_Count": 6,
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "ABM",
+    "Ticker": "TWZ",
     "Stage": "Bear",
-    "Price": 0.48,
-    "EMA50": 0.5,
-    "EMA200": 0.58,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "SKE",
-    "Stage": "Bear",
-    "Price": 0.18,
-    "EMA50": 0.18,
-    "EMA200": 0.19,
-    "Bar_Count": 8,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "MVP",
-    "Stage": "Bear",
-    "Price": 0.06,
-    "EMA50": 0.07,
-    "EMA200": 0.21,
-    "Bar_Count": 156,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "PEER",
-    "Stage": "Bear",
-    "Price": 0.09,
-    "EMA50": 0.09,
-    "EMA200": 0.11,
+    "Price": 0.01,
+    "EMA50": 0.01,
+    "EMA200": 0.02,
     "Bar_Count": 1,
     "ADTV(MB)": 0.1
   },
@@ -7362,94 +7488,13 @@
     "ADTV(MB)": 0.1
   },
   {
-    "Ticker": "DCON",
+    "Ticker": "XYZ",
     "Stage": "Bear",
-    "Price": 0.18,
-    "EMA50": 0.19,
-    "EMA200": 0.22,
-    "Bar_Count": 40,
+    "Price": 0.27,
+    "EMA50": 0.31,
+    "EMA200": 0.5,
+    "Bar_Count": 192,
     "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "NAT",
-    "Stage": "Bear",
-    "Price": 1.75,
-    "EMA50": 1.84,
-    "EMA200": 2.37,
-    "Bar_Count": 105,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "ISSARA",
-    "Stage": "Bear",
-    "Price": 6.5,
-    "EMA50": 6.63,
-    "EMA200": 6.83,
-    "Bar_Count": 19,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "NAM",
-    "Stage": "Bear",
-    "Price": 3.38,
-    "EMA50": 3.49,
-    "EMA200": 3.68,
-    "Bar_Count": 53,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "KC",
-    "Stage": "Bear",
-    "Price": 0.02,
-    "EMA50": 0.02,
-    "EMA200": 0.03,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "AKS",
-    "Stage": "Bear",
-    "Price": 0.01,
-    "EMA50": 0.02,
-    "EMA200": 0.03,
-    "Bar_Count": 30,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "RML",
-    "Stage": "Bear",
-    "Price": 0.09,
-    "EMA50": 0.1,
-    "EMA200": 0.12,
-    "Bar_Count": 17,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "PERM",
-    "Stage": "Bear",
-    "Price": 0.24,
-    "EMA50": 0.24,
-    "EMA200": 0.27,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.1
-  },
-  {
-    "Ticker": "B52",
-    "Stage": "Bear",
-    "Price": 0.25,
-    "EMA50": 0.25,
-    "EMA200": 0.29,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "MANRIN",
-    "Stage": "Bear",
-    "Price": 21.0,
-    "EMA50": 21.76,
-    "EMA200": 22.74,
-    "Bar_Count": 26,
-    "ADTV(MB)": 0.0
   },
   {
     "Ticker": "A",
@@ -7458,33 +7503,6 @@
     "EMA50": 3.24,
     "EMA200": 4.19,
     "Bar_Count": 111,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "FMT",
-    "Stage": "Bear",
-    "Price": 19.5,
-    "EMA50": 19.75,
-    "EMA200": 21.64,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "NPK",
-    "Stage": "Bear",
-    "Price": 12.9,
-    "EMA50": 12.93,
-    "EMA200": 12.97,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "COMAN",
-    "Stage": "Bear",
-    "Price": 0.51,
-    "EMA50": 0.52,
-    "EMA200": 0.56,
-    "Bar_Count": 6,
     "ADTV(MB)": 0.0
   },
   {
@@ -7497,21 +7515,219 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "VIBE",
+    "Ticker": "ASIA",
     "Stage": "Bear",
-    "Price": 0.3,
-    "EMA50": 0.34,
-    "EMA200": 0.39,
-    "Bar_Count": 46,
+    "Price": 5.4,
+    "EMA50": 5.4,
+    "EMA200": 5.46,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "TNL",
+    "Ticker": "B52",
     "Stage": "Bear",
-    "Price": 18.9,
-    "EMA50": 20.17,
-    "EMA200": 22.82,
-    "Bar_Count": 67,
+    "Price": 0.25,
+    "EMA50": 0.25,
+    "EMA200": 0.29,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "CEYE",
+    "Stage": "Bear",
+    "Price": 1.13,
+    "EMA50": 1.17,
+    "EMA200": 1.44,
+    "Bar_Count": 127,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "CITY",
+    "Stage": "Bear",
+    "Price": 1.17,
+    "EMA50": 1.19,
+    "EMA200": 1.35,
+    "Bar_Count": 158,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "COMAN",
+    "Stage": "Bear",
+    "Price": 0.51,
+    "EMA50": 0.52,
+    "EMA200": 0.56,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "DHOUSE",
+    "Stage": "Bear",
+    "Price": 0.34,
+    "EMA50": 0.36,
+    "EMA200": 0.4,
+    "Bar_Count": 22,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "EMC",
+    "Stage": "Bear",
+    "Price": 0.01,
+    "EMA50": 0.02,
+    "EMA200": 0.03,
+    "Bar_Count": 57,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "FMT",
+    "Stage": "Bear",
+    "Price": 19.5,
+    "EMA50": 19.75,
+    "EMA200": 21.64,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "FN",
+    "Stage": "Bear",
+    "Price": 0.46,
+    "EMA50": 0.47,
+    "EMA200": 0.49,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "HEALTH",
+    "Stage": "Bear",
+    "Price": 0.38,
+    "EMA50": 0.41,
+    "EMA200": 0.44,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "INSURE",
+    "Stage": "Bear",
+    "Price": 51.0,
+    "EMA50": 54.48,
+    "EMA200": 62.13,
+    "Bar_Count": 100,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "K",
+    "Stage": "Bear",
+    "Price": 0.94,
+    "EMA50": 0.98,
+    "EMA200": 1.03,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "MANRIN",
+    "Stage": "Bear",
+    "Price": 21.0,
+    "EMA50": 21.76,
+    "EMA200": 22.74,
+    "Bar_Count": 26,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "MATCH",
+    "Stage": "Bear",
+    "Price": 0.88,
+    "EMA50": 0.89,
+    "EMA200": 0.95,
+    "Bar_Count": 6,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "NEP",
+    "Stage": "Bear",
+    "Price": 0.19,
+    "EMA50": 0.19,
+    "EMA200": 0.2,
+    "Bar_Count": 14,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "NEW",
+    "Stage": "Bear",
+    "Price": 87.0,
+    "EMA50": 99.9,
+    "EMA200": 104.66,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "NOVA",
+    "Stage": "Bear",
+    "Price": 5.9,
+    "EMA50": 6.93,
+    "EMA200": 7.87,
+    "Bar_Count": 10,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "NPK",
+    "Stage": "Bear",
+    "Price": 12.9,
+    "EMA50": 12.93,
+    "EMA200": 12.97,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "OGC",
+    "Stage": "Bear",
+    "Price": 9.05,
+    "EMA50": 9.27,
+    "EMA200": 9.77,
+    "Bar_Count": 2,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "PDJ",
+    "Stage": "Bear",
+    "Price": 0.96,
+    "EMA50": 0.97,
+    "EMA200": 1.09,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "PRIN",
+    "Stage": "Bear",
+    "Price": 1.34,
+    "EMA50": 1.37,
+    "EMA200": 1.45,
+    "Bar_Count": 3,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "PTECH",
+    "Stage": "Bear",
+    "Price": 1.31,
+    "EMA50": 1.56,
+    "EMA200": 1.69,
+    "Bar_Count": 22,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "SAM",
+    "Stage": "Bear",
+    "Price": 0.1,
+    "EMA50": 0.12,
+    "EMA200": 0.15,
+    "Bar_Count": 93,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "SAWANG",
+    "Stage": "Bear",
+    "Price": 6.5,
+    "EMA50": 6.54,
+    "EMA200": 7.05,
+    "Bar_Count": 1,
     "ADTV(MB)": 0.0
   },
   {
@@ -7533,155 +7749,11 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "INSURE",
-    "Stage": "Bear",
-    "Price": 51.0,
-    "EMA50": 54.48,
-    "EMA200": 62.13,
-    "Bar_Count": 100,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "PRIN",
-    "Stage": "Bear",
-    "Price": 1.34,
-    "EMA50": 1.37,
-    "EMA200": 1.45,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.0
-  },
-  {
     "Ticker": "SST",
     "Stage": "Bear",
     "Price": 1.02,
     "EMA50": 1.02,
     "EMA200": 1.32,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "TKT",
-    "Stage": "Bear",
-    "Price": 0.72,
-    "EMA50": 0.73,
-    "EMA200": 0.79,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "OGC",
-    "Stage": "Bear",
-    "Price": 9.05,
-    "EMA50": 9.27,
-    "EMA200": 9.77,
-    "Bar_Count": 2,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "MATCH",
-    "Stage": "Bear",
-    "Price": 0.88,
-    "EMA50": 0.89,
-    "EMA200": 0.95,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "K",
-    "Stage": "Bear",
-    "Price": 0.94,
-    "EMA50": 0.98,
-    "EMA200": 1.03,
-    "Bar_Count": 6,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "PDJ",
-    "Stage": "Bear",
-    "Price": 0.96,
-    "EMA50": 0.97,
-    "EMA200": 1.09,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "ASIA",
-    "Stage": "Bear",
-    "Price": 5.4,
-    "EMA50": 5.4,
-    "EMA200": 5.46,
-    "Bar_Count": 1,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "SAM",
-    "Stage": "Bear",
-    "Price": 0.1,
-    "EMA50": 0.12,
-    "EMA200": 0.15,
-    "Bar_Count": 93,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "NEP",
-    "Stage": "Bear",
-    "Price": 0.19,
-    "EMA50": 0.19,
-    "EMA200": 0.2,
-    "Bar_Count": 14,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "EMC",
-    "Stage": "Bear",
-    "Price": 0.01,
-    "EMA50": 0.02,
-    "EMA200": 0.03,
-    "Bar_Count": 57,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "CEYE",
-    "Stage": "Bear",
-    "Price": 1.13,
-    "EMA50": 1.17,
-    "EMA200": 1.44,
-    "Bar_Count": 127,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "DHOUSE",
-    "Stage": "Bear",
-    "Price": 0.34,
-    "EMA50": 0.36,
-    "EMA200": 0.4,
-    "Bar_Count": 22,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "FN",
-    "Stage": "Bear",
-    "Price": 0.46,
-    "EMA50": 0.47,
-    "EMA200": 0.49,
-    "Bar_Count": 3,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "NOVA",
-    "Stage": "Bear",
-    "Price": 5.9,
-    "EMA50": 6.93,
-    "EMA200": 7.87,
-    "Bar_Count": 10,
-    "ADTV(MB)": 0.0
-  },
-  {
-    "Ticker": "TWP",
-    "Stage": "Bear",
-    "Price": 1.12,
-    "EMA50": 1.15,
-    "EMA200": 1.16,
     "Bar_Count": 1,
     "ADTV(MB)": 0.0
   },
@@ -7695,12 +7767,21 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "CITY",
+    "Ticker": "TKT",
     "Stage": "Bear",
-    "Price": 1.17,
-    "EMA50": 1.19,
-    "EMA200": 1.35,
-    "Bar_Count": 158,
+    "Price": 0.72,
+    "EMA50": 0.73,
+    "EMA200": 0.79,
+    "Bar_Count": 1,
+    "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "TNL",
+    "Stage": "Bear",
+    "Price": 18.9,
+    "EMA50": 20.17,
+    "EMA200": 22.82,
+    "Bar_Count": 67,
     "ADTV(MB)": 0.0
   },
   {
@@ -7713,21 +7794,93 @@
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "SAWANG",
+    "Ticker": "TWP",
     "Stage": "Bear",
-    "Price": 6.5,
-    "EMA50": 6.54,
-    "EMA200": 7.05,
+    "Price": 1.12,
+    "EMA50": 1.15,
+    "EMA200": 1.16,
     "Bar_Count": 1,
     "ADTV(MB)": 0.0
   },
   {
-    "Ticker": "NEW",
+    "Ticker": "VIBE",
     "Stage": "Bear",
-    "Price": 87.0,
-    "EMA50": 99.9,
-    "EMA200": 104.66,
-    "Bar_Count": 2,
+    "Price": 0.3,
+    "EMA50": 0.34,
+    "EMA200": 0.39,
+    "Bar_Count": 46,
     "ADTV(MB)": 0.0
+  },
+  {
+    "Ticker": "NTF",
+    "Stage": "UNKNOWN",
+    "Price": 13.9,
+    "EMA50": 10.48,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 72.2
+  },
+  {
+    "Ticker": "MRDIYT",
+    "Stage": "UNKNOWN",
+    "Price": 8.75,
+    "EMA50": 8.76,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 42.2
+  },
+  {
+    "Ticker": "ATLAS",
+    "Stage": "UNKNOWN",
+    "Price": 1.82,
+    "EMA50": 1.82,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 21.7
+  },
+  {
+    "Ticker": "88TH",
+    "Stage": "UNKNOWN",
+    "Price": 4.78,
+    "EMA50": 4.89,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 13.8
+  },
+  {
+    "Ticker": "MASTEC",
+    "Stage": "UNKNOWN",
+    "Price": 1.2,
+    "EMA50": 1.12,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 6.2
+  },
+  {
+    "Ticker": "MMM",
+    "Stage": "UNKNOWN",
+    "Price": 2.6,
+    "EMA50": 2.8,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 6.1
+  },
+  {
+    "Ticker": "ONSENS",
+    "Stage": "UNKNOWN",
+    "Price": 1.2,
+    "EMA50": 1.17,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 3.1
+  },
+  {
+    "Ticker": "IDG",
+    "Stage": "UNKNOWN",
+    "Price": 1.41,
+    "EMA50": 1.53,
+    "EMA200": null,
+    "Bar_Count": 0,
+    "ADTV(MB)": 1.2
   }
 ]

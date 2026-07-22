@@ -165,21 +165,6 @@
     "52W_Low": 0.45
   },
   {
-    "Ticker": "INSET",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 4.72,
-    "MA30": 2.93,
-    "MA10": 3.88,
-    "Vol10": 80738713.0,
-    "Slope_4W_%": 14.96,
-    "RS_Rating": 99,
-    "ADTV(MB)": 61.8,
-    "PE_Ratio": 57.49,
-    "ROE": 0.0464,
-    "52W_High": 4.88,
-    "52W_Low": 1.48
-  },
-  {
     "Ticker": "FORTH",
     "Stage": "Stage 2 (Advancing)",
     "Price": 16.6,
@@ -255,6 +240,21 @@
     "52W_Low": 0.29
   },
   {
+    "Ticker": "INSET",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 4.72,
+    "MA30": 2.93,
+    "MA10": 3.88,
+    "Vol10": 80738713.0,
+    "Slope_4W_%": 14.96,
+    "RS_Rating": 98,
+    "ADTV(MB)": 61.8,
+    "PE_Ratio": 57.49,
+    "ROE": 0.0464,
+    "52W_High": 4.88,
+    "52W_Low": 1.48
+  },
+  {
     "Ticker": "CTW",
     "Stage": "Stage 2 (Advancing)",
     "Price": 6.7,
@@ -298,21 +298,6 @@
     "ROE": 0.0696,
     "52W_High": 1.92,
     "52W_Low": 0.7
-  },
-  {
-    "Ticker": "TFG",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 10.2,
-    "MA30": 7.88,
-    "MA10": 9.78,
-    "Vol10": 103095824.0,
-    "Slope_4W_%": 10.78,
-    "RS_Rating": 98,
-    "ADTV(MB)": 210.2,
-    "PE_Ratio": 8.07,
-    "ROE": 0.3651,
-    "52W_High": 11.5,
-    "52W_Low": 3.79
   },
   {
     "Ticker": "CNT",
@@ -405,6 +390,21 @@
     "52W_Low": 0.6
   },
   {
+    "Ticker": "TFG",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 10.2,
+    "MA30": 7.88,
+    "MA10": 9.78,
+    "Vol10": 103095824.0,
+    "Slope_4W_%": 10.78,
+    "RS_Rating": 97,
+    "ADTV(MB)": 210.2,
+    "PE_Ratio": 8.07,
+    "ROE": 0.3651,
+    "52W_High": 11.5,
+    "52W_Low": 3.79
+  },
+  {
     "Ticker": "IRPC",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.3,
@@ -448,21 +448,6 @@
     "ROE": 0.0618,
     "52W_High": 9.1,
     "52W_Low": 4.04
-  },
-  {
-    "Ticker": "SRICHA",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 17.4,
-    "MA30": 14.29,
-    "MA10": 17.77,
-    "Vol10": 5778958.0,
-    "Slope_4W_%": 8.9,
-    "RS_Rating": 97,
-    "ADTV(MB)": 23.6,
-    "PE_Ratio": 5.61,
-    "ROE": 0.626,
-    "52W_High": 22.11,
-    "52W_Low": 7.19
   },
   {
     "Ticker": "ASAP",
@@ -525,21 +510,6 @@
     "52W_Low": 15.58
   },
   {
-    "Ticker": "BAY",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 40.25,
-    "MA30": 30.2,
-    "MA10": 39.5,
-    "Vol10": 16609621.0,
-    "Slope_4W_%": 9.81,
-    "RS_Rating": 96,
-    "ADTV(MB)": 132.8,
-    "PE_Ratio": 9.02,
-    "ROE": 0.0793,
-    "52W_High": 47.5,
-    "52W_Low": 20.66
-  },
-  {
     "Ticker": "SCAP",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.75,
@@ -553,6 +523,21 @@
     "ROE": 0.1002,
     "52W_High": 1.91,
     "52W_Low": 0.89
+  },
+  {
+    "Ticker": "SRICHA",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 17.4,
+    "MA30": 14.29,
+    "MA10": 17.77,
+    "Vol10": 5778958.0,
+    "Slope_4W_%": 8.9,
+    "RS_Rating": 96,
+    "ADTV(MB)": 23.6,
+    "PE_Ratio": 5.61,
+    "ROE": 0.626,
+    "52W_High": 22.11,
+    "52W_Low": 7.19
   },
   {
     "Ticker": "AMATA",
@@ -628,6 +613,21 @@
     "ROE": 0.2135,
     "52W_High": 10.1,
     "52W_Low": 4.1
+  },
+  {
+    "Ticker": "BAY",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 40.25,
+    "MA30": 30.2,
+    "MA10": 39.5,
+    "Vol10": 16609621.0,
+    "Slope_4W_%": 9.81,
+    "RS_Rating": 95,
+    "ADTV(MB)": 132.8,
+    "PE_Ratio": 9.02,
+    "ROE": 0.0793,
+    "52W_High": 47.5,
+    "52W_Low": 20.66
   },
   {
     "Ticker": "SANKO",
@@ -804,7 +804,7 @@
     "Slope_4W_%": 8.66,
     "RS_Rating": 94,
     "ADTV(MB)": 344.1,
-    "PE_Ratio": null,
+    "PE_Ratio": 27.5,
     "ROE": 0.0781,
     "52W_High": 32.0,
     "52W_Low": 14.64
@@ -945,21 +945,6 @@
     "52W_Low": 6.72
   },
   {
-    "Ticker": "SPVI",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 3.42,
-    "MA30": 2.83,
-    "MA10": 3.35,
-    "Vol10": 4614645.0,
-    "Slope_4W_%": 6.49,
-    "RS_Rating": 93,
-    "ADTV(MB)": 3.3,
-    "PE_Ratio": 10.01,
-    "ROE": 0.2133,
-    "52W_High": 3.76,
-    "52W_Low": 1.8
-  },
-  {
     "Ticker": "GPSC",
     "Stage": "Stage 2 (Advancing)",
     "Price": 54.5,
@@ -1048,6 +1033,21 @@
     "ROE": 0.1217,
     "52W_High": 5.55,
     "52W_Low": 2.93
+  },
+  {
+    "Ticker": "SPVI",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 3.42,
+    "MA30": 2.83,
+    "MA10": 3.35,
+    "Vol10": 4614645.0,
+    "Slope_4W_%": 6.49,
+    "RS_Rating": 92,
+    "ADTV(MB)": 3.3,
+    "PE_Ratio": 10.01,
+    "ROE": 0.2133,
+    "52W_High": 3.76,
+    "52W_Low": 1.8
   },
   {
     "Ticker": "PIS",
@@ -1239,7 +1239,7 @@
     "Slope_4W_%": 4.77,
     "RS_Rating": 91,
     "ADTV(MB)": 707.5,
-    "PE_Ratio": null,
+    "PE_Ratio": 12.52,
     "ROE": 0.09,
     "52W_High": 3.0,
     "52W_Low": 1.73
@@ -1425,21 +1425,6 @@
     "52W_Low": 4.08
   },
   {
-    "Ticker": "BCP",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 44.75,
-    "MA30": 34.72,
-    "MA10": 36.1,
-    "Vol10": 33181120.0,
-    "Slope_4W_%": 5.65,
-    "RS_Rating": 89,
-    "ADTV(MB)": 254.6,
-    "PE_Ratio": 9.48,
-    "ROE": 0.1026,
-    "52W_High": 45.5,
-    "52W_Low": 23.53
-  },
-  {
     "Ticker": "ROJNA",
     "Stage": "Stage 2 (Advancing)",
     "Price": 6.2,
@@ -1453,6 +1438,21 @@
     "ROE": 0.1263,
     "52W_High": 6.35,
     "52W_Low": 3.85
+  },
+  {
+    "Ticker": "BCP",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 44.75,
+    "MA30": 34.72,
+    "MA10": 36.1,
+    "Vol10": 33181120.0,
+    "Slope_4W_%": 5.65,
+    "RS_Rating": 89,
+    "ADTV(MB)": 254.6,
+    "PE_Ratio": 9.48,
+    "ROE": 0.1026,
+    "52W_High": 45.5,
+    "52W_Low": 23.53
   },
   {
     "Ticker": "ITEL",
@@ -1470,6 +1470,21 @@
     "52W_Low": 1.08
   },
   {
+    "Ticker": "B-WORK",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 6.6,
+    "MA30": 5.6,
+    "MA10": 6.29,
+    "Vol10": 743680.0,
+    "Slope_4W_%": 4.85,
+    "RS_Rating": 89,
+    "ADTV(MB)": 1.0,
+    "PE_Ratio": 9.45,
+    "ROE": 0.0763,
+    "52W_High": 6.6,
+    "52W_Low": 3.76
+  },
+  {
     "Ticker": "SCL",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.67,
@@ -1479,8 +1494,8 @@
     "Slope_4W_%": 4.63,
     "RS_Rating": 89,
     "ADTV(MB)": 0.6,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 7.26,
+    "ROE": 0.1407,
     "52W_High": 1.71,
     "52W_Low": 1.01
   },
@@ -1650,21 +1665,6 @@
     "52W_Low": 5.5
   },
   {
-    "Ticker": "B-WORK",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 6.6,
-    "MA30": 5.6,
-    "MA10": 6.29,
-    "Vol10": 743680.0,
-    "Slope_4W_%": 4.85,
-    "RS_Rating": 88,
-    "ADTV(MB)": 1.0,
-    "PE_Ratio": 9.45,
-    "ROE": 0.0763,
-    "52W_High": 6.6,
-    "52W_Low": 3.76
-  },
-  {
     "Ticker": "MCOT",
     "Stage": "Stage 2 (Advancing)",
     "Price": 5.75,
@@ -1815,6 +1815,21 @@
     "52W_Low": 1.51
   },
   {
+    "Ticker": "STELLA",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.26,
+    "MA30": 0.21,
+    "MA10": 0.27,
+    "Vol10": 90209730.0,
+    "Slope_4W_%": 7.33,
+    "RS_Rating": 86,
+    "ADTV(MB)": 5.3,
+    "PE_Ratio": null,
+    "ROE": -0.4485,
+    "52W_High": 0.34,
+    "52W_Low": 0.12
+  },
+  {
     "Ticker": "NYT",
     "Stage": "Stage 2 (Advancing)",
     "Price": 4.04,
@@ -1935,21 +1950,6 @@
     "52W_Low": 0.25
   },
   {
-    "Ticker": "STELLA",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.26,
-    "MA30": 0.21,
-    "MA10": 0.27,
-    "Vol10": 90209730.0,
-    "Slope_4W_%": 7.33,
-    "RS_Rating": 85,
-    "ADTV(MB)": 5.3,
-    "PE_Ratio": null,
-    "ROE": -0.4485,
-    "52W_High": 0.34,
-    "52W_Low": 0.12
-  },
-  {
     "Ticker": "WIIK",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.15,
@@ -1995,6 +1995,21 @@
     "52W_Low": 11.42
   },
   {
+    "Ticker": "ADVICE",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 7.2,
+    "MA30": 5.9,
+    "MA10": 6.55,
+    "Vol10": 19508952.0,
+    "Slope_4W_%": 3.96,
+    "RS_Rating": 85,
+    "ADTV(MB)": 27.6,
+    "PE_Ratio": 13.97,
+    "ROE": 0.3026,
+    "52W_High": 7.45,
+    "52W_Low": 4.57
+  },
+  {
     "Ticker": "TMILL",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.8,
@@ -2004,8 +2019,8 @@
     "Slope_4W_%": 3.76,
     "RS_Rating": 85,
     "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 17.5,
+    "ROE": 0.0606,
     "52W_High": 2.92,
     "52W_Low": 1.76
   },
@@ -2055,6 +2070,21 @@
     "52W_Low": 0.03
   },
   {
+    "Ticker": "EVER",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.07,
+    "MA30": 0.06,
+    "MA10": 0.07,
+    "Vol10": 19505840.0,
+    "Slope_4W_%": 7.36,
+    "RS_Rating": 84,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": null,
+    "ROE": -0.0964,
+    "52W_High": 0.13,
+    "52W_Low": 0.03
+  },
+  {
     "Ticker": "XO",
     "Stage": "Stage 2 (Advancing)",
     "Price": 19.1,
@@ -2083,21 +2113,6 @@
     "ROE": 0.1098,
     "52W_High": 4.46,
     "52W_Low": 2.78
-  },
-  {
-    "Ticker": "ADVICE",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 7.2,
-    "MA30": 5.9,
-    "MA10": 6.55,
-    "Vol10": 19508952.0,
-    "Slope_4W_%": 3.96,
-    "RS_Rating": 84,
-    "ADTV(MB)": 27.6,
-    "PE_Ratio": 13.97,
-    "ROE": 0.3026,
-    "52W_High": 7.45,
-    "52W_Low": 4.57
   },
   {
     "Ticker": "GC",
@@ -2190,21 +2205,6 @@
     "52W_Low": 3.08
   },
   {
-    "Ticker": "EVER",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.07,
-    "MA30": 0.06,
-    "MA10": 0.07,
-    "Vol10": 19505840.0,
-    "Slope_4W_%": 7.36,
-    "RS_Rating": 83,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": -0.0964,
-    "52W_High": 0.13,
-    "52W_Low": 0.03
-  },
-  {
     "Ticker": "CAZ",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.3,
@@ -2280,6 +2280,21 @@
     "52W_Low": 0.9
   },
   {
+    "Ticker": "BAFS",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 11.1,
+    "MA30": 8.87,
+    "MA10": 9.76,
+    "Vol10": 2962111.0,
+    "Slope_4W_%": 3.68,
+    "RS_Rating": 83,
+    "ADTV(MB)": 5.9,
+    "PE_Ratio": 32.1,
+    "ROE": 0.0493,
+    "52W_High": 11.6,
+    "52W_Low": 7.64
+  },
+  {
     "Ticker": "J",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.9,
@@ -2325,19 +2340,19 @@
     "52W_Low": 10.92
   },
   {
-    "Ticker": "BAFS",
+    "Ticker": "SWC",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 11.1,
-    "MA30": 8.87,
-    "MA10": 9.76,
-    "Vol10": 2962111.0,
-    "Slope_4W_%": 3.68,
+    "Price": 4.64,
+    "MA30": 4.2,
+    "MA10": 4.55,
+    "Vol10": 39490.0,
+    "Slope_4W_%": 3.77,
     "RS_Rating": 82,
-    "ADTV(MB)": 5.9,
-    "PE_Ratio": 32.1,
-    "ROE": 0.0493,
-    "52W_High": 11.6,
-    "52W_Low": 7.64
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": 14.34,
+    "ROE": 0.2024,
+    "52W_High": 4.68,
+    "52W_Low": 2.82
   },
   {
     "Ticker": "VS",
@@ -2425,7 +2440,7 @@
     "RS_Rating": 82,
     "ADTV(MB)": 0.6,
     "PE_Ratio": null,
-    "ROE": null,
+    "ROE": -0.1175,
     "52W_High": 1.15,
     "52W_Low": 0.44
   },
@@ -2520,21 +2535,6 @@
     "52W_Low": 0.76
   },
   {
-    "Ticker": "SWC",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 4.64,
-    "MA30": 4.2,
-    "MA10": 4.55,
-    "Vol10": 39490.0,
-    "Slope_4W_%": 3.77,
-    "RS_Rating": 81,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": 14.34,
-    "ROE": 0.2024,
-    "52W_High": 4.68,
-    "52W_Low": 2.82
-  },
-  {
     "Ticker": "PSL",
     "Stage": "Stage 2 (Advancing)",
     "Price": 8.35,
@@ -2578,6 +2578,21 @@
     "ROE": 0.0349,
     "52W_High": 13.0,
     "52W_Low": 7.35
+  },
+  {
+    "Ticker": "PLANB",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 5.45,
+    "MA30": 4.25,
+    "MA10": 4.66,
+    "Vol10": 180566037.0,
+    "Slope_4W_%": 4.39,
+    "RS_Rating": 80,
+    "ADTV(MB)": 180.3,
+    "PE_Ratio": 21.94,
+    "ROE": 0.104,
+    "52W_High": 5.85,
+    "52W_Low": 2.97
   },
   {
     "Ticker": "2S",
@@ -2655,6 +2670,21 @@
     "52W_Low": 0.41
   },
   {
+    "Ticker": "SCP",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 9.05,
+    "MA30": 8.31,
+    "MA10": 9.0,
+    "Vol10": 714137.0,
+    "Slope_4W_%": 3.01,
+    "RS_Rating": 80,
+    "ADTV(MB)": 1.3,
+    "PE_Ratio": 8.29,
+    "ROE": 0.131,
+    "52W_High": 9.1,
+    "52W_Low": 5.57
+  },
+  {
     "Ticker": "APO",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.16,
@@ -2698,21 +2728,6 @@
     "ROE": 0.1687,
     "52W_High": 23.5,
     "52W_Low": 12.47
-  },
-  {
-    "Ticker": "PLANB",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 5.45,
-    "MA30": 4.25,
-    "MA10": 4.66,
-    "Vol10": 180566037.0,
-    "Slope_4W_%": 4.39,
-    "RS_Rating": 79,
-    "ADTV(MB)": 180.3,
-    "PE_Ratio": 21.94,
-    "ROE": 0.104,
-    "52W_High": 5.85,
-    "52W_Low": 2.97
   },
   {
     "Ticker": "SCC",
@@ -2760,21 +2775,6 @@
     "52W_Low": 17.29
   },
   {
-    "Ticker": "SCP",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 9.05,
-    "MA30": 8.31,
-    "MA10": 9.0,
-    "Vol10": 714137.0,
-    "Slope_4W_%": 3.01,
-    "RS_Rating": 79,
-    "ADTV(MB)": 1.3,
-    "PE_Ratio": 8.29,
-    "ROE": 0.131,
-    "52W_High": 9.1,
-    "52W_Low": 5.57
-  },
-  {
     "Ticker": "MBK",
     "Stage": "Stage 2 (Advancing)",
     "Price": 21.3,
@@ -2788,6 +2788,21 @@
     "ROE": 0.1704,
     "52W_High": 22.2,
     "52W_Low": 15.14
+  },
+  {
+    "Ticker": "TISCO",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 129.5,
+    "MA30": 111.49,
+    "MA10": 119.2,
+    "Vol10": 17682410.0,
+    "Slope_4W_%": 2.82,
+    "RS_Rating": 79,
+    "ADTV(MB)": 438.4,
+    "PE_Ratio": 15.34,
+    "ROE": 0.1634,
+    "52W_High": 133.0,
+    "52W_Low": 90.58
   },
   {
     "Ticker": "FSMART",
@@ -2865,6 +2880,21 @@
     "52W_Low": 23.06
   },
   {
+    "Ticker": "ALLY",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 5.25,
+    "MA30": 4.48,
+    "MA10": 4.88,
+    "Vol10": 4376640.0,
+    "Slope_4W_%": 3.22,
+    "RS_Rating": 78,
+    "ADTV(MB)": 4.4,
+    "PE_Ratio": 7.25,
+    "ROE": 0.0734,
+    "52W_High": 5.5,
+    "52W_Low": 3.85
+  },
+  {
     "Ticker": "D",
     "Stage": "Stage 2 (Advancing)",
     "Price": 3.06,
@@ -2895,21 +2925,6 @@
     "52W_Low": 131.1
   },
   {
-    "Ticker": "TISCO",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 129.5,
-    "MA30": 111.49,
-    "MA10": 119.2,
-    "Vol10": 17682410.0,
-    "Slope_4W_%": 2.82,
-    "RS_Rating": 78,
-    "ADTV(MB)": 438.4,
-    "PE_Ratio": null,
-    "ROE": 0.1634,
-    "52W_High": 133.0,
-    "52W_Low": 90.58
-  },
-  {
     "Ticker": "CENTEL",
     "Stage": "Stage 2 (Advancing)",
     "Price": 37.75,
@@ -2934,7 +2949,7 @@
     "Slope_4W_%": 2.02,
     "RS_Rating": 78,
     "ADTV(MB)": 0.0,
-    "PE_Ratio": null,
+    "PE_Ratio": 35.33,
     "ROE": 0.0209,
     "52W_High": 2.55,
     "52W_Low": 1.22
@@ -2970,6 +2985,21 @@
     "52W_Low": 6.16
   },
   {
+    "Ticker": "BPS",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.58,
+    "MA30": 0.45,
+    "MA10": 0.51,
+    "Vol10": 3255640.0,
+    "Slope_4W_%": 3.83,
+    "RS_Rating": 77,
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": 89.23,
+    "ROE": 0.009,
+    "52W_High": 0.62,
+    "52W_Low": 0.38
+  },
+  {
     "Ticker": "CPW",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.5,
@@ -2998,21 +3028,6 @@
     "ROE": 0.1458,
     "52W_High": 2.96,
     "52W_Low": 2.04
-  },
-  {
-    "Ticker": "ALLY",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 5.25,
-    "MA30": 4.48,
-    "MA10": 4.88,
-    "Vol10": 4376640.0,
-    "Slope_4W_%": 3.22,
-    "RS_Rating": 77,
-    "ADTV(MB)": 4.4,
-    "PE_Ratio": 7.25,
-    "ROE": 0.0734,
-    "52W_High": 5.5,
-    "52W_Low": 3.85
   },
   {
     "Ticker": "MOONG",
@@ -3045,6 +3060,36 @@
     "52W_Low": 29.81
   },
   {
+    "Ticker": "TOA",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 15.4,
+    "MA30": 13.44,
+    "MA10": 13.84,
+    "Vol10": 24832404.0,
+    "Slope_4W_%": 2.4,
+    "RS_Rating": 77,
+    "ADTV(MB)": 68.8,
+    "PE_Ratio": 9.52,
+    "ROE": 0.2144,
+    "52W_High": 15.9,
+    "52W_Low": 11.06
+  },
+  {
+    "Ticker": "UBA",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 1.13,
+    "MA30": 1.0,
+    "MA10": 1.1,
+    "Vol10": 2177525.0,
+    "Slope_4W_%": 4.09,
+    "RS_Rating": 76,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": 9.48,
+    "ROE": 0.1082,
+    "52W_High": 1.18,
+    "52W_Low": 0.79
+  },
+  {
     "Ticker": "MCA",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.32,
@@ -3060,19 +3105,19 @@
     "52W_Low": 0.88
   },
   {
-    "Ticker": "BPS",
+    "Ticker": "PTTEP",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 0.58,
-    "MA30": 0.45,
-    "MA10": 0.51,
-    "Vol10": 3255640.0,
-    "Slope_4W_%": 3.83,
+    "Price": 148.5,
+    "MA30": 138.34,
+    "MA10": 140.85,
+    "Vol10": 85346312.0,
+    "Slope_4W_%": 3.65,
     "RS_Rating": 76,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": 89.23,
-    "ROE": 0.009,
-    "52W_High": 0.62,
-    "52W_Low": 0.38
+    "ADTV(MB)": 2463.0,
+    "PE_Ratio": 10.61,
+    "ROE": 0.1045,
+    "52W_High": 164.0,
+    "52W_Low": 100.47
   },
   {
     "Ticker": "PAP",
@@ -3120,21 +3165,6 @@
     "52W_Low": 8.85
   },
   {
-    "Ticker": "TOA",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 15.4,
-    "MA30": 13.44,
-    "MA10": 13.84,
-    "Vol10": 24832404.0,
-    "Slope_4W_%": 2.4,
-    "RS_Rating": 76,
-    "ADTV(MB)": 68.8,
-    "PE_Ratio": 9.52,
-    "ROE": 0.2144,
-    "52W_High": 15.9,
-    "52W_Low": 11.06
-  },
-  {
     "Ticker": "ICHI",
     "Stage": "Stage 2 (Advancing)",
     "Price": 14.8,
@@ -3180,21 +3210,6 @@
     "52W_Low": 0.3
   },
   {
-    "Ticker": "UBA",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 1.13,
-    "MA30": 1.0,
-    "MA10": 1.1,
-    "Vol10": 2177525.0,
-    "Slope_4W_%": 4.09,
-    "RS_Rating": 75,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": 9.48,
-    "ROE": 0.1082,
-    "52W_High": 1.18,
-    "52W_Low": 0.79
-  },
-  {
     "Ticker": "SCG",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.88,
@@ -3208,21 +3223,6 @@
     "ROE": -0.0553,
     "52W_High": 3.22,
     "52W_Low": 2.0
-  },
-  {
-    "Ticker": "PTTEP",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 148.5,
-    "MA30": 138.34,
-    "MA10": 140.85,
-    "Vol10": 85346312.0,
-    "Slope_4W_%": 3.65,
-    "RS_Rating": 75,
-    "ADTV(MB)": 2463.0,
-    "PE_Ratio": 10.61,
-    "ROE": 0.1045,
-    "52W_High": 164.0,
-    "52W_Low": 100.47
   },
   {
     "Ticker": "ICN",
@@ -3255,6 +3255,21 @@
     "52W_Low": 9.41
   },
   {
+    "Ticker": "ADVANC",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 377.0,
+    "MA30": 353.6,
+    "MA10": 364.8,
+    "Vol10": 33764928.0,
+    "Slope_4W_%": 3.45,
+    "RS_Rating": 75,
+    "ADTV(MB)": 2563.4,
+    "PE_Ratio": 22.07,
+    "ROE": 0.4811,
+    "52W_High": 387.0,
+    "52W_Low": 259.44
+  },
+  {
     "Ticker": "PTT",
     "Stage": "Stage 2 (Advancing)",
     "Price": 39.25,
@@ -3285,6 +3300,21 @@
     "52W_Low": 9.2
   },
   {
+    "Ticker": "PRG",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 9.95,
+    "MA30": 8.98,
+    "MA10": 9.32,
+    "Vol10": 112370.0,
+    "Slope_4W_%": 1.47,
+    "RS_Rating": 75,
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": 12.64,
+    "ROE": 0.0641,
+    "52W_High": 10.0,
+    "52W_Low": 6.48
+  },
+  {
     "Ticker": "MUD",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.86,
@@ -3298,21 +3328,6 @@
     "ROE": -0.5495,
     "52W_High": 1.11,
     "52W_Low": 0.36
-  },
-  {
-    "Ticker": "ADVANC",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 377.0,
-    "MA30": 353.6,
-    "MA10": 364.8,
-    "Vol10": 33764928.0,
-    "Slope_4W_%": 3.45,
-    "RS_Rating": 74,
-    "ADTV(MB)": 2563.4,
-    "PE_Ratio": 22.07,
-    "ROE": 0.4811,
-    "52W_High": 387.0,
-    "52W_Low": 259.44
   },
   {
     "Ticker": "SCB",
@@ -3360,6 +3375,36 @@
     "52W_Low": 1.21
   },
   {
+    "Ticker": "YUASA",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 14.5,
+    "MA30": 13.79,
+    "MA10": 14.27,
+    "Vol10": 56630.0,
+    "Slope_4W_%": 2.39,
+    "RS_Rating": 74,
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": 6.3,
+    "ROE": 0.1804,
+    "52W_High": 14.7,
+    "52W_Low": 9.58
+  },
+  {
+    "Ticker": "BANPU",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 5.75,
+    "MA30": 5.53,
+    "MA10": 5.6,
+    "Vol10": 186693240.0,
+    "Slope_4W_%": 2.31,
+    "RS_Rating": 74,
+    "ADTV(MB)": 219.8,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
+  },
+  {
     "Ticker": "MEGA",
     "Stage": "Stage 2 (Advancing)",
     "Price": 38.25,
@@ -3373,21 +3418,6 @@
     "ROE": 0.1985,
     "52W_High": 39.1,
     "52W_Low": 25.44
-  },
-  {
-    "Ticker": "PRG",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 9.95,
-    "MA30": 8.98,
-    "MA10": 9.32,
-    "Vol10": 112370.0,
-    "Slope_4W_%": 1.47,
-    "RS_Rating": 74,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": 12.64,
-    "ROE": 0.0641,
-    "52W_High": 10.0,
-    "52W_Low": 6.48
   },
   {
     "Ticker": "UBE",
@@ -3480,34 +3510,19 @@
     "52W_Low": 0.98
   },
   {
-    "Ticker": "YUASA",
+    "Ticker": "AIMIRT",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 14.5,
-    "MA30": 13.79,
-    "MA10": 14.27,
-    "Vol10": 56630.0,
-    "Slope_4W_%": 2.39,
+    "Price": 12.3,
+    "MA30": 11.08,
+    "MA10": 11.7,
+    "Vol10": 1963582.0,
+    "Slope_4W_%": 2.34,
     "RS_Rating": 73,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": 6.3,
-    "ROE": 0.1804,
-    "52W_High": 14.7,
-    "52W_Low": 9.58
-  },
-  {
-    "Ticker": "BANPU",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 5.75,
-    "MA30": 5.53,
-    "MA10": 5.6,
-    "Vol10": 190444299.0,
-    "Slope_4W_%": 2.31,
-    "RS_Rating": 73,
-    "ADTV(MB)": 217.3,
-    "PE_Ratio": 0.0,
-    "ROE": 0.0,
-    "52W_High": 0.0,
-    "52W_Low": 0.0
+    "ADTV(MB)": 4.7,
+    "PE_Ratio": 13.86,
+    "ROE": 0.0718,
+    "52W_High": 12.5,
+    "52W_Low": 8.74
   },
   {
     "Ticker": "UV",
@@ -3615,21 +3630,6 @@
     "52W_Low": 16.86
   },
   {
-    "Ticker": "AIMIRT",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 12.3,
-    "MA30": 11.08,
-    "MA10": 11.7,
-    "Vol10": 1963582.0,
-    "Slope_4W_%": 2.34,
-    "RS_Rating": 72,
-    "ADTV(MB)": 4.7,
-    "PE_Ratio": 13.86,
-    "ROE": 0.0718,
-    "52W_High": 12.5,
-    "52W_Low": 8.74
-  },
-  {
     "Ticker": "BLESS",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.29,
@@ -3643,6 +3643,36 @@
     "ROE": -0.0001,
     "52W_High": 0.37,
     "52W_Low": 0.18
+  },
+  {
+    "Ticker": "AMATAR",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 7.45,
+    "MA30": 6.82,
+    "MA10": 7.36,
+    "Vol10": 232860.0,
+    "Slope_4W_%": 2.23,
+    "RS_Rating": 72,
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": 9.08,
+    "ROE": 0.0806,
+    "52W_High": 7.8,
+    "52W_Low": 5.49
+  },
+  {
+    "Ticker": "SAF",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.42,
+    "MA30": 0.35,
+    "MA10": 0.36,
+    "Vol10": 3713950.0,
+    "Slope_4W_%": 1.17,
+    "RS_Rating": 72,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": null,
+    "ROE": -0.0116,
+    "52W_High": 0.51,
+    "52W_Low": 0.29
   },
   {
     "Ticker": "NUT",
@@ -3675,6 +3705,21 @@
     "52W_Low": 0.25
   },
   {
+    "Ticker": "TRUE",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 14.2,
+    "MA30": 13.2,
+    "MA10": 13.68,
+    "Vol10": 703668331.0,
+    "Slope_4W_%": 3.12,
+    "RS_Rating": 71,
+    "ADTV(MB)": 2020.1,
+    "PE_Ratio": 34.57,
+    "ROE": 0.1801,
+    "52W_High": 14.86,
+    "52W_Low": 9.76
+  },
+  {
     "Ticker": "PACO",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.46,
@@ -3688,36 +3733,6 @@
     "ROE": 0.1188,
     "52W_High": 1.54,
     "52W_Low": 0.99
-  },
-  {
-    "Ticker": "AMATAR",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 7.45,
-    "MA30": 6.82,
-    "MA10": 7.36,
-    "Vol10": 232860.0,
-    "Slope_4W_%": 2.23,
-    "RS_Rating": 71,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": 9.08,
-    "ROE": 0.0806,
-    "52W_High": 7.8,
-    "52W_Low": 5.49
-  },
-  {
-    "Ticker": "EGCO",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 135.5,
-    "MA30": 116.2,
-    "MA10": 122.1,
-    "Vol10": 6592425.0,
-    "Slope_4W_%": 2.21,
-    "RS_Rating": 71,
-    "ADTV(MB)": 165.0,
-    "PE_Ratio": 35.21,
-    "ROE": 0.0194,
-    "52W_High": 138.94,
-    "52W_Low": 99.66
   },
   {
     "Ticker": "CPI",
@@ -3735,6 +3750,36 @@
     "52W_Low": 2.48
   },
   {
+    "Ticker": "EGCO",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 135.5,
+    "MA30": 116.2,
+    "MA10": 122.1,
+    "Vol10": 6592425.0,
+    "Slope_4W_%": 2.21,
+    "RS_Rating": 71,
+    "ADTV(MB)": 165.0,
+    "PE_Ratio": 35.21,
+    "ROE": 0.0194,
+    "52W_High": 138.94,
+    "52W_Low": 99.66
+  },
+  {
+    "Ticker": "KK",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 1.02,
+    "MA30": 0.97,
+    "MA10": 1.04,
+    "Vol10": 2555630.0,
+    "Slope_4W_%": 2.15,
+    "RS_Rating": 71,
+    "ADTV(MB)": 0.7,
+    "PE_Ratio": 6.38,
+    "ROE": 0.1971,
+    "52W_High": 1.43,
+    "52W_Low": 0.59
+  },
+  {
     "Ticker": "SUTHA",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.9,
@@ -3748,21 +3793,6 @@
     "ROE": -0.0007,
     "52W_High": 2.92,
     "52W_Low": 2.2
-  },
-  {
-    "Ticker": "SAF",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.42,
-    "MA30": 0.35,
-    "MA10": 0.36,
-    "Vol10": 3713950.0,
-    "Slope_4W_%": 1.17,
-    "RS_Rating": 71,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": -0.0116,
-    "52W_High": 0.51,
-    "52W_Low": 0.29
   },
   {
     "Ticker": "BE8",
@@ -3780,6 +3810,36 @@
     "52W_Low": 4.07
   },
   {
+    "Ticker": "KCG",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 10.1,
+    "MA30": 9.25,
+    "MA10": 10.03,
+    "Vol10": 3255514.0,
+    "Slope_4W_%": 4.0,
+    "RS_Rating": 70,
+    "ADTV(MB)": 7.0,
+    "PE_Ratio": 10.31,
+    "ROE": 0.1671,
+    "52W_High": 10.8,
+    "52W_Low": 7.35
+  },
+  {
+    "Ticker": "TVO",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 27.25,
+    "MA30": 24.46,
+    "MA10": 26.12,
+    "Vol10": 2988446.0,
+    "Slope_4W_%": 3.44,
+    "RS_Rating": 70,
+    "ADTV(MB)": 16.5,
+    "PE_Ratio": 10.25,
+    "ROE": 0.1993,
+    "52W_High": 27.5,
+    "52W_Low": 20.04
+  },
+  {
     "Ticker": "SPACK",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.41,
@@ -3793,21 +3853,6 @@
     "ROE": 0.0505,
     "52W_High": 1.85,
     "52W_Low": 1.05
-  },
-  {
-    "Ticker": "TRUE",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 14.2,
-    "MA30": 13.2,
-    "MA10": 13.68,
-    "Vol10": 703668331.0,
-    "Slope_4W_%": 3.12,
-    "RS_Rating": 70,
-    "ADTV(MB)": 2020.1,
-    "PE_Ratio": 34.57,
-    "ROE": 0.1801,
-    "52W_High": 14.86,
-    "52W_Low": 9.76
   },
   {
     "Ticker": "ARROW",
@@ -3825,6 +3870,21 @@
     "52W_Low": 4.51
   },
   {
+    "Ticker": "TTA",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 5.15,
+    "MA30": 4.71,
+    "MA10": 4.98,
+    "Vol10": 17763232.0,
+    "Slope_4W_%": 2.69,
+    "RS_Rating": 70,
+    "ADTV(MB)": 18.7,
+    "PE_Ratio": 10.8,
+    "ROE": 0.0282,
+    "52W_High": 5.45,
+    "52W_Low": 3.74
+  },
+  {
     "Ticker": "PHOL",
     "Stage": "Stage 2 (Advancing)",
     "Price": 3.2,
@@ -3838,21 +3898,6 @@
     "ROE": 0.1661,
     "52W_High": 3.26,
     "52W_Low": 2.49
-  },
-  {
-    "Ticker": "KK",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 1.02,
-    "MA30": 0.97,
-    "MA10": 1.04,
-    "Vol10": 2555630.0,
-    "Slope_4W_%": 2.15,
-    "RS_Rating": 70,
-    "ADTV(MB)": 0.7,
-    "PE_Ratio": 6.38,
-    "ROE": 0.1971,
-    "52W_High": 1.43,
-    "52W_Low": 0.59
   },
   {
     "Ticker": "GENCO",
@@ -3900,36 +3945,6 @@
     "52W_Low": 14.4
   },
   {
-    "Ticker": "KCG",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 10.1,
-    "MA30": 9.25,
-    "MA10": 10.03,
-    "Vol10": 3255514.0,
-    "Slope_4W_%": 4.0,
-    "RS_Rating": 69,
-    "ADTV(MB)": 7.0,
-    "PE_Ratio": 10.31,
-    "ROE": 0.1671,
-    "52W_High": 10.8,
-    "52W_Low": 7.35
-  },
-  {
-    "Ticker": "TVO",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 27.25,
-    "MA30": 24.46,
-    "MA10": 26.12,
-    "Vol10": 2988446.0,
-    "Slope_4W_%": 3.44,
-    "RS_Rating": 69,
-    "ADTV(MB)": 16.5,
-    "PE_Ratio": 10.25,
-    "ROE": 0.1993,
-    "52W_High": 27.5,
-    "52W_Low": 20.04
-  },
-  {
     "Ticker": "KLINIQ",
     "Stage": "Stage 2 (Advancing)",
     "Price": 28.0,
@@ -3945,19 +3960,19 @@
     "52W_Low": 19.05
   },
   {
-    "Ticker": "TTA",
+    "Ticker": "AH",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 5.15,
-    "MA30": 4.71,
-    "MA10": 4.98,
-    "Vol10": 17763232.0,
-    "Slope_4W_%": 2.69,
+    "Price": 15.1,
+    "MA30": 13.51,
+    "MA10": 14.28,
+    "Vol10": 2745885.0,
+    "Slope_4W_%": 2.56,
     "RS_Rating": 69,
-    "ADTV(MB)": 18.7,
-    "PE_Ratio": 10.8,
-    "ROE": 0.0282,
-    "52W_High": 5.45,
-    "52W_Low": 3.74
+    "ADTV(MB)": 7.9,
+    "PE_Ratio": 6.86,
+    "ROE": 0.0662,
+    "52W_High": 15.8,
+    "52W_Low": 11.3
   },
   {
     "Ticker": "LHHOTEL",
@@ -3988,6 +4003,21 @@
     "ROE": 0.0958,
     "52W_High": 1.8,
     "52W_Low": 0.96
+  },
+  {
+    "Ticker": "SYNTEC",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 1.89,
+    "MA30": 1.64,
+    "MA10": 1.71,
+    "Vol10": 6336600.0,
+    "Slope_4W_%": 1.72,
+    "RS_Rating": 69,
+    "ADTV(MB)": 2.2,
+    "PE_Ratio": 5.11,
+    "ROE": 0.0945,
+    "52W_High": 1.92,
+    "52W_Low": 1.52
   },
   {
     "Ticker": "S",
@@ -4035,6 +4065,21 @@
     "52W_Low": 0.49
   },
   {
+    "Ticker": "DCC",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 1.48,
+    "MA30": 1.28,
+    "MA10": 1.4,
+    "Vol10": 7446454.0,
+    "Slope_4W_%": 2.98,
+    "RS_Rating": 68,
+    "ADTV(MB)": 2.2,
+    "PE_Ratio": 15.55,
+    "ROE": 0.1205,
+    "52W_High": 1.51,
+    "52W_Low": 1.1
+  },
+  {
     "Ticker": "MTI",
     "Stage": "Stage 2 (Advancing)",
     "Price": 17.8,
@@ -4065,19 +4110,19 @@
     "52W_Low": 9.81
   },
   {
-    "Ticker": "AH",
+    "Ticker": "PCC",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 15.1,
-    "MA30": 13.51,
-    "MA10": 14.28,
-    "Vol10": 2745885.0,
-    "Slope_4W_%": 2.56,
+    "Price": 2.98,
+    "MA30": 2.71,
+    "MA10": 2.94,
+    "Vol10": 4370330.0,
+    "Slope_4W_%": 2.17,
     "RS_Rating": 68,
-    "ADTV(MB)": 7.9,
-    "PE_Ratio": 6.86,
-    "ROE": 0.0662,
-    "52W_High": 15.8,
-    "52W_Low": 11.3
+    "ADTV(MB)": 2.6,
+    "PE_Ratio": 9.08,
+    "ROE": 0.1174,
+    "52W_High": 3.2,
+    "52W_Low": 2.28
   },
   {
     "Ticker": "TTW",
@@ -4095,21 +4140,6 @@
     "52W_Low": 8.24
   },
   {
-    "Ticker": "SYNTEC",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 1.89,
-    "MA30": 1.64,
-    "MA10": 1.71,
-    "Vol10": 6336600.0,
-    "Slope_4W_%": 1.72,
-    "RS_Rating": 68,
-    "ADTV(MB)": 2.2,
-    "PE_Ratio": null,
-    "ROE": null,
-    "52W_High": 1.92,
-    "52W_Low": 1.52
-  },
-  {
     "Ticker": "ROCTEC",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.68,
@@ -4122,6 +4152,36 @@
     "PE_Ratio": 11.6,
     "ROE": 0.1071,
     "52W_High": 0.82,
+    "52W_Low": 0.5
+  },
+  {
+    "Ticker": "TMW",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 62.25,
+    "MA30": 58.2,
+    "MA10": 59.78,
+    "Vol10": 321131.0,
+    "Slope_4W_%": 1.56,
+    "RS_Rating": 68,
+    "ADTV(MB)": 3.9,
+    "PE_Ratio": 4.6,
+    "ROE": 0.145,
+    "52W_High": 63.5,
+    "52W_Low": 47.49
+  },
+  {
+    "Ticker": "ACG",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.73,
+    "MA30": 0.64,
+    "MA10": 0.74,
+    "Vol10": 776351.0,
+    "Slope_4W_%": 4.5,
+    "RS_Rating": 67,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 11.85,
+    "ROE": 0.0504,
+    "52W_High": 0.96,
     "52W_Low": 0.5
   },
   {
@@ -4155,21 +4215,6 @@
     "52W_Low": 1.15
   },
   {
-    "Ticker": "DCC",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 1.48,
-    "MA30": 1.28,
-    "MA10": 1.4,
-    "Vol10": 7446454.0,
-    "Slope_4W_%": 2.98,
-    "RS_Rating": 67,
-    "ADTV(MB)": 2.2,
-    "PE_Ratio": 15.55,
-    "ROE": 0.1205,
-    "52W_High": 1.51,
-    "52W_Low": 1.1
-  },
-  {
     "Ticker": "GGC",
     "Stage": "Stage 2 (Advancing)",
     "Price": 4.36,
@@ -4200,34 +4245,34 @@
     "52W_Low": 1.33
   },
   {
-    "Ticker": "PCC",
+    "Ticker": "TOG",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 2.98,
-    "MA30": 2.71,
-    "MA10": 2.94,
-    "Vol10": 4370330.0,
-    "Slope_4W_%": 2.17,
+    "Price": 7.65,
+    "MA30": 6.73,
+    "MA10": 7.16,
+    "Vol10": 571458.0,
+    "Slope_4W_%": 2.29,
     "RS_Rating": 67,
-    "ADTV(MB)": 2.6,
-    "PE_Ratio": 9.08,
-    "ROE": 0.1174,
-    "52W_High": 3.2,
-    "52W_Low": 2.28
+    "ADTV(MB)": 0.8,
+    "PE_Ratio": 10.71,
+    "ROE": 0.1355,
+    "52W_High": 8.11,
+    "52W_Low": 5.98
   },
   {
-    "Ticker": "TMW",
+    "Ticker": "UTP",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 62.25,
-    "MA30": 58.2,
-    "MA10": 59.78,
-    "Vol10": 321131.0,
-    "Slope_4W_%": 1.56,
+    "Price": 8.35,
+    "MA30": 7.59,
+    "MA10": 8.08,
+    "Vol10": 2522708.0,
+    "Slope_4W_%": 1.89,
     "RS_Rating": 67,
-    "ADTV(MB)": 3.9,
-    "PE_Ratio": 4.6,
-    "ROE": 0.145,
-    "52W_High": 63.5,
-    "52W_Low": 47.49
+    "ADTV(MB)": 4.5,
+    "PE_Ratio": 9.89,
+    "ROE": 0.1119,
+    "52W_High": 8.6,
+    "52W_Low": 6.84
   },
   {
     "Ticker": "SEAOIL",
@@ -4245,19 +4290,19 @@
     "52W_Low": 2.33
   },
   {
-    "Ticker": "ACG",
+    "Ticker": "BTG",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 0.73,
-    "MA30": 0.64,
-    "MA10": 0.74,
-    "Vol10": 776351.0,
-    "Slope_4W_%": 4.5,
+    "Price": 21.1,
+    "MA30": 20.13,
+    "MA10": 20.5,
+    "Vol10": 24094776.0,
+    "Slope_4W_%": 3.33,
     "RS_Rating": 66,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": 11.85,
-    "ROE": 0.0504,
-    "52W_High": 0.96,
-    "52W_Low": 0.5
+    "ADTV(MB)": 101.9,
+    "PE_Ratio": 7.03,
+    "ROE": 0.1869,
+    "52W_High": 25.5,
+    "52W_Low": 14.34
   },
   {
     "Ticker": "INET",
@@ -4284,8 +4329,8 @@
     "Slope_4W_%": 2.62,
     "RS_Rating": 66,
     "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 9.11,
+    "ROE": 0.096,
     "52W_High": 24.9,
     "52W_Low": 18.17
   },
@@ -4305,21 +4350,6 @@
     "52W_Low": 32.75
   },
   {
-    "Ticker": "TOG",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 7.65,
-    "MA30": 6.73,
-    "MA10": 7.16,
-    "Vol10": 571458.0,
-    "Slope_4W_%": 2.29,
-    "RS_Rating": 66,
-    "ADTV(MB)": 0.8,
-    "PE_Ratio": 10.71,
-    "ROE": 0.1355,
-    "52W_High": 8.11,
-    "52W_Low": 5.98
-  },
-  {
     "Ticker": "TQR",
     "Stage": "Stage 2 (Advancing)",
     "Price": 5.55,
@@ -4333,21 +4363,6 @@
     "ROE": 0.1885,
     "52W_High": 5.75,
     "52W_Low": 4.51
-  },
-  {
-    "Ticker": "UTP",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 8.35,
-    "MA30": 7.59,
-    "MA10": 8.08,
-    "Vol10": 2522708.0,
-    "Slope_4W_%": 1.89,
-    "RS_Rating": 66,
-    "ADTV(MB)": 4.5,
-    "PE_Ratio": 9.89,
-    "ROE": 0.1119,
-    "52W_High": 8.6,
-    "52W_Low": 6.84
   },
   {
     "Ticker": "FPT",
@@ -4365,6 +4380,21 @@
     "52W_Low": 5.5
   },
   {
+    "Ticker": "OCC",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 11.0,
+    "MA30": 9.59,
+    "MA10": 9.99,
+    "Vol10": 2690.0,
+    "Slope_4W_%": 1.71,
+    "RS_Rating": 66,
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": null,
+    "ROE": -0.0069,
+    "52W_High": 11.74,
+    "52W_Low": 8.16
+  },
+  {
     "Ticker": "BIOTEC",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.24,
@@ -4378,21 +4408,6 @@
     "ROE": 0.072,
     "52W_High": 0.37,
     "52W_Low": 0.16
-  },
-  {
-    "Ticker": "BTG",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 21.1,
-    "MA30": 20.13,
-    "MA10": 20.5,
-    "Vol10": 24094776.0,
-    "Slope_4W_%": 3.33,
-    "RS_Rating": 65,
-    "ADTV(MB)": 101.9,
-    "PE_Ratio": 7.03,
-    "ROE": 0.1869,
-    "52W_High": 25.5,
-    "52W_Low": 14.34
   },
   {
     "Ticker": "SC",
@@ -4423,6 +4438,21 @@
     "ROE": 0.0301,
     "52W_High": 40.0,
     "52W_Low": 26.0
+  },
+  {
+    "Ticker": "ILINK",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 5.1,
+    "MA30": 4.59,
+    "MA10": 4.93,
+    "Vol10": 3270188.0,
+    "Slope_4W_%": 2.43,
+    "RS_Rating": 65,
+    "ADTV(MB)": 3.3,
+    "PE_Ratio": null,
+    "ROE": -0.0824,
+    "52W_High": 5.3,
+    "52W_Low": 4.08
   },
   {
     "Ticker": "CHIC",
@@ -4470,21 +4500,6 @@
     "52W_Low": 5.55
   },
   {
-    "Ticker": "OCC",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 11.0,
-    "MA30": 9.59,
-    "MA10": 9.99,
-    "Vol10": 2690.0,
-    "Slope_4W_%": 1.71,
-    "RS_Rating": 65,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": null,
-    "ROE": -0.0069,
-    "52W_High": 11.74,
-    "52W_Low": 8.16
-  },
-  {
     "Ticker": "KJL",
     "Stage": "Stage 2 (Advancing)",
     "Price": 6.75,
@@ -4530,21 +4545,6 @@
     "52W_Low": 1.89
   },
   {
-    "Ticker": "ILINK",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 5.1,
-    "MA30": 4.59,
-    "MA10": 4.93,
-    "Vol10": 3270188.0,
-    "Slope_4W_%": 2.43,
-    "RS_Rating": 64,
-    "ADTV(MB)": 3.3,
-    "PE_Ratio": null,
-    "ROE": -0.0824,
-    "52W_High": 5.3,
-    "52W_Low": 4.08
-  },
-  {
     "Ticker": "BOFFICE",
     "Stage": "Stage 2 (Advancing)",
     "Price": 5.55,
@@ -4575,6 +4575,21 @@
     "52W_Low": 4.42
   },
   {
+    "Ticker": "KBS",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 6.05,
+    "MA30": 5.65,
+    "MA10": 5.82,
+    "Vol10": 898723.0,
+    "Slope_4W_%": 1.91,
+    "RS_Rating": 64,
+    "ADTV(MB)": 1.1,
+    "PE_Ratio": 7.24,
+    "ROE": 0.0924,
+    "52W_High": 6.15,
+    "52W_Low": 4.63
+  },
+  {
     "Ticker": "WHABT",
     "Stage": "Stage 2 (Advancing)",
     "Price": 6.4,
@@ -4588,6 +4603,21 @@
     "ROE": 0.0369,
     "52W_High": 6.45,
     "52W_Low": 5.0
+  },
+  {
+    "Ticker": "PIMO",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 1.15,
+    "MA30": 1.03,
+    "MA10": 1.09,
+    "Vol10": 2142960.0,
+    "Slope_4W_%": 1.76,
+    "RS_Rating": 64,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": 9.39,
+    "ROE": 0.0803,
+    "52W_High": 1.18,
+    "52W_Low": 0.94
   },
   {
     "Ticker": "PIN",
@@ -4618,6 +4648,21 @@
     "ROE": -0.1891,
     "52W_High": 0.05,
     "52W_Low": 0.01
+  },
+  {
+    "Ticker": "SMART",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.55,
+    "MA30": 0.53,
+    "MA10": 0.54,
+    "Vol10": 3569663.0,
+    "Slope_4W_%": 3.03,
+    "RS_Rating": 63,
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": 24.23,
+    "ROE": 0.0358,
+    "52W_High": 0.6,
+    "52W_Low": 0.37
   },
   {
     "Ticker": "AKP",
@@ -4665,21 +4710,6 @@
     "52W_Low": 2.94
   },
   {
-    "Ticker": "KBS",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 6.05,
-    "MA30": 5.65,
-    "MA10": 5.82,
-    "Vol10": 898723.0,
-    "Slope_4W_%": 1.91,
-    "RS_Rating": 63,
-    "ADTV(MB)": 1.1,
-    "PE_Ratio": 7.24,
-    "ROE": 0.0924,
-    "52W_High": 6.15,
-    "52W_Low": 4.63
-  },
-  {
     "Ticker": "PDG",
     "Stage": "Stage 2 (Advancing)",
     "Price": 3.16,
@@ -4695,19 +4725,19 @@
     "52W_Low": 2.44
   },
   {
-    "Ticker": "PIMO",
+    "Ticker": "CCP",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 1.15,
-    "MA30": 1.03,
-    "MA10": 1.09,
-    "Vol10": 2142960.0,
-    "Slope_4W_%": 1.76,
+    "Price": 0.27,
+    "MA30": 0.25,
+    "MA10": 0.27,
+    "Vol10": 5448766.0,
+    "Slope_4W_%": 1.04,
     "RS_Rating": 63,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": 9.39,
-    "ROE": 0.0803,
-    "52W_High": 1.18,
-    "52W_Low": 0.94
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": 9.82,
+    "ROE": 0.0489,
+    "52W_High": 0.34,
+    "52W_Low": 0.16
   },
   {
     "Ticker": "TSC",
@@ -4723,21 +4753,6 @@
     "ROE": 0.2337,
     "52W_High": 15.4,
     "52W_Low": 11.83
-  },
-  {
-    "Ticker": "SMART",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.55,
-    "MA30": 0.53,
-    "MA10": 0.54,
-    "Vol10": 3569663.0,
-    "Slope_4W_%": 3.03,
-    "RS_Rating": 62,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": 24.23,
-    "ROE": 0.0358,
-    "52W_High": 0.6,
-    "52W_Low": 0.37
   },
   {
     "Ticker": "I2",
@@ -4800,19 +4815,19 @@
     "52W_Low": 0.67
   },
   {
-    "Ticker": "CCP",
+    "Ticker": "PRAPAT",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 0.27,
-    "MA30": 0.25,
-    "MA10": 0.27,
-    "Vol10": 5448766.0,
-    "Slope_4W_%": 1.04,
+    "Price": 0.8,
+    "MA30": 0.74,
+    "MA10": 0.8,
+    "Vol10": 2346199.0,
+    "Slope_4W_%": 1.71,
     "RS_Rating": 62,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": 9.82,
-    "ROE": 0.0489,
-    "52W_High": 0.34,
-    "52W_Low": 0.16
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": 9.56,
+    "ROE": 0.0631,
+    "52W_High": 1.04,
+    "52W_Low": 0.64
   },
   {
     "Ticker": "PSTC",
@@ -4828,6 +4843,36 @@
     "ROE": -0.8695,
     "52W_High": 0.44,
     "52W_Low": 0.19
+  },
+  {
+    "Ticker": "APP",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 2.66,
+    "MA30": 2.48,
+    "MA10": 2.56,
+    "Vol10": 970801.0,
+    "Slope_4W_%": 2.24,
+    "RS_Rating": 61,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": 8.08,
+    "ROE": 0.208,
+    "52W_High": 2.84,
+    "52W_Low": 1.85
+  },
+  {
+    "Ticker": "BKD",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 1.15,
+    "MA30": 1.06,
+    "MA10": 1.12,
+    "Vol10": 263186.0,
+    "Slope_4W_%": 2.18,
+    "RS_Rating": 61,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 10.06,
+    "ROE": 0.0785,
+    "52W_High": 1.25,
+    "52W_Low": 0.9
   },
   {
     "Ticker": "SKR",
@@ -4890,21 +4935,6 @@
     "52W_Low": 2.04
   },
   {
-    "Ticker": "PRAPAT",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.8,
-    "MA30": 0.74,
-    "MA10": 0.8,
-    "Vol10": 2346199.0,
-    "Slope_4W_%": 1.71,
-    "RS_Rating": 61,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": 9.56,
-    "ROE": 0.0631,
-    "52W_High": 1.04,
-    "52W_Low": 0.64
-  },
-  {
     "Ticker": "AF",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.38,
@@ -4965,19 +4995,19 @@
     "52W_Low": 0.37
   },
   {
-    "Ticker": "APP",
+    "Ticker": "SO",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 2.66,
-    "MA30": 2.48,
-    "MA10": 2.56,
-    "Vol10": 970801.0,
-    "Slope_4W_%": 2.24,
+    "Price": 4.64,
+    "MA30": 4.31,
+    "MA10": 4.64,
+    "Vol10": 157940.0,
+    "Slope_4W_%": 2.46,
     "RS_Rating": 60,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": 8.08,
-    "ROE": 0.208,
-    "52W_High": 2.84,
-    "52W_Low": 1.85
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": 9.61,
+    "ROE": 0.1988,
+    "52W_High": 4.68,
+    "52W_Low": 3.58
   },
   {
     "Ticker": "AIE",
@@ -4992,21 +5022,6 @@
     "PE_Ratio": 26.1,
     "ROE": 0.0284,
     "52W_High": 1.37,
-    "52W_Low": 0.9
-  },
-  {
-    "Ticker": "BKD",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 1.15,
-    "MA30": 1.06,
-    "MA10": 1.12,
-    "Vol10": 263186.0,
-    "Slope_4W_%": 2.18,
-    "RS_Rating": 60,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": 10.06,
-    "ROE": 0.0785,
-    "52W_High": 1.25,
     "52W_Low": 0.9
   },
   {
@@ -5040,6 +5055,36 @@
     "52W_Low": 1.64
   },
   {
+    "Ticker": "CGH",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.55,
+    "MA30": 0.49,
+    "MA10": 0.55,
+    "Vol10": 28931181.0,
+    "Slope_4W_%": 1.44,
+    "RS_Rating": 60,
+    "ADTV(MB)": 3.5,
+    "PE_Ratio": null,
+    "ROE": -0.0269,
+    "52W_High": 0.75,
+    "52W_Low": 0.4
+  },
+  {
+    "Ticker": "TPIPL",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.87,
+    "MA30": 0.77,
+    "MA10": 0.82,
+    "Vol10": 120261820.0,
+    "Slope_4W_%": 3.47,
+    "RS_Rating": 59,
+    "ADTV(MB)": 21.8,
+    "PE_Ratio": 7.82,
+    "ROE": 0.0377,
+    "52W_High": 0.93,
+    "52W_Low": 0.62
+  },
+  {
     "Ticker": "ORN",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.79,
@@ -5055,19 +5100,19 @@
     "52W_Low": 0.58
   },
   {
-    "Ticker": "SO",
+    "Ticker": "S&J",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 4.64,
-    "MA30": 4.31,
-    "MA10": 4.64,
-    "Vol10": 157940.0,
-    "Slope_4W_%": 2.46,
+    "Price": 33.25,
+    "MA30": 32.4,
+    "MA10": 33.12,
+    "Vol10": 3192.0,
+    "Slope_4W_%": 2.4,
     "RS_Rating": 59,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": 9.61,
-    "ROE": 0.1988,
-    "52W_High": 4.68,
-    "52W_Low": 3.58
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 13.46,
+    "ROE": 0.0739,
+    "52W_High": 35.56,
+    "52W_Low": 25.76
   },
   {
     "Ticker": "TPBI",
@@ -5098,21 +5143,6 @@
     "ROE": 0.1583,
     "52W_High": 21.26,
     "52W_Low": 13.28
-  },
-  {
-    "Ticker": "CGH",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.55,
-    "MA30": 0.49,
-    "MA10": 0.55,
-    "Vol10": 28931181.0,
-    "Slope_4W_%": 1.44,
-    "RS_Rating": 59,
-    "ADTV(MB)": 3.5,
-    "PE_Ratio": null,
-    "ROE": -0.0269,
-    "52W_High": 0.75,
-    "52W_Low": 0.4
   },
   {
     "Ticker": "SIAM",
@@ -5154,25 +5184,10 @@
     "Slope_4W_%": 1.03,
     "RS_Rating": 59,
     "ADTV(MB)": 20.1,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 13.33,
+    "ROE": 0.1409,
     "52W_High": 3.6,
     "52W_Low": 2.54
-  },
-  {
-    "Ticker": "TPIPL",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.87,
-    "MA30": 0.77,
-    "MA10": 0.82,
-    "Vol10": 120261820.0,
-    "Slope_4W_%": 3.47,
-    "RS_Rating": 58,
-    "ADTV(MB)": 21.8,
-    "PE_Ratio": 7.82,
-    "ROE": 0.0377,
-    "52W_High": 0.93,
-    "52W_Low": 0.62
   },
   {
     "Ticker": "NCP",
@@ -5188,21 +5203,6 @@
     "ROE": 0.1081,
     "52W_High": 1.13,
     "52W_Low": 0.82
-  },
-  {
-    "Ticker": "S&J",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 33.25,
-    "MA30": 32.4,
-    "MA10": 33.12,
-    "Vol10": 3192.0,
-    "Slope_4W_%": 2.4,
-    "RS_Rating": 58,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": 13.46,
-    "ROE": 0.0739,
-    "52W_High": 35.56,
-    "52W_Low": 25.76
   },
   {
     "Ticker": "PRTR",
@@ -5265,6 +5265,36 @@
     "52W_Low": 13.33
   },
   {
+    "Ticker": "EGATIF",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 6.2,
+    "MA30": 5.88,
+    "MA10": 6.09,
+    "Vol10": 2939525.0,
+    "Slope_4W_%": 1.37,
+    "RS_Rating": 58,
+    "ADTV(MB)": 3.6,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
+  },
+  {
+    "Ticker": "PAF",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.94,
+    "MA30": 0.77,
+    "MA10": 0.89,
+    "Vol10": 12342500.0,
+    "Slope_4W_%": 4.56,
+    "RS_Rating": 57,
+    "ADTV(MB)": 2.4,
+    "PE_Ratio": 22.38,
+    "ROE": 0.0369,
+    "52W_High": 1.16,
+    "52W_Low": 0.57
+  },
+  {
     "Ticker": "PQS",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.89,
@@ -5323,6 +5353,21 @@
     "ROE": 0.0717,
     "52W_High": 1.06,
     "52W_Low": 0.82
+  },
+  {
+    "Ticker": "PMC",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.92,
+    "MA30": 0.83,
+    "MA10": 0.88,
+    "Vol10": 3399781.0,
+    "Slope_4W_%": 1.99,
+    "RS_Rating": 57,
+    "ADTV(MB)": 0.6,
+    "PE_Ratio": 5.86,
+    "ROE": 0.1126,
+    "52W_High": 1.02,
+    "52W_Low": 0.73
   },
   {
     "Ticker": "ARIP",
@@ -5385,34 +5430,34 @@
     "52W_Low": 0.01
   },
   {
-    "Ticker": "PAF",
+    "Ticker": "SVI",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 0.94,
-    "MA30": 0.77,
-    "MA10": 0.89,
-    "Vol10": 12342500.0,
-    "Slope_4W_%": 4.56,
+    "Price": 7.45,
+    "MA30": 7.16,
+    "MA10": 7.41,
+    "Vol10": 8911572.0,
+    "Slope_4W_%": 2.72,
     "RS_Rating": 56,
-    "ADTV(MB)": 2.4,
-    "PE_Ratio": 22.38,
-    "ROE": 0.0369,
-    "52W_High": 1.16,
-    "52W_Low": 0.57
+    "ADTV(MB)": 15.2,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
   },
   {
-    "Ticker": "PMC",
+    "Ticker": "MOSHI",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 0.92,
-    "MA30": 0.83,
-    "MA10": 0.88,
-    "Vol10": 3399781.0,
-    "Slope_4W_%": 1.99,
+    "Price": 38.75,
+    "MA30": 35.33,
+    "MA10": 37.72,
+    "Vol10": 2444885.0,
+    "Slope_4W_%": 2.66,
     "RS_Rating": 56,
-    "ADTV(MB)": 0.6,
-    "PE_Ratio": 5.86,
-    "ROE": 0.1126,
-    "52W_High": 1.02,
-    "52W_Low": 0.73
+    "ADTV(MB)": 18.9,
+    "PE_Ratio": 18.13,
+    "ROE": 0.2612,
+    "52W_High": 41.54,
+    "52W_Low": 29.22
   },
   {
     "Ticker": "DTCENT",
@@ -5520,21 +5565,6 @@
     "52W_Low": 5.22
   },
   {
-    "Ticker": "MOSHI",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 38.75,
-    "MA30": 35.33,
-    "MA10": 37.72,
-    "Vol10": 2444885.0,
-    "Slope_4W_%": 2.66,
-    "RS_Rating": 55,
-    "ADTV(MB)": 18.9,
-    "PE_Ratio": 18.13,
-    "ROE": 0.2612,
-    "52W_High": 41.54,
-    "52W_Low": 29.22
-  },
-  {
     "Ticker": "EA",
     "Stage": "Stage 2 (Advancing)",
     "Price": 3.06,
@@ -5578,6 +5608,21 @@
     "ROE": 0.1948,
     "52W_High": 2.2,
     "52W_Low": 1.83
+  },
+  {
+    "Ticker": "RT",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.29,
+    "MA30": 0.28,
+    "MA10": 0.3,
+    "Vol10": 7378930.0,
+    "Slope_4W_%": 1.46,
+    "RS_Rating": 55,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": 3.74,
+    "ROE": 0.0893,
+    "52W_High": 0.34,
+    "52W_Low": 0.23
   },
   {
     "Ticker": "HTC",
@@ -5625,19 +5670,19 @@
     "52W_Low": 1.79
   },
   {
-    "Ticker": "RT",
+    "Ticker": "SAUCE",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 0.29,
-    "MA30": 0.28,
-    "MA10": 0.3,
-    "Vol10": 7378930.0,
-    "Slope_4W_%": 1.46,
+    "Price": 41.25,
+    "MA30": 39.69,
+    "MA10": 40.98,
+    "Vol10": 46081.0,
+    "Slope_4W_%": 1.42,
     "RS_Rating": 54,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": 3.74,
-    "ROE": 0.0893,
-    "52W_High": 0.34,
-    "52W_Low": 0.23
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": 18.83,
+    "ROE": 0.23,
+    "52W_High": 41.75,
+    "52W_Low": 35.16
   },
   {
     "Ticker": "ITTHI",
@@ -5715,21 +5760,6 @@
     "52W_Low": 0.09
   },
   {
-    "Ticker": "SAUCE",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 41.25,
-    "MA30": 39.69,
-    "MA10": 40.98,
-    "Vol10": 46081.0,
-    "Slope_4W_%": 1.42,
-    "RS_Rating": 53,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": 18.83,
-    "ROE": 0.23,
-    "52W_High": 41.75,
-    "52W_Low": 35.16
-  },
-  {
     "Ticker": "TEKA",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.77,
@@ -5745,6 +5775,21 @@
     "52W_Low": 1.5
   },
   {
+    "Ticker": "FSX",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 1.12,
+    "MA30": 1.08,
+    "MA10": 1.13,
+    "Vol10": 339120.0,
+    "Slope_4W_%": 5.55,
+    "RS_Rating": 52,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.1276,
+    "52W_High": 1.61,
+    "52W_Low": 0.66
+  },
+  {
     "Ticker": "CFARM",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.83,
@@ -5758,6 +5803,21 @@
     "ROE": 0.0179,
     "52W_High": 0.95,
     "52W_Low": 0.53
+  },
+  {
+    "Ticker": "CPALL",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 47.0,
+    "MA30": 45.19,
+    "MA10": 46.65,
+    "Vol10": 146312504.0,
+    "Slope_4W_%": 1.53,
+    "RS_Rating": 52,
+    "ADTV(MB)": 1518.1,
+    "PE_Ratio": 14.34,
+    "ROE": 0.2227,
+    "52W_High": 52.52,
+    "52W_Low": 39.03
   },
   {
     "Ticker": "KOOL",
@@ -5820,21 +5880,6 @@
     "52W_Low": 3.02
   },
   {
-    "Ticker": "FSX",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 1.12,
-    "MA30": 1.08,
-    "MA10": 1.13,
-    "Vol10": 339120.0,
-    "Slope_4W_%": 5.55,
-    "RS_Rating": 51,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.1276,
-    "52W_High": 1.61,
-    "52W_Low": 0.66
-  },
-  {
     "Ticker": "L&E",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.2,
@@ -5865,19 +5910,19 @@
     "52W_Low": 1.49
   },
   {
-    "Ticker": "CPALL",
+    "Ticker": "UPOIC",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 47.0,
-    "MA30": 45.19,
-    "MA10": 46.65,
-    "Vol10": 146312504.0,
-    "Slope_4W_%": 1.53,
+    "Price": 6.85,
+    "MA30": 6.75,
+    "MA10": 6.87,
+    "Vol10": 44391.0,
+    "Slope_4W_%": 1.42,
     "RS_Rating": 51,
-    "ADTV(MB)": 1518.1,
-    "PE_Ratio": 14.34,
-    "ROE": 0.2227,
-    "52W_High": 52.52,
-    "52W_Low": 39.03
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 8.47,
+    "ROE": 0.1484,
+    "52W_High": 8.2,
+    "52W_Low": 5.75
   },
   {
     "Ticker": "TMD",
@@ -5910,19 +5955,19 @@
     "52W_Low": 5.35
   },
   {
-    "Ticker": "UPOIC",
+    "Ticker": "ETC",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 6.85,
-    "MA30": 6.75,
-    "MA10": 6.87,
-    "Vol10": 44391.0,
-    "Slope_4W_%": 1.42,
+    "Price": 0.71,
+    "MA30": 0.64,
+    "MA10": 0.72,
+    "Vol10": 34112320.0,
+    "Slope_4W_%": 3.84,
     "RS_Rating": 50,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": 8.47,
-    "ROE": 0.1484,
-    "52W_High": 8.2,
-    "52W_Low": 5.75
+    "ADTV(MB)": 5.3,
+    "PE_Ratio": 3.15,
+    "ROE": 0.1542,
+    "52W_High": 1.32,
+    "52W_Low": 0.5
   },
   {
     "Ticker": "JUBILE",
@@ -5938,21 +5983,6 @@
     "ROE": 0.0647,
     "52W_High": 7.99,
     "52W_Low": 6.28
-  },
-  {
-    "Ticker": "ETC",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.71,
-    "MA30": 0.64,
-    "MA10": 0.72,
-    "Vol10": 34112320.0,
-    "Slope_4W_%": 3.84,
-    "RS_Rating": 49,
-    "ADTV(MB)": 5.3,
-    "PE_Ratio": 3.15,
-    "ROE": 0.1542,
-    "52W_High": 1.32,
-    "52W_Low": 0.5
   },
   {
     "Ticker": "NATION",
@@ -6015,6 +6045,36 @@
     "52W_Low": 8.54
   },
   {
+    "Ticker": "KASET",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.7,
+    "MA30": 0.69,
+    "MA10": 0.69,
+    "Vol10": 3555171.0,
+    "Slope_4W_%": 1.03,
+    "RS_Rating": 48,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": null,
+    "ROE": -0.3212,
+    "52W_High": 1.06,
+    "52W_Low": 0.45
+  },
+  {
+    "Ticker": "SPA",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 3.26,
+    "MA30": 3.16,
+    "MA10": 3.14,
+    "Vol10": 14339087.0,
+    "Slope_4W_%": 2.05,
+    "RS_Rating": 47,
+    "ADTV(MB)": 9.2,
+    "PE_Ratio": 21.63,
+    "ROE": 0.1494,
+    "52W_High": 3.95,
+    "52W_Low": 2.52
+  },
+  {
     "Ticker": "SPREME",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.53,
@@ -6028,6 +6088,21 @@
     "ROE": 0.1639,
     "52W_High": 1.63,
     "52W_Low": 1.21
+  },
+  {
+    "Ticker": "SAPPE",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 33.0,
+    "MA30": 30.29,
+    "MA10": 31.32,
+    "Vol10": 2520690.0,
+    "Slope_4W_%": 1.73,
+    "RS_Rating": 47,
+    "ADTV(MB)": 16.4,
+    "PE_Ratio": 13.77,
+    "ROE": 0.1611,
+    "52W_High": 39.41,
+    "52W_Low": 26.9
   },
   {
     "Ticker": "GREEN",
@@ -6058,51 +6133,6 @@
     "ROE": -0.0343,
     "52W_High": 31.36,
     "52W_Low": 21.95
-  },
-  {
-    "Ticker": "KASET",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 0.7,
-    "MA30": 0.69,
-    "MA10": 0.69,
-    "Vol10": 3555171.0,
-    "Slope_4W_%": 1.03,
-    "RS_Rating": 47,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": null,
-    "ROE": -0.3212,
-    "52W_High": 1.06,
-    "52W_Low": 0.45
-  },
-  {
-    "Ticker": "SPA",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 3.26,
-    "MA30": 3.16,
-    "MA10": 3.14,
-    "Vol10": 14339087.0,
-    "Slope_4W_%": 2.05,
-    "RS_Rating": 46,
-    "ADTV(MB)": 9.2,
-    "PE_Ratio": 21.63,
-    "ROE": 0.1494,
-    "52W_High": 3.95,
-    "52W_Low": 2.52
-  },
-  {
-    "Ticker": "SAPPE",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 33.0,
-    "MA30": 30.29,
-    "MA10": 31.32,
-    "Vol10": 2520690.0,
-    "Slope_4W_%": 1.73,
-    "RS_Rating": 46,
-    "ADTV(MB)": 16.4,
-    "PE_Ratio": 13.77,
-    "ROE": 0.1611,
-    "52W_High": 39.41,
-    "52W_Low": 26.9
   },
   {
     "Ticker": "GTB",
@@ -6180,6 +6210,21 @@
     "52W_Low": 11.46
   },
   {
+    "Ticker": "BIG",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 0.32,
+    "MA30": 0.29,
+    "MA10": 0.31,
+    "Vol10": 8282225.0,
+    "Slope_4W_%": 1.27,
+    "RS_Rating": 44,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": 12.26,
+    "ROE": 0.0501,
+    "52W_High": 0.42,
+    "52W_Low": 0.26
+  },
+  {
     "Ticker": "ALLA",
     "Stage": "Stage 2 (Advancing)",
     "Price": 1.16,
@@ -6225,19 +6270,49 @@
     "52W_Low": 5.3
   },
   {
-    "Ticker": "BIG",
+    "Ticker": "TPCS",
     "Stage": "Stage 2 (Advancing)",
-    "Price": 0.32,
-    "MA30": 0.29,
-    "MA10": 0.31,
-    "Vol10": 8282225.0,
-    "Slope_4W_%": 1.27,
+    "Price": 10.0,
+    "MA30": 9.5,
+    "MA10": 9.91,
+    "Vol10": 109801.0,
+    "Slope_4W_%": 1.17,
     "RS_Rating": 43,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": 12.26,
-    "ROE": 0.0501,
-    "52W_High": 0.42,
-    "52W_Low": 0.26
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": 11.7,
+    "ROE": 0.0341,
+    "52W_High": 12.93,
+    "52W_Low": 8.37
+  },
+  {
+    "Ticker": "SSF",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 5.1,
+    "MA30": 4.88,
+    "MA10": 5.06,
+    "Vol10": 113530.0,
+    "Slope_4W_%": 1.06,
+    "RS_Rating": 43,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 11.13,
+    "ROE": 0.0632,
+    "52W_High": 5.31,
+    "52W_Low": 4.56
+  },
+  {
+    "Ticker": "SR",
+    "Stage": "Stage 2- transition",
+    "Price": 0.37,
+    "MA30": 0.32,
+    "MA10": 0.34,
+    "Vol10": 1668100.0,
+    "Slope_4W_%": -1.02,
+    "RS_Rating": 43,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.076,
+    "52W_High": 0.51,
+    "52W_Low": 0.25
   },
   {
     "Ticker": "TEGH",
@@ -6255,21 +6330,6 @@
     "52W_Low": 2.62
   },
   {
-    "Ticker": "TPCS",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 10.0,
-    "MA30": 9.5,
-    "MA10": 9.91,
-    "Vol10": 109801.0,
-    "Slope_4W_%": 1.17,
-    "RS_Rating": 42,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": 11.7,
-    "ROE": 0.0341,
-    "52W_High": 12.93,
-    "52W_Low": 8.37
-  },
-  {
     "Ticker": "TNDT",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.15,
@@ -6280,39 +6340,9 @@
     "RS_Rating": 42,
     "ADTV(MB)": 0.0,
     "PE_Ratio": null,
-    "ROE": null,
+    "ROE": -0.0688,
     "52W_High": 0.2,
     "52W_Low": 0.09
-  },
-  {
-    "Ticker": "SSF",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 5.1,
-    "MA30": 4.88,
-    "MA10": 5.06,
-    "Vol10": 113530.0,
-    "Slope_4W_%": 1.06,
-    "RS_Rating": 42,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": 11.13,
-    "ROE": 0.0632,
-    "52W_High": 5.31,
-    "52W_Low": 4.56
-  },
-  {
-    "Ticker": "SR",
-    "Stage": "Stage 2- transition",
-    "Price": 0.37,
-    "MA30": 0.32,
-    "MA10": 0.34,
-    "Vol10": 1668100.0,
-    "Slope_4W_%": -1.02,
-    "RS_Rating": 42,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.076,
-    "52W_High": 0.51,
-    "52W_Low": 0.25
   },
   {
     "Ticker": "MAGURO",
@@ -6474,8 +6504,8 @@
     "Slope_4W_%": 3.72,
     "RS_Rating": 37,
     "ADTV(MB)": 1.1,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 20.0,
+    "ROE": 0.1226,
     "52W_High": 0.62,
     "52W_Low": 0.25
   },
@@ -6690,6 +6720,21 @@
     "52W_Low": 19.0
   },
   {
+    "Ticker": "MADAME",
+    "Stage": "Stage 2- transition",
+    "Price": 0.66,
+    "MA30": 0.58,
+    "MA10": 0.52,
+    "Vol10": 2736780.0,
+    "Slope_4W_%": -3.18,
+    "RS_Rating": 24,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": null,
+    "ROE": -0.221,
+    "52W_High": 1.2,
+    "52W_Low": 0.41
+  },
+  {
     "Ticker": "WIN",
     "Stage": "Stage 2- transition",
     "Price": 0.3,
@@ -6703,21 +6748,6 @@
     "ROE": -0.0414,
     "52W_High": 0.45,
     "52W_Low": 0.22
-  },
-  {
-    "Ticker": "MADAME",
-    "Stage": "Stage 2- transition",
-    "Price": 0.66,
-    "MA30": 0.58,
-    "MA10": 0.52,
-    "Vol10": 2736780.0,
-    "Slope_4W_%": -3.18,
-    "RS_Rating": 23,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": -0.221,
-    "52W_High": 1.2,
-    "52W_Low": 0.41
   },
   {
     "Ticker": "M-PAT",
@@ -6817,7 +6847,7 @@
     "MA10": 4.66,
     "Vol10": 1836630.0,
     "Slope_4W_%": 0.89,
-    "RS_Rating": 80,
+    "RS_Rating": 81,
     "ADTV(MB)": 1.8,
     "PE_Ratio": 7.51,
     "ROE": 0.2701,
@@ -6847,7 +6877,7 @@
     "MA10": 2.82,
     "Vol10": 43277645.0,
     "Slope_4W_%": 0.3,
-    "RS_Rating": 72,
+    "RS_Rating": 73,
     "ADTV(MB)": 25.6,
     "PE_Ratio": 6.97,
     "ROE": 0.1172,
@@ -6868,6 +6898,21 @@
     "ROE": -0.1546,
     "52W_High": 2.22,
     "52W_Low": 0.97
+  },
+  {
+    "Ticker": "HEALTH",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 0.38,
+    "MA30": 0.43,
+    "MA10": 0.4,
+    "Vol10": 102478.0,
+    "Slope_4W_%": -0.15,
+    "RS_Rating": 66,
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
   },
   {
     "Ticker": "B",
@@ -6900,6 +6945,21 @@
     "52W_Low": 1.09
   },
   {
+    "Ticker": "DUSIT",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 11.4,
+    "MA30": 10.83,
+    "MA10": 10.89,
+    "Vol10": 1596060.0,
+    "Slope_4W_%": 0.25,
+    "RS_Rating": 58,
+    "ADTV(MB)": 3.6,
+    "PE_Ratio": null,
+    "ROE": -0.0486,
+    "52W_High": 16.6,
+    "52W_Low": 8.15
+  },
+  {
     "Ticker": "KWM",
     "Stage": "Stage 1 (Basing)",
     "Price": 0.95,
@@ -6913,21 +6973,6 @@
     "ROE": 0.046,
     "52W_High": 1.09,
     "52W_Low": 0.76
-  },
-  {
-    "Ticker": "DUSIT",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 11.4,
-    "MA30": 10.83,
-    "MA10": 10.89,
-    "Vol10": 1596060.0,
-    "Slope_4W_%": 0.25,
-    "RS_Rating": 57,
-    "ADTV(MB)": 3.6,
-    "PE_Ratio": null,
-    "ROE": -0.0486,
-    "52W_High": 16.6,
-    "52W_Low": 8.15
   },
   {
     "Ticker": "AIMCG",
@@ -6975,6 +7020,21 @@
     "52W_Low": 17.87
   },
   {
+    "Ticker": "ACE",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 1.39,
+    "MA30": 1.29,
+    "MA10": 1.3,
+    "Vol10": 8360967.0,
+    "Slope_4W_%": 0.44,
+    "RS_Rating": 53,
+    "ADTV(MB)": 2.3,
+    "PE_Ratio": 15.38,
+    "ROE": 0.0538,
+    "52W_High": 1.52,
+    "52W_Low": 1.26
+  },
+  {
     "Ticker": "SITHAI",
     "Stage": "Stage 1 (Basing)",
     "Price": 1.08,
@@ -7018,21 +7078,6 @@
     "ROE": 0.1468,
     "52W_High": 5.35,
     "52W_Low": 4.6
-  },
-  {
-    "Ticker": "ACE",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 1.39,
-    "MA30": 1.29,
-    "MA10": 1.3,
-    "Vol10": 8360967.0,
-    "Slope_4W_%": 0.44,
-    "RS_Rating": 52,
-    "ADTV(MB)": 2.3,
-    "PE_Ratio": 15.38,
-    "ROE": 0.0538,
-    "52W_High": 1.52,
-    "52W_Low": 1.26
   },
   {
     "Ticker": "SAWAD",
@@ -7165,9 +7210,24 @@
     "RS_Rating": 48,
     "ADTV(MB)": 3.6,
     "PE_Ratio": null,
-    "ROE": null,
+    "ROE": -0.0111,
     "52W_High": 4.54,
     "52W_Low": 3.3
+  },
+  {
+    "Ticker": "ORI",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 1.99,
+    "MA30": 1.78,
+    "MA10": 1.78,
+    "Vol10": 16705614.0,
+    "Slope_4W_%": 0.4,
+    "RS_Rating": 48,
+    "ADTV(MB)": 6.3,
+    "PE_Ratio": 6.86,
+    "ROE": 0.0357,
+    "52W_High": 3.0,
+    "52W_Low": 1.6
   },
   {
     "Ticker": "TU",
@@ -7200,21 +7260,6 @@
     "52W_Low": 0.28
   },
   {
-    "Ticker": "ORI",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 1.99,
-    "MA30": 1.78,
-    "MA10": 1.78,
-    "Vol10": 16705614.0,
-    "Slope_4W_%": 0.4,
-    "RS_Rating": 47,
-    "ADTV(MB)": 6.3,
-    "PE_Ratio": 6.86,
-    "ROE": 0.0357,
-    "52W_High": 3.0,
-    "52W_Low": 1.6
-  },
-  {
     "Ticker": "FPI",
     "Stage": "Stage 1 (Basing)",
     "Price": 1.65,
@@ -7243,6 +7288,21 @@
     "ROE": 0.1311,
     "52W_High": 26.48,
     "52W_Low": 19.22
+  },
+  {
+    "Ticker": "SFLEX",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 2.98,
+    "MA30": 3.01,
+    "MA10": 2.9,
+    "Vol10": 4337840.0,
+    "Slope_4W_%": 0.31,
+    "RS_Rating": 46,
+    "ADTV(MB)": 2.6,
+    "PE_Ratio": 9.4,
+    "ROE": 0.1991,
+    "52W_High": 3.52,
+    "52W_Low": 2.46
   },
   {
     "Ticker": "LEO",
@@ -7290,19 +7350,19 @@
     "52W_Low": 4.44
   },
   {
-    "Ticker": "SFLEX",
+    "Ticker": "SVR",
     "Stage": "Stage 1 (Basing)",
-    "Price": 2.98,
-    "MA30": 3.01,
-    "MA10": 2.9,
-    "Vol10": 4337840.0,
-    "Slope_4W_%": 0.31,
+    "Price": 0.36,
+    "MA30": 0.3,
+    "MA10": 0.32,
+    "Vol10": 6748170.0,
+    "Slope_4W_%": 0.66,
     "RS_Rating": 45,
-    "ADTV(MB)": 2.6,
-    "PE_Ratio": 9.4,
-    "ROE": 0.1991,
-    "52W_High": 3.52,
-    "52W_Low": 2.46
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": null,
+    "ROE": -0.0748,
+    "52W_High": 0.62,
+    "52W_Low": 0.25
   },
   {
     "Ticker": "ANI",
@@ -7329,8 +7389,8 @@
     "Slope_4W_%": -0.14,
     "RS_Rating": 45,
     "ADTV(MB)": 0.4,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 23.75,
+    "ROE": 0.0421,
     "52W_High": 1.07,
     "52W_Low": 0.77
   },
@@ -7348,21 +7408,6 @@
     "ROE": 0.0689,
     "52W_High": 2.38,
     "52W_Low": 1.78
-  },
-  {
-    "Ticker": "SVR",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 0.36,
-    "MA30": 0.3,
-    "MA10": 0.32,
-    "Vol10": 6748170.0,
-    "Slope_4W_%": 0.66,
-    "RS_Rating": 44,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": null,
-    "ROE": -0.0748,
-    "52W_High": 0.62,
-    "52W_Low": 0.25
   },
   {
     "Ticker": "CSC",
@@ -7389,8 +7434,8 @@
     "Slope_4W_%": 0.62,
     "RS_Rating": 43,
     "ADTV(MB)": 1.3,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 3.14,
+    "ROE": 0.111,
     "52W_High": 3.63,
     "52W_Low": 2.17
   },
@@ -7462,12 +7507,27 @@
     "MA10": 3.21,
     "Vol10": 11238158.0,
     "Slope_4W_%": 0.79,
-    "RS_Rating": 41,
+    "RS_Rating": 42,
     "ADTV(MB)": 7.4,
     "PE_Ratio": 7.96,
     "ROE": 0.1298,
     "52W_High": 3.87,
     "52W_Low": 2.9
+  },
+  {
+    "Ticker": "KCAR",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 4.94,
+    "MA30": 4.93,
+    "MA10": 4.83,
+    "Vol10": 193274.0,
+    "Slope_4W_%": -0.64,
+    "RS_Rating": 42,
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": 7.57,
+    "ROE": 0.0647,
+    "52W_High": 5.68,
+    "52W_Low": 4.1
   },
   {
     "Ticker": "AMATAV",
@@ -7483,6 +7543,21 @@
     "ROE": 0.0863,
     "52W_High": 2.6,
     "52W_Low": 1.76
+  },
+  {
+    "Ticker": "PICO",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 4.2,
+    "MA30": 4.19,
+    "MA10": 4.19,
+    "Vol10": 11060.0,
+    "Slope_4W_%": 0.63,
+    "RS_Rating": 41,
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
   },
   {
     "Ticker": "HENG",
@@ -7513,21 +7588,6 @@
     "ROE": -0.0205,
     "52W_High": 3.2,
     "52W_Low": 2.2
-  },
-  {
-    "Ticker": "KCAR",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 4.94,
-    "MA30": 4.93,
-    "MA10": 4.83,
-    "Vol10": 193274.0,
-    "Slope_4W_%": -0.64,
-    "RS_Rating": 41,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": 7.57,
-    "ROE": 0.0647,
-    "52W_High": 5.68,
-    "52W_Low": 4.1
   },
   {
     "Ticker": "GYT",
@@ -7770,6 +7830,21 @@
     "52W_Low": 26.49
   },
   {
+    "Ticker": "ILM",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 13.0,
+    "MA30": 12.76,
+    "MA10": 12.72,
+    "Vol10": 1400550.0,
+    "Slope_4W_%": 0.04,
+    "RS_Rating": 37,
+    "ADTV(MB)": 3.7,
+    "PE_Ratio": 9.08,
+    "ROE": 0.1114,
+    "52W_High": 15.33,
+    "52W_Low": 11.9
+  },
+  {
     "Ticker": "BGT",
     "Stage": "Stage 1 (Basing)",
     "Price": 0.38,
@@ -7828,21 +7903,6 @@
     "ROE": 0.0243,
     "52W_High": 1.09,
     "52W_Low": 0.51
-  },
-  {
-    "Ticker": "ILM",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 13.0,
-    "MA30": 12.76,
-    "MA10": 12.72,
-    "Vol10": 1400550.0,
-    "Slope_4W_%": 0.04,
-    "RS_Rating": 36,
-    "ADTV(MB)": 3.7,
-    "PE_Ratio": 9.08,
-    "ROE": 0.1114,
-    "52W_High": 15.33,
-    "52W_Low": 11.9
   },
   {
     "Ticker": "NL",
@@ -7905,21 +7965,6 @@
     "52W_Low": 37.58
   },
   {
-    "Ticker": "SPTX",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 0.01,
-    "MA30": 0.01,
-    "MA10": 0.01,
-    "Vol10": 93055357.0,
-    "Slope_4W_%": 0.0,
-    "RS_Rating": 34,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": null,
-    "ROE": null,
-    "52W_High": 0.02,
-    "52W_Low": 0.01
-  },
-  {
     "Ticker": "CIG",
     "Stage": "Stage 1 (Basing)",
     "Price": 0.03,
@@ -7933,6 +7978,21 @@
     "ROE": -0.3485,
     "52W_High": 0.07,
     "52W_Low": 0.02
+  },
+  {
+    "Ticker": "SPTX",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 0.01,
+    "MA30": 0.01,
+    "MA10": 0.01,
+    "Vol10": 93055357.0,
+    "Slope_4W_%": 0.0,
+    "RS_Rating": 34,
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": null,
+    "ROE": -0.1038,
+    "52W_High": 0.02,
+    "52W_Low": 0.01
   },
   {
     "Ticker": "NPK",
@@ -8010,6 +8070,21 @@
     "52W_Low": 9.6
   },
   {
+    "Ticker": "AMANAH",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 0.74,
+    "MA30": 0.7,
+    "MA10": 0.7,
+    "Vol10": 13931504.0,
+    "Slope_4W_%": -0.47,
+    "RS_Rating": 33,
+    "ADTV(MB)": 2.0,
+    "PE_Ratio": null,
+    "ROE": -0.0841,
+    "52W_High": 1.07,
+    "52W_Low": 0.59
+  },
+  {
     "Ticker": "SAV",
     "Stage": "Stage 1 (Basing)",
     "Price": 11.2,
@@ -8055,36 +8130,6 @@
     "52W_Low": 5.66
   },
   {
-    "Ticker": "AMANAH",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 0.74,
-    "MA30": 0.7,
-    "MA10": 0.7,
-    "Vol10": 13931504.0,
-    "Slope_4W_%": -0.47,
-    "RS_Rating": 32,
-    "ADTV(MB)": 2.0,
-    "PE_Ratio": null,
-    "ROE": -0.0841,
-    "52W_High": 1.07,
-    "52W_Low": 0.59
-  },
-  {
-    "Ticker": "ZEN",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 5.45,
-    "MA30": 5.59,
-    "MA10": 5.41,
-    "Vol10": 108200.0,
-    "Slope_4W_%": -0.78,
-    "RS_Rating": 32,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": 33.35,
-    "ROE": null,
-    "52W_High": 8.05,
-    "52W_Low": 4.96
-  },
-  {
     "Ticker": "BCH",
     "Stage": "Stage 1 (Basing)",
     "Price": 10.5,
@@ -8098,21 +8143,6 @@
     "ROE": 0.0945,
     "52W_High": 14.07,
     "52W_Low": 8.91
-  },
-  {
-    "Ticker": "NCH",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 0.43,
-    "MA30": 0.41,
-    "MA10": 0.41,
-    "Vol10": 1315466.0,
-    "Slope_4W_%": 0.41,
-    "RS_Rating": 31,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.0436,
-    "52W_High": 0.63,
-    "52W_Low": 0.37
   },
   {
     "Ticker": "PB",
@@ -8203,6 +8233,36 @@
     "ROE": 0.0614,
     "52W_High": 1.06,
     "52W_Low": 0.59
+  },
+  {
+    "Ticker": "ZEN",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 5.45,
+    "MA30": 5.59,
+    "MA10": 5.41,
+    "Vol10": 108200.0,
+    "Slope_4W_%": -0.78,
+    "RS_Rating": 31,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 33.35,
+    "ROE": 0.0492,
+    "52W_High": 8.05,
+    "52W_Low": 4.96
+  },
+  {
+    "Ticker": "NCH",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 0.43,
+    "MA30": 0.41,
+    "MA10": 0.41,
+    "Vol10": 1315466.0,
+    "Slope_4W_%": 0.41,
+    "RS_Rating": 30,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.0436,
+    "52W_High": 0.63,
+    "52W_Low": 0.37
   },
   {
     "Ticker": "AI",
@@ -8670,6 +8730,21 @@
     "52W_Low": 147.47
   },
   {
+    "Ticker": "BVG",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 1.6,
+    "MA30": 1.63,
+    "MA10": 1.58,
+    "Vol10": 1038384.0,
+    "Slope_4W_%": -0.75,
+    "RS_Rating": 23,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": 11.91,
+    "ROE": 0.078,
+    "52W_High": 2.13,
+    "52W_Low": 1.53
+  },
+  {
     "Ticker": "WPH",
     "Stage": "Stage 1 (Basing)",
     "Price": 5.7,
@@ -8713,21 +8788,6 @@
     "ROE": 0.0327,
     "52W_High": 20.57,
     "52W_Low": 12.48
-  },
-  {
-    "Ticker": "BVG",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 1.6,
-    "MA30": 1.63,
-    "MA10": 1.58,
-    "Vol10": 1038384.0,
-    "Slope_4W_%": -0.75,
-    "RS_Rating": 22,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": 11.91,
-    "ROE": 0.078,
-    "52W_High": 2.13,
-    "52W_Low": 1.53
   },
   {
     "Ticker": "WACOAL",
@@ -8865,6 +8925,21 @@
     "52W_Low": 0.77
   },
   {
+    "Ticker": "WORK",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 3.48,
+    "MA30": 3.57,
+    "MA10": 3.5,
+    "Vol10": 537548.0,
+    "Slope_4W_%": -0.91,
+    "RS_Rating": 19,
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": null,
+    "ROE": -0.0091,
+    "52W_High": 4.6,
+    "52W_Low": 3.34
+  },
+  {
     "Ticker": "CPAXT",
     "Stage": "Stage 1 (Basing)",
     "Price": 14.8,
@@ -8908,21 +8983,6 @@
     "ROE": -0.3897,
     "52W_High": 2.24,
     "52W_Low": 0.66
-  },
-  {
-    "Ticker": "WORK",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 3.48,
-    "MA30": 3.57,
-    "MA10": 3.5,
-    "Vol10": 537548.0,
-    "Slope_4W_%": -0.91,
-    "RS_Rating": 18,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": null,
-    "ROE": -0.0091,
-    "52W_High": 4.6,
-    "52W_Low": 3.34
   },
   {
     "Ticker": "MTW",
@@ -8970,6 +9030,21 @@
     "52W_Low": 0.91
   },
   {
+    "Ticker": "MALEE",
+    "Stage": "Stage 1 (Basing)",
+    "Price": 4.04,
+    "MA30": 4.15,
+    "MA10": 4.08,
+    "Vol10": 4236414.0,
+    "Slope_4W_%": 0.4,
+    "RS_Rating": 15,
+    "ADTV(MB)": 3.9,
+    "PE_Ratio": 14.96,
+    "ROE": 0.0576,
+    "52W_High": 6.6,
+    "52W_Low": 3.32
+  },
+  {
     "Ticker": "ZIGA",
     "Stage": "Stage 1 (Basing)",
     "Price": 0.87,
@@ -8983,21 +9058,6 @@
     "ROE": 0.0214,
     "52W_High": 1.42,
     "52W_Low": 0.72
-  },
-  {
-    "Ticker": "MALEE",
-    "Stage": "Stage 1 (Basing)",
-    "Price": 4.04,
-    "MA30": 4.15,
-    "MA10": 4.08,
-    "Vol10": 4236414.0,
-    "Slope_4W_%": 0.4,
-    "RS_Rating": 14,
-    "ADTV(MB)": 3.9,
-    "PE_Ratio": 14.96,
-    "ROE": 0.0576,
-    "52W_High": 6.6,
-    "52W_Low": 3.32
   },
   {
     "Ticker": "CH",
@@ -9097,7 +9157,7 @@
     "MA10": 1.42,
     "Vol10": 5694894.0,
     "Slope_4W_%": 0.83,
-    "RS_Rating": 5,
+    "RS_Rating": 6,
     "ADTV(MB)": 1.7,
     "PE_Ratio": null,
     "ROE": -0.0998,
@@ -9142,7 +9202,7 @@
     "MA10": 1.04,
     "Vol10": 1591100.0,
     "Slope_4W_%": 0.39,
-    "RS_Rating": 70,
+    "RS_Rating": 71,
     "ADTV(MB)": 0.3,
     "PE_Ratio": 6.15,
     "ROE": 0.1513,
@@ -9180,6 +9240,21 @@
     "52W_Low": 3.49
   },
   {
+    "Ticker": "TWPC",
+    "Stage": "Stage 3 (Topping)",
+    "Price": 2.86,
+    "MA30": 2.82,
+    "MA10": 2.88,
+    "Vol10": 750816.0,
+    "Slope_4W_%": 0.54,
+    "RS_Rating": 62,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": 12.2,
+    "ROE": 0.0417,
+    "52W_High": 3.15,
+    "52W_Low": 2.04
+  },
+  {
     "Ticker": "SIMAT",
     "Stage": "Stage 3 (Topping)",
     "Price": 1.25,
@@ -9195,21 +9270,6 @@
     "52W_Low": 0.73
   },
   {
-    "Ticker": "TWPC",
-    "Stage": "Stage 3 (Topping)",
-    "Price": 2.86,
-    "MA30": 2.82,
-    "MA10": 2.88,
-    "Vol10": 750816.0,
-    "Slope_4W_%": 0.54,
-    "RS_Rating": 61,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": 12.2,
-    "ROE": 0.0417,
-    "52W_High": 3.15,
-    "52W_Low": 2.04
-  },
-  {
     "Ticker": "AXTRART",
     "Stage": "Stage 3 (Topping)",
     "Price": 13.2,
@@ -9217,7 +9277,7 @@
     "MA10": 12.85,
     "Vol10": 4720820.0,
     "Slope_4W_%": 0.76,
-    "RS_Rating": 60,
+    "RS_Rating": 61,
     "ADTV(MB)": 13.0,
     "PE_Ratio": 11.68,
     "ROE": null,
@@ -9232,7 +9292,7 @@
     "MA10": 16.27,
     "Vol10": 35778918.0,
     "Slope_4W_%": 0.68,
-    "RS_Rating": 57,
+    "RS_Rating": 58,
     "ADTV(MB)": 119.9,
     "PE_Ratio": 15.42,
     "ROE": 0.1289,
@@ -9325,7 +9385,7 @@
     "RS_Rating": 50,
     "ADTV(MB)": 0.2,
     "PE_Ratio": null,
-    "ROE": null,
+    "ROE": -0.3126,
     "52W_High": 1.02,
     "52W_Low": 0.7
   },
@@ -9360,6 +9420,21 @@
     "52W_Low": 4.9
   },
   {
+    "Ticker": "SABINA",
+    "Stage": "Stage 3 (Topping)",
+    "Price": 15.8,
+    "MA30": 15.38,
+    "MA10": 15.43,
+    "Vol10": 1350524.0,
+    "Slope_4W_%": 0.67,
+    "RS_Rating": 49,
+    "ADTV(MB)": 4.3,
+    "PE_Ratio": 13.36,
+    "ROE": 0.2108,
+    "52W_High": 17.12,
+    "52W_Low": 13.74
+  },
+  {
     "Ticker": "VIH",
     "Stage": "Stage 3 (Topping)",
     "Price": 8.3,
@@ -9373,21 +9448,6 @@
     "ROE": 0.1151,
     "52W_High": 9.35,
     "52W_Low": 6.8
-  },
-  {
-    "Ticker": "SABINA",
-    "Stage": "Stage 3 (Topping)",
-    "Price": 15.8,
-    "MA30": 15.38,
-    "MA10": 15.43,
-    "Vol10": 1350524.0,
-    "Slope_4W_%": 0.67,
-    "RS_Rating": 48,
-    "ADTV(MB)": 4.3,
-    "PE_Ratio": 13.36,
-    "ROE": 0.2108,
-    "52W_High": 17.12,
-    "52W_Low": 13.74
   },
   {
     "Ticker": "JCT",
@@ -9435,6 +9495,21 @@
     "52W_Low": 9.12
   },
   {
+    "Ticker": "AURA",
+    "Stage": "Stage 3 (Topping)",
+    "Price": 14.7,
+    "MA30": 13.59,
+    "MA10": 14.33,
+    "Vol10": 15211974.0,
+    "Slope_4W_%": 0.6,
+    "RS_Rating": 46,
+    "ADTV(MB)": 45.8,
+    "PE_Ratio": 11.14,
+    "ROE": 0.2374,
+    "52W_High": 15.6,
+    "52W_Low": 11.65
+  },
+  {
     "Ticker": "PCSGH",
     "Stage": "Stage 3 (Topping)",
     "Price": 3.06,
@@ -9480,19 +9555,19 @@
     "52W_Low": 2.22
   },
   {
-    "Ticker": "AURA",
+    "Ticker": "AIT",
     "Stage": "Stage 3 (Topping)",
-    "Price": 14.7,
-    "MA30": 13.59,
-    "MA10": 14.33,
-    "Vol10": 15211974.0,
+    "Price": 4.86,
+    "MA30": 4.73,
+    "MA10": 4.76,
+    "Vol10": 3615836.0,
     "Slope_4W_%": 0.6,
     "RS_Rating": 45,
-    "ADTV(MB)": 45.8,
-    "PE_Ratio": 11.14,
-    "ROE": 0.2374,
-    "52W_High": 15.6,
-    "52W_Low": 11.65
+    "ADTV(MB)": 3.5,
+    "PE_Ratio": 12.83,
+    "ROE": 0.1355,
+    "52W_High": 5.07,
+    "52W_Low": 4.35
   },
   {
     "Ticker": "LST",
@@ -9525,19 +9600,19 @@
     "52W_Low": 4.32
   },
   {
-    "Ticker": "AIT",
+    "Ticker": "PREB",
     "Stage": "Stage 3 (Topping)",
-    "Price": 4.86,
-    "MA30": 4.73,
-    "MA10": 4.76,
-    "Vol10": 3615836.0,
-    "Slope_4W_%": 0.6,
+    "Price": 3.56,
+    "MA30": 3.47,
+    "MA10": 3.46,
+    "Vol10": 377450.0,
+    "Slope_4W_%": 0.48,
     "RS_Rating": 44,
-    "ADTV(MB)": 3.5,
-    "PE_Ratio": 12.83,
-    "ROE": 0.1355,
-    "52W_High": 5.07,
-    "52W_Low": 4.35
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": 5.0,
+    "ROE": 0.0833,
+    "52W_High": 3.88,
+    "52W_Low": 3.13
   },
   {
     "Ticker": "KDH",
@@ -9570,19 +9645,19 @@
     "52W_Low": 1.32
   },
   {
-    "Ticker": "PREB",
+    "Ticker": "POLY",
     "Stage": "Stage 3 (Topping)",
-    "Price": 3.56,
-    "MA30": 3.47,
-    "MA10": 3.46,
-    "Vol10": 377450.0,
-    "Slope_4W_%": 0.48,
-    "RS_Rating": 43,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": 5.0,
-    "ROE": 0.0833,
-    "52W_High": 3.88,
-    "52W_Low": 3.13
+    "Price": 6.85,
+    "MA30": 6.91,
+    "MA10": 6.81,
+    "Vol10": 309090.0,
+    "Slope_4W_%": 0.1,
+    "RS_Rating": 42,
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": 11.68,
+    "ROE": 0.2091,
+    "52W_High": 8.0,
+    "52W_Low": 5.82
   },
   {
     "Ticker": "NER",
@@ -9598,21 +9673,6 @@
     "ROE": 0.1606,
     "52W_High": 5.11,
     "52W_Low": 3.86
-  },
-  {
-    "Ticker": "POLY",
-    "Stage": "Stage 3 (Topping)",
-    "Price": 6.85,
-    "MA30": 6.91,
-    "MA10": 6.81,
-    "Vol10": 309090.0,
-    "Slope_4W_%": 0.1,
-    "RS_Rating": 41,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": 11.68,
-    "ROE": 0.2091,
-    "52W_High": 8.0,
-    "52W_Low": 5.82
   },
   {
     "Ticker": "TCOAT",
@@ -9969,8 +10029,8 @@
     "Slope_4W_%": 0.55,
     "RS_Rating": 30,
     "ADTV(MB)": 1.9,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 9.57,
+    "ROE": 0.1609,
     "52W_High": 1.59,
     "52W_Low": 1.26
   },
@@ -10194,8 +10254,8 @@
     "Slope_4W_%": -0.56,
     "RS_Rating": 19,
     "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 12.8,
+    "ROE": 0.0518,
     "52W_High": 25.19,
     "52W_Low": 20.2
   },
@@ -10230,6 +10290,21 @@
     "52W_Low": 3.17
   },
   {
+    "Ticker": "NEW",
+    "Stage": "Stage 3 (Topping)",
+    "Price": 87.0,
+    "MA30": 108.84,
+    "MA10": 95.4,
+    "Vol10": 370.0,
+    "Slope_4W_%": -0.12,
+    "RS_Rating": 9,
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": 21.37,
+    "ROE": 0.0783,
+    "52W_High": 140.25,
+    "52W_Low": 80.5
+  },
+  {
     "Ticker": "SOLAR",
     "Stage": "Stage 3 (Topping)",
     "Price": 0.22,
@@ -10245,19 +10320,19 @@
     "52W_Low": 0.14
   },
   {
-    "Ticker": "NEW",
-    "Stage": "Stage 3 (Topping)",
-    "Price": 87.0,
-    "MA30": 108.84,
-    "MA10": 95.4,
-    "Vol10": 370.0,
-    "Slope_4W_%": -0.12,
-    "RS_Rating": 8,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": 21.37,
-    "ROE": 0.0783,
-    "52W_High": 140.25,
-    "52W_Low": 80.5
+    "Ticker": "DV8",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 4.98,
+    "MA30": 5.07,
+    "MA10": 4.86,
+    "Vol10": 5701780.0,
+    "Slope_4W_%": -3.49,
+    "RS_Rating": 99,
+    "ADTV(MB)": 6.2,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
   },
   {
     "Ticker": "BTNC",
@@ -10365,6 +10440,21 @@
     "52W_Low": 3.21
   },
   {
+    "Ticker": "TU-PF",
+    "Stage": "Stage 4- transition",
+    "Price": 1.13,
+    "MA30": 1.16,
+    "MA10": 1.15,
+    "Vol10": 6100.0,
+    "Slope_4W_%": 2.52,
+    "RS_Rating": 49,
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": 23.99,
+    "ROE": 0.0499,
+    "52W_High": 1.57,
+    "52W_Low": 0.82
+  },
+  {
     "Ticker": "AMARC",
     "Stage": "Stage 4- transition",
     "Price": 3.14,
@@ -10378,21 +10468,6 @@
     "ROE": 0.2824,
     "52W_High": 5.5,
     "52W_Low": 2.03
-  },
-  {
-    "Ticker": "TU-PF",
-    "Stage": "Stage 4- transition",
-    "Price": 1.13,
-    "MA30": 1.16,
-    "MA10": 1.15,
-    "Vol10": 6100.0,
-    "Slope_4W_%": 2.52,
-    "RS_Rating": 48,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": 23.99,
-    "ROE": 0.0499,
-    "52W_High": 1.57,
-    "52W_Low": 0.82
   },
   {
     "Ticker": "ZAA",
@@ -10423,6 +10498,36 @@
     "ROE": 0.012,
     "52W_High": 0.43,
     "52W_Low": 0.24
+  },
+  {
+    "Ticker": "88TH",
+    "Stage": "Unknown",
+    "Price": 4.78,
+    "MA30": 0.0,
+    "MA10": 0.0,
+    "Vol10": 0.0,
+    "Slope_4W_%": 0.0,
+    "RS_Rating": 41,
+    "ADTV(MB)": 13.8,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
+  },
+  {
+    "Ticker": "ONSENS",
+    "Stage": "Unknown",
+    "Price": 1.2,
+    "MA30": 0.0,
+    "MA10": 0.0,
+    "Vol10": 0.0,
+    "Slope_4W_%": 0.0,
+    "RS_Rating": 40,
+    "ADTV(MB)": 3.1,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
   },
   {
     "Ticker": "NEX",
@@ -10483,6 +10588,21 @@
     "ROE": -0.1204,
     "52W_High": 0.94,
     "52W_Low": 0.38
+  },
+  {
+    "Ticker": "PTECH",
+    "Stage": "Stage 4- transition",
+    "Price": 1.31,
+    "MA30": 1.8,
+    "MA10": 1.55,
+    "Vol10": 20972.0,
+    "Slope_4W_%": 3.19,
+    "RS_Rating": 32,
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
   },
   {
     "Ticker": "INOX",
@@ -10629,8 +10749,8 @@
     "Slope_4W_%": -1.33,
     "RS_Rating": 24,
     "ADTV(MB)": 0.5,
-    "PE_Ratio": null,
-    "ROE": null,
+    "PE_Ratio": 11.75,
+    "ROE": 0.0742,
     "52W_High": 0.71,
     "52W_Low": 0.44
   },
@@ -10815,6 +10935,21 @@
     "52W_Low": 28.25
   },
   {
+    "Ticker": "SAFE",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 5.6,
+    "MA30": 5.72,
+    "MA10": 5.7,
+    "Vol10": 654410.0,
+    "Slope_4W_%": -1.53,
+    "RS_Rating": 21,
+    "ADTV(MB)": 0.8,
+    "PE_Ratio": 12.8,
+    "ROE": 0.0747,
+    "52W_High": 7.43,
+    "52W_Low": 5.19
+  },
+  {
     "Ticker": "BYD",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.47,
@@ -10830,19 +10965,19 @@
     "52W_Low": 0.35
   },
   {
-    "Ticker": "SAFE",
+    "Ticker": "STI",
     "Stage": "Stage 4 (Declining)",
-    "Price": 5.6,
-    "MA30": 5.72,
-    "MA10": 5.7,
-    "Vol10": 654410.0,
-    "Slope_4W_%": -1.53,
+    "Price": 1.69,
+    "MA30": 1.72,
+    "MA10": 1.7,
+    "Vol10": 200700.0,
+    "Slope_4W_%": -1.47,
     "RS_Rating": 20,
-    "ADTV(MB)": 0.8,
-    "PE_Ratio": 12.8,
-    "ROE": 0.0747,
-    "52W_High": 7.43,
-    "52W_Low": 5.19
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 20.46,
+    "ROE": 0.0588,
+    "52W_High": 2.29,
+    "52W_Low": 1.52
   },
   {
     "Ticker": "PRIN",
@@ -10918,21 +11053,6 @@
     "ROE": 0.0202,
     "52W_High": 0.33,
     "52W_Low": 0.2
-  },
-  {
-    "Ticker": "STI",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 1.69,
-    "MA30": 1.72,
-    "MA10": 1.7,
-    "Vol10": 200700.0,
-    "Slope_4W_%": -1.47,
-    "RS_Rating": 19,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": 20.46,
-    "ROE": 0.0588,
-    "52W_High": 2.29,
-    "52W_Low": 1.52
   },
   {
     "Ticker": "MSC",
@@ -11025,6 +11145,36 @@
     "52W_Low": 4.64
   },
   {
+    "Ticker": "SKN",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 5.3,
+    "MA30": 5.84,
+    "MA10": 5.37,
+    "Vol10": 234090.0,
+    "Slope_4W_%": -2.51,
+    "RS_Rating": 18,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": 13.81,
+    "ROE": 0.0707,
+    "52W_High": 7.15,
+    "52W_Low": 5.2
+  },
+  {
+    "Ticker": "IND",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.95,
+    "MA30": 1.07,
+    "MA10": 0.91,
+    "Vol10": 8225140.0,
+    "Slope_4W_%": -2.62,
+    "RS_Rating": 18,
+    "ADTV(MB)": 1.6,
+    "PE_Ratio": 5.49,
+    "ROE": 0.1175,
+    "52W_High": 1.49,
+    "52W_Low": 0.79
+  },
+  {
     "Ticker": "HANN",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.86,
@@ -11055,34 +11205,19 @@
     "52W_Low": 0.78
   },
   {
-    "Ticker": "SKN",
+    "Ticker": "CSP",
     "Stage": "Stage 4 (Declining)",
-    "Price": 5.3,
-    "MA30": 5.84,
-    "MA10": 5.37,
-    "Vol10": 234090.0,
-    "Slope_4W_%": -2.51,
+    "Price": 0.44,
+    "MA30": 0.45,
+    "MA10": 0.45,
+    "Vol10": 2369840.0,
+    "Slope_4W_%": -2.25,
     "RS_Rating": 17,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": 13.81,
-    "ROE": 0.0707,
-    "52W_High": 7.15,
-    "52W_Low": 5.2
-  },
-  {
-    "Ticker": "IND",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.95,
-    "MA30": 1.07,
-    "MA10": 0.91,
-    "Vol10": 8225140.0,
-    "Slope_4W_%": -2.62,
-    "RS_Rating": 17,
-    "ADTV(MB)": 1.6,
-    "PE_Ratio": 5.49,
-    "ROE": 0.1175,
-    "52W_High": 1.49,
-    "52W_Low": 0.79
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": null,
+    "ROE": -0.0383,
+    "52W_High": 0.62,
+    "52W_Low": 0.36
   },
   {
     "Ticker": "FNS",
@@ -11175,21 +11310,6 @@
     "52W_Low": 0.23
   },
   {
-    "Ticker": "CSP",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.44,
-    "MA30": 0.45,
-    "MA10": 0.45,
-    "Vol10": 2369840.0,
-    "Slope_4W_%": -2.25,
-    "RS_Rating": 16,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": null,
-    "ROE": -0.0383,
-    "52W_High": 0.62,
-    "52W_Low": 0.36
-  },
-  {
     "Ticker": "ANAN",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.36,
@@ -11218,6 +11338,21 @@
     "ROE": 0.1802,
     "52W_High": 19.86,
     "52W_Low": 11.2
+  },
+  {
+    "Ticker": "AS",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 2.38,
+    "MA30": 2.65,
+    "MA10": 2.38,
+    "Vol10": 4728030.0,
+    "Slope_4W_%": -3.37,
+    "RS_Rating": 16,
+    "ADTV(MB)": 2.3,
+    "PE_Ratio": 8.99,
+    "ROE": 0.0977,
+    "52W_High": 3.97,
+    "52W_Low": 2.17
   },
   {
     "Ticker": "MJD",
@@ -11280,19 +11415,19 @@
     "52W_Low": 0.84
   },
   {
-    "Ticker": "AS",
+    "Ticker": "PDJ",
     "Stage": "Stage 4 (Declining)",
-    "Price": 2.38,
-    "MA30": 2.65,
-    "MA10": 2.38,
-    "Vol10": 4728030.0,
-    "Slope_4W_%": -3.37,
+    "Price": 0.96,
+    "MA30": 1.01,
+    "MA10": 0.97,
+    "Vol10": 189609.0,
+    "Slope_4W_%": -3.34,
     "RS_Rating": 15,
-    "ADTV(MB)": 2.3,
-    "PE_Ratio": 8.99,
-    "ROE": 0.0977,
-    "52W_High": 3.97,
-    "52W_Low": 2.17
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": null,
+    "ROE": -0.1547,
+    "52W_High": 1.5,
+    "52W_Low": 0.88
   },
   {
     "Ticker": "QTCG",
@@ -11310,6 +11445,21 @@
     "52W_Low": 0.08
   },
   {
+    "Ticker": "PSGC",
+    "Stage": "Stage 4- transition",
+    "Price": 5.3,
+    "MA30": 5.77,
+    "MA10": 5.46,
+    "Vol10": 596639.0,
+    "Slope_4W_%": 1.1,
+    "RS_Rating": 14,
+    "ADTV(MB)": 0.7,
+    "PE_Ratio": 22.65,
+    "ROE": 0.1073,
+    "52W_High": 9.42,
+    "52W_Low": 4.28
+  },
+  {
     "Ticker": "SISB",
     "Stage": "Stage 4 (Declining)",
     "Price": 9.7,
@@ -11323,6 +11473,21 @@
     "ROE": 0.2415,
     "52W_High": 15.78,
     "52W_Low": 8.94
+  },
+  {
+    "Ticker": "CGD",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.1,
+    "MA30": 0.11,
+    "MA10": 0.1,
+    "Vol10": 11570760.0,
+    "Slope_4W_%": -1.2,
+    "RS_Rating": 14,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": null,
+    "ROE": -0.1869,
+    "52W_High": 0.14,
+    "52W_Low": 0.09
   },
   {
     "Ticker": "DTCI",
@@ -11385,36 +11550,6 @@
     "52W_Low": 1.06
   },
   {
-    "Ticker": "PDJ",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.96,
-    "MA30": 1.01,
-    "MA10": 0.97,
-    "Vol10": 189609.0,
-    "Slope_4W_%": -3.34,
-    "RS_Rating": 14,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": null,
-    "ROE": -0.1547,
-    "52W_High": 1.5,
-    "52W_Low": 0.88
-  },
-  {
-    "Ticker": "PSGC",
-    "Stage": "Stage 4- transition",
-    "Price": 5.3,
-    "MA30": 5.77,
-    "MA10": 5.46,
-    "Vol10": 596639.0,
-    "Slope_4W_%": 1.1,
-    "RS_Rating": 13,
-    "ADTV(MB)": 0.7,
-    "PE_Ratio": 22.65,
-    "ROE": 0.1073,
-    "52W_High": 9.42,
-    "52W_Low": 4.28
-  },
-  {
     "Ticker": "RICHY",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.16,
@@ -11428,21 +11563,6 @@
     "ROE": -0.0504,
     "52W_High": 0.35,
     "52W_Low": 0.13
-  },
-  {
-    "Ticker": "CGD",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.1,
-    "MA30": 0.11,
-    "MA10": 0.1,
-    "Vol10": 11570760.0,
-    "Slope_4W_%": -1.2,
-    "RS_Rating": 13,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": -0.1869,
-    "52W_High": 0.14,
-    "52W_Low": 0.09
   },
   {
     "Ticker": "HL",
@@ -11520,6 +11640,51 @@
     "52W_Low": 1.12
   },
   {
+    "Ticker": "LDC",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.25,
+    "MA30": 0.26,
+    "MA10": 0.25,
+    "Vol10": 2209830.0,
+    "Slope_4W_%": -4.25,
+    "RS_Rating": 13,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.0893,
+    "52W_High": 0.44,
+    "52W_Low": 0.21
+  },
+  {
+    "Ticker": "PLUS",
+    "Stage": "Stage 4- transition",
+    "Price": 1.3,
+    "MA30": 1.31,
+    "MA10": 1.26,
+    "Vol10": 19659281.0,
+    "Slope_4W_%": 1.68,
+    "RS_Rating": 12,
+    "ADTV(MB)": 5.1,
+    "PE_Ratio": null,
+    "ROE": -0.0576,
+    "52W_High": 3.24,
+    "52W_Low": 0.97
+  },
+  {
+    "Ticker": "NTV",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 19.0,
+    "MA30": 20.91,
+    "MA10": 18.95,
+    "Vol10": 161632.0,
+    "Slope_4W_%": -1.59,
+    "RS_Rating": 12,
+    "ADTV(MB)": 0.7,
+    "PE_Ratio": 12.44,
+    "ROE": 0.092,
+    "52W_High": 26.03,
+    "52W_Low": 18.3
+  },
+  {
     "Ticker": "BTS",
     "Stage": "Stage 4 (Declining)",
     "Price": 2.1,
@@ -11595,21 +11760,6 @@
     "52W_Low": 10.0
   },
   {
-    "Ticker": "LDC",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.25,
-    "MA30": 0.26,
-    "MA10": 0.25,
-    "Vol10": 2209830.0,
-    "Slope_4W_%": -4.25,
-    "RS_Rating": 12,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.0893,
-    "52W_High": 0.44,
-    "52W_Low": 0.21
-  },
-  {
     "Ticker": "VIBE",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.3,
@@ -11623,21 +11773,6 @@
     "ROE": -0.1178,
     "52W_High": 0.66,
     "52W_Low": 0.23
-  },
-  {
-    "Ticker": "PLUS",
-    "Stage": "Stage 4- transition",
-    "Price": 1.3,
-    "MA30": 1.31,
-    "MA10": 1.26,
-    "Vol10": 19659281.0,
-    "Slope_4W_%": 1.68,
-    "RS_Rating": 11,
-    "ADTV(MB)": 5.1,
-    "PE_Ratio": null,
-    "ROE": -0.0576,
-    "52W_High": 3.24,
-    "52W_Low": 0.97
   },
   {
     "Ticker": "APURE",
@@ -11655,19 +11790,19 @@
     "52W_Low": 1.9
   },
   {
-    "Ticker": "NTV",
+    "Ticker": "PHG",
     "Stage": "Stage 4 (Declining)",
-    "Price": 19.0,
-    "MA30": 20.91,
-    "MA10": 18.95,
-    "Vol10": 161632.0,
-    "Slope_4W_%": -1.59,
+    "Price": 10.1,
+    "MA30": 11.43,
+    "MA10": 10.28,
+    "Vol10": 406931.0,
+    "Slope_4W_%": -1.78,
     "RS_Rating": 11,
-    "ADTV(MB)": 0.7,
-    "PE_Ratio": 12.44,
-    "ROE": 0.092,
-    "52W_High": 26.03,
-    "52W_Low": 18.3
+    "ADTV(MB)": 1.6,
+    "PE_Ratio": 11.0,
+    "ROE": 0.1257,
+    "52W_High": 14.17,
+    "52W_Low": 9.8
   },
   {
     "Ticker": "PRECHA",
@@ -11730,6 +11865,21 @@
     "52W_Low": 0.4
   },
   {
+    "Ticker": "FVC",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.33,
+    "MA30": 0.37,
+    "MA10": 0.32,
+    "Vol10": 5760493.0,
+    "Slope_4W_%": -5.05,
+    "RS_Rating": 11,
+    "ADTV(MB)": 0.4,
+    "PE_Ratio": 22.0,
+    "ROE": -0.0004,
+    "52W_High": 0.58,
+    "52W_Low": 0.28
+  },
+  {
     "Ticker": "TVDH",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.05,
@@ -11760,19 +11910,19 @@
     "52W_Low": 0.33
   },
   {
-    "Ticker": "PHG",
+    "Ticker": "DHOUSE",
     "Stage": "Stage 4 (Declining)",
-    "Price": 10.1,
-    "MA30": 11.43,
-    "MA10": 10.28,
-    "Vol10": 406931.0,
-    "Slope_4W_%": -1.78,
+    "Price": 0.34,
+    "MA30": 0.38,
+    "MA10": 0.36,
+    "Vol10": 127971.0,
+    "Slope_4W_%": -1.71,
     "RS_Rating": 10,
-    "ADTV(MB)": 1.6,
-    "PE_Ratio": 11.0,
-    "ROE": 0.1257,
-    "52W_High": 14.17,
-    "52W_Low": 9.8
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": null,
+    "ROE": -0.0649,
+    "52W_High": 0.53,
+    "52W_Low": 0.3
   },
   {
     "Ticker": "DCON",
@@ -11820,6 +11970,21 @@
     "52W_Low": 1.47
   },
   {
+    "Ticker": "TRITN",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.02,
+    "MA30": 0.02,
+    "MA10": 0.02,
+    "Vol10": 15398061.0,
+    "Slope_4W_%": -4.05,
+    "RS_Rating": 10,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 2.0,
+    "ROE": 0.1292,
+    "52W_High": 0.05,
+    "52W_Low": 0.01
+  },
+  {
     "Ticker": "NETBAY",
     "Stage": "Stage 4 (Declining)",
     "Price": 14.2,
@@ -11833,36 +11998,6 @@
     "ROE": 0.3929,
     "52W_High": 23.74,
     "52W_Low": 9.05
-  },
-  {
-    "Ticker": "FVC",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.33,
-    "MA30": 0.37,
-    "MA10": 0.32,
-    "Vol10": 5760493.0,
-    "Slope_4W_%": -5.05,
-    "RS_Rating": 10,
-    "ADTV(MB)": 0.4,
-    "PE_Ratio": 22.0,
-    "ROE": -0.0004,
-    "52W_High": 0.58,
-    "52W_Low": 0.28
-  },
-  {
-    "Ticker": "DHOUSE",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.34,
-    "MA30": 0.38,
-    "MA10": 0.36,
-    "Vol10": 127971.0,
-    "Slope_4W_%": -1.71,
-    "RS_Rating": 9,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": null,
-    "ROE": -0.0649,
-    "52W_High": 0.53,
-    "52W_Low": 0.3
   },
   {
     "Ticker": "KC",
@@ -11880,6 +12015,21 @@
     "52W_Low": 0.01
   },
   {
+    "Ticker": "SEI",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 1.78,
+    "MA30": 1.96,
+    "MA10": 1.66,
+    "Vol10": 1682592.0,
+    "Slope_4W_%": -2.58,
+    "RS_Rating": 9,
+    "ADTV(MB)": 0.6,
+    "PE_Ratio": 9.43,
+    "ROE": 0.1029,
+    "52W_High": 3.11,
+    "52W_Low": 1.49
+  },
+  {
     "Ticker": "KUN",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.61,
@@ -11895,21 +12045,6 @@
     "52W_Low": 0.52
   },
   {
-    "Ticker": "TRITN",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.02,
-    "MA30": 0.02,
-    "MA10": 0.02,
-    "Vol10": 15398061.0,
-    "Slope_4W_%": -4.05,
-    "RS_Rating": 9,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": null,
-    "52W_High": 0.05,
-    "52W_Low": 0.01
-  },
-  {
     "Ticker": "AQUA",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.11,
@@ -11923,6 +12058,21 @@
     "ROE": -0.2059,
     "52W_High": 0.19,
     "52W_Low": 0.09
+  },
+  {
+    "Ticker": "ETL",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.46,
+    "MA30": 0.48,
+    "MA10": 0.41,
+    "Vol10": 7945415.0,
+    "Slope_4W_%": -4.56,
+    "RS_Rating": 9,
+    "ADTV(MB)": 0.7,
+    "PE_Ratio": null,
+    "ROE": -0.0083,
+    "52W_High": 0.96,
+    "52W_Low": 0.33
   },
   {
     "Ticker": "JTS",
@@ -12015,21 +12165,6 @@
     "52W_Low": 18.4
   },
   {
-    "Ticker": "SEI",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 1.78,
-    "MA30": 1.96,
-    "MA10": 1.66,
-    "Vol10": 1682592.0,
-    "Slope_4W_%": -2.58,
-    "RS_Rating": 8,
-    "ADTV(MB)": 0.6,
-    "PE_Ratio": 9.43,
-    "ROE": 0.1029,
-    "52W_High": 3.11,
-    "52W_Low": 1.49
-  },
-  {
     "Ticker": "INSURE",
     "Stage": "Stage 4 (Declining)",
     "Price": 51.0,
@@ -12043,6 +12178,21 @@
     "ROE": 0.0186,
     "52W_High": 87.25,
     "52W_Low": 50.75
+  },
+  {
+    "Ticker": "RML",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.09,
+    "MA30": 0.11,
+    "MA10": 0.1,
+    "Vol10": 5394390.0,
+    "Slope_4W_%": -4.03,
+    "RS_Rating": 8,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.388,
+    "52W_High": 0.18,
+    "52W_Low": 0.08
   },
   {
     "Ticker": "NCL",
@@ -12060,19 +12210,19 @@
     "52W_Low": 0.12
   },
   {
-    "Ticker": "ETL",
+    "Ticker": "CEYE",
     "Stage": "Stage 4 (Declining)",
-    "Price": 0.46,
-    "MA30": 0.48,
-    "MA10": 0.41,
-    "Vol10": 7945415.0,
-    "Slope_4W_%": -4.56,
+    "Price": 1.13,
+    "MA30": 1.36,
+    "MA10": 1.17,
+    "Vol10": 62440.0,
+    "Slope_4W_%": -5.14,
     "RS_Rating": 8,
-    "ADTV(MB)": 0.7,
-    "PE_Ratio": null,
-    "ROE": -0.0083,
-    "52W_High": 0.96,
-    "52W_Low": 0.33
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": 452.0,
+    "ROE": 0.0011,
+    "52W_High": 1.9,
+    "52W_Low": 1.1
   },
   {
     "Ticker": "SCM",
@@ -12088,6 +12238,21 @@
     "ROE": -0.2562,
     "52W_High": 0.47,
     "52W_Low": 0.1
+  },
+  {
+    "Ticker": "BC",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.58,
+    "MA30": 0.7,
+    "MA10": 0.62,
+    "Vol10": 681952.0,
+    "Slope_4W_%": -2.47,
+    "RS_Rating": 7,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.2135,
+    "52W_High": 1.08,
+    "52W_Low": 0.5
   },
   {
     "Ticker": "GFC",
@@ -12120,21 +12285,6 @@
     "52W_Low": 1.33
   },
   {
-    "Ticker": "RML",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.09,
-    "MA30": 0.11,
-    "MA10": 0.1,
-    "Vol10": 5394390.0,
-    "Slope_4W_%": -4.03,
-    "RS_Rating": 7,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.388,
-    "52W_High": 0.18,
-    "52W_Low": 0.08
-  },
-  {
     "Ticker": "SST",
     "Stage": "Stage 4 (Declining)",
     "Price": 1.02,
@@ -12165,19 +12315,19 @@
     "52W_Low": 1.33
   },
   {
-    "Ticker": "CEYE",
+    "Ticker": "GRAMMY",
     "Stage": "Stage 4 (Declining)",
-    "Price": 1.13,
-    "MA30": 1.36,
-    "MA10": 1.17,
-    "Vol10": 62440.0,
-    "Slope_4W_%": -5.14,
+    "Price": 2.94,
+    "MA30": 3.59,
+    "MA10": 2.97,
+    "Vol10": 77775.0,
+    "Slope_4W_%": -5.22,
     "RS_Rating": 7,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": 452.0,
-    "ROE": 0.0011,
-    "52W_High": 1.9,
-    "52W_Low": 1.1
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.01,
+    "52W_High": 5.0,
+    "52W_Low": 2.54
   },
   {
     "Ticker": "NRF",
@@ -12210,21 +12360,6 @@
     "52W_Low": 0.03
   },
   {
-    "Ticker": "BC",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.58,
-    "MA30": 0.7,
-    "MA10": 0.62,
-    "Vol10": 681952.0,
-    "Slope_4W_%": -2.47,
-    "RS_Rating": 6,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.2135,
-    "52W_High": 1.08,
-    "52W_Low": 0.5
-  },
-  {
     "Ticker": "SAMTEL",
     "Stage": "Stage 4 (Declining)",
     "Price": 3.06,
@@ -12255,6 +12390,21 @@
     "52W_Low": 0.05
   },
   {
+    "Ticker": "DEXON",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.77,
+    "MA30": 0.97,
+    "MA10": 0.84,
+    "Vol10": 1969823.0,
+    "Slope_4W_%": -4.99,
+    "RS_Rating": 6,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": null,
+    "ROE": -0.0993,
+    "52W_High": 1.48,
+    "52W_Low": 0.61
+  },
+  {
     "Ticker": "AJA",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.12,
@@ -12270,19 +12420,19 @@
     "52W_Low": 0.12
   },
   {
-    "Ticker": "GRAMMY",
+    "Ticker": "CEN",
     "Stage": "Stage 4 (Declining)",
-    "Price": 2.94,
-    "MA30": 3.59,
-    "MA10": 2.97,
-    "Vol10": 77775.0,
-    "Slope_4W_%": -5.22,
+    "Price": 0.61,
+    "MA30": 0.67,
+    "MA10": 0.61,
+    "Vol10": 1942480.0,
+    "Slope_4W_%": -5.89,
     "RS_Rating": 6,
-    "ADTV(MB)": 0.1,
+    "ADTV(MB)": 0.3,
     "PE_Ratio": null,
-    "ROE": -0.01,
-    "52W_High": 5.0,
-    "52W_Low": 2.54
+    "ROE": -0.1696,
+    "52W_High": 1.52,
+    "52W_Low": 0.46
   },
   {
     "Ticker": "SKIN",
@@ -12295,7 +12445,7 @@
     "RS_Rating": 6,
     "ADTV(MB)": 0.6,
     "PE_Ratio": null,
-    "ROE": null,
+    "ROE": -0.1004,
     "52W_High": null,
     "52W_Low": null
   },
@@ -12345,21 +12495,6 @@
     "52W_Low": 5.8
   },
   {
-    "Ticker": "DEXON",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.77,
-    "MA30": 0.97,
-    "MA10": 0.84,
-    "Vol10": 1969823.0,
-    "Slope_4W_%": -4.99,
-    "RS_Rating": 5,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": -0.0993,
-    "52W_High": 1.48,
-    "52W_Low": 0.61
-  },
-  {
     "Ticker": "RS",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.13,
@@ -12373,21 +12508,6 @@
     "ROE": -0.6607,
     "52W_High": 0.35,
     "52W_Low": 0.11
-  },
-  {
-    "Ticker": "CEN",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.61,
-    "MA30": 0.67,
-    "MA10": 0.61,
-    "Vol10": 1942480.0,
-    "Slope_4W_%": -5.89,
-    "RS_Rating": 5,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": -0.1696,
-    "52W_High": 1.52,
-    "52W_Low": 0.46
   },
   {
     "Ticker": "NAT",
@@ -12433,6 +12553,51 @@
     "ROE": -0.2051,
     "52W_High": 0.4,
     "52W_Low": 0.14
+  },
+  {
+    "Ticker": "TGPRO",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.03,
+    "MA30": 0.04,
+    "MA10": 0.03,
+    "Vol10": 10191576.0,
+    "Slope_4W_%": -7.03,
+    "RS_Rating": 5,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.088,
+    "52W_High": 0.07,
+    "52W_Low": 0.02
+  },
+  {
+    "Ticker": "TBSP",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.93,
+    "MA30": 1.39,
+    "MA10": 0.97,
+    "Vol10": 75445.0,
+    "Slope_4W_%": -7.8,
+    "RS_Rating": 5,
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": null,
+    "ROE": -2.8241,
+    "52W_High": 3.14,
+    "52W_Low": 0.79
+  },
+  {
+    "Ticker": "CPANEL",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 1.2,
+    "MA30": 1.64,
+    "MA10": 1.24,
+    "Vol10": 183300.0,
+    "Slope_4W_%": -7.87,
+    "RS_Rating": 5,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.0505,
+    "52W_High": 2.72,
+    "52W_Low": 1.17
   },
   {
     "Ticker": "ALPHAX",
@@ -12495,34 +12660,49 @@
     "52W_Low": 0.02
   },
   {
-    "Ticker": "TGPRO",
+    "Ticker": "GTV",
     "Stage": "Stage 4 (Declining)",
-    "Price": 0.03,
-    "MA30": 0.04,
+    "Price": 0.02,
+    "MA30": 0.03,
     "MA10": 0.03,
-    "Vol10": 10191576.0,
-    "Slope_4W_%": -7.03,
+    "Vol10": 25673530.0,
+    "Slope_4W_%": -5.83,
     "RS_Rating": 4,
     "ADTV(MB)": 0.1,
     "PE_Ratio": null,
-    "ROE": -0.088,
-    "52W_High": 0.07,
+    "ROE": -0.0068,
+    "52W_High": 0.11,
     "52W_Low": 0.02
   },
   {
-    "Ticker": "TBSP",
+    "Ticker": "XYZ",
     "Stage": "Stage 4 (Declining)",
-    "Price": 0.93,
-    "MA30": 1.39,
-    "MA10": 0.97,
-    "Vol10": 75445.0,
-    "Slope_4W_%": -7.8,
+    "Price": 0.27,
+    "MA30": 0.38,
+    "MA10": 0.3,
+    "Vol10": 1395940.0,
+    "Slope_4W_%": -7.0,
     "RS_Rating": 4,
-    "ADTV(MB)": 0.0,
+    "ADTV(MB)": 0.1,
     "PE_Ratio": null,
-    "ROE": -2.8241,
-    "52W_High": 3.14,
-    "52W_Low": 0.79
+    "ROE": -0.5476,
+    "52W_High": 1.45,
+    "52W_Low": 0.23
+  },
+  {
+    "Ticker": "AE",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.1,
+    "MA30": 0.14,
+    "MA10": 0.1,
+    "Vol10": 6033583.0,
+    "Slope_4W_%": -7.68,
+    "RS_Rating": 4,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.0551,
+    "52W_High": 0.28,
+    "52W_Low": 0.08
   },
   {
     "Ticker": "TWZ",
@@ -12540,21 +12720,6 @@
     "52W_Low": 0.01
   },
   {
-    "Ticker": "CPANEL",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 1.2,
-    "MA30": 1.64,
-    "MA10": 1.24,
-    "Vol10": 183300.0,
-    "Slope_4W_%": -7.87,
-    "RS_Rating": 4,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.0505,
-    "52W_High": 2.72,
-    "52W_Low": 1.17
-  },
-  {
     "Ticker": "YGG",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.18,
@@ -12570,21 +12735,6 @@
     "52W_Low": 0.15
   },
   {
-    "Ticker": "GTV",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.02,
-    "MA30": 0.03,
-    "MA10": 0.03,
-    "Vol10": 25673530.0,
-    "Slope_4W_%": -5.83,
-    "RS_Rating": 3,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.0068,
-    "52W_High": 0.11,
-    "52W_Low": 0.02
-  },
-  {
     "Ticker": "A",
     "Stage": "Stage 4 (Declining)",
     "Price": 2.72,
@@ -12598,36 +12748,6 @@
     "ROE": -0.9867,
     "52W_High": 5.0,
     "52W_Low": 2.7
-  },
-  {
-    "Ticker": "XYZ",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.27,
-    "MA30": 0.38,
-    "MA10": 0.3,
-    "Vol10": 1395940.0,
-    "Slope_4W_%": -7.0,
-    "RS_Rating": 3,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.5476,
-    "52W_High": 1.45,
-    "52W_Low": 0.23
-  },
-  {
-    "Ticker": "AE",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.1,
-    "MA30": 0.14,
-    "MA10": 0.1,
-    "Vol10": 6033583.0,
-    "Slope_4W_%": -7.68,
-    "RS_Rating": 3,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.0551,
-    "52W_High": 0.28,
-    "52W_Low": 0.08
   },
   {
     "Ticker": "PLE",
@@ -12660,6 +12780,21 @@
     "52W_Low": 0.17
   },
   {
+    "Ticker": "HPT",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.14,
+    "MA30": 0.29,
+    "MA10": 0.2,
+    "Vol10": 18450350.0,
+    "Slope_4W_%": -8.81,
+    "RS_Rating": 3,
+    "ADTV(MB)": 0.5,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
+  },
+  {
     "Ticker": "SMD100",
     "Stage": "Stage 4 (Declining)",
     "Price": 1.15,
@@ -12673,6 +12808,36 @@
     "ROE": 0.0092,
     "52W_High": 3.83,
     "52W_Low": 1.04
+  },
+  {
+    "Ticker": "PROS",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.18,
+    "MA30": 0.29,
+    "MA10": 0.18,
+    "Vol10": 7843210.0,
+    "Slope_4W_%": -11.38,
+    "RS_Rating": 3,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": null,
+    "ROE": -0.9924,
+    "52W_High": 0.77,
+    "52W_Low": 0.14
+  },
+  {
+    "Ticker": "TPOLY",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.11,
+    "MA30": 0.16,
+    "MA10": 0.11,
+    "Vol10": 3250895.0,
+    "Slope_4W_%": -13.25,
+    "RS_Rating": 3,
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": null,
+    "ROE": -0.9354,
+    "52W_High": 0.55,
+    "52W_Low": 0.08
   },
   {
     "Ticker": "QDC",
@@ -12720,19 +12885,19 @@
     "52W_Low": 0.08
   },
   {
-    "Ticker": "HPT",
+    "Ticker": "EMC",
     "Stage": "Stage 4 (Declining)",
-    "Price": 0.14,
-    "MA30": 0.29,
-    "MA10": 0.2,
-    "Vol10": 18450350.0,
-    "Slope_4W_%": -8.81,
+    "Price": 0.01,
+    "MA30": 0.02,
+    "MA10": 0.02,
+    "Vol10": 10093090.0,
+    "Slope_4W_%": -8.33,
     "RS_Rating": 2,
-    "ADTV(MB)": 0.5,
-    "PE_Ratio": 0.0,
-    "ROE": 0.0,
-    "52W_High": 0.0,
-    "52W_Low": 0.0
+    "ADTV(MB)": 0.0,
+    "PE_Ratio": null,
+    "ROE": -0.2655,
+    "52W_High": 0.05,
+    "52W_Low": 0.01
   },
   {
     "Ticker": "CHO",
@@ -12780,36 +12945,6 @@
     "52W_Low": 0.0
   },
   {
-    "Ticker": "PROS",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.18,
-    "MA30": 0.29,
-    "MA10": 0.18,
-    "Vol10": 7843210.0,
-    "Slope_4W_%": -11.38,
-    "RS_Rating": 2,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": null,
-    "ROE": -0.9924,
-    "52W_High": 0.77,
-    "52W_Low": 0.14
-  },
-  {
-    "Ticker": "TPOLY",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.11,
-    "MA30": 0.16,
-    "MA10": 0.11,
-    "Vol10": 3250895.0,
-    "Slope_4W_%": -13.25,
-    "RS_Rating": 2,
-    "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
-    "ROE": -0.9354,
-    "52W_High": 0.55,
-    "52W_Low": 0.08
-  },
-  {
     "Ticker": "MVP",
     "Stage": "Stage 4 (Declining)",
     "Price": 0.06,
@@ -12825,19 +12960,49 @@
     "52W_Low": 0.0
   },
   {
-    "Ticker": "EMC",
+    "Ticker": "HYDRO",
     "Stage": "Stage 4 (Declining)",
-    "Price": 0.01,
-    "MA30": 0.02,
-    "MA10": 0.02,
-    "Vol10": 10093090.0,
-    "Slope_4W_%": -8.33,
+    "Price": 0.08,
+    "MA30": 0.28,
+    "MA10": 0.11,
+    "Vol10": 13786280.0,
+    "Slope_4W_%": -23.65,
+    "RS_Rating": 2,
+    "ADTV(MB)": 0.3,
+    "PE_Ratio": 6.9,
+    "ROE": 0.5369,
+    "52W_High": 0.98,
+    "52W_Low": 0.04
+  },
+  {
+    "Ticker": "TTCL",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.08,
+    "MA30": 0.14,
+    "MA10": 0.1,
+    "Vol10": 14849750.0,
+    "Slope_4W_%": -32.63,
+    "RS_Rating": 2,
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
+  },
+  {
+    "Ticker": "TSR",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.04,
+    "MA30": 0.13,
+    "MA10": 0.09,
+    "Vol10": 11958430.0,
+    "Slope_4W_%": -10.78,
     "RS_Rating": 1,
-    "ADTV(MB)": 0.0,
-    "PE_Ratio": null,
-    "ROE": -0.2655,
-    "52W_High": 0.05,
-    "52W_Low": 0.01
+    "ADTV(MB)": 0.1,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
   },
   {
     "Ticker": "MILL",
@@ -12849,6 +13014,21 @@
     "Slope_4W_%": -14.75,
     "RS_Rating": 1,
     "ADTV(MB)": 0.1,
+    "PE_Ratio": 0.0,
+    "ROE": 0.0,
+    "52W_High": 0.0,
+    "52W_Low": 0.0
+  },
+  {
+    "Ticker": "WSOL",
+    "Stage": "Stage 4 (Declining)",
+    "Price": 0.03,
+    "MA30": 0.18,
+    "MA10": 0.1,
+    "Vol10": 54491310.0,
+    "Slope_4W_%": -17.51,
+    "RS_Rating": 1,
+    "ADTV(MB)": 0.4,
     "PE_Ratio": 0.0,
     "ROE": 0.0,
     "52W_High": 0.0,
@@ -12868,20 +13048,5 @@
     "ROE": -1.3113,
     "52W_High": 1.87,
     "52W_Low": 0.15
-  },
-  {
-    "Ticker": "HYDRO",
-    "Stage": "Stage 4 (Declining)",
-    "Price": 0.08,
-    "MA30": 0.28,
-    "MA10": 0.11,
-    "Vol10": 13786280.0,
-    "Slope_4W_%": -23.65,
-    "RS_Rating": 1,
-    "ADTV(MB)": 0.3,
-    "PE_Ratio": 6.9,
-    "ROE": 0.5369,
-    "52W_High": 0.98,
-    "52W_Low": 0.04
   }
 ]
