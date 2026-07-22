@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart, X } from 'lucide-react';
+import { SortableTh, SortConfig } from '@/components/StrategyTable';
 import TableSkeleton from '@/components/TableSkeleton';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
@@ -382,6 +383,7 @@ function AnnouncementsTable({
   const [quarterFilter, setQuarterFilter] = useState('ทั้งหมด');
   const [quickFilter, setQuickFilter] = useState<QuickFilterTag>('all');
   const [query, setQuery] = useState('');
+  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
 
@@ -393,8 +395,13 @@ function AnnouncementsTable({
 
   const todayIso = new Date().toISOString().slice(0, 10);
 
+  const handleSort = (key: string) => {
+    setCurrentPage(1);
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
   const filtered = useMemo(() => {
-    return announcements
+    let result = announcements
       .filter(a => bucketFilter === 'ทั้งหมด' || a.bucket === bucketFilter)
       .filter(a => quarterFilter === 'ทั้งหมด' || a.quarter === quarterFilter)
       .filter(a => {
@@ -404,9 +411,22 @@ function AnnouncementsTable({
         if (quickFilter === 'hasMda') return !!a.mdaUrl || !!a.reason;
         return true;
       })
-      .filter(a => !query.trim() || a.ticker.toLowerCase().includes(query.trim().toLowerCase()))
-      .sort((a, b) => (b.announceDate || '').localeCompare(a.announceDate || ''));
-  }, [announcements, bucketFilter, quarterFilter, quickFilter, query, todayIso]);
+      .filter(a => !query.trim() || a.ticker.toLowerCase().includes(query.trim().toLowerCase()));
+
+    if (sortConfig) {
+      result = result.sort((a, b) => {
+        const aVal = (a as any)[sortConfig.key];
+        const bVal = (b as any)[sortConfig.key];
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+      });
+    } else {
+      result = result.sort((a, b) => (b.announceDate || '').localeCompare(a.announceDate || ''));
+    }
+    return result;
+  }, [announcements, bucketFilter, quarterFilter, quickFilter, query, todayIso, sortConfig]);
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
   const safePage = Math.min(currentPage, totalPages);
@@ -572,15 +592,15 @@ function AnnouncementsTable({
           </div>
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-white/[0.06]">
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">เวลาประกาศ</th>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">หุ้น</th>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">งวด</th>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap text-right">กำไรสุทธิ</th>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap text-right hidden md:table-cell">ปีก่อน</th>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">%YoY</th>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap text-right hidden md:table-cell">EPS</th>
+              <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+                <tr>
+                  <SortableTh sortKey="announceDate" currentSort={sortConfig} onSort={handleSort}>เวลาประกาศ</SortableTh>
+                  <SortableTh sortKey="ticker" currentSort={sortConfig} onSort={handleSort}>หุ้น</SortableTh>
+                  <SortableTh sortKey="quarter" currentSort={sortConfig} onSort={handleSort}>งวด</SortableTh>
+                  <SortableTh right sortKey="netProfit" currentSort={sortConfig} onSort={handleSort}>กำไรสุทธิ</SortableTh>
+                  <SortableTh right sortKey="netProfitPrior" currentSort={sortConfig} onSort={handleSort}>ปีก่อน</SortableTh>
+                  <SortableTh right sortKey="netProfitYoY" currentSort={sortConfig} onSort={handleSort}>%YoY</SortableTh>
+                  <SortableTh right sortKey="eps" currentSort={sortConfig} onSort={handleSort}>EPS</SortableTh>
                   <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">เอกสาร</th>
                   <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">สาเหตุ</th>
                 </tr>
