@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T19:27:40.891767+07:00",
+  "generatedAt": "2026-07-22T17:57:05.353791+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -28,8 +28,12 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 4,
+      "count": 5,
       "top3": [
+        {
+          "ticker": "SCC",
+          "netProfitYoY": -33.46965609265487
+        },
         {
           "ticker": "TNH",
           "netProfitYoY": -31.635122485788
@@ -37,10 +41,6 @@
         {
           "ticker": "BBL",
           "netProfitYoY": -19.7802001965394
-        },
-        {
-          "ticker": "SCB",
-          "netProfitYoY": -13.056167006815622
         }
       ]
     },
@@ -88,11 +88,35 @@
   },
   "announcements": [
     {
+      "ticker": "SCC",
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET",
+      "announceDate": "2026-07-22T17:11:46+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 11534556000.0,
+      "netProfitPrior": 17337286000.0,
+      "netProfitYoY": -33.46965609265487,
+      "eps": 9.61,
+      "epsPrior": 14.45,
+      "epsYoY": -33.49480968858132,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105502001&symbol=SCC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17846773628591&symbol=SCC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105503701&symbol=SCC",
+      "headline": "สรุปผลการดำเนินงานของไตรมาสที่ 2/2569 (F45) (ก่อนสอบทาน)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "KTB",
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-21T19:23:15+07:00",
+      "announceDate": "2026-07-21T19:23:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 12125223000.0,
@@ -116,7 +140,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-21T18:20:18+07:00",
+      "announceDate": "2026-07-21T18:20:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 9497916000.0,
@@ -140,7 +164,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-21T17:22:51+07:00",
+      "announceDate": "2026-07-21T17:22:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 989264000.0,
@@ -164,7 +188,7 @@
       "sector": "Property",
       "subsector": "& Construction Construction Materials",
       "market": "SET",
-      "announceDate": "2026-07-21T17:17:33+07:00",
+      "announceDate": "2026-07-21T17:17:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -281297000.0,
@@ -177,7 +201,7 @@
       "isCorrection": false,
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105490701&symbol=SCGD",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902039351&symbol=SCGD",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902039311&symbol=SCGD",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105493301&symbol=SCGD",
       "headline": "สรุปผลการดำเนินงานไตรมาสที่ 2/2569 (F45) (ก่อนสอบทาน)",
       "reason": "จากการบริหารจัดการต้นทุนเพื่อลดผลกระทบจากความผันผวนของราคาพลังงาน อีกทั้งการบริหาร จัดการต้นทุนทางการเงิน และรักษาความสามารถในการทำกำไร 2.",
@@ -188,7 +212,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-21T12:46:31+07:00",
+      "announceDate": "2026-07-21T12:46:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 11116695000.0,
@@ -201,7 +225,7 @@
       "isCorrection": false,
       "bucket": "profit_shrink",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105486901&symbol=SCB",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902032101&symbol=SCB",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105487301&symbol=SCB",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105488101&symbol=SCB",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (ก่อนสอบทาน)",
       "reason": "",
@@ -212,7 +236,7 @@
       "sector": "Industrials",
       "subsector": "Packaging",
       "market": "SET",
-      "announceDate": "2026-07-21T12:31:41+07:00",
+      "announceDate": "2026-07-21T12:31:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 2303796000.0,
@@ -225,7 +249,7 @@
       "isCorrection": false,
       "bucket": "profit_growth",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105485401&symbol=SCGP",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902031751&symbol=SCGP",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902031741&symbol=SCGP",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105487501&symbol=SCGP",
       "headline": "สรุปผลการดำเนินงานของไตรมาสที่ 2/2569 (F45) (ก่อนสอบทาน)",
       "reason": "",
@@ -236,7 +260,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-21T08:21:05+07:00",
+      "announceDate": "2026-07-21T08:21:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 13247491000.0,
@@ -260,7 +284,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-07-21T06:55:15+07:00",
+      "announceDate": "2026-07-21T06:55:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 886317000.0,
@@ -273,7 +297,7 @@
       "isCorrection": false,
       "bucket": "profit_growth",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105478701&symbol=CIMBT",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845902026611&symbol=CIMBT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105480101&symbol=CIMBT",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105479901&symbol=CIMBT",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
@@ -733,49 +757,55 @@
     },
     {
       "ticker": "CIMBT",
-      "date": "2026-07-21T06:55:15+07:00",
+      "date": "2026-07-21T06:55:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "KBANK",
-      "date": "2026-07-21T08:21:05+07:00",
+      "date": "2026-07-21T08:21:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SCGP",
-      "date": "2026-07-21T12:31:41+07:00",
+      "date": "2026-07-21T12:31:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SCB",
-      "date": "2026-07-21T12:46:31+07:00",
+      "date": "2026-07-21T12:46:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SCGD",
-      "date": "2026-07-21T17:17:33+07:00",
+      "date": "2026-07-21T17:17:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CREDIT",
-      "date": "2026-07-21T17:22:51+07:00",
+      "date": "2026-07-21T17:22:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BBL",
-      "date": "2026-07-21T18:20:18+07:00",
+      "date": "2026-07-21T18:20:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "KTB",
-      "date": "2026-07-21T19:23:15+07:00",
+      "date": "2026-07-21T19:23:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "SCC",
+      "date": "2026-07-22T17:11:46+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1247,13 +1277,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-07T12:41:00+07:00"
-    },
-    {
-      "ticker": "SCC",
-      "date": "2026-08-07T12:42:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-07T12:42:00+07:00"
     },
     {
       "ticker": "AMARC",
@@ -2523,14 +2546,14 @@
       "basedOnLastYear": "2025-08-13T06:46:00+07:00"
     },
     {
-      "ticker": "ALPHAX",
+      "ticker": "AMATA",
       "date": "2026-08-13T06:49:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T06:49:00+07:00"
     },
     {
-      "ticker": "AMATA",
+      "ticker": "ALPHAX",
       "date": "2026-08-13T06:49:00+07:00",
       "status": "predicted",
       "quarter": null,
