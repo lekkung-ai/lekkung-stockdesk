@@ -13,6 +13,7 @@ import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
+import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
 import ModeToggle from '@/components/ModeToggle';
 import TrendSparkline from '@/components/TrendSparkline';
@@ -21,6 +22,7 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
+import { getScanHistory } from '@/lib/scanHistory';
 import ReportCardBar from '@/components/ReportCardBar';
 
 const SIGNALS = ['ทั้งหมด', 'EMAC Buy', 'Trend Riding'] as const;
@@ -35,11 +37,14 @@ function distColor(dist: number): string {
 export default function KellPage() {
   const [signalFilter, setSignalFilter] = useState<SignalFilter>('ทั้งหมด');
   const [distMax, setDistMax] = useState(8);
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(kellData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('kell')?.newTickers ?? []), []);
+
+  const kellHistory = useMemo(() => getScanHistory('kell'), []);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -76,6 +81,12 @@ export default function KellPage() {
     [signalFilter, distMax, sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
+  const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
+  const firstSeenDate = useMemo(() => {
+    if (!activeTicker || !kellHistory) return null;
+    const match = kellHistory.tickers.find(t => t.ticker === activeTicker);
+    return match?.firstSeen ?? null;
+  }, [activeTicker, kellHistory]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -130,7 +141,39 @@ export default function KellPage() {
       {diffFilter === 'dropped' ? (
         <DroppedTickersList scanName="kell" />
       ) : (
-      <>
+      <div className="space-y-4">
+      {/* Top Chart Section */}
+      {activeTicker && (
+        <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
+          <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
+              <span className="text-[11.5px] text-white/40">Technical Chart (Oliver Kell Strategy)</span>
+              {firstSeenDate && (
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                  <span>📍 เจอครั้งแรก:</span>
+                  <span>{formatThaiDate(firstSeenDate)}</span>
+                </span>
+              )}
+            </div>
+            {selectedTicker && (
+              <button
+                onClick={() => setSelectedTicker(null)}
+                className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                ย้อนกลับไปตัวแรก
+              </button>
+            )}
+          </div>
+          <StockChart
+            ticker={activeTicker}
+            height={340}
+            showEma10={true}
+            highlightDates={firstSeenDate ? [firstSeenDate] : undefined}
+          />
+        </div>
+      )}
+
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
@@ -148,52 +191,64 @@ export default function KellPage() {
           </tr>
         </thead>
         <tbody>
-          {displayRows.map((s, i) => (
-            <tr key={s.Ticker} className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
-              <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
-              <Td>
-                <div className="font-bold text-white">
-                  {s.Ticker}
-                  {newSet.has(s.Ticker) && <NewBadge />}
-                </div>
-                <SectorChip ticker={s.Ticker} />
-              </Td>
-              <Td>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${
-                  s.Signal === 'EMAC Buy'
-                    ? 'bg-[#EAF3DE] text-[#27500A]'
-                    : 'bg-[#E6F1FB] text-[#0C447C]'
-                }`}>
-                  {s.Signal}
-                </span>
-              </Td>
-              <Td right mono>
-                <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
-              </Td>
-              <Td right>
-                <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
-              </Td>
-              <Td right mono>
-                <span className="text-white/60">{daysInScan('kell', s.Ticker) ?? '—'}</span>
-              </Td>
-              <Td right mono>{s.EMA10.toFixed(2)}</Td>
-              <Td right mono>
-                <span className="font-semibold" style={{ color: distColor(s['Dist_EMA10_%']) }}>
-                  {s['Dist_EMA10_%'].toFixed(1)}%
-                </span>
-              </Td>
-              <Td right mono>{s['ADTV(MB)'].toFixed(0)}</Td>
-              <Td>
-                <span className={`text-label ${
-                  s.Status === 'ชิด EMA' ? 'text-[#1D9E75]'
-                  : s.Status === 'Trend OK' ? 'text-[#EF9F27]'
-                  : 'text-white/35'
-                }`}>
-                  {s.Status}
-                </span>
-              </Td>
-            </tr>
-          ))}
+          {displayRows.map((s, i) => {
+            const isActive = activeTicker === s.Ticker;
+            return (
+              <tr
+                key={s.Ticker}
+                onClick={() => setSelectedTicker(s.Ticker)}
+                className={`border-b border-white/[0.04] transition-colors cursor-pointer ${
+                  isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
+                }`}
+              >
+                <Td><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
+                <Td>
+                  <div className="flex items-center gap-2">
+                    <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
+                      {s.Ticker}
+                      {newSet.has(s.Ticker) && <NewBadge />}
+                    </div>
+                    {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
+                  </div>
+                  <SectorChip ticker={s.Ticker} />
+                </Td>
+                <Td>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${
+                    s.Signal === 'EMAC Buy'
+                      ? 'bg-[#EAF3DE] text-[#27500A]'
+                      : 'bg-[#E6F1FB] text-[#0C447C]'
+                  }`}>
+                    {s.Signal}
+                  </span>
+                </Td>
+                <Td right mono>
+                  <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+                </Td>
+                <Td right>
+                  <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
+                </Td>
+                <Td right mono>
+                  <span className="text-white/60">{daysInScan('kell', s.Ticker) ?? 1}</span>
+                </Td>
+                <Td right mono>{s.EMA10.toFixed(2)}</Td>
+                <Td right mono>
+                  <span className="font-semibold" style={{ color: distColor(s['Dist_EMA10_%']) }}>
+                    {s['Dist_EMA10_%'].toFixed(1)}%
+                  </span>
+                </Td>
+                <Td right mono>{s['ADTV(MB)'].toFixed(0)}</Td>
+                <Td>
+                  <span className={`text-label ${
+                    s.Status === 'ชิด EMA' ? 'text-[#1D9E75]'
+                    : s.Status === 'Trend OK' ? 'text-[#EF9F27]'
+                    : 'text-white/35'
+                  }`}>
+                    {s.Status}
+                  </span>
+                </Td>
+              </tr>
+            );
+          })}
           {isMobile && visibleCount < totalCount && (
             <tr ref={sentinelRef}>
               <td colSpan={10} className="py-3 text-center text-[11px] text-white/25">
@@ -210,7 +265,7 @@ export default function KellPage() {
           )}
         </tbody>
       </TableWrap>
-      </>
+      </div>
       )}
       </>
       )}

@@ -5,6 +5,6 @@ export type ScanDaysMap = Record<string, Record<string, number>>;
 
 export const scanDays = rawScanDays as ScanDaysMap;
 
-export function daysInScan(scanner: string, ticker: string): number | null {
-  return scanDays[scanner]?.[ticker] ?? null;
+export function daysInScan(scanner: string, ticker: string): number {
+  return scanDays[scanner]?.[ticker] ?? 1;
 }
