@@ -82,6 +82,7 @@ export default function LekkungPage() {
     [profitMin, revMin, roeMin, mcapMin, sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
+  const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -121,7 +122,28 @@ export default function LekkungPage() {
       {diffFilter === 'dropped' ? (
         <DroppedTickersList scanName="lekkung" />
       ) : (
-      <div>
+      <div className="space-y-4">
+      {/* Top Chart Section (Single chart at top, updates on row click) */}
+      {activeTicker && (
+        <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
+          <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
+            <div className="flex items-center gap-3">
+              <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
+              <span className="text-[11.5px] text-white/40">Technical Chart (Lekkung Strategy)</span>
+            </div>
+            {selectedTicker && (
+              <button
+                onClick={() => setSelectedTicker(null)}
+                className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                ย้อนกลับไปตัวแรก
+              </button>
+            )}
+          </div>
+          <StockChart ticker={activeTicker} height={340} showEma10={true} />
+        </div>
+      )}
+
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
@@ -140,86 +162,70 @@ export default function LekkungPage() {
           </tr>
         </thead>
         <tbody>
-          {displayRows.map((s, i) => (
-            <React.Fragment key={s.Ticker}>
-            <tr
-              onClick={() => setSelectedTicker(selectedTicker === s.Ticker ? null : s.Ticker)}
-              className={`border-b border-white/[0.04] transition-colors cursor-pointer ${
-                selectedTicker === s.Ticker ? 'bg-white/[0.08]' : 'hover:bg-white/[0.02]'
-              }`}
-            >
-              <Td className="text-white/40"><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
-              <Td>
-                <div className="font-bold text-white">
-                  {s.Ticker}
-                  {newSet.has(s.Ticker) && <NewBadge />}
-                </div>
-                <SectorChip ticker={s.Ticker} />
-              </Td>
-              <Td right mono>
-                <LivePriceCell jsonPrice={s.Close} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
-              </Td>
-              <Td right mono>
-                <span
-                  onClick={(e) => { e.stopPropagation(); goToHistory(s.Ticker); }}
-                  title="ดูประวัติการติด scan ย้อนหลัง"
-                  className="text-white/60 hover:text-white underline decoration-dotted underline-offset-2 cursor-pointer"
-                >
-                  {daysInScan('lekkung', s.Ticker) ?? '—'}
-                </span>
-              </Td>
-              <Td right mono>{s.PE_Ratio?.toFixed(2) || '-'}</Td>
-              <Td right mono>
-                <span className={s.ROE > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
-                  {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
-                </span>
-              </Td>
-              <Td right mono>
-                <span className={s.Revenue_Growth_YoY > 20 ? 'text-[#1D9E75]' : 'text-white'}>
-                  {s.Revenue_Growth_YoY?.toFixed(1) || '-'}%
-                </span>
-              </Td>
-              <Td right mono>
-                <span className={s.NetProfit_Growth_QoQY > 20 ? 'text-[#1D9E75]' : 'text-white'}>
-                  {s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}
-                </span>
-              </Td>
-              <Td right mono>
-                <div className="flex flex-col items-end leading-tight text-label">
-                  <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
-                  <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
-                </div>
-              </Td>
-              <Td right mono>
-                <span className="text-white/70">
-                  {s.Market_Cap ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}
-                </span>
-              </Td>
-              <Td right mono>{s.ADTV_MB?.toFixed(0) || '-'}</Td>
-            </tr>
-            {selectedTicker === s.Ticker && (
-              <tr key={`${s.Ticker}-chart`} className="bg-black/20 border-b border-white/[0.04]">
-                <td colSpan={12} className="p-4">
-                  <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 shadow-lg relative">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-baseline gap-2">
-                        <h2 className="text-[16px] font-bold text-white tracking-wide">{s.Ticker}</h2>
-                        <span className="text-label text-white/40">Technical Chart</span>
-                      </div>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setSelectedTicker(null); }}
-                        className="text-label text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
-                      >
-                        ปิดกราฟ
-                      </button>
+          {displayRows.map((s, i) => {
+            const isActive = activeTicker === s.Ticker;
+            return (
+              <tr
+                key={s.Ticker}
+                onClick={() => setSelectedTicker(s.Ticker)}
+                className={`border-b border-white/[0.04] transition-colors cursor-pointer ${
+                  isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
+                }`}
+              >
+                <Td className="text-white/40"><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
+                <Td>
+                  <div className="flex items-center gap-2">
+                    <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
+                      {s.Ticker}
+                      {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
-                    <StockChart ticker={s.Ticker} height={350} showEma10={true} />
+                    {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
-                </td>
+                  <SectorChip ticker={s.Ticker} />
+                </Td>
+                <Td right mono>
+                  <LivePriceCell jsonPrice={s.Close} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
+                </Td>
+                <Td right mono>
+                  <span
+                    onClick={(e) => { e.stopPropagation(); goToHistory(s.Ticker); }}
+                    title="ดูประวัติการติด scan ย้อนหลัง"
+                    className="text-white/60 hover:text-white underline decoration-dotted underline-offset-2 cursor-pointer"
+                  >
+                    {daysInScan('lekkung', s.Ticker) ?? '—'}
+                  </span>
+                </Td>
+                <Td right mono>{s.PE_Ratio?.toFixed(2) || '-'}</Td>
+                <Td right mono>
+                  <span className={s.ROE > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
+                    {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
+                  </span>
+                </Td>
+                <Td right mono>
+                  <span className={s.Revenue_Growth_YoY > 20 ? 'text-[#1D9E75]' : 'text-white'}>
+                    {s.Revenue_Growth_YoY?.toFixed(1) || '-'}%
+                  </span>
+                </Td>
+                <Td right mono>
+                  <span className={s.NetProfit_Growth_QoQY > 20 ? 'text-[#1D9E75]' : 'text-white'}>
+                    {s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}
+                  </span>
+                </Td>
+                <Td right mono>
+                  <div className="flex flex-col items-end leading-tight text-label">
+                    <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
+                    <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
+                  </div>
+                </Td>
+                <Td right mono>
+                  <span className="text-white/70">
+                    {s.Market_Cap ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}
+                  </span>
+                </Td>
+                <Td right mono>{s.ADTV_MB?.toFixed(0) || '-'}</Td>
               </tr>
-            )}
-          </React.Fragment>
-          ))}
+            );
+          })}
           {isMobile && visibleCount < totalCount && (
             <tr ref={sentinelRef}>
               <td colSpan={12} className="py-3 text-center text-[11px] text-white/25">
