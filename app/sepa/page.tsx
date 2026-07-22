@@ -14,6 +14,7 @@ import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
 } from '@/components/StrategyTable';
+import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
 import ModeToggle from '@/components/ModeToggle';
 import TrendSparkline from '@/components/TrendSparkline';
@@ -22,6 +23,7 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
+import { getScanHistory } from '@/lib/scanHistory';
 import ReportCardBar from '@/components/ReportCardBar';
 
 // Trend Template — 8 เงื่อนไขตาม Minervini (Trade Like a Stock Market Wizard, p.79)
@@ -87,11 +89,14 @@ function FundamentalBadge({ pass }: { pass: boolean | null | undefined }) {
 export default function SepaPage() {
   const [rsMin, setRsMin] = useState(60);
   const [fromHighMax, setFromHighMax] = useState(15);
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(sepaData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('sepa')?.newTickers ?? []), []);
+
+  const sepaHistory = useMemo(() => getScanHistory('sepa'), []);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -128,6 +133,12 @@ export default function SepaPage() {
     [rsMin, fromHighMax, sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
+  const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
+  const firstSeenDate = useMemo(() => {
+    if (!activeTicker || !sepaHistory) return null;
+    const match = sepaHistory.tickers.find(t => t.ticker === activeTicker);
+    return match?.firstSeen ?? null;
+  }, [activeTicker, sepaHistory]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -179,7 +190,39 @@ export default function SepaPage() {
       {diffFilter === 'dropped' ? (
         <DroppedTickersList scanName="sepa" />
       ) : (
-      <>
+      <div className="space-y-4">
+      {/* Top Chart Section */}
+      {activeTicker && (
+        <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
+          <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
+              <span className="text-[11.5px] text-white/40">Technical Chart (SEPA Trend Template)</span>
+              {firstSeenDate && (
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                  <span>📍 เจอครั้งแรก:</span>
+                  <span>{formatThaiDate(firstSeenDate)}</span>
+                </span>
+              )}
+            </div>
+            {selectedTicker && (
+              <button
+                onClick={() => setSelectedTicker(null)}
+                className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                ย้อนกลับไปตัวแรก
+              </button>
+            )}
+          </div>
+          <StockChart
+            ticker={activeTicker}
+            height={340}
+            showEma10={true}
+            highlightDates={firstSeenDate ? [firstSeenDate] : undefined}
+          />
+        </div>
+      )}
+
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
@@ -198,17 +241,28 @@ export default function SepaPage() {
           </tr>
         </thead>
         <tbody>
-          {displayRows.map((s, i) => (
-            <tr key={s.Ticker} className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
-              <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
-              <Td>
-                <div className="font-bold text-white">
-                  {s.Ticker}
-                  <FundamentalBadge pass={s.Fundamental_Pass} />
-                  {newSet.has(s.Ticker) && <NewBadge />}
-                </div>
-                <SectorChip ticker={s.Ticker} />
-              </Td>
+          {displayRows.map((s, i) => {
+            const isActive = activeTicker === s.Ticker;
+            return (
+              <tr
+                key={s.Ticker}
+                onClick={() => setSelectedTicker(s.Ticker)}
+                className={`border-b border-white/[0.04] transition-colors cursor-pointer ${
+                  isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
+                }`}
+              >
+                <Td><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
+                <Td>
+                  <div className="flex items-center gap-2">
+                    <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
+                      {s.Ticker}
+                      <FundamentalBadge pass={s.Fundamental_Pass} />
+                      {newSet.has(s.Ticker) && <NewBadge />}
+                    </div>
+                    {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
+                  </div>
+                  <SectorChip ticker={s.Ticker} />
+                </Td>
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>
@@ -237,7 +291,8 @@ export default function SepaPage() {
               <Td><TrendTemplateChecks entry={s} /></Td>
               <Td right mono><RSBar score={s.RS_Rating} /></Td>
             </tr>
-          ))}
+          );
+        })}
           {isMobile && visibleCount < totalCount && (
             <tr ref={sentinelRef}>
               <td colSpan={11} className="py-3 text-center text-[11px] text-white/25">
@@ -254,7 +309,7 @@ export default function SepaPage() {
           )}
         </tbody>
       </TableWrap>
-      </>
+      </div>
       )}
       </>
       )}
