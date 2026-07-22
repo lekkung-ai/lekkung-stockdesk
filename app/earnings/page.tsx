@@ -70,6 +70,9 @@ const EMPTY_FEED: EarningsFeed = {
   buckets: {} as EarningsFeed['buckets'], announcements: [], calendar: [],
 };
 
+const BUCKET_FILTER_OPTS = ['ทั้งหมด', ...BUCKET_ORDER] as const;
+type BucketFilterOpt = (typeof BUCKET_FILTER_OPTS)[number];
+
 // ── Bucket summary cards - clickable, IS the status filter (not a separate
 // row of filter buttons duplicating the same 6 states below) ───────────────
 
@@ -246,11 +249,6 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
   );
 }
 
-// ── Announcements table ──────────────────────────────────────────────────────
-
-const BUCKET_FILTER_OPTS = ['ทั้งหมด', ...BUCKET_ORDER] as const;
-type BucketFilterOpt = (typeof BUCKET_FILTER_OPTS)[number];
-
 function YoyBadge({ value }: { value: number | null }) {
   if (value == null) return <span className="text-meta">—</span>;
   const cls = value >= 0 ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]';
@@ -260,6 +258,112 @@ function YoyBadge({ value }: { value: number | null }) {
     </span>
   );
 }
+
+function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
+  const announcements = feed.announcements;
+
+  const topYoY = useMemo(() => {
+    return [...announcements]
+      .filter(a => a.netProfitYoY != null && a.netProfitYoY > 0)
+      .sort((a, b) => (b.netProfitYoY ?? 0) - (a.netProfitYoY ?? 0))
+      .slice(0, 3);
+  }, [announcements]);
+
+  const turnaroundList = useMemo(() => {
+    return announcements.filter(
+      a => a.netProfitPrior != null && a.netProfitPrior < 0 && a.netProfit != null && a.netProfit > 0
+    );
+  }, [announcements]);
+
+  const stats = useMemo(() => {
+    const total = announcements.length;
+    if (total === 0) return { total: 0, growthCount: 0, shrinkCount: 0, growthPct: 0 };
+    const growthCount = announcements.filter(a => a.netProfitYoY != null && a.netProfitYoY > 0).length;
+    const shrinkCount = announcements.filter(a => a.netProfitYoY != null && a.netProfitYoY < 0).length;
+    const growthPct = (growthCount / total) * 100;
+    return { total, growthCount, shrinkCount, growthPct };
+  }, [announcements]);
+
+  if (announcements.length === 0) return null;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      {/* Card 1: Top Profit Growth */}
+      <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-3.5 space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-[12px] font-bold text-emerald-400 flex items-center gap-1.5">
+            <span>🚀 Top Profit Growth (YoY)</span>
+          </span>
+          <span className="text-[10px] text-white/40 font-mono">Top 3</span>
+        </div>
+        <div className="space-y-1.5">
+          {topYoY.map((a, i) => (
+            <div key={a.ticker} className="flex items-center justify-between text-[12px] bg-white/[0.03] px-2.5 py-1 rounded-lg">
+              <span className="font-bold text-white flex items-center gap-1.5">
+                <span className="text-white/30 text-[10px]">#{i + 1}</span>
+                {a.ticker}
+              </span>
+              <span className="font-bold text-emerald-400 tabular-nums">
+                +{a.netProfitYoY?.toFixed(1)}%
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Card 2: Turnaround Stocks */}
+      <div className="bg-[#13161e] border border-amber-500/30 rounded-xl p-3.5 space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-[12px] font-bold text-amber-400 flex items-center gap-1.5">
+            <span>🔄 Turnaround (พลิกกำไร)</span>
+          </span>
+          <span className="text-[11px] font-extrabold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">
+            {turnaroundList.length} ตัว
+          </span>
+        </div>
+        {turnaroundList.length === 0 ? (
+          <p className="text-[11.5px] text-white/30 py-2">ไม่พบหุ้นพลิกกำไรในรอบ 45 วันล่าสุด</p>
+        ) : (
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {turnaroundList.map(a => (
+              <span key={a.ticker} className="text-[11.5px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                {a.ticker}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Card 3: Earnings Beat Ratio */}
+      <div className="bg-[#13161e] border border-blue-500/30 rounded-xl p-3.5 space-y-2 flex flex-col justify-between">
+        <div className="flex items-center justify-between">
+          <span className="text-[12px] font-bold text-blue-400 flex items-center gap-1.5">
+            <span>📊 สัดส่วนบริษัทกำไรเติบโต</span>
+          </span>
+          <span className="text-[11px] font-bold text-white/60 tabular-nums">
+            {stats.growthCount} / {stats.total} บริษัท
+          </span>
+        </div>
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between text-[11.5px]">
+            <span className="text-white/50">กำไรเติบโต (YoY &gt; 0)</span>
+            <span className="font-bold text-blue-400 tabular-nums">{stats.growthPct.toFixed(1)}%</span>
+          </div>
+          <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden flex">
+            <div className="bg-emerald-500 h-full" style={{ width: `${stats.growthPct}%` }} />
+            <div className="bg-rose-500 h-full" style={{ width: `${100 - stats.growthPct}%` }} />
+          </div>
+          <div className="flex justify-between text-[10px] text-white/40">
+            <span className="text-emerald-400">โต {stats.growthCount}</span>
+            <span className="text-rose-400">ลดลง {stats.shrinkCount}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type QuickFilterTag = 'all' | 'today' | 'growth50' | 'turnaround' | 'hasMda';
 
 function AnnouncementsTable({
   announcements,
@@ -276,7 +380,10 @@ function AnnouncementsTable({
 }) {
   const router = useRouter();
   const [quarterFilter, setQuarterFilter] = useState('ทั้งหมด');
+  const [quickFilter, setQuickFilter] = useState<QuickFilterTag>('all');
   const [query, setQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10;
 
   const quarters = useMemo(() => {
     const s = new Set<string>();
@@ -284,26 +391,96 @@ function AnnouncementsTable({
     return ['ทั้งหมด', ...Array.from(s)];
   }, [announcements]);
 
+  const todayIso = new Date().toISOString().slice(0, 10);
+
   const filtered = useMemo(() => {
     return announcements
       .filter(a => bucketFilter === 'ทั้งหมด' || a.bucket === bucketFilter)
       .filter(a => quarterFilter === 'ทั้งหมด' || a.quarter === quarterFilter)
+      .filter(a => {
+        if (quickFilter === 'today') return a.announceDate?.startsWith(todayIso);
+        if (quickFilter === 'growth50') return a.netProfitYoY != null && a.netProfitYoY >= 50;
+        if (quickFilter === 'turnaround') return a.netProfitPrior != null && a.netProfitPrior < 0 && a.netProfit != null && a.netProfit > 0;
+        if (quickFilter === 'hasMda') return !!a.mdaUrl || !!a.reason;
+        return true;
+      })
       .filter(a => !query.trim() || a.ticker.toLowerCase().includes(query.trim().toLowerCase()))
       .sort((a, b) => (b.announceDate || '').localeCompare(a.announceDate || ''));
-  }, [announcements, bucketFilter, quarterFilter, query]);
+  }, [announcements, bucketFilter, quarterFilter, quickFilter, query, todayIso]);
 
-  // Row click always opens the detail panel now - desktop docks it beside
-  // the table, narrow screens get a bottom sheet instead (see
-  // AnnouncementSidePanel/AnnouncementBottomSheet below). The ticker button
-  // itself still navigates straight to the stock page on any screen size.
+  const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedRows = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+
+  const handleSearchChange = (val: string) => {
+    setCurrentPage(1);
+    setQuery(val);
+  };
+
+  const handleQuarterChange = (val: string) => {
+    setCurrentPage(1);
+    setQuarterFilter(val);
+  };
+
+  const handleQuickFilterChange = (val: QuickFilterTag) => {
+    setCurrentPage(1);
+    setQuickFilter(val);
+  };
+
   function handleRowClick(a: EarningsAnnouncement) {
     onSelect(a);
   }
 
   return (
     <div className="space-y-3">
+      {/* Filter and Quick Chips Bar */}
       <div className="flex flex-wrap gap-2 items-center">
-        <span className="text-label text-meta whitespace-nowrap">กรองเพิ่ม:</span>
+        <span className="text-label text-meta whitespace-nowrap">ทางลัด:</span>
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <button
+            onClick={() => handleQuickFilterChange('all')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
+              quickFilter === 'all' ? 'bg-white/15 text-white font-bold' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
+            }`}
+          >
+            ทั้งหมด
+          </button>
+          <button
+            onClick={() => handleQuickFilterChange('today')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
+              quickFilter === 'today' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
+            }`}
+          >
+            📅 ประกาศวันนี้
+          </button>
+          <button
+            onClick={() => handleQuickFilterChange('growth50')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
+              quickFilter === 'growth50' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
+            }`}
+          >
+            🚀 โต &gt; 50%
+          </button>
+          <button
+            onClick={() => handleQuickFilterChange('turnaround')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
+              quickFilter === 'turnaround' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
+            }`}
+          >
+            🔄 พลิกกำไร
+          </button>
+          <button
+            onClick={() => handleQuickFilterChange('hasMda')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
+              quickFilter === 'hasMda' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
+            }`}
+          >
+            📄 มีสรุป MD&amp;A
+          </button>
+        </div>
+
+        <div className="h-4 w-px bg-white/10 mx-1 hidden sm:block" />
+
         {bucketFilter !== 'ทั้งหมด' && (
           <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-label font-semibold ${BUCKET_BADGE_STYLE[bucketFilter as EarningsBucket]}`}>
             {BUCKET_LABEL[bucketFilter as EarningsBucket]}
@@ -314,18 +491,18 @@ function AnnouncementsTable({
         )}
         <select
           value={quarterFilter}
-          onChange={e => setQuarterFilter(e.target.value)}
+          onChange={e => handleQuarterChange(e.target.value)}
           className="px-2.5 py-1.5 bg-[#13161e] border border-white/[0.07] rounded-lg text-label text-white/70 outline-none focus:border-white/20"
         >
           {quarters.map(q => <option key={q} value={q}>{q}</option>)}
         </select>
-        <div className="relative flex-1 min-w-[160px]">
+        <div className="relative flex-1 min-w-[140px]">
           <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-meta" />
           <input
             type="text"
             placeholder="ค้นหาหุ้น..."
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={e => handleSearchChange(e.target.value)}
             className="w-full pl-7 pr-3 py-1.5 bg-[#13161e] border border-white/[0.07] rounded-lg text-label text-white/80 placeholder:text-meta outline-none focus:border-white/20"
           />
         </div>
@@ -338,11 +515,9 @@ function AnnouncementsTable({
           </div>
         ) : (
           <>
-          {/* Mobile: card per row - the 9-column table below is far wider
-              than any phone viewport, so <768px gets a stacked card instead
-              of a horizontally-scrolling table. */}
+          {/* Mobile: card per row */}
           <div className="md:hidden divide-y divide-white/[0.03]">
-            {filtered.map((a, i) => (
+            {paginatedRows.map((a, i) => (
               <div
                 key={`${a.ticker}-${a.announceDate}-${i}`}
                 onClick={() => handleRowClick(a)}
@@ -388,7 +563,7 @@ function AnnouncementsTable({
                   {a.mdaUrl && (
                     <a href={a.mdaUrl} target="_blank" rel="noopener noreferrer"
                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
-                      MD&A <ExternalLink size={9} />
+                      MD&amp;A <ExternalLink size={9} />
                     </a>
                   )}
                 </div>
@@ -411,7 +586,7 @@ function AnnouncementsTable({
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.03]">
-                {filtered.map((a, i) => (
+                {paginatedRows.map((a, i) => (
                   <tr
                     key={`${a.ticker}-${a.announceDate}-${i}`}
                     onClick={() => handleRowClick(a)}
@@ -462,7 +637,7 @@ function AnnouncementsTable({
                         {a.mdaUrl && (
                           <a href={a.mdaUrl} target="_blank" rel="noopener noreferrer"
                              className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
-                            MD&A <ExternalLink size={9} />
+                            MD&amp;A <ExternalLink size={9} />
                           </a>
                         )}
                       </div>
@@ -482,6 +657,53 @@ function AnnouncementsTable({
           </>
         )}
       </div>
+
+      {/* Pagination Controls */}
+      {filtered.length > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#13161e] border border-white/[0.07] px-4 py-3 rounded-xl">
+          <p className="text-[12px] text-white/40">
+            แสดง <span className="font-semibold text-white">{(safePage - 1) * pageSize + 1}</span> -{' '}
+            <span className="font-semibold text-white">{Math.min(safePage * pageSize, filtered.length)}</span> จากทั้งหมด{' '}
+            <span className="font-semibold text-white">{filtered.length}</span> รายการ
+          </p>
+
+          {totalPages > 1 && (
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
+                disabled={safePage === 1}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ‹ ก่อนหน้า
+              </button>
+
+              <div className="flex items-center gap-1 px-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => setCurrentPage(p)}
+                    className={`w-7 h-7 rounded-lg text-[11px] font-bold transition-all ${
+                      p === safePage
+                        ? 'bg-blue-500 text-white shadow-md'
+                        : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.09] hover:text-white'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
+                disabled={safePage >= totalPages}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ถัดไป ›
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -723,6 +945,7 @@ export default function EarningsPage() {
           <div className="flex gap-4 items-stretch">
             <div className="flex-1 min-w-0 space-y-4">
               <WeekCalendarStrip feed={feed} />
+              <KpiSummaryHighlights feed={feed} />
               <BucketCards feed={feed} activeFilter={bucketFilter} onFilterChange={setBucketFilter} />
               <AnnouncementsTable
                 announcements={feed.announcements}
