@@ -24,13 +24,13 @@ export interface ScanDiffData {
 }
 
 const DIFF_BY_SCAN: Record<string, ScanDiffData> = {
-  lekkung: rawLekkungDiff as ScanDiffData,
-  sepa: rawSepaDiff as ScanDiffData,
-  kell: rawKellDiff as ScanDiffData,
-  oneil: rawOneilDiff as ScanDiffData,
-  breakout: rawBreakoutDiff as ScanDiffData,
-  'market-stage': rawMarketStageDiff as ScanDiffData,
-  'stage-analysis': rawStageAnalysisDiff as ScanDiffData,
+  lekkung: rawLekkungDiff as unknown as ScanDiffData,
+  sepa: rawSepaDiff as unknown as ScanDiffData,
+  kell: rawKellDiff as unknown as ScanDiffData,
+  oneil: rawOneilDiff as unknown as ScanDiffData,
+  breakout: rawBreakoutDiff as unknown as ScanDiffData,
+  'market-stage': rawMarketStageDiff as unknown as ScanDiffData,
+  'stage-analysis': rawStageAnalysisDiff as unknown as ScanDiffData,
 };
 
 export function getScanDiff(scanName: string): ScanDiffData | null {

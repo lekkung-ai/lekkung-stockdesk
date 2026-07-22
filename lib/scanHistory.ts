@@ -33,13 +33,13 @@ export interface ScanHistoryData {
 // here to extend the /history view to another scan - ScanHistoryView.tsx
 // itself takes scanName as a prop and needs no other changes.
 const HISTORY_BY_SCAN: Record<string, ScanHistoryData> = {
-  lekkung: rawLekkungHistory as ScanHistoryData,
-  sepa: rawSepaHistory as ScanHistoryData,
-  kell: rawKellHistory as ScanHistoryData,
-  oneil: rawOneilHistory as ScanHistoryData,
-  breakout: rawBreakoutHistory as ScanHistoryData,
-  'market-stage': rawMarketStageHistory as ScanHistoryData,
-  'stage-analysis': rawStageAnalysisHistory as ScanHistoryData,
+  lekkung: rawLekkungHistory as unknown as ScanHistoryData,
+  sepa: rawSepaHistory as unknown as ScanHistoryData,
+  kell: rawKellHistory as unknown as ScanHistoryData,
+  oneil: rawOneilHistory as unknown as ScanHistoryData,
+  breakout: rawBreakoutHistory as unknown as ScanHistoryData,
+  'market-stage': rawMarketStageHistory as unknown as ScanHistoryData,
+  'stage-analysis': rawStageAnalysisHistory as unknown as ScanHistoryData,
 };
 
 export function getScanHistory(scanName: string): ScanHistoryData | null {
