@@ -1,6 +1,6 @@
 import rawMacro from '@/data/scans/macro_commodities.json';
 
-export type MacroZone = 'energy' | 'agri' | 'financial';
+export type MacroZone = 'energy' | 'agri' | 'industrial' | 'financial';
 
 export interface MacroSeriesPoint {
   date: string;
@@ -41,7 +41,7 @@ export const macroCommodities: MacroCommodity[] = Object.entries(macro.commoditi
   ([symbol, data]) => ({ symbol, ...data })
 );
 
-const ZONE_ORDER: MacroZone[] = ['energy', 'agri', 'financial'];
+const ZONE_ORDER: MacroZone[] = ['energy', 'agri', 'industrial', 'financial'];
 
 export function macroCommoditiesByZone(): { zone: MacroZone; label: string; items: MacroCommodity[] }[] {
   return ZONE_ORDER.map(zone => ({

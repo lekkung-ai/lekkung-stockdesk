@@ -1,9 +1,12 @@
+'use client';
+
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ChangeBadge } from '@/components/ChangeBadge';
 import TrendSparkline from '@/components/TrendSparkline';
 import { formatShortThaiDate } from '@/lib/utils';
 import {
-  macroCommoditiesByZone,
+  macroCommodities,
   macroGeneratedAt,
   macroMethodology,
   macroPalmOilNote,
@@ -11,130 +14,284 @@ import {
   type MacroZone,
 } from '@/lib/macroData';
 
-const ZONE_COLORS: Record<MacroZone, string> = {
-  energy: '#EF9F27',
-  agri: '#5D9E4A',
-  financial: '#378ADD',
+const ZONE_COLORS: Record<MacroZone, { border: string; bg: string; text: string }> = {
+  energy: { border: '#EF9F27', bg: 'bg-[#EF9F27]/10', text: 'text-[#EF9F27]' },
+  agri: { border: '#5D9E4A', bg: 'bg-[#5D9E4A]/10', text: 'text-[#5D9E4A]' },
+  industrial: { border: '#A855F7', bg: 'bg-[#A855F7]/10', text: 'text-[#A855F7]' },
+  financial: { border: '#378ADD', bg: 'bg-[#378ADD]/10', text: 'text-[#378ADD]' },
+};
+
+const ZONE_LABELS_TH: Record<MacroZone, string> = {
+  energy: 'พลังงาน',
+  agri: 'เกษตร-อาหาร',
+  industrial: 'โลหะ-อุตสาหกรรม',
+  financial: 'การเงิน-ดอกเบี้ย',
 };
 
 function formatPrice(close: number): string {
+  if (close >= 1000) {
+    return close.toLocaleString('en-US', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+  }
   return close.toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 }
 
 function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
   const sparkData = commodity.series.map(s => s.close);
+  const zoneStyle = ZONE_COLORS[commodity.zone] || ZONE_COLORS.financial;
 
   return (
-    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-3">
+    <div className="bg-[#13161e] border border-white/[0.08] hover:border-white/[0.18] rounded-xl p-4 transition-all space-y-3 shadow-sm hover:shadow-md">
+      {/* Header: Title + Sparkline */}
       <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <p className="text-[13px] font-semibold text-white truncate">{commodity.name_th}</p>
-          <p className="text-[10.5px] text-white/30 truncate">
-            {commodity.name_en} · {commodity.symbol}
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 mb-1">
+            <span className={`text-[9.5px] font-medium px-2 py-0.5 rounded-full ${zoneStyle.bg} ${zoneStyle.text}`}>
+              {ZONE_LABELS_TH[commodity.zone]}
+            </span>
+          </div>
+          <h3 className="text-[13.5px] font-bold text-white truncate leading-tight">{commodity.name_th}</h3>
+          <p className="text-[10.5px] text-white/40 truncate mt-0.5">
+            {commodity.name_en} · <span className="font-mono text-white/50">{commodity.symbol}</span>
           </p>
         </div>
-        <TrendSparkline data={sparkData} width={64} height={22} />
+        <div className="flex-shrink-0 pt-1">
+          <TrendSparkline data={sparkData} width={72} height={24} />
+        </div>
       </div>
 
-      <div className="flex items-center justify-between gap-3">
+      {/* Price & Badges */}
+      <div className="flex items-center justify-between gap-3 pt-1">
         <div>
-          <p className="text-[19px] font-bold text-white tabular-nums leading-none">
-            {formatPrice(commodity.latest.close)}
-          </p>
-          <p className="text-[10px] text-white/25 mt-1">{commodity.unit}</p>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[20px] font-extrabold text-white tabular-nums leading-none tracking-tight">
+              {formatPrice(commodity.latest.close)}
+            </span>
+          </div>
+          <p className="text-[10px] text-white/30 mt-1 font-medium">{commodity.unit}</p>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="text-center">
+          <div className="text-center bg-white/[0.03] px-2 py-1 rounded-lg border border-white/[0.05]">
+            <p className="text-[9px] font-medium text-white/30 mb-0.5">1D</p>
             <ChangeBadge value={commodity.pct_1d} />
-            <p className="text-[9px] text-white/20 mt-1">1D</p>
           </div>
-          <div className="text-center">
+          <div className="text-center bg-white/[0.03] px-2 py-1 rounded-lg border border-white/[0.05]">
+            <p className="text-[9px] font-medium text-white/30 mb-0.5">1M</p>
             <ChangeBadge value={commodity.pct_1m} />
-            <p className="text-[9px] text-white/20 mt-1">1M</p>
           </div>
         </div>
       </div>
 
-      <p className="text-[9.5px] text-white/20">Yahoo Finance · ปิด {commodity.latest.date}</p>
-
-      {commodity.tickers.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/[0.06]">
+      {/* Stock Tickers Chips */}
+      {commodity.tickers.length > 0 ? (
+        <div className="pt-2.5 border-t border-white/[0.06] flex items-center gap-1.5 flex-wrap">
+          <span className="text-[9.5px] text-white/30 font-medium mr-0.5">กระทบหุ้น:</span>
           {commodity.tickers.map(t => (
             <Link
               key={t}
               href={`/stock/${t}`}
-              className="text-[10.5px] font-semibold px-2 py-1 rounded-lg bg-white/[0.04] text-white/60 hover:bg-white/[0.09] hover:text-white transition-colors"
+              className="text-[10.5px] font-bold px-2 py-0.5 rounded-md bg-white/[0.06] text-white/80 hover:bg-emerald-500/20 hover:text-emerald-300 border border-white/[0.08] hover:border-emerald-500/30 transition-all"
             >
               {t}
             </Link>
           ))}
+        </div>
+      ) : (
+        <div className="pt-2 border-t border-white/[0.04]">
+          <span className="text-[9.5px] text-white/20 italic">ไม่มีหุ้นผูกโดยตรง (ดัชนีอ้างอิง)</span>
         </div>
       )}
     </div>
   );
 }
 
-function BankHealthPendingCard() {
-  return (
-    <div className="border border-dashed border-white/[0.12] rounded-xl p-4 flex flex-col items-center justify-center text-center gap-1.5 min-h-[140px]">
-      <p className="text-[12px] font-semibold text-white/40">%NPL / สินเชื่อโต YoY ธนาคารพาณิชย์</p>
-      <p className="text-[10.5px] text-white/25">รอข้อมูลจาก ธปท. (ต้องมี API key ก่อน)</p>
-    </div>
-  );
-}
-
-function ZoneSection({
-  zone,
-  label,
-  items,
-}: {
-  zone: MacroZone;
-  label: string;
-  items: MacroCommodity[];
-}) {
-  return (
-    <div
-      className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden"
-      style={{ borderLeft: `3px solid ${ZONE_COLORS[zone]}` }}
-    >
-      <div className="px-4 py-3 border-b border-white/[0.06] flex items-center gap-2">
-        <p className="text-[13px] font-semibold text-white">{label}</p>
-        <span className="text-[11px] text-white/30">{items.length} รายการ</span>
-      </div>
-      <div className="p-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {items.map(c => (
-          <CommodityCard key={c.symbol} commodity={c} />
-        ))}
-        {zone === 'financial' && <BankHealthPendingCard />}
-      </div>
-    </div>
-  );
-}
-
 export default function MacroPage() {
-  const zones = macroCommoditiesByZone();
+  const [selectedZone, setSelectedZone] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Top Movers Summary
+  const topMovers = useMemo(() => {
+    const valid = macroCommodities.filter(c => c.pct_1d !== null);
+    const sorted = [...valid].sort((a, b) => (b.pct_1d ?? 0) - (a.pct_1d ?? 0));
+    return {
+      gainers: sorted.slice(0, 3),
+      losers: sorted.slice(-3).reverse(),
+    };
+  }, []);
+
+  // Filtered List
+  const filteredCommodities = useMemo(() => {
+    return macroCommodities.filter(c => {
+      const matchesZone = selectedZone === 'all' || c.zone === selectedZone;
+      const q = searchQuery.trim().toLowerCase();
+      const matchesSearch =
+        !q ||
+        c.name_th.toLowerCase().includes(q) ||
+        c.name_en.toLowerCase().includes(q) ||
+        c.symbol.toLowerCase().includes(q) ||
+        c.tickers.some(t => t.toLowerCase().includes(q));
+      return matchesZone && matchesSearch;
+    });
+  }, [selectedZone, searchQuery]);
+
+  const zoneCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: macroCommodities.length };
+    macroCommodities.forEach(c => {
+      counts[c.zone] = (counts[c.zone] || 0) + 1;
+    });
+    return counts;
+  }, []);
 
   return (
-    <div className="p-4 md:p-6 space-y-5">
-      <div>
-        <h1 className="text-[18px] font-bold text-white">Macro & Commodities</h1>
-        <p className="text-[12px] text-white/35 mt-0.5">
-          ราคา commodity/FX ที่กระทบหุ้นไทย · Yahoo Finance ณ สแกน {formatShortThaiDate(macroGeneratedAt)}
-        </p>
+    <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">
+      {/* Page Title Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-[20px] font-bold text-white tracking-tight">Macro & Commodities Dashboard</h1>
+            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              18 ตัวแปร
+            </span>
+          </div>
+          <p className="text-[12px] text-white/40 mt-1">
+            ดัชนีโภคภัณฑ์และอัตราแลกเปลี่ยนที่มีผลต่อบริษัทจดทะเบียนในไทย · ข้อมูลล่าสุด ณ {formatShortThaiDate(macroGeneratedAt)}
+          </p>
+        </div>
       </div>
 
-      {zones.map(z => (
-        <ZoneSection key={z.zone} zone={z.zone} label={z.label} items={z.items} />
-      ))}
+      {/* KPI Top Movers Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Top Gainers */}
+        <div className="bg-[#13161e] border border-emerald-500/20 rounded-xl p-3.5 space-y-2">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
+            <span className="text-[12px] font-bold text-emerald-400 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              ปรับตัวขึ้นสูงสุดวันนี้ (Top Gainers)
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {topMovers.gainers.map(item => (
+              <div key={item.symbol} className="bg-white/[0.03] p-2 rounded-lg text-center">
+                <p className="text-[11px] font-semibold text-white truncate">{item.name_th}</p>
+                <div className="mt-1"><ChangeBadge value={item.pct_1d} /></div>
+              </div>
+            ))}
+          </div>
+        </div>
 
+        {/* Top Losers */}
+        <div className="bg-[#13161e] border border-rose-500/20 rounded-xl p-3.5 space-y-2">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
+            <span className="text-[12px] font-bold text-rose-400 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+              ปรับตัวลดลงสูงสุดวันนี้ (Top Losers)
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {topMovers.losers.map(item => (
+              <div key={item.symbol} className="bg-white/[0.03] p-2 rounded-lg text-center">
+                <p className="text-[11px] font-semibold text-white truncate">{item.name_th}</p>
+                <div className="mt-1"><ChangeBadge value={item.pct_1d} /></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Filter Tabs & Search Bar */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] p-3 rounded-xl">
+        {/* Category Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+          <button
+            onClick={() => setSelectedZone('all')}
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+              selectedZone === 'all'
+                ? 'bg-white text-black shadow'
+                : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
+            }`}
+          >
+            ทั้งหมด ({zoneCounts.all || 0})
+          </button>
+          <button
+            onClick={() => setSelectedZone('energy')}
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+              selectedZone === 'energy'
+                ? 'bg-[#EF9F27] text-black shadow'
+                : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
+            }`}
+          >
+            🔥 พลังงาน ({zoneCounts.energy || 0})
+          </button>
+          <button
+            onClick={() => setSelectedZone('agri')}
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+              selectedZone === 'agri'
+                ? 'bg-[#5D9E4A] text-white shadow'
+                : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
+            }`}
+          >
+            🌾 เกษตร-อาหาร ({zoneCounts.agri || 0})
+          </button>
+          <button
+            onClick={() => setSelectedZone('industrial')}
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+              selectedZone === 'industrial'
+                ? 'bg-[#A855F7] text-white shadow'
+                : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
+            }`}
+          >
+            🏗️ โลหะ-อุตสาหกรรม ({zoneCounts.industrial || 0})
+          </button>
+          <button
+            onClick={() => setSelectedZone('financial')}
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+              selectedZone === 'financial'
+                ? 'bg-[#378ADD] text-white shadow'
+                : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
+            }`}
+          >
+            💵 การเงิน-ดอกเบี้ย ({zoneCounts.financial || 0})
+          </button>
+        </div>
+
+        {/* Search Input */}
+        <div className="relative min-w-[240px]">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="ค้นหาโภคภัณฑ์ หรือ Ticker (เช่น PTT, KCE, ทองแดง)..."
+            className="w-full bg-white/[0.05] border border-white/[0.09] focus:border-white/30 rounded-lg px-3 py-1.5 text-[12px] text-white placeholder-white/30 outline-none transition-colors"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-[12px]"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Grid of Commodity Cards */}
+      {filteredCommodities.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredCommodities.map(c => (
+            <CommodityCard key={c.symbol} commodity={c} />
+          ))}
+        </div>
+      ) : (
+        <div className="bg-[#13161e] border border-dashed border-white/[0.12] rounded-xl p-12 text-center space-y-2">
+          <p className="text-[14px] font-semibold text-white/50">ไม่พบรายการโภคภัณฑ์ที่ตรงกับการค้นหา</p>
+          <p className="text-[12px] text-white/30">ลองเปลี่ยนคำค้นหา หรือเลือกหมวดหมู่อื่น</p>
+        </div>
+      )}
+
+      {/* Methodology Footer Note */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-2">
-        <h2 className="text-[12px] font-semibold text-white/70">หมายเหตุ</h2>
+        <h2 className="text-[12px] font-semibold text-white/70">หมายเหตุและที่มาของข้อมูล</h2>
         <p className="text-[11.5px] text-white/40 leading-relaxed">{macroMethodology}</p>
         <p className="text-[11.5px] text-white/40 leading-relaxed">{macroPalmOilNote}</p>
-        <p className="text-[10.5px] text-white/25 pt-1 border-t border-white/[0.06]">
-          ราคา commodity มาจาก Yahoo Finance อัปเดตตาม pipeline รายวัน (ไม่ใช่ real-time) · ข้อมูลธนาคาร (%NPL /
-          สินเชื่อโต YoY) จะเป็นรายเดือน/ไตรมาสจาก ธปท. เมื่อพร้อมใช้งาน — ความถี่ต่างจากราคา commodity อย่างชัดเจน
-        </p>
       </div>
     </div>
   );
