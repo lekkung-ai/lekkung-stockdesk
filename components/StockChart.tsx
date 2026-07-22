@@ -91,7 +91,7 @@ function getPpbpTimes(data: OhlcvPoint[]): Set<string> {
   return times;
 }
 
-export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[] }) {
+export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates, highlightColor = '#3B82F6' }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[]; highlightColor?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
@@ -169,7 +169,7 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
           time: d as Time,
           position: 'belowBar' as const,
           shape: 'arrowUp' as const,
-          color: '#F9C942',
+          color: highlightColor,
         }));
       if (markers.length) createSeriesMarkers(candles, markers);
     }

@@ -548,11 +548,15 @@ function AnnouncementsTable({
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-body font-bold text-blue-400">
+                      {a.ticker}
+                    </span>
                     <button
                       onClick={(e) => { e.stopPropagation(); router.push(`/stock/${a.ticker}`); }}
-                      className="text-body font-semibold text-blue-400 hover:text-blue-300 flex-shrink-0"
+                      className="p-1 rounded text-white/30 hover:text-blue-400 hover:bg-white/5 transition-colors"
+                      title={`เปิดหน้าวิเคราะห์หุ้น ${a.ticker}`}
                     >
-                      {a.ticker}
+                      <ExternalLink size={11} />
                     </button>
                     {a.isCorrection && (
                       <span className="inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27] flex-shrink-0">
@@ -622,17 +626,23 @@ function AnnouncementsTable({
                       <div className="text-label text-meta">{timeOnly(a.announceDate)} น.</div>
                     </td>
                     <td className="px-3 py-3 whitespace-nowrap">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); router.push(`/stock/${a.ticker}`); }}
-                        className="text-body font-semibold text-blue-400 hover:text-blue-300"
-                      >
-                        {a.ticker}
-                      </button>
-                      {a.isCorrection && (
-                        <span className="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27] align-middle">
-                          แก้ไข
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-body font-bold text-blue-400">
+                          {a.ticker}
                         </span>
-                      )}
+                        <button
+                          onClick={(e) => { e.stopPropagation(); router.push(`/stock/${a.ticker}`); }}
+                          className="p-1 rounded text-white/30 hover:text-blue-400 hover:bg-white/5 transition-colors"
+                          title={`เปิดหน้าวิเคราะห์หุ้น ${a.ticker}`}
+                        >
+                          <ExternalLink size={12} />
+                        </button>
+                        {a.isCorrection && (
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27] align-middle">
+                            แก้ไข
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="px-3 py-3 text-label text-white/50 whitespace-nowrap">{a.quarter ?? '—'}</td>
                     <td className={`px-3 py-3 text-label font-semibold tabular-nums text-right whitespace-nowrap ${
@@ -883,6 +893,7 @@ export default function EarningsPage() {
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState<EarningsAnnouncement | null>(null);
   const [bucketFilter, setBucketFilter] = useState<BucketFilterOpt>('ทั้งหมด');
+  const [isChartCollapsed, setIsChartCollapsed] = useState<boolean>(false);
 
   const announcedCount = useMemo(() => new Set(feed.announcements.map(a => a.ticker)).size, [feed.announcements]);
   const quarterCount = useMemo(
@@ -918,10 +929,6 @@ export default function EarningsPage() {
           <p className="text-label text-meta mt-0.5">
             F45 / งบการเงิน / MD&A ทั้งตลาด (SET + mai) · หน้าต่าง {feed.windowDays} วันล่าสุด
           </p>
-          {/* loading / has-data / genuinely-empty are 3 distinct states - a
-              slow connection must never see the "no data" copy while the
-              fetch is still in flight (that's what generatedAt === '' in
-              the EMPTY_FEED placeholder used to look like). */}
           {!loading && (
             <p className="text-label text-meta mt-1">
               {feed.generatedAt
@@ -954,15 +961,6 @@ export default function EarningsPage() {
         </div>
       ) : (
         <>
-          {/* items-stretch (not items-start) is load-bearing: a sticky
-              child only has room to stick while its OWN containing block
-              (this row's second flex item) is taller than the child
-              itself. items-start made that wrapper hug the panel's own
-              height exactly, so the panel had zero room to detach from
-              document flow and scrolled away immediately - looked
-              identical to position:static. Stretching both columns to the
-              row's full height (the table column, being taller, is
-              unaffected) fixes it. */}
           <div className="flex gap-4 items-stretch">
             <div className="flex-1 min-w-0 space-y-4">
               {/* Top Technical Chart Section */}
@@ -990,21 +988,32 @@ export default function EarningsPage() {
                           </span>
                         )}
                       </div>
-                      {selected && (
+                      <div className="flex items-center gap-2">
                         <button
-                          onClick={() => setSelected(null)}
-                          className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                          onClick={() => setIsChartCollapsed(prev => !prev)}
+                          className="text-[11px] font-semibold text-blue-400 hover:text-blue-300 px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 transition-colors flex items-center gap-1"
                         >
-                          ย้อนกลับไปตัวแรก
+                          {isChartCollapsed ? '👁️ แสดงกราฟ' : '🙈 ย่อซ่อนกราฟ'}
                         </button>
-                      )}
+                        {selected && (
+                          <button
+                            onClick={() => setSelected(null)}
+                            className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                          >
+                            ย้อนกลับไปตัวแรก
+                          </button>
+                        )}
+                      </div>
                     </div>
-                    <StockChart
-                      ticker={activeAnnouncement.ticker}
-                      height={340}
-                      showEma10={true}
-                      highlightDates={announceDayOnly ? [announceDayOnly] : undefined}
-                    />
+                    {!isChartCollapsed && (
+                      <StockChart
+                        ticker={activeAnnouncement.ticker}
+                        height={340}
+                        showEma10={true}
+                        highlightDates={announceDayOnly ? [announceDayOnly] : undefined}
+                        highlightColor="#3B82F6"
+                      />
+                    )}
                   </div>
                 );
               })()}
