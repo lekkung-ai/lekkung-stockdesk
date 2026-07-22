@@ -103,36 +103,68 @@ export default function ScanHistoryView({
     );
   }
 
-  const selectedRow = rows.find(r => r.ticker === selectedTicker);
+  const activeTicker = selectedTicker ?? rows[0]?.ticker ?? null;
+  const activeRow = rows.find(r => r.ticker === activeTicker);
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-2">
-        <Calendar size={12} className="text-white/30" />
-        <ThaiDateInput
-          value={fromDate}
-          max={toDate}
-          min={earliestDate ?? undefined}
-          onChange={setFromDate}
-        />
-        <span className="text-white/25 text-label">ถึง</span>
-        <ThaiDateInput
-          value={toDate}
-          max={latestDate ?? todayISO()}
-          min={fromDate}
-          onChange={setToDate}
-        />
-        <span className="text-label text-white/25 ml-1">
+      {/* Date Filter Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] p-3.5 rounded-xl">
+        <div className="flex flex-wrap items-center gap-2">
+          <Calendar size={14} className="text-white/40" />
+          <ThaiDateInput
+            value={fromDate}
+            max={toDate}
+            min={earliestDate ?? undefined}
+            onChange={setFromDate}
+          />
+          <span className="text-white/40 text-[12px]">ถึง</span>
+          <ThaiDateInput
+            value={toDate}
+            max={latestDate ?? todayISO()}
+            min={fromDate}
+            onChange={setToDate}
+          />
+        </div>
+        <div className="text-[11.5px] text-white/40">
           {earliestDate && latestDate && (
-            <>ข้อมูลย้อนหลัง {isoToThaiLabel(earliestDate)} – {isoToThaiLabel(latestDate)} ({daySpan(earliestDate, latestDate)} วัน) · </>
+            <>ช่วงประวัติ {isoToThaiLabel(earliestDate)} – {isoToThaiLabel(latestDate)} ({daySpan(earliestDate, latestDate)} วัน) · </>
           )}
           อัปเดตล่าสุด {isoToThaiLabel(data.generatedAt.slice(0, 10))}
-        </span>
+        </div>
       </div>
-      <p className="text-label text-white/25">
-        * ราคาในตารางนี้คือราคา ณ วันสแกน (batch) ไม่ใช่ราคาเรียลไทม์
+
+      {/* Top Chart Section (Placed ABOVE the table for immediate viewing) */}
+      {activeTicker && (
+        <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
+          <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
+            <div className="flex items-center gap-3">
+              <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
+              <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                ติด scan {activeRow?.hitCount ?? 0} วันในช่วงวันที่เลือก
+              </span>
+              <span className="text-[11px] text-white/40 hidden sm:inline">
+                (จุดสีเหลืองใต้แท่งเทียน = วันที่ติด scan)
+              </span>
+            </div>
+            {selectedTicker && (
+              <button
+                onClick={() => setSelectedTicker(null)}
+                className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                ย้อนกลับไปตัวแรก
+              </button>
+            )}
+          </div>
+          <StockChart ticker={activeTicker} height={340} showEma10 highlightDates={activeRow?.hitDatesInRange} />
+        </div>
+      )}
+
+      <p className="text-[11px] text-white/30 italic">
+        * คลิกแถวในตารางด้านล่างเพื่อสลับดูกราฟของหุ้นตัวนั้นๆ ด้านบนทันที
       </p>
 
+      {/* History Table */}
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
@@ -145,34 +177,42 @@ export default function ScanHistoryView({
           </tr>
         </thead>
         <tbody>
-          {rows.map((r, i) => (
-            <tr
-              key={r.ticker}
-              onClick={() => setSelectedTicker(selectedTicker === r.ticker ? null : r.ticker)}
-              className={`border-b border-white/[0.04] cursor-pointer transition-colors ${
-                selectedTicker === r.ticker ? 'bg-white/[0.08]' : 'hover:bg-white/[0.02]'
-              }`}
-            >
-              <Td className="text-white/40"><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
-              <Td><div className="font-bold text-white">{r.ticker}</div></Td>
-              <Td right mono>{r.hitCount}</Td>
-              <Td className="text-label text-white/50">
-                {isoToThaiLabel(r.firstSeen)} → {isoToThaiLabel(r.lastSeen)}
-              </Td>
-              <Td right mono>
-                <span className="text-white/50">{r.firstClose?.toFixed(2)}</span>
-                <span className="text-white/20 mx-1">→</span>
-                <span className="text-white/80">{r.lastClose?.toFixed(2)}</span>
-              </Td>
-              <Td right mono>
-                {r.pctChange != null ? (
-                  <span className={r.pctChange > 0 ? 'text-[#1D9E75]' : r.pctChange < 0 ? 'text-[#E24B4A]' : 'text-white/50'}>
-                    {r.pctChange > 0 ? '+' : ''}{r.pctChange.toFixed(2)}%
-                  </span>
-                ) : '—'}
-              </Td>
-            </tr>
-          ))}
+          {rows.map((r, i) => {
+            const isActive = activeTicker === r.ticker;
+            return (
+              <tr
+                key={r.ticker}
+                onClick={() => setSelectedTicker(r.ticker)}
+                className={`border-b border-white/[0.04] cursor-pointer transition-colors ${
+                  isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.03]'
+                }`}
+              >
+                <Td className="text-white/40"><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
+                <Td>
+                  <div className="flex items-center gap-2">
+                    <span className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>{r.ticker}</span>
+                    {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
+                  </div>
+                </Td>
+                <Td right mono>{r.hitCount}</Td>
+                <Td className="text-label text-white/50">
+                  {isoToThaiLabel(r.firstSeen)} → {isoToThaiLabel(r.lastSeen)}
+                </Td>
+                <Td right mono>
+                  <span className="text-white/50">{r.firstClose?.toFixed(2)}</span>
+                  <span className="text-white/20 mx-1">→</span>
+                  <span className="text-white/80">{r.lastClose?.toFixed(2)}</span>
+                </Td>
+                <Td right mono>
+                  {r.pctChange != null ? (
+                    <span className={r.pctChange > 0 ? 'text-[#1D9E75]' : r.pctChange < 0 ? 'text-[#E24B4A]' : 'text-white/50'}>
+                      {r.pctChange > 0 ? '+' : ''}{r.pctChange.toFixed(2)}%
+                    </span>
+                  ) : '—'}
+                </Td>
+              </tr>
+            );
+          })}
           {rows.length === 0 && (
             <tr>
               <td colSpan={6} className="py-12 text-center text-label text-white/25">
@@ -182,26 +222,6 @@ export default function ScanHistoryView({
           )}
         </tbody>
       </TableWrap>
-
-      {selectedTicker && (
-        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 shadow-lg relative">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-[16px] font-bold text-white tracking-wide">{selectedTicker}</h2>
-              <span className="text-label text-white/40">
-                จุดสีเหลืองใต้แท่งเทียน = วันที่ติด scan ({selectedRow?.hitCount ?? 0} วันในช่วงที่เลือก)
-              </span>
-            </div>
-            <button
-              onClick={() => setSelectedTicker(null)}
-              className="text-label text-white/40 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
-            >
-              ปิดกราฟ
-            </button>
-          </div>
-          <StockChart ticker={selectedTicker} height={350} showEma10 highlightDates={selectedRow?.hitDatesInRange} />
-        </div>
-      )}
     </div>
   );
 }
