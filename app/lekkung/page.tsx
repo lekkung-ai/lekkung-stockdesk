@@ -22,6 +22,7 @@ import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import ReportCardBar from '@/components/ReportCardBar';
 import { getScanDiff } from '@/lib/scanDiff';
+import { getScanHistory } from '@/lib/scanHistory';
 import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
 
@@ -39,6 +40,8 @@ export default function LekkungPage() {
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(lekkungData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('lekkung')?.newTickers ?? []), []);
+
+  const lekkungHistory = useMemo(() => getScanHistory('lekkung'), []);
 
   const goToHistory = (ticker: string) => {
     setHistoryInitialTicker(ticker);
@@ -83,6 +86,11 @@ export default function LekkungPage() {
   );
   const displayRows = isMobile ? visibleRows : filtered;
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
+  const firstSeenDate = useMemo(() => {
+    if (!activeTicker || !lekkungHistory) return null;
+    const match = lekkungHistory.tickers.find(t => t.ticker === activeTicker);
+    return match?.firstSeen ?? null;
+  }, [activeTicker, lekkungHistory]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -127,9 +135,15 @@ export default function LekkungPage() {
       {activeTicker && (
         <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
           <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
               <span className="text-[11.5px] text-white/40">Technical Chart (Lekkung Strategy)</span>
+              {firstSeenDate && (
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                  <span>📍 เจอครั้งแรก:</span>
+                  <span>{formatThaiDate(firstSeenDate)}</span>
+                </span>
+              )}
             </div>
             {selectedTicker && (
               <button
@@ -140,7 +154,12 @@ export default function LekkungPage() {
               </button>
             )}
           </div>
-          <StockChart ticker={activeTicker} height={340} showEma10={true} />
+          <StockChart
+            ticker={activeTicker}
+            height={340}
+            showEma10={true}
+            highlightDates={firstSeenDate ? [firstSeenDate] : undefined}
+          />
         </div>
       )}
 
