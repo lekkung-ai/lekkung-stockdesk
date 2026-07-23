@@ -12,6 +12,7 @@ import {
   isKnownTicker,
 } from '@/lib/feedParsing';
 import { fetchEfinanceThai } from '@/lib/efinanceThai';
+import { fetchSetNews } from '@/lib/setNews';
 
 // Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
 // works (see console output). A failing feed is skipped, not fatal.
@@ -180,6 +181,13 @@ export async function GET(
     allLive.push(...efinItems);
   } else {
     failedFeeds.push({ name: 'EFIN', url: 'efinancethai.com' });
+  }
+
+  const setNewsItems = await fetchSetNews(wantGeneral ? 'SET' : t, LIVE_REVALIDATE_SEC, FEED_TIMEOUT_MS);
+  if (setNewsItems.length > 0) {
+    allLive.push(...setNewsItems);
+  } else {
+    failedFeeds.push({ name: 'SET (ตลาดหลักทรัพย์)', url: 'set.or.th' });
   }
 
   // Load daily snapshots for the past HISTORY_DAYS days

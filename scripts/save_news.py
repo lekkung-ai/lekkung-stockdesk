@@ -198,6 +198,58 @@ def fetch_efin(headers, ctx, timeout):
     return items
 
 
+def fetch_set(headers, ctx, timeout=15):
+    req_home = urllib.request.Request(
+        'https://www.settrade.com/th/equities/quote/SET/news',
+        headers=headers
+    )
+    cookie = ''
+    try:
+        with urllib.request.urlopen(req_home, timeout=timeout, context=ctx) as resp:
+            raw_cookies = resp.headers.get_all('Set-Cookie') or []
+            cookie = '; '.join(c.split(';')[0].strip() for c in raw_cookies if c.strip())
+    except Exception:
+        pass
+
+    api_headers = dict(headers)
+    api_headers['Referer'] = 'https://www.settrade.com/th/equities/quote/SET/news'
+    api_headers['Accept'] = 'application/json, text/plain, */*'
+    if cookie:
+        api_headers['Cookie'] = cookie
+
+    url = 'https://www.settrade.com/api/set/news/SET/list?limit=50'
+    req_api = urllib.request.Request(url, headers=api_headers)
+    items = []
+    with urllib.request.urlopen(req_api, timeout=timeout, context=ctx) as resp:
+        data = json.loads(resp.read().decode('utf-8'))
+        rows = data.get('newsInfoList', []) or []
+        for r in rows:
+            dt_str = r.get('datetime', '')
+            ts = 0
+            if dt_str:
+                try:
+                    dt = datetime.fromisoformat(dt_str)
+                    ts = int(dt.timestamp() * 1000)
+                except Exception:
+                    pass
+            title = r.get('headline', '')
+            symbol = r.get('symbol')
+            link = r.get('url') or f"https://www.set.or.th/th/market/news-and-alert/newsdetails?id={r.get('id')}&symbol={symbol or 'SET'}"
+            if not title:
+                continue
+            item = {
+                'title': title,
+                'link': link,
+                'pubDate': dt_str,
+                'ts': ts,
+                'source': 'SET (ตลาดหลักทรัพย์)',
+            }
+            if symbol and symbol != 'SET':
+                item['tickerHint'] = symbol
+            items.append(item)
+    return items
+
+
 def bangkok_date(ts_ms):
     if not ts_ms:
         return None
@@ -290,6 +342,14 @@ def main():
         efin_items = fetch_efin(headers, ctx, 15)
         print(f" -> Got {len(efin_items)} items")
         fetched_items.extend(efin_items)
+    except Exception as e:
+        print(f" -> ERROR: {e}")
+
+    print("Fetching SET (ตลาดหลักทรัพย์)... (timeout 15s, custom API)")
+    try:
+        set_items = fetch_set(headers, ctx, 15)
+        print(f" -> Got {len(set_items)} items")
+        fetched_items.extend(set_items)
     except Exception as e:
         print(f" -> ERROR: {e}")
 
