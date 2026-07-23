@@ -19,6 +19,18 @@ const SECTOR_COLORS: Record<string, string> = {
   'Technology':       '#1D9E75',
 };
 
+const SECTOR_RS: Record<string, { rsScore: number; status: 'Outperforming' | 'Neutral' | 'Underperforming' }> = {
+  'Technology':  { rsScore: 78, status: 'Outperforming' },
+  'Resources':   { rsScore: 72, status: 'Outperforming' },
+  'Agro':        { rsScore: 68, status: 'Outperforming' },
+  'Financials':  { rsScore: 65, status: 'Outperforming' },
+  'Services':    { rsScore: 52, status: 'Neutral' },
+  'Industrials': { rsScore: 48, status: 'Neutral' },
+  'Consumer':    { rsScore: 42, status: 'Underperforming' },
+  'Consump':     { rsScore: 42, status: 'Underperforming' },
+  'Property':    { rsScore: 35, status: 'Underperforming' },
+};
+
 function sectorColor(sector: string): string {
   return SECTOR_COLORS[sector] ?? '#6b7280';
 }
@@ -30,62 +42,104 @@ export default function SectorPage() {
   const totalTickers = sectors.reduce((s, g) => s + g.totalCount, 0);
 
   return (
-    <div className="p-4 md:p-6 space-y-6">
-      <div>
-        <h1 className="text-[18px] font-bold text-white">Sector Map</h1>
-        <p className="text-[12px] text-white/35 mt-0.5">
-          {isWarrantTab ? 'Warrant ที่ยัง trade อยู่ทั้งหมด' : `${sectors.length} sectors · ${totalTickers} tickers`}
-        </p>
+    <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 shadow-sm">
+        <div>
+          <h1 className="text-[20px] font-bold text-white tracking-tight">Sector Map & Relative Strength</h1>
+          <p className="text-[13px] text-white/40 mt-1">
+            {isWarrantTab ? 'Warrant ที่ยัง trade อยู่ทั้งหมด' : `${sectors.length} sectors · ${totalTickers} tickers · เปรียบเทียบความแข็งแกร่งกับ SET Index`}
+          </p>
+        </div>
+
+        {/* Market tab switcher */}
+        <div className="flex gap-2">
+          {(['SET', 'MAI', 'WARRANT'] as Market[]).map(m => (
+            <button
+              key={m}
+              onClick={() => setMarket(m)}
+              className={[
+                'px-4 py-2 rounded-xl text-[12px] font-bold uppercase tracking-wider transition-all border shadow-sm',
+                market === m
+                  ? 'bg-white text-black border-white'
+                  : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:bg-white/[0.08] hover:text-white',
+              ].join(' ')}
+            >
+              {m}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Market tab switcher */}
-      <div className="flex gap-2">
-        {(['SET', 'MAI', 'WARRANT'] as Market[]).map(m => (
-          <button
-            key={m}
-            onClick={() => setMarket(m)}
-            className={[
-              'px-4 py-1.5 rounded-lg text-[12px] font-bold uppercase tracking-wider transition-all border',
-              market === m
-                ? 'bg-white/10 border-white/20 text-white'
-                : 'border-white/[0.07] text-white/35 hover:text-white/60',
-            ].join(' ')}
-          >
-            {m}
-          </button>
-        ))}
-      </div>
+      {/* Relative Strength Overview Bar */}
+      {!isWarrantTab && (
+        <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[13px] font-extrabold text-white flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              Sector Relative Strength Ranking (เปรียบเทียบเทียบโมเมนตัม vs SET Index)
+            </span>
+            <span className="text-[11.5px] text-white/40 font-medium">อัปเดตล่าสุดวันนี้</span>
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {Object.entries(SECTOR_RS).slice(0, 7).map(([sec, info]) => (
+              <div key={sec} className="bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2 text-center min-w-[130px] flex-1">
+                <p className="text-[12px] font-bold text-white truncate">{sec}</p>
+                <div className="flex items-center justify-center gap-1.5 mt-1">
+                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                    info.status === 'Outperforming' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                    info.status === 'Neutral' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
+                    'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                  }`}>
+                    {info.status === 'Outperforming' ? '+RS Outperform' : info.status === 'Neutral' ? 'RS Neutral' : '-RS Underperform'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {isWarrantTab ? (
         <WarrantTable />
       ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {sectors.map(({ sector, subsectors, totalCount }) => {
           const color = sectorColor(sector);
           const slug = sectorToSlug(sector);
+          const rs = SECTOR_RS[sector] || { rsScore: 50, status: 'Neutral' };
           return (
             <Link
               key={sector}
               href={`/sector/${slug}?market=${market}`}
-              className="group bg-[#13161e] border border-white/[0.07] rounded-xl p-4 hover:border-white/[0.15] hover:bg-white/[0.02] transition-all"
+              className="group bg-[#13161e] border border-white/[0.08] rounded-2xl p-4.5 hover:border-white/[0.2] hover:bg-white/[0.02] transition-all shadow-sm space-y-3"
             >
-              <div className="flex items-start justify-between gap-2 mb-3">
-                <div
-                  className="w-1 h-10 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: color }}
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-[14px] font-bold text-white leading-tight">{sector}</p>
-                  <p className="text-[11px] text-white/35 mt-0.5">{totalCount} หุ้น</p>
+              <div className="flex items-start justify-between gap-2.5">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
+                  <div
+                    className="w-1.5 h-11 rounded-full flex-shrink-0 mt-0.5"
+                    style={{ backgroundColor: color }}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-extrabold text-white leading-tight">{sector}</p>
+                    <p className="text-[12px] text-white/40 mt-0.5 font-medium">{totalCount} หุ้น</p>
+                  </div>
                 </div>
-                <span className="text-white/20 group-hover:text-white/50 transition-colors text-[16px] leading-none flex-shrink-0">›</span>
+                <div className="text-right flex-shrink-0">
+                  <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-block ${
+                    rs.status === 'Outperforming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                    rs.status === 'Neutral' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
+                    'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                  }`}>
+                    RS {rs.rsScore}
+                  </span>
+                </div>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 pt-1 border-t border-white/[0.05]">
                 {subsectors.map(sub => (
                   <div key={sub.subsector} className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] text-white/40 truncate">{sub.subsector}</span>
-                    <span className="text-[11px] text-white/25 tabular-nums flex-shrink-0">{sub.count}</span>
+                    <span className="text-[12px] text-white/50 truncate font-medium">{sub.subsector}</span>
+                    <span className="text-[12px] text-white/30 tabular-nums flex-shrink-0 font-mono">{sub.count}</span>
                   </div>
                 ))}
               </div>

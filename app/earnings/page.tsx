@@ -414,7 +414,7 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
   );
 }
 
-type QuickFilterTag = 'all' | 'today' | 'growth50' | 'qoqGrowth' | 'turnaround' | 'hasMda';
+type QuickFilterTag = 'all' | 'today' | 'growth50' | 'qoqGrowth' | 'turnaround' | 'hasMda' | 'pead';
 
 function AnnouncementsTable({
   announcements,
@@ -460,6 +460,7 @@ function AnnouncementsTable({
         if (quickFilter === 'qoqGrowth') return a.netProfitQoQ != null ? a.netProfitQoQ > 0 : (a.netProfit != null && a.netProfitPriorQ != null && a.netProfit > a.netProfitPriorQ);
         if (quickFilter === 'turnaround') return a.netProfitPrior != null && a.netProfitPrior < 0 && a.netProfit != null && a.netProfit > 0;
         if (quickFilter === 'hasMda') return !!a.mdaUrl || !!a.reason;
+        if (quickFilter === 'pead') return (a.netProfitYoY != null && a.netProfitYoY >= 20) || (a.netProfitPrior != null && a.netProfitPrior < 0 && a.netProfit != null && a.netProfit > 0);
         return true;
       })
       .filter(a => !query.trim() || a.ticker.toLowerCase().includes(query.trim().toLowerCase()));
@@ -547,6 +548,14 @@ function AnnouncementsTable({
             }`}
           >
             🔄 พลิกกำไร
+          </button>
+          <button
+            onClick={() => handleQuickFilterChange('pead')}
+            className={`px-2.5 py-1 rounded-lg text-label font-bold transition-all ${
+              quickFilter === 'pead' ? 'bg-emerald-500 text-black shadow font-black' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20'
+            }`}
+          >
+            🔥 PEAD Momentum (สแกนงบปังตามต่อ)
           </button>
           <button
             onClick={() => handleQuickFilterChange('hasMda')}
