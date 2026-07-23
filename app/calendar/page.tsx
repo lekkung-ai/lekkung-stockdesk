@@ -439,6 +439,21 @@ export default function CalendarPage() {
     );
   }, [allEvents, myStocks]);
 
+  const myStocksWithEvents = useMemo(() => {
+    const s = new Set<string>();
+    allEvents.filter(e => passesEventFilter(e, eventFilter) && myStocks.has(e.ticker)).forEach(e => s.add(e.ticker));
+    return s;
+  }, [allEvents, eventFilter, myStocks]);
+
+  const myStocksWithoutEvents = useMemo(() => {
+    if (scopeFilter !== 'mystocks') return [];
+    const missing: string[] = [];
+    myStocks.forEach(ticker => {
+      if (!myStocksWithEvents.has(ticker)) missing.push(ticker);
+    });
+    return missing;
+  }, [scopeFilter, myStocks, myStocksWithEvents]);
+
   const monthEvents = viewMode === 'month' ? filteredEvents : [];
   const selectedDayEvents = viewMode === 'month' ? filteredEvents.filter(e => e.date === selectedDate) : filteredEvents;
 
@@ -473,6 +488,25 @@ export default function CalendarPage() {
               </span>
             ))}
           </span>
+        </div>
+      )}
+
+      {/* My Stocks Status Banner */}
+      {scopeFilter === 'mystocks' && (
+        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3.5 text-[12px] text-white/80 space-y-1 shadow-sm">
+          <p className="font-semibold text-blue-300 flex items-center gap-1.5">
+            <span>📌</span>
+            <span>My Stocks ของคุณมีทั้งหมด {myStocks.size} หุ้น:</span>
+            <span className="text-white font-bold">{Array.from(myStocks).join(', ') || 'ไม่มีหุ้น'}</span>
+          </p>
+          <p className="text-white/60 text-[11.5px] leading-relaxed">
+            * หน้าปฏิทินแสดงเฉพาะ <strong className="text-white">เหตุการณ์ (ประกาศงบ / XD / XR / XW / XM) ที่เกิดขึ้นในช่วงวันที่เลือก ({isoToThaiLabel(rangeFrom)} – {isoToThaiLabel(rangeTo)})</strong>
+            {myStocksWithoutEvents.length > 0 && (
+              <span className="block mt-1 text-amber-300/90 font-medium">
+                • หุ้นที่ไม่มีเหตุการณ์ในช่วงเวลานี้: {myStocksWithoutEvents.join(', ')} (สามารถขยายช่วงวันที่เพื่อดูเหตุการณ์ในเดือนอื่นๆ ได้)
+              </span>
+            )}
+          </p>
         </div>
       )}
 
