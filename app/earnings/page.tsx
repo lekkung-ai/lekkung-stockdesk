@@ -571,8 +571,18 @@ function AnnouncementsTable({
         <select
           value={quarterFilter}
           onChange={e => handleQuarterChange(e.target.value)}
-          className="px-2.5 py-1.5 bg-[#13161e] border bo          <>
-          {/* Mobile & Tablet (<1024px): Responsive 1-col (mobile) / 2-col (tablet) Card Grid */}
+          className="px-2.5 py-1.5 bg-[#13161e] border border-white/[0.08] rounded-lg text-label text-white/80 outline-none focus:border-white/20 transition-colors"
+        >
+          {quarterOptions.map(q => (
+            <option key={q} value={q}>
+              {q === 'ทั้งหมด' ? 'ทุกไตรมาส' : q}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <>
+        {/* Mobile & Tablet (<1024px): Responsive 1-col (mobile) / 2-col (tablet) Card Grid */}
           <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-3 p-3">
             {paginatedRows.map((a, i) => (
               <div
@@ -757,36 +767,7 @@ function AnnouncementsTable({
               </tbody>
             </table>
           </div>
-          </>onClick={(e) => e.stopPropagation()}>
-                        {a.statementUrl && (
-                          <a href={a.statementUrl} target="_blank" rel="noopener noreferrer"
-                             className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
-                            งบ <ExternalLink size={9} />
-                          </a>
-                        )}
-                        {a.mdaUrl && (
-                          <a href={a.mdaUrl} target="_blank" rel="noopener noreferrer"
-                             className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
-                            MD&amp;A <ExternalLink size={9} />
-                          </a>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-3 py-3 text-label max-w-[220px]">
-                      {a.reason ? (
-                        <div className="text-white/50 line-clamp-2" title={a.reason}>{a.reason}</div>
-                      ) : (
-                        <span className="text-meta">—</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          </>
-        )}
-      </div>
+        </>
 
       {/* Pagination Controls */}
       {filtered.length > 0 && (
