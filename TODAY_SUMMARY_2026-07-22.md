@@ -4,9 +4,9 @@
 
 ## 🎯 1. งานที่ทำเสร็จแล้วในวันนี้ (Completed Tasks)
 
-### 📊 **A. ปรับปรุงหน้าสแกนสด 4 กลยุทธ์ (Lekkung Growth, CAN SLIM, SEPA, Oliver Kell)**
+### 📊 **A. ปรับปรุงหน้าสแกนสด 5 กลยุทธ์ (Lekkung Growth, CAN SLIM, SEPA, Oliver Kell, Breakout Setup)**
 1. **ย้ายกราฟขึ้นด้านบน (Top Technical Chart Panel)**:
-   - ปรับปรุงให้หน้า `/lekkung`, `/oneil`, `/sepa`, และ `/kell` แสดงผลการ์ดกราฟเทคนิคอลด้านบนสุดเหนือตาราง
+   - ปรับปรุงให้หน้า `/lekkung`, `/oneil`, `/sepa`, `/kell`, และ `/breakout` แสดงผลการ์ดกราฟเทคนิคอลด้านบนสุดเหนือตาราง
    - คลิกเลือกแถวหุ้นตัวไหนในตาราง กราฟด้านบนจะสลับเปลี่ยนทันที พร้อมแสดงป้าย `กำลังดูอยู่`
 2. **มาร์กจุดวันแรกที่เจอบน Chart (First-Seen Candlestick Marker)**:
    - ดึงข้อมูลประวัติย้อนหลัง `getScanHistory(scanName)` เพื่อคำนวณวันแรกที่ติดสแกน (`firstSeen`)
@@ -15,7 +15,7 @@
 3. **แก้ไข Days แสดงผลเป็น `—` (lib/scanDays.ts)**:
    - ปรับฟังก์ชัน `daysInScan()` ให้คืนค่า Fallback เป็น `1` สำหรับหุ้นสดที่เพิ่งติดสแกนใหม่ ทำให้ตารางทุกหน้าแสดงจำนวนวันสะสมได้ครบถ้วน 100%
 4. **ระบบแบ่งหน้า (10-Item Pagination)**:
-   - เพิ่มระบบแบ่งหน้า 10 หุ้นต่อหน้า พร้อมปุ่มควบคุม `< ก่อนหน้า` `1` `2` `3` `ถัดไป ›` ในหน้า **SEPA (`/sepa`)**, **Oliver Kell (`/kell`)**, และ **Scan History (`components/ScanHistoryView.tsx`)**
+   - เพิ่มระบบแบ่งหน้า 10 หุ้นต่อหน้า พร้อมปุ่มควบคุม `< ก่อนหน้า` `1` `2` `3` `ถัดไป ›` ในหน้า **SEPA (`/sepa`)**, **Oliver Kell (`/kell`)**, **Breakout Setup (`/breakout`)**, และ **Scan History (`components/ScanHistoryView.tsx`)**
    - รีเซ็ตกลับไปหน้า 1 อัตโนมัติเมื่อกดเปลี่ยนตัวกรอง หรือจัดเรียงคอลัมน์
 
 ---
