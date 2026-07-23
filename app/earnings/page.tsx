@@ -10,6 +10,7 @@ import TableSkeleton from '@/components/TableSkeleton';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, BUCKET_BADGE_STYLE, type EarningsBucket } from '@/lib/earningsBucket';
+import { classifyQoQ, QOQ_COLOR, QOQ_LABEL, QOQ_BADGE_STYLE } from '@/lib/qoqBucket';
 import type { EarningsFeed, EarningsAnnouncement, EarningsCalendarEntry } from '@/app/api/earnings/route';
 
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
@@ -261,6 +262,55 @@ function YoyBadge({ value }: { value: number | null }) {
   );
 }
 
+function QoqBadge({
+  netProfit,
+  netProfitPriorQ,
+  netProfitQoQ,
+}: {
+  netProfit: number | null | undefined;
+  netProfitPriorQ: number | null | undefined;
+  netProfitQoQ: number | null | undefined;
+}) {
+  const info = classifyQoQ(netProfit, netProfitPriorQ, netProfitQoQ);
+  if (info.category === 'no_base') return <span className="text-meta">—</span>;
+
+  const formattedPct = info.pct != null ? `${info.pct >= 0 ? '+' : ''}${info.pct.toFixed(1)}%` : info.label;
+
+  return (
+    <span
+      title={`QoQ: ${info.label}`}
+      className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${info.badgeStyle}`}
+    >
+      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: info.color }} />
+      {formattedPct}
+    </span>
+  );
+}
+
+function QoqLegend() {
+  const items: { label: string; color: string; style: string }[] = [
+    { label: 'กำไรเพิ่มขึ้น', color: '#1D9E75', style: 'bg-[#1D9E75]/15 text-[#1D9E75]' },
+    { label: 'กำไรเท่าเดิม', color: '#3B82F6', style: 'bg-blue-500/15 text-blue-400' },
+    { label: 'กำไรลดลง', color: '#EF9F27', style: 'bg-[#EF9F27]/15 text-[#EF9F27]' },
+    { label: 'ขาดทุนลดลง', color: '#EAB308', style: 'bg-[#EAB308]/15 text-[#EAB308]' },
+    { label: 'ขาดทุนเพิ่มขึ้น', color: '#E24B4A', style: 'bg-[#E24B4A]/15 text-[#E24B4A]' },
+  ];
+
+  return (
+    <div className="flex flex-wrap items-center gap-2 text-[11px] bg-[#13161e] border border-white/[0.07] px-3.5 py-2 rounded-xl">
+      <span className="text-white/50 font-semibold whitespace-nowrap">💡 สัญลักษณ์ QoQ:</span>
+      <div className="flex flex-wrap items-center gap-1.5">
+        {items.map(it => (
+          <span key={it.label} className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold ${it.style}`}>
+            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: it.color }} />
+            {it.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
   const announcements = feed.announcements;
 
@@ -365,7 +415,7 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
   );
 }
 
-type QuickFilterTag = 'all' | 'today' | 'growth50' | 'turnaround' | 'hasMda';
+type QuickFilterTag = 'all' | 'today' | 'growth50' | 'qoqGrowth' | 'turnaround' | 'hasMda';
 
 function AnnouncementsTable({
   announcements,
@@ -408,6 +458,7 @@ function AnnouncementsTable({
       .filter(a => {
         if (quickFilter === 'today') return a.announceDate?.startsWith(todayIso);
         if (quickFilter === 'growth50') return a.netProfitYoY != null && a.netProfitYoY >= 50;
+        if (quickFilter === 'qoqGrowth') return a.netProfitQoQ != null ? a.netProfitQoQ > 0 : (a.netProfit != null && a.netProfitPriorQ != null && a.netProfit > a.netProfitPriorQ);
         if (quickFilter === 'turnaround') return a.netProfitPrior != null && a.netProfitPrior < 0 && a.netProfit != null && a.netProfit > 0;
         if (quickFilter === 'hasMda') return !!a.mdaUrl || !!a.reason;
         return true;
@@ -483,6 +534,14 @@ function AnnouncementsTable({
             🚀 โต &gt; 50%
           </button>
           <button
+            onClick={() => handleQuickFilterChange('qoqGrowth')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
+              quickFilter === 'qoqGrowth' ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
+            }`}
+          >
+            📈 QoQ โต
+          </button>
+          <button
             onClick={() => handleQuickFilterChange('turnaround')}
             className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
               quickFilter === 'turnaround' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
@@ -529,6 +588,8 @@ function AnnouncementsTable({
         </div>
       </div>
 
+      <QoqLegend />
+
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
         {filtered.length === 0 ? (
           <div className="py-14 text-center text-label text-meta">
@@ -565,7 +626,10 @@ function AnnouncementsTable({
                     )}
                     <span className="text-label text-meta truncate">{a.quarter ?? '—'}</span>
                   </div>
-                  <YoyBadge value={a.netProfitYoY} />
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <YoyBadge value={a.netProfitYoY} />
+                    <QoqBadge netProfit={a.netProfit} netProfitPriorQ={a.netProfitPriorQ} netProfitQoQ={a.netProfitQoQ} />
+                  </div>
                 </div>
                 <div className="flex items-center justify-between gap-2 mt-1.5">
                   <span className={`text-label font-semibold tabular-nums ${a.netProfit != null && a.netProfit < 0 ? 'text-[#E24B4A]' : 'text-white/80'}`}>
@@ -605,6 +669,7 @@ function AnnouncementsTable({
                   <SortableTh right sortKey="netProfit" currentSort={sortConfig} onSort={handleSort}>กำไรสุทธิ</SortableTh>
                   <SortableTh right sortKey="netProfitPrior" currentSort={sortConfig} onSort={handleSort}>ปีก่อน</SortableTh>
                   <SortableTh right sortKey="netProfitYoY" currentSort={sortConfig} onSort={handleSort}>%YoY</SortableTh>
+                  <SortableTh right sortKey="netProfitQoQ" currentSort={sortConfig} onSort={handleSort}>%QoQ</SortableTh>
                   <SortableTh right sortKey="eps" currentSort={sortConfig} onSort={handleSort}>EPS</SortableTh>
                   <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">เอกสาร</th>
                   <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">สาเหตุ</th>
@@ -654,6 +719,7 @@ function AnnouncementsTable({
                       {fmtMoney(a.netProfitPrior)}
                     </td>
                     <td className="px-3 py-3 whitespace-nowrap"><YoyBadge value={a.netProfitYoY} /></td>
+                    <td className="px-3 py-3 whitespace-nowrap"><QoqBadge netProfit={a.netProfit} netProfitPriorQ={a.netProfitPriorQ} netProfitQoQ={a.netProfitQoQ} /></td>
                     <td className="px-3 py-3 text-label tabular-nums text-white/50 text-right whitespace-nowrap hidden md:table-cell">
                       {a.eps != null ? a.eps.toFixed(2) : '—'}
                     </td>

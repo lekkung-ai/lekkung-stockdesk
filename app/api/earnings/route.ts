@@ -13,6 +13,8 @@ export interface EarningsAnnouncement {
   netProfit: number | null;
   netProfitPrior: number | null;
   netProfitYoY: number | null;
+  netProfitPriorQ?: number | null;
+  netProfitQoQ?: number | null;
   eps: number | null;
   epsPrior: number | null;
   epsYoY: number | null;

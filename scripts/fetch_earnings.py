@@ -329,6 +329,17 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
 
         anchor_dt = f45_in_window['_dt']
 
+        # Fetch prior quarter F45 for QoQ comparison
+        net_profit_prior_q = None
+        net_profit_qoq = None
+        f45_idx = f45_items.index(f45_in_window)
+        if f45_idx + 1 < len(f45_items):
+            f45_prev_q = f45_items[f45_idx + 1]
+            detail_prev_html = fetch_detail_html(f45_prev_q['id'], ticker, cookie)
+            parsed_prev = parse_f45_detail(detail_prev_html) if detail_prev_html else {}
+            net_profit_prior_q = parsed_prev.get('netProfit')
+            net_profit_qoq = yoy_pct(net_profit, net_profit_prior_q)
+
         def nearest(kind):
             cands = [
                 it for it in items
@@ -350,6 +361,8 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
             'netProfit': net_profit,
             'netProfitPrior': net_profit_prior,
             'netProfitYoY': parsed.get('netProfitYoY'),
+            'netProfitPriorQ': net_profit_prior_q,
+            'netProfitQoQ': net_profit_qoq,
             'eps': parsed.get('eps'),
             'epsPrior': parsed.get('epsPrior'),
             'epsYoY': parsed.get('epsYoY'),
