@@ -42,42 +42,42 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
   const latestClose = commodity.latest?.close;
 
   return (
-    <div className="bg-[#13161e] border border-white/[0.08] hover:border-white/[0.18] rounded-xl p-4 transition-all space-y-3 shadow-sm hover:shadow-md">
+    <div className="bg-[#13161e] border border-white/[0.08] hover:border-white/[0.18] rounded-2xl p-4 transition-all space-y-3.5 shadow-sm hover:shadow-md">
       {/* Header: Title + Sparkline */}
-      <div className="flex items-start justify-between gap-2">
+      <div className="flex items-start justify-between gap-2 border-b border-white/[0.05] pb-2.5">
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className={`text-[9.5px] font-medium px-2 py-0.5 rounded-full ${zoneStyle.bg} ${zoneStyle.text}`}>
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${zoneStyle.bg} ${zoneStyle.text}`}>
               {ZONE_LABELS_TH[commodity.zone]}
             </span>
           </div>
-          <h3 className="text-[13.5px] font-bold text-white truncate leading-tight">{commodity.name_th}</h3>
-          <p className="text-[10.5px] text-white/40 truncate mt-0.5">
-            {commodity.name_en} · <span className="font-mono text-white/50">{commodity.symbol}</span>
+          <h3 className="text-[15px] font-extrabold text-white truncate leading-tight tracking-tight">{commodity.name_th}</h3>
+          <p className="text-[11.5px] text-white/45 truncate mt-0.5 font-medium">
+            {commodity.name_en} · <span className="font-mono text-white/60 font-semibold">{commodity.symbol}</span>
           </p>
         </div>
         <div className="flex-shrink-0 pt-1">
-          <TrendSparkline data={sparkData} width={72} height={24} />
+          <TrendSparkline data={sparkData} width={80} height={28} />
         </div>
       </div>
 
       {/* Price & Badges */}
-      <div className="flex items-center justify-between gap-3 pt-1">
+      <div className="flex items-center justify-between gap-3 pt-0.5">
         <div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-[20px] font-extrabold text-white tabular-nums leading-none tracking-tight">
+            <span className="text-[23px] font-black text-white tabular-nums leading-none tracking-tight">
               {formatPrice(latestClose)}
             </span>
           </div>
-          <p className="text-[10px] text-white/30 mt-1 font-medium">{commodity.unit}</p>
+          <p className="text-[11.5px] text-white/40 mt-1.5 font-medium">{commodity.unit}</p>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="text-center bg-white/[0.03] px-2 py-1 rounded-lg border border-white/[0.05]">
-            <p className="text-[9px] font-medium text-white/30 mb-0.5">1D</p>
+          <div className="text-center bg-white/[0.04] px-2.5 py-1 rounded-xl border border-white/[0.06]">
+            <p className="text-[10.5px] font-semibold text-white/35 mb-0.5">1D</p>
             <ChangeBadge value={commodity.pct_1d} />
           </div>
-          <div className="text-center bg-white/[0.03] px-2 py-1 rounded-lg border border-white/[0.05]">
-            <p className="text-[9px] font-medium text-white/30 mb-0.5">1M</p>
+          <div className="text-center bg-white/[0.04] px-2.5 py-1 rounded-xl border border-white/[0.06]">
+            <p className="text-[10.5px] font-semibold text-white/35 mb-0.5">1M</p>
             <ChangeBadge value={commodity.pct_1m} />
           </div>
         </div>
@@ -86,12 +86,12 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
       {/* Stock Tickers Chips */}
       {commodity.tickers.length > 0 ? (
         <div className="pt-2.5 border-t border-white/[0.06] flex items-center gap-1.5 flex-wrap">
-          <span className="text-[9.5px] text-white/30 font-medium mr-0.5">กระทบหุ้น:</span>
+          <span className="text-[11px] text-white/40 font-semibold mr-0.5">กระทบหุ้น:</span>
           {commodity.tickers.map(t => (
             <Link
               key={t}
               href={`/stock/${t}`}
-              className="text-[10.5px] font-bold px-2 py-0.5 rounded-md bg-white/[0.06] text-white/80 hover:bg-emerald-500/20 hover:text-emerald-300 border border-white/[0.08] hover:border-emerald-500/30 transition-all"
+              className="text-[12px] font-bold px-2.5 py-1 rounded-lg bg-white/[0.06] text-white/90 hover:bg-emerald-500/20 hover:text-emerald-300 border border-white/[0.09] hover:border-emerald-500/30 transition-all shadow-sm"
             >
               {t}
             </Link>
@@ -99,7 +99,7 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
         </div>
       ) : (
         <div className="pt-2 border-t border-white/[0.04]">
-          <span className="text-[9.5px] text-white/20 italic">ไม่มีหุ้นผูกโดยตรง (ดัชนีอ้างอิง)</span>
+          <span className="text-[11px] text-white/30 italic font-medium">ไม่มีหุ้นผูกโดยตรง (ดัชนีอ้างอิง)</span>
         </div>
       )}
     </div>
@@ -171,15 +171,15 @@ export default function MacroPage() {
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">
       {/* Page Title Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 shadow-sm">
         <div>
           <div className="flex items-center gap-2.5">
-            <h1 className="text-[20px] font-bold text-white tracking-tight">Macro & Commodities Dashboard</h1>
-            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              18 ตัวแปร
+            <h1 className="text-[22px] font-extrabold text-white tracking-tight">Macro & Commodities Dashboard</h1>
+            <span className="text-[12.5px] font-bold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              {items.length} ตัวแปร
             </span>
           </div>
-          <p className="text-[12px] text-white/40 mt-1">
+          <p className="text-[13px] text-white/40 mt-1">
             ดัชนีโภคภัณฑ์และอัตราแลกเปลี่ยนที่มีผลต่อบริษัทจดทะเบียนในไทย · ข้อมูลล่าสุด ณ {formatShortThaiDate(macroGeneratedAt)}
           </p>
         </div>
@@ -188,36 +188,36 @@ export default function MacroPage() {
       {/* KPI Top Movers Bar */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Top Gainers */}
-        <div className="bg-[#13161e] border border-emerald-500/20 rounded-xl p-3.5 space-y-2">
-          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
-            <span className="text-[12px] font-bold text-emerald-400 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        <div className="bg-[#13161e] border border-emerald-500/20 rounded-2xl p-4 space-y-2.5 shadow-sm">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
+            <span className="text-[13.5px] font-extrabold text-emerald-400 flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
               ปรับตัวขึ้นสูงสุดวันนี้ (Top Gainers)
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2.5">
             {topMovers.gainers.map(item => (
-              <div key={item.symbol} className="bg-white/[0.03] p-2 rounded-lg text-center">
-                <p className="text-[11px] font-semibold text-white truncate">{item.name_th}</p>
-                <div className="mt-1"><ChangeBadge value={item.pct_1d} /></div>
+              <div key={item.symbol} className="bg-white/[0.03] p-2.5 rounded-xl text-center border border-white/[0.04]">
+                <p className="text-[12.5px] font-bold text-white truncate">{item.name_th}</p>
+                <div className="mt-1.5"><ChangeBadge value={item.pct_1d} /></div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Top Losers */}
-        <div className="bg-[#13161e] border border-rose-500/20 rounded-xl p-3.5 space-y-2">
-          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
-            <span className="text-[12px] font-bold text-rose-400 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+        <div className="bg-[#13161e] border border-rose-500/20 rounded-2xl p-4 space-y-2.5 shadow-sm">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
+            <span className="text-[13.5px] font-extrabold text-rose-400 flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-400 animate-pulse" />
               ปรับตัวลดลงสูงสุดวันนี้ (Top Losers)
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2.5">
             {topMovers.losers.map(item => (
-              <div key={item.symbol} className="bg-white/[0.03] p-2 rounded-lg text-center">
-                <p className="text-[11px] font-semibold text-white truncate">{item.name_th}</p>
-                <div className="mt-1"><ChangeBadge value={item.pct_1d} /></div>
+              <div key={item.symbol} className="bg-white/[0.03] p-2.5 rounded-xl text-center border border-white/[0.04]">
+                <p className="text-[12.5px] font-bold text-white truncate">{item.name_th}</p>
+                <div className="mt-1.5"><ChangeBadge value={item.pct_1d} /></div>
               </div>
             ))}
           </div>
@@ -225,12 +225,12 @@ export default function MacroPage() {
       </div>
 
       {/* Filter Tabs & Search Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] p-3 rounded-xl">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] p-3.5 rounded-2xl shadow-sm">
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
           <button
             onClick={() => setSelectedZone('all')}
-            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-xl text-[13px] font-bold transition-all whitespace-nowrap ${
               selectedZone === 'all'
                 ? 'bg-white text-black shadow'
                 : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
@@ -240,7 +240,7 @@ export default function MacroPage() {
           </button>
           <button
             onClick={() => setSelectedZone('energy')}
-            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-xl text-[13px] font-bold transition-all whitespace-nowrap ${
               selectedZone === 'energy'
                 ? 'bg-[#EF9F27] text-black shadow'
                 : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
@@ -250,7 +250,7 @@ export default function MacroPage() {
           </button>
           <button
             onClick={() => setSelectedZone('agri')}
-            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-xl text-[13px] font-bold transition-all whitespace-nowrap ${
               selectedZone === 'agri'
                 ? 'bg-[#5D9E4A] text-white shadow'
                 : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
@@ -260,7 +260,7 @@ export default function MacroPage() {
           </button>
           <button
             onClick={() => setSelectedZone('industrial')}
-            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-xl text-[13px] font-bold transition-all whitespace-nowrap ${
               selectedZone === 'industrial'
                 ? 'bg-[#A855F7] text-white shadow'
                 : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
@@ -270,7 +270,7 @@ export default function MacroPage() {
           </button>
           <button
             onClick={() => setSelectedZone('financial')}
-            className={`px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-xl text-[13px] font-bold transition-all whitespace-nowrap ${
               selectedZone === 'financial'
                 ? 'bg-[#378ADD] text-white shadow'
                 : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white'
@@ -281,18 +281,18 @@ export default function MacroPage() {
         </div>
 
         {/* Search Input */}
-        <div className="relative min-w-[240px]">
+        <div className="relative min-w-[260px]">
           <input
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="ค้นหาโภคภัณฑ์ หรือ Ticker (เช่น PTT, KCE, ทองแดง)..."
-            className="w-full bg-white/[0.05] border border-white/[0.09] focus:border-white/30 rounded-lg px-3 py-1.5 text-[12px] text-white placeholder-white/30 outline-none transition-colors"
+            placeholder="ค้นหาโภคภัณฑ์ หรือ Ticker (เช่น PTT, KCE, ยางพารา)..."
+            className="w-full bg-white/[0.05] border border-white/[0.09] focus:border-white/30 rounded-xl px-3.5 py-2 text-[13px] text-white placeholder-white/30 outline-none transition-colors"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-[12px]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-[13px]"
             >
               ✕
             </button>
@@ -308,17 +308,17 @@ export default function MacroPage() {
           ))}
         </div>
       ) : (
-        <div className="bg-[#13161e] border border-dashed border-white/[0.12] rounded-xl p-12 text-center space-y-2">
-          <p className="text-[14px] font-semibold text-white/50">ไม่พบรายการโภคภัณฑ์ที่ตรงกับการค้นหา</p>
-          <p className="text-[12px] text-white/30">ลองเปลี่ยนคำค้นหา หรือเลือกหมวดหมู่อื่น</p>
+        <div className="bg-[#13161e] border border-dashed border-white/[0.12] rounded-2xl p-12 text-center space-y-2">
+          <p className="text-[15px] font-bold text-white/60">ไม่พบรายการโภคภัณฑ์ที่ตรงกับการค้นหา</p>
+          <p className="text-[13px] text-white/35">ลองเปลี่ยนคำค้นหา หรือเลือกหมวดหมู่อื่น</p>
         </div>
       )}
 
       {/* Methodology Footer Note */}
-      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-2">
-        <h2 className="text-[12px] font-semibold text-white/70">หมายเหตุและที่มาของข้อมูล</h2>
-        <p className="text-[11.5px] text-white/40 leading-relaxed">{macroMethodology}</p>
-        <p className="text-[11.5px] text-white/40 leading-relaxed">{macroPalmOilNote}</p>
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-2xl p-5 space-y-2.5">
+        <h2 className="text-[13.5px] font-bold text-white/80">หมายเหตุและที่มาของข้อมูล</h2>
+        <p className="text-[12.5px] text-white/50 leading-relaxed">{macroMethodology}</p>
+        <p className="text-[12.5px] text-white/50 leading-relaxed">{macroPalmOilNote}</p>
       </div>
     </div>
   );
