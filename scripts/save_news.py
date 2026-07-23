@@ -235,7 +235,7 @@ def fetch_set(headers, ctx, timeout=15):
             title = r.get('headline', '')
             symbol = r.get('symbol')
             link = r.get('url') or f"https://www.set.or.th/th/market/news-and-alert/newsdetails?id={r.get('id')}&symbol={symbol or 'SET'}"
-            if not title:
+            if not title or title.startswith('ตลาดหลักทรัพย์เพิ่มสินค้า'):
                 continue
             item = {
                 'title': title,

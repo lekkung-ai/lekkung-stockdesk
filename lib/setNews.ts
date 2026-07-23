@@ -66,22 +66,24 @@ export async function fetchSetNews(
       return [];
     }
 
-    const items: FeedItem[] = rows.map(row => {
+    const items: FeedItem[] = [];
+    for (const row of rows) {
+      if (!row.headline || row.headline.startsWith('ตลาดหลักทรัพย์เพิ่มสินค้า')) continue;
       const ts = row.datetime ? new Date(row.datetime).getTime() : 0;
       const itemSymbol = row.symbol && row.symbol !== 'SET' ? row.symbol : undefined;
       const articleUrl =
         row.url ||
         `https://www.set.or.th/th/market/news-and-alert/newsdetails?id=${row.id}&symbol=${row.symbol || targetSymbol}`;
 
-      return {
+      items.push({
         title: row.headline,
         link: articleUrl,
         pubDate: row.datetime,
         ts,
         source: 'SET (ตลาดหลักทรัพย์)',
         tickerHint: itemSymbol,
-      };
-    });
+      });
+    }
 
     console.log(`[news] OK    SET -> ${items.length} items (${url})`);
     return items;

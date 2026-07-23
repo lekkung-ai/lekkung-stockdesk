@@ -22,6 +22,8 @@ export const NEWS_SOURCE_STYLE: Record<string, string> = {
   'Bangkok Post': 'bg-[#FCEBEB] text-[#791F1F]',
   HOONSMART: 'bg-[#FBE8E8] text-[#8A1A1A]',
   EFIN: 'bg-[#FDF0DC] text-[#8A5A0C]',
+  'SET (ตลาดหลักทรัพย์)': 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/40',
+  SET: 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/40',
 };
 
 export function newsSourceCls(s: string): string {
