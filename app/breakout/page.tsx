@@ -21,19 +21,41 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
+import { getScanHistory } from '@/lib/scanHistory';
+import StockChart from '@/components/StockChart';
 import ReportCardBar from '@/components/ReportCardBar';
 
 export default function BreakoutPage() {
   const [toBreakMax, setToBreakMax] = useState(10);
   const [boxWidthMax, setBoxWidthMax] = useState(20);
+  const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10;
   const { priceMap, fetchDone } = useLivePrices(breakoutData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('breakout')?.newTickers ?? []), []);
+  const breakoutHistory = useMemo(() => getScanHistory('breakout'), []);
 
   const handleSort = (key: string) => {
+    setCurrentPage(1);
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
+
+  const handleToBreakChange = (val: number) => {
+    setCurrentPage(1);
+    setToBreakMax(val);
+  };
+
+  const handleBoxWidthChange = (val: number) => {
+    setCurrentPage(1);
+    setBoxWidthMax(val);
+  };
+
+  const handleDiffFilterChange = (val: DiffFilter) => {
+    setCurrentPage(1);
+    setDiffFilter(val);
   };
 
   const filtered = useMemo(() => {
@@ -66,7 +88,19 @@ export default function BreakoutPage() {
     filtered,
     [toBreakMax, boxWidthMax, sortConfig, diffFilter, newSet]
   );
-  const displayRows = isMobile ? visibleRows : filtered;
+
+  const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+  const safePage = Math.min(currentPage, totalPages);
+  const displayRows = isMobile
+    ? visibleRows
+    : filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+
+  const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
+  const firstSeenDate = useMemo(() => {
+    if (!activeTicker || !breakoutHistory) return null;
+    const match = breakoutHistory.tickers.find(t => t.ticker === activeTicker);
+    return match?.firstSeen ?? null;
+  }, [activeTicker, breakoutHistory]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -93,7 +127,7 @@ export default function BreakoutPage() {
           min={-10}
           max={20}
           value={toBreakMax}
-          onChange={setToBreakMax}
+          onChange={handleToBreakChange}
           unit="%"
           dir="lte"
         />
@@ -103,7 +137,7 @@ export default function BreakoutPage() {
           min={3}
           max={30}
           value={boxWidthMax}
-          onChange={setBoxWidthMax}
+          onChange={handleBoxWidthChange}
           unit="%"
           dir="lte"
         />
@@ -111,13 +145,45 @@ export default function BreakoutPage() {
           ค่าติดลบ = broke แล้ว
         </span>
         <Divider />
-        <ScanDiffChips scanName="breakout" filter={diffFilter} onChange={setDiffFilter} />
+        <ScanDiffChips scanName="breakout" filter={diffFilter} onChange={handleDiffFilterChange} />
       </FilterBar>
 
       {diffFilter === 'dropped' ? (
         <DroppedTickersList scanName="breakout" />
       ) : (
-      <>
+      <div className="space-y-4">
+      {/* Top Chart Section */}
+      {activeTicker && (
+        <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
+          <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
+              <span className="text-[11.5px] text-white/40">Technical Chart (Breakout Setup)</span>
+              {firstSeenDate && (
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                  <span>📍 เจอครั้งแรก:</span>
+                  <span>{formatThaiDate(firstSeenDate)}</span>
+                </span>
+              )}
+            </div>
+            {selectedTicker && (
+              <button
+                onClick={() => setSelectedTicker(null)}
+                className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                ย้อนกลับไปตัวแรก
+              </button>
+            )}
+          </div>
+          <StockChart
+            ticker={activeTicker}
+            height={340}
+            showEma10={true}
+            highlightDates={firstSeenDate ? [firstSeenDate] : undefined}
+          />
+        </div>
+      )}
+
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
@@ -135,21 +201,30 @@ export default function BreakoutPage() {
           </tr>
         </thead>
         <tbody>
-          {displayRows.map((s, i) => {
+          {displayRows.map((s, idx) => {
+            const globalIndex = isMobile ? idx : (safePage - 1) * pageSize + idx;
             const toBrk = s['To_Break'];
             const broke = toBrk <= 0;
+            const isActive = activeTicker === s.Ticker;
             return (
-              <tr key={s.Ticker} className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
-                <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
+              <tr
+                key={s.Ticker}
+                onClick={() => setSelectedTicker(s.Ticker)}
+                className={`border-b border-white/[0.04] transition-colors cursor-pointer ${
+                  isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.025]'
+                }`}
+              >
+                <Td><span className="text-white/20 tabular-nums">{globalIndex + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-white">{s.Ticker}</span>
+                    <span className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>{s.Ticker}</span>
                     {broke && (
                       <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF3DE] text-[#27500A] leading-none">
                         BROKE
                       </span>
                     )}
                     {newSet.has(s.Ticker) && <NewBadge />}
+                    {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
                   <SectorChip ticker={s.Ticker} />
                 </Td>
@@ -160,7 +235,7 @@ export default function BreakoutPage() {
                   <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
                 </Td>
                 <Td right mono>
-                  <span className="text-white/60">{daysInScan('breakout', s.Ticker) ?? '—'}</span>
+                  <span className="text-white/60">{daysInScan('breakout', s.Ticker) ?? 1}</span>
                 </Td>
                 <Td right mono>
                   <span className="text-white/50">{s['Box_High(Break)'].toFixed(2)}</span>
@@ -200,7 +275,54 @@ export default function BreakoutPage() {
           )}
         </tbody>
       </TableWrap>
-      </>
+
+      {/* Pagination Controls for Desktop */}
+      {!isMobile && filtered.length > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] px-4 py-3 rounded-xl">
+          <p className="text-[12px] text-white/40">
+            แสดง <span className="font-semibold text-white">{(safePage - 1) * pageSize + 1}</span> -{' '}
+            <span className="font-semibold text-white">{Math.min(safePage * pageSize, filtered.length)}</span> จากทั้งหมด{' '}
+            <span className="font-semibold text-white">{filtered.length}</span> รายการ
+          </p>
+
+          {totalPages > 1 && (
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
+                disabled={safePage === 1}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ‹ ก่อนหน้า
+              </button>
+
+              <div className="flex items-center gap-1 px-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => setCurrentPage(p)}
+                    className={`w-7 h-7 rounded-lg text-[11px] font-bold transition-all ${
+                      p === safePage
+                        ? 'bg-emerald-500 text-black shadow-md'
+                        : 'bg-white/[0.04] text-white/60 hover:bg-white/[0.09] hover:text-white'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
+                disabled={safePage >= totalPages}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium bg-white/[0.05] text-white hover:bg-white/[0.1] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                ถัดไป ›
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+      </div>
       )}
       </>
       )}
