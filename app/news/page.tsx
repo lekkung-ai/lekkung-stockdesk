@@ -39,21 +39,15 @@ function pageList(cur: number, total: number): (number | '…')[] {
 function NewsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tab: 'news' | 'research' = searchParams.get('tab') === 'research' ? 'research' : 'news';
+  const rawTab = searchParams.get('tab');
+  const tab: 'set' | 'news' | 'research' =
+    rawTab === 'set' ? 'set' : rawTab === 'research' ? 'research' : 'news';
   const initialResearchTicker = searchParams.get('ticker') ?? '';
 
-  // tab always comes from the URL, never a parallel useState - both buttons
-  // navigate the same way (router.push with an explicit ?tab=), and news is
-  // never a bare /news with no query string. A bare URL for one tab and a
-  // parametrized one for the other made the two tabs take different
-  // rendering paths on this Next version, which could leave a navigation
-  // stuck (confirmed: /news?tab=research got stuck on the Suspense fallback
-  // indefinitely on some loads, bare /news did not) - always having a query
-  // string keeps every tab switch on the same code path.
-  function switchTab(next: 'news' | 'research') {
+  function switchTab(next: 'set' | 'news' | 'research') {
     const params = new URLSearchParams(searchParams.toString());
     params.set('tab', next);
-    if (next === 'news') params.delete('ticker');
+    if (next !== 'research') params.delete('ticker');
     router.push(`/news?${params.toString()}`);
   }
 
@@ -117,9 +111,12 @@ function NewsPageContent() {
   const sources = useMemo(() => {
     if (!allNews) return [];
     const seen: string[] = [];
-    for (const n of allNews) if (!seen.includes(n.source)) seen.push(n.source);
+    for (const n of allNews) {
+      if (tab === 'news' && (n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th'))) continue;
+      if (!seen.includes(n.source)) seen.push(n.source);
+    }
     return seen;
-  }, [allNews]);
+  }, [allNews, tab]);
 
   // tickers present in the data (for the search dropdown)
   const tickerOptions = useMemo(() => {
@@ -139,11 +136,14 @@ function NewsPageContent() {
     if (!allNews) return [];
     return allNews.filter(n => {
       if (localDate(n.ts) !== selectedDate) return false;
+      const isSet = n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th');
+      if (tab === 'set' && !isSet) return false;
+      if (tab === 'news' && isSet) return false;
       if (selectedSources.length && !selectedSources.includes(n.source)) return false;
       if (tickerFilter && !n.tickers.includes(tickerFilter)) return false;
       return true;
     });
-  }, [allNews, selectedDate, selectedSources, tickerFilter]);
+  }, [allNews, selectedDate, selectedSources, tickerFilter, tab]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageItems = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
@@ -193,27 +193,45 @@ function NewsPageContent() {
       <div>
         <h1 className="text-[18px] font-bold text-white">ข่าว & บทวิเคราะห์</h1>
         <p className="text-[12px] text-white/35 mt-0.5">
-          {tab === 'news' ? 'รวมข่าวล่าสุดจากหลายแหล่ง · กรองตามแหล่ง หุ้น และวันที่' : 'บทวิเคราะห์จากโบรกเกอร์ · กรองตามโบรก หุ้น และวันที่'}
+          {tab === 'set'
+            ? 'ข่าวและประกาศแจ้งตลาดอย่างเป็นทางการจาก set.or.th'
+            : tab === 'news'
+            ? 'รวมข่าวหุ้นและการเงินจากหลายสำนักข่าว · กรองตามแหล่ง หุ้น และวันที่'
+            : 'บทวิเคราะห์จากโบรกเกอร์ · กรองตามโบรก คำแนะนำ และวันที่'}
         </p>
       </div>
 
-      {/* ── Tab bar ── */}
-      <div className="flex gap-1.5">
+      {/* ── 3 Tab bar ── */}
+      <div className="flex gap-2 flex-wrap">
         <button
           onClick={() => switchTab('news')}
-          className={`px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
-            tab === 'news' ? 'bg-white/10 text-white' : 'bg-white/[0.03] text-white/40 hover:text-white/70'
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
+            tab === 'news'
+              ? 'bg-[#1D9E75]/20 text-[#1D9E75] border border-[#1D9E75]/40 font-bold'
+              : 'bg-white/[0.03] text-white/40 hover:text-white/70'
           }`}
         >
-          ข่าว
+          📰 ข่าวทั่วไป (สื่อการเงิน)
+        </button>
+        <button
+          onClick={() => switchTab('set')}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
+            tab === 'set'
+              ? 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/40 font-bold'
+              : 'bg-white/[0.03] text-white/40 hover:text-white/70'
+          }`}
+        >
+          📢 ข่าวแจ้งตลาด (set.or.th)
         </button>
         <button
           onClick={() => switchTab('research')}
-          className={`px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
-            tab === 'research' ? 'bg-white/10 text-white' : 'bg-white/[0.03] text-white/40 hover:text-white/70'
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
+            tab === 'research'
+              ? 'bg-[#7F77DD]/20 text-[#7F77DD] border border-[#7F77DD]/40 font-bold'
+              : 'bg-white/[0.03] text-white/40 hover:text-white/70'
           }`}
         >
-          บทวิเคราะห์
+          📊 บทวิเคราะห์ (โบรกเกอร์)
         </button>
       </div>
 
