@@ -100,7 +100,8 @@ FEED_TIMEOUT_OVERRIDES = {
 }
 DEFAULT_TIMEOUT = 15
 
-HISTORY_DIR = os.path.join(os.path.dirname(__file__), '..', 'public', 'data', 'history')
+SCRIPT_DIR = os.path.dirname(__file__)
+HISTORY_DIR = os.path.join(SCRIPT_DIR, '..', 'public', 'data', 'history')
 BANGKOK_TZ = timezone(timedelta(hours=7))
 
 NAMED_ENTITIES = {
@@ -200,7 +201,7 @@ def fetch_efin(headers, ctx, timeout):
 
 def fetch_set(headers, ctx, timeout=15):
     req_home = urllib.request.Request(
-        'https://www.settrade.com/th/equities/quote/SET/news',
+        'https://www.settrade.com/th/home',
         headers=headers
     )
     cookie = ''
@@ -211,43 +212,74 @@ def fetch_set(headers, ctx, timeout=15):
     except Exception:
         pass
 
+    sector_map_path = os.path.join(SCRIPT_DIR, '..', 'data', 'scans', 'sector_map.json')
+    tickers = ['SET']
+    if os.path.exists(sector_map_path):
+        try:
+            with open(sector_map_path, 'r', encoding='utf-8') as f:
+                t2s = json.load(f).get('ticker_to_sector', {})
+                tickers.extend(sorted(t2s.keys()))
+        except Exception:
+            pass
+
     api_headers = dict(headers)
-    api_headers['Referer'] = 'https://www.settrade.com/th/equities/quote/SET/news'
-    api_headers['Accept'] = 'application/json, text/plain, */*'
     if cookie:
         api_headers['Cookie'] = cookie
 
-    url = 'https://www.settrade.com/api/set/news/SET/list?limit=50'
-    req_api = urllib.request.Request(url, headers=api_headers)
+    def fetch_one(ticker):
+        url = f'https://www.settrade.com/api/set/news/{ticker}/list?limit=5'
+        h = dict(api_headers)
+        h['Referer'] = f'https://www.settrade.com/th/equities/quote/{ticker}/news'
+        req_api = urllib.request.Request(url, headers=h)
+        res_items = []
+        try:
+            with urllib.request.urlopen(req_api, timeout=5, context=ctx) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                rows = data.get('newsInfoList', []) or []
+                for r in rows:
+                    dt_str = r.get('datetime', '')
+                    ts = 0
+                    if dt_str:
+                        try:
+                            dt = datetime.fromisoformat(dt_str)
+                            ts = int(dt.timestamp() * 1000)
+                        except Exception:
+                            pass
+                    title = r.get('headline', '')
+                    symbol = r.get('symbol') or (ticker if ticker != 'SET' else None)
+                    link = r.get('url') or f"https://www.set.or.th/th/market/news-and-alert/newsdetails?id={r.get('id', '')}&symbol={symbol or ticker}"
+                    if not title or title.startswith('ตลาดหลักทรัพย์เพิ่มสินค้า'):
+                        continue
+                    item = {
+                        'title': title,
+                        'link': link,
+                        'pubDate': dt_str,
+                        'ts': ts,
+                        'source': 'SET (ตลาดหลักทรัพย์)',
+                    }
+                    if symbol and symbol != 'SET':
+                        item['tickerHint'] = symbol
+                    res_items.append(item)
+        except Exception:
+            pass
+        return res_items
+
+    from concurrent.futures import ThreadPoolExecutor, as_completed
     items = []
-    with urllib.request.urlopen(req_api, timeout=timeout, context=ctx) as resp:
-        data = json.loads(resp.read().decode('utf-8'))
-        rows = data.get('newsInfoList', []) or []
-        for r in rows:
-            dt_str = r.get('datetime', '')
-            ts = 0
-            if dt_str:
-                try:
-                    dt = datetime.fromisoformat(dt_str)
-                    ts = int(dt.timestamp() * 1000)
-                except Exception:
-                    pass
-            title = r.get('headline', '')
-            symbol = r.get('symbol')
-            link = r.get('url') or f"https://www.set.or.th/th/market/news-and-alert/newsdetails?id={r.get('id')}&symbol={symbol or 'SET'}"
-            if not title or title.startswith('ตลาดหลักทรัพย์เพิ่มสินค้า'):
-                continue
-            item = {
-                'title': title,
-                'link': link,
-                'pubDate': dt_str,
-                'ts': ts,
-                'source': 'SET (ตลาดหลักทรัพย์)',
-            }
-            if symbol and symbol != 'SET':
-                item['tickerHint'] = symbol
-            items.append(item)
-    return items
+    with ThreadPoolExecutor(max_workers=20) as exec:
+        futures = [exec.submit(fetch_one, t) for t in tickers]
+        for f in as_completed(futures):
+            items.extend(f.result())
+
+    seen_links = set()
+    unique_items = []
+    for it in items:
+        link = it.get('link')
+        if link and link not in seen_links:
+            seen_links.add(link)
+            unique_items.append(it)
+
+    return unique_items
 
 
 def bangkok_date(ts_ms):
