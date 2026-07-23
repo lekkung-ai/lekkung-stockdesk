@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T18:19:47.025642+07:00",
+  "generatedAt": "2026-07-23T17:56:19.706485+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -88,16 +88,44 @@
   },
   "announcements": [
     {
+      "ticker": "BAREIT",
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET",
+      "announceDate": "2026-07-23T17:40:45+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105514301&symbol=BAREIT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17847632231451&symbol=BAREIT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105517601&symbol=BAREIT",
+      "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "SCC",
       "sector": "Property",
       "subsector": "& Construction Construction Materials",
       "market": "SET",
-      "announceDate": "2026-07-22T17:11:46+07:00",
+      "announceDate": "2026-07-22T17:11:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 11534556000.0,
       "netProfitPrior": 17337286000.0,
       "netProfitYoY": -33.46965609265487,
+      "netProfitPriorQ": 6222963000.0,
+      "netProfitQoQ": 85.35472571506531,
       "eps": 9.61,
       "epsPrior": 14.45,
       "epsYoY": -33.49480968858132,
@@ -106,12 +134,10 @@
       "bucket": "profit_shrink",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105502001&symbol=SCC",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17846773628591&symbol=SCC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105503701&symbol=SCC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105511901&symbol=SCC",
       "headline": "สรุปผลการดำเนินงานของไตรมาสที่ 2/2569 (F45) (ก่อนสอบทาน)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 6222963000.0,
-      "netProfitQoQ": 85.35472571506531
+      "reason_source": "none"
     },
     {
       "ticker": "KTB",
@@ -124,6 +150,8 @@
       "netProfit": 12125223000.0,
       "netProfitPrior": 11122004000.0,
       "netProfitYoY": 9.02012802728717,
+      "netProfitPriorQ": 12437176000.0,
+      "netProfitQoQ": -2.5082301641465876,
       "eps": 0.87,
       "epsPrior": 0.8,
       "epsYoY": 8.749999999999995,
@@ -135,9 +163,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105496201&symbol=KTB",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 12437176000.0,
-      "netProfitQoQ": -2.5082301641465876
+      "reason_source": "none"
     },
     {
       "ticker": "BBL",
@@ -150,6 +176,8 @@
       "netProfit": 9497916000.0,
       "netProfitPrior": 11839865000.0,
       "netProfitYoY": -19.7802001965394,
+      "netProfitPriorQ": 10993773000.0,
+      "netProfitQoQ": -13.606402460738456,
       "eps": 4.98,
       "epsPrior": 6.2,
       "epsYoY": -19.677419354838705,
@@ -161,9 +189,7 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 10993773000.0,
-      "netProfitQoQ": -13.606402460738456
+      "reason_source": "none"
     },
     {
       "ticker": "CREDIT",
@@ -176,6 +202,8 @@
       "netProfit": 989264000.0,
       "netProfitPrior": 925154000.0,
       "netProfitYoY": 6.929657116544921,
+      "netProfitPriorQ": 1164674000.0,
+      "netProfitQoQ": -15.060866817667435,
       "eps": 0.8,
       "epsPrior": 0.75,
       "epsYoY": 6.666666666666672,
@@ -187,9 +215,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105493901&symbol=CREDIT",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "รวมรายได้จากการดำเนินงานสุทธิ 4,112.0 3,793.8 8.4 3,564.0 15.4 7,905.8 7,157.2 10.5 รวมค่าใช้จ่ายจากการดำเนินงานอื่นๆ 1,745.8 1,666.6 4.8 1,540.9 13.3 3,412.4 3,058.4 11.6 ผลขาดทุนด้านเครดิตที่คาดว่าจะเกิดขึ้น 1,127.0 664.2 69.7",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": 1164674000.0,
-      "netProfitQoQ": -15.060866817667435
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "SCGD",
@@ -202,6 +228,8 @@
       "netProfit": -281297000.0,
       "netProfitPrior": 222560000.0,
       "netProfitYoY": -226.39153486700218,
+      "netProfitPriorQ": 246344000.0,
+      "netProfitQoQ": -214.18869548273958,
       "eps": -0.17,
       "epsPrior": 0.13,
       "epsYoY": -230.7692307692308,
@@ -213,9 +241,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105493301&symbol=SCGD",
       "headline": "สรุปผลการดำเนินงานไตรมาสที่ 2/2569 (F45) (ก่อนสอบทาน)",
       "reason": "จากการบริหารจัดการต้นทุนเพื่อลดผลกระทบจากความผันผวนของราคาพลังงาน อีกทั้งการบริหาร จัดการต้นทุนทางการเงิน และรักษาความสามารถในการทำกำไร 2.",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": 246344000.0,
-      "netProfitQoQ": -214.18869548273958
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "SCB",
@@ -228,6 +254,8 @@
       "netProfit": 11116695000.0,
       "netProfitPrior": 12786065000.0,
       "netProfitYoY": -13.056167006815622,
+      "netProfitPriorQ": 10195426000.0,
+      "netProfitQoQ": 9.036101090822491,
       "eps": 3.3,
       "epsPrior": 3.8,
       "epsYoY": -13.157894736842104,
@@ -239,9 +267,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105488101&symbol=SCB",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (ก่อนสอบทาน)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 10195426000.0,
-      "netProfitQoQ": 9.036101090822491
+      "reason_source": "none"
     },
     {
       "ticker": "SCGP",
@@ -254,6 +280,8 @@
       "netProfit": 2303796000.0,
       "netProfitPrior": 1009793000.0,
       "netProfitYoY": 128.1453723683963,
+      "netProfitPriorQ": 1566168000.0,
+      "netProfitQoQ": 47.09762937309407,
       "eps": 0.54,
       "epsPrior": 0.24,
       "epsYoY": 125.00000000000003,
@@ -265,9 +293,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105487501&symbol=SCGP",
       "headline": "สรุปผลการดำเนินงานของไตรมาสที่ 2/2569 (F45) (ก่อนสอบทาน)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 1566168000.0,
-      "netProfitQoQ": 47.09762937309407
+      "reason_source": "none"
     },
     {
       "ticker": "KBANK",
@@ -280,6 +306,8 @@
       "netProfit": 13247491000.0,
       "netProfitPrior": 12488192000.0,
       "netProfitYoY": 6.080135539235783,
+      "netProfitPriorQ": 14667406000.0,
+      "netProfitQoQ": -9.68075063852463,
       "eps": 5.63,
       "epsPrior": 5.27,
       "epsYoY": 6.831119544592037,
@@ -291,9 +319,7 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 14667406000.0,
-      "netProfitQoQ": -9.68075063852463
+      "reason_source": "none"
     },
     {
       "ticker": "CIMBT",
@@ -306,6 +332,8 @@
       "netProfit": 886317000.0,
       "netProfitPrior": 174503000.0,
       "netProfitYoY": 407.90931961055105,
+      "netProfitPriorQ": 602185000.0,
+      "netProfitQoQ": 47.18350672965949,
       "eps": 0.03,
       "epsPrior": 0.01,
       "epsYoY": 199.99999999999994,
@@ -317,9 +345,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105479901&symbol=CIMBT",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 602185000.0,
-      "netProfitQoQ": 47.18350672965949
+      "reason_source": "none"
     },
     {
       "ticker": "BAY",
@@ -332,6 +358,8 @@
       "netProfit": 8293940000.0,
       "netProfitPrior": 8295367000.0,
       "netProfitYoY": -0.01720237332477273,
+      "netProfitPriorQ": 8617632000.0,
+      "netProfitQoQ": -3.7561594646882113,
       "eps": 1.13,
       "epsPrior": 1.13,
       "epsYoY": 0.0,
@@ -343,9 +371,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105480301&symbol=BAY",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 8617632000.0,
-      "netProfitQoQ": -3.7561594646882113
+      "reason_source": "none"
     },
     {
       "ticker": "KKP",
@@ -358,6 +384,8 @@
       "netProfit": 2122087000.0,
       "netProfitPrior": 1409402000.0,
       "netProfitYoY": 50.56648138714149,
+      "netProfitPriorQ": 1955494000.0,
+      "netProfitQoQ": 8.519228389348164,
       "eps": 2.54,
       "epsPrior": 1.7,
       "epsYoY": 49.41176470588236,
@@ -369,9 +397,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105480401&symbol=KKP",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 1955494000.0,
-      "netProfitQoQ": 8.519228389348164
+      "reason_source": "none"
     },
     {
       "ticker": "LHFG",
@@ -384,6 +410,8 @@
       "netProfit": 696084000.0,
       "netProfitPrior": 550955000.0,
       "netProfitYoY": 26.341352742056973,
+      "netProfitPriorQ": 842497000.0,
+      "netProfitQoQ": -17.37845950786768,
       "eps": 0.033,
       "epsPrior": 0.026,
       "epsYoY": 26.923076923076934,
@@ -395,9 +423,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105494001&symbol=LHFG",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 842497000.0,
-      "netProfitQoQ": -17.37845950786768
+      "reason_source": "none"
     },
     {
       "ticker": "TTB",
@@ -410,6 +436,8 @@
       "netProfit": 5512966000.0,
       "netProfitPrior": 5004268000.0,
       "netProfitYoY": 10.16528291450418,
+      "netProfitPriorQ": 5169791000.0,
+      "netProfitQoQ": 6.638082661368709,
       "eps": 0.06,
       "epsPrior": 0.05,
       "epsYoY": 19.99999999999999,
@@ -421,9 +449,7 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 5169791000.0,
-      "netProfitQoQ": 6.638082661368709
+      "reason_source": "none"
     },
     {
       "ticker": "TSTH",
@@ -436,6 +462,8 @@
       "netProfit": 409710000.0,
       "netProfitPrior": 373120000.0,
       "netProfitYoY": 9.806496569468267,
+      "netProfitPriorQ": 1897914180.0,
+      "netProfitQoQ": -78.41261716059257,
       "eps": 0.04865,
       "epsPrior": 0.04431,
       "epsYoY": 9.794628751974715,
@@ -447,9 +475,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105459601&symbol=TSTH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
       "reason": "ผลการดำเนินงานและผลประกอบการทางการเงินเปรียบเทียบกับไตรมาสก่อนและปีก่อน 1.1 รายได้จากการขายและบริการที่เกี่ยวข้อง ปริมาณการส่งมอบสินค้าของบริษัทในไตรมาสนี้อยู่ที่ 334,000 ตัน ลดลงเล็กน้อย ร้อยละ 2 เมื่อเทียบกับ ไตรมาสก่อน และลดลงร้อยละ 1 เมื่อเทียบกับไตรมาสเดียวกันของปีก่อน โดยมีสาเหตุหลักมาจากยอดขาย",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": 1897914180.0,
-      "netProfitQoQ": -78.41261716059257
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "KTC",
@@ -462,6 +488,8 @@
       "netProfit": 2225308000.0,
       "netProfitPrior": 1894792000.0,
       "netProfitYoY": 17.44339220347141,
+      "netProfitPriorQ": 2171234000.0,
+      "netProfitQoQ": 2.490473159502845,
       "eps": 0.86,
       "epsPrior": 0.73,
       "epsYoY": 17.808219178082194,
@@ -473,9 +501,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105466701&symbol=KTC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (ก่อนสอบทาน)",
       "reason": "เป็นผลจากการบริหารจัดการคุณภาพพอร์ต 2) ค่าใช้จ่ายทางการเงินที่ ลดลง 16.1% (YoY) จากต้นทุนเงินกู้ยืมใหม่ที่ต ่าลง และ 3) ค่าใช้จ่ายในการบริหารปรับตัวลดลงเล็กน้อยที่ 0.8% (YoY) เป็นผลให้ Cost to Income Ratio",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": 2171234000.0,
-      "netProfitQoQ": 2.490473159502845
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "TISCO",
@@ -488,6 +514,8 @@
       "netProfit": 1763850000.0,
       "netProfitPrior": 1643518000.0,
       "netProfitYoY": 7.321611324001319,
+      "netProfitPriorQ": 1733624000.0,
+      "netProfitQoQ": 1.7435153182004863,
       "eps": 2.2,
       "epsPrior": 2.05,
       "epsYoY": 7.3170731707317245,
@@ -499,9 +527,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105409001&symbol=TISCO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (ก่อนสอบทาน)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 1733624000.0,
-      "netProfitQoQ": 1.7435153182004863
+      "reason_source": "none"
     },
     {
       "ticker": "CHO",
@@ -514,6 +540,8 @@
       "netProfit": -76334000.0,
       "netProfitPrior": -126986000.0,
       "netProfitYoY": 39.8878616540406,
+      "netProfitPriorQ": -76334000.0,
+      "netProfitQoQ": 0.0,
       "eps": -0.0996,
       "epsPrior": -0.1775,
       "epsYoY": 43.88732394366197,
@@ -525,9 +553,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105370401&symbol=CHO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว) (แก้ไข)",
       "reason": "ภาพรวมผลการดำเนินงาน ในไตรมาสที่ 1/2569 และไตมาส 1/2568 บริษัทฯ และบริษัทย่อย ประสบกับความท้าทายทางการเงินอย่างต่อเนื่องจาก ภาวะขาดทุนสะสม หนี้สินที่สูงกว่าสินทรัพย์ และความไม่แน่นอนในการเจรจากับเจ้าหนี้เพื่อขยายเวลาชำระหนี้ สรุปรายได้ งวดไตรมาส 1 ปี 2569 บริษัทและบริษัทย่อยมีผลขาดทุนสำหรับงวด 76.33 ล้านบาท ขาดทุนลดลง 50.65 ล้านบาท",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": -76334000.0,
-      "netProfitQoQ": 0.0
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "AEONTS",
@@ -540,6 +566,8 @@
       "netProfit": 793010000.0,
       "netProfitPrior": 771839000.0,
       "netProfitYoY": 2.742929548778955,
+      "netProfitPriorQ": 3094125000.0,
+      "netProfitQoQ": -74.3704601462449,
       "eps": 3.2,
       "epsPrior": 3.09,
       "epsYoY": 3.559870550161823,
@@ -551,9 +579,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105355201&symbol=AEONTS",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 3094125000.0,
-      "netProfitQoQ": -74.3704601462449
+      "reason_source": "none"
     },
     {
       "ticker": "SAM",
@@ -566,6 +592,8 @@
       "netProfit": -262112000.0,
       "netProfitPrior": -10696000.0,
       "netProfitYoY": -2350.56095736724,
+      "netProfitPriorQ": -81608000.0,
+      "netProfitQoQ": -221.18419762768355,
       "eps": -0.2508,
       "epsPrior": -0.0102,
       "epsYoY": -2358.823529411765,
@@ -577,9 +605,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105316201&symbol=SAM",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": -81608000.0,
-      "netProfitQoQ": -221.18419762768355
+      "reason_source": "none"
     },
     {
       "ticker": "TAPAC",
@@ -592,6 +618,8 @@
       "netProfit": -278354000.0,
       "netProfitPrior": -76672000.0,
       "netProfitYoY": -263.0451794657763,
+      "netProfitPriorQ": -1357000.0,
+      "netProfitQoQ": -20412.453942520264,
       "eps": -1.08,
       "epsPrior": -0.5,
       "epsYoY": -116.00000000000001,
@@ -603,9 +631,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105100601&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
       "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": -1357000.0,
-      "netProfitQoQ": -20412.453942520264
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "DEXON",
@@ -618,6 +644,8 @@
       "netProfit": -34882000.0,
       "netProfitPrior": -35980000.0,
       "netProfitYoY": 3.0516953863257363,
+      "netProfitPriorQ": -59679000.0,
+      "netProfitQoQ": 41.55062919955093,
       "eps": -0.073,
       "epsPrior": -0.076,
       "epsYoY": 3.9473684210526354,
@@ -629,9 +657,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105095701&symbol=DEXON",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการให้บริการ  153 155 2% รายได้อื่น  0 0 33% รายได้รวม  153 156 2% ต้นทุนค่าบริการ  (135) (138) 2% ค่าใช้จ่ายในการขายและบริหาร  (52) (50) (3%) ต้นทุนทางการเงิน  (2) 1 (139%) ค่าใช้จ่ายอื่นๆ (1) (2) 100%",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": -59679000.0,
-      "netProfitQoQ": 41.55062919955093
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "KSL",
@@ -644,6 +670,8 @@
       "netProfit": 313983000.0,
       "netProfitPrior": 147500000.0,
       "netProfitYoY": 112.86983050847456,
+      "netProfitPriorQ": 118404000.0,
+      "netProfitQoQ": 165.17938583155976,
       "eps": 0.071,
       "epsPrior": 0.033,
       "epsYoY": 115.15151515151511,
@@ -655,9 +683,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085201&symbol=KSL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "เนื่องจากราคาขาย น้ำตาลเฉลี่ยโดยรวมทุกชองทางการจำหนายลดลงรอยละ 30 และเปนการขายสินคาที่ผลิตจากปกอน โดยมีตนทุน คาวัตถุดิบที่มีราคาสูง ผลการดำเนินงานของกลุมบริษัท ผลการดำเนินงานของบริษัท น้ำตาลขอนแกน จำกัด",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": 118404000.0,
-      "netProfitQoQ": 165.17938583155976
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "CITY",
@@ -670,6 +696,8 @@
       "netProfit": -2519000.0,
       "netProfitPrior": -8993000.0,
       "netProfitYoY": 71.98932503057934,
+      "netProfitPriorQ": -4534000.0,
+      "netProfitQoQ": 44.44199382443758,
       "eps": -0.0084,
       "epsPrior": -0.02998,
       "epsYoY": 71.98132088058706,
@@ -681,9 +709,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056501&symbol=CITY",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "รายได้มีสาเหตุหลักมาจากสงครามในภูมิภาคตะวันออกกลางระหว่างอิหร่าน อิสราเอล และสหรัฐอเมริกา ซึ่งส่งผล กระทบต่อการขนส่ง ห่วงโซ่อุปทาน ตลอดจนการปรับตัวเพิ่มขึ้นของราคานํ้ามันและพลังงาน สําหรับอุตสาหกรรม ยานยนต์",
-      "reason_source": "mda_extract",
-      "netProfitPriorQ": -4534000.0,
-      "netProfitQoQ": 44.44199382443758
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "TNH",
@@ -696,6 +722,8 @@
       "netProfit": 59889000.0,
       "netProfitPrior": 87602000.0,
       "netProfitYoY": -31.635122485788,
+      "netProfitPriorQ": 78705000.0,
+      "netProfitQoQ": -23.90699447303221,
       "eps": 0.33272,
       "epsPrior": 0.48668,
       "epsYoY": -31.634749732884025,
@@ -707,9 +735,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105027701&symbol=TNH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none",
-      "netProfitPriorQ": 78705000.0,
-      "netProfitQoQ": -23.90699447303221
+      "reason_source": "none"
     }
   ],
   "calendar": [
@@ -853,16 +879,15 @@
     },
     {
       "ticker": "SCC",
-      "date": "2026-07-22T17:11:46+07:00",
+      "date": "2026-07-22T17:11:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BAREIT",
-      "date": "2026-07-24T17:13:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-07-24T17:13:00+07:00"
+      "date": "2026-07-23T17:40:45+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "PTTEP",
@@ -3406,14 +3431,14 @@
       "basedOnLastYear": "2025-08-13T17:04:00+07:00"
     },
     {
-      "ticker": "SIRIPRT",
+      "ticker": "SGF",
       "date": "2026-08-13T17:04:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T17:04:00+07:00"
     },
     {
-      "ticker": "SGF",
+      "ticker": "SIRIPRT",
       "date": "2026-08-13T17:04:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -3434,14 +3459,14 @@
       "basedOnLastYear": "2025-08-13T17:05:00+07:00"
     },
     {
-      "ticker": "ASP",
+      "ticker": "AMANAH",
       "date": "2026-08-13T17:06:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T17:06:00+07:00"
     },
     {
-      "ticker": "AMANAH",
+      "ticker": "ASP",
       "date": "2026-08-13T17:06:00+07:00",
       "status": "predicted",
       "quarter": null,
