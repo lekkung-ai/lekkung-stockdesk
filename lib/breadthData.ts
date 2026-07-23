@@ -44,14 +44,15 @@ interface BreadthJson {
   breadth: BreadthRow[];
 }
 
-const breadth = rawBreadth as unknown as BreadthJson;
+const b = (rawBreadth as any)?.default ?? rawBreadth ?? {};
+const breadth = b as unknown as BreadthJson;
 
-export const breadthGeneratedAt: string = breadth.generated_at;
-export const breadthUniverse = breadth.universe;
-export const breadthConfig = breadth.config;
-export const marketStage: MarketStage = breadth.market_stage;
-export const setIndexBars: SetIndexBar[] = breadth.set_index;
-export const breadthRows: BreadthRow[] = breadth.breadth;
+export const breadthGeneratedAt: string = breadth.generated_at || new Date().toISOString();
+export const breadthUniverse = breadth.universe || { count: 0, min_history_days: 0, note: '' };
+export const breadthConfig = breadth.config || { ma_periods: [], new_high_low_window: 252, dd_min_decline_pct: 0.2, ftd_min_gain_pct: 1.5, ftd_window_start_day: 4, ftd_window_end_day: 10 };
+export const marketStage: MarketStage = breadth.market_stage || { stage: 'Uptrend', dd_count_25d: 0, pct_above_ma50_today: null, rule: '' };
+export const setIndexBars: SetIndexBar[] = breadth.set_index || [];
+export const breadthRows: BreadthRow[] = breadth.breadth || [];
 
 export function latestFtdDate(): string | null {
   for (let i = setIndexBars.length - 1; i >= 0; i--) {
