@@ -193,6 +193,15 @@ export async function GET(
   // Load daily snapshots for the past HISTORY_DAYS days
   const archivedItems: NewsItem[] = loadHistoricalItems();
 
+  // Always include batch-archived SET disclosures from news.json (scraped across
+  // all ~900 tickers by save_news.py) so company-level disclosures (CREDIT,
+  // BTSGIF, SCC, ACE, PCE, SIRI, KK, TVDH...) appear on the page alongside
+  // live Exchange-level items.
+  const setArchived = archivedItems.filter(item => item.source === 'SET (ตลาดหลักทรัพย์)');
+  if (setArchived.length > 0) {
+    allLive.push(...setArchived);
+  }
+
   // Any feed that failed live gets its most recent archived items injected
   // instead, flagged `stale: true`, so a blocked/rate-limited/slow source
   // degrades to "a bit old" rather than disappearing from the page entirely.
