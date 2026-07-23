@@ -573,7 +573,7 @@ function AnnouncementsTable({
           onChange={e => handleQuarterChange(e.target.value)}
           className="px-2.5 py-1.5 bg-[#13161e] border border-white/[0.08] rounded-lg text-label text-white/80 outline-none focus:border-white/20 transition-colors"
         >
-          {quarterOptions.map(q => (
+          {quarters.map(q => (
             <option key={q} value={q}>
               {q === 'ทั้งหมด' ? 'ทุกไตรมาส' : q}
             </option>
