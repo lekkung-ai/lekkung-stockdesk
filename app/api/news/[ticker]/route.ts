@@ -252,9 +252,10 @@ export async function GET(
     if (!item.link) continue;
     const normLink = normalizeUrl(item.link);
     const normTitle = normalizeTitle(item.title);
-    if (seenLinks.has(normLink) || (normTitle && seenTitles.has(normTitle))) continue;
+    const titleKey = normTitle ? `${normTitle}|${(item.tickerHint || '').toUpperCase()}` : '';
+    if (seenLinks.has(normLink) || (titleKey && seenTitles.has(titleKey))) continue;
     seenLinks.add(normLink);
-    if (normTitle) seenTitles.add(normTitle);
+    if (titleKey) seenTitles.add(titleKey);
     all.push(item); // candidates was already sorted, dedup preserves order
   }
 

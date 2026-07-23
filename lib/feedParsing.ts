@@ -136,7 +136,10 @@ export async function fetchFeed(
 export function normalizeUrl(url: string): string {
   try {
     const u = new URL(url);
-    return (u.hostname.replace(/^www\./, '') + u.pathname.replace(/\/+$/, '')).toLowerCase();
+    // Include search parameters (u.search) because sites like set.or.th and efinancethai
+    // differentiate unique articles via query params (e.g. ?id=105511201). Stripping u.search
+    // erroneously collapses all distinct SET/EFIN disclosures into a single duplicate URL.
+    return (u.hostname.replace(/^www\./, '') + u.pathname.replace(/\/+$/, '') + u.search).toLowerCase();
   } catch {
     return url.trim().toLowerCase();
   }
