@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart, X } from 'lucide-react';
 import { SortableTh, SortConfig } from '@/components/StrategyTable';
-import StockChart from '@/components/StockChart';
 import TableSkeleton from '@/components/TableSkeleton';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
@@ -959,7 +958,6 @@ export default function EarningsPage() {
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState<EarningsAnnouncement | null>(null);
   const [bucketFilter, setBucketFilter] = useState<BucketFilterOpt>('ทั้งหมด');
-  const [isChartCollapsed, setIsChartCollapsed] = useState<boolean>(false);
 
   const announcedCount = useMemo(() => new Set(feed.announcements.map(a => a.ticker)).size, [feed.announcements]);
   const quarterCount = useMemo(
@@ -1029,60 +1027,7 @@ export default function EarningsPage() {
         <>
           <div className="flex gap-4 items-stretch">
             <div className="flex-1 min-w-0 space-y-4">
-              {/* Top Technical Chart Section */}
-              {(() => {
-                const activeAnnouncement = selected ?? feed.announcements[0] ?? null;
-                if (!activeAnnouncement) return null;
-                const announceDayOnly = activeAnnouncement.announceDate ? activeAnnouncement.announceDate.slice(0, 10) : null;
-                return (
-                  <div className="bg-[#13161e] border border-blue-500/30 rounded-xl p-4 shadow-xl space-y-3">
-                    <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeAnnouncement.ticker}</h2>
-                        <span className="text-[11.5px] text-white/40">Technical Chart (Earnings Event) · {activeAnnouncement.quarter ?? '—'}</span>
-                        {activeAnnouncement.announceDate && (
-                          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center gap-1">
-                            <span>📅 วันประกาศงบ:</span>
-                            <span>{isoDateTimeToThai(activeAnnouncement.announceDate)}</span>
-                          </span>
-                        )}
-                        {activeAnnouncement.netProfitYoY != null && (
-                          <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${
-                            activeAnnouncement.netProfitYoY >= 0 ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]'
-                          }`}>
-                            %YoY: {activeAnnouncement.netProfitYoY >= 0 ? '+' : ''}{activeAnnouncement.netProfitYoY.toFixed(1)}%
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => setIsChartCollapsed(prev => !prev)}
-                          className="text-[11px] font-semibold text-blue-400 hover:text-blue-300 px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 transition-colors flex items-center gap-1"
-                        >
-                          {isChartCollapsed ? '👁️ แสดงกราฟ' : '🙈 ย่อซ่อนกราฟ'}
-                        </button>
-                        {selected && (
-                          <button
-                            onClick={() => setSelected(null)}
-                            className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                          >
-                            ย้อนกลับไปตัวแรก
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                    {!isChartCollapsed && (
-                      <StockChart
-                        ticker={activeAnnouncement.ticker}
-                        height={340}
-                        showEma10={true}
-                        highlightDates={announceDayOnly ? [announceDayOnly] : undefined}
-                        highlightColor="#3B82F6"
-                      />
-                    )}
-                  </div>
-                );
-              })()}
+
               <WeekCalendarStrip feed={feed} />
               <KpiSummaryHighlights feed={feed} />
               <BucketCards feed={feed} activeFilter={bucketFilter} onFilterChange={setBucketFilter} />
