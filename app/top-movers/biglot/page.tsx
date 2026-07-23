@@ -160,14 +160,17 @@ export default function BigLotPage() {
     return Array.from(s).sort().reverse();
   }, [data, allDates]);
 
-  const exactMatchSymbol = useMemo(() => {
+  const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
+
+  const activeSymbol = useMemo(() => {
+    if (selectedSymbol) return selectedSymbol.toUpperCase();
     const q = query.trim().toUpperCase();
     if (q.length > 0 && /^[A-Z0-9\-\.&]+$/.test(q)) return q;
     return null;
-  }, [query]);
+  }, [selectedSymbol, query]);
 
   useEffect(() => {
-    if (!exactMatchSymbol) {
+    if (!activeSymbol) {
       setHistoricalChartData(null);
       return;
     }
@@ -184,7 +187,7 @@ export default function BigLotPage() {
           let rowData: BigLotRow | undefined;
           
           if (data && data.date === d) {
-            const row = data.rows.find(r => r.symbol.toUpperCase() === exactMatchSymbol);
+            const row = data.rows.find(r => r.symbol.toUpperCase() === activeSymbol);
             if (row) {
               vol = row.volume;
               rowData = row;
@@ -198,7 +201,7 @@ export default function BigLotPage() {
             const json = await res.json();
             
             if (json.rows && Array.isArray(json.rows)) {
-              const row = json.rows.find((r: any) => r.symbol.toUpperCase() === exactMatchSymbol);
+              const row = json.rows.find((r: any) => r.symbol.toUpperCase() === activeSymbol);
               if (row) {
                 vol = row.volume;
                 rowData = row;
@@ -208,7 +211,7 @@ export default function BigLotPage() {
                 if (m && Array.isArray(m.rows)) {
                   const r = m.rows.find((x: any) => {
                     const vals = Object.values(x) as string[];
-                    return vals[0] && vals[0].toUpperCase() === exactMatchSymbol;
+                    return vals[0] && vals[0].toUpperCase() === activeSymbol;
                   });
                   if (r) {
                     const vals = Object.values(r) as string[];
@@ -247,7 +250,7 @@ export default function BigLotPage() {
     
     const t = setTimeout(fetchHistory, 300);
     return () => { isMounted = false; clearTimeout(t); };
-  }, [exactMatchSymbol, mergedDates, data]);
+  }, [activeSymbol, mergedDates, data]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -294,198 +297,239 @@ export default function BigLotPage() {
         <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
         <input
           type="text"
-          placeholder="ค้นหาหลักทรัพย์..."
+          placeholder="ค้นหาหลักทรัพย์ (หรือคลิกที่แถวตารางเพื่อดูกราฟย้อนหลัง)..."
           value={query}
           onChange={e => { setQuery(e.target.value); setPage(1); }}
           className="w-full pl-8 pr-4 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[13px] text-white/80 placeholder:text-white/25 outline-none focus:border-white/20 transition-colors"
         />
       </div>
 
-      {/* Historical Chart */}
-      {exactMatchSymbol && (chartLoading || historicalChartData) && (
-        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-4">
-          <div className="flex items-center gap-2">
-            <h2 className="text-[14px] font-bold text-white">ปริมาณซื้อขาย Big Lot ย้อนหลัง 15 วัน</h2>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400">{exactMatchSymbol}</span>
-            {chartLoading && <span className="text-[11px] text-white/30 ml-auto animate-pulse">กำลังโหลดข้อมูล...</span>}
+      {/* Historical Bar Chart & Detail Panel when a stock is selected/searched */}
+      {activeSymbol && (
+        <div className="bg-[#13161e] border border-blue-500/30 rounded-xl p-4 space-y-4 shadow-lg animate-in fade-in duration-200">
+          <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[15px]">📊</span>
+              <h2 className="text-[14px] font-bold text-white">ประวัติซื้อขาย Big Lot ย้อนหลัง 15 วัน</h2>
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                {activeSymbol}
+              </span>
+              <button
+                onClick={() => router.push(`/stock/${activeSymbol}`)}
+                className="text-[11px] font-semibold text-blue-400 hover:text-blue-300 underline ml-2"
+              >
+                ดูหน้าหุ้น {activeSymbol} →
+              </button>
+            </div>
+            <button
+              onClick={() => { setSelectedSymbol(null); setQuery(''); }}
+              className="px-2.5 py-1 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] text-[11px] text-white/70 hover:text-white transition-colors"
+            >
+              ✕ ปิดกราฟย้อนหลัง
+            </button>
           </div>
           
-          {!chartLoading && historicalChartData && (
+          {chartLoading ? (
+            <div className="py-12 text-center text-[12px] text-white/40 animate-pulse">
+              ⏳ กำลังดึงประวัติ Big Lot ย้อนหลัง 15 วันของ {activeSymbol}...
+            </div>
+          ) : historicalChartData ? (
             <div className="space-y-4">
               {(() => {
                 const totalVol = historicalChartData.reduce((sum, d) => sum + d.volume, 0);
-                const activeDays = historicalChartData.filter(d => d.volume > 0).length;
+                const activeDaysData = historicalChartData.filter(d => d.volume > 0);
                 const avgVol = totalVol / (historicalChartData.length || 1);
                 const maxVol = Math.max(...historicalChartData.map(d => d.volume), 1);
                 
                 return (
                   <>
-                    <div className="flex gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white/[0.02] p-3 rounded-lg border border-white/[0.05]">
                       <div>
-                        <p className="text-[11px] text-white/40">ปริมาณรวม (15 วัน)</p>
-                        <p className="text-[15px] font-semibold text-white/90 tabular-nums">{fmtNum(totalVol)}</p>
+                        <p className="text-[10.5px] text-white/40">ปริมาณรวม (15 วัน)</p>
+                        <p className="text-[14px] font-bold text-white tabular-nums">{fmtNum(totalVol)} หุ้น</p>
                       </div>
                       <div>
-                        <p className="text-[11px] text-white/40">เฉลี่ยต่อวัน (15 วัน)</p>
-                        <p className="text-[15px] font-semibold text-white/70 tabular-nums">{fmtNum(avgVol)}</p>
+                        <p className="text-[10.5px] text-white/40">เฉลี่ยต่อวัน (15 วัน)</p>
+                        <p className="text-[14px] font-bold text-white/80 tabular-nums">{fmtNum(avgVol)} หุ้น</p>
                       </div>
                       <div>
-                        <p className="text-[11px] text-white/40">จำนวนครั้ง (วัน)</p>
-                        <p className="text-[15px] font-semibold text-white/70 tabular-nums">{activeDays}</p>
+                        <p className="text-[10.5px] text-white/40">จำนวนวันที่พบ Big Lot</p>
+                        <p className="text-[14px] font-bold text-emerald-400 tabular-nums">{activeDaysData.length} วัน</p>
+                      </div>
+                      <div>
+                        <p className="text-[10.5px] text-white/40">วันที่สแกนล่าสุด</p>
+                        <p className="text-[14px] font-bold text-blue-300 tabular-nums">
+                          {activeDaysData.length > 0 ? isoToThaiLabel(activeDaysData[activeDaysData.length - 1].date) : '-'}
+                        </p>
                       </div>
                     </div>
                     
-                    <div className="relative h-[200px] w-full flex items-end justify-between gap-1 pt-4 border-b border-white/10">
-                      {/* Average Line */}
-                      {totalVol > 0 && (
-                        <div 
-                          className="absolute left-0 right-0 border-t border-dashed border-blue-400/30 z-0 pointer-events-none"
-                          style={{ bottom: `${Math.pow(avgVol / maxVol, 0.33) * 100}%` }}
-                        >
-                          <span className="absolute right-0 -top-4 text-[9px] text-blue-400/50">Avg</span>
-                        </div>
-                      )}
-                      
-                      {/* Bars */}
-                      {historicalChartData.map((d, i) => (
-                        <div key={i} className="relative flex-1 flex flex-col justify-end items-center h-full group z-10">
-                          {/* Tooltip */}
-                          <div className="absolute -top-8 bg-black/80 border border-white/10 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20">
-                            <div className="font-semibold text-blue-300">{isoToThaiLabel(d.date)}</div>
-                            <div className="text-white/80 tabular-nums">{fmtNum(d.volume)} หุ้น</div>
-                          </div>
-                          
+                    {/* Bar Chart Visual */}
+                    <div className="pt-2">
+                      <p className="text-[11px] font-semibold text-white/50 mb-2">กราฟแท่งแสดงปริมาณซื้อขายรายวัน (15 วันย้อนหลัง)</p>
+                      <div className="relative h-[180px] w-full flex items-end justify-between gap-1.5 pt-6 pb-2 border-b border-white/10">
+                        {/* Average Line */}
+                        {totalVol > 0 && (
                           <div 
-                            className={`w-full max-w-[24px] rounded-t-sm transition-all duration-300 ${d.volume > 0 ? 'bg-blue-500/60 group-hover:bg-blue-400/80' : 'bg-transparent'}`}
-                            style={{ height: d.volume > 0 ? `${Math.max(Math.pow(d.volume / maxVol, 0.33) * 100, 3)}%` : '0%' }}
-                          />
-                          
-                          {/* X-Axis Label */}
-                          <span className="absolute -bottom-5 text-[8px] text-white/20 whitespace-nowrap rotate-45 origin-left">
-                            {d.date.slice(5)}
-                          </span>
-                        </div>
-                      ))}
+                            className="absolute left-0 right-0 border-t border-dashed border-blue-400/40 z-0 pointer-events-none"
+                            style={{ bottom: `${Math.pow(avgVol / maxVol, 0.33) * 100}%` }}
+                          >
+                            <span className="absolute right-1 -top-4 text-[9px] font-semibold text-blue-400/70 bg-[#13161e] px-1 rounded">
+                              Avg: {fmtNum(avgVol)}
+                            </span>
+                          </div>
+                        )}
+                        
+                        {/* Bars */}
+                        {historicalChartData.map((d, i) => (
+                          <div key={i} className="relative flex-1 flex flex-col justify-end items-center h-full group z-10">
+                            {/* Tooltip */}
+                            <div className="absolute -top-10 bg-black/90 border border-white/20 text-white text-[10px] px-2.5 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-30 shadow-lg">
+                              <div className="font-bold text-blue-300">{isoToThaiLabel(d.date)}</div>
+                              <div className="text-white/90 tabular-nums">{fmtNum(d.volume)} หุ้น</div>
+                              {d.row?.value != null && (
+                                <div className="text-emerald-400 text-[9.5px] tabular-nums">มูลค่า: {fmtNum(d.row.value, 2)} ลบ. @ {fmtNum(d.row.avgPrice, 2)} บ.</div>
+                              )}
+                            </div>
+                            
+                            <div 
+                              className={`w-full max-w-[28px] rounded-t-md transition-all duration-300 ${d.volume > 0 ? 'bg-blue-500/70 group-hover:bg-blue-400 shadow-sm' : 'bg-white/[0.04]'}`}
+                              style={{ height: d.volume > 0 ? `${Math.max(Math.pow(d.volume / maxVol, 0.33) * 100, 4)}%` : '4%' }}
+                            />
+                            
+                            {/* X-Axis Label */}
+                            <span className="absolute -bottom-5 text-[8.5px] text-white/30 whitespace-nowrap font-mono">
+                              {d.date.slice(5)}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="h-4" />
+
+                    {/* Historical Transactions breakdown table */}
+                    {activeDaysData.length > 0 && (
+                      <div className="pt-2">
+                        <p className="text-[11.5px] font-semibold text-white/60 mb-2">ตารางสรุปรายการซื้อขายย้อนหลัง</p>
+                        <div className="overflow-x-auto rounded-lg border border-white/[0.06]">
+                          <table className="w-full text-left text-[12px]">
+                            <thead className="bg-white/[0.03] border-b border-white/[0.06] text-white/40">
+                              <tr>
+                                <th className="px-3 py-2">วันที่</th>
+                                <th className="px-3 py-2 text-right">รายการ</th>
+                                <th className="px-3 py-2 text-right">จำนวนหุ้น</th>
+                                <th className="px-3 py-2 text-right">มูลค่า (ลบ.)</th>
+                                <th className="px-3 py-2 text-right">ราคาเฉลี่ย (บ.)</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/[0.04]">
+                              {[...activeDaysData].reverse().map((d, idx) => (
+                                <tr key={idx} className="hover:bg-white/[0.03]">
+                                  <td className="px-3 py-2 text-white/80 font-medium">{isoToThaiLabel(d.date)}</td>
+                                  <td className="px-3 py-2 text-right text-white/60 tabular-nums">{fmtNum(d.row?.transactions || 1)}</td>
+                                  <td className="px-3 py-2 text-right text-white/90 font-bold tabular-nums">{fmtNum(d.volume)}</td>
+                                  <td className="px-3 py-2 text-right text-emerald-400 font-semibold tabular-nums">{d.row?.value != null ? fmtNum(d.row.value, 2) : '-'}</td>
+                                  <td className="px-3 py-2 text-right text-blue-300 tabular-nums">{d.row?.avgPrice != null ? fmtNum(d.row.avgPrice, 2) : '-'}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
                   </>
                 );
               })()}
             </div>
-          )}
+          ) : null}
         </div>
       )}
 
       {/* Table */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #EF9F27' }}>
-        {(() => {
-          if (exactMatchSymbol) {
-             const activeDays = (historicalChartData || []).filter(d => d.volume > 0);
-             if (chartLoading) return <div className="py-16 text-center text-[12px] text-white/25 animate-pulse">กำลังโหลดข้อมูลย้อนหลัง...</div>;
-             if (activeDays.length === 0) return <div className="py-16 text-center text-[13px] text-white/30">ไม่พบข้อมูล Big Lot ในช่วง 15 วันล่าสุด</div>;
-             
-             return (
-               <div className="overflow-x-auto">
-                 <table className="w-full text-left">
-                   <thead>
-                     <tr className="border-b border-white/[0.06]">
-                       {['วันที่', 'หลักทรัพย์', 'รายการ', 'จำนวนหุ้น', 'มูลค่า (ลบ.)', 'ราคาเฉลี่ย (บ.)'].map((h, i) => (
-                         <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i === 0 ? 'sticky left-0 z-10 bg-[#13161e]' : ''} ${i > 1 ? 'text-right' : 'text-left'}`}>
-                           {h}
-                         </th>
-                       ))}
-                     </tr>
-                   </thead>
-                   <tbody className="divide-y divide-white/[0.03]">
-                     {[...activeDays].reverse().map((d, i) => (
-                       <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                         <td className="sticky left-0 z-10 bg-[#13161e] px-4 py-3 text-[13px] font-semibold text-white/70 whitespace-nowrap">
-                           {isoToThaiLabel(d.date)}
-                         </td>
-                         <td
-                           onClick={() => router.push(`/stock/${d.row?.symbol || exactMatchSymbol}`)}
-                           className="px-4 py-3 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
-                         >
-                           {d.row?.symbol || exactMatchSymbol}
-                         </td>
-                         <td className="px-4 py-3 text-[13px] tabular-nums text-white/50 whitespace-nowrap text-right">
-                           {fmtNum(d.row?.transactions || 1)}
-                         </td>
-                         <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right">
-                           {fmtNum(d.volume)}
-                         </td>
-                         <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right">
-                           {d.row?.value != null ? fmtNum(d.row.value, 2) : '-'}
-                         </td>
-                         <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right">
-                           {d.row?.avgPrice != null ? fmtNum(d.row.avgPrice, 2) : '-'}
-                         </td>
-                       </tr>
-                     ))}
-                   </tbody>
-                 </table>
-               </div>
-             );
-          }
-          
-          return loading ? (
-            <TableSkeleton rows={10} />
-          ) : error ? (
-            <div className="py-16 text-center space-y-3">
-              <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
-              <button
-                onClick={() => loadData()}
-                className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors"
-              >
-                ลองอีกครั้ง
-              </button>
-            </div>
-          ) : pageRows.length === 0 ? (
-            <div className="py-16 text-center">
-              <p className="text-[13px] text-white/30">
-                {data && data.rows?.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกัน' : 'ไม่พบข้อมูล Big Lot'}
-              </p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-white/[0.06]">
-                    {['หลักทรัพย์', 'รายการ', 'จำนวนหุ้น', 'มูลค่า (ลบ.)', 'ราคาเฉลี่ย (บ.)'].map((h, i) => (
-                      <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i === 0 ? 'sticky left-0 z-10 bg-[#13161e]' : ''} ${i > 0 ? 'text-right' : 'text-left'}`}>
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/[0.03]">
-                  {pageRows.map((row, i) => (
-                    <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                      <td
-                        onClick={() => router.push(`/stock/${row.symbol}`)}
-                        className="sticky left-0 z-10 bg-[#13161e] px-4 py-3 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
-                      >
-                        {row.symbol}
+        {loading ? (
+          <TableSkeleton rows={10} />
+        ) : error ? (
+          <div className="py-16 text-center space-y-3">
+            <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
+            <button
+              onClick={() => loadData()}
+              className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors"
+            >
+              ลองอีกครั้ง
+            </button>
+          </div>
+        ) : pageRows.length === 0 ? (
+          <div className="py-16 text-center">
+            <p className="text-[13px] text-white/30">
+              {data && data.rows?.length > 0 ? 'ไม่พบผลลัพธ์ที่ตรงกัน' : 'ไม่พบข้อมูล Big Lot'}
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-white/[0.06]">
+                  {['หลักทรัพย์', 'รายการ', 'จำนวนหุ้น', 'มูลค่า (ลบ.)', 'ราคาเฉลี่ย (บ.)', 'กราฟย้อนหลัง'].map((h, i) => (
+                    <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i === 0 ? 'sticky left-0 z-10 bg-[#13161e]' : ''} ${i > 0 && i < 5 ? 'text-right' : 'text-left'}`}>
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.03]">
+                {pageRows.map((row, i) => {
+                  const isSelected = activeSymbol === row.symbol.toUpperCase();
+                  return (
+                    <tr
+                      key={i}
+                      onClick={() => setSelectedSymbol(prev => prev === row.symbol ? null : row.symbol)}
+                      className={`cursor-pointer transition-all ${
+                        isSelected ? 'bg-blue-500/15 border-l-2 border-blue-400' : 'hover:bg-white/[0.03]'
+                      }`}
+                    >
+                      <td className="sticky left-0 z-10 bg-[#13161e] px-4 py-3 text-[13px] font-bold text-white whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[13px] font-bold ${isSelected ? 'text-blue-300' : 'text-white'}`}>
+                            {row.symbol}
+                          </span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              router.push(`/stock/${row.symbol}`);
+                            }}
+                            className="text-[10px] px-1.5 py-0.5 rounded bg-white/[0.06] text-white/40 hover:text-blue-300 hover:bg-blue-500/20 transition-colors"
+                            title={`ไปที่หน้าหุ้น ${row.symbol}`}
+                          >
+                            หน้าหุ้น ↗
+                          </button>
+                        </div>
                       </td>
                       <td className="px-4 py-3 text-[13px] tabular-nums text-white/50 whitespace-nowrap text-right">
                         {fmtNum(row.transactions)}
                       </td>
-                      <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right">
+                      <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right font-medium">
                         {fmtNum(row.volume)}
                       </td>
-                      <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right">
+                      <td className="px-4 py-3 text-[13px] tabular-nums text-emerald-400 whitespace-nowrap text-right font-semibold">
                         {fmtNum(row.value, 2)}
                       </td>
                       <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right">
                         {fmtNum(row.avgPrice, 2)}
                       </td>
+                      <td className="px-4 py-3 text-[12px] whitespace-nowrap text-left">
+                        <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                          isSelected ? 'bg-blue-500 text-white shadow' : 'bg-white/[0.06] text-blue-400 hover:bg-blue-500/20'
+                        }`}>
+                          📊 {isSelected ? 'เปิดกราฟอยู่ (กดเพื่อปิด)' : 'ดูกราฟ 15 วัน'}
+                        </span>
+                      </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          );
-        })()}
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onChange={setPage} />}
