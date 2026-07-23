@@ -17,6 +17,8 @@ import { fetchSetNews } from '@/lib/setNews';
 // Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
 // works (see console output). A failing feed is skipped, not fatal.
 const FEEDS: Feed[] = [
+  { name: 'Share2Trade', url: 'https://www.share2trade.com/feed/rss' },
+  { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/feed/' },
   { name: 'InfoQuest', url: 'https://www.infoquest.co.th/stock/feed/' },
   { name: 'ข่าวหุ้น', url: 'https://www.kaohoon.com/feed' },
   { name: 'ข่าวหุ้น (ด่วน)', url: 'https://www.kaohoon.com/breakingnews/feed' },
@@ -30,6 +32,10 @@ const FEEDS: Feed[] = [
   { name: 'มติชน', url: 'https://www.matichon.co.th/economy/feed' },
   { name: 'Investing.com', url: 'https://th.investing.com/rss/news_25.rss' },
   { name: 'RYT9 (IPO)', url: 'https://www.ryt9.com/tag/IPO/rss.xml' },
+  { name: 'Thai PBS (เศรษฐกิจ)', url: 'https://news.thaipbs.or.th/rss/economic.xml' },
+  { name: 'TODAY Biz', url: 'https://workpointtoday.com/feed/' },
+  { name: 'ThaiPR', url: 'https://www.thaipr.net/finance/feed' },
+  { name: 'Brand Inside', url: 'https://brandinside.asia/feed/' },
 ];
 
 // The Standard's wealth feed is dead and its general /feed/ buries stock news
@@ -129,9 +135,14 @@ function getSentiment(text: string): 'pos' | 'neg' | 'neu' {
 const HISTORY_DAYS = 7; // matches the news page's date-picker min range
 const HISTORY_DIR = path.join(process.cwd(), 'public', 'data', 'history');
 
+let historicalCache: { data: NewsItem[]; timestamp: number } | null = null;
+
 function loadHistoricalItems(): NewsItem[] {
-  const items: NewsItem[] = [];
   const now = Date.now();
+  if (historicalCache && (now - historicalCache.timestamp) < 60000) {
+    return historicalCache.data;
+  }
+  const items: NewsItem[] = [];
   for (let i = 0; i < HISTORY_DAYS; i++) {
     const date = new Date(now - i * 86400000).toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
     const filePath = path.join(HISTORY_DIR, date, 'news.json');
@@ -142,6 +153,7 @@ function loadHistoricalItems(): NewsItem[] {
       // no snapshot for this day yet — not an error, just nothing to add
     }
   }
+  historicalCache = { data: items, timestamp: now };
   return items;
 }
 
@@ -153,15 +165,18 @@ export async function GET(
   const t = ticker.toUpperCase();
   const wantGeneral = GENERAL_TOKENS.has(t);
 
-  // Fetch every feed in parallel. fetchFeed() already catches its own errors
-  // and resolves to [], but allSettled is the belt-and-suspenders guarantee
-  // that one broken feed (a thrown rejection we didn't anticipate) can never
-  // take down the whole page — it's just logged and skipped.
-  const settled = await Promise.allSettled(
-    FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC))
-  );
+  // Fetch RSS feeds, efinancethai, and SET news concurrently in parallel for max speed
+  const [settled, efinItems, setNewsItems] = await Promise.all([
+    Promise.allSettled(
+      FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC))
+    ),
+    fetchEfinanceThai(1, EFIN_PAGE_SIZE, EFIN_REVALIDATE_SEC, FEED_TIMEOUT_MS),
+    fetchSetNews(wantGeneral ? 'SET' : t, LIVE_REVALIDATE_SEC, FEED_TIMEOUT_MS),
+  ]);
+
   let allLive: NewsItem[] = [];
   const failedFeeds: Feed[] = [];
+
   settled.forEach((result, i) => {
     if (result.status === 'fulfilled' && result.value.length > 0) {
       allLive.push(...result.value);
@@ -169,46 +184,31 @@ export async function GET(
       if (result.status === 'rejected') {
         console.log(`[news] REJECTED ${FEEDS[i].name} -> ${result.reason}  (${FEEDS[i].url})`);
       }
-      // A fulfilled-but-empty result is already logged inside fetchFeed()
-      // itself (FAIL / ERROR / "200 but 0 items"), so no duplicate log here.
       failedFeeds.push(FEEDS[i]);
     }
   });
 
-  // efinancethai isn't RSS (custom JSON API, see lib/efinanceThai.ts) so it's
-  // not part of FEEDS/fetchFeedShared above - fetched separately here, but
-  // pushed into the same failedFeeds list on failure so it gets the exact
-  // same archive-fallback treatment as every RSS source (feed.name 'EFIN'
-  // must match the `source` value scripts/save_news.py writes to the archive).
-  const efinItems = await fetchEfinanceThai(1, EFIN_PAGE_SIZE, EFIN_REVALIDATE_SEC, FEED_TIMEOUT_MS);
   if (efinItems.length > 0) {
     allLive.push(...efinItems);
   } else {
     failedFeeds.push({ name: 'EFIN', url: 'efinancethai.com' });
   }
 
-  const setNewsItems = await fetchSetNews(wantGeneral ? 'SET' : t, LIVE_REVALIDATE_SEC, FEED_TIMEOUT_MS);
   if (setNewsItems.length > 0) {
     allLive.push(...setNewsItems);
   } else {
     failedFeeds.push({ name: 'SET (ตลาดหลักทรัพย์)', url: 'set.or.th' });
   }
 
-  // Load daily snapshots for the past HISTORY_DAYS days
+  // Load daily snapshots for the past HISTORY_DAYS days (memory cached)
   const archivedItems: NewsItem[] = loadHistoricalItems();
 
-  // Always include batch-archived SET disclosures from news.json (scraped across
-  // all ~900 tickers by save_news.py) so company-level disclosures (CREDIT,
-  // BTSGIF, SCC, ACE, PCE, SIRI, KK, TVDH...) appear on the page alongside
-  // live Exchange-level items.
+  // Always include batch-archived SET disclosures from news.json
   const setArchived = archivedItems.filter(item => item.source === 'SET (ตลาดหลักทรัพย์)');
   if (setArchived.length > 0) {
     allLive.push(...setArchived);
   }
 
-  // Any feed that failed live gets its most recent archived items injected
-  // instead, flagged `stale: true`, so a blocked/rate-limited/slow source
-  // degrades to "a bit old" rather than disappearing from the page entirely.
   const staleSources: string[] = [];
   if (failedFeeds.length > 0) {
     const archivedBySource = new Map<string, NewsItem[]>();
@@ -225,29 +225,15 @@ export async function GET(
       if (fallback.length > 0) {
         allLive.push(...fallback);
         staleSources.push(feed.name);
-        console.log(`[news] STALE FALLBACK ${feed.name} -> using ${fallback.length} archived item(s), live fetch failed/empty`);
-      } else {
-        console.log(`[news] STALE FALLBACK ${feed.name} -> no archived items available either`);
       }
     }
   }
 
-  // Sort BEFORE dedup so the winner of any duplicate is deterministic —
-  // newest ts wins, ties broken by source name — instead of "whichever
-  // array happened to list it first" (previously: allLive-then-archivedItems
-  // concat order, which depended on FEEDS array order, not content). Stable
-  // sort means true ties (a stale-fallback item and its own archive copy
-  // share identical ts+source) keep their relative order from the concat
-  // below, so the stale:true copy - listed first via allLive - still wins.
   const candidates = [...allLive, ...archivedItems].sort((a, b) => {
     if (b.ts !== a.ts) return b.ts - a.ts;
     return a.source.localeCompare(b.source);
   });
 
-  // Dedup across feeds. Different sources can syndicate the same story with
-  // slightly different tracking params on the URL or minor whitespace/case
-  // differences in the title, so an exact-link match alone isn't enough once
-  // multiple outlets are mixed in.
   const seenLinks = new Set<string>();
   const seenTitles = new Set<string>();
   const all: NewsItem[] = [];
@@ -260,25 +246,17 @@ export async function GET(
     if (seenLinks.has(normLink) || (titleKey && seenTitles.has(titleKey))) continue;
     seenLinks.add(normLink);
     if (titleKey) seenTitles.add(titleKey);
-    all.push(item); // candidates was already sorted, dedup preserves order
+    all.push(item);
   }
 
   let selected: NewsItem[];
   let isGeneral: boolean;
 
   if (wantGeneral) {
-    // Cut by age (matches the archive window), not by count — a fixed
-    // count cap meant the visible cutoff point shifted around on every
-    // request as new items arrived, silently pushing out whatever was at
-    // the boundary regardless of how old it actually was.
     const cutoffTs = Date.now() - HISTORY_DAYS * 86400000;
     selected = all.filter(item => item.ts >= cutoffTs);
     isGeneral = true;
   } else {
-    // A tickerHint (e.g. efinancethai's own `security` tag) is authoritative
-    // even when the title itself doesn't literally spell out the symbol
-    // (e.g. "บริษัท ปตท." without "PTT") - match on it too, not just the
-    // title-text scan.
     const matches = all.filter(
       item => (item.tickerHint && item.tickerHint.toUpperCase() === t) || titleHasTicker(item.title, t)
     );
@@ -299,9 +277,6 @@ export async function GET(
       pubDate: item.pubDate,
       ts: item.ts,
       source: item.source,
-      // A source-provided ticker tag (efinancethai's `security` field) is
-      // more reliable than scanning the title text, so prefer it when
-      // present and valid; fall back to the usual title-scan otherwise.
       tickers: hint && isKnownTicker(hint) ? [hint] : extractTickers(item.title),
       sentiment: getSentiment(item.title),
       stale: item.stale ?? false,
@@ -310,6 +285,6 @@ export async function GET(
 
   return Response.json(
     { news, isGeneral, staleSources },
-    { headers: { 'Cache-Control': 'no-store' } }
+    { headers: { 'Cache-Control': 'public, max-age=30, s-maxage=60, stale-while-revalidate=300' } }
   );
 }

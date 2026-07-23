@@ -262,6 +262,6 @@ export async function GET(
 
   return Response.json(
     { research },
-    { headers: { 'Cache-Control': 'no-store' } }
+    { headers: { 'Cache-Control': 'public, max-age=30, s-maxage=60, stale-while-revalidate=300' } }
   );
 }

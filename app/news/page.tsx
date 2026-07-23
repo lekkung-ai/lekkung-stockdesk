@@ -40,11 +40,23 @@ function NewsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const rawTab = searchParams.get('tab');
-  const tab: 'set' | 'news' | 'research' =
-    rawTab === 'set' ? 'set' : rawTab === 'research' ? 'research' : 'news';
   const initialResearchTicker = searchParams.get('ticker') ?? '';
 
+  const [activeTab, setActiveTab] = useState<'set' | 'news' | 'research'>(() =>
+    rawTab === 'set' ? 'set' : rawTab === 'research' ? 'research' : 'news'
+  );
+
+  useEffect(() => {
+    const targetTab = rawTab === 'set' ? 'set' : rawTab === 'research' ? 'research' : 'news';
+    setActiveTab(targetTab);
+  }, [rawTab]);
+
   function switchTab(next: 'set' | 'news' | 'research') {
+    setActiveTab(next);
+    setSelectedSources([]);
+    setTickerFilter('');
+    setTickerInput('');
+    setPage(0);
     const params = new URLSearchParams(searchParams.toString());
     params.set('tab', next);
     if (next !== 'research') params.delete('ticker');
@@ -69,15 +81,38 @@ function NewsPageContent() {
   const [page, setPage] = useState(0);
 
   const tickerBoxRef = useRef<HTMLDivElement>(null);
+  const dateAutoSet = useRef(false);
 
   useEffect(() => {
     let active = true;
+    // Pre-fetch research data in background so tab switching is instant
+    fetch('/api/research/all').catch(() => {});
+
     fetch('/api/news/all')
       .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then(d => {
         if (active) {
-          setAllNews(d.news ?? []);
+          const list: NewsItem[] = d.news ?? [];
+          setAllNews(list);
           setStaleSources(d.staleSources ?? []);
+
+          if (!dateAutoSet.current && list.length > 0) {
+            dateAutoSet.current = true;
+            const counts = new Map<string, number>();
+            for (const n of list) {
+              const dateStr = localDate(n.ts);
+              counts.set(dateStr, (counts.get(dateStr) ?? 0) + 1);
+            }
+            let bestDate = localDate(list[0].ts);
+            let bestCount = 0;
+            for (const [dStr, n] of counts) {
+              if (n > bestCount || (n === bestCount && dStr > bestDate)) {
+                bestDate = dStr;
+                bestCount = n;
+              }
+            }
+            setSelectedDate(bestDate);
+          }
         }
       })
       .catch(() => {
@@ -90,6 +125,37 @@ function NewsPageContent() {
       active = false;
     };
   }, []);
+
+  // Auto-adjust selectedDate when switching activeTab if selectedDate has no items for the tab
+  useEffect(() => {
+    if (!allNews || allNews.length === 0 || activeTab === 'research') return;
+
+    const isSetTab = activeTab === 'set';
+    const relevant = allNews.filter(n => {
+      const isSet = n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th');
+      return isSetTab ? isSet : !isSet;
+    });
+
+    if (relevant.length === 0) return;
+
+    const hasItemsOnSelected = relevant.some(n => localDate(n.ts) === selectedDate);
+    if (!hasItemsOnSelected) {
+      const counts = new Map<string, number>();
+      for (const n of relevant) {
+        const dStr = localDate(n.ts);
+        counts.set(dStr, (counts.get(dStr) ?? 0) + 1);
+      }
+      let bestDate = localDate(relevant[0].ts);
+      let bestCount = 0;
+      for (const [dStr, cnt] of counts) {
+        if (cnt > bestCount || (cnt === bestCount && dStr > bestDate)) {
+          bestDate = dStr;
+          bestCount = cnt;
+        }
+      }
+      setSelectedDate(bestDate);
+    }
+  }, [allNews, activeTab, selectedDate]);
 
   // close ticker dropdown on outside click
   useEffect(() => {
@@ -112,11 +178,11 @@ function NewsPageContent() {
     if (!allNews) return [];
     const seen: string[] = [];
     for (const n of allNews) {
-      if (tab === 'news' && (n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th'))) continue;
+      if (activeTab === 'news' && (n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th'))) continue;
       if (!seen.includes(n.source)) seen.push(n.source);
     }
     return seen;
-  }, [allNews, tab]);
+  }, [allNews, activeTab]);
 
   // tickers present in the data (for the search dropdown)
   const tickerOptions = useMemo(() => {
@@ -137,13 +203,13 @@ function NewsPageContent() {
     return allNews.filter(n => {
       if (localDate(n.ts) !== selectedDate) return false;
       const isSet = n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th');
-      if (tab === 'set' && !isSet) return false;
-      if (tab === 'news' && isSet) return false;
+      if (activeTab === 'set' && !isSet) return false;
+      if (activeTab === 'news' && isSet) return false;
       if (selectedSources.length && !selectedSources.includes(n.source)) return false;
       if (tickerFilter && !n.tickers.includes(tickerFilter)) return false;
       return true;
     });
-  }, [allNews, selectedDate, selectedSources, tickerFilter, tab]);
+  }, [allNews, selectedDate, selectedSources, tickerFilter, activeTab]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageItems = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
@@ -193,9 +259,9 @@ function NewsPageContent() {
       <div>
         <h1 className="text-[18px] font-bold text-white">ข่าว & บทวิเคราะห์</h1>
         <p className="text-[12px] text-white/35 mt-0.5">
-          {tab === 'set'
+          {activeTab === 'set'
             ? 'ข่าวและประกาศแจ้งตลาดอย่างเป็นทางการจาก set.or.th'
-            : tab === 'news'
+            : activeTab === 'news'
             ? 'รวมข่าวหุ้นและการเงินจากหลายสำนักข่าว · กรองตามแหล่ง หุ้น และวันที่'
             : 'บทวิเคราะห์จากโบรกเกอร์ · กรองตามโบรก คำแนะนำ และวันที่'}
         </p>
@@ -206,7 +272,7 @@ function NewsPageContent() {
         <button
           onClick={() => switchTab('news')}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
-            tab === 'news'
+            activeTab === 'news'
               ? 'bg-[#1D9E75]/20 text-[#1D9E75] border border-[#1D9E75]/40 font-bold'
               : 'bg-white/[0.03] text-white/40 hover:text-white/70'
           }`}
@@ -216,7 +282,7 @@ function NewsPageContent() {
         <button
           onClick={() => switchTab('set')}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
-            tab === 'set'
+            activeTab === 'set'
               ? 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/40 font-bold'
               : 'bg-white/[0.03] text-white/40 hover:text-white/70'
           }`}
@@ -226,7 +292,7 @@ function NewsPageContent() {
         <button
           onClick={() => switchTab('research')}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold transition-colors ${
-            tab === 'research'
+            activeTab === 'research'
               ? 'bg-[#7F77DD]/20 text-[#7F77DD] border border-[#7F77DD]/40 font-bold'
               : 'bg-white/[0.03] text-white/40 hover:text-white/70'
           }`}
@@ -235,7 +301,7 @@ function NewsPageContent() {
         </button>
       </div>
 
-      {tab === 'research' ? (
+      {activeTab === 'research' ? (
         <ResearchTab initialTicker={initialResearchTicker} />
       ) : (
         <>

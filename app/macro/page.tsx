@@ -28,7 +28,8 @@ const ZONE_LABELS_TH: Record<MacroZone, string> = {
   financial: 'การเงิน-ดอกเบี้ย',
 };
 
-function formatPrice(close: number): string {
+function formatPrice(close: number | null | undefined): string {
+  if (close == null || isNaN(close)) return '—';
   if (close >= 1000) {
     return close.toLocaleString('en-US', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
   }
@@ -36,8 +37,9 @@ function formatPrice(close: number): string {
 }
 
 function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
-  const sparkData = commodity.series.map(s => s.close);
+  const sparkData = (commodity.series || []).map(s => s.close);
   const zoneStyle = ZONE_COLORS[commodity.zone] || ZONE_COLORS.financial;
+  const latestClose = commodity.latest?.close;
 
   return (
     <div className="bg-[#13161e] border border-white/[0.08] hover:border-white/[0.18] rounded-xl p-4 transition-all space-y-3 shadow-sm hover:shadow-md">
@@ -64,7 +66,7 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
         <div>
           <div className="flex items-baseline gap-1.5">
             <span className="text-[20px] font-extrabold text-white tabular-nums leading-none tracking-tight">
-              {formatPrice(commodity.latest.close)}
+              {formatPrice(latestClose)}
             </span>
           </div>
           <p className="text-[10px] text-white/30 mt-1 font-medium">{commodity.unit}</p>

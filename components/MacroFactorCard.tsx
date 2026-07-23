@@ -3,7 +3,8 @@ import { ChangeBadge } from './ChangeBadge';
 import TrendSparkline from './TrendSparkline';
 import { macroCommoditiesForTicker } from '@/lib/macroData';
 
-function formatPrice(close: number): string {
+function formatPrice(close: number | null | undefined): string {
+  if (close == null || isNaN(close)) return '—';
   return close.toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 }
 
@@ -26,11 +27,11 @@ export default function MacroFactorCard({ ticker }: { ticker: string }) {
             <div className="min-w-0">
               <p className="text-body text-ink font-medium truncate">{c.name_th}</p>
               <p className="text-label text-meta truncate">
-                {c.symbol} · {formatPrice(c.latest.close)} {c.unit}
+                {c.symbol} · {formatPrice(c.latest?.close)} {c.unit}
               </p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
-              <TrendSparkline data={c.series.map(s => s.close)} width={48} height={18} />
+              <TrendSparkline data={(c.series || []).map(s => s.close)} width={48} height={18} />
               <ChangeBadge value={c.pct_1d} />
             </div>
           </div>

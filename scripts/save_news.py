@@ -70,6 +70,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 # Thansettakij, MGR Online, The Standard Wealth, Settrade feedburner) are
 # excluded.
 FEEDS = {
+    'Share2Trade': 'https://www.share2trade.com/feed/rss',
     'InfoQuest': 'https://www.infoquest.co.th/stock/feed/',
     'ข่าวหุ้น': 'https://www.kaohoon.com/feed',
     'ข่าวหุ้น (ด่วน)': 'https://www.kaohoon.com/breakingnews/feed',
@@ -84,6 +85,10 @@ FEEDS = {
     'มติชน': 'https://www.matichon.co.th/economy/feed',
     'Investing.com': 'https://th.investing.com/rss/news_25.rss',
     'RYT9 (IPO)': 'https://www.ryt9.com/tag/IPO/rss.xml',
+    'Thai PBS (เศรษฐกิจ)': 'https://news.thaipbs.or.th/rss/economic.xml',
+    'TODAY Biz': 'https://workpointtoday.com/feed/',
+    'ThaiPR': 'https://www.thaipr.net/finance/feed',
+    'Brand Inside': 'https://brandinside.asia/feed/',
     # HoonSmart's domain is consistently slow (15-30s+ for any path, not just
     # /feed/) - too slow for the live web route (12s timeout, one page load =
     # unacceptable wait), but this batch script runs once per pipeline cycle

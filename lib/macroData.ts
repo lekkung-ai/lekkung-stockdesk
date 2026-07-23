@@ -29,16 +29,34 @@ interface MacroCommoditiesJson {
   commodities: Record<string, Omit<MacroCommodity, 'symbol'>>;
 }
 
-const macro = rawMacro as unknown as MacroCommoditiesJson;
+const macro = (rawMacro || {}) as unknown as MacroCommoditiesJson;
 
-export const macroGeneratedAt: string = macro.generated_at;
-export const macroSeriesDays: number = macro.series_days;
-export const macroZoneLabels: Record<MacroZone, string> = macro.zones;
-export const macroMethodology: string = macro.methodology;
-export const macroPalmOilNote: string = macro.palm_oil_note;
+export const macroGeneratedAt: string = macro.generated_at || new Date().toISOString();
+export const macroSeriesDays: number = macro.series_days || 180;
+export const macroZoneLabels: Record<MacroZone, string> = macro.zones || {
+  energy: 'พลังงาน',
+  agri: 'เกษตร-อาหาร',
+  industrial: 'โลหะ-อุตสาหกรรม',
+  financial: 'การเงิน-ดอกเบี้ย',
+};
+export const macroMethodology: string = macro.methodology || '';
+export const macroPalmOilNote: string = macro.palm_oil_note || '';
 
-export const macroCommodities: MacroCommodity[] = Object.entries(macro.commodities).map(
-  ([symbol, data]) => ({ symbol, ...data })
+const rawEntries = Object.entries(macro.commodities || {});
+
+export const macroCommodities: MacroCommodity[] = rawEntries.map(
+  ([symbol, data]) => ({
+    symbol,
+    name_th: data.name_th || symbol,
+    name_en: data.name_en || symbol,
+    unit: data.unit || '',
+    zone: data.zone || 'financial',
+    tickers: data.tickers || [],
+    latest: data.latest || { date: '', close: 0 },
+    pct_1d: data.pct_1d ?? null,
+    pct_1m: data.pct_1m ?? null,
+    series: data.series || [],
+  })
 );
 
 const ZONE_ORDER: MacroZone[] = ['energy', 'agri', 'industrial', 'financial'];

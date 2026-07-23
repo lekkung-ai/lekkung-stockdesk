@@ -571,94 +571,101 @@ function AnnouncementsTable({
         <select
           value={quarterFilter}
           onChange={e => handleQuarterChange(e.target.value)}
-          className="px-2.5 py-1.5 bg-[#13161e] border border-white/[0.07] rounded-lg text-label text-white/70 outline-none focus:border-white/20"
-        >
-          {quarters.map(q => <option key={q} value={q}>{q}</option>)}
-        </select>
-        <div className="relative flex-1 min-w-[140px]">
-          <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-meta" />
-          <input
-            type="text"
-            placeholder="ค้นหาหุ้น..."
-            value={query}
-            onChange={e => handleSearchChange(e.target.value)}
-            className="w-full pl-7 pr-3 py-1.5 bg-[#13161e] border border-white/[0.07] rounded-lg text-label text-white/80 placeholder:text-meta outline-none focus:border-white/20"
-          />
-        </div>
-      </div>
-
-      <QoqLegend />
-
-      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
-        {filtered.length === 0 ? (
-          <div className="py-14 text-center text-label text-meta">
-            {announcements.length === 0 ? 'ยังไม่มีประกาศงบในช่วง 45 วันล่าสุด' : 'ไม่พบผลลัพธ์ที่ตรงกับตัวกรอง'}
-          </div>
-        ) : (
-          <>
-          {/* Mobile: card per row */}
-          <div className="md:hidden divide-y divide-white/[0.03]">
+          className="px-2.5 py-1.5 bg-[#13161e] border bo          <>
+          {/* Mobile & Tablet (<1024px): Responsive 1-col (mobile) / 2-col (tablet) Card Grid */}
+          <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-3 p-3">
             {paginatedRows.map((a, i) => (
               <div
                 key={`${a.ticker}-${a.announceDate}-${i}`}
                 onClick={() => handleRowClick(a)}
-                className={`px-3 py-3 cursor-pointer transition-colors border-l-2 ${
-                  selectedTicker === a.ticker ? 'bg-[#7F77DD]/[0.14] border-l-[#7F77DD]' : 'border-l-transparent active:bg-white/[0.03]'
+                className={`p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between space-y-2.5 ${
+                  selectedTicker === a.ticker
+                    ? 'bg-[#7F77DD]/[0.14] border-[#7F77DD]/50 ring-1 ring-[#7F77DD]/30'
+                    : 'bg-[#13161e] border-white/[0.07] hover:border-white/20 hover:bg-white/[0.02] active:bg-white/[0.04]'
                 }`}
               >
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-body font-bold text-blue-400">
+                {/* Header: Ticker + Badges */}
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-[15px] font-extrabold text-blue-400 tracking-wide">
                       {a.ticker}
                     </span>
                     <button
                       onClick={(e) => { e.stopPropagation(); router.push(`/stock/${a.ticker}`); }}
-                      className="p-1 rounded text-white/30 hover:text-blue-400 hover:bg-white/5 transition-colors"
+                      className="p-1 rounded-md text-white/40 hover:text-blue-400 hover:bg-white/10 transition-colors"
                       title={`เปิดหน้าวิเคราะห์หุ้น ${a.ticker}`}
                     >
-                      <ExternalLink size={11} />
+                      <ExternalLink size={13} />
                     </button>
                     {a.isCorrection && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27] flex-shrink-0">
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#EF9F27]/15 text-[#EF9F27] border border-[#EF9F27]/30 flex-shrink-0">
                         แก้ไข
                       </span>
                     )}
-                    <span className="text-label text-meta truncate">{a.quarter ?? '—'}</span>
+                    <span className="text-[11px] font-medium text-white/50 bg-white/[0.05] px-2 py-0.5 rounded-md truncate">
+                      {a.quarter ?? '—'}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                  <span className="text-[11px] text-meta whitespace-nowrap tabular-nums">
+                    {timeOnly(a.announceDate)} น.
+                  </span>
+                </div>
+
+                {/* Profit & YoY/QoQ Growth */}
+                <div className="bg-white/[0.025] border border-white/[0.04] rounded-lg p-2.5 flex items-center justify-between gap-2">
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-meta">กำไรสุทธิ</div>
+                    <div className={`text-[14px] font-bold tabular-nums mt-0.5 ${a.netProfit != null && a.netProfit < 0 ? 'text-[#E24B4A]' : 'text-white'}`}>
+                      {fmtMoney(a.netProfit)}
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
                     <YoyBadge value={a.netProfitYoY} />
                     <QoqBadge netProfit={a.netProfit} netProfitPriorQ={a.netProfitPriorQ} netProfitQoQ={a.netProfitQoQ} />
                   </div>
                 </div>
-                <div className="flex items-center justify-between gap-2 mt-1.5">
-                  <span className={`text-label font-semibold tabular-nums ${a.netProfit != null && a.netProfit < 0 ? 'text-[#E24B4A]' : 'text-white/80'}`}>
-                    {fmtMoney(a.netProfit)}
-                  </span>
-                  <span className="text-label text-meta whitespace-nowrap">
-                    {isoDateTimeToThai(a.announceDate).replace(/ \d{2}:\d{2} น\.$/, '')} · {timeOnly(a.announceDate)} น.
-                  </span>
-                </div>
+
+                {/* Reason snippet if available */}
                 {a.reason && (
-                  <div className="text-label text-white/50 line-clamp-2 mt-1.5">{a.reason}</div>
+                  <p className="text-[11px] text-white/60 leading-relaxed line-clamp-2 bg-white/[0.015] p-2 rounded-md border border-white/[0.03]">
+                    {a.reason}
+                  </p>
                 )}
-                <div className="flex items-center gap-1.5 mt-1.5" onClick={(e) => e.stopPropagation()}>
-                  {a.statementUrl && (
-                    <a href={a.statementUrl} target="_blank" rel="noopener noreferrer"
-                       className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
-                      งบ <ExternalLink size={9} />
-                    </a>
-                  )}
-                  {a.mdaUrl && (
-                    <a href={a.mdaUrl} target="_blank" rel="noopener noreferrer"
-                       className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
-                      MD&amp;A <ExternalLink size={9} />
-                    </a>
-                  )}
+
+                {/* Footer: Date & Document Action Buttons */}
+                <div className="flex items-center justify-between gap-2 pt-1 border-t border-white/[0.04]">
+                  <span className="text-[10.5px] text-meta">
+                    {isoDateTimeToThai(a.announceDate).replace(/ \d{2}:\d{2} น\.$/, '')}
+                  </span>
+                  <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                    {a.statementUrl && (
+                      <a
+                        href={a.statementUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold bg-white/[0.06] text-white/70 hover:text-white hover:bg-white/15 transition-all border border-white/[0.08]"
+                      >
+                        งบ <ExternalLink size={10} />
+                      </a>
+                    )}
+                    {a.mdaUrl && (
+                      <a
+                        href={a.mdaUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold bg-purple-500/15 text-purple-300 hover:bg-purple-500/25 transition-all border border-purple-500/30"
+                      >
+                        MD&amp;A <ExternalLink size={10} />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="hidden md:block overflow-x-auto">
+
+          {/* Desktop (>=1024px): Full High-Density Data Table */}
+          <div className="hidden lg:block overflow-x-auto">
             <table className="w-full text-left">
               <thead className="border-b border-white/[0.06] bg-white/[0.015]">
                 <tr>
@@ -670,8 +677,8 @@ function AnnouncementsTable({
                   <SortableTh right sortKey="netProfitYoY" currentSort={sortConfig} onSort={handleSort}>%YoY</SortableTh>
                   <SortableTh right sortKey="netProfitQoQ" currentSort={sortConfig} onSort={handleSort}>%QoQ</SortableTh>
                   <SortableTh right sortKey="eps" currentSort={sortConfig} onSort={handleSort}>EPS</SortableTh>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">เอกสาร</th>
-                  <th className="px-3 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">สาเหตุ</th>
+                  <th className="px-3.5 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">เอกสาร</th>
+                  <th className="px-3.5 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">สาเหตุ</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.03]">
@@ -682,48 +689,75 @@ function AnnouncementsTable({
                     className={`cursor-pointer transition-colors border-l-2 ${
                       selectedTicker === a.ticker
                         ? 'bg-[#7F77DD]/[0.14] border-l-[#7F77DD]'
-                        : 'border-l-transparent hover:bg-white/[0.02]'
+                        : 'border-l-transparent hover:bg-white/[0.025]'
                     }`}
                   >
-                    <td className="px-3 py-3 text-label text-white/55 whitespace-nowrap">
-                      <div>{isoDateTimeToThai(a.announceDate).replace(/ \d{2}:\d{2} น\.$/, '')}</div>
-                      <div className="text-label text-meta">{timeOnly(a.announceDate)} น.</div>
+                    <td className="px-3.5 py-3.5 text-label text-white/60 whitespace-nowrap">
+                      <div className="font-medium">{isoDateTimeToThai(a.announceDate).replace(/ \d{2}:\d{2} น\.$/, '')}</div>
+                      <div className="text-[11px] text-meta">{timeOnly(a.announceDate)} น.</div>
                     </td>
-                    <td className="px-3 py-3 whitespace-nowrap">
+                    <td className="px-3.5 py-3.5 whitespace-nowrap">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-body font-bold text-blue-400">
+                        <span className="text-[14px] font-extrabold text-blue-400">
                           {a.ticker}
                         </span>
                         <button
                           onClick={(e) => { e.stopPropagation(); router.push(`/stock/${a.ticker}`); }}
-                          className="p-1 rounded text-white/30 hover:text-blue-400 hover:bg-white/5 transition-colors"
+                          className="p-1 rounded text-white/30 hover:text-blue-400 hover:bg-white/10 transition-colors"
                           title={`เปิดหน้าวิเคราะห์หุ้น ${a.ticker}`}
                         >
                           <ExternalLink size={12} />
                         </button>
                         {a.isCorrection && (
-                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27] align-middle">
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#EF9F27]/15 text-[#EF9F27] border border-[#EF9F27]/30 align-middle">
                             แก้ไข
                           </span>
                         )}
                       </div>
                     </td>
-                    <td className="px-3 py-3 text-label text-white/50 whitespace-nowrap">{a.quarter ?? '—'}</td>
-                    <td className={`px-3 py-3 text-label font-semibold tabular-nums text-right whitespace-nowrap ${
-                      a.netProfit != null && a.netProfit < 0 ? 'text-[#E24B4A]' : 'text-white/80'
+                    <td className="px-3.5 py-3.5 text-label text-white/60 whitespace-nowrap">{a.quarter ?? '—'}</td>
+                    <td className={`px-3.5 py-3.5 text-label font-bold tabular-nums text-right whitespace-nowrap ${
+                      a.netProfit != null && a.netProfit < 0 ? 'text-[#E24B4A]' : 'text-white'
                     }`}>
                       {fmtMoney(a.netProfit)}
                     </td>
-                    <td className="px-3 py-3 text-label tabular-nums text-meta text-right whitespace-nowrap hidden md:table-cell">
+                    <td className="px-3.5 py-3.5 text-label tabular-nums text-meta text-right whitespace-nowrap">
                       {fmtMoney(a.netProfitPrior)}
                     </td>
-                    <td className="px-3 py-3 whitespace-nowrap"><YoyBadge value={a.netProfitYoY} /></td>
-                    <td className="px-3 py-3 whitespace-nowrap"><QoqBadge netProfit={a.netProfit} netProfitPriorQ={a.netProfitPriorQ} netProfitQoQ={a.netProfitQoQ} /></td>
-                    <td className="px-3 py-3 text-label tabular-nums text-white/50 text-right whitespace-nowrap hidden md:table-cell">
+                    <td className="px-3.5 py-3.5 whitespace-nowrap"><YoyBadge value={a.netProfitYoY} /></td>
+                    <td className="px-3.5 py-3.5 whitespace-nowrap"><QoqBadge netProfit={a.netProfit} netProfitPriorQ={a.netProfitPriorQ} netProfitQoQ={a.netProfitQoQ} /></td>
+                    <td className="px-3.5 py-3.5 text-label tabular-nums text-white/60 text-right whitespace-nowrap">
                       {a.eps != null ? a.eps.toFixed(2) : '—'}
                     </td>
-                    <td className="px-3 py-3 whitespace-nowrap">
+                    <td className="px-3.5 py-3.5 whitespace-nowrap">
                       <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                        {a.statementUrl && (
+                          <a href={a.statementUrl} target="_blank" rel="noopener noreferrer"
+                             className="inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium bg-white/[0.06] text-white/70 hover:text-white hover:bg-white/15 transition-all border border-white/[0.08]">
+                            งบ <ExternalLink size={10} />
+                          </a>
+                        )}
+                        {a.mdaUrl && (
+                          <a href={a.mdaUrl} target="_blank" rel="noopener noreferrer"
+                             className="inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium bg-purple-500/15 text-purple-300 hover:bg-purple-500/25 transition-all border border-purple-500/30">
+                            MD&amp;A <ExternalLink size={10} />
+                          </a>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-3.5 py-3.5 text-label max-w-[240px]">
+                      {a.reason ? (
+                        <div className="text-white/60 line-clamp-2 leading-relaxed" title={a.reason}>{a.reason}</div>
+                      ) : (
+                        <span className="text-meta">—</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          </>onClick={(e) => e.stopPropagation()}>
                         {a.statementUrl && (
                           <a href={a.statementUrl} target="_blank" rel="noopener noreferrer"
                              className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-label font-medium bg-white/[0.05] text-white/50 hover:text-white/80 transition-colors">
