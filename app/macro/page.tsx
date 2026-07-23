@@ -109,20 +109,45 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
 export default function MacroPage() {
   const [selectedZone, setSelectedZone] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [items, setItems] = useState<MacroCommodity[]>(macroCommodities);
+
+  useEffect(() => {
+    fetch('/api/macro')
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        if (!d || !d.commodities) return;
+        const list: MacroCommodity[] = Object.entries(d.commodities).map(([symbol, data]: [string, any]) => ({
+          symbol,
+          name_th: data.name_th || symbol,
+          name_en: data.name_en || symbol,
+          unit: data.unit || '',
+          zone: data.zone || 'financial',
+          tickers: data.tickers || [],
+          latest: data.latest || { date: '', close: 0 },
+          pct_1d: data.pct_1d ?? null,
+          pct_1m: data.pct_1m ?? null,
+          series: data.series || [],
+        }));
+        if (list.length > 0) {
+          setItems(list);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Top Movers Summary
   const topMovers = useMemo(() => {
-    const valid = macroCommodities.filter(c => c.pct_1d !== null);
+    const valid = items.filter(c => c.pct_1d !== null);
     const sorted = [...valid].sort((a, b) => (b.pct_1d ?? 0) - (a.pct_1d ?? 0));
     return {
       gainers: sorted.slice(0, 3),
       losers: sorted.slice(-3).reverse(),
     };
-  }, []);
+  }, [items]);
 
   // Filtered List
   const filteredCommodities = useMemo(() => {
-    return macroCommodities.filter(c => {
+    return items.filter(c => {
       const matchesZone = selectedZone === 'all' || c.zone === selectedZone;
       const q = searchQuery.trim().toLowerCase();
       const matchesSearch =
@@ -133,15 +158,15 @@ export default function MacroPage() {
         c.tickers.some(t => t.toLowerCase().includes(q));
       return matchesZone && matchesSearch;
     });
-  }, [selectedZone, searchQuery]);
+  }, [items, selectedZone, searchQuery]);
 
   const zoneCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: macroCommodities.length };
-    macroCommodities.forEach(c => {
+    const counts: Record<string, number> = { all: items.length };
+    items.forEach(c => {
       counts[c.zone] = (counts[c.zone] || 0) + 1;
     });
     return counts;
-  }, []);
+  }, [items]);
 
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">

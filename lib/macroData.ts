@@ -29,7 +29,8 @@ interface MacroCommoditiesJson {
   commodities: Record<string, Omit<MacroCommodity, 'symbol'>>;
 }
 
-const macro = (rawMacro || {}) as unknown as MacroCommoditiesJson;
+const m = (rawMacro as any)?.default ?? rawMacro ?? {};
+const macro = m as unknown as MacroCommoditiesJson;
 
 export const macroGeneratedAt: string = macro.generated_at || new Date().toISOString();
 export const macroSeriesDays: number = macro.series_days || 180;
