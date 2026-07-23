@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, AlertTriangle, ChevronLeft, ChevronRight, Users, Calendar, Newspaper } from 'lucide-react';
 import { peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
@@ -14,6 +14,7 @@ import { BUCKET_LABEL, BUCKET_BADGE_STYLE } from '@/lib/earningsBucket';
 import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
 import type { F45Data } from '@/app/api/f45/[ticker]/route';
+import type { ShareholderData } from '@/app/api/shareholder/[ticker]/route';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -239,6 +240,10 @@ export default function StockDetailPage({
   const [upcomingCA, setUpcomingCA] = useState<CalendarRow[]>([]);
   const [financials, setFinancials] = useState<YearlyFinancials[] | null>(null);
   const [f45, setF45] = useState<F45Data | null>(null);
+  const [shareholders, setShareholders] = useState<ShareholderData | null>(null);
+  const [fullCA, setFullCA] = useState<CalendarRow[]>([]);
+  const [setNewsPage, setSetNewsPage] = useState(1);
+  const [generalNewsPage, setGeneralNewsPage] = useState(1);
 
   // Suppress unused warning for breakoutEntry (used as existence check)
   void breakoutEntry;
@@ -317,6 +322,44 @@ export default function StockDetailPage({
       .then(data => setF45(data ?? null))
       .catch(() => setF45(null));
   }, [ticker]);
+
+  useEffect(() => {
+    fetch(`/api/shareholder/${encodeURIComponent(ticker)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => setShareholders(data ?? null))
+      .catch(() => setShareholders(null));
+  }, [ticker]);
+
+  useEffect(() => {
+    fetch(`/api/corporate-action?symbol=${encodeURIComponent(ticker)}&from=2024-01-01&to=2027-12-31`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => setFullCA(data?.rows ?? []))
+      .catch(() => setFullCA([]));
+  }, [ticker]);
+
+  const setNewsList = useMemo(() => {
+    if (!news) return [];
+    return news.filter(n => n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th'));
+  }, [news]);
+
+  const generalNewsList = useMemo(() => {
+    if (!news) return [];
+    return news.filter(n => n.source !== 'SET (ตลาดหลักทรัพย์)' && !n.link.includes('set.or.th'));
+  }, [news]);
+
+  const SET_PER_PAGE = 5;
+  const totalSetPages = Math.max(1, Math.ceil(setNewsList.length / SET_PER_PAGE));
+  const currentSetNews = useMemo(() => {
+    const start = (setNewsPage - 1) * SET_PER_PAGE;
+    return setNewsList.slice(start, start + SET_PER_PAGE);
+  }, [setNewsList, setNewsPage]);
+
+  const GEN_PER_PAGE = 5;
+  const totalGenPages = Math.max(1, Math.ceil(generalNewsList.length / GEN_PER_PAGE));
+  const currentGenNews = useMemo(() => {
+    const start = (generalNewsPage - 1) * GEN_PER_PAGE;
+    return generalNewsList.slice(start, start + GEN_PER_PAGE);
+  }, [generalNewsList, generalNewsPage]);
 
   const changeColor = quote
     ? quote.change1d > 0 ? '#1D9E75' : quote.change1d < 0 ? '#E24B4A' : '#9ca3af'
@@ -733,28 +776,266 @@ export default function StockDetailPage({
         </div>
       )}
 
-      {/* ── News section ── */}
+      {/* ── 1. ข่าวแจ้งตลาด (set.or.th) ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
-        <div className="px-5 py-4 border-b border-white/[0.06]">
-          <h2 className="text-section text-ink">ข่าวล่าสุด</h2>
-          {newsIsGeneral && (
-            <p className="text-label text-meta mt-0.5">ไม่พบข่าวของ {ticker} · แสดงข่าวตลาดทั่วไปแทน</p>
+        <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between flex-wrap gap-2">
+          <div className="flex items-center gap-2">
+            <Newspaper size={18} className="text-[#60A5FA]" />
+            <h2 className="text-section text-ink font-bold">ข่าวแจ้งตลาด (set.or.th)</h2>
+            <span className="px-2 py-0.5 rounded text-label font-bold bg-[#3B82F6]/15 text-[#60A5FA] border border-[#3B82F6]/30">
+              SET (ตลาดหลักทรัพย์)
+            </span>
+          </div>
+          {setNewsList.length > 0 && (
+            <span className="text-label text-meta">ทั้งหมด {setNewsList.length} ข่าว</span>
           )}
         </div>
 
         {news === null ? (
           <div className="px-5 py-6 text-center">
-            <span className="text-label text-meta animate-pulse">กำลังโหลดข่าว...</span>
+            <span className="text-label text-meta animate-pulse">กำลังโหลดข่าวแจ้งตลาด...</span>
           </div>
-        ) : news.length === 0 ? (
+        ) : setNewsList.length === 0 ? (
           <div className="px-5 py-6 text-center">
-            <p className="text-label text-meta">ไม่พบข่าวล่าสุดของ {ticker}</p>
+            <p className="text-label text-meta">ไม่พบข่าวแจ้งตลาดของ {ticker}</p>
           </div>
         ) : (
+          <>
+            <div className="divide-y divide-white/[0.04]">
+              {currentSetNews.map((item, i) => (
+                <NewsCard key={(item.link || '') + i} item={item} />
+              ))}
+            </div>
+            {totalSetPages > 1 && (
+              <div className="flex items-center justify-between px-5 py-3 border-t border-white/[0.06] bg-white/[0.01]">
+                <button
+                  onClick={() => setSetNewsPage(p => Math.max(1, p - 1))}
+                  disabled={setNewsPage === 1}
+                  className="flex items-center gap-1 text-label font-medium text-white/70 hover:text-white disabled:opacity-30 disabled:hover:text-white/70 transition-colors px-3 py-1.5 rounded-lg bg-white/[0.05]"
+                >
+                  <ChevronLeft size={14} /> ก่อนหน้า
+                </button>
+                <span className="text-label text-meta tabular-nums font-medium">
+                  หน้า {setNewsPage} จาก {totalSetPages}
+                </span>
+                <button
+                  onClick={() => setSetNewsPage(p => Math.min(totalSetPages, p + 1))}
+                  disabled={setNewsPage >= totalSetPages}
+                  className="flex items-center gap-1 text-label font-medium text-white/70 hover:text-white disabled:opacity-30 disabled:hover:text-white/70 transition-colors px-3 py-1.5 rounded-lg bg-white/[0.05]"
+                >
+                  ถัดไป <ChevronRight size={14} />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* ── ข่าวทั่วไป & บทวิเคราะห์สื่อ ── */}
+      {generalNewsList.length > 0 && (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between flex-wrap gap-2">
+            <h2 className="text-section text-ink font-bold">ข่าวทั่วไป & บทวิเคราะห์สื่อ</h2>
+            <span className="text-label text-meta">ทั้งหมด {generalNewsList.length} ข่าว</span>
+          </div>
           <div className="divide-y divide-white/[0.04]">
-            {news.map((item, i) => (
-              <NewsCard key={i} item={item} />
+            {currentGenNews.map((item, i) => (
+              <NewsCard key={(item.link || '') + i} item={item} />
             ))}
+          </div>
+          {totalGenPages > 1 && (
+            <div className="flex items-center justify-between px-5 py-3 border-t border-white/[0.06] bg-white/[0.01]">
+              <button
+                onClick={() => setGeneralNewsPage(p => Math.max(1, p - 1))}
+                disabled={generalNewsPage === 1}
+                className="flex items-center gap-1 text-label font-medium text-white/70 hover:text-white disabled:opacity-30 disabled:hover:text-white/70 transition-colors px-3 py-1.5 rounded-lg bg-white/[0.05]"
+              >
+                <ChevronLeft size={14} /> ก่อนหน้า
+              </button>
+              <span className="text-label text-meta tabular-nums font-medium">
+                หน้า {generalNewsPage} จาก {totalGenPages}
+              </span>
+              <button
+                onClick={() => setGeneralNewsPage(p => Math.min(totalGenPages, p + 1))}
+                disabled={generalNewsPage >= totalGenPages}
+                className="flex items-center gap-1 text-label font-medium text-white/70 hover:text-white disabled:opacity-30 disabled:hover:text-white/70 transition-colors px-3 py-1.5 rounded-lg bg-white/[0.05]"
+              >
+                ถัดไป <ChevronRight size={14} />
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── 2. ปฏิทินหลักทรัพย์ (Corporate Action Calendar) ── */}
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
+        <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between flex-wrap gap-2">
+          <div className="flex items-center gap-2">
+            <Calendar size={18} className="text-[#EF9F27]" />
+            <h2 className="text-section text-ink font-bold">ปฏิทินหลักทรัพย์ (Corporate Action Calendar)</h2>
+          </div>
+          <span className="text-label text-meta">สิทธิประโยชน์หุ้น {ticker}</span>
+        </div>
+
+        {fullCA.length === 0 ? (
+          <div className="px-5 py-6 text-center">
+            <p className="text-label text-meta">ไม่พบปฏิทินสิทธิประโยชน์ของ {ticker}</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-white/[0.06] bg-white/[0.01]">
+                  <th className="px-4 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">
+                    วันที่ขึ้นเครื่องหมาย (X-Date)
+                  </th>
+                  <th className="px-4 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap">
+                    เครื่องหมาย
+                  </th>
+                  <th className="px-4 py-3 text-label font-semibold uppercase tracking-wider text-meta">
+                    รายละเอียด
+                  </th>
+                  <th className="px-4 py-3 text-label font-semibold uppercase tracking-wider text-meta whitespace-nowrap text-right">
+                    วันจ่ายเงิน / ประชุม
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.03]">
+                {fullCA.map((ca, i) => {
+                  const badgeCls =
+                    ca.caType === 'XD' ? 'bg-[#1D9E75]/20 text-[#1D9E75] border border-[#1D9E75]/40' :
+                    ca.caType === 'XM' ? 'bg-[#378ADD]/20 text-[#378ADD] border border-[#378ADD]/40' :
+                    ca.caType === 'XR' ? 'bg-[#EF9F27]/20 text-[#EF9F27] border border-[#EF9F27]/40' :
+                    ca.caType === 'XW' ? 'bg-[#7F77DD]/20 text-[#7F77DD] border border-[#7F77DD]/40' :
+                    'bg-white/10 text-white/70 border border-white/20';
+
+                  return (
+                    <tr key={`${ca.caType}-${ca.xDate}-${i}`} className="hover:bg-white/[0.02] transition-colors">
+                      <td className="px-4 py-3 text-label font-semibold text-white tabular-nums whitespace-nowrap">
+                        {new Date(ca.xDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </td>
+                      <td className="px-4 py-3 text-label whitespace-nowrap">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-label font-bold ${badgeCls}`}>
+                          {ca.caType}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-label text-white/80 leading-relaxed">
+                        {ca.detail || '—'}
+                      </td>
+                      <td className="px-4 py-3 text-label text-meta tabular-nums whitespace-nowrap text-right">
+                        {ca.payDate ? new Date(ca.payDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* ── 3. ผู้ถือหุ้นรายใหญ่ (Major Shareholders) ── */}
+      <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden space-y-4 p-5">
+        <div className="flex items-center justify-between flex-wrap gap-2 border-b border-white/[0.06] pb-4">
+          <div className="flex items-center gap-2">
+            <Users size={18} className="text-[#378ADD]" />
+            <h2 className="text-section text-ink font-bold">ผู้ถือหุ้นรายใหญ่ (Major Shareholders)</h2>
+          </div>
+          {shareholders?.bookCloseDate && (
+            <span className="text-label text-meta">
+              ข้อมูล ณ วันปิดสมุดทะเบียน:{' '}
+              <span className="text-white font-medium">
+                {new Date(shareholders.bookCloseDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </span>
+            </span>
+          )}
+        </div>
+
+        {/* Shareholders Summary Cards */}
+        {shareholders && (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="bg-white/[0.03] rounded-lg px-3.5 py-3">
+              <div className="text-label text-meta mb-1">วันปิดสมุดทะเบียนล่าสุด</div>
+              <div className="text-body font-semibold text-white">
+                {shareholders.bookCloseDate
+                  ? new Date(shareholders.bookCloseDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })
+                  : '—'}
+              </div>
+              {shareholders.caType && <div className="text-label text-meta mt-0.5">ประเภท: {shareholders.caType}</div>}
+            </div>
+
+            <div className="bg-white/[0.03] rounded-lg px-3.5 py-3">
+              <div className="text-label text-meta mb-1">จำนวนผู้ถือหุ้นทั้งหมด</div>
+              <div className="text-body font-semibold text-white">
+                {shareholders.totalShareholder != null ? `${shareholders.totalShareholder.toLocaleString()} ราย` : '—'}
+              </div>
+            </div>
+
+            <div className="bg-white/[0.03] rounded-lg px-3.5 py-3">
+              <div className="text-label text-meta mb-1">Free Float (ผู้ถือหุ้นรายย่อย)</div>
+              <div className="text-body font-semibold text-[#1D9E75]">
+                {shareholders.freeFloat?.percentFreeFloat != null ? `${shareholders.freeFloat.percentFreeFloat.toFixed(2)}%` : '—'}
+              </div>
+              {shareholders.freeFloat?.numberOfHolder != null && (
+                <div className="text-label text-meta mt-0.5">
+                  {shareholders.freeFloat.numberOfHolder.toLocaleString()} ราย
+                </div>
+              )}
+            </div>
+
+            <div className="bg-white/[0.03] rounded-lg px-3.5 py-3">
+              <div className="text-label text-meta mb-1">Scriptless (หุ้นไร้ใบ)</div>
+              <div className="text-body font-semibold text-white">
+                {shareholders.percentScriptless != null ? `${shareholders.percentScriptless.toFixed(1)}%` : '—'}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Shareholders Table */}
+        {shareholders === null ? (
+          <div className="py-6 text-center">
+            <span className="text-label text-meta animate-pulse">กำลังโหลดผู้ถือหุ้นรายใหญ่...</span>
+          </div>
+        ) : shareholders.majorShareholders.length === 0 ? (
+          <div className="py-6 text-center">
+            <p className="text-label text-meta">ไม่พบข้อมูลผู้ถือหุ้นรายใหญ่</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-lg border border-white/[0.06]">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-white/[0.06] bg-white/[0.02]">
+                  <th className="px-4 py-2.5 text-label font-semibold uppercase tracking-wider text-meta w-16 text-center">ลำดับ</th>
+                  <th className="px-4 py-2.5 text-label font-semibold uppercase tracking-wider text-meta">ชื่อผู้ถือหุ้น</th>
+                  <th className="px-4 py-2.5 text-label font-semibold uppercase tracking-wider text-meta text-right">จำนวนหุ้น</th>
+                  <th className="px-4 py-2.5 text-label font-semibold uppercase tracking-wider text-meta text-right w-28">สัดส่วน (%)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.03]">
+                {shareholders.majorShareholders.map((item) => (
+                  <tr key={item.sequence} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-4 py-2.5 text-label text-meta text-center tabular-nums font-medium">
+                      {item.sequence}
+                    </td>
+                    <td className="px-4 py-2.5 text-label font-medium text-white flex items-center gap-2">
+                      <span>{item.name}</span>
+                      {item.isThaiNVDR && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#7F77DD]/20 text-[#7F77DD] border border-[#7F77DD]/30">
+                          NVDR
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-4 py-2.5 text-label text-white/80 tabular-nums text-right font-mono">
+                      {item.numberOfShare.toLocaleString()}
+                    </td>
+                    <td className="px-4 py-2.5 text-label text-[#60A5FA] font-semibold tabular-nums text-right font-mono">
+                      {item.percentOfShare.toFixed(2)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
@@ -766,7 +1047,7 @@ export default function StockDetailPage({
 
       {/* ── SEC 246 ── */}
       {sec246 && sec246.rows.length > 0 && (
-        <SecReportCard title="รายงาน 246-2 · ผู้ถือหุ้นรายใหญ่" data={sec246} />
+        <SecReportCard title="รายงาน 246-2 · ผู้ถือหุ้นรายใหญ่ (ประวัติได้มา/จำหน่ายหุ้น 3 ปีย้อนหลัง)" data={sec246} />
       )}
 
       <AiAssistant ticker={ticker} />
