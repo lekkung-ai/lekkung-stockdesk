@@ -45,6 +45,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
   const [error, setError] = useState(false);
 
   const [selectedBrokers, setSelectedBrokers] = useState<string[]>([]);
+  const [ratingFilter, setRatingFilter] = useState<'ALL' | 'BUY' | 'HOLD' | 'SELL'>('ALL');
   const [tickerInput, setTickerInput] = useState(initialTicker);
   const [tickerFilter, setTickerFilter] = useState(initialTicker);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -122,7 +123,7 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
 
   useEffect(() => {
     setPage(0);
-  }, [selectedBrokers, tickerFilter, selectedDate]);
+  }, [selectedBrokers, ratingFilter, tickerFilter, selectedDate]);
 
   const brokers = useMemo(() => {
     if (!items) return [];
@@ -150,9 +151,16 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
       if (localDate(it.ts) !== selectedDate) return false;
       if (selectedBrokers.length && (!it.broker || !selectedBrokers.includes(it.broker))) return false;
       if (tickerFilter && !it.tickers.includes(tickerFilter)) return false;
+      if (ratingFilter !== 'ALL') {
+        if (!it.rating) return false;
+        const cls = classifyRating(it.rating);
+        if (ratingFilter === 'BUY' && cls !== 'buy') return false;
+        if (ratingFilter === 'HOLD' && cls !== 'neutral') return false;
+        if (ratingFilter === 'SELL' && cls !== 'sell') return false;
+      }
       return true;
     });
-  }, [items, selectedDate, selectedBrokers, tickerFilter]);
+  }, [items, selectedDate, selectedBrokers, tickerFilter, ratingFilter]);
 
   // Quick-glance summary: today's items with both broker+rating resolved
   // (mostly IAA, which guarantees both - Kaohoon/มิติหุ้น only sometimes do)
@@ -214,6 +222,43 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
               </button>
             );
           })}
+        </div>
+
+        {/* Rating Filter Chips */}
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-white/[0.04]">
+          <span className="text-label uppercase tracking-wider text-meta mr-1">คำแนะนำ</span>
+          <button
+            onClick={() => setRatingFilter('ALL')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-colors ${
+              ratingFilter === 'ALL' ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-meta hover:text-white/70'
+            }`}
+          >
+            ทั้งหมด
+          </button>
+          <button
+            onClick={() => setRatingFilter('BUY')}
+            className={`px-2.5 py-1 rounded-lg text-label font-bold transition-colors ${
+              ratingFilter === 'BUY' ? 'bg-[#1D9E75]/20 text-[#1D9E75] border border-[#1D9E75]/40' : 'bg-white/[0.04] text-meta hover:text-white/70'
+            }`}
+          >
+            🟢 BUY (ซื้อ)
+          </button>
+          <button
+            onClick={() => setRatingFilter('HOLD')}
+            className={`px-2.5 py-1 rounded-lg text-label font-bold transition-colors ${
+              ratingFilter === 'HOLD' ? 'bg-[#EF9F27]/20 text-[#EF9F27] border border-[#EF9F27]/40' : 'bg-white/[0.04] text-meta hover:text-white/70'
+            }`}
+          >
+            🟡 HOLD (ถือ)
+          </button>
+          <button
+            onClick={() => setRatingFilter('SELL')}
+            className={`px-2.5 py-1 rounded-lg text-label font-bold transition-colors ${
+              ratingFilter === 'SELL' ? 'bg-[#E24B4A]/20 text-[#E24B4A] border border-[#E24B4A]/40' : 'bg-white/[0.04] text-meta hover:text-white/70'
+            }`}
+          >
+            🔴 SELL (ขาย)
+          </button>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">

@@ -33,6 +33,7 @@ import { IAA_SOURCE_NAME } from '@/lib/researchRating';
 //     HoonSmart/มิติหุ้น batch-only sources.
 const FEEDS: Feed[] = [
   { name: 'Kaohoon', url: 'https://www.kaohoon.com/stockanalysis/feed' },
+  { name: 'ข่าวหุ้น (คอลัมน์)', url: 'https://www.kaohoon.com/column/feed' },
 ];
 
 const FEED_TIMEOUT_MS = 12000;

@@ -166,6 +166,28 @@ function NewsPageContent() {
     setDropdownOpen(false);
   }
 
+  const sentimentSummary = useMemo(() => {
+    if (!allNews) return null;
+    const todayNews = allNews.filter(n => localDate(n.ts) === selectedDate);
+    if (todayNews.length === 0) return null;
+    let pos = 0, neg = 0, neu = 0;
+    for (const n of todayNews) {
+      if (n.sentiment === 'pos') pos++;
+      else if (n.sentiment === 'neg') neg++;
+      else neu++;
+    }
+    const total = todayNews.length;
+    return {
+      pos,
+      neg,
+      neu,
+      total,
+      posPct: Math.round((pos / total) * 100),
+      negPct: Math.round((neg / total) * 100),
+      neuPct: Math.round((neu / total) * 100),
+    };
+  }, [allNews, selectedDate]);
+
   return (
     <div className="p-4 md:p-6 space-y-4">
       <div>
@@ -199,6 +221,37 @@ function NewsPageContent() {
         <ResearchTab initialTicker={initialResearchTicker} />
       ) : (
         <>
+      {/* ── Daily Sentiment Summary Bar ── */}
+      {sentimentSummary && (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#1D9E75] animate-pulse" />
+              <span className="text-label font-bold text-white">บรรยากาศข่าวประจำวัน:</span>
+            </div>
+            <span className={`px-2.5 py-0.5 rounded text-label font-bold ${
+              sentimentSummary.posPct >= 50
+                ? 'bg-[#1D9E75]/20 text-[#1D9E75] border border-[#1D9E75]/40'
+                : sentimentSummary.negPct >= 30
+                ? 'bg-[#E24B4A]/20 text-[#E24B4A] border border-[#E24B4A]/40'
+                : 'bg-white/10 text-white/70'
+            }`}>
+              {sentimentSummary.posPct >= 50 ? '🟢 บรรยากาศเป็นบวก' : sentimentSummary.negPct >= 30 ? '🔴 บรรยากาศระมัดระวัง' : '⚪ บรรยากาศทรงตัว'}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-label">
+            <div className="flex items-center gap-3 tabular-nums">
+              <span className="text-[#1D9E75] font-semibold">บวก {sentimentSummary.posPct}% ({sentimentSummary.pos})</span>
+              <span className="text-meta">|</span>
+              <span className="text-[#E24B4A] font-semibold">ลบ {sentimentSummary.negPct}% ({sentimentSummary.neg})</span>
+              <span className="text-meta">|</span>
+              <span className="text-white/60">กลาง {sentimentSummary.neuPct}% ({sentimentSummary.neu})</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── Filter bar ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-3 md:p-4 space-y-3">
         {/* [1] sources */}

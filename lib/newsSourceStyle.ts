@@ -24,6 +24,11 @@ export const NEWS_SOURCE_STYLE: Record<string, string> = {
   EFIN: 'bg-[#FDF0DC] text-[#8A5A0C]',
   'SET (ตลาดหลักทรัพย์)': 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/40',
   SET: 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/40',
+  'Money & Banking': 'bg-[#1D9E75]/20 text-[#1D9E75] border border-[#1D9E75]/30',
+  Prachachat: 'bg-[#378ADD]/20 text-[#378ADD] border border-[#378ADD]/30',
+  'Standard Wealth': 'bg-[#EF9F27]/20 text-[#EF9F27] border border-[#EF9F27]/30',
+  'Reporter Journey': 'bg-[#7F77DD]/20 text-[#7F77DD] border border-[#7F77DD]/30',
+  'ข่าวหุ้น (คอลัมน์)': 'bg-[#FAEEDA] text-[#633806]',
 };
 
 export function newsSourceCls(s: string): string {
