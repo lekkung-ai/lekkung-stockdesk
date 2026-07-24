@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T00:01:06.869573+07:00",
+  "generatedAt": "2026-07-24T17:37:42.427400+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -28,7 +28,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 4,
+      "count": 5,
       "top3": [
         {
           "ticker": "SCC",
@@ -88,11 +88,38 @@
   },
   "announcements": [
     {
+      "ticker": "STANLY",
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET",
+      "announceDate": "2026-07-24T12:52:54+07:00",
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 361651000.0,
+      "netProfitPrior": 369624000.0,
+      "netProfitYoY": -2.15705690106703,
+      "netProfitPriorQ": 490497000.0,
+      "netProfitQoQ": -26.26845831880725,
+      "profitAcceleration": "stable",
+      "eps": 4.72,
+      "epsPrior": 4.82,
+      "epsYoY": -2.0746887966805088,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105525401&symbol=STANLY",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17848501698141&symbol=STANLY",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "BAREIT",
       "sector": "Property",
       "subsector": "& Construction Property Fund & Reits",
       "market": "SET",
-      "announceDate": "2026-07-23T17:40:45+07:00",
+      "announceDate": "2026-07-23T17:40:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": null,
@@ -100,6 +127,7 @@
       "netProfitYoY": null,
       "netProfitPriorQ": null,
       "netProfitQoQ": null,
+      "profitAcceleration": "stable",
       "eps": null,
       "epsPrior": null,
       "epsYoY": null,
@@ -126,6 +154,7 @@
       "netProfitYoY": -33.46965609265487,
       "netProfitPriorQ": 6222963000.0,
       "netProfitQoQ": 85.35472571506531,
+      "profitAcceleration": "stable",
       "eps": 9.61,
       "epsPrior": 14.45,
       "epsYoY": -33.49480968858132,
@@ -152,6 +181,7 @@
       "netProfitYoY": 9.02012802728717,
       "netProfitPriorQ": 12437176000.0,
       "netProfitQoQ": -2.5082301641465876,
+      "profitAcceleration": "decelerating",
       "eps": 0.87,
       "epsPrior": 0.8,
       "epsYoY": 8.749999999999995,
@@ -178,6 +208,7 @@
       "netProfitYoY": -19.7802001965394,
       "netProfitPriorQ": 10993773000.0,
       "netProfitQoQ": -13.606402460738456,
+      "profitAcceleration": "stable",
       "eps": 4.98,
       "epsPrior": 6.2,
       "epsYoY": -19.677419354838705,
@@ -204,6 +235,7 @@
       "netProfitYoY": 6.929657116544921,
       "netProfitPriorQ": 1164674000.0,
       "netProfitQoQ": -15.060866817667435,
+      "profitAcceleration": "decelerating",
       "eps": 0.8,
       "epsPrior": 0.75,
       "epsYoY": 6.666666666666672,
@@ -230,6 +262,7 @@
       "netProfitYoY": -226.39153486700218,
       "netProfitPriorQ": 246344000.0,
       "netProfitQoQ": -214.18869548273958,
+      "profitAcceleration": "stable",
       "eps": -0.17,
       "epsPrior": 0.13,
       "epsYoY": -230.7692307692308,
@@ -256,6 +289,7 @@
       "netProfitYoY": -13.056167006815622,
       "netProfitPriorQ": 10195426000.0,
       "netProfitQoQ": 9.036101090822491,
+      "profitAcceleration": "stable",
       "eps": 3.3,
       "epsPrior": 3.8,
       "epsYoY": -13.157894736842104,
@@ -282,6 +316,7 @@
       "netProfitYoY": 128.1453723683963,
       "netProfitPriorQ": 1566168000.0,
       "netProfitQoQ": 47.09762937309407,
+      "profitAcceleration": "accelerating",
       "eps": 0.54,
       "epsPrior": 0.24,
       "epsYoY": 125.00000000000003,
@@ -308,6 +343,7 @@
       "netProfitYoY": 6.080135539235783,
       "netProfitPriorQ": 14667406000.0,
       "netProfitQoQ": -9.68075063852463,
+      "profitAcceleration": "decelerating",
       "eps": 5.63,
       "epsPrior": 5.27,
       "epsYoY": 6.831119544592037,
@@ -334,6 +370,7 @@
       "netProfitYoY": 407.90931961055105,
       "netProfitPriorQ": 602185000.0,
       "netProfitQoQ": 47.18350672965949,
+      "profitAcceleration": "accelerating",
       "eps": 0.03,
       "epsPrior": 0.01,
       "epsYoY": 199.99999999999994,
@@ -360,6 +397,7 @@
       "netProfitYoY": -0.01720237332477273,
       "netProfitPriorQ": 8617632000.0,
       "netProfitQoQ": -3.7561594646882113,
+      "profitAcceleration": "stable",
       "eps": 1.13,
       "epsPrior": 1.13,
       "epsYoY": 0.0,
@@ -386,6 +424,7 @@
       "netProfitYoY": 50.56648138714149,
       "netProfitPriorQ": 1955494000.0,
       "netProfitQoQ": 8.519228389348164,
+      "profitAcceleration": "accelerating",
       "eps": 2.54,
       "epsPrior": 1.7,
       "epsYoY": 49.41176470588236,
@@ -412,6 +451,7 @@
       "netProfitYoY": 26.341352742056973,
       "netProfitPriorQ": 842497000.0,
       "netProfitQoQ": -17.37845950786768,
+      "profitAcceleration": "decelerating",
       "eps": 0.033,
       "epsPrior": 0.026,
       "epsYoY": 26.923076923076934,
@@ -438,6 +478,7 @@
       "netProfitYoY": 10.16528291450418,
       "netProfitPriorQ": 5169791000.0,
       "netProfitQoQ": 6.638082661368709,
+      "profitAcceleration": "accelerating",
       "eps": 0.06,
       "epsPrior": 0.05,
       "epsYoY": 19.99999999999999,
@@ -462,8 +503,9 @@
       "netProfit": 409710000.0,
       "netProfitPrior": 373120000.0,
       "netProfitYoY": 9.806496569468267,
-      "netProfitPriorQ": 1897914180.0,
-      "netProfitQoQ": -78.41261716059257,
+      "netProfitPriorQ": 496694000.0,
+      "netProfitQoQ": -17.512593266679282,
+      "profitAcceleration": "decelerating",
       "eps": 0.04865,
       "epsPrior": 0.04431,
       "epsYoY": 9.794628751974715,
@@ -490,6 +532,7 @@
       "netProfitYoY": 17.44339220347141,
       "netProfitPriorQ": 2171234000.0,
       "netProfitQoQ": 2.490473159502845,
+      "profitAcceleration": "accelerating",
       "eps": 0.86,
       "epsPrior": 0.73,
       "epsYoY": 17.808219178082194,
@@ -516,6 +559,7 @@
       "netProfitYoY": 7.321611324001319,
       "netProfitPriorQ": 1733624000.0,
       "netProfitQoQ": 1.7435153182004863,
+      "profitAcceleration": "accelerating",
       "eps": 2.2,
       "epsPrior": 2.05,
       "epsYoY": 7.3170731707317245,
@@ -542,6 +586,7 @@
       "netProfitYoY": 39.8878616540406,
       "netProfitPriorQ": -76334000.0,
       "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
       "eps": -0.0996,
       "epsPrior": -0.1775,
       "epsYoY": 43.88732394366197,
@@ -566,8 +611,9 @@
       "netProfit": 793010000.0,
       "netProfitPrior": 771839000.0,
       "netProfitYoY": 2.742929548778955,
-      "netProfitPriorQ": 3094125000.0,
-      "netProfitQoQ": -74.3704601462449,
+      "netProfitPriorQ": 618263000.0,
+      "netProfitQoQ": 28.264185306253164,
+      "profitAcceleration": "accelerating",
       "eps": 3.2,
       "epsPrior": 3.09,
       "epsYoY": 3.559870550161823,
@@ -594,6 +640,7 @@
       "netProfitYoY": -2350.56095736724,
       "netProfitPriorQ": -81608000.0,
       "netProfitQoQ": -221.18419762768355,
+      "profitAcceleration": "stable",
       "eps": -0.2508,
       "epsPrior": -0.0102,
       "epsYoY": -2358.823529411765,
@@ -620,6 +667,7 @@
       "netProfitYoY": -263.0451794657763,
       "netProfitPriorQ": -1357000.0,
       "netProfitQoQ": -20412.453942520264,
+      "profitAcceleration": "stable",
       "eps": -1.08,
       "epsPrior": -0.5,
       "epsYoY": -116.00000000000001,
@@ -644,8 +692,9 @@
       "netProfit": -34882000.0,
       "netProfitPrior": -35980000.0,
       "netProfitYoY": 3.0516953863257363,
-      "netProfitPriorQ": -59679000.0,
-      "netProfitQoQ": 41.55062919955093,
+      "netProfitPriorQ": -14693000.0,
+      "netProfitQoQ": -137.4055672769346,
+      "profitAcceleration": "decelerating",
       "eps": -0.073,
       "epsPrior": -0.076,
       "epsYoY": 3.9473684210526354,
@@ -672,6 +721,7 @@
       "netProfitYoY": 112.86983050847456,
       "netProfitPriorQ": 118404000.0,
       "netProfitQoQ": 165.17938583155976,
+      "profitAcceleration": "accelerating",
       "eps": 0.071,
       "epsPrior": 0.033,
       "epsYoY": 115.15151515151511,
@@ -698,6 +748,7 @@
       "netProfitYoY": 71.98932503057934,
       "netProfitPriorQ": -4534000.0,
       "netProfitQoQ": 44.44199382443758,
+      "profitAcceleration": "accelerating",
       "eps": -0.0084,
       "epsPrior": -0.02998,
       "epsYoY": 71.98132088058706,
@@ -853,9 +904,15 @@
     },
     {
       "ticker": "BAREIT",
-      "date": "2026-07-23T17:40:45+07:00",
+      "date": "2026-07-23T17:40:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "STANLY",
+      "date": "2026-07-24T12:52:54+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "PTTEP",
@@ -863,13 +920,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-07-25T17:11:00+07:00"
-    },
-    {
-      "ticker": "STANLY",
-      "date": "2026-07-25T17:40:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-07-25T17:40:00+07:00"
     },
     {
       "ticker": "DELTA",
@@ -1530,6 +1580,13 @@
       "basedOnLastYear": "2025-08-07T18:34:00+07:00"
     },
     {
+      "ticker": "AXTRART",
+      "date": "2026-08-07T18:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:35:00+07:00"
+    },
+    {
       "ticker": "MGT",
       "date": "2026-08-07T18:50:00+07:00",
       "status": "predicted",
@@ -1626,6 +1683,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-07T19:33:00+07:00"
+    },
+    {
+      "ticker": "ASW",
+      "date": "2026-08-07T19:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:34:00+07:00"
     },
     {
       "ticker": "ALLA",
@@ -2020,6 +2084,13 @@
       "basedOnLastYear": "2025-08-08T17:12:00+07:00"
     },
     {
+      "ticker": "AUCT",
+      "date": "2026-08-08T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:16:00+07:00"
+    },
+    {
       "ticker": "KDH",
       "date": "2026-08-08T17:16:00+07:00",
       "status": "predicted",
@@ -2109,6 +2180,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T17:38:00+07:00"
+    },
+    {
+      "ticker": "AU",
+      "date": "2026-08-08T17:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:39:00+07:00"
     },
     {
       "ticker": "BPS",
@@ -2417,6 +2495,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T21:45:00+07:00"
+    },
+    {
+      "ticker": "AWC",
+      "date": "2026-08-08T22:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T22:02:00+07:00"
     },
     {
       "ticker": "SAAM",
@@ -3273,14 +3358,14 @@
       "basedOnLastYear": "2025-08-13T13:10:00+07:00"
     },
     {
-      "ticker": "CPALL",
+      "ticker": "CCET",
       "date": "2026-08-13T17:00:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T17:00:00+07:00"
     },
     {
-      "ticker": "CCET",
+      "ticker": "CPALL",
       "date": "2026-08-13T17:00:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -3393,6 +3478,13 @@
     },
     {
       "ticker": "AMANAH",
+      "date": "2026-08-13T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:06:00+07:00"
+    },
+    {
+      "ticker": "ASP",
       "date": "2026-08-13T17:06:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -3579,13 +3671,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T17:21:00+07:00"
-    },
-    {
-      "ticker": "PSTC",
-      "date": "2026-08-13T17:22:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T17:22:00+07:00"
     },
     {
       "ticker": "UBA",
@@ -3840,6 +3925,13 @@
       "basedOnLastYear": "2025-08-13T17:54:00+07:00"
     },
     {
+      "ticker": "ASIAN",
+      "date": "2026-08-13T17:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:56:00+07:00"
+    },
+    {
       "ticker": "MOONG",
       "date": "2026-08-13T17:56:00+07:00",
       "status": "predicted",
@@ -4069,6 +4161,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T18:21:00+07:00"
+    },
+    {
+      "ticker": "ASTR",
+      "date": "2026-08-13T18:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:23:00+07:00"
     },
     {
       "ticker": "PLAT",
@@ -5457,6 +5556,13 @@
       "basedOnLastYear": "2025-08-14T17:17:00+07:00"
     },
     {
+      "ticker": "B-WORK",
+      "date": "2026-08-14T17:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:18:00+07:00"
+    },
+    {
       "ticker": "CMR",
       "date": "2026-08-14T17:20:00+07:00",
       "status": "predicted",
@@ -5728,6 +5834,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-14T17:55:00+07:00"
+    },
+    {
+      "ticker": "AYUD",
+      "date": "2026-08-14T17:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:58:00+07:00"
     },
     {
       "ticker": "SINO",
@@ -6106,6 +6219,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-14T19:21:00+07:00"
+    },
+    {
+      "ticker": "ATP30",
+      "date": "2026-08-14T19:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:23:00+07:00"
     },
     {
       "ticker": "ORN",
@@ -6708,6 +6828,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-15T08:58:00+07:00"
+    },
+    {
+      "ticker": "B",
+      "date": "2026-08-15T08:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:59:00+07:00"
     },
     {
       "ticker": "GVREIT",
