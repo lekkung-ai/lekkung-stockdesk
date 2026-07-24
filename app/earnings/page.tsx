@@ -431,7 +431,7 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
   );
 }
 
-type QuickFilterTag = 'all' | 'today' | 'growth50' | 'qoqGrowth' | 'turnaround' | 'hasMda' | 'pead';
+type QuickFilterTag = 'all' | 'today' | 'growth50' | 'qoqGrowth' | 'accelerating' | 'turnaround' | 'hasMda' | 'pead';
 
 function AnnouncementsTable({
   announcements,
@@ -475,6 +475,7 @@ function AnnouncementsTable({
         if (quickFilter === 'today') return a.announceDate?.startsWith(todayIso);
         if (quickFilter === 'growth50') return a.netProfitYoY != null && a.netProfitYoY >= 50;
         if (quickFilter === 'qoqGrowth') return a.netProfitQoQ != null ? a.netProfitQoQ > 0 : (a.netProfit != null && a.netProfitPriorQ != null && a.netProfit > a.netProfitPriorQ);
+        if (quickFilter === 'accelerating') return a.netProfitYoY != null && a.netProfitYoY > 0 && a.netProfitQoQ != null && a.netProfitQoQ > 0;
         if (quickFilter === 'turnaround') return a.netProfitPrior != null && a.netProfitPrior < 0 && a.netProfit != null && a.netProfit > 0;
         if (quickFilter === 'hasMda') return !!a.mdaUrl || !!a.reason;
         if (quickFilter === 'pead') return (a.netProfitYoY != null && a.netProfitYoY >= 20) || (a.netProfitPrior != null && a.netProfitPrior < 0 && a.netProfit != null && a.netProfit > 0);
@@ -557,6 +558,14 @@ function AnnouncementsTable({
             }`}
           >
             📈 QoQ โต
+          </button>
+          <button
+            onClick={() => handleQuickFilterChange('accelerating')}
+            className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all ${
+              quickFilter === 'accelerating' ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 font-bold' : 'bg-white/[0.04] text-white/50 hover:text-white/80'
+            }`}
+          >
+            ⚡ กำไรเร่งตัว
           </button>
           <button
             onClick={() => handleQuickFilterChange('turnaround')}
@@ -760,8 +769,8 @@ function AnnouncementsTable({
                     <td className="px-3.5 py-3.5 text-label tabular-nums text-meta text-right whitespace-nowrap">
                       {fmtMoney(a.netProfitPrior)}
                     </td>
-                    <td className="px-3.5 py-3.5 whitespace-nowrap"><YoyBadge value={a.netProfitYoY} /></td>
-                    <td className="px-3.5 py-3.5 whitespace-nowrap"><QoqBadge netProfit={a.netProfit} netProfitPrior={a.netProfitPrior} netProfitPriorQ={a.netProfitPriorQ} netProfitYoY={a.netProfitYoY} netProfitQoQ={a.netProfitQoQ} /></td>
+                    <td className="px-3.5 py-3.5 whitespace-nowrap text-right"><div className="flex justify-end"><YoyBadge value={a.netProfitYoY} /></div></td>
+                    <td className="px-3.5 py-3.5 whitespace-nowrap text-right"><div className="flex justify-end"><QoqBadge netProfit={a.netProfit} netProfitPrior={a.netProfitPrior} netProfitPriorQ={a.netProfitPriorQ} netProfitYoY={a.netProfitYoY} netProfitQoQ={a.netProfitQoQ} /></div></td>
                     <td className="px-3.5 py-3.5 text-label tabular-nums text-white/60 text-right whitespace-nowrap">
                       {a.eps != null ? a.eps.toFixed(2) : '—'}
                     </td>
@@ -1037,7 +1046,7 @@ export default function EarningsPage() {
           {!loading && (
             <p className="text-label text-meta mt-1">
               {feed.generatedAt
-                ? `ข้อมูล ณ ${isoDateTimeToThai(feed.generatedAt)} (อัปเดตจากรอบ batch 09:45 / 17:30 — ไม่ใช่ real-time)`
+                ? `ข้อมูล ณ ${isoDateTimeToThai(feed.generatedAt)} (อัปเดตจากรอบ batch 09:45 / 17:30 / 20:00 — ไม่ใช่ real-time)`
                 : 'ยังไม่มีข้อมูล — รอรอบ batch ถัดไป'}
             </p>
           )}
