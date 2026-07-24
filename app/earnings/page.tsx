@@ -9,7 +9,7 @@ import TableSkeleton from '@/components/TableSkeleton';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, BUCKET_BADGE_STYLE, type EarningsBucket } from '@/lib/earningsBucket';
-import { classifyQoQ, QOQ_COLOR, QOQ_LABEL, QOQ_BADGE_STYLE } from '@/lib/qoqBucket';
+import { classifyQoQ, QOQ_COLOR, QOQ_LABEL, QOQ_BADGE_STYLE, getAccelerationStatus } from '@/lib/qoqBucket';
 import type { EarningsFeed, EarningsAnnouncement, EarningsCalendarEntry } from '@/app/api/earnings/route';
 
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
@@ -263,26 +263,43 @@ function YoyBadge({ value }: { value: number | null }) {
 
 function QoqBadge({
   netProfit,
+  netProfitPrior,
   netProfitPriorQ,
+  netProfitYoY,
   netProfitQoQ,
 }: {
   netProfit: number | null | undefined;
+  netProfitPrior?: number | null | undefined;
   netProfitPriorQ: number | null | undefined;
+  netProfitYoY?: number | null | undefined;
   netProfitQoQ: number | null | undefined;
 }) {
   const info = classifyQoQ(netProfit, netProfitPriorQ, netProfitQoQ);
   if (info.category === 'no_base') return <span className="text-meta">—</span>;
 
+  const status = getAccelerationStatus(netProfit, netProfitPrior, netProfitPriorQ, netProfitYoY, info.pct);
   const formattedPct = info.pct != null ? `${info.pct >= 0 ? '+' : ''}${info.pct.toFixed(1)}%` : info.label;
 
   return (
-    <span
-      title={`QoQ: ${info.label}`}
-      className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${info.badgeStyle}`}
-    >
-      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: info.color }} />
-      {formattedPct}
-    </span>
+    <div className="flex items-center gap-1">
+      <span
+        title={`QoQ: ${info.label}`}
+        className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${info.badgeStyle}`}
+      >
+        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: info.color }} />
+        {formattedPct}
+      </span>
+      {status === 'double_turnaround' && (
+        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30" title="Double Turnaround: พลิกกำไรทั้ง YoY & QoQ">
+          🚀 Double Turnaround
+        </span>
+      )}
+      {status === 'accelerating' && (
+        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" title="Profit Acceleration: กำไรโตคู่ทั้ง YoY & QoQ">
+          ⚡ เร่งตัว
+        </span>
+      )}
+    </div>
   );
 }
 
@@ -640,7 +657,7 @@ function AnnouncementsTable({
                   </div>
                   <div className="flex flex-col items-end gap-1">
                     <YoyBadge value={a.netProfitYoY} />
-                    <QoqBadge netProfit={a.netProfit} netProfitPriorQ={a.netProfitPriorQ} netProfitQoQ={a.netProfitQoQ} />
+                    <QoqBadge netProfit={a.netProfit} netProfitPrior={a.netProfitPrior} netProfitPriorQ={a.netProfitPriorQ} netProfitYoY={a.netProfitYoY} netProfitQoQ={a.netProfitQoQ} />
                   </div>
                 </div>
 
@@ -744,7 +761,7 @@ function AnnouncementsTable({
                       {fmtMoney(a.netProfitPrior)}
                     </td>
                     <td className="px-3.5 py-3.5 whitespace-nowrap"><YoyBadge value={a.netProfitYoY} /></td>
-                    <td className="px-3.5 py-3.5 whitespace-nowrap"><QoqBadge netProfit={a.netProfit} netProfitPriorQ={a.netProfitPriorQ} netProfitQoQ={a.netProfitQoQ} /></td>
+                    <td className="px-3.5 py-3.5 whitespace-nowrap"><QoqBadge netProfit={a.netProfit} netProfitPrior={a.netProfitPrior} netProfitPriorQ={a.netProfitPriorQ} netProfitYoY={a.netProfitYoY} netProfitQoQ={a.netProfitQoQ} /></td>
                     <td className="px-3.5 py-3.5 text-label tabular-nums text-white/60 text-right whitespace-nowrap">
                       {a.eps != null ? a.eps.toFixed(2) : '—'}
                     </td>

@@ -132,3 +132,29 @@ export function classifyQoQ(
     badgeStyle: QOQ_BADGE_STYLE[category],
   };
 }
+
+export type AccelerationStatus = 'accelerating' | 'double_turnaround' | 'decelerating' | 'stable';
+
+export function getAccelerationStatus(
+  netProfit: number | null | undefined,
+  netProfitPrior: number | null | undefined,
+  netProfitPriorQ: number | null | undefined,
+  netProfitYoY: number | null | undefined,
+  netProfitQoQ: number | null | undefined
+): AccelerationStatus {
+  if (netProfit == null) return 'stable';
+
+  const isTurnaroundYoY = netProfitPrior != null && netProfitPrior < 0 && netProfit > 0;
+  const isTurnaroundQoQ = netProfitPriorQ != null && netProfitPriorQ < 0 && netProfit > 0;
+
+  if (isTurnaroundYoY && isTurnaroundQoQ) {
+    return 'double_turnaround';
+  }
+  if (netProfitYoY != null && netProfitYoY > 0 && netProfitQoQ != null && netProfitQoQ > 0) {
+    return 'accelerating';
+  }
+  if (netProfitYoY != null && netProfitYoY > 0 && netProfitQoQ != null && netProfitQoQ < 0) {
+    return 'decelerating';
+  }
+  return 'stable';
+}

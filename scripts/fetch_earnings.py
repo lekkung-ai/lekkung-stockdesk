@@ -305,6 +305,20 @@ def parse_dt(iso_str):
         return None
 
 
+def classify_profit_acceleration(net_profit, net_profit_prior, net_profit_prior_q, yoy, qoq):
+    if net_profit is None:
+        return 'stable'
+    is_turnaround_yoy = net_profit_prior is not None and net_profit_prior < 0 and net_profit > 0
+    is_turnaround_qoq = net_profit_prior_q is not None and net_profit_prior_q < 0 and net_profit > 0
+    if is_turnaround_yoy and is_turnaround_qoq:
+        return 'double_turnaround'
+    if yoy is not None and yoy > 0 and qoq is not None and qoq > 0:
+        return 'accelerating'
+    if yoy is not None and yoy > 0 and qoq is not None and qoq < 0:
+        return 'decelerating'
+    return 'stable'
+
+
 def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from, predict_to):
     items = fetch_news_list(ticker, cookie)
     if not items:
@@ -329,16 +343,18 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
 
         anchor_dt = f45_in_window['_dt']
 
-        # Fetch prior quarter F45 for QoQ comparison
+        # Fetch prior quarter F45 for QoQ comparison (skipping Annual filings)
         net_profit_prior_q = None
         net_profit_qoq = None
         f45_idx = f45_items.index(f45_in_window)
-        if f45_idx + 1 < len(f45_items):
-            f45_prev_q = f45_items[f45_idx + 1]
-            detail_prev_html = fetch_detail_html(f45_prev_q['id'], ticker, cookie)
+        for prev_candidate in f45_items[f45_idx + 1:]:
+            detail_prev_html = fetch_detail_html(prev_candidate['id'], ticker, cookie)
             parsed_prev = parse_f45_detail(detail_prev_html) if detail_prev_html else {}
-            net_profit_prior_q = parsed_prev.get('netProfit')
-            net_profit_qoq = yoy_pct(net_profit, net_profit_prior_q)
+            q_label = parsed_prev.get('quarter') or ''
+            if q_label and 'ประจำปี' not in q_label and '12 เดือน' not in q_label:
+                net_profit_prior_q = parsed_prev.get('netProfit')
+                net_profit_qoq = yoy_pct(net_profit, net_profit_prior_q)
+                break
 
         def nearest(kind):
             cands = [
@@ -350,6 +366,9 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
         statement_item = nearest('statement')
         mda_item = nearest('mda')
 
+        yoy = parsed.get('netProfitYoY')
+        profit_acceleration = classify_profit_acceleration(net_profit, net_profit_prior, net_profit_prior_q, yoy, net_profit_qoq)
+
         result['announcement'] = {
             'ticker': ticker,
             'sector': sector_info.get('sector'),
@@ -360,9 +379,10 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
             'periodEnd': parsed.get('periodEnd'),
             'netProfit': net_profit,
             'netProfitPrior': net_profit_prior,
-            'netProfitYoY': parsed.get('netProfitYoY'),
+            'netProfitYoY': yoy,
             'netProfitPriorQ': net_profit_prior_q,
             'netProfitQoQ': net_profit_qoq,
+            'profitAcceleration': profit_acceleration,
             'eps': parsed.get('eps'),
             'epsPrior': parsed.get('epsPrior'),
             'epsYoY': parsed.get('epsYoY'),
