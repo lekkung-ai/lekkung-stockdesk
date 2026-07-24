@@ -1000,6 +1000,121 @@ function AnnouncementBottomSheet({
   );
 }
 
+function EarningsKnowledgeBase() {
+  return (
+    <div className="bg-[#13161e] border border-white/[0.07] rounded-2xl p-5 space-y-4 shadow-sm">
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+        <h2 className="text-[15px] font-bold text-white flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+          💡 คลังความรู้และคำอธิบายสภาวะกำไร (Earnings Knowledge Base)
+        </h2>
+        <span className="text-[11.5px] text-white/40">คู่มือการอ่านสถานะผลประกอบการและโมเมนตัมหุ้น</span>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Card 1: YoY Buckets */}
+        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-4 space-y-2.5">
+          <h3 className="text-[13px] font-bold text-white flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            1. สภาวะกำไรเทียบปีก่อน (%YoY Buckets)
+          </h3>
+          <p className="text-[11.5px] text-white/60 leading-relaxed">
+            เปรียบเทียบกำไรสุทธิไตรมาสล่าสุดกับไตรมาสเดียวกันของปีก่อนหน้า (6 สภาวะหลัก):
+          </p>
+          <ul className="text-[11px] text-white/70 space-y-1.5 list-none pl-0">
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#1D9E75] shrink-0">🚀 กำไรโต:</span>
+              <span>กำไรสุทธิเป็นบวกและเติบโตขึ้นเมื่อเทียบกับปีก่อน (%YoY ≥ 0)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#3B82F6] shrink-0">🔄 พลิกกำไร:</span>
+              <span>ปีก่อนขาดทุนสุทธิ แต่ไตรมาสนี้พลิกกลับมากำไรสุทธิเป็นบวก (Turnaround)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#EF9F27] shrink-0">📉 กำไรหด:</span>
+              <span>ยังมีกำไรสุทธิเป็นบวก แต่จำนวนกำไรลดลงเมื่อเทียบกับปีก่อน (%YoY &lt; 0)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#EAB308] shrink-0">🩹 ขาดทุนลดลง:</span>
+              <span>ยังคงขาดทุนสุทธิ แต่ตัวเลขขาดทุนน้อยลงกว่าปีก่อน (ผลประกอบการปรับดีขึ้น)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#E24B4A] shrink-0">🔻 ขาดทุน-แย่ลง:</span>
+              <span>ขาดทุนสุทธิหนักขึ้น หรือปีก่อนมีกำไรแต่ไตรมาสนี้พลิกเป็นขาดทุน</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#8A8F98] shrink-0">🔘 ไม่มีฐานเทียบ:</span>
+              <span>ปีก่อนไม่มีฐานตัวเลขเทียบ (เช่น หุ้น IPO ใหม่ หรือปรับโครงสร้างงบ)</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Card 2: QoQ Buckets */}
+        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-4 space-y-2.5">
+          <h3 className="text-[13px] font-bold text-white flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-blue-400" />
+            2. สภาวะกำไรเทียบไตรมาสก่อน (%QoQ Growth)
+          </h3>
+          <p className="text-[11.5px] text-white/60 leading-relaxed">
+            เปรียบเทียบกำไรสุทธิไตรมาสล่าสุดกับไตรมาสที่เพิ่งผ่านมา (5 สภาวะ):
+          </p>
+          <ul className="text-[11px] text-white/70 space-y-1.5 list-none pl-0">
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#1D9E75] shrink-0">🟩 กำไรเพิ่มขึ้น:</span>
+              <span>กำไรสุทธิเติบโตเพิ่มขึ้นจากไตรมาสก่อนหน้า (%QoQ &gt; 0)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#3B82F6] shrink-0">🟦 กำไรเท่าเดิม:</span>
+              <span>กำไรสุทธิทรงตัวใกล้เคียงกับไตรมาสก่อนหน้า (%QoQ ≈ 0%)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#EF9F27] shrink-0">🟧 กำไรลดลง:</span>
+              <span>กำไรสุทธิลดลงเมื่อเทียบกับไตรมาสก่อนหน้า (%QoQ &lt; 0)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#EAB308] shrink-0">🟨 ขาดทุนลดลง:</span>
+              <span>ยอดขาดทุนสุทธิน้อยลงกว่าไตรมาสก่อนหน้า</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-[#E24B4A] shrink-0">🟥 ขาดทุนเพิ่มขึ้น:</span>
+              <span>ยอดขาดทุนสุทธิเพิ่มสูงขึ้นกว่าไตรมาสก่อนหน้า</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Card 3: Momentum & Acceleration */}
+        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-4 space-y-2.5">
+          <h3 className="text-[13px] font-bold text-white flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-purple-400" />
+            3. สัญญาณความเร่งและโมเมนตัม (Momentum &amp; PEAD)
+          </h3>
+          <p className="text-[11.5px] text-white/60 leading-relaxed">
+            ตัวชี้วัดความเร่งของกำไรและสัญญาณติดตามต่อตามกลยุทธ์การลงทุน:
+          </p>
+          <ul className="text-[11px] text-white/70 space-y-1.5 list-none pl-0">
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-emerald-400 shrink-0">⚡ กำไรเร่งตัว:</span>
+              <span>กำไรเติบโตบวกคู่ทั้งเทียบปีก่อน (%YoY &gt; 0) และเทียบไตรมาสก่อน (%QoQ &gt; 0) แรงส่งสูงสุด</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-purple-300 shrink-0">🚀 Double Turnaround:</span>
+              <span>พลิกจากขาดทุนกลับมากำไรสุทธิพร้อมกันทั้งระดับ YoY และ QoQ</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-emerald-400 shrink-0">🔥 PEAD Momentum:</span>
+              <span>หุ้นงบปัง (YoY ≥ 20% หรือ Turnaround) ซึ่งมีแนวโน้มราคาพุ่งต่อตามงบ (Post-Earnings Announcement Drift)</span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="font-bold text-amber-400 shrink-0">⚠️ Deceleration:</span>
+              <span>กำไร YoY ยังเป็นบวก แต่ QoQ เริ่มลดลง สัญญาณเตือนกำไรเริ่มชะลอตัว</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function EarningsPage() {
@@ -1088,6 +1203,7 @@ export default function EarningsPage() {
                 bucketFilter={bucketFilter}
                 onClearBucketFilter={() => setBucketFilter('ทั้งหมด')}
               />
+              <EarningsKnowledgeBase />
               <p className="text-label text-meta text-right">
                 แหล่งข้อมูล: SET (ผ่าน Settrade) · ลิงก์เอกสารเปิดที่ set.or.th โดยตรง · ครอบคลุม {feed.universeSize} หลักทรัพย์
               </p>
