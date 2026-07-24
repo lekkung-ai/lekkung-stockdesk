@@ -116,7 +116,7 @@ export default function MacroPage() {
       .then(r => (r.ok ? r.json() : null))
       .then(d => {
         if (!d || !d.commodities) return;
-        const list: MacroCommodity[] = Object.entries(d.commodities).map(([symbol, data]: [string, any]) => ({
+        const fetchedList: MacroCommodity[] = Object.entries(d.commodities).map(([symbol, data]: [string, any]) => ({
           symbol,
           name_th: data.name_th || symbol,
           name_en: data.name_en || symbol,
@@ -128,8 +128,16 @@ export default function MacroPage() {
           pct_1m: data.pct_1m ?? null,
           series: data.series || [],
         }));
-        if (list.length > 0) {
-          setItems(list);
+        if (fetchedList.length > 0) {
+          // Merge fetched items with default static items so missing symbols are never dropped
+          const fetchedMap = new Map(fetchedList.map(item => [item.symbol, item]));
+          const merged = [...fetchedList];
+          macroCommodities.forEach(defaultItem => {
+            if (!fetchedMap.has(defaultItem.symbol)) {
+              merged.push(defaultItem);
+            }
+          });
+          setItems(merged);
         }
       })
       .catch(() => {});
