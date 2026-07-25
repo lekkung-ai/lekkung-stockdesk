@@ -22,20 +22,52 @@ export default function MacroFactorCard({ ticker }: { ticker: string }) {
         </Link>
       </div>
       <div className="divide-y divide-white/[0.04]">
-        {commodities.map(c => (
-          <div key={c.symbol} className="px-5 py-3.5 flex items-center justify-between gap-3">
-            <div className="min-w-0">
-              <p className="text-body text-ink font-medium truncate">{c.name_th}</p>
-              <p className="text-label text-meta truncate">
-                {c.symbol} · {formatPrice(c.latest?.close)} {c.unit}
-              </p>
+        {commodities.map(c => {
+          const impactType = c.ticker_impacts?.[ticker.toUpperCase()] || 'revenue';
+          let impactText = '';
+          if (c.symbol === 'THB=X') {
+            impactText =
+              impactType === 'cost'
+                ? 'บาทอ่อน = กดดัน (หนี้/นำเข้า USD)'
+                : 'บาทอ่อน (ค่าขึ้น) = หนุนส่งออก';
+          } else if (c.symbol === 'DX-Y.NYB') {
+            impactText = 'ดอลลาร์แข็ง = หนุนส่งออก';
+          } else {
+            impactText =
+              impactType === 'cost'
+                ? 'ต้นทุน (ราคาขึ้น = กดดัน)'
+                : impactType === 'margin'
+                ? 'มาร์จิ้น/สเปรด (ราคาขึ้น = หนุน)'
+                : 'รายได้ (ราคาขึ้น = หนุน)';
+          }
+
+          const impactBadgeStyle =
+            impactType === 'cost'
+              ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+              : impactType === 'margin'
+              ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+              : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+
+          return (
+            <div key={c.symbol} className="px-5 py-3.5 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <p className="text-body text-ink font-medium truncate">{c.name_th}</p>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${impactBadgeStyle}`}>
+                    {impactText}
+                  </span>
+                </div>
+                <p className="text-label text-meta truncate mt-0.5">
+                  {c.symbol} · {formatPrice(c.latest?.close)} {c.unit}
+                </p>
+              </div>
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <TrendSparkline data={(c.series || []).map(s => s.close)} width={48} height={18} />
+                <ChangeBadge value={c.pct_1d} />
+              </div>
             </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <TrendSparkline data={(c.series || []).map(s => s.close)} width={48} height={18} />
-              <ChangeBadge value={c.pct_1d} />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

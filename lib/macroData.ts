@@ -14,6 +14,7 @@ export interface MacroCommodity {
   unit: string;
   zone: MacroZone;
   tickers: string[];
+  ticker_impacts?: Record<string, 'revenue' | 'cost' | 'margin'>;
   latest: { date: string; close: number };
   pct_1d: number | null;
   pct_1m: number | null;
@@ -53,6 +54,7 @@ export const macroCommodities: MacroCommodity[] = rawEntries.map(
     unit: data.unit || '',
     zone: data.zone || 'financial',
     tickers: data.tickers || [],
+    ticker_impacts: data.ticker_impacts || {},
     latest: data.latest || { date: '', close: 0 },
     pct_1d: data.pct_1d ?? null,
     pct_1m: data.pct_1m ?? null,
