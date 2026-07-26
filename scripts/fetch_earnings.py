@@ -443,6 +443,17 @@ def load_existing_announcements(out_path):
     return {_reason_key(a): a for a in existing.get('announcements', [])}
 
 
+def load_existing_calendar(out_path):
+    if not os.path.exists(out_path):
+        return {}
+    try:
+        with open(out_path, 'r', encoding='utf-8') as f:
+            existing = json.load(f)
+    except Exception:
+        return {}
+    return {c['ticker']: c for c in existing.get('calendar', [])}
+
+
 # reason/reason_source are carried forward by their own dedicated,
 # key-matched restore (see the main-loop merge below) rather than by this
 # generic pass, since a "fresh but empty" reason is the normal, expected
@@ -551,6 +562,7 @@ def main():
     #    derived data and previously-extracted reasons are carried forward.
     out_path_for_merge = os.path.join(args.out if args.out else OUTPUT_DIR, 'earnings_feed.json')
     existing_by_key = load_existing_announcements(out_path_for_merge)
+    existing_cal_by_ticker = load_existing_calendar(out_path_for_merge)
 
     active_existing = {}
     for k, old_a in existing_by_key.items():
@@ -592,7 +604,7 @@ def main():
     if restored_fields:
         print(f"Backfilled empty field(s) on {restored_fields} record(s) from the existing file (partial-fetch protection)")
 
-    # Assertion Guard: Check for abnormal record drop
+    # Assertion Guard: Check for abnormal record drop in announcements
     existing_count = len(active_existing)
     final_count = len(final_announcements)
     if existing_count > 0 and final_count < int(existing_count * 0.70):
@@ -602,6 +614,37 @@ def main():
         return
 
     announcements = final_announcements
+
+    # Calendar Merge-on-Write:
+    # 1. Start with existing calendar records to prevent partial fetch wipeouts.
+    # 2. Sync confirmed entries from final_announcements into calendar.
+    # 3. Merge newly fetched calendar entries from this run.
+    merged_cal_by_ticker = dict(existing_cal_by_ticker)
+
+    for a in announcements:
+        if a.get('announceDate'):
+            merged_cal_by_ticker[a['ticker']] = {
+                'ticker': a['ticker'],
+                'date': a['announceDate'],
+                'status': 'confirmed',
+                'quarter': a.get('quarter'),
+            }
+
+    for c in calendar:
+        merged_cal_by_ticker[c['ticker']] = c
+
+    final_calendar = list(merged_cal_by_ticker.values())
+    final_calendar.sort(key=lambda c: c.get('date') or '')
+
+    # Assertion Guard: Check for abnormal record drop in calendar
+    existing_cal_count = len(existing_cal_by_ticker)
+    final_cal_count = len(final_calendar)
+    if existing_cal_count > 0 and final_cal_count < int(existing_cal_count * 0.70):
+        print(f"\n[ERROR] Earnings calendar count dropped abnormally! Previous: {existing_cal_count}, Merged: {final_cal_count} (drop > 30%)")
+        print(f"[ERROR] ABORTING OVERWRITE to prevent data loss. Existing earnings_feed.json preserved!")
+        return
+
+    calendar = final_calendar
 
     buckets = {}
     for key, label in BUCKET_LABELS.items():

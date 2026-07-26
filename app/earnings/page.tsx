@@ -141,14 +141,44 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
 
   const chipsByDate = useMemo(() => {
     const map = new Map<string, { confirmed: EarningsCalendarEntry[]; predicted: EarningsCalendarEntry[] }>();
-    for (const c of feed.calendar) {
-      const raw = c.date.slice(0, 10);
-      const effDate = c.status === 'predicted' ? rollToWeekday(raw) : raw;
-      if (!map.has(effDate)) map.set(effDate, { confirmed: [], predicted: [] });
-      map.get(effDate)![c.status].push(c);
+    const confirmedTickers = new Set<string>();
+
+    // 1. Primary source for confirmed earnings: feed.announcements
+    for (const a of feed.announcements) {
+      if (!a.announceDate) continue;
+      const rawDate = a.announceDate.slice(0, 10);
+      if (!map.has(rawDate)) map.set(rawDate, { confirmed: [], predicted: [] });
+      map.get(rawDate)!.confirmed.push({
+        ticker: a.ticker,
+        date: a.announceDate,
+        status: 'confirmed',
+        quarter: a.quarter,
+      });
+      confirmedTickers.add(a.ticker);
     }
+
+    // 2. Secondary source for confirmed: feed.calendar entries (if any ticker isn't in announcements)
+    for (const c of feed.calendar) {
+      if (c.status === 'confirmed' && !confirmedTickers.has(c.ticker)) {
+        const rawDate = c.date.slice(0, 10);
+        if (!map.has(rawDate)) map.set(rawDate, { confirmed: [], predicted: [] });
+        map.get(rawDate)!.confirmed.push(c);
+        confirmedTickers.add(c.ticker);
+      }
+    }
+
+    // 3. Source for predicted earnings: feed.calendar (dedup: skip if ticker is already confirmed)
+    for (const c of feed.calendar) {
+      if (c.status === 'predicted' && !confirmedTickers.has(c.ticker)) {
+        const raw = c.date.slice(0, 10);
+        const effDate = rollToWeekday(raw);
+        if (!map.has(effDate)) map.set(effDate, { confirmed: [], predicted: [] });
+        map.get(effDate)!.predicted.push(c);
+      }
+    }
+
     return map;
-  }, [feed.calendar]);
+  }, [feed.announcements, feed.calendar]);
 
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
@@ -192,6 +222,7 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
           {weekDates.map((date, i) => {
             const chips = chipsByDate.get(date);
             const isToday = date === todayAnchor;
+            const hasChips = chips && (chips.confirmed.length > 0 || chips.predicted.length > 0);
             return (
               <div
                 key={date}
@@ -226,7 +257,7 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
                       {c.ticker}
                     </button>
                   ))}
-                  {!chips && <div className="text-label text-meta">—</div>}
+                  {!hasChips && <div className="text-label text-meta">—</div>}
                 </div>
               </div>
             );
