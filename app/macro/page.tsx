@@ -40,16 +40,24 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
   const sparkData = (commodity.series || []).map(s => s.close);
   const zoneStyle = ZONE_COLORS[commodity.zone] || ZONE_COLORS.financial;
   const latestClose = commodity.latest?.close;
+  const isSynthetic = commodity.symbol.startsWith('PETRO_');
+  const hasValidPrice = latestClose != null && !isNaN(latestClose) && latestClose > 0;
+  const priceDateStr = commodity.latest?.date ? ` · ณ ${commodity.latest.date}` : '';
 
   return (
     <div className="bg-[#13161e] border border-white/[0.08] hover:border-white/[0.18] rounded-2xl p-4 transition-all space-y-3.5 shadow-sm hover:shadow-md">
       {/* Header: Title + Sparkline */}
       <div className="flex items-start justify-between gap-2 border-b border-white/[0.05] pb-2.5">
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 mb-1.5">
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
             <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${zoneStyle.bg} ${zoneStyle.text}`}>
               {ZONE_LABELS_TH[commodity.zone]}
             </span>
+            {isSynthetic && (
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                ค่าประมาณ Spread
+              </span>
+            )}
           </div>
           <h3 className="text-[15px] font-extrabold text-white truncate leading-tight tracking-tight">{commodity.name_th}</h3>
           <p className="text-[11.5px] text-white/45 truncate mt-0.5 font-medium">
@@ -66,10 +74,12 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
         <div>
           <div className="flex items-baseline gap-1.5">
             <span className="text-[23px] font-black text-white tabular-nums leading-none tracking-tight">
-              {formatPrice(latestClose)}
+              {hasValidPrice ? formatPrice(latestClose) : 'ไม่มีข้อมูล'}
             </span>
           </div>
-          <p className="text-[11.5px] text-white/40 mt-1.5 font-medium">{commodity.unit}</p>
+          <p className="text-[11.5px] text-white/40 mt-1.5 font-medium">
+            {commodity.unit}{priceDateStr}
+          </p>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           <div className="text-center bg-white/[0.04] px-2.5 py-1 rounded-xl border border-white/[0.06]">

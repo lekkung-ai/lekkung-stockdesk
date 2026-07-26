@@ -48,17 +48,26 @@ export default function MacroFactorCard({ ticker }: { ticker: string }) {
               ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
               : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
 
+          const isSynthetic = c.symbol.startsWith('PETRO_');
+          const hasValidPrice = c.latest?.close != null && !isNaN(c.latest.close) && c.latest.close > 0;
+          const priceDateStr = c.latest?.date ? ` (ณ ${c.latest.date})` : '';
+
           return (
             <div key={c.symbol} className="px-5 py-3.5 flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <p className="text-body text-ink font-medium truncate">{c.name_th}</p>
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${impactBadgeStyle}`}>
                     {impactText}
                   </span>
+                  {isSynthetic && (
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded border bg-purple-500/10 text-purple-300 border-purple-500/20">
+                      ค่าประมาณ
+                    </span>
+                  )}
                 </div>
                 <p className="text-label text-meta truncate mt-0.5">
-                  {c.symbol} · {formatPrice(c.latest?.close)} {c.unit}
+                  {c.symbol} · {hasValidPrice ? `${formatPrice(c.latest.close)} ${c.unit}` : 'ไม่มีข้อมูล'}{priceDateStr}
                 </p>
               </div>
               <div className="flex items-center gap-3 flex-shrink-0">
