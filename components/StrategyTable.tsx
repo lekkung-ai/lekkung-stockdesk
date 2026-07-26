@@ -1,8 +1,51 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ReactNode, useState, useEffect } from 'react';
+import { ChevronUp, ChevronDown, Star, Download } from 'lucide-react';
 import { tickerToSector } from '@/lib/sectorData';
+import { isMyStock, toggleMyStockSymbol } from '@/lib/myStocks';
+
+export function AddMyStockButton({ ticker }: { ticker: string }) {
+  const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    setAdded(isMyStock(ticker));
+    const handleUpdate = () => setAdded(isMyStock(ticker));
+    window.addEventListener('mystocks-updated', handleUpdate);
+    return () => window.removeEventListener('mystocks-updated', handleUpdate);
+  }, [ticker]);
+
+  return (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        const nowAdded = toggleMyStockSymbol(ticker);
+        setAdded(nowAdded);
+      }}
+      title={added ? 'อยู่ใน My Stocks แล้ว (แตะเพื่อเอาออก)' : 'เพิ่มเข้า My Stocks'}
+      className={`p-1 rounded-md transition-all ${
+        added
+          ? 'text-amber-400 bg-amber-400/10 hover:bg-amber-400/20'
+          : 'text-white/30 hover:text-white/80 hover:bg-white/10'
+      }`}
+    >
+      <Star size={13} fill={added ? 'currentColor' : 'none'} />
+    </button>
+  );
+}
+
+export function ExportCSVButton({ data, filename }: { data: any[]; filename?: string }) {
+  return (
+    <button
+      onClick={() => exportToCSV(data, filename)}
+      title="Export ข้อมูลเป็นไฟล์ CSV"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-white/[0.05] text-white/70 hover:text-white hover:bg-white/10 transition-colors border border-white/[0.08]"
+    >
+      <Download size={13} />
+      <span>Export CSV</span>
+    </button>
+  );
+}
 
 export function stageCls(stage: string | null): string {
   if (!stage) return 'bg-white/[0.07] text-white/30';
@@ -190,4 +233,36 @@ export function PageHeader({
       )}
     </div>
   );
+}
+
+export function formatPE(pe: number | null | undefined): ReactNode {
+  if (pe == null || isNaN(pe)) return <span className="text-white/20">—</span>;
+  if (pe < 0 || pe > 100) {
+    return (
+      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-500/15 text-rose-400 border border-rose-500/30" title={`P/E = ${pe.toFixed(2)}`}>
+        &gt;100
+      </span>
+    );
+  }
+  return <span className="tabular-nums text-white/70">{pe.toFixed(1)}</span>;
+}
+
+export function exportToCSV(data: any[], filename = 'stockdesk_export.csv') {
+  if (!data || data.length === 0) return;
+  const headers = Object.keys(data[0]).filter(k => typeof data[0][k] !== 'function' && typeof data[0][k] !== 'object');
+  const csvRows = [
+    headers.join(','),
+    ...data.map(row => headers.map(h => {
+      const val = row[h];
+      if (typeof val === 'string') return `"${val.replace(/"/g, '""')}"`;
+      return val ?? '';
+    }).join(','))
+  ];
+  const blob = new Blob(['\uFEFF' + csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
 }

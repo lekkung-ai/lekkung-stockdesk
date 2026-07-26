@@ -7,6 +7,8 @@ import { getSectorForTicker } from '@/lib/sectorData';
 import { formatSymbolsQuery } from '@/lib/utils';
 import PriceChart from './PriceChart';
 
+import { ExportCSVButton, AddMyStockButton } from './StrategyTable';
+
 type LivePrice = { price: number; changePercent: number };
 
 function stageCls(stage: string): string {
@@ -60,9 +62,12 @@ export default function ScannerTable({ data }: { data: ScanEntry[] }) {
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <div>
-        <h1 className="text-[18px] font-bold text-white">Scanner</h1>
-        <p className="text-[12px] text-white/35 mt-0.5">{data.length} หุ้น</p>
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-[18px] font-bold text-white">Scanner</h1>
+          <p className="text-[12px] text-white/35 mt-0.5">{data.length} หุ้น</p>
+        </div>
+        <ExportCSVButton data={data} filename="quant_scanner.csv" />
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
@@ -92,7 +97,7 @@ export default function ScannerTable({ data }: { data: ScanEntry[] }) {
                   <tr
                     key={row.ticker}
                     onClick={() => handleRowClick(row.ticker)}
-                    className={`cursor-pointer transition-colors ${
+                    className={`cursor-pointer transition-colors group ${
                       isSelected ? 'bg-white/[0.07]' : 'hover:bg-white/[0.03]'
                     }`}
                   >
@@ -100,6 +105,7 @@ export default function ScannerTable({ data }: { data: ScanEntry[] }) {
                       <div className="flex items-center gap-2">
                         <div className={`w-0.5 h-5 rounded-full transition-colors ${isSelected ? 'bg-[#1D9E75]' : 'bg-transparent'}`} />
                         <span className="font-semibold text-white">{row.ticker}</span>
+                        <AddMyStockButton ticker={row.ticker} />
                       </div>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">

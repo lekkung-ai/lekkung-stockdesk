@@ -1,6 +1,6 @@
 'use client';
 
-import { Bell, Settings, Menu, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { Menu, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import SearchBox from './SearchBox';
 import { useStock } from '@/context/stock';
 import type { Market } from '@/context/stock';
@@ -57,14 +57,6 @@ export default function TopBar({ onMenuClick, sidebarDesktopOpen }: { onMenuClic
             </button>
           ))}
         </div>
-
-        {/* Bell & Settings — hidden on mobile */}
-        <button className="hidden sm:flex p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.05] transition-colors">
-          <Bell size={16} />
-        </button>
-        <button className="hidden sm:flex p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.05] transition-colors">
-          <Settings size={16} />
-        </button>
       </div>
     </header>
   );

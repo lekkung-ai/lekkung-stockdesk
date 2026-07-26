@@ -218,6 +218,167 @@ function ResultRow({ label, value, highlight, sub }: { label: string; value: str
   );
 }
 
+function WarrantConversionChart({
+  childPrice,
+  exerciseRatio,
+  exercisePrice,
+  parentPrice,
+  costPerParentShare,
+  profitPct,
+}: {
+  childPrice: number;
+  exerciseRatio: number;
+  exercisePrice: number;
+  parentPrice: number;
+  costPerParentShare: number | null;
+  profitPct: number | null;
+}) {
+  if (costPerParentShare == null || costPerParentShare <= 0) return null;
+
+  const pCurrent = parentPrice > 0 ? parentPrice : costPerParentShare;
+  const pMax = Math.max(costPerParentShare * 1.6, pCurrent * 1.6, 5);
+  const pMin = 0;
+
+  const maxProfit = ((pMax - costPerParentShare) / costPerParentShare) * 100;
+
+  const width = 600;
+  const height = 240;
+  const margin = { top: 35, right: 35, bottom: 45, left: 55 };
+  const graphW = width - margin.left - margin.right;
+  const graphH = height - margin.top - margin.bottom;
+
+  const getSvgX = (price: number) => {
+    const ratio = Math.max(0, Math.min(1, (price - pMin) / (pMax - pMin)));
+    return margin.left + ratio * graphW;
+  };
+
+  const yUpper = Math.max(100, Math.ceil(maxProfit / 20) * 20);
+  const yLower = -100;
+
+  const getSvgY = (pct: number) => {
+    const clampedPct = Math.max(yLower, Math.min(yUpper, pct));
+    const ratio = (clampedPct - yLower) / (yUpper - yLower);
+    return margin.top + (1 - ratio) * graphH;
+  };
+
+  const zeroY = getSvgY(0);
+  const breakevenX = getSvgX(costPerParentShare);
+  const currentX = getSvgX(pCurrent);
+  const currentY = getSvgY(profitPct ?? 0);
+
+  const xStart = getSvgX(0);
+  const yStart = getSvgY(-100);
+  const xEnd = getSvgX(pMax);
+  const yEnd = getSvgY(maxProfit);
+
+  return (
+    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-3">
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div>
+          <h3 className="text-[14px] font-bold text-white flex items-center gap-2">
+            <span>📈 กราฟเปรียบเทียบต้นทุนแปลงสิทธิ vs ราคาตลาด</span>
+          </h3>
+          <p className="text-[11.5px] text-white/40 mt-0.5">
+            แกน X = ราคาหุ้นแม่ตลาด | แกน Y = %กำไร/ขาดทุนจากการแปลงสิทธิ
+          </p>
+        </div>
+        <div className="flex items-center gap-3 text-[11px]">
+          <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+            <span className="w-2.5 h-2.5 rounded-sm bg-emerald-500/30 border border-emerald-500/50" /> แปลงแล้วคุ้ม (% &gt; 0)
+          </span>
+          <span className="flex items-center gap-1.5 text-rose-400 font-semibold">
+            <span className="w-2.5 h-2.5 rounded-sm bg-rose-500/30 border border-rose-500/50" /> แปลงแล้วไม่คุ้ม (% &lt; 0)
+          </span>
+        </div>
+      </div>
+
+      <div className="w-full overflow-hidden">
+        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto text-xs select-none">
+          <defs>
+            <linearGradient id="greenArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#1D9E75" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#1D9E75" stopOpacity="0.02" />
+            </linearGradient>
+            <linearGradient id="redArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#E24B4A" stopOpacity="0.02" />
+              <stop offset="100%" stopColor="#E24B4A" stopOpacity="0.25" />
+            </linearGradient>
+          </defs>
+
+          {/* Shaded Profit Area (Green) */}
+          <polygon
+            points={`${breakevenX},${zeroY} ${xEnd},${zeroY} ${xEnd},${yEnd}`}
+            fill="url(#greenArea)"
+          />
+
+          {/* Shaded Loss Area (Red) */}
+          <polygon
+            points={`${xStart},${yStart} ${breakevenX},${zeroY} ${xStart},${zeroY}`}
+            fill="url(#redArea)"
+          />
+
+          {/* Grid lines */}
+          <line x1={margin.left} y1={zeroY} x2={width - margin.right} y2={zeroY} stroke="#ffffff" strokeOpacity="0.25" strokeDasharray="3 3" />
+          <line x1={margin.left} y1={margin.top} x2={margin.left} y2={height - margin.bottom} stroke="#ffffff" strokeOpacity="0.15" />
+          <line x1={margin.left} y1={height - margin.bottom} x2={width - margin.right} y2={height - margin.bottom} stroke="#ffffff" strokeOpacity="0.15" />
+
+          {/* Conversion Line */}
+          <line x1={xStart} y1={yStart} x2={xEnd} y2={yEnd} stroke="#7F77DD" strokeWidth="2.5" />
+
+          {/* Breakeven Marker (at P = costPerParentShare) */}
+          <line x1={breakevenX} y1={margin.top} x2={breakevenX} y2={height - margin.bottom} stroke="#F9C942" strokeWidth="1.5" strokeDasharray="4 4" />
+          <circle cx={breakevenX} cy={zeroY} r="4" fill="#F9C942" />
+          <text x={breakevenX} y={margin.top - 12} textAnchor="middle" fill="#F9C942" fontSize="10" fontWeight="bold">
+            จุดคุ้มทุนแปลง {costPerParentShare.toFixed(2)} บาท (0%)
+          </text>
+
+          {/* Current Stock Price Marker (at P = parentPrice) */}
+          {parentPrice > 0 && (
+            <>
+              <line x1={currentX} y1={margin.top} x2={currentX} y2={height - margin.bottom} stroke="#38BDF8" strokeWidth="1.5" strokeDasharray="2 2" />
+              <circle cx={currentX} cy={currentY} r="5" fill="#38BDF8" stroke="#13161e" strokeWidth="2" />
+              <g transform={`translate(${currentX}, ${currentY > zeroY ? Math.min(currentY + 20, height - margin.bottom - 10) : Math.max(currentY - 12, margin.top + 15)})`}>
+                <rect
+                  x="-75"
+                  y="-11"
+                  width="150"
+                  height="22"
+                  rx="6"
+                  fill="#1E293B"
+                  stroke="#38BDF8"
+                  strokeWidth="1"
+                />
+                <text x="0" y="3" textAnchor="middle" fill="#38BDF8" fontSize="10.5" fontWeight="bold">
+                  ราคาปัจจุบัน {parentPrice.toFixed(2)} ({profitPct != null && profitPct >= 0 ? '+' : ''}{profitPct?.toFixed(2)}%)
+                </text>
+              </g>
+            </>
+          )}
+
+          {/* X Axis Labels */}
+          <text x={margin.left} y={height - 12} fill="#ffffff" opacity="0.4" fontSize="10" textAnchor="start">
+            0.00 บาท
+          </text>
+          <text x={width - margin.right} y={height - 12} fill="#ffffff" opacity="0.4" fontSize="10" textAnchor="end">
+            {pMax.toFixed(2)} บาท
+          </text>
+
+          {/* Y Axis Labels */}
+          <text x={margin.left - 8} y={margin.top + 5} fill="#1D9E75" fontSize="10" textAnchor="end" fontWeight="bold">
+            +{yUpper}%
+          </text>
+          <text x={margin.left - 8} y={zeroY + 3} fill="#ffffff" opacity="0.5" fontSize="10" textAnchor="end">
+            0%
+          </text>
+          <text x={margin.left - 8} y={height - margin.bottom - 5} fill="#E24B4A" fontSize="10" textAnchor="end" fontWeight="bold">
+            -100%
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
 // ── One XD / XW / XR dilution card ───────────────────────────────────────────
 function DilutionBlock({
   title, priceLabel, additionalPriceLabel, showShares, accentColor, warrantMode = false,
@@ -542,6 +703,16 @@ export default function CalculatorPage() {
                   sub={result.profitPct != null && result.profitPct < 0 ? 'ติดลบ = แปลงสิทธิแล้วต้นทุนแพงกว่าซื้อหุ้นแม่ตรงๆ' : undefined}
                 />
               </div>
+
+              {/* Warrant Conversion Payoff Chart */}
+              <WarrantConversionChart
+                childPrice={childPrice}
+                exerciseRatio={exerciseRatio}
+                exercisePrice={exercisePrice}
+                parentPrice={parentPrice}
+                costPerParentShare={result.costPerParentShare}
+                profitPct={result.profitPct}
+              />
             </>
           )}
 

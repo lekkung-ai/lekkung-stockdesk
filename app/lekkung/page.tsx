@@ -11,6 +11,7 @@ import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  formatPE, ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
@@ -33,6 +34,7 @@ export default function LekkungPage() {
   const [revMin, setRevMin] = useState(10);
   const [roeMin, setRoeMin] = useState(15);
   const [mcapMin, setMcapMin] = useState(0);
+  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -58,6 +60,7 @@ export default function LekkungPage() {
       .filter(s => s.Revenue_Growth_YoY >= revMin)
       .filter(s => (s.ROE * 100) >= roeMin)
       .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin)
+      .filter(s => adtvMin === 0 || (s.ADTV_MB || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -78,11 +81,11 @@ export default function LekkungPage() {
       result = result.sort((a, b) => b.NetProfit_Growth_QoQY - a.NetProfit_Growth_QoQY);
     }
     return result;
-  }, [profitMin, revMin, roeMin, mcapMin, sortConfig, diffFilter, newSet]);
+  }, [profitMin, revMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [profitMin, revMin, roeMin, mcapMin, sortConfig, diffFilter, newSet]
+    [profitMin, revMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
@@ -103,6 +106,7 @@ export default function LekkungPage() {
           total={lekkungData.length}
         />
         <div className="flex items-center gap-3">
+          <ExportCSVButton data={filtered} filename="lekkung_growth.csv" />
           <IncompletePopover items={incompleteItems} />
           <ModeToggle mode={mode} onChange={setMode} />
         </div>
@@ -123,6 +127,8 @@ export default function LekkungPage() {
         <SliderField label="ROE %" min={15} max={50} value={roeMin} onChange={setRoeMin} />
         <Divider />
         <SliderField label="Market Cap (MB)" min={0} max={50000} value={mcapMin} onChange={setMcapMin} step={1000} />
+        <Divider />
+        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={setAdtvMin} step={5} />
         <Divider />
         <ScanDiffChips scanName="lekkung" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
@@ -183,21 +189,23 @@ export default function LekkungPage() {
         <tbody>
           {displayRows.map((s, i) => {
             const isActive = activeTicker === s.Ticker;
+            const isLowLiquidity = (s.ADTV_MB || 0) < 5;
             return (
               <tr
                 key={s.Ticker}
                 onClick={() => setSelectedTicker(s.Ticker)}
-                className={`border-b border-white/[0.04] transition-colors cursor-pointer ${
+                className={`border-b border-white/[0.04] transition-colors cursor-pointer group ${
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
                 }`}
               >
                 <Td className="text-white/40"><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-2">
-                    <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
+                    <div className={`font-bold flex items-center gap-1.5 ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
+                    <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
                   <SectorChip ticker={s.Ticker} />
@@ -214,7 +222,7 @@ export default function LekkungPage() {
                     {daysInScan('lekkung', s.Ticker) ?? '—'}
                   </span>
                 </Td>
-                <Td right mono>{s.PE_Ratio?.toFixed(2) || '-'}</Td>
+                <Td right mono>{formatPE(s.PE_Ratio)}</Td>
                 <Td right mono>
                   <span className={s.ROE > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
@@ -241,7 +249,11 @@ export default function LekkungPage() {
                     {s.Market_Cap ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}
                   </span>
                 </Td>
-                <Td right mono>{s.ADTV_MB?.toFixed(0) || '-'}</Td>
+                <Td right mono>
+                  <span className={isLowLiquidity ? 'text-amber-400 font-semibold' : 'text-white/70'} title={isLowLiquidity ? 'สภาพคล่องต่ำกว่า 5 ลบ./วัน' : undefined}>
+                    {s.ADTV_MB?.toFixed(0) || '-'} {isLowLiquidity && '⚠️'}
+                  </span>
+                </Td>
               </tr>
             );
           })}
