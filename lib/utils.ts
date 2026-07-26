@@ -61,3 +61,10 @@ export function calculateSMA(data: PricePoint[], period: number): PricePoint[] {
     })
     .filter((p): p is PricePoint => p !== null);
 }
+
+// Join symbols with unencoded commas (tickers themselves URL-encoded), ensuring
+// consistent GET /api/prices?symbols=... query parameter formatting across all components.
+export function formatSymbolsQuery(tickers: string[]): string {
+  return tickers.map(t => encodeURIComponent(t)).join(',');
+}
+

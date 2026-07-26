@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server';
 import https from 'https';
 import { toYahooSymbol } from '@/lib/setTickers';
+import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 
 const YF_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
@@ -98,7 +99,7 @@ export async function GET(
 
     const res = await fetch("https://scanner.tradingview.com/thailand/scan", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: TRADINGVIEW_HEADERS,
       body: JSON.stringify(payload),
     });
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useStock } from '@/context/stock';
 import type { ScanEntry } from '@/lib/scanData';
 import { getSectorForTicker } from '@/lib/sectorData';
+import { formatSymbolsQuery } from '@/lib/utils';
 import PriceChart from './PriceChart';
 
 type LivePrice = { price: number; changePercent: number };
@@ -42,7 +43,7 @@ export default function ScannerTable({ data }: { data: ScanEntry[] }) {
 
   useEffect(() => {
     if (data.length === 0) return;
-    const symbols = data.map(r => encodeURIComponent(r.ticker)).join(',');
+    const symbols = formatSymbolsQuery(data.map(r => r.ticker));
     fetch(`/api/prices?symbols=${symbols}`)
       .then(r => r.json())
       .then(json => { if (json.prices) setPriceMap(json.prices); })

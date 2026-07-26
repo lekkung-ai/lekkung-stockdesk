@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { formatSymbolsQuery } from './utils';
 
 export function useLivePrices(tickers: string[]): {
   priceMap: Record<string, number>;
@@ -8,7 +9,7 @@ export function useLivePrices(tickers: string[]): {
   const [priceMap, setPriceMap] = useState<Record<string, number>>({});
   const [changePctMap, setChangePctMap] = useState<Record<string, number>>({});
   const [fetchDone, setFetchDone] = useState(false);
-  const symbols = useRef(tickers.map(t => encodeURIComponent(t)).join(','));
+  const symbols = useRef(formatSymbolsQuery(tickers));
 
   useEffect(() => {
     if (!symbols.current) {

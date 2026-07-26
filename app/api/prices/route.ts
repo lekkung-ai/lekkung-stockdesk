@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { isSetTicker } from '@/lib/setTickers';
+import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 
 export type PriceResult = {
   price: number;
@@ -27,7 +28,7 @@ async function fetchTradingView(tickers: string[]): Promise<Record<string, Price
   try {
     const res = await fetch('https://scanner.tradingview.com/thailand/scan', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: TRADINGVIEW_HEADERS,
       body: JSON.stringify({
         filter: [{ left: 'name', operation: 'in_range', right: tickers }],
         options: { lang: 'en' },
@@ -36,15 +37,18 @@ async function fetchTradingView(tickers: string[]): Promise<Record<string, Price
         range: [0, tickers.length],
       }),
     });
-    if (!res.ok) return result;
+    if (!res.ok) {
+      console.warn(`[prices API] TradingView scan returned status ${res.status}`);
+      return result;
+    }
     const json = await res.json();
     for (const row of json.data ?? []) {
       const [name, close, change, changeAbs] = row.d as [string, number, number, number];
       if (name == null || close == null) continue;
       result[name] = { price: close, change: changeAbs ?? 0, changePercent: change ?? 0 };
     }
-  } catch {
-    // fall through — caller just gets an empty map for these tickers
+  } catch (err) {
+    console.warn('[prices API] TradingView fetch exception:', err);
   }
   return result;
 }
@@ -108,9 +112,23 @@ export async function GET(req: NextRequest) {
     fetchWithConcurrency(otherItems, 10),
   ]);
 
-  const prices = { ...yahooPrices, ...tvPrices };
+  // Fallback to Yahoo for any SET tickers that TradingView didn't return (or if TV scan failed)
+  const missingSetTickers = setTickers.filter(t => !tvPrices[t]);
+  let fallbackPrices: Record<string, PriceResult> = {};
+
+  if (missingSetTickers.length > 0) {
+    console.log(`[prices API] Fallback to Yahoo for: ${missingSetTickers.join(', ')}`);
+    const fallbackItems = missingSetTickers.map(t => ({
+      ticker: t,
+      yahooSymbol: `${t}.BK`,
+    }));
+    fallbackPrices = await fetchWithConcurrency(fallbackItems, 10);
+  }
+
+  const prices = { ...yahooPrices, ...fallbackPrices, ...tvPrices };
 
   return Response.json({ prices }, {
     headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=30' },
   });
 }
+

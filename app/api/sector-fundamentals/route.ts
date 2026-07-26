@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server';
+import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 
 // Bulk P/BV + ROE + P/E for any list of tickers, one upstream call instead of
 // N per-stock ones - same TradingView "thailand" scanner /api/fundamental/[ticker]
@@ -26,7 +27,7 @@ export async function GET(req: NextRequest) {
 
     const res = await fetch('https://scanner.tradingview.com/thailand/scan', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: TRADINGVIEW_HEADERS,
       body: JSON.stringify(payload),
     });
 

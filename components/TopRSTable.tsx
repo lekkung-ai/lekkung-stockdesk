@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import TopRSRow, { type RSSignals } from './TopRSRow';
+import { formatSymbolsQuery } from '@/lib/utils';
 
 export interface TopRSRowData {
   ticker: string;
@@ -24,10 +25,9 @@ export default function TopRSTable({ rows }: TopRSTableProps) {
     if (rows.length === 0) return;
     let cancelled = false;
 
-    // Batch fetch (same pattern as ScannerTable/MyStocks) instead of one
-    // /api/quote round trip per row — /api/prices keys its response by the
-    // plain ticker (no .BK suffix), so no extra normalization needed here.
-    fetch(`/api/prices?symbols=${encodeURIComponent(tickerKey)}`)
+    // Batch fetch (same pattern as ScannerTable/MyStocks) using shared helper formatSymbolsQuery
+    // to build symbol list with unencoded commas (e.g. TICKER1,TICKER2).
+    fetch(`/api/prices?symbols=${formatSymbolsQuery(rows.map(r => r.ticker))}`)
       .then(res => res.ok ? res.json() : { prices: {} })
       .then((data: { prices?: Record<string, { changePercent?: number }> }) => {
         if (cancelled) return;
