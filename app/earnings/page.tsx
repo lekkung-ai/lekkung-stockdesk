@@ -500,7 +500,14 @@ function AnnouncementsTable({
 
   const quarters = useMemo(() => {
     const s = new Set<string>();
-    announcements.forEach(a => { if (a.quarter && a.quarter.trim()) s.add(a.quarter.trim()); });
+    announcements.forEach(a => {
+      if (a.quarter && a.quarter.trim()) {
+        const q = a.quarter.trim();
+        if (q !== 'ไตรมาส 3/2569') {
+          s.add(q);
+        }
+      }
+    });
     const sorted = Array.from(s).sort((a, b) => parseQuarterScore(b) - parseQuarterScore(a));
     return ['ทั้งหมด', ...sorted];
   }, [announcements]);
