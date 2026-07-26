@@ -1,12 +1,13 @@
 {
-  "generated_at": "2026-07-26T16:05:25.307388+07:00",
+  "generated_at": "2026-07-26T16:17:19.093389+07:00",
   "summary": {
     "total_live": 931,
     "total_current": 934,
     "new_count": 2,
-    "delisted_count": 0,
-    "possible_delisted_count": 5,
-    "renamed_count": 2,
+    "delisted_count": 5,
+    "possible_delisted_count": 0,
+    "renamed_count": 1,
+    "temporary_symbols_count": 1,
     "possible_rename_count": 0
   },
   "new": [
@@ -25,56 +26,54 @@
       "guessed_subsector": "PROPCON"
     }
   ],
-  "delisted": [],
-  "possible_delisted": [
+  "delisted": [
     {
       "ticker": "DV8",
       "company_name": "DV8",
       "market": "SET",
-      "status": "NotFound",
-      "reason": "Missing from full list but profile still active (transient drop suspect)"
+      "status": "NotFound"
     },
     {
       "ticker": "HEALTH",
       "company_name": "HEALTH",
       "market": "SET",
-      "status": "NotFound",
-      "reason": "Missing from full list but profile still active (transient drop suspect)"
+      "status": "NotFound"
     },
     {
       "ticker": "PTECH",
       "company_name": "PTECH",
       "market": "SET",
-      "status": "NotFound",
-      "reason": "Missing from full list but profile still active (transient drop suspect)"
+      "status": "NotFound"
     },
     {
       "ticker": "SVI",
-      "company_name": "SVI",
+      "company_name": "บริษัท เอสวีไอ จำกัด (มหาชน)",
       "market": "SET",
-      "status": "NotFound",
-      "reason": "Missing from full list but profile still active (transient drop suspect)"
+      "status": "Delisted"
     },
     {
       "ticker": "THL",
-      "company_name": "THL",
+      "company_name": "บริษัท ทุ่งคาฮาเบอร์ จำกัด (มหาชน)",
       "market": "SET",
-      "status": "NotFound",
-      "reason": "Missing from full list but profile still active (transient drop suspect)"
+      "status": "Delisted"
     }
   ],
+  "possible_delisted": [],
   "renamed": [
+    {
+      "old": "POWER",
+      "new": "POWER",
+      "company": "บริษัท เพาเวอร์ โซลูชั่น เทคโนโลยี จำกัด (มหาชน)",
+      "reason": "Official permanent rename match"
+    }
+  ],
+  "temporary_symbols": [
     {
       "old": "BANPU",
       "new": "BANPUU",
       "company": "บริษัท บ้านปู จำกัด (มหาชน)",
-      "reason": "Official rename match"
-    },
-    {
-      "old": "PSTC",
-      "new": "POWER",
-      "company": "บริษัท เพาเวอร์ โซลูชั่น เทคโนโลยี จำกัด (มหาชน)",
-      "reason": "Official rename match"
+      "status": "Listed (Wait for Official Listing)",
+      "reason": "ชื่อชั่วคราวช่วง SP/พักเทรด (Listed (Wait for Official Listing)) - ห้าม remap ประวัติเดิม"
     }
   ],
   "possible_rename": []

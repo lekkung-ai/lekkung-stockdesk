@@ -54,6 +54,14 @@ interface RenamedTickerItem {
   reason?: string;
 }
 
+interface TemporarySymbolItem {
+  old: string;
+  new: string;
+  company: string;
+  status?: string;
+  reason?: string;
+}
+
 interface PossibleRenameItem {
   old: string;
   new: string;
@@ -71,12 +79,14 @@ interface UniverseChangesData {
     delisted_count: number;
     possible_delisted_count?: number;
     renamed_count: number;
+    temporary_symbols_count?: number;
     possible_rename_count: number;
   };
   new?: NewTickerItem[];
   delisted?: DelistedTickerItem[];
   possible_delisted?: PossibleDelistedItem[];
   renamed?: RenamedTickerItem[];
+  temporary_symbols?: TemporarySymbolItem[];
   possible_rename?: PossibleRenameItem[];
 
   // Fallbacks for older json schemas
@@ -191,6 +201,7 @@ function PendingUniverseChanges() {
   const delistedList: DelistedTickerItem[] = useMemo(() => universeChanges.delisted ?? universeChanges.delisted_tickers ?? [], []);
   const possibleDelistedList: PossibleDelistedItem[] = useMemo(() => universeChanges.possible_delisted ?? [], []);
   const renamedList: RenamedTickerItem[] = useMemo(() => universeChanges.renamed ?? [], []);
+  const temporarySymbolsList: TemporarySymbolItem[] = useMemo(() => universeChanges.temporary_symbols ?? [], []);
   const possibleRenameList: PossibleRenameItem[] = useMemo(() => universeChanges.possible_rename ?? [], []);
 
   // Filter out rejected items
@@ -198,6 +209,7 @@ function PendingUniverseChanges() {
   const activeDelisted = delistedList.filter(t => !rejectedItems.has(t.ticker));
   const activePossibleDelisted = possibleDelistedList.filter(t => !rejectedItems.has(t.ticker));
   const activeRenamed = renamedList.filter(r => !rejectedItems.has(`${r.old}->${r.new}`));
+  const activeTemporarySymbols = temporarySymbolsList.filter(ts => !rejectedItems.has(`${ts.old}->${ts.new}`));
   const activePossibleRename = possibleRenameList.filter(pr => !rejectedItems.has(`${pr.old}->${pr.new}`));
 
   const hasAnyPending =
@@ -205,6 +217,7 @@ function PendingUniverseChanges() {
     activeDelisted.length > 0 ||
     activePossibleDelisted.length > 0 ||
     activeRenamed.length > 0 ||
+    activeTemporarySymbols.length > 0 ||
     activePossibleRename.length > 0;
 
   function getSectorEdit(t: NewTickerItem) {
@@ -561,6 +574,53 @@ function PendingUniverseChanges() {
                           className="px-2 py-1 rounded text-[11px] text-white/30 hover:text-white/70 transition-colors"
                         >
                           Reject
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* ── 4.5 ชื่อชั่วคราวช่วง SP (Temporary Symbols) — สีส้ม #F59E0B ── */}
+          {activeTemporarySymbols.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <AlertTriangle size={15} className="text-[#F59E0B]" />
+                <h3 className="text-[12.5px] font-bold text-[#F59E0B]">
+                  ⚠️ ชื่อชั่วคราวช่วง SP/พักเทรด ({activeTemporarySymbols.length})
+                </h3>
+              </div>
+              <div className="p-2.5 rounded-lg bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-[11px] text-[#F59E0B]">
+                <strong>ข้อควรระวัง:</strong> ชื่อย่อกลุ่มนี้เปลี่ยนชั่วคราวระหว่างพักเทรด/ควบรวมกิจการ (เช่น BANPU ➔ BANPUU) <u>ห้าม remap ประวัติเดิมเด็ดขาด</u> เพราะชื่อย่อเดิมจะกลับมาใช้ตามปกติหลังปลด SP
+              </div>
+              <div className="space-y-2">
+                {activeTemporarySymbols.map(ts => {
+                  const key = `${ts.old}->${ts.new}`;
+                  return (
+                    <div
+                      key={key}
+                      className="p-3 rounded-xl border bg-white/[0.02] border-white/[0.06] flex flex-wrap items-center justify-between gap-3"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[13.5px] font-bold text-white/80">{ts.old}</span>
+                          <ArrowRight size={13} className="text-white/40" />
+                          <span className="text-[14px] font-bold text-[#F59E0B]">{ts.new}</span>
+                        </div>
+                        <span className="text-[11px] text-white/40 block mt-0.5">{ts.company}</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10.5px] font-semibold px-2.5 py-1 rounded bg-[#F59E0B]/15 text-[#F59E0B]">
+                          {ts.reason || 'ชื่อชั่วคราวช่วง SP ห้าม remap'}
+                        </span>
+                        <button
+                          onClick={() => handleReject(key)}
+                          className="px-2 py-1 rounded text-[11px] text-white/30 hover:text-white/70 transition-colors"
+                        >
+                          Ignore
                         </button>
                       </div>
                     </div>

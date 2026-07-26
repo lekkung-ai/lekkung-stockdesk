@@ -529,10 +529,11 @@
         "HYDROGEN",
         "IMPACT",
         "INETREIT",
-        "KPNREIT",
         "ISSARA",
+        "KPNREIT",
         "KTBSTMR",
         "LHHOTEL",
+        "LHRREIT",
         "LHSC",
         "LUXF",
         "M-PAT",
@@ -562,7 +563,7 @@
         "WHAIR",
         "WHART"
       ],
-      "count": 54
+      "count": 55
     },
     {
       "sector": "Property",
@@ -1109,7 +1110,7 @@
         "ABM",
         "ALPHAX",
         "GTV",
-        "PSTC",
+        "POWER",
         "PTC",
         "SAAM",
         "SR",
@@ -5366,11 +5367,6 @@
       "subsector": "Resources",
       "market": "MAI"
     },
-    "PSTC": {
-      "sector": "Resources",
-      "subsector": "Resources",
-      "market": "MAI"
-    },
     "PTC": {
       "sector": "Resources",
       "subsector": "Resources",
@@ -5895,6 +5891,16 @@
       "sector": "Property",
       "subsector": "& Construction Property Development",
       "market": "SET"
+    },
+    "LHRREIT": {
+      "sector": "Property & Construction",
+      "subsector": "Property Fund & Reits",
+      "market": "SET"
+    },
+    "POWER": {
+      "sector": "Resources",
+      "subsector": "Resources",
+      "market": "MAI"
     }
   }
 }
