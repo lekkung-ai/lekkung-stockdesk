@@ -464,6 +464,19 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
 
 type QuickFilterTag = 'all' | 'today' | 'growth50' | 'qoqGrowth' | 'accelerating' | 'turnaround' | 'hasMda' | 'pead';
 
+function parseQuarterScore(q: string): number {
+  const yearMatch = q.match(/\d{4}/);
+  const year = yearMatch ? parseInt(yearMatch[0], 10) : 0;
+  let qWeight = 0;
+  const qMatch = q.match(/ไตรมาส\s*(\d)/);
+  if (qMatch) {
+    qWeight = parseInt(qMatch[1], 10);
+  } else if (q.includes('ประจำปี') || q.includes('12 เดือน')) {
+    qWeight = 0.5;
+  }
+  return year * 10 + qWeight;
+}
+
 function AnnouncementsTable({
   announcements,
   onSelect,
@@ -487,8 +500,9 @@ function AnnouncementsTable({
 
   const quarters = useMemo(() => {
     const s = new Set<string>();
-    announcements.forEach(a => { if (a.quarter) s.add(a.quarter); });
-    return ['ทั้งหมด', ...Array.from(s)];
+    announcements.forEach(a => { if (a.quarter && a.quarter.trim()) s.add(a.quarter.trim()); });
+    const sorted = Array.from(s).sort((a, b) => parseQuarterScore(b) - parseQuarterScore(a));
+    return ['ทั้งหมด', ...sorted];
   }, [announcements]);
 
   const todayIso = new Date().toISOString().slice(0, 10);
