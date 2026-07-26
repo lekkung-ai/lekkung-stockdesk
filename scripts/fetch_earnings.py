@@ -543,24 +543,35 @@ def main():
             if res['calendar']:
                 calendar.append(res['calendar'])
 
-    announcements.sort(key=lambda a: a['announceDate'] or '', reverse=True)
-    calendar.sort(key=lambda c: c['date'] or '')
-
-    # Merge-on-write: (1) field-level merge so a run that only got partial
-    # data for a ticker (a failed detail-page fetch, say) can't blank out
-    # fields a previous successful run already captured, and (2) carry
-    # forward any reason already extracted for a filing still in this run's
-    # window, so this file never regresses to reason-less even if
-    # extract_reason.py never gets to run afterward this time. A record that
-    # never had a reason gets none here either way - extract_reason.py (or
-    # the next run once it does succeed) is what actually fills new ones in.
+    # Record-level + Field-level Merge-on-write:
+    # 1. Record-level merge: Keep active existing filings within WINDOW_DAYS (45 days)
+    #    so a partial-universe fetch (e.g. rate limit / network error returning only 1 ticker)
+    #    never wipes out previously captured filings for the other 24+ tickers.
+    # 2. Field-level merge: For filings that ARE re-fetched, merge fields so non-empty
+    #    derived data and previously-extracted reasons are carried forward.
     out_path_for_merge = os.path.join(args.out if args.out else OUTPUT_DIR, 'earnings_feed.json')
     existing_by_key = load_existing_announcements(out_path_for_merge)
+
+    active_existing = {}
+    for k, old_a in existing_by_key.items():
+        ad_str = old_a.get('announceDate')
+        if ad_str:
+            try:
+                dt = datetime.fromisoformat(ad_str.replace('Z', '+00:00'))
+                if dt >= window_start:
+                    active_existing[k] = old_a
+            except Exception:
+                active_existing[k] = old_a
+        else:
+            active_existing[k] = old_a
+
     restored_reason = 0
     restored_fields = 0
-    merged_announcements = []
+    merged_by_key = dict(active_existing)
+
     for a in announcements:
-        old = existing_by_key.get(_reason_key(a))
+        key = _reason_key(a)
+        old = active_existing.get(key)
         merged = merge_announcement_fields(a, old)
         if old and merged != a:
             restored_fields += 1
@@ -571,12 +582,26 @@ def main():
         else:
             merged.setdefault('reason', '')
             merged.setdefault('reason_source', 'none')
-        merged_announcements.append(merged)
-    announcements = merged_announcements
+        merged_by_key[key] = merged
+
+    final_announcements = list(merged_by_key.values())
+    final_announcements.sort(key=lambda a: a.get('announceDate') or '', reverse=True)
+
     if restored_reason:
         print(f"Carried forward {restored_reason} previously-extracted reason(s) from the existing file")
     if restored_fields:
         print(f"Backfilled empty field(s) on {restored_fields} record(s) from the existing file (partial-fetch protection)")
+
+    # Assertion Guard: Check for abnormal record drop
+    existing_count = len(active_existing)
+    final_count = len(final_announcements)
+    if existing_count > 0 and final_count < int(existing_count * 0.70):
+        print(f"\n[ERROR] Earnings announcement count dropped abnormally! Previous active: {existing_count}, Merged: {final_count} (drop > 30%)")
+        print(f"[ERROR] Newly fetched announcements in this run: {len(announcements)}")
+        print(f"[ERROR] ABORTING OVERWRITE to prevent data loss. Existing earnings_feed.json preserved!")
+        return
+
+    announcements = final_announcements
 
     buckets = {}
     for key, label in BUCKET_LABELS.items():
@@ -612,6 +637,7 @@ def main():
         print("\n[--dry-run] Not writing output file.")
         return
 
+    out_dir = args.out if args.out else OUTPUT_DIR
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, 'earnings_feed.json')
     with open(out_path, 'w', encoding='utf-8') as f:

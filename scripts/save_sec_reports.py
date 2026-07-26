@@ -224,6 +224,19 @@ def main():
             print(f"    Warning: {name} failed: {e}")
             continue
 
+        out_file = os.path.join(out_dir, f"{name}.json")
+
+        # Empty snapshot drop guard
+        if len(rows) == 0 and os.path.exists(out_file):
+            try:
+                with open(out_file, "r", encoding="utf-8") as f:
+                    prev = json.load(f)
+                if len(prev.get("rows", [])) > 0 and prev.get("date") == today_iso:
+                    print(f"    [SEC-GUARD] Fetch returned 0 rows for {name}, preserving previous {len(prev['rows'])} rows snapshot for {today_iso}")
+                    continue
+            except Exception:
+                pass
+
         payload = {
             "generatedAt": now_utc.isoformat(timespec="seconds"),
             "date": today_iso,
@@ -234,7 +247,6 @@ def main():
             "headers": headers,
             "rows": rows,
         }
-        out_file = os.path.join(out_dir, f"{name}.json")
         with open(out_file, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
         print(f"    {name.upper()}: {len(rows)} rows -> {out_file}")
