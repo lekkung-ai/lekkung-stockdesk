@@ -1,190 +1,81 @@
 {
-  "generated_at": "2026-07-20T17:10:31.343527+07:00",
-  "new_tickers": [
+  "generated_at": "2026-07-26T16:05:25.307388+07:00",
+  "summary": {
+    "total_live": 931,
+    "total_current": 934,
+    "new_count": 2,
+    "delisted_count": 0,
+    "possible_delisted_count": 5,
+    "renamed_count": 2,
+    "possible_rename_count": 0
+  },
+  "new": [
     {
-      "ticker": "BANPUU",
-      "company_name": "Banpu Public Co. Ltd.",
-      "guessed_sector": "Energy Minerals",
-      "guessed_subsector": "Coal"
+      "ticker": "LHRREIT",
+      "company_name": "ทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์และสิทธิการเช่า แลนด์ แอนด์ เฮ้าส์ เรซิเดนซ์",
+      "market": "SET",
+      "guessed_sector": "PF&REIT",
+      "guessed_subsector": "PROPCON"
     },
     {
-      "ticker": "VAYU1",
-      "company_name": "Vayupak Fund 1 Class A",
-      "guessed_sector": "Miscellaneous",
-      "guessed_subsector": "Investment Trusts/Mutual Funds"
+      "ticker": "QHBREIT",
+      "company_name": "ทรัสต์เพื่อการลงทุนในสิทธิการเช่าอสังหาริมทรัพย์ ควอลิตี้ เฮ้าส์ บิสซิเนส คอมเพล็กซ์",
+      "market": "SET",
+      "guessed_sector": "PF&REIT",
+      "guessed_subsector": "PROPCON"
     }
   ],
-  "delisted_tickers": [
+  "delisted": [],
+  "possible_delisted": [
     {
-      "ticker": "3BBIF"
+      "ticker": "DV8",
+      "company_name": "DV8",
+      "market": "SET",
+      "status": "NotFound",
+      "reason": "Missing from full list but profile still active (transient drop suspect)"
     },
     {
-      "ticker": "ACAP"
+      "ticker": "HEALTH",
+      "company_name": "HEALTH",
+      "market": "SET",
+      "status": "NotFound",
+      "reason": "Missing from full list but profile still active (transient drop suspect)"
     },
     {
-      "ticker": "AKS"
+      "ticker": "PTECH",
+      "company_name": "PTECH",
+      "market": "SET",
+      "status": "NotFound",
+      "reason": "Missing from full list but profile still active (transient drop suspect)"
     },
     {
-      "ticker": "BANPU"
+      "ticker": "SVI",
+      "company_name": "SVI",
+      "market": "SET",
+      "status": "NotFound",
+      "reason": "Missing from full list but profile still active (transient drop suspect)"
     },
     {
-      "ticker": "BLISS"
-    },
-    {
-      "ticker": "BRRGIF"
-    },
-    {
-      "ticker": "BTSGIF"
-    },
-    {
-      "ticker": "CHO"
-    },
-    {
-      "ticker": "CIMBT"
-    },
-    {
-      "ticker": "CPNCG"
-    },
-    {
-      "ticker": "CTARAF"
-    },
-    {
-      "ticker": "CV"
-    },
-    {
-      "ticker": "DIF"
-    },
-    {
-      "ticker": "DV8"
-    },
-    {
-      "ticker": "ECF"
-    },
-    {
-      "ticker": "EGATIF"
-    },
-    {
-      "ticker": "GLAND"
-    },
-    {
-      "ticker": "GSTEEL"
-    },
-    {
-      "ticker": "HEALTH"
-    },
-    {
-      "ticker": "HPF"
-    },
-    {
-      "ticker": "HPT"
-    },
-    {
-      "ticker": "KBSPIF"
-    },
-    {
-      "ticker": "KKC"
-    },
-    {
-      "ticker": "KWI"
-    },
-    {
-      "ticker": "LRH"
-    },
-    {
-      "ticker": "LUXF"
-    },
-    {
-      "ticker": "M-STOR"
-    },
-    {
-      "ticker": "META"
-    },
-    {
-      "ticker": "MILL"
-    },
-    {
-      "ticker": "MIPF"
-    },
-    {
-      "ticker": "MJLF"
-    },
-    {
-      "ticker": "MNIT"
-    },
-    {
-      "ticker": "MNRF"
-    },
-    {
-      "ticker": "MVP"
-    },
-    {
-      "ticker": "NFC"
-    },
-    {
-      "ticker": "NWR"
-    },
-    {
-      "ticker": "PICO"
-    },
-    {
-      "ticker": "POPF"
-    },
-    {
-      "ticker": "PTECH"
-    },
-    {
-      "ticker": "QHOP"
-    },
-    {
-      "ticker": "ROH"
-    },
-    {
-      "ticker": "SAM"
-    },
-    {
-      "ticker": "SSPF"
-    },
-    {
-      "ticker": "SVI"
-    },
-    {
-      "ticker": "TAPAC"
-    },
-    {
-      "ticker": "TFFIF"
-    },
-    {
-      "ticker": "THL"
-    },
-    {
-      "ticker": "TIF1"
-    },
-    {
-      "ticker": "TLHPF"
-    },
-    {
-      "ticker": "TNPF"
-    },
-    {
-      "ticker": "TR"
-    },
-    {
-      "ticker": "TSR"
-    },
-    {
-      "ticker": "TSTE"
-    },
-    {
-      "ticker": "TTCL"
-    },
-    {
-      "ticker": "TTLPF"
-    },
-    {
-      "ticker": "WELL"
-    },
-    {
-      "ticker": "WSOL"
+      "ticker": "THL",
+      "company_name": "THL",
+      "market": "SET",
+      "status": "NotFound",
+      "reason": "Missing from full list but profile still active (transient drop suspect)"
     }
-  ]
+  ],
+  "renamed": [
+    {
+      "old": "BANPU",
+      "new": "BANPUU",
+      "company": "บริษัท บ้านปู จำกัด (มหาชน)",
+      "reason": "Official rename match"
+    },
+    {
+      "old": "PSTC",
+      "new": "POWER",
+      "company": "บริษัท เพาเวอร์ โซลูชั่น เทคโนโลยี จำกัด (มหาชน)",
+      "reason": "Official rename match"
+    }
+  ],
+  "possible_rename": []
 }

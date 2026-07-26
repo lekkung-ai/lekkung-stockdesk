@@ -177,7 +177,11 @@ export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
         <Link
           href="/settings"
           title="Settings"
-          className={`flex items-center gap-2 px-2 py-2.5 md:py-[6px] rounded-lg text-[12.5px] text-white/45 hover:text-white/75 hover:bg-white/[0.05] transition-colors ${open ? 'justify-start' : 'justify-center'} md:justify-start`}
+          className={`flex items-center gap-2 px-2 py-2.5 md:py-[6px] rounded-lg text-[12.5px] transition-colors ${
+            pathname === '/settings'
+              ? 'bg-white/10 text-white font-medium'
+              : 'text-white/45 hover:text-white/75 hover:bg-white/[0.05]'
+          } ${open ? 'justify-start' : 'justify-center'} md:justify-start`}
         >
           <Settings size={13} className="flex-shrink-0" />
           <span className={`whitespace-nowrap ${labelCls}`}>Settings</span>
