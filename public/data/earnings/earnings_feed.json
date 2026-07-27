@@ -1,12 +1,16 @@
 {
-  "generatedAt": "2026-07-25T01:14:27.456578+07:00",
+  "generatedAt": "2026-07-27T19:06:15.771439+07:00",
   "windowDays": 45,
-  "universeSize": 934,
+  "universeSize": 935,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 13,
+      "count": 15,
       "top3": [
+        {
+          "ticker": "MST",
+          "netProfitYoY": 3691.956124314442
+        },
         {
           "ticker": "CIMBT",
           "netProfitYoY": 407.90931961055105
@@ -14,10 +18,6 @@
         {
           "ticker": "SCGP",
           "netProfitYoY": 128.1453723683963
-        },
-        {
-          "ticker": "KSL",
-          "netProfitYoY": 112.86983050847456
         }
       ]
     },
@@ -46,12 +46,8 @@
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 3,
+      "count": 2,
       "top3": [
-        {
-          "ticker": "CITY",
-          "netProfitYoY": 71.98932503057934
-        },
         {
           "ticker": "CHO",
           "netProfitYoY": 39.8878616540406
@@ -88,11 +84,92 @@
   },
   "announcements": [
     {
+      "ticker": "MST",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-07-27T17:11:45+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 82968000.0,
+      "netProfitPrior": 2188000.0,
+      "netProfitYoY": 3691.956124314442,
+      "netProfitPriorQ": 175730000.0,
+      "netProfitQoQ": -52.786661355488526,
+      "profitAcceleration": "decelerating",
+      "eps": 0.145,
+      "epsPrior": 0.004,
+      "epsYoY": 3524.999999999999,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105544501&symbol=MST",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17851086630981&symbol=MST",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105544801&symbol=MST",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
+      "reason": "รายได้ค่านายหน้าเพิѷมขึѸน 98.82 ล้านบาท จาก 204.67 ล้านบาท เป็น 303.49 ล้านบาท หรือเพิѷมขึѸนร้อยละ 48.28 เนืѷองจาก 1.1 รายได้ค่านายหน้าจากการซืѸอขายหลักทรัพย์เพิѷมขึѸน 109.88 ล้านบาท จาก 172.45 ล้านบาท เป็น 282.33 ล้านบาท หรือเพิѷมขึѸนร้อยละ 63.71 อันเป็นผลจากมูลค่าการซืѸอขายเฉลีѷยของตลาดหลักทรัพย์เพิѷมขึѸนจาก 40,799.84 ล้านบาท/วัน เป็น 66,810.68",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "HMPRO",
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET",
+      "announceDate": "2026-07-27T07:30:05+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 1594181000.0,
+      "netProfitPrior": 1398554000.0,
+      "netProfitYoY": 13.987804546696086,
+      "netProfitPriorQ": 1403971000.0,
+      "netProfitQoQ": 13.54800063534076,
+      "profitAcceleration": "accelerating",
+      "eps": 0.12,
+      "epsPrior": 0.11,
+      "epsYoY": 9.090909090909086,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105535401&symbol=HMPRO",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17851086615551&symbol=HMPRO",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105537301&symbol=HMPRO",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "DELTA",
+      "sector": "Technology",
+      "subsector": "Electronic Components",
+      "market": "SET",
+      "announceDate": "2026-07-24T18:35:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 6074598000.0,
+      "netProfitPrior": 4629056000.0,
+      "netProfitYoY": 31.227576421628946,
+      "netProfitPriorQ": 9081176000.0,
+      "netProfitQoQ": -33.107804539852545,
+      "profitAcceleration": "decelerating",
+      "eps": 0.49,
+      "epsPrior": 0.37,
+      "epsYoY": 32.432432432432435,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105530201&symbol=DELTA",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17848501709541&symbol=DELTA",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105530601&symbol=DELTA",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "รายได้จากการขาย 65,191 100.0 44,501 100.0 61,387 100.0 46.5 6.2 กำไรขั้นต้น 17,469 26.8 11,110 25.0 19,466 31.7 57.2 (10.3) กำไรสุทธิจากการดำเนินงาน 6,114 9.4 5,095 11.4 9,691 15.8 20.0 (36.9) กำไรสุทธิ 6,075 9.3 4,626 10.4",
+      "reason_source": "mda_extract"
+    },
+    {
       "ticker": "STANLY",
       "sector": "Industrials",
       "subsector": "Automotive",
       "market": "SET",
-      "announceDate": "2026-07-24T12:52:54+07:00",
+      "announceDate": "2026-07-24T12:52:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 361651000.0,
@@ -613,7 +690,7 @@
       "netProfitYoY": 2.742929548778955,
       "netProfitPriorQ": 618263000.0,
       "netProfitQoQ": 28.264185306253164,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 3.2,
       "epsPrior": 3.09,
       "epsYoY": 3.559870550161823,
@@ -706,60 +783,6 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105095701&symbol=DEXON",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการให้บริการ  153 155 2% รายได้อื่น  0 0 33% รายได้รวม  153 156 2% ต้นทุนค่าบริการ  (135) (138) 2% ค่าใช้จ่ายในการขายและบริหาร  (52) (50) (3%) ต้นทุนทางการเงิน  (2) 1 (139%) ค่าใช้จ่ายอื่นๆ (1) (2) 100%",
-      "reason_source": "mda_extract"
-    },
-    {
-      "ticker": "KSL",
-      "sector": "Agro",
-      "subsector": "& Food Industry Food & Beverage",
-      "market": "SET",
-      "announceDate": "2026-06-12T17:39:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 เมษายน 2569",
-      "netProfit": 313983000.0,
-      "netProfitPrior": 147500000.0,
-      "netProfitYoY": 112.86983050847456,
-      "netProfitPriorQ": 118404000.0,
-      "netProfitQoQ": 165.17938583155976,
-      "profitAcceleration": "accelerating",
-      "eps": 0.071,
-      "epsPrior": 0.033,
-      "epsYoY": 115.15151515151511,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085101&symbol=KSL",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210347521&symbol=KSL",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105085201&symbol=KSL",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "เนื่องจากราคาขาย น้ำตาลเฉลี่ยโดยรวมทุกชองทางการจำหนายลดลงรอยละ 30 และเปนการขายสินคาที่ผลิตจากปกอน โดยมีตนทุน คาวัตถุดิบที่มีราคาสูง ผลการดำเนินงานของกลุมบริษัท ผลการดำเนินงานของบริษัท น้ำตาลขอนแกน จำกัด",
-      "reason_source": "mda_extract"
-    },
-    {
-      "ticker": "CITY",
-      "sector": "Industrials",
-      "subsector": "Steel",
-      "market": "SET",
-      "announceDate": "2026-06-12T08:03:00+07:00",
-      "quarter": "ไตรมาส 3/2569",
-      "periodEnd": "30 เมษายน 2569",
-      "netProfit": -2519000.0,
-      "netProfitPrior": -8993000.0,
-      "netProfitYoY": 71.98932503057934,
-      "netProfitPriorQ": -4534000.0,
-      "netProfitQoQ": 44.44199382443758,
-      "profitAcceleration": "accelerating",
-      "eps": -0.0084,
-      "epsPrior": -0.02998,
-      "epsYoY": 71.98132088058706,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "loss_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056401&symbol=CITY",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17812210331321&symbol=CITY",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105056501&symbol=CITY",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้มีสาเหตุหลักมาจากสงครามในภูมิภาคตะวันออกกลางระหว่างอิหร่าน อิสราเอล และสหรัฐอเมริกา ซึ่งส่งผล กระทบต่อการขนส่ง ห่วงโซ่อุปทาน ตลอดจนการปรับตัวเพิ่มขึ้นของราคานํ้ามันและพลังงาน สําหรับอุตสาหกรรม ยานยนต์",
       "reason_source": "mda_extract"
     }
   ],
@@ -910,9 +933,118 @@
     },
     {
       "ticker": "STANLY",
-      "date": "2026-07-24T12:52:54+07:00",
+      "date": "2026-07-24T12:52:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 1/2569"
+    },
+    {
+      "ticker": "DELTA",
+      "date": "2026-07-24T18:35:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "PTTEP",
+      "date": "2026-07-25T17:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-07-25T17:11:00+07:00"
+    },
+    {
+      "ticker": "HMPRO",
+      "date": "2026-07-27T07:30:05+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "MST",
+      "date": "2026-07-27T17:11:45+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "GLOBAL",
+      "date": "2026-07-29T07:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-07-29T07:24:00+07:00"
+    },
+    {
+      "ticker": "OHTL",
+      "date": "2026-07-29T18:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-07-29T18:06:00+07:00"
+    },
+    {
+      "ticker": "SNC",
+      "date": "2026-07-29T20:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-07-29T20:25:00+07:00"
+    },
+    {
+      "ticker": "BH",
+      "date": "2026-07-31T06:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-07-31T06:41:00+07:00"
+    },
+    {
+      "ticker": "TAE",
+      "date": "2026-07-31T08:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-07-31T08:25:00+07:00"
+    },
+    {
+      "ticker": "ITC",
+      "date": "2026-07-31T19:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-07-31T19:01:00+07:00"
+    },
+    {
+      "ticker": "MINT",
+      "date": "2026-08-01T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-01T12:33:00+07:00"
+    },
+    {
+      "ticker": "TFM",
+      "date": "2026-08-01T13:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-01T13:29:00+07:00"
+    },
+    {
+      "ticker": "PSL",
+      "date": "2026-08-01T17:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-01T17:13:00+07:00"
+    },
+    {
+      "ticker": "HFT",
+      "date": "2026-08-01T17:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-01T17:19:00+07:00"
+    },
+    {
+      "ticker": "MORE",
+      "date": "2026-08-04T07:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-04T07:57:00+07:00"
+    },
+    {
+      "ticker": "TU",
+      "date": "2026-08-04T12:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-04T12:51:00+07:00"
     },
     {
       "ticker": "AF",
@@ -922,11 +1054,158 @@
       "basedOnLastYear": "2025-08-04T17:02:00+07:00"
     },
     {
+      "ticker": "CSR",
+      "date": "2026-08-04T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-04T17:04:00+07:00"
+    },
+    {
+      "ticker": "LANNA",
+      "date": "2026-08-04T18:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-04T18:28:00+07:00"
+    },
+    {
+      "ticker": "TOG",
+      "date": "2026-08-04T20:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-04T20:33:00+07:00"
+    },
+    {
       "ticker": "ANI",
       "date": "2026-08-05T08:31:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-05T08:31:00+07:00"
+    },
+    {
+      "ticker": "BOL",
+      "date": "2026-08-05T12:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T12:34:00+07:00"
+    },
+    {
+      "ticker": "DCC",
+      "date": "2026-08-05T12:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T12:50:00+07:00"
+    },
+    {
+      "ticker": "IFS",
+      "date": "2026-08-05T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T17:06:00+07:00"
+    },
+    {
+      "ticker": "SAMCO",
+      "date": "2026-08-05T17:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T17:13:00+07:00"
+    },
+    {
+      "ticker": "TRUE",
+      "date": "2026-08-05T17:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T17:20:00+07:00"
+    },
+    {
+      "ticker": "WHAIR",
+      "date": "2026-08-05T17:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T17:22:00+07:00"
+    },
+    {
+      "ticker": "BBGI",
+      "date": "2026-08-05T17:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T17:24:00+07:00"
+    },
+    {
+      "ticker": "INSET",
+      "date": "2026-08-05T17:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T17:30:00+07:00"
+    },
+    {
+      "ticker": "THCOM",
+      "date": "2026-08-05T17:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T17:46:00+07:00"
+    },
+    {
+      "ticker": "Q-CON",
+      "date": "2026-08-05T18:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T18:30:00+07:00"
+    },
+    {
+      "ticker": "SPVI",
+      "date": "2026-08-05T18:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T18:32:00+07:00"
+    },
+    {
+      "ticker": "MBAX",
+      "date": "2026-08-05T19:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T19:17:00+07:00"
+    },
+    {
+      "ticker": "MTC",
+      "date": "2026-08-05T19:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-05T19:18:00+07:00"
+    },
+    {
+      "ticker": "III",
+      "date": "2026-08-06T06:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T06:47:00+07:00"
+    },
+    {
+      "ticker": "TSC",
+      "date": "2026-08-06T07:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T07:12:00+07:00"
+    },
+    {
+      "ticker": "TPLAS",
+      "date": "2026-08-06T08:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T08:13:00+07:00"
+    },
+    {
+      "ticker": "TPCH",
+      "date": "2026-08-06T08:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T08:51:00+07:00"
+    },
+    {
+      "ticker": "DRT",
+      "date": "2026-08-06T08:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T08:54:00+07:00"
     },
     {
       "ticker": "3BBIF",
@@ -936,11 +1215,186 @@
       "basedOnLastYear": "2025-08-06T12:35:00+07:00"
     },
     {
+      "ticker": "THANI",
+      "date": "2026-08-06T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:02:00+07:00"
+    },
+    {
+      "ticker": "PDG",
+      "date": "2026-08-06T17:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:05:00+07:00"
+    },
+    {
+      "ticker": "GPSC",
+      "date": "2026-08-06T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:07:00+07:00"
+    },
+    {
+      "ticker": "CPI",
+      "date": "2026-08-06T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:10:00+07:00"
+    },
+    {
+      "ticker": "SVI",
+      "date": "2026-08-06T17:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:15:00+07:00"
+    },
+    {
+      "ticker": "BCPG",
+      "date": "2026-08-06T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:16:00+07:00"
+    },
+    {
+      "ticker": "IRPC",
+      "date": "2026-08-06T17:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:18:00+07:00"
+    },
+    {
+      "ticker": "TYCN",
+      "date": "2026-08-06T17:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:21:00+07:00"
+    },
+    {
+      "ticker": "DOHOME",
+      "date": "2026-08-06T17:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:25:00+07:00"
+    },
+    {
+      "ticker": "HENG",
+      "date": "2026-08-06T17:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:36:00+07:00"
+    },
+    {
+      "ticker": "PT",
+      "date": "2026-08-06T17:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T17:52:00+07:00"
+    },
+    {
+      "ticker": "TURTLE",
+      "date": "2026-08-06T18:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T18:00:00+07:00"
+    },
+    {
+      "ticker": "WHABT",
+      "date": "2026-08-06T18:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T18:34:00+07:00"
+    },
+    {
       "ticker": "ADVANC",
       "date": "2026-08-06T18:41:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-06T18:41:00+07:00"
+    },
+    {
+      "ticker": "UEC",
+      "date": "2026-08-06T18:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T18:47:00+07:00"
+    },
+    {
+      "ticker": "CTARAF",
+      "date": "2026-08-06T18:48:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T18:48:00+07:00"
+    },
+    {
+      "ticker": "GC",
+      "date": "2026-08-06T18:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T18:54:00+07:00"
+    },
+    {
+      "ticker": "WHART",
+      "date": "2026-08-06T18:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T18:58:00+07:00"
+    },
+    {
+      "ticker": "TITLE",
+      "date": "2026-08-06T19:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T19:28:00+07:00"
+    },
+    {
+      "ticker": "TEKA",
+      "date": "2026-08-06T19:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T19:35:00+07:00"
+    },
+    {
+      "ticker": "READY",
+      "date": "2026-08-06T20:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-06T20:11:00+07:00"
+    },
+    {
+      "ticker": "TIDLOR",
+      "date": "2026-08-07T06:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T06:53:00+07:00"
+    },
+    {
+      "ticker": "SPG",
+      "date": "2026-08-07T07:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T07:45:00+07:00"
+    },
+    {
+      "ticker": "BRRGIF",
+      "date": "2026-08-07T12:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T12:32:00+07:00"
+    },
+    {
+      "ticker": "BCP",
+      "date": "2026-08-07T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T12:33:00+07:00"
+    },
+    {
+      "ticker": "KYE",
+      "date": "2026-08-07T12:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T12:41:00+07:00"
     },
     {
       "ticker": "AMARC",
@@ -957,11 +1411,249 @@
       "basedOnLastYear": "2025-08-07T17:02:00+07:00"
     },
     {
+      "ticker": "CSC",
+      "date": "2026-08-07T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:02:00+07:00"
+    },
+    {
+      "ticker": "GJS",
+      "date": "2026-08-07T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:02:00+07:00"
+    },
+    {
+      "ticker": "I2",
+      "date": "2026-08-07T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:07:00+07:00"
+    },
+    {
+      "ticker": "SMART",
+      "date": "2026-08-07T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:07:00+07:00"
+    },
+    {
+      "ticker": "GSTEEL",
+      "date": "2026-08-07T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:08:00+07:00"
+    },
+    {
+      "ticker": "MGI",
+      "date": "2026-08-07T17:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:12:00+07:00"
+    },
+    {
+      "ticker": "SPA",
+      "date": "2026-08-07T17:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:15:00+07:00"
+    },
+    {
+      "ticker": "SPRIME",
+      "date": "2026-08-07T17:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:17:00+07:00"
+    },
+    {
+      "ticker": "PIMO",
+      "date": "2026-08-07T17:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:18:00+07:00"
+    },
+    {
+      "ticker": "LRH",
+      "date": "2026-08-07T17:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:21:00+07:00"
+    },
+    {
+      "ticker": "GYT",
+      "date": "2026-08-07T17:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:22:00+07:00"
+    },
+    {
+      "ticker": "SEAFCO",
+      "date": "2026-08-07T17:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:22:00+07:00"
+    },
+    {
+      "ticker": "OR",
+      "date": "2026-08-07T17:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:29:00+07:00"
+    },
+    {
       "ticker": "AIT",
       "date": "2026-08-07T17:30:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-07T17:30:00+07:00"
+    },
+    {
+      "ticker": "UP",
+      "date": "2026-08-07T17:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:32:00+07:00"
+    },
+    {
+      "ticker": "WP",
+      "date": "2026-08-07T17:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:34:00+07:00"
+    },
+    {
+      "ticker": "SAFE",
+      "date": "2026-08-07T17:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:35:00+07:00"
+    },
+    {
+      "ticker": "CHEWA",
+      "date": "2026-08-07T17:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:38:00+07:00"
+    },
+    {
+      "ticker": "D",
+      "date": "2026-08-07T17:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:51:00+07:00"
+    },
+    {
+      "ticker": "FMT",
+      "date": "2026-08-07T17:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:54:00+07:00"
+    },
+    {
+      "ticker": "LTMH",
+      "date": "2026-08-07T17:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:55:00+07:00"
+    },
+    {
+      "ticker": "WORK",
+      "date": "2026-08-07T17:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T17:55:00+07:00"
+    },
+    {
+      "ticker": "SO",
+      "date": "2026-08-07T18:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:08:00+07:00"
+    },
+    {
+      "ticker": "CPAXT",
+      "date": "2026-08-07T18:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:28:00+07:00"
+    },
+    {
+      "ticker": "NVD",
+      "date": "2026-08-07T18:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:30:00+07:00"
+    },
+    {
+      "ticker": "SMPC",
+      "date": "2026-08-07T18:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:30:00+07:00"
+    },
+    {
+      "ticker": "UPOIC",
+      "date": "2026-08-07T18:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:30:00+07:00"
+    },
+    {
+      "ticker": "TPA",
+      "date": "2026-08-07T18:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:34:00+07:00"
+    },
+    {
+      "ticker": "AXTRART",
+      "date": "2026-08-07T18:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:35:00+07:00"
+    },
+    {
+      "ticker": "MGT",
+      "date": "2026-08-07T18:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:50:00+07:00"
+    },
+    {
+      "ticker": "BIS",
+      "date": "2026-08-07T18:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:58:00+07:00"
+    },
+    {
+      "ticker": "TERA",
+      "date": "2026-08-07T18:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:58:00+07:00"
+    },
+    {
+      "ticker": "NYT",
+      "date": "2026-08-07T18:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T18:59:00+07:00"
+    },
+    {
+      "ticker": "BLISS",
+      "date": "2026-08-07T19:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:05:00+07:00"
+    },
+    {
+      "ticker": "JAK",
+      "date": "2026-08-07T19:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:08:00+07:00"
     },
     {
       "ticker": "AIMIRT",
@@ -978,11 +1670,53 @@
       "basedOnLastYear": "2025-08-07T19:15:00+07:00"
     },
     {
+      "ticker": "FLOYD",
+      "date": "2026-08-07T19:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:17:00+07:00"
+    },
+    {
+      "ticker": "MJLF",
+      "date": "2026-08-07T19:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:18:00+07:00"
+    },
+    {
+      "ticker": "MONO",
+      "date": "2026-08-07T19:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:19:00+07:00"
+    },
+    {
+      "ticker": "SMT",
+      "date": "2026-08-07T19:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:21:00+07:00"
+    },
+    {
       "ticker": "AIMCG",
       "date": "2026-08-07T19:29:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-07T19:29:00+07:00"
+    },
+    {
+      "ticker": "NTV",
+      "date": "2026-08-07T19:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:33:00+07:00"
+    },
+    {
+      "ticker": "ASW",
+      "date": "2026-08-07T19:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:34:00+07:00"
     },
     {
       "ticker": "ALLA",
@@ -992,11 +1726,151 @@
       "basedOnLastYear": "2025-08-07T19:42:00+07:00"
     },
     {
+      "ticker": "PROEN",
+      "date": "2026-08-07T19:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T19:57:00+07:00"
+    },
+    {
+      "ticker": "KWC",
+      "date": "2026-08-07T20:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T20:01:00+07:00"
+    },
+    {
+      "ticker": "SPREME",
+      "date": "2026-08-07T20:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T20:45:00+07:00"
+    },
+    {
+      "ticker": "SEI",
+      "date": "2026-08-07T21:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T21:39:00+07:00"
+    },
+    {
+      "ticker": "SR",
+      "date": "2026-08-07T21:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T21:47:00+07:00"
+    },
+    {
+      "ticker": "QTC",
+      "date": "2026-08-07T22:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-07T22:08:00+07:00"
+    },
+    {
+      "ticker": "PACO",
+      "date": "2026-08-08T06:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T06:33:00+07:00"
+    },
+    {
+      "ticker": "THAI",
+      "date": "2026-08-08T06:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T06:36:00+07:00"
+    },
+    {
+      "ticker": "PM",
+      "date": "2026-08-08T07:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T07:39:00+07:00"
+    },
+    {
+      "ticker": "WINMED",
+      "date": "2026-08-08T07:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T07:53:00+07:00"
+    },
+    {
+      "ticker": "UAC",
+      "date": "2026-08-08T08:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T08:37:00+07:00"
+    },
+    {
+      "ticker": "PMTA",
+      "date": "2026-08-08T08:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T08:40:00+07:00"
+    },
+    {
+      "ticker": "FPT",
+      "date": "2026-08-08T08:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T08:41:00+07:00"
+    },
+    {
+      "ticker": "CMAN",
+      "date": "2026-08-08T08:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T08:51:00+07:00"
+    },
+    {
+      "ticker": "TNL",
+      "date": "2026-08-08T08:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T08:51:00+07:00"
+    },
+    {
+      "ticker": "PANEL",
+      "date": "2026-08-08T08:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T08:56:00+07:00"
+    },
+    {
       "ticker": "AI",
       "date": "2026-08-08T12:31:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T12:31:00+07:00"
+    },
+    {
+      "ticker": "BA",
+      "date": "2026-08-08T12:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:31:00+07:00"
+    },
+    {
+      "ticker": "CPH",
+      "date": "2026-08-08T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:33:00+07:00"
+    },
+    {
+      "ticker": "RCL",
+      "date": "2026-08-08T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:33:00+07:00"
+    },
+    {
+      "ticker": "UPF",
+      "date": "2026-08-08T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:33:00+07:00"
     },
     {
       "ticker": "AIE",
@@ -1006,6 +1880,62 @@
       "basedOnLastYear": "2025-08-08T12:34:00+07:00"
     },
     {
+      "ticker": "LST",
+      "date": "2026-08-08T12:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:34:00+07:00"
+    },
+    {
+      "ticker": "TTLPF",
+      "date": "2026-08-08T12:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:34:00+07:00"
+    },
+    {
+      "ticker": "SNNP",
+      "date": "2026-08-08T12:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:35:00+07:00"
+    },
+    {
+      "ticker": "SUPEREIF",
+      "date": "2026-08-08T12:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:35:00+07:00"
+    },
+    {
+      "ticker": "UVAN",
+      "date": "2026-08-08T12:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:39:00+07:00"
+    },
+    {
+      "ticker": "EGATIF",
+      "date": "2026-08-08T12:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:43:00+07:00"
+    },
+    {
+      "ticker": "CKP",
+      "date": "2026-08-08T12:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T12:53:00+07:00"
+    },
+    {
+      "ticker": "SCG",
+      "date": "2026-08-08T13:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T13:59:00+07:00"
+    },
+    {
       "ticker": "ARROW",
       "date": "2026-08-08T17:00:00+07:00",
       "status": "predicted",
@@ -1013,11 +1943,347 @@
       "basedOnLastYear": "2025-08-08T17:00:00+07:00"
     },
     {
+      "ticker": "LPH",
+      "date": "2026-08-08T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:00:00+07:00"
+    },
+    {
+      "ticker": "MFEC",
+      "date": "2026-08-08T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:00:00+07:00"
+    },
+    {
+      "ticker": "TC",
+      "date": "2026-08-08T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:00:00+07:00"
+    },
+    {
+      "ticker": "TIGER",
+      "date": "2026-08-08T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:01:00+07:00"
+    },
+    {
+      "ticker": "ZAA",
+      "date": "2026-08-08T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:01:00+07:00"
+    },
+    {
+      "ticker": "INOX",
+      "date": "2026-08-08T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:02:00+07:00"
+    },
+    {
+      "ticker": "LEE",
+      "date": "2026-08-08T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:02:00+07:00"
+    },
+    {
+      "ticker": "PRECHA",
+      "date": "2026-08-08T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:02:00+07:00"
+    },
+    {
+      "ticker": "STC",
+      "date": "2026-08-08T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:02:00+07:00"
+    },
+    {
+      "ticker": "THMUI",
+      "date": "2026-08-08T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:02:00+07:00"
+    },
+    {
+      "ticker": "NCAP",
+      "date": "2026-08-08T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:03:00+07:00"
+    },
+    {
+      "ticker": "NKT",
+      "date": "2026-08-08T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:03:00+07:00"
+    },
+    {
       "ticker": "AMATAR",
       "date": "2026-08-08T17:04:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T17:04:00+07:00"
+    },
+    {
+      "ticker": "SIS",
+      "date": "2026-08-08T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:04:00+07:00"
+    },
+    {
+      "ticker": "WHA",
+      "date": "2026-08-08T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:04:00+07:00"
+    },
+    {
+      "ticker": "CPW",
+      "date": "2026-08-08T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:06:00+07:00"
+    },
+    {
+      "ticker": "PG",
+      "date": "2026-08-08T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:06:00+07:00"
+    },
+    {
+      "ticker": "PPP",
+      "date": "2026-08-08T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:06:00+07:00"
+    },
+    {
+      "ticker": "VCOM",
+      "date": "2026-08-08T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:06:00+07:00"
+    },
+    {
+      "ticker": "BEC",
+      "date": "2026-08-08T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:07:00+07:00"
+    },
+    {
+      "ticker": "DMT",
+      "date": "2026-08-08T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:08:00+07:00"
+    },
+    {
+      "ticker": "KJL",
+      "date": "2026-08-08T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:08:00+07:00"
+    },
+    {
+      "ticker": "BKIH",
+      "date": "2026-08-08T17:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:12:00+07:00"
+    },
+    {
+      "ticker": "CBG",
+      "date": "2026-08-08T17:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:12:00+07:00"
+    },
+    {
+      "ticker": "AUCT",
+      "date": "2026-08-08T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:16:00+07:00"
+    },
+    {
+      "ticker": "KDH",
+      "date": "2026-08-08T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:16:00+07:00"
+    },
+    {
+      "ticker": "SAT",
+      "date": "2026-08-08T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:16:00+07:00"
+    },
+    {
+      "ticker": "WHAUP",
+      "date": "2026-08-08T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:16:00+07:00"
+    },
+    {
+      "ticker": "WIIK",
+      "date": "2026-08-08T17:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:18:00+07:00"
+    },
+    {
+      "ticker": "GROREIT",
+      "date": "2026-08-08T17:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:19:00+07:00"
+    },
+    {
+      "ticker": "GAHREIT",
+      "date": "2026-08-08T17:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:23:00+07:00"
+    },
+    {
+      "ticker": "DREIT",
+      "date": "2026-08-08T17:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:31:00+07:00"
+    },
+    {
+      "ticker": "STGT",
+      "date": "2026-08-08T17:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:34:00+07:00"
+    },
+    {
+      "ticker": "ICC",
+      "date": "2026-08-08T17:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:37:00+07:00"
+    },
+    {
+      "ticker": "NTSC",
+      "date": "2026-08-08T17:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:37:00+07:00"
+    },
+    {
+      "ticker": "ASK",
+      "date": "2026-08-08T17:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:38:00+07:00"
+    },
+    {
+      "ticker": "METCO",
+      "date": "2026-08-08T17:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:38:00+07:00"
+    },
+    {
+      "ticker": "TVO",
+      "date": "2026-08-08T17:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:38:00+07:00"
+    },
+    {
+      "ticker": "AU",
+      "date": "2026-08-08T17:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:39:00+07:00"
+    },
+    {
+      "ticker": "BPS",
+      "date": "2026-08-08T17:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:46:00+07:00"
+    },
+    {
+      "ticker": "IRCP",
+      "date": "2026-08-08T17:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:46:00+07:00"
+    },
+    {
+      "ticker": "SCCC",
+      "date": "2026-08-08T17:48:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:48:00+07:00"
+    },
+    {
+      "ticker": "SPRC",
+      "date": "2026-08-08T17:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:50:00+07:00"
+    },
+    {
+      "ticker": "GGC",
+      "date": "2026-08-08T17:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:56:00+07:00"
+    },
+    {
+      "ticker": "CSS",
+      "date": "2026-08-08T17:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T17:58:00+07:00"
+    },
+    {
+      "ticker": "DDD",
+      "date": "2026-08-08T18:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:00:00+07:00"
+    },
+    {
+      "ticker": "GULF",
+      "date": "2026-08-08T18:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:03:00+07:00"
+    },
+    {
+      "ticker": "S11",
+      "date": "2026-08-08T18:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:07:00+07:00"
+    },
+    {
+      "ticker": "NER",
+      "date": "2026-08-08T18:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:10:00+07:00"
     },
     {
       "ticker": "APCS",
@@ -1034,11 +2300,60 @@
       "basedOnLastYear": "2025-08-08T18:20:00+07:00"
     },
     {
+      "ticker": "SFT",
+      "date": "2026-08-08T18:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:23:00+07:00"
+    },
+    {
+      "ticker": "PCSGH",
+      "date": "2026-08-08T18:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:29:00+07:00"
+    },
+    {
+      "ticker": "TPIPP",
+      "date": "2026-08-08T18:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:29:00+07:00"
+    },
+    {
+      "ticker": "ONEE",
+      "date": "2026-08-08T18:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:33:00+07:00"
+    },
+    {
+      "ticker": "SYMC",
+      "date": "2026-08-08T18:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:44:00+07:00"
+    },
+    {
       "ticker": "AMATAV",
       "date": "2026-08-08T18:47:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T18:47:00+07:00"
+    },
+    {
+      "ticker": "VARO",
+      "date": "2026-08-08T18:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:47:00+07:00"
+    },
+    {
+      "ticker": "KBSPIF",
+      "date": "2026-08-08T18:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:49:00+07:00"
     },
     {
       "ticker": "ALLY",
@@ -1048,11 +2363,130 @@
       "basedOnLastYear": "2025-08-08T18:52:00+07:00"
     },
     {
+      "ticker": "TQR",
+      "date": "2026-08-08T18:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:52:00+07:00"
+    },
+    {
+      "ticker": "PK",
+      "date": "2026-08-08T18:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:53:00+07:00"
+    },
+    {
+      "ticker": "STA",
+      "date": "2026-08-08T18:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T18:53:00+07:00"
+    },
+    {
+      "ticker": "BE8",
+      "date": "2026-08-08T19:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:00:00+07:00"
+    },
+    {
+      "ticker": "THANA",
+      "date": "2026-08-08T19:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:01:00+07:00"
+    },
+    {
+      "ticker": "TACC",
+      "date": "2026-08-08T19:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:04:00+07:00"
+    },
+    {
+      "ticker": "SRS",
+      "date": "2026-08-08T19:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:05:00+07:00"
+    },
+    {
+      "ticker": "QH",
+      "date": "2026-08-08T19:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:13:00+07:00"
+    },
+    {
+      "ticker": "TFG",
+      "date": "2026-08-08T19:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:13:00+07:00"
+    },
+    {
+      "ticker": "ROCTEC",
+      "date": "2026-08-08T19:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:15:00+07:00"
+    },
+    {
+      "ticker": "SCL",
+      "date": "2026-08-08T19:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:21:00+07:00"
+    },
+    {
+      "ticker": "INETREIT",
+      "date": "2026-08-08T19:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:39:00+07:00"
+    },
+    {
       "ticker": "AKR",
       "date": "2026-08-08T19:44:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T19:44:00+07:00"
+    },
+    {
+      "ticker": "VS",
+      "date": "2026-08-08T19:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:50:00+07:00"
+    },
+    {
+      "ticker": "TCAP",
+      "date": "2026-08-08T19:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T19:51:00+07:00"
+    },
+    {
+      "ticker": "TPAC",
+      "date": "2026-08-08T20:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T20:01:00+07:00"
+    },
+    {
+      "ticker": "SA",
+      "date": "2026-08-08T20:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T20:02:00+07:00"
+    },
+    {
+      "ticker": "TFI",
+      "date": "2026-08-08T20:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T20:22:00+07:00"
     },
     {
       "ticker": "APP",
@@ -1062,11 +2496,60 @@
       "basedOnLastYear": "2025-08-08T20:59:00+07:00"
     },
     {
+      "ticker": "PRAPAT",
+      "date": "2026-08-08T21:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T21:01:00+07:00"
+    },
+    {
+      "ticker": "SPACK",
+      "date": "2026-08-08T21:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T21:11:00+07:00"
+    },
+    {
       "ticker": "AJA",
       "date": "2026-08-08T21:39:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T21:39:00+07:00"
+    },
+    {
+      "ticker": "BOFFICE",
+      "date": "2026-08-08T21:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T21:45:00+07:00"
+    },
+    {
+      "ticker": "AWC",
+      "date": "2026-08-08T22:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T22:02:00+07:00"
+    },
+    {
+      "ticker": "SAAM",
+      "date": "2026-08-08T22:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T22:03:00+07:00"
+    },
+    {
+      "ticker": "J",
+      "date": "2026-08-08T22:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-08T22:07:00+07:00"
+    },
+    {
+      "ticker": "SE-ED",
+      "date": "2026-08-13T06:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:30:00+07:00"
     },
     {
       "ticker": "AAI",
@@ -1076,11 +2559,109 @@
       "basedOnLastYear": "2025-08-13T06:31:00+07:00"
     },
     {
+      "ticker": "LEO",
+      "date": "2026-08-13T06:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:31:00+07:00"
+    },
+    {
+      "ticker": "TPBI",
+      "date": "2026-08-13T06:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:31:00+07:00"
+    },
+    {
+      "ticker": "MASTER",
+      "date": "2026-08-13T06:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:32:00+07:00"
+    },
+    {
+      "ticker": "SVR",
+      "date": "2026-08-13T06:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:32:00+07:00"
+    },
+    {
+      "ticker": "SORKON",
+      "date": "2026-08-13T06:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:36:00+07:00"
+    },
+    {
+      "ticker": "KTMS",
+      "date": "2026-08-13T06:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:37:00+07:00"
+    },
+    {
+      "ticker": "SKE",
+      "date": "2026-08-13T06:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:37:00+07:00"
+    },
+    {
+      "ticker": "THG",
+      "date": "2026-08-13T06:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:37:00+07:00"
+    },
+    {
       "ticker": "ABM",
       "date": "2026-08-13T06:39:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T06:39:00+07:00"
+    },
+    {
+      "ticker": "NEO",
+      "date": "2026-08-13T06:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:40:00+07:00"
+    },
+    {
+      "ticker": "PTL",
+      "date": "2026-08-13T06:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:41:00+07:00"
+    },
+    {
+      "ticker": "K",
+      "date": "2026-08-13T06:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:44:00+07:00"
+    },
+    {
+      "ticker": "TNP",
+      "date": "2026-08-13T06:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:45:00+07:00"
+    },
+    {
+      "ticker": "KPNREIT",
+      "date": "2026-08-13T06:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:46:00+07:00"
+    },
+    {
+      "ticker": "TAKUNI",
+      "date": "2026-08-13T06:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:46:00+07:00"
     },
     {
       "ticker": "ALPHAX",
@@ -1097,11 +2678,235 @@
       "basedOnLastYear": "2025-08-13T06:49:00+07:00"
     },
     {
+      "ticker": "NOVA",
+      "date": "2026-08-13T06:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:49:00+07:00"
+    },
+    {
+      "ticker": "CPANEL",
+      "date": "2026-08-13T06:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:50:00+07:00"
+    },
+    {
+      "ticker": "SSF",
+      "date": "2026-08-13T06:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:50:00+07:00"
+    },
+    {
+      "ticker": "BKA",
+      "date": "2026-08-13T06:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:54:00+07:00"
+    },
+    {
+      "ticker": "MENA",
+      "date": "2026-08-13T06:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T06:57:00+07:00"
+    },
+    {
       "ticker": "AJ",
       "date": "2026-08-13T07:00:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T07:00:00+07:00"
+    },
+    {
+      "ticker": "INSURE",
+      "date": "2026-08-13T07:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:00:00+07:00"
+    },
+    {
+      "ticker": "SAK",
+      "date": "2026-08-13T07:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:00:00+07:00"
+    },
+    {
+      "ticker": "TMT",
+      "date": "2026-08-13T07:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:01:00+07:00"
+    },
+    {
+      "ticker": "TWPC",
+      "date": "2026-08-13T07:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:01:00+07:00"
+    },
+    {
+      "ticker": "BRR",
+      "date": "2026-08-13T07:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:02:00+07:00"
+    },
+    {
+      "ticker": "CRD",
+      "date": "2026-08-13T07:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:02:00+07:00"
+    },
+    {
+      "ticker": "BBIK",
+      "date": "2026-08-13T07:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:04:00+07:00"
+    },
+    {
+      "ticker": "RPH",
+      "date": "2026-08-13T07:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:04:00+07:00"
+    },
+    {
+      "ticker": "ITEL",
+      "date": "2026-08-13T07:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:07:00+07:00"
+    },
+    {
+      "ticker": "TBN",
+      "date": "2026-08-13T07:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:08:00+07:00"
+    },
+    {
+      "ticker": "ILM",
+      "date": "2026-08-13T07:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:09:00+07:00"
+    },
+    {
+      "ticker": "SALEE",
+      "date": "2026-08-13T07:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:13:00+07:00"
+    },
+    {
+      "ticker": "MOSHI",
+      "date": "2026-08-13T07:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:15:00+07:00"
+    },
+    {
+      "ticker": "PTG",
+      "date": "2026-08-13T07:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:15:00+07:00"
+    },
+    {
+      "ticker": "BIZ",
+      "date": "2026-08-13T07:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:19:00+07:00"
+    },
+    {
+      "ticker": "MSC",
+      "date": "2026-08-13T07:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:22:00+07:00"
+    },
+    {
+      "ticker": "TM",
+      "date": "2026-08-13T07:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:22:00+07:00"
+    },
+    {
+      "ticker": "ROCK",
+      "date": "2026-08-13T07:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:24:00+07:00"
+    },
+    {
+      "ticker": "BEYOND",
+      "date": "2026-08-13T07:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:26:00+07:00"
+    },
+    {
+      "ticker": "PPM",
+      "date": "2026-08-13T07:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:26:00+07:00"
+    },
+    {
+      "ticker": "SLP",
+      "date": "2026-08-13T07:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:26:00+07:00"
+    },
+    {
+      "ticker": "FN",
+      "date": "2026-08-13T07:27:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:27:00+07:00"
+    },
+    {
+      "ticker": "PSP",
+      "date": "2026-08-13T07:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:28:00+07:00"
+    },
+    {
+      "ticker": "BTG",
+      "date": "2026-08-13T07:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:29:00+07:00"
+    },
+    {
+      "ticker": "SUTHA",
+      "date": "2026-08-13T07:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:35:00+07:00"
+    },
+    {
+      "ticker": "BPP",
+      "date": "2026-08-13T07:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:36:00+07:00"
+    },
+    {
+      "ticker": "IT",
+      "date": "2026-08-13T07:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:36:00+07:00"
     },
     {
       "ticker": "ADVICE",
@@ -1111,11 +2916,284 @@
       "basedOnLastYear": "2025-08-13T07:38:00+07:00"
     },
     {
+      "ticker": "MEB",
+      "date": "2026-08-13T07:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:38:00+07:00"
+    },
+    {
+      "ticker": "OCC",
+      "date": "2026-08-13T07:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:38:00+07:00"
+    },
+    {
+      "ticker": "VNG",
+      "date": "2026-08-13T07:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:41:00+07:00"
+    },
+    {
+      "ticker": "SITHAI",
+      "date": "2026-08-13T07:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:43:00+07:00"
+    },
+    {
+      "ticker": "MCS",
+      "date": "2026-08-13T07:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:45:00+07:00"
+    },
+    {
+      "ticker": "BGRIM",
+      "date": "2026-08-13T07:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:47:00+07:00"
+    },
+    {
+      "ticker": "GFC",
+      "date": "2026-08-13T07:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:47:00+07:00"
+    },
+    {
+      "ticker": "KBS",
+      "date": "2026-08-13T07:48:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:48:00+07:00"
+    },
+    {
+      "ticker": "TRT",
+      "date": "2026-08-13T07:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:49:00+07:00"
+    },
+    {
+      "ticker": "JTS",
+      "date": "2026-08-13T07:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:50:00+07:00"
+    },
+    {
+      "ticker": "LDC",
+      "date": "2026-08-13T07:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:51:00+07:00"
+    },
+    {
+      "ticker": "SSSC",
+      "date": "2026-08-13T07:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:52:00+07:00"
+    },
+    {
+      "ticker": "SICT",
+      "date": "2026-08-13T07:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:53:00+07:00"
+    },
+    {
+      "ticker": "TMAN",
+      "date": "2026-08-13T07:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T07:55:00+07:00"
+    },
+    {
+      "ticker": "TMC",
+      "date": "2026-08-13T08:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:01:00+07:00"
+    },
+    {
+      "ticker": "PAF",
+      "date": "2026-08-13T08:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:03:00+07:00"
+    },
+    {
+      "ticker": "BSBM",
+      "date": "2026-08-13T08:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:08:00+07:00"
+    },
+    {
+      "ticker": "TOP",
+      "date": "2026-08-13T08:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:08:00+07:00"
+    },
+    {
+      "ticker": "SAPPE",
+      "date": "2026-08-13T08:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:09:00+07:00"
+    },
+    {
       "ticker": "AH",
       "date": "2026-08-13T08:11:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T08:11:00+07:00"
+    },
+    {
+      "ticker": "TPOLY",
+      "date": "2026-08-13T08:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:12:00+07:00"
+    },
+    {
+      "ticker": "BVG",
+      "date": "2026-08-13T08:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:14:00+07:00"
+    },
+    {
+      "ticker": "KCM",
+      "date": "2026-08-13T08:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:17:00+07:00"
+    },
+    {
+      "ticker": "RWI",
+      "date": "2026-08-13T08:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:17:00+07:00"
+    },
+    {
+      "ticker": "SAF",
+      "date": "2026-08-13T08:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:17:00+07:00"
+    },
+    {
+      "ticker": "CHIC",
+      "date": "2026-08-13T08:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:18:00+07:00"
+    },
+    {
+      "ticker": "CPN",
+      "date": "2026-08-13T08:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:18:00+07:00"
+    },
+    {
+      "ticker": "YGG",
+      "date": "2026-08-13T08:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:19:00+07:00"
+    },
+    {
+      "ticker": "THREL",
+      "date": "2026-08-13T08:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:20:00+07:00"
+    },
+    {
+      "ticker": "NPK",
+      "date": "2026-08-13T08:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:21:00+07:00"
+    },
+    {
+      "ticker": "BUI",
+      "date": "2026-08-13T08:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:25:00+07:00"
+    },
+    {
+      "ticker": "CPT",
+      "date": "2026-08-13T08:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:25:00+07:00"
+    },
+    {
+      "ticker": "GREEN",
+      "date": "2026-08-13T08:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:26:00+07:00"
+    },
+    {
+      "ticker": "THRE",
+      "date": "2026-08-13T08:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:26:00+07:00"
+    },
+    {
+      "ticker": "CAZ",
+      "date": "2026-08-13T08:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:28:00+07:00"
+    },
+    {
+      "ticker": "TKN",
+      "date": "2026-08-13T08:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:29:00+07:00"
+    },
+    {
+      "ticker": "PCC",
+      "date": "2026-08-13T08:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:30:00+07:00"
+    },
+    {
+      "ticker": "UMS",
+      "date": "2026-08-13T08:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:30:00+07:00"
+    },
+    {
+      "ticker": "STELLA",
+      "date": "2026-08-13T08:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:31:00+07:00"
+    },
+    {
+      "ticker": "MEDEZE",
+      "date": "2026-08-13T08:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:33:00+07:00"
     },
     {
       "ticker": "ADB",
@@ -1125,11 +3203,221 @@
       "basedOnLastYear": "2025-08-13T08:35:00+07:00"
     },
     {
+      "ticker": "BJCHI",
+      "date": "2026-08-13T08:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:36:00+07:00"
+    },
+    {
+      "ticker": "COCOCO",
+      "date": "2026-08-13T08:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:39:00+07:00"
+    },
+    {
+      "ticker": "JDF",
+      "date": "2026-08-13T08:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:41:00+07:00"
+    },
+    {
+      "ticker": "PSGC",
+      "date": "2026-08-13T08:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:45:00+07:00"
+    },
+    {
+      "ticker": "HANN",
+      "date": "2026-08-13T08:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:47:00+07:00"
+    },
+    {
+      "ticker": "CFARM",
+      "date": "2026-08-13T08:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:49:00+07:00"
+    },
+    {
+      "ticker": "MOTHER",
+      "date": "2026-08-13T08:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:49:00+07:00"
+    },
+    {
+      "ticker": "SYNEX",
+      "date": "2026-08-13T08:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:52:00+07:00"
+    },
+    {
+      "ticker": "PTTGC",
+      "date": "2026-08-13T08:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:54:00+07:00"
+    },
+    {
+      "ticker": "TEGH",
+      "date": "2026-08-13T08:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:54:00+07:00"
+    },
+    {
+      "ticker": "SOLAR",
+      "date": "2026-08-13T08:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:58:00+07:00"
+    },
+    {
+      "ticker": "TRC",
+      "date": "2026-08-13T08:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T08:58:00+07:00"
+    },
+    {
+      "ticker": "CRC",
+      "date": "2026-08-13T09:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T09:14:00+07:00"
+    },
+    {
+      "ticker": "NUT",
+      "date": "2026-08-13T09:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T09:19:00+07:00"
+    },
+    {
+      "ticker": "BLESS",
+      "date": "2026-08-13T09:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T09:29:00+07:00"
+    },
+    {
+      "ticker": "SNPS",
+      "date": "2026-08-13T12:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:31:00+07:00"
+    },
+    {
+      "ticker": "DTCENT",
+      "date": "2026-08-13T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:33:00+07:00"
+    },
+    {
+      "ticker": "QHOP",
+      "date": "2026-08-13T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:33:00+07:00"
+    },
+    {
       "ticker": "AP",
       "date": "2026-08-13T12:35:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T12:35:00+07:00"
+    },
+    {
+      "ticker": "TU-PF",
+      "date": "2026-08-13T12:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:35:00+07:00"
+    },
+    {
+      "ticker": "GLORY",
+      "date": "2026-08-13T12:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:41:00+07:00"
+    },
+    {
+      "ticker": "LIT",
+      "date": "2026-08-13T12:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:43:00+07:00"
+    },
+    {
+      "ticker": "WINDOW",
+      "date": "2026-08-13T12:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:52:00+07:00"
+    },
+    {
+      "ticker": "ASIMAR",
+      "date": "2026-08-13T12:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:54:00+07:00"
+    },
+    {
+      "ticker": "TPRIME",
+      "date": "2026-08-13T12:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T12:55:00+07:00"
+    },
+    {
+      "ticker": "DEMCO",
+      "date": "2026-08-13T13:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T13:10:00+07:00"
+    },
+    {
+      "ticker": "CCET",
+      "date": "2026-08-13T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:00:00+07:00"
+    },
+    {
+      "ticker": "CPALL",
+      "date": "2026-08-13T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:00:00+07:00"
+    },
+    {
+      "ticker": "PPS",
+      "date": "2026-08-13T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:00:00+07:00"
+    },
+    {
+      "ticker": "TMD",
+      "date": "2026-08-13T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:00:00+07:00"
+    },
+    {
+      "ticker": "SWC",
+      "date": "2026-08-13T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:01:00+07:00"
     },
     {
       "ticker": "AOT",
@@ -1139,11 +3427,186 @@
       "basedOnLastYear": "2025-08-13T17:02:00+07:00"
     },
     {
+      "ticker": "TPCS",
+      "date": "2026-08-13T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:02:00+07:00"
+    },
+    {
+      "ticker": "UTP",
+      "date": "2026-08-13T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:02:00+07:00"
+    },
+    {
+      "ticker": "WFX",
+      "date": "2026-08-13T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:02:00+07:00"
+    },
+    {
+      "ticker": "PAP",
+      "date": "2026-08-13T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:03:00+07:00"
+    },
+    {
+      "ticker": "PYLON",
+      "date": "2026-08-13T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:03:00+07:00"
+    },
+    {
+      "ticker": "VL",
+      "date": "2026-08-13T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:03:00+07:00"
+    },
+    {
+      "ticker": "BCT",
+      "date": "2026-08-13T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:04:00+07:00"
+    },
+    {
+      "ticker": "SGF",
+      "date": "2026-08-13T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:04:00+07:00"
+    },
+    {
+      "ticker": "SIRIPRT",
+      "date": "2026-08-13T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:04:00+07:00"
+    },
+    {
+      "ticker": "SVOA",
+      "date": "2026-08-13T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:04:00+07:00"
+    },
+    {
+      "ticker": "JSP",
+      "date": "2026-08-13T17:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:05:00+07:00"
+    },
+    {
       "ticker": "AMANAH",
       "date": "2026-08-13T17:06:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T17:06:00+07:00"
+    },
+    {
+      "ticker": "ASP",
+      "date": "2026-08-13T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:06:00+07:00"
+    },
+    {
+      "ticker": "KTBSTMR",
+      "date": "2026-08-13T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:06:00+07:00"
+    },
+    {
+      "ticker": "NCP",
+      "date": "2026-08-13T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:06:00+07:00"
+    },
+    {
+      "ticker": "SUN",
+      "date": "2026-08-13T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:06:00+07:00"
+    },
+    {
+      "ticker": "KCE",
+      "date": "2026-08-13T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:07:00+07:00"
+    },
+    {
+      "ticker": "PORT",
+      "date": "2026-08-13T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:07:00+07:00"
+    },
+    {
+      "ticker": "KAMART",
+      "date": "2026-08-13T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:10:00+07:00"
+    },
+    {
+      "ticker": "KWM",
+      "date": "2026-08-13T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:10:00+07:00"
+    },
+    {
+      "ticker": "LHK",
+      "date": "2026-08-13T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:10:00+07:00"
+    },
+    {
+      "ticker": "NDR",
+      "date": "2026-08-13T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:10:00+07:00"
+    },
+    {
+      "ticker": "IND",
+      "date": "2026-08-13T17:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:12:00+07:00"
+    },
+    {
+      "ticker": "GTB",
+      "date": "2026-08-13T17:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:13:00+07:00"
+    },
+    {
+      "ticker": "JUBILE",
+      "date": "2026-08-13T17:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:13:00+07:00"
+    },
+    {
+      "ticker": "L&E",
+      "date": "2026-08-13T17:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:13:00+07:00"
     },
     {
       "ticker": "AKP",
@@ -1153,11 +3616,179 @@
       "basedOnLastYear": "2025-08-13T17:15:00+07:00"
     },
     {
+      "ticker": "GCAP",
+      "date": "2026-08-13T17:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:15:00+07:00"
+    },
+    {
+      "ticker": "NEX",
+      "date": "2026-08-13T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:16:00+07:00"
+    },
+    {
+      "ticker": "EAST",
+      "date": "2026-08-13T17:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:17:00+07:00"
+    },
+    {
+      "ticker": "FTREIT",
+      "date": "2026-08-13T17:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:17:00+07:00"
+    },
+    {
+      "ticker": "PIN",
+      "date": "2026-08-13T17:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:17:00+07:00"
+    },
+    {
+      "ticker": "TTW",
+      "date": "2026-08-13T17:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:17:00+07:00"
+    },
+    {
+      "ticker": "CTW",
+      "date": "2026-08-13T17:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:18:00+07:00"
+    },
+    {
+      "ticker": "STARM",
+      "date": "2026-08-13T17:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:19:00+07:00"
+    },
+    {
+      "ticker": "IMPACT",
+      "date": "2026-08-13T17:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:20:00+07:00"
+    },
+    {
+      "ticker": "SUSCO",
+      "date": "2026-08-13T17:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:20:00+07:00"
+    },
+    {
+      "ticker": "CCP",
+      "date": "2026-08-13T17:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:21:00+07:00"
+    },
+    {
+      "ticker": "TPP",
+      "date": "2026-08-13T17:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:21:00+07:00"
+    },
+    {
+      "ticker": "POWER",
+      "date": "2026-08-13T17:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:22:00+07:00"
+    },
+    {
+      "ticker": "UBA",
+      "date": "2026-08-13T17:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:22:00+07:00"
+    },
+    {
+      "ticker": "UMI",
+      "date": "2026-08-13T17:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:23:00+07:00"
+    },
+    {
+      "ticker": "VIBE",
+      "date": "2026-08-13T17:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:23:00+07:00"
+    },
+    {
+      "ticker": "KUN",
+      "date": "2026-08-13T17:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:24:00+07:00"
+    },
+    {
+      "ticker": "PRG",
+      "date": "2026-08-13T17:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:24:00+07:00"
+    },
+    {
       "ticker": "A5",
       "date": "2026-08-13T17:28:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T17:28:00+07:00"
+    },
+    {
+      "ticker": "HPT",
+      "date": "2026-08-13T17:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:31:00+07:00"
+    },
+    {
+      "ticker": "TMI",
+      "date": "2026-08-13T17:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:31:00+07:00"
+    },
+    {
+      "ticker": "SCN",
+      "date": "2026-08-13T17:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:33:00+07:00"
+    },
+    {
+      "ticker": "PSH",
+      "date": "2026-08-13T17:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:34:00+07:00"
+    },
+    {
+      "ticker": "BGT",
+      "date": "2026-08-13T17:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:35:00+07:00"
+    },
+    {
+      "ticker": "ITNS",
+      "date": "2026-08-13T17:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:35:00+07:00"
     },
     {
       "ticker": "AHC",
@@ -1174,11 +3805,368 @@
       "basedOnLastYear": "2025-08-13T17:37:00+07:00"
     },
     {
+      "ticker": "HYDROGEN",
+      "date": "2026-08-13T17:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:37:00+07:00"
+    },
+    {
+      "ticker": "SHANG",
+      "date": "2026-08-13T17:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:37:00+07:00"
+    },
+    {
+      "ticker": "PLT",
+      "date": "2026-08-13T17:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:38:00+07:00"
+    },
+    {
+      "ticker": "UBE",
+      "date": "2026-08-13T17:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:40:00+07:00"
+    },
+    {
+      "ticker": "CPNCG",
+      "date": "2026-08-13T17:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:43:00+07:00"
+    },
+    {
+      "ticker": "PRTR",
+      "date": "2026-08-13T17:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:43:00+07:00"
+    },
+    {
+      "ticker": "DIF",
+      "date": "2026-08-13T17:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:44:00+07:00"
+    },
+    {
+      "ticker": "GEL",
+      "date": "2026-08-13T17:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:45:00+07:00"
+    },
+    {
+      "ticker": "KISS",
+      "date": "2026-08-13T17:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:45:00+07:00"
+    },
+    {
+      "ticker": "KCG",
+      "date": "2026-08-13T17:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:46:00+07:00"
+    },
+    {
+      "ticker": "PHOL",
+      "date": "2026-08-13T17:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:46:00+07:00"
+    },
+    {
+      "ticker": "SAV",
+      "date": "2026-08-13T17:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:47:00+07:00"
+    },
+    {
+      "ticker": "SGC",
+      "date": "2026-08-13T17:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:47:00+07:00"
+    },
+    {
+      "ticker": "MATI",
+      "date": "2026-08-13T17:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:50:00+07:00"
+    },
+    {
+      "ticker": "BLC",
+      "date": "2026-08-13T17:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:51:00+07:00"
+    },
+    {
+      "ticker": "OGC",
+      "date": "2026-08-13T17:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:51:00+07:00"
+    },
+    {
+      "ticker": "AURA",
+      "date": "2026-08-13T17:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:52:00+07:00"
+    },
+    {
+      "ticker": "FSX",
+      "date": "2026-08-13T17:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:52:00+07:00"
+    },
+    {
+      "ticker": "MANRIN",
+      "date": "2026-08-13T17:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:52:00+07:00"
+    },
+    {
+      "ticker": "S",
+      "date": "2026-08-13T17:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:52:00+07:00"
+    },
+    {
+      "ticker": "TASCO",
+      "date": "2026-08-13T17:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:53:00+07:00"
+    },
+    {
+      "ticker": "B52",
+      "date": "2026-08-13T17:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:54:00+07:00"
+    },
+    {
+      "ticker": "ASIAN",
+      "date": "2026-08-13T17:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:56:00+07:00"
+    },
+    {
+      "ticker": "MOONG",
+      "date": "2026-08-13T17:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:56:00+07:00"
+    },
+    {
+      "ticker": "TK",
+      "date": "2026-08-13T17:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:56:00+07:00"
+    },
+    {
+      "ticker": "DOD",
+      "date": "2026-08-13T17:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:58:00+07:00"
+    },
+    {
+      "ticker": "PMC",
+      "date": "2026-08-13T17:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:58:00+07:00"
+    },
+    {
+      "ticker": "STP",
+      "date": "2026-08-13T17:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:59:00+07:00"
+    },
+    {
+      "ticker": "XPG",
+      "date": "2026-08-13T17:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T17:59:00+07:00"
+    },
+    {
+      "ticker": "ASN",
+      "date": "2026-08-13T18:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:01:00+07:00"
+    },
+    {
+      "ticker": "BC",
+      "date": "2026-08-13T18:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:01:00+07:00"
+    },
+    {
+      "ticker": "EURO",
+      "date": "2026-08-13T18:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:01:00+07:00"
+    },
+    {
+      "ticker": "PLUS",
+      "date": "2026-08-13T18:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:01:00+07:00"
+    },
+    {
+      "ticker": "MODERN",
+      "date": "2026-08-13T18:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:03:00+07:00"
+    },
+    {
+      "ticker": "GENCO",
+      "date": "2026-08-13T18:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:04:00+07:00"
+    },
+    {
+      "ticker": "PROS",
+      "date": "2026-08-13T18:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:04:00+07:00"
+    },
+    {
+      "ticker": "BEM",
+      "date": "2026-08-13T18:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:09:00+07:00"
+    },
+    {
+      "ticker": "BTSGIF",
+      "date": "2026-08-13T18:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:09:00+07:00"
+    },
+    {
+      "ticker": "NL",
+      "date": "2026-08-13T18:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:09:00+07:00"
+    },
+    {
+      "ticker": "TWP",
+      "date": "2026-08-13T18:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:09:00+07:00"
+    },
+    {
+      "ticker": "BDMS",
+      "date": "2026-08-13T18:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:10:00+07:00"
+    },
+    {
+      "ticker": "JR",
+      "date": "2026-08-13T18:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:10:00+07:00"
+    },
+    {
+      "ticker": "MATCH",
+      "date": "2026-08-13T18:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:12:00+07:00"
+    },
+    {
+      "ticker": "PTT",
+      "date": "2026-08-13T18:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:12:00+07:00"
+    },
+    {
+      "ticker": "BJC",
+      "date": "2026-08-13T18:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:13:00+07:00"
+    },
+    {
+      "ticker": "KASET",
+      "date": "2026-08-13T18:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:14:00+07:00"
+    },
+    {
       "ticker": "AS",
       "date": "2026-08-13T18:16:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T18:16:00+07:00"
+    },
+    {
+      "ticker": "CHASE",
+      "date": "2026-08-13T18:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:16:00+07:00"
+    },
+    {
+      "ticker": "ESTAR",
+      "date": "2026-08-13T18:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:16:00+07:00"
+    },
+    {
+      "ticker": "SGP",
+      "date": "2026-08-13T18:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:16:00+07:00"
+    },
+    {
+      "ticker": "SHR",
+      "date": "2026-08-13T18:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:17:00+07:00"
+    },
+    {
+      "ticker": "SAUCE",
+      "date": "2026-08-13T18:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:18:00+07:00"
     },
     {
       "ticker": "AAV",
@@ -1188,11 +4176,242 @@
       "basedOnLastYear": "2025-08-13T18:20:00+07:00"
     },
     {
+      "ticker": "PLANET",
+      "date": "2026-08-13T18:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:21:00+07:00"
+    },
+    {
+      "ticker": "STECON",
+      "date": "2026-08-13T18:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:21:00+07:00"
+    },
+    {
+      "ticker": "ASTR",
+      "date": "2026-08-13T18:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:23:00+07:00"
+    },
+    {
+      "ticker": "PLAT",
+      "date": "2026-08-13T18:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:23:00+07:00"
+    },
+    {
+      "ticker": "SENX",
+      "date": "2026-08-13T18:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:23:00+07:00"
+    },
+    {
+      "ticker": "STI",
+      "date": "2026-08-13T18:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:24:00+07:00"
+    },
+    {
+      "ticker": "BRI",
+      "date": "2026-08-13T18:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:25:00+07:00"
+    },
+    {
+      "ticker": "TNPF",
+      "date": "2026-08-13T18:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:26:00+07:00"
+    },
+    {
+      "ticker": "EPG",
+      "date": "2026-08-13T18:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:33:00+07:00"
+    },
+    {
+      "ticker": "ROH",
+      "date": "2026-08-13T18:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:34:00+07:00"
+    },
+    {
+      "ticker": "CENTEL",
+      "date": "2026-08-13T18:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:35:00+07:00"
+    },
+    {
+      "ticker": "HARN",
+      "date": "2026-08-13T18:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:35:00+07:00"
+    },
+    {
+      "ticker": "WINNER",
+      "date": "2026-08-13T18:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:37:00+07:00"
+    },
+    {
+      "ticker": "POPF",
+      "date": "2026-08-13T18:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:38:00+07:00"
+    },
+    {
+      "ticker": "LHHOTEL",
+      "date": "2026-08-13T18:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:39:00+07:00"
+    },
+    {
       "ticker": "APCO",
       "date": "2026-08-13T18:40:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T18:40:00+07:00"
+    },
+    {
+      "ticker": "ITTHI",
+      "date": "2026-08-13T18:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:41:00+07:00"
+    },
+    {
+      "ticker": "PROUD",
+      "date": "2026-08-13T18:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:41:00+07:00"
+    },
+    {
+      "ticker": "RATCH",
+      "date": "2026-08-13T18:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:41:00+07:00"
+    },
+    {
+      "ticker": "KTIS",
+      "date": "2026-08-13T18:42:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:42:00+07:00"
+    },
+    {
+      "ticker": "LHSC",
+      "date": "2026-08-13T18:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:45:00+07:00"
+    },
+    {
+      "ticker": "SONIC",
+      "date": "2026-08-13T18:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:46:00+07:00"
+    },
+    {
+      "ticker": "VIH",
+      "date": "2026-08-13T18:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:46:00+07:00"
+    },
+    {
+      "ticker": "SNP",
+      "date": "2026-08-13T18:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:47:00+07:00"
+    },
+    {
+      "ticker": "IRC",
+      "date": "2026-08-13T18:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:50:00+07:00"
+    },
+    {
+      "ticker": "M",
+      "date": "2026-08-13T18:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:50:00+07:00"
+    },
+    {
+      "ticker": "BAM",
+      "date": "2026-08-13T18:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:54:00+07:00"
+    },
+    {
+      "ticker": "SPALI",
+      "date": "2026-08-13T18:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:55:00+07:00"
+    },
+    {
+      "ticker": "SUC",
+      "date": "2026-08-13T18:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:56:00+07:00"
+    },
+    {
+      "ticker": "META",
+      "date": "2026-08-13T18:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:57:00+07:00"
+    },
+    {
+      "ticker": "QHHRREIT",
+      "date": "2026-08-13T18:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:58:00+07:00"
+    },
+    {
+      "ticker": "EKH",
+      "date": "2026-08-13T18:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:59:00+07:00"
+    },
+    {
+      "ticker": "TVDH",
+      "date": "2026-08-13T18:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T18:59:00+07:00"
+    },
+    {
+      "ticker": "KLINIQ",
+      "date": "2026-08-13T19:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:02:00+07:00"
     },
     {
       "ticker": "ADD",
@@ -1202,11 +4421,60 @@
       "basedOnLastYear": "2025-08-13T19:03:00+07:00"
     },
     {
+      "ticker": "SRICHA",
+      "date": "2026-08-13T19:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:03:00+07:00"
+    },
+    {
+      "ticker": "TAN",
+      "date": "2026-08-13T19:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:03:00+07:00"
+    },
+    {
+      "ticker": "SSTRT",
+      "date": "2026-08-13T19:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:05:00+07:00"
+    },
+    {
+      "ticker": "SC",
+      "date": "2026-08-13T19:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:09:00+07:00"
+    },
+    {
       "ticker": "AMR",
       "date": "2026-08-13T19:14:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T19:14:00+07:00"
+    },
+    {
+      "ticker": "LHRREIT",
+      "date": "2026-08-13T19:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:16:00+07:00"
+    },
+    {
+      "ticker": "MCA",
+      "date": "2026-08-13T19:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:19:00+07:00"
+    },
+    {
+      "ticker": "SISB",
+      "date": "2026-08-13T19:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:19:00+07:00"
     },
     {
       "ticker": "APURE",
@@ -1216,11 +4484,116 @@
       "basedOnLastYear": "2025-08-13T19:21:00+07:00"
     },
     {
+      "ticker": "GUNKUL",
+      "date": "2026-08-13T19:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:22:00+07:00"
+    },
+    {
+      "ticker": "GRAND",
+      "date": "2026-08-13T19:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:24:00+07:00"
+    },
+    {
+      "ticker": "PRINC",
+      "date": "2026-08-13T19:27:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:27:00+07:00"
+    },
+    {
       "ticker": "AMARIN",
       "date": "2026-08-13T19:29:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T19:29:00+07:00"
+    },
+    {
+      "ticker": "SINGER",
+      "date": "2026-08-13T19:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:29:00+07:00"
+    },
+    {
+      "ticker": "CEYE",
+      "date": "2026-08-13T19:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:30:00+07:00"
+    },
+    {
+      "ticker": "EVER",
+      "date": "2026-08-13T19:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:30:00+07:00"
+    },
+    {
+      "ticker": "PREB",
+      "date": "2026-08-13T19:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:30:00+07:00"
+    },
+    {
+      "ticker": "INET",
+      "date": "2026-08-13T19:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:31:00+07:00"
+    },
+    {
+      "ticker": "ILINK",
+      "date": "2026-08-13T19:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:33:00+07:00"
+    },
+    {
+      "ticker": "OSP",
+      "date": "2026-08-13T19:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:33:00+07:00"
+    },
+    {
+      "ticker": "CMC",
+      "date": "2026-08-13T19:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:38:00+07:00"
+    },
+    {
+      "ticker": "ETC",
+      "date": "2026-08-13T19:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:40:00+07:00"
+    },
+    {
+      "ticker": "CPL",
+      "date": "2026-08-13T19:42:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:42:00+07:00"
+    },
+    {
+      "ticker": "DCON",
+      "date": "2026-08-13T19:42:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:42:00+07:00"
+    },
+    {
+      "ticker": "TEAM",
+      "date": "2026-08-13T19:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:50:00+07:00"
     },
     {
       "ticker": "ACAP",
@@ -1230,11 +4603,466 @@
       "basedOnLastYear": "2025-08-13T19:51:00+07:00"
     },
     {
+      "ticker": "MUD",
+      "date": "2026-08-13T19:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:51:00+07:00"
+    },
+    {
+      "ticker": "MTW",
+      "date": "2026-08-13T19:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:54:00+07:00"
+    },
+    {
+      "ticker": "NATION",
+      "date": "2026-08-13T19:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:54:00+07:00"
+    },
+    {
+      "ticker": "SST",
+      "date": "2026-08-13T19:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T19:54:00+07:00"
+    },
+    {
+      "ticker": "ERW",
+      "date": "2026-08-13T20:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:02:00+07:00"
+    },
+    {
+      "ticker": "MPJ",
+      "date": "2026-08-13T20:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:02:00+07:00"
+    },
+    {
+      "ticker": "IIG",
+      "date": "2026-08-13T20:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:06:00+07:00"
+    },
+    {
+      "ticker": "PEER",
+      "date": "2026-08-13T20:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:07:00+07:00"
+    },
+    {
+      "ticker": "SYNTEC",
+      "date": "2026-08-13T20:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:07:00+07:00"
+    },
+    {
+      "ticker": "PRI",
+      "date": "2026-08-13T20:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:12:00+07:00"
+    },
+    {
+      "ticker": "PB",
+      "date": "2026-08-13T20:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:14:00+07:00"
+    },
+    {
+      "ticker": "THIP",
+      "date": "2026-08-13T20:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:14:00+07:00"
+    },
+    {
+      "ticker": "BLA",
+      "date": "2026-08-13T20:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:20:00+07:00"
+    },
+    {
+      "ticker": "NCL",
+      "date": "2026-08-13T20:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:26:00+07:00"
+    },
+    {
+      "ticker": "MBK",
+      "date": "2026-08-13T20:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:29:00+07:00"
+    },
+    {
+      "ticker": "TWZ",
+      "date": "2026-08-13T20:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:30:00+07:00"
+    },
+    {
+      "ticker": "TVT",
+      "date": "2026-08-13T20:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:31:00+07:00"
+    },
+    {
+      "ticker": "CGD",
+      "date": "2026-08-13T20:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:34:00+07:00"
+    },
+    {
+      "ticker": "RML",
+      "date": "2026-08-13T20:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:34:00+07:00"
+    },
+    {
       "ticker": "ARIN",
       "date": "2026-08-13T20:35:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T20:35:00+07:00"
+    },
+    {
+      "ticker": "NFC",
+      "date": "2026-08-13T20:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T20:49:00+07:00"
+    },
+    {
+      "ticker": "CRANE",
+      "date": "2026-08-13T21:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:00:00+07:00"
+    },
+    {
+      "ticker": "RPC",
+      "date": "2026-08-13T21:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:00:00+07:00"
+    },
+    {
+      "ticker": "JPARK",
+      "date": "2026-08-13T21:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:02:00+07:00"
+    },
+    {
+      "ticker": "MTI",
+      "date": "2026-08-13T21:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:02:00+07:00"
+    },
+    {
+      "ticker": "RJH",
+      "date": "2026-08-13T21:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:02:00+07:00"
+    },
+    {
+      "ticker": "BKGI",
+      "date": "2026-08-13T21:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:07:00+07:00"
+    },
+    {
+      "ticker": "DIMET",
+      "date": "2026-08-13T21:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:15:00+07:00"
+    },
+    {
+      "ticker": "LH",
+      "date": "2026-08-13T21:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:17:00+07:00"
+    },
+    {
+      "ticker": "TKS",
+      "date": "2026-08-13T21:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:18:00+07:00"
+    },
+    {
+      "ticker": "JAS",
+      "date": "2026-08-13T21:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:19:00+07:00"
+    },
+    {
+      "ticker": "BKD",
+      "date": "2026-08-13T21:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:21:00+07:00"
+    },
+    {
+      "ticker": "CHOTI",
+      "date": "2026-08-13T21:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:22:00+07:00"
+    },
+    {
+      "ticker": "CM",
+      "date": "2026-08-13T21:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:26:00+07:00"
+    },
+    {
+      "ticker": "GRAMMY",
+      "date": "2026-08-13T21:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:31:00+07:00"
+    },
+    {
+      "ticker": "JMT",
+      "date": "2026-08-13T21:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:32:00+07:00"
+    },
+    {
+      "ticker": "PHG",
+      "date": "2026-08-13T21:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:36:00+07:00"
+    },
+    {
+      "ticker": "DHOUSE",
+      "date": "2026-08-13T21:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:47:00+07:00"
+    },
+    {
+      "ticker": "FVC",
+      "date": "2026-08-13T21:48:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T21:48:00+07:00"
+    },
+    {
+      "ticker": "YONG",
+      "date": "2026-08-13T22:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T22:12:00+07:00"
+    },
+    {
+      "ticker": "JMART",
+      "date": "2026-08-13T22:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T22:16:00+07:00"
+    },
+    {
+      "ticker": "GBX",
+      "date": "2026-08-13T22:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-13T22:18:00+07:00"
+    },
+    {
+      "ticker": "TPL",
+      "date": "2026-08-14T06:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T06:46:00+07:00"
+    },
+    {
+      "ticker": "SCM",
+      "date": "2026-08-14T07:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:10:00+07:00"
+    },
+    {
+      "ticker": "FSMART",
+      "date": "2026-08-14T07:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:16:00+07:00"
+    },
+    {
+      "ticker": "TKC",
+      "date": "2026-08-14T07:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:17:00+07:00"
+    },
+    {
+      "ticker": "TNITY",
+      "date": "2026-08-14T07:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:17:00+07:00"
+    },
+    {
+      "ticker": "HTECH",
+      "date": "2026-08-14T07:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:30:00+07:00"
+    },
+    {
+      "ticker": "KCC",
+      "date": "2026-08-14T07:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:38:00+07:00"
+    },
+    {
+      "ticker": "BTW",
+      "date": "2026-08-14T07:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:40:00+07:00"
+    },
+    {
+      "ticker": "MK",
+      "date": "2026-08-14T07:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:40:00+07:00"
+    },
+    {
+      "ticker": "NEW",
+      "date": "2026-08-14T07:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:44:00+07:00"
+    },
+    {
+      "ticker": "CPNREIT",
+      "date": "2026-08-14T07:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:45:00+07:00"
+    },
+    {
+      "ticker": "GPI",
+      "date": "2026-08-14T07:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T07:47:00+07:00"
+    },
+    {
+      "ticker": "LALIN",
+      "date": "2026-08-14T08:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:03:00+07:00"
+    },
+    {
+      "ticker": "WACOAL",
+      "date": "2026-08-14T08:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:08:00+07:00"
+    },
+    {
+      "ticker": "BR",
+      "date": "2026-08-14T08:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:12:00+07:00"
+    },
+    {
+      "ticker": "CHOW",
+      "date": "2026-08-14T08:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:18:00+07:00"
+    },
+    {
+      "ticker": "BROCK",
+      "date": "2026-08-14T08:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:23:00+07:00"
+    },
+    {
+      "ticker": "TQM",
+      "date": "2026-08-14T08:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:24:00+07:00"
+    },
+    {
+      "ticker": "NAM",
+      "date": "2026-08-14T08:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:25:00+07:00"
+    },
+    {
+      "ticker": "SMIT",
+      "date": "2026-08-14T08:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:26:00+07:00"
+    },
+    {
+      "ticker": "PIS",
+      "date": "2026-08-14T08:27:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:27:00+07:00"
+    },
+    {
+      "ticker": "PJW",
+      "date": "2026-08-14T08:27:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:27:00+07:00"
+    },
+    {
+      "ticker": "SIRI",
+      "date": "2026-08-14T08:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:33:00+07:00"
+    },
+    {
+      "ticker": "NSL",
+      "date": "2026-08-14T08:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:40:00+07:00"
     },
     {
       "ticker": "ACG",
@@ -1244,6 +5072,153 @@
       "basedOnLastYear": "2025-08-14T08:44:00+07:00"
     },
     {
+      "ticker": "DTCI",
+      "date": "2026-08-14T08:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:50:00+07:00"
+    },
+    {
+      "ticker": "EMC",
+      "date": "2026-08-14T08:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:50:00+07:00"
+    },
+    {
+      "ticker": "TRV",
+      "date": "2026-08-14T08:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:53:00+07:00"
+    },
+    {
+      "ticker": "GTV",
+      "date": "2026-08-14T08:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T08:56:00+07:00"
+    },
+    {
+      "ticker": "WICE",
+      "date": "2026-08-14T09:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T09:03:00+07:00"
+    },
+    {
+      "ticker": "ETL",
+      "date": "2026-08-14T09:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T09:05:00+07:00"
+    },
+    {
+      "ticker": "M-STOR",
+      "date": "2026-08-14T12:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:31:00+07:00"
+    },
+    {
+      "ticker": "PEACE",
+      "date": "2026-08-14T12:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:31:00+07:00"
+    },
+    {
+      "ticker": "SIMAT",
+      "date": "2026-08-14T12:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:31:00+07:00"
+    },
+    {
+      "ticker": "TRUBB",
+      "date": "2026-08-14T12:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:33:00+07:00"
+    },
+    {
+      "ticker": "PRAKIT",
+      "date": "2026-08-14T12:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:34:00+07:00"
+    },
+    {
+      "ticker": "EA",
+      "date": "2026-08-14T12:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:35:00+07:00"
+    },
+    {
+      "ticker": "ICN",
+      "date": "2026-08-14T12:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:36:00+07:00"
+    },
+    {
+      "ticker": "TFMAMA",
+      "date": "2026-08-14T12:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:38:00+07:00"
+    },
+    {
+      "ticker": "IVL",
+      "date": "2026-08-14T12:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:39:00+07:00"
+    },
+    {
+      "ticker": "TIF1",
+      "date": "2026-08-14T12:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:39:00+07:00"
+    },
+    {
+      "ticker": "GFPT",
+      "date": "2026-08-14T12:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:41:00+07:00"
+    },
+    {
+      "ticker": "SRIPANWA",
+      "date": "2026-08-14T12:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:49:00+07:00"
+    },
+    {
+      "ticker": "COM7",
+      "date": "2026-08-14T12:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:53:00+07:00"
+    },
+    {
+      "ticker": "MIPF",
+      "date": "2026-08-14T12:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:56:00+07:00"
+    },
+    {
+      "ticker": "TLHPF",
+      "date": "2026-08-14T12:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T12:57:00+07:00"
+    },
+    {
       "ticker": "ANAN",
       "date": "2026-08-14T17:00:00+07:00",
       "status": "predicted",
@@ -1251,7 +5226,420 @@
       "basedOnLastYear": "2025-08-14T17:00:00+07:00"
     },
     {
+      "ticker": "CPF",
+      "date": "2026-08-14T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:00:00+07:00"
+    },
+    {
+      "ticker": "SDC",
+      "date": "2026-08-14T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:00:00+07:00"
+    },
+    {
+      "ticker": "IP",
+      "date": "2026-08-14T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:01:00+07:00"
+    },
+    {
+      "ticker": "NKI",
+      "date": "2026-08-14T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:01:00+07:00"
+    },
+    {
+      "ticker": "NV",
+      "date": "2026-08-14T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:01:00+07:00"
+    },
+    {
+      "ticker": "QLT",
+      "date": "2026-08-14T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:01:00+07:00"
+    },
+    {
+      "ticker": "TATG",
+      "date": "2026-08-14T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:01:00+07:00"
+    },
+    {
+      "ticker": "THE",
+      "date": "2026-08-14T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:01:00+07:00"
+    },
+    {
+      "ticker": "TMW",
+      "date": "2026-08-14T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:01:00+07:00"
+    },
+    {
+      "ticker": "MNRF",
+      "date": "2026-08-14T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:02:00+07:00"
+    },
+    {
+      "ticker": "PATO",
+      "date": "2026-08-14T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:02:00+07:00"
+    },
+    {
+      "ticker": "TOPP",
+      "date": "2026-08-14T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:02:00+07:00"
+    },
+    {
+      "ticker": "VRANDA",
+      "date": "2026-08-14T17:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:02:00+07:00"
+    },
+    {
+      "ticker": "M-CHAI",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "NETBAY",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "NWR",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "PERM",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "SK",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "TCJ",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "TFFIF",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "TTI",
+      "date": "2026-08-14T17:03:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:03:00+07:00"
+    },
+    {
+      "ticker": "DPAINT",
+      "date": "2026-08-14T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:04:00+07:00"
+    },
+    {
+      "ticker": "ICHI",
+      "date": "2026-08-14T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:04:00+07:00"
+    },
+    {
+      "ticker": "M-PAT",
+      "date": "2026-08-14T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:04:00+07:00"
+    },
+    {
+      "ticker": "PLANB",
+      "date": "2026-08-14T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:04:00+07:00"
+    },
+    {
+      "ticker": "FUTURERT",
+      "date": "2026-08-14T17:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:05:00+07:00"
+    },
+    {
+      "ticker": "HPF",
+      "date": "2026-08-14T17:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:05:00+07:00"
+    },
+    {
+      "ticker": "ZIGA",
+      "date": "2026-08-14T17:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:05:00+07:00"
+    },
+    {
+      "ticker": "BLAND",
+      "date": "2026-08-14T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:06:00+07:00"
+    },
+    {
+      "ticker": "FE",
+      "date": "2026-08-14T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:06:00+07:00"
+    },
+    {
+      "ticker": "MNIT",
+      "date": "2026-08-14T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:06:00+07:00"
+    },
+    {
+      "ticker": "STX",
+      "date": "2026-08-14T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:06:00+07:00"
+    },
+    {
+      "ticker": "TCOAT",
+      "date": "2026-08-14T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:06:00+07:00"
+    },
+    {
+      "ticker": "VPO",
+      "date": "2026-08-14T17:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:06:00+07:00"
+    },
+    {
+      "ticker": "CI",
+      "date": "2026-08-14T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:07:00+07:00"
+    },
+    {
+      "ticker": "HANA",
+      "date": "2026-08-14T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:08:00+07:00"
+    },
+    {
+      "ticker": "MNIT2",
+      "date": "2026-08-14T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:08:00+07:00"
+    },
+    {
+      "ticker": "SELIC",
+      "date": "2026-08-14T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:08:00+07:00"
+    },
+    {
+      "ticker": "SKN",
+      "date": "2026-08-14T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:08:00+07:00"
+    },
+    {
+      "ticker": "MII",
+      "date": "2026-08-14T17:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:09:00+07:00"
+    },
+    {
+      "ticker": "DITTO",
+      "date": "2026-08-14T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:10:00+07:00"
+    },
+    {
+      "ticker": "SCP",
+      "date": "2026-08-14T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:10:00+07:00"
+    },
+    {
+      "ticker": "CSP",
+      "date": "2026-08-14T17:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:11:00+07:00"
+    },
+    {
+      "ticker": "KK",
+      "date": "2026-08-14T17:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:11:00+07:00"
+    },
+    {
+      "ticker": "SAWANG",
+      "date": "2026-08-14T17:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:12:00+07:00"
+    },
+    {
+      "ticker": "TLI",
+      "date": "2026-08-14T17:12:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:12:00+07:00"
+    },
+    {
+      "ticker": "SAMTEL",
+      "date": "2026-08-14T17:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:13:00+07:00"
+    },
+    {
+      "ticker": "BAFS",
+      "date": "2026-08-14T17:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:14:00+07:00"
+    },
+    {
+      "ticker": "LOXLEY",
+      "date": "2026-08-14T17:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:14:00+07:00"
+    },
+    {
+      "ticker": "FTE",
+      "date": "2026-08-14T17:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:16:00+07:00"
+    },
+    {
+      "ticker": "FANCY",
+      "date": "2026-08-14T17:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:17:00+07:00"
+    },
+    {
+      "ticker": "FTI",
+      "date": "2026-08-14T17:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:17:00+07:00"
+    },
+    {
+      "ticker": "B-WORK",
+      "date": "2026-08-14T17:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:18:00+07:00"
+    },
+    {
+      "ticker": "CMR",
+      "date": "2026-08-14T17:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:20:00+07:00"
+    },
+    {
+      "ticker": "MCOT",
+      "date": "2026-08-14T17:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:20:00+07:00"
+    },
+    {
+      "ticker": "TSTE",
+      "date": "2026-08-14T17:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:20:00+07:00"
+    },
+    {
+      "ticker": "BWG",
+      "date": "2026-08-14T17:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:21:00+07:00"
+    },
+    {
+      "ticker": "ISSARA",
+      "date": "2026-08-14T17:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:23:00+07:00"
+    },
+    {
       "ticker": "ASEFA",
+      "date": "2026-08-14T17:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:24:00+07:00"
+    },
+    {
+      "ticker": "STOWER",
       "date": "2026-08-14T17:24:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -1265,11 +5653,326 @@
       "basedOnLastYear": "2025-08-14T17:25:00+07:00"
     },
     {
+      "ticker": "CPR",
+      "date": "2026-08-14T17:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:29:00+07:00"
+    },
+    {
+      "ticker": "ROJNA",
+      "date": "2026-08-14T17:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:29:00+07:00"
+    },
+    {
+      "ticker": "SABINA",
+      "date": "2026-08-14T17:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:29:00+07:00"
+    },
+    {
+      "ticker": "ML",
+      "date": "2026-08-14T17:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:30:00+07:00"
+    },
+    {
+      "ticker": "CIVIL",
+      "date": "2026-08-14T17:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:31:00+07:00"
+    },
+    {
+      "ticker": "BM",
+      "date": "2026-08-14T17:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:32:00+07:00"
+    },
+    {
+      "ticker": "SAMART",
+      "date": "2026-08-14T17:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:32:00+07:00"
+    },
+    {
+      "ticker": "TPIPL",
+      "date": "2026-08-14T17:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:32:00+07:00"
+    },
+    {
+      "ticker": "PL",
+      "date": "2026-08-14T17:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:33:00+07:00"
+    },
+    {
+      "ticker": "SANKO",
+      "date": "2026-08-14T17:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:33:00+07:00"
+    },
+    {
+      "ticker": "WPH",
+      "date": "2026-08-14T17:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:34:00+07:00"
+    },
+    {
+      "ticker": "BIG",
+      "date": "2026-08-14T17:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:35:00+07:00"
+    },
+    {
       "ticker": "2S",
       "date": "2026-08-14T17:36:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-14T17:36:00+07:00"
+    },
+    {
+      "ticker": "ASIA",
+      "date": "2026-08-14T17:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:36:00+07:00"
+    },
+    {
+      "ticker": "XO",
+      "date": "2026-08-14T17:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:36:00+07:00"
+    },
+    {
+      "ticker": "SPC",
+      "date": "2026-08-14T17:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:37:00+07:00"
+    },
+    {
+      "ticker": "CH",
+      "date": "2026-08-14T17:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:38:00+07:00"
+    },
+    {
+      "ticker": "PRIN",
+      "date": "2026-08-14T17:39:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:39:00+07:00"
+    },
+    {
+      "ticker": "TR",
+      "date": "2026-08-14T17:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:40:00+07:00"
+    },
+    {
+      "ticker": "ETE",
+      "date": "2026-08-14T17:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:43:00+07:00"
+    },
+    {
+      "ticker": "GABLE",
+      "date": "2026-08-14T17:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:44:00+07:00"
+    },
+    {
+      "ticker": "POLY",
+      "date": "2026-08-14T17:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:44:00+07:00"
+    },
+    {
+      "ticker": "CNT",
+      "date": "2026-08-14T17:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:45:00+07:00"
+    },
+    {
+      "ticker": "BEAUTY",
+      "date": "2026-08-14T17:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:46:00+07:00"
+    },
+    {
+      "ticker": "RP",
+      "date": "2026-08-14T17:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:46:00+07:00"
+    },
+    {
+      "ticker": "MEGA",
+      "date": "2026-08-14T17:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:49:00+07:00"
+    },
+    {
+      "ticker": "MICRO",
+      "date": "2026-08-14T17:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:51:00+07:00"
+    },
+    {
+      "ticker": "PROSPECT",
+      "date": "2026-08-14T17:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:51:00+07:00"
+    },
+    {
+      "ticker": "CFRESH",
+      "date": "2026-08-14T17:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:52:00+07:00"
+    },
+    {
+      "ticker": "JCK",
+      "date": "2026-08-14T17:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:55:00+07:00"
+    },
+    {
+      "ticker": "NAT",
+      "date": "2026-08-14T17:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:55:00+07:00"
+    },
+    {
+      "ticker": "AYUD",
+      "date": "2026-08-14T17:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:58:00+07:00"
+    },
+    {
+      "ticker": "SINO",
+      "date": "2026-08-14T17:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T17:59:00+07:00"
+    },
+    {
+      "ticker": "SPI",
+      "date": "2026-08-14T18:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:01:00+07:00"
+    },
+    {
+      "ticker": "TOA",
+      "date": "2026-08-14T18:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:04:00+07:00"
+    },
+    {
+      "ticker": "SE",
+      "date": "2026-08-14T18:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:05:00+07:00"
+    },
+    {
+      "ticker": "CIG",
+      "date": "2026-08-14T18:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:08:00+07:00"
+    },
+    {
+      "ticker": "KGEN",
+      "date": "2026-08-14T18:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:08:00+07:00"
+    },
+    {
+      "ticker": "PDJ",
+      "date": "2026-08-14T18:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:08:00+07:00"
+    },
+    {
+      "ticker": "VGI",
+      "date": "2026-08-14T18:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:10:00+07:00"
+    },
+    {
+      "ticker": "GLAND",
+      "date": "2026-08-14T18:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:17:00+07:00"
+    },
+    {
+      "ticker": "WGE",
+      "date": "2026-08-14T18:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:18:00+07:00"
+    },
+    {
+      "ticker": "JCT",
+      "date": "2026-08-14T18:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:19:00+07:00"
+    },
+    {
+      "ticker": "CPTREIT",
+      "date": "2026-08-14T18:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:20:00+07:00"
+    },
+    {
+      "ticker": "FM",
+      "date": "2026-08-14T18:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:20:00+07:00"
+    },
+    {
+      "ticker": "SECURE",
+      "date": "2026-08-14T18:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:20:00+07:00"
     },
     {
       "ticker": "A",
@@ -1279,11 +5982,438 @@
       "basedOnLastYear": "2025-08-14T18:21:00+07:00"
     },
     {
+      "ticker": "BTNC",
+      "date": "2026-08-14T18:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:21:00+07:00"
+    },
+    {
+      "ticker": "KCAR",
+      "date": "2026-08-14T18:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:23:00+07:00"
+    },
+    {
+      "ticker": "MDX",
+      "date": "2026-08-14T18:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:25:00+07:00"
+    },
+    {
+      "ticker": "EFORL",
+      "date": "2026-08-14T18:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:26:00+07:00"
+    },
+    {
+      "ticker": "OKJ",
+      "date": "2026-08-14T18:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:26:00+07:00"
+    },
+    {
+      "ticker": "TL",
+      "date": "2026-08-14T18:27:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:27:00+07:00"
+    },
+    {
+      "ticker": "VIBHA",
+      "date": "2026-08-14T18:27:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:27:00+07:00"
+    },
+    {
+      "ticker": "UREKA",
+      "date": "2026-08-14T18:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:29:00+07:00"
+    },
+    {
+      "ticker": "PF",
+      "date": "2026-08-14T18:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:30:00+07:00"
+    },
+    {
+      "ticker": "PPPM",
+      "date": "2026-08-14T18:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:30:00+07:00"
+    },
+    {
+      "ticker": "MITSIB",
+      "date": "2026-08-14T18:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:32:00+07:00"
+    },
+    {
+      "ticker": "NCH",
+      "date": "2026-08-14T18:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:32:00+07:00"
+    },
+    {
+      "ticker": "IHL",
+      "date": "2026-08-14T18:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:34:00+07:00"
+    },
+    {
+      "ticker": "TNPC",
+      "date": "2026-08-14T18:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:34:00+07:00"
+    },
+    {
+      "ticker": "TKT",
+      "date": "2026-08-14T18:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:41:00+07:00"
+    },
+    {
+      "ticker": "BIOTEC",
+      "date": "2026-08-14T18:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:44:00+07:00"
+    },
+    {
+      "ticker": "TCMC",
+      "date": "2026-08-14T18:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:44:00+07:00"
+    },
+    {
+      "ticker": "SMD100",
+      "date": "2026-08-14T18:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:46:00+07:00"
+    },
+    {
+      "ticker": "KUMWEL",
+      "date": "2026-08-14T18:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:47:00+07:00"
+    },
+    {
+      "ticker": "SENA",
+      "date": "2026-08-14T18:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:49:00+07:00"
+    },
+    {
+      "ticker": "FNS",
+      "date": "2026-08-14T18:52:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:52:00+07:00"
+    },
+    {
+      "ticker": "TEAMG",
+      "date": "2026-08-14T18:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:53:00+07:00"
+    },
+    {
       "ticker": "APO",
       "date": "2026-08-14T18:54:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-14T18:54:00+07:00"
+    },
+    {
+      "ticker": "BTC",
+      "date": "2026-08-14T18:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:54:00+07:00"
+    },
+    {
+      "ticker": "HTC",
+      "date": "2026-08-14T18:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:54:00+07:00"
+    },
+    {
+      "ticker": "CHAYO",
+      "date": "2026-08-14T18:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:56:00+07:00"
+    },
+    {
+      "ticker": "CGH",
+      "date": "2026-08-14T18:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:57:00+07:00"
+    },
+    {
+      "ticker": "TGPRO",
+      "date": "2026-08-14T18:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T18:59:00+07:00"
+    },
+    {
+      "ticker": "TIPCO",
+      "date": "2026-08-14T19:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:02:00+07:00"
+    },
+    {
+      "ticker": "TGH",
+      "date": "2026-08-14T19:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:05:00+07:00"
+    },
+    {
+      "ticker": "NNCL",
+      "date": "2026-08-14T19:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:07:00+07:00"
+    },
+    {
+      "ticker": "TTT",
+      "date": "2026-08-14T19:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:11:00+07:00"
+    },
+    {
+      "ticker": "IVF",
+      "date": "2026-08-14T19:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:13:00+07:00"
+    },
+    {
+      "ticker": "BSM",
+      "date": "2026-08-14T19:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:14:00+07:00"
+    },
+    {
+      "ticker": "MGC",
+      "date": "2026-08-14T19:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:15:00+07:00"
+    },
+    {
+      "ticker": "TSE",
+      "date": "2026-08-14T19:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:19:00+07:00"
+    },
+    {
+      "ticker": "UV",
+      "date": "2026-08-14T19:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:19:00+07:00"
+    },
+    {
+      "ticker": "TRP",
+      "date": "2026-08-14T19:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:20:00+07:00"
+    },
+    {
+      "ticker": "SIAM",
+      "date": "2026-08-14T19:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:21:00+07:00"
+    },
+    {
+      "ticker": "ATP30",
+      "date": "2026-08-14T19:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:23:00+07:00"
+    },
+    {
+      "ticker": "ORN",
+      "date": "2026-08-14T19:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:28:00+07:00"
+    },
+    {
+      "ticker": "RAM",
+      "date": "2026-08-14T19:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:30:00+07:00"
+    },
+    {
+      "ticker": "TIPH",
+      "date": "2026-08-14T19:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:30:00+07:00"
+    },
+    {
+      "ticker": "QTCG",
+      "date": "2026-08-14T19:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:33:00+07:00"
+    },
+    {
+      "ticker": "S&J",
+      "date": "2026-08-14T19:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:33:00+07:00"
+    },
+    {
+      "ticker": "FPI",
+      "date": "2026-08-14T19:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:38:00+07:00"
+    },
+    {
+      "ticker": "NEP",
+      "date": "2026-08-14T19:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:40:00+07:00"
+    },
+    {
+      "ticker": "RT",
+      "date": "2026-08-14T19:44:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:44:00+07:00"
+    },
+    {
+      "ticker": "SCAP",
+      "date": "2026-08-14T19:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:46:00+07:00"
+    },
+    {
+      "ticker": "UNIQ",
+      "date": "2026-08-14T19:48:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:48:00+07:00"
+    },
+    {
+      "ticker": "SSP",
+      "date": "2026-08-14T19:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:50:00+07:00"
+    },
+    {
+      "ticker": "WIN",
+      "date": "2026-08-14T19:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:51:00+07:00"
+    },
+    {
+      "ticker": "SAWAD",
+      "date": "2026-08-14T19:58:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T19:58:00+07:00"
+    },
+    {
+      "ticker": "CEN",
+      "date": "2026-08-14T20:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:01:00+07:00"
+    },
+    {
+      "ticker": "SKY",
+      "date": "2026-08-14T20:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:01:00+07:00"
+    },
+    {
+      "ticker": "TSI",
+      "date": "2026-08-14T20:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:05:00+07:00"
+    },
+    {
+      "ticker": "COLOR",
+      "date": "2026-08-14T20:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:07:00+07:00"
+    },
+    {
+      "ticker": "DUSIT",
+      "date": "2026-08-14T20:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:07:00+07:00"
+    },
+    {
+      "ticker": "CK",
+      "date": "2026-08-14T20:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:11:00+07:00"
+    },
+    {
+      "ticker": "STPI",
+      "date": "2026-08-14T20:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:13:00+07:00"
+    },
+    {
+      "ticker": "TNR",
+      "date": "2026-08-14T20:16:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:16:00+07:00"
+    },
+    {
+      "ticker": "TGE",
+      "date": "2026-08-14T20:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:17:00+07:00"
     },
     {
       "ticker": "ACE",
@@ -1293,11 +6423,291 @@
       "basedOnLastYear": "2025-08-14T20:18:00+07:00"
     },
     {
+      "ticker": "PRM",
+      "date": "2026-08-14T20:23:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:23:00+07:00"
+    },
+    {
+      "ticker": "TPS",
+      "date": "2026-08-14T20:27:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:27:00+07:00"
+    },
+    {
+      "ticker": "CMO",
+      "date": "2026-08-14T20:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:30:00+07:00"
+    },
+    {
+      "ticker": "PLE",
+      "date": "2026-08-14T20:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:34:00+07:00"
+    },
+    {
+      "ticker": "RABBIT",
+      "date": "2026-08-14T20:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:36:00+07:00"
+    },
+    {
+      "ticker": "MALEE",
+      "date": "2026-08-14T20:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:38:00+07:00"
+    },
+    {
+      "ticker": "PQS",
+      "date": "2026-08-14T20:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:38:00+07:00"
+    },
+    {
+      "ticker": "SJWD",
+      "date": "2026-08-14T20:38:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:38:00+07:00"
+    },
+    {
+      "ticker": "SPCG",
+      "date": "2026-08-14T20:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:40:00+07:00"
+    },
+    {
       "ticker": "AQUA",
       "date": "2026-08-14T20:41:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-14T20:41:00+07:00"
+    },
+    {
+      "ticker": "CWT",
+      "date": "2026-08-14T20:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:41:00+07:00"
+    },
+    {
+      "ticker": "HUMAN",
+      "date": "2026-08-14T20:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:43:00+07:00"
+    },
+    {
+      "ticker": "YUASA",
+      "date": "2026-08-14T20:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:47:00+07:00"
+    },
+    {
+      "ticker": "NOBLE",
+      "date": "2026-08-14T20:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:50:00+07:00"
+    },
+    {
+      "ticker": "RICHY",
+      "date": "2026-08-14T20:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:53:00+07:00"
+    },
+    {
+      "ticker": "SVT",
+      "date": "2026-08-14T21:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:00:00+07:00"
+    },
+    {
+      "ticker": "EGCO",
+      "date": "2026-08-14T21:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:06:00+07:00"
+    },
+    {
+      "ticker": "PTC",
+      "date": "2026-08-14T21:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:06:00+07:00"
+    },
+    {
+      "ticker": "SEAOIL",
+      "date": "2026-08-14T21:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:06:00+07:00"
+    },
+    {
+      "ticker": "WAVE",
+      "date": "2026-08-14T21:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:06:00+07:00"
+    },
+    {
+      "ticker": "UKEM",
+      "date": "2026-08-14T21:09:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:09:00+07:00"
+    },
+    {
+      "ticker": "SQ",
+      "date": "2026-08-14T21:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:22:00+07:00"
+    },
+    {
+      "ticker": "ORI",
+      "date": "2026-08-14T21:24:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:24:00+07:00"
+    },
+    {
+      "ticker": "EASTW",
+      "date": "2026-08-14T21:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:29:00+07:00"
+    },
+    {
+      "ticker": "ITD",
+      "date": "2026-08-14T21:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:29:00+07:00"
+    },
+    {
+      "ticker": "WELL",
+      "date": "2026-08-14T21:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:37:00+07:00"
+    },
+    {
+      "ticker": "XYZ",
+      "date": "2026-08-14T21:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:43:00+07:00"
+    },
+    {
+      "ticker": "TMILL",
+      "date": "2026-08-14T21:45:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:45:00+07:00"
+    },
+    {
+      "ticker": "TVH",
+      "date": "2026-08-14T21:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:50:00+07:00"
+    },
+    {
+      "ticker": "F&D",
+      "date": "2026-08-14T21:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:53:00+07:00"
+    },
+    {
+      "ticker": "RS",
+      "date": "2026-08-14T21:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:56:00+07:00"
+    },
+    {
+      "ticker": "KC",
+      "date": "2026-08-14T21:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:57:00+07:00"
+    },
+    {
+      "ticker": "SUPER",
+      "date": "2026-08-14T21:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T21:57:00+07:00"
+    },
+    {
+      "ticker": "IROYAL",
+      "date": "2026-08-14T22:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T22:06:00+07:00"
+    },
+    {
+      "ticker": "WARRIX",
+      "date": "2026-08-14T22:06:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T22:06:00+07:00"
+    },
+    {
+      "ticker": "BTS",
+      "date": "2026-08-14T22:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T22:10:00+07:00"
+    },
+    {
+      "ticker": "PRIME",
+      "date": "2026-08-14T22:17:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T22:17:00+07:00"
+    },
+    {
+      "ticker": "HYDRO",
+      "date": "2026-08-14T22:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T22:18:00+07:00"
+    },
+    {
+      "ticker": "MAGURO",
+      "date": "2026-08-14T22:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T22:26:00+07:00"
+    },
+    {
+      "ticker": "MJD",
+      "date": "2026-08-15T06:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T06:33:00+07:00"
+    },
+    {
+      "ticker": "FORTH",
+      "date": "2026-08-15T06:46:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T06:46:00+07:00"
     },
     {
       "ticker": "ASAP",
@@ -1307,11 +6717,46 @@
       "basedOnLastYear": "2025-08-15T06:52:00+07:00"
     },
     {
+      "ticker": "TSR",
+      "date": "2026-08-15T06:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T06:53:00+07:00"
+    },
+    {
+      "ticker": "BCH",
+      "date": "2026-08-15T07:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T07:19:00+07:00"
+    },
+    {
+      "ticker": "CHG",
+      "date": "2026-08-15T07:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T07:30:00+07:00"
+    },
+    {
+      "ticker": "SCI",
+      "date": "2026-08-15T07:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T07:31:00+07:00"
+    },
+    {
       "ticker": "AE",
       "date": "2026-08-15T07:33:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-15T07:33:00+07:00"
+    },
+    {
+      "ticker": "ZEN",
+      "date": "2026-08-15T07:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T07:36:00+07:00"
     },
     {
       "ticker": "AKS",
@@ -1321,11 +6766,95 @@
       "basedOnLastYear": "2025-08-15T07:45:00+07:00"
     },
     {
+      "ticker": "PR9",
+      "date": "2026-08-15T07:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T07:56:00+07:00"
+    },
+    {
+      "ticker": "TCC",
+      "date": "2026-08-15T07:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T07:56:00+07:00"
+    },
+    {
+      "ticker": "MVP",
+      "date": "2026-08-15T08:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:01:00+07:00"
+    },
+    {
       "ticker": "ACC",
       "date": "2026-08-15T08:02:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-15T08:02:00+07:00"
+    },
+    {
+      "ticker": "MADAME",
+      "date": "2026-08-15T08:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:18:00+07:00"
+    },
+    {
+      "ticker": "STECH",
+      "date": "2026-08-15T08:18:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:18:00+07:00"
+    },
+    {
+      "ticker": "EASON",
+      "date": "2026-08-15T08:19:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:19:00+07:00"
+    },
+    {
+      "ticker": "RSP",
+      "date": "2026-08-15T08:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:21:00+07:00"
+    },
+    {
+      "ticker": "TH",
+      "date": "2026-08-15T08:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:26:00+07:00"
+    },
+    {
+      "ticker": "UBIS",
+      "date": "2026-08-15T08:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:28:00+07:00"
+    },
+    {
+      "ticker": "MIDA",
+      "date": "2026-08-15T08:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:34:00+07:00"
+    },
+    {
+      "ticker": "PCE",
+      "date": "2026-08-15T08:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:49:00+07:00"
+    },
+    {
+      "ticker": "TRITN",
+      "date": "2026-08-15T08:53:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:53:00+07:00"
     },
     {
       "ticker": "AGE",
@@ -1335,11 +6864,123 @@
       "basedOnLastYear": "2025-08-15T08:58:00+07:00"
     },
     {
+      "ticker": "B",
+      "date": "2026-08-15T08:59:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T08:59:00+07:00"
+    },
+    {
+      "ticker": "GVREIT",
+      "date": "2026-08-15T09:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T09:00:00+07:00"
+    },
+    {
+      "ticker": "TTCL",
+      "date": "2026-08-15T09:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T09:00:00+07:00"
+    },
+    {
+      "ticker": "TNDT",
+      "date": "2026-08-15T09:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T09:07:00+07:00"
+    },
+    {
+      "ticker": "TBSP",
+      "date": "2026-08-15T12:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T12:31:00+07:00"
+    },
+    {
+      "ticker": "NC",
+      "date": "2026-08-15T12:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T12:57:00+07:00"
+    },
+    {
+      "ticker": "LTS",
+      "date": "2026-08-15T13:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-15T13:36:00+07:00"
+    },
+    {
+      "ticker": "MILL",
+      "date": "2026-08-18T21:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-18T21:56:00+07:00"
+    },
+    {
+      "ticker": "WSOL",
+      "date": "2026-08-19T08:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-19T08:14:00+07:00"
+    },
+    {
+      "ticker": "SSPF",
+      "date": "2026-08-20T18:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-20T18:04:00+07:00"
+    },
+    {
+      "ticker": "KGI",
+      "date": "2026-08-20T18:15:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-20T18:15:00+07:00"
+    },
+    {
+      "ticker": "LUXF",
+      "date": "2026-08-21T17:48:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-21T17:48:00+07:00"
+    },
+    {
+      "ticker": "COMAN",
+      "date": "2026-08-25T07:57:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-25T07:57:00+07:00"
+    },
+    {
       "ticker": "AFC",
       "date": "2026-08-25T17:03:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-25T17:03:00+07:00"
+    },
+    {
+      "ticker": "MFC",
+      "date": "2026-08-27T17:14:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-27T17:14:00+07:00"
+    },
+    {
+      "ticker": "MC",
+      "date": "2026-08-29T07:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-29T07:01:00+07:00"
+    },
+    {
+      "ticker": "BYD",
+      "date": "2026-09-01T06:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-09-01T06:41:00+07:00"
     }
   ]
 }
