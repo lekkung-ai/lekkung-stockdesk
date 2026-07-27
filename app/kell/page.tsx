@@ -12,6 +12,7 @@ import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
@@ -37,6 +38,7 @@ function distColor(dist: number): string {
 export default function KellPage() {
   const [signalFilter, setSignalFilter] = useState<SignalFilter>('ทั้งหมด');
   const [distMax, setDistMax] = useState(8);
+  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -63,6 +65,11 @@ export default function KellPage() {
     setDistMax(val);
   };
 
+  const handleAdtvChange = (val: number) => {
+    setCurrentPage(1);
+    setAdtvMin(val);
+  };
+
   const handleDiffFilterChange = (val: DiffFilter) => {
     setCurrentPage(1);
     setDiffFilter(val);
@@ -72,6 +79,7 @@ export default function KellPage() {
     let result = kellData
       .filter(s => signalFilter === 'ทั้งหมด' || s.Signal === signalFilter)
       .filter(s => s['Dist_EMA10_%'] <= distMax)
+      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -92,11 +100,11 @@ export default function KellPage() {
       result = result.sort((a, b) => Math.abs(a['Dist_EMA10_%']) - Math.abs(b['Dist_EMA10_%']));
     }
     return result;
-  }, [signalFilter, distMax, sortConfig, diffFilter, newSet]);
+  }, [signalFilter, distMax, adtvMin, sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [signalFilter, distMax, sortConfig, diffFilter, newSet]
+    [signalFilter, distMax, adtvMin, sortConfig, diffFilter, newSet]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -122,7 +130,10 @@ export default function KellPage() {
           updatedAt={formatThaiDate(getScanGeneratedAt('oliver_kell'))}
           total={kellData.length}
         />
-        <ModeToggle mode={mode} onChange={setMode} />
+        <div className="flex items-center gap-3">
+          <ExportCSVButton data={filtered} filename="kell_emac.csv" />
+          <ModeToggle mode={mode} onChange={setMode} />
+        </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('oliver_kell')} />
       <ReportCardBar scanKey="kell" />
@@ -158,6 +169,8 @@ export default function KellPage() {
           unit="%"
           dir="lte"
         />
+        <Divider />
+        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={handleAdtvChange} step={5} />
         <Divider />
         <ScanDiffChips scanName="kell" filter={diffFilter} onChange={handleDiffFilterChange} />
       </FilterBar>
@@ -233,6 +246,7 @@ export default function KellPage() {
                       {s.Ticker}
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
+                    <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
                   <SectorChip ticker={s.Ticker} />

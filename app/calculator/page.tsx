@@ -242,10 +242,19 @@ function WarrantConversionChart({
   const maxProfit = ((pMax - costPerParentShare) / costPerParentShare) * 100;
 
   const width = 600;
-  const height = 240;
-  const margin = { top: 35, right: 35, bottom: 45, left: 55 };
+  const height = 250;
+  const margin = { top: 40, right: 35, bottom: 45, left: 55 };
   const graphW = width - margin.left - margin.right;
   const graphH = height - margin.top - margin.bottom;
+
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const [interactivePrice, setInteractivePrice] = useState<number>(pCurrent);
+  const [isPointerDown, setIsPointerDown] = useState(false);
+
+  // Keep interactivePrice synced if parentPrice changes from ticker switch
+  useEffect(() => {
+    setInteractivePrice(pCurrent);
+  }, [pCurrent]);
 
   const getSvgX = (price: number) => {
     const ratio = Math.max(0, Math.min(1, (price - pMin) / (pMax - pMin)));
@@ -261,6 +270,38 @@ function WarrantConversionChart({
     return margin.top + (1 - ratio) * graphH;
   };
 
+  const updatePriceFromClientX = useCallback((clientX: number) => {
+    if (!svgRef.current) return;
+    const rect = svgRef.current.getBoundingClientRect();
+    if (rect.width <= 0) return;
+    const svgX = ((clientX - rect.left) / rect.width) * width;
+    const clampedSvgX = Math.max(margin.left, Math.min(width - margin.right, svgX));
+    const ratio = (clampedSvgX - margin.left) / graphW;
+    const rawPrice = pMin + ratio * (pMax - pMin);
+    const roundedPrice = Math.max(0, Math.round(rawPrice * 100) / 100);
+    setInteractivePrice(roundedPrice);
+  }, [width, margin.left, margin.right, graphW, pMin, pMax]);
+
+  const handlePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
+    setIsPointerDown(true);
+    updatePriceFromClientX(e.clientX);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    // Desktop hover or active drag
+    if (e.pointerType === 'mouse' || isPointerDown) {
+      updatePriceFromClientX(e.clientX);
+    }
+  };
+
+  const handlePointerUp = () => setIsPointerDown(false);
+
+  const handleTouchMove = (e: React.TouchEvent<SVGSVGElement>) => {
+    if (e.touches.length > 0) {
+      updatePriceFromClientX(e.touches[0].clientX);
+    }
+  };
+
   const zeroY = getSvgY(0);
   const breakevenX = getSvgX(costPerParentShare);
   const currentX = getSvgX(pCurrent);
@@ -271,6 +312,11 @@ function WarrantConversionChart({
   const xEnd = getSvgX(pMax);
   const yEnd = getSvgY(maxProfit);
 
+  // Interactive point math (formula profitPct = (X - costPerParentShare) / costPerParentShare * 100)
+  const interactiveProfitPct = ((interactivePrice - costPerParentShare) / costPerParentShare) * 100;
+  const interactiveX = getSvgX(interactivePrice);
+  const interactiveY = getSvgY(interactiveProfitPct);
+
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-2">
@@ -279,7 +325,7 @@ function WarrantConversionChart({
             <span>📈 กราฟเปรียบเทียบต้นทุนแปลงสิทธิ vs ราคาตลาด</span>
           </h3>
           <p className="text-[11.5px] text-white/40 mt-0.5">
-            แกน X = ราคาหุ้นแม่ตลาด | แกน Y = %กำไร/ขาดทุนจากการแปลงสิทธิ
+            แกน X = ราคาหุ้นแม่ตลาด | แกน Y = %กำไร/ขาดทุนจากการแปลงสิทธิ · <span className="text-[#A78BFA] font-medium">💡 แตะหรือลากบนกราฟเพื่อทดลองเปลี่ยนราคา</span>
           </p>
         </div>
         <div className="flex items-center gap-3 text-[11px]">
@@ -293,7 +339,17 @@ function WarrantConversionChart({
       </div>
 
       <div className="w-full overflow-hidden">
-        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto text-xs select-none">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${width} ${height}`}
+          className="w-full h-auto text-xs select-none cursor-crosshair touch-none"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          onTouchStart={(e) => updatePriceFromClientX(e.touches[0].clientX)}
+          onTouchMove={handleTouchMove}
+        >
           <defs>
             <linearGradient id="greenArea" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#1D9E75" stopOpacity="0.25" />
@@ -328,7 +384,7 @@ function WarrantConversionChart({
           {/* Breakeven Marker (at P = costPerParentShare) */}
           <line x1={breakevenX} y1={margin.top} x2={breakevenX} y2={height - margin.bottom} stroke="#F9C942" strokeWidth="1.5" strokeDasharray="4 4" />
           <circle cx={breakevenX} cy={zeroY} r="4" fill="#F9C942" />
-          <text x={breakevenX} y={margin.top - 12} textAnchor="middle" fill="#F9C942" fontSize="10" fontWeight="bold">
+          <text x={breakevenX} y={margin.top - 14} textAnchor="middle" fill="#F9C942" fontSize="10" fontWeight="bold">
             จุดคุ้มทุนแปลง {costPerParentShare.toFixed(2)} บาท (0%)
           </text>
 
@@ -336,20 +392,65 @@ function WarrantConversionChart({
           {parentPrice > 0 && (
             <>
               <line x1={currentX} y1={margin.top} x2={currentX} y2={height - margin.bottom} stroke="#38BDF8" strokeWidth="1.5" strokeDasharray="2 2" />
-              <circle cx={currentX} cy={currentY} r="5" fill="#38BDF8" stroke="#13161e" strokeWidth="2" />
-              <g transform={`translate(${currentX}, ${currentY > zeroY ? Math.min(currentY + 20, height - margin.bottom - 10) : Math.max(currentY - 12, margin.top + 15)})`}>
+              <circle cx={currentX} cy={currentY} r="4.5" fill="#38BDF8" stroke="#13161e" strokeWidth="1.5" />
+              <g transform={`translate(${currentX}, ${currentY > zeroY ? Math.min(currentY + 18, height - margin.bottom - 10) : Math.max(currentY - 12, margin.top + 15)})`}>
                 <rect
-                  x="-75"
-                  y="-11"
-                  width="150"
-                  height="22"
-                  rx="6"
+                  x="-70"
+                  y="-10"
+                  width="140"
+                  height="20"
+                  rx="5"
                   fill="#1E293B"
                   stroke="#38BDF8"
                   strokeWidth="1"
                 />
-                <text x="0" y="3" textAnchor="middle" fill="#38BDF8" fontSize="10.5" fontWeight="bold">
+                <text x="0" y="3" textAnchor="middle" fill="#38BDF8" fontSize="10" fontWeight="bold">
                   ราคาปัจจุบัน {parentPrice.toFixed(2)} ({profitPct != null && profitPct >= 0 ? '+' : ''}{profitPct?.toFixed(2)}%)
+                </text>
+              </g>
+            </>
+          )}
+
+          {/* Interactive Draggable/Hover Marker & Tooltip */}
+          {interactivePrice != null && (
+            <>
+              <line
+                x1={interactiveX}
+                y1={margin.top}
+                x2={interactiveX}
+                y2={height - margin.bottom}
+                stroke="#A78BFA"
+                strokeWidth="2"
+                strokeDasharray="3 3"
+              />
+              <circle
+                cx={interactiveX}
+                cy={interactiveY}
+                r="6.5"
+                fill="#A78BFA"
+                stroke="#ffffff"
+                strokeWidth="2"
+                className="drop-shadow-md"
+              />
+              {/* Dynamic Interactive Tooltip Card */}
+              <g transform={`translate(${Math.max(margin.left + 90, Math.min(width - margin.right - 90, interactiveX))}, ${interactiveY > zeroY ? Math.max(interactiveY - 32, margin.top + 20) : Math.min(interactiveY + 28, height - margin.bottom - 20)})`}>
+                <rect
+                  x="-110"
+                  y="-13"
+                  width="220"
+                  height="26"
+                  rx="6"
+                  fill="#181028"
+                  stroke="#A78BFA"
+                  strokeWidth="1.5"
+                  className="shadow-2xl"
+                />
+                <text x="0" y="3" textAnchor="middle" fontSize="11" fontWeight="bold">
+                  <tspan fill="#A78BFA">ราคาหุ้นแม่ = {interactivePrice.toFixed(2)}</tspan>
+                  <tspan fill="#ffffff" opacity="0.6"> → </tspan>
+                  <tspan fill={interactiveProfitPct >= 0 ? '#1D9E75' : '#E24B4A'}>
+                    {interactiveProfitPct >= 0 ? '+' : ''}{interactiveProfitPct.toFixed(2)}%
+                  </tspan>
                 </text>
               </g>
             </>

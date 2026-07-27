@@ -13,6 +13,7 @@ import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
@@ -174,7 +175,10 @@ export default function SepaPage() {
           updatedAt={formatThaiDate(getScanGeneratedAt('sepa'))}
           total={sepaData.length}
         />
-        <ModeToggle mode={mode} onChange={setMode} />
+        <div className="flex items-center gap-3">
+          <ExportCSVButton data={filtered} filename="sepa_trend_template.csv" />
+          <ModeToggle mode={mode} onChange={setMode} />
+        </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('sepa')} />
       <ReportCardBar scanKey="sepa" />
@@ -204,7 +208,7 @@ export default function SepaPage() {
           unit="%"
           dir="lte"
         />
-        <span className="text-label text-white/25 ml-auto">
+        <span className="text-label text-[#ffffff]/25 ml-auto">
           ยิ่งใกล้ High = momentum แข็ง
         </span>
         <Divider />
@@ -284,6 +288,7 @@ export default function SepaPage() {
                       <FundamentalBadge pass={s.Fundamental_Pass} />
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
+                    <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
                   <SectorChip ticker={s.Ticker} />

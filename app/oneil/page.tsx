@@ -12,6 +12,7 @@ import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  formatPE, ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
@@ -30,6 +31,7 @@ export default function OneilPage() {
   const [profitMin, setProfitMin] = useState(20);
   const [roeMin, setRoeMin] = useState(15);
   const [mcapMin, setMcapMin] = useState(0);
+  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -49,6 +51,7 @@ export default function OneilPage() {
       .filter(s => s.Profit_Growth_YoY >= profitMin)
       .filter(s => (s.ROE * 100) >= roeMin)
       .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin)
+      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -69,11 +72,11 @@ export default function OneilPage() {
       result = result.sort((a, b) => b.RS_Rating - a.RS_Rating);
     }
     return result;
-  }, [rsMin, profitMin, roeMin, mcapMin, sortConfig, diffFilter, newSet]);
+  }, [rsMin, profitMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [rsMin, profitMin, roeMin, mcapMin, sortConfig, diffFilter, newSet]
+    [rsMin, profitMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
@@ -93,7 +96,10 @@ export default function OneilPage() {
           updatedAt={formatThaiDate(getScanGeneratedAt('oneil'))}
           total={oneilData.length}
         />
-        <ModeToggle mode={mode} onChange={setMode} />
+        <div className="flex items-center gap-3">
+          <ExportCSVButton data={filtered} filename="oneil_canslim.csv" />
+          <ModeToggle mode={mode} onChange={setMode} />
+        </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('oneil')} />
       <ReportCardBar scanKey="oneil" />
@@ -110,6 +116,8 @@ export default function OneilPage() {
         <SliderField label="ROE %" min={15} max={50} value={roeMin} onChange={setRoeMin} />
         <Divider />
         <SliderField label="Market Cap (MB)" min={0} max={50000} value={mcapMin} onChange={setMcapMin} step={1000} />
+        <Divider />
+        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={setAdtvMin} step={5} />
         <Divider />
         <ScanDiffChips scanName="oneil" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
@@ -187,6 +195,7 @@ export default function OneilPage() {
                       {s.Ticker}
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
+                    <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
                   <SectorChip ticker={s.Ticker} />
@@ -211,7 +220,7 @@ export default function OneilPage() {
                   {s['%_From_52W_High']?.toFixed(1) || '-'}%
                 </span>
               </Td>
-              <Td right mono>{s.PE_Ratio?.toFixed(2) || '-'}</Td>
+              <Td right mono>{formatPE(s.PE_Ratio)}</Td>
               <Td right mono>
                 <span className={s.ROE > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
                   {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}

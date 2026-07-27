@@ -12,6 +12,7 @@ import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import ScanHistoryView from '@/components/ScanHistoryView';
 import ModeToggle from '@/components/ModeToggle';
@@ -28,6 +29,7 @@ import ReportCardBar from '@/components/ReportCardBar';
 export default function BreakoutPage() {
   const [toBreakMax, setToBreakMax] = useState(10);
   const [boxWidthMax, setBoxWidthMax] = useState(20);
+  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -53,6 +55,11 @@ export default function BreakoutPage() {
     setBoxWidthMax(val);
   };
 
+  const handleAdtvChange = (val: number) => {
+    setCurrentPage(1);
+    setAdtvMin(val);
+  };
+
   const handleDiffFilterChange = (val: DiffFilter) => {
     setCurrentPage(1);
     setDiffFilter(val);
@@ -62,6 +69,7 @@ export default function BreakoutPage() {
     let result = breakoutData
       .filter(s => s['To_Break'] <= toBreakMax)
       .filter(s => s['Box_Width'] <= boxWidthMax)
+      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -82,11 +90,11 @@ export default function BreakoutPage() {
       result = result.sort((a, b) => a['To_Break'] - b['To_Break']);
     }
     return result;
-  }, [toBreakMax, boxWidthMax, sortConfig, diffFilter, newSet]);
+  }, [toBreakMax, boxWidthMax, adtvMin, sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [toBreakMax, boxWidthMax, sortConfig, diffFilter, newSet]
+    [toBreakMax, boxWidthMax, adtvMin, sortConfig, diffFilter, newSet]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -112,7 +120,10 @@ export default function BreakoutPage() {
           updatedAt={formatThaiDate(getScanGeneratedAt('breakout'))}
           total={breakoutData.length}
         />
-        <ModeToggle mode={mode} onChange={setMode} />
+        <div className="flex items-center gap-3">
+          <ExportCSVButton data={filtered} filename="breakout_setup.csv" />
+          <ModeToggle mode={mode} onChange={setMode} />
+        </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('breakout')} />
       <ReportCardBar scanKey="breakout" />
@@ -141,6 +152,8 @@ export default function BreakoutPage() {
           unit="%"
           dir="lte"
         />
+        <Divider />
+        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={handleAdtvChange} step={5} />
         <span className="text-label text-white/25 ml-auto">
           ค่าติดลบ = broke แล้ว
         </span>
@@ -218,6 +231,7 @@ export default function BreakoutPage() {
                 <Td>
                   <div className="flex items-center gap-1.5">
                     <span className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>{s.Ticker}</span>
+                    <AddMyStockButton ticker={s.Ticker} />
                     {broke && (
                       <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF3DE] text-[#27500A] leading-none">
                         BROKE

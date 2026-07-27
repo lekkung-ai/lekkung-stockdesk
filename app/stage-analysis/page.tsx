@@ -11,6 +11,7 @@ import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
   SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  formatPE, ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
@@ -88,7 +89,10 @@ export default function StageAnalysisPage() {
           updatedAt={formatThaiDate(getScanGeneratedAt('weinstein'))}
           total={weinsteinData.length}
         />
-        <ModeToggle mode={mode} onChange={setMode} />
+        <div className="flex items-center gap-3">
+          <ExportCSVButton data={filtered} filename="stage_analysis.csv" />
+          <ModeToggle mode={mode} onChange={setMode} />
+        </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('weinstein')} />
       <ReportCardBar scanKey="stage-analysis" />
@@ -152,8 +156,9 @@ export default function StageAnalysisPage() {
             >
               <Td className="text-white/40"><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
-                <div className="font-bold text-white">
+                <div className="flex items-center gap-2 font-bold text-white">
                   {s.Ticker}
+                  <AddMyStockButton ticker={s.Ticker} />
                   {newSet.has(s.Ticker) && <NewBadge />}
                 </div>
                 <SectorChip ticker={s.Ticker} />
@@ -180,7 +185,7 @@ export default function StageAnalysisPage() {
                   {s.Vol10 ? (s.Vol10).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}
                 </span>
               </Td>
-              <Td right mono>{s.PE_Ratio ? s.PE_Ratio.toFixed(2) : '-'}</Td>
+              <Td right mono>{formatPE(s.PE_Ratio)}</Td>
               <Td right mono>
                 <span className={s.ROE > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
                   {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}

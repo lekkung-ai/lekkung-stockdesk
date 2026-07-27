@@ -10,7 +10,8 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  stageCls, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  stageCls, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
@@ -39,6 +40,7 @@ const STAGE_ORDER: Record<string, number> = {
 
 export default function MarketStagePage() {
   const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
+  const [adtvMin, setAdtvMin] = useState(0);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -62,6 +64,7 @@ export default function MarketStagePage() {
   const filtered = useMemo(() => {
     let result = stageData
       .filter(s => allStagesSelected || stages.has(s.Stage))
+      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
     if (sortConfig) {
       result = result.sort((a, b) => {
@@ -85,11 +88,11 @@ export default function MarketStagePage() {
       });
     }
     return result;
-  }, [stages, allStagesSelected, sortConfig, diffFilter, newSet]);
+  }, [stages, allStagesSelected, adtvMin, sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [stages, allStagesSelected, sortConfig, diffFilter, newSet]
+    [stages, allStagesSelected, adtvMin, sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
 
@@ -103,7 +106,10 @@ export default function MarketStagePage() {
           updatedAt={formatThaiDate(getScanGeneratedAt('market_stage'))}
           total={stageData.length}
         />
-        <ModeToggle mode={mode} onChange={setMode} />
+        <div className="flex items-center gap-3">
+          <ExportCSVButton data={filtered} filename="market_stage.csv" />
+          <ModeToggle mode={mode} onChange={setMode} />
+        </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('market_stage')} />
       <ReportCardBar scanKey="market-stage" />
@@ -133,6 +139,8 @@ export default function MarketStagePage() {
             Reset
           </button>
         )}
+        <Divider />
+        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={setAdtvMin} step={5} />
         <div className="ml-auto">
           <ScanDiffChips scanName="market-stage" filter={diffFilter} onChange={setDiffFilter} />
         </div>
@@ -168,8 +176,9 @@ export default function MarketStagePage() {
             >
               <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
-                <div className="font-bold text-white">
+                <div className="flex items-center gap-2 font-bold text-white">
                   {s.Ticker}
+                  <AddMyStockButton ticker={s.Ticker} />
                   {newSet.has(s.Ticker) && <NewBadge />}
                 </div>
                 <SectorChip ticker={s.Ticker} />

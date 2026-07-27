@@ -34,6 +34,8 @@ import {
   PageHeader,
   SortableTh,
   SortConfig,
+  ExportCSVButton,
+  AddMyStockButton,
 } from '@/components/StrategyTable';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -256,13 +258,16 @@ function QuantScannerContent() {
 
   return (
     <div className="p-4 md:p-6 space-y-4">
-      <PageHeader
-        title="Quant Scanner"
-        subtitle="SEPA · Oliver Kell · Breakout · Pocket Pivot"
-        count={rows.length}
-        total={allRows.length}
-        updatedAt={formatThaiDate(scanGeneratedAt)}
-      />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <PageHeader
+          title="Quant Scanner"
+          subtitle="SEPA · Oliver Kell · Breakout · Pocket Pivot"
+          count={rows.length}
+          total={allRows.length}
+          updatedAt={formatThaiDate(scanGeneratedAt)}
+        />
+        <ExportCSVButton data={rows} filename="quant_scanner.csv" />
+      </div>
       <StaleDataBanner generatedAt={scanGeneratedAt} />
 
       {/* Mobile filter toggle */}
@@ -386,21 +391,24 @@ function QuantScannerContent() {
                 </Td>
 
                 <Td>
-                  <Link
-                    href={`/stock/${row.ticker}`}
-                    className="font-bold text-white hover:text-[#1D9E75] transition-colors"
-                  >
-                    {row.ticker}
-                  </Link>
-                  {(() => {
-                    const dist = pctFromHigh(displayPrice, w52Map.get(row.ticker)?.high);
-                    if (dist == null || Math.abs(dist) > 0.5) return null;
-                    return (
-                      <span className="ml-1.5 inline-flex items-center px-1 py-0.5 rounded text-[9px] font-bold bg-[#1D9E75] text-white align-middle">
-                        NH
-                      </span>
-                    );
-                  })()}
+                  <div className="flex items-center gap-1.5">
+                    <Link
+                      href={`/stock/${row.ticker}`}
+                      className="font-bold text-white hover:text-[#1D9E75] transition-colors"
+                    >
+                      {row.ticker}
+                    </Link>
+                    <AddMyStockButton ticker={row.ticker} />
+                    {(() => {
+                      const dist = pctFromHigh(displayPrice, w52Map.get(row.ticker)?.high);
+                      if (dist == null || Math.abs(dist) > 0.5) return null;
+                      return (
+                        <span className="inline-flex items-center px-1 py-0.5 rounded text-[9px] font-bold bg-[#1D9E75] text-white align-middle">
+                          NH
+                        </span>
+                      );
+                    })()}
+                  </div>
                   <SectorChip ticker={row.ticker} />
                 </Td>
 
