@@ -4,8 +4,17 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { getSectorsGrouped, sectorToSlug } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
+import rawSectorRS from '@/data/scans/sector_rs.json';
 
 type Market = 'SET' | 'MAI' | 'WARRANT';
+
+interface SectorRSData {
+  generated_at?: string;
+  method?: string;
+  sectors: Record<string, Record<string, { rsScore: number; count: number }>>;
+}
+
+const sectorRSData = rawSectorRS as SectorRSData;
 
 const SECTOR_COLORS: Record<string, string> = {
   'Agro':             '#5D9E4A',
@@ -19,18 +28,6 @@ const SECTOR_COLORS: Record<string, string> = {
   'Technology':       '#1D9E75',
 };
 
-const SECTOR_RS: Record<string, { rsScore: number; status: 'Outperforming' | 'Neutral' | 'Underperforming' }> = {
-  'Technology':  { rsScore: 78, status: 'Outperforming' },
-  'Resources':   { rsScore: 72, status: 'Outperforming' },
-  'Agro':        { rsScore: 68, status: 'Outperforming' },
-  'Financials':  { rsScore: 65, status: 'Outperforming' },
-  'Services':    { rsScore: 52, status: 'Neutral' },
-  'Industrials': { rsScore: 48, status: 'Neutral' },
-  'Consumer':    { rsScore: 42, status: 'Underperforming' },
-  'Consump':     { rsScore: 42, status: 'Underperforming' },
-  'Property':    { rsScore: 35, status: 'Underperforming' },
-};
-
 function sectorColor(sector: string): string {
   return SECTOR_COLORS[sector] ?? '#6b7280';
 }
@@ -40,6 +37,35 @@ export default function SectorPage() {
   const isWarrantTab = market === 'WARRANT';
   const sectors = isWarrantTab ? [] : getSectorsGrouped(market);
   const totalTickers = sectors.reduce((s, g) => s + g.totalCount, 0);
+
+  // Read Sector RS data based on active market (WARRANT falls back to SET)
+  const rsMarketKey = market === 'WARRANT' ? 'SET' : market;
+  const currentRSMap = sectorRSData.sectors?.[rsMarketKey] ?? {};
+
+  // Sort sectors in active market by rsScore descending
+  const rankedSectors = Object.entries(currentRSMap)
+    .map(([sec, info]) => ({
+      sector: sec,
+      rsScore: info.rsScore,
+      count: info.count,
+    }))
+    .sort((a, b) => b.rsScore - a.rsScore);
+
+  // Calculate relative status per market: Top 1/3 Outperform, Middle Neutral, Bottom 1/3 Underperform
+  const statusMap: Record<string, 'Outperforming' | 'Neutral' | 'Underperforming'> = {};
+  const totalSectors = rankedSectors.length;
+  const topCut = Math.ceil(totalSectors / 3);
+  const botCut = totalSectors - Math.floor(totalSectors / 3);
+
+  rankedSectors.forEach((item, idx) => {
+    if (idx < topCut) {
+      statusMap[item.sector] = 'Outperforming';
+    } else if (idx < botCut) {
+      statusMap[item.sector] = 'Neutral';
+    } else {
+      statusMap[item.sector] = 'Underperforming';
+    }
+  });
 
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">
@@ -76,25 +102,28 @@ export default function SectorPage() {
           <div className="flex items-center justify-between">
             <span className="text-[13px] font-extrabold text-white flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              Sector Relative Strength Ranking (เปรียบเทียบเทียบโมเมนตัม vs SET Index)
+              Sector Relative Strength Ranking ({market} - Median RS หุ้นในกลุ่ม)
             </span>
             <span className="text-[11.5px] text-white/40 font-medium">อัปเดตล่าสุดวันนี้</span>
           </div>
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-            {Object.entries(SECTOR_RS).slice(0, 7).map(([sec, info]) => (
-              <div key={sec} className="bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2 text-center min-w-[130px] flex-1">
-                <p className="text-[12px] font-bold text-white truncate">{sec}</p>
-                <div className="flex items-center justify-center gap-1.5 mt-1">
-                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
-                    info.status === 'Outperforming' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
-                    info.status === 'Neutral' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                    'bg-rose-500/20 text-rose-400 border border-rose-500/30'
-                  }`}>
-                    {info.status === 'Outperforming' ? '+RS Outperform' : info.status === 'Neutral' ? 'RS Neutral' : '-RS Underperform'}
-                  </span>
+            {rankedSectors.map((item) => {
+              const status = statusMap[item.sector] ?? 'Neutral';
+              return (
+                <div key={item.sector} className="bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2 text-center min-w-[130px] flex-1">
+                  <p className="text-[12px] font-bold text-white truncate">{item.sector}</p>
+                  <div className="flex items-center justify-center gap-1.5 mt-1">
+                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                      status === 'Outperforming' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                      status === 'Neutral' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
+                      'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                    }`}>
+                      {status === 'Outperforming' ? `+RS ${item.rsScore}` : status === 'Neutral' ? `RS ${item.rsScore}` : `-RS ${item.rsScore}`}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -106,7 +135,8 @@ export default function SectorPage() {
         {sectors.map(({ sector, subsectors, totalCount }) => {
           const color = sectorColor(sector);
           const slug = sectorToSlug(sector);
-          const rs = SECTOR_RS[sector] || { rsScore: 50, status: 'Neutral' };
+          const rsScore = currentRSMap[sector]?.rsScore ?? 50;
+          const status = statusMap[sector] ?? 'Neutral';
           return (
             <Link
               key={sector}
@@ -126,11 +156,11 @@ export default function SectorPage() {
                 </div>
                 <div className="text-right flex-shrink-0">
                   <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-block ${
-                    rs.status === 'Outperforming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                    rs.status === 'Neutral' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
+                    status === 'Outperforming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                    status === 'Neutral' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
                     'bg-rose-500/10 text-rose-400 border border-rose-500/20'
                   }`}>
-                    RS {rs.rsScore}
+                    RS {rsScore}
                   </span>
                 </div>
               </div>
