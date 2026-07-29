@@ -752,7 +752,7 @@
     "RS_Rating": 78
   },
   {
-    "Ticker": "LHSC",
+    "Ticker": "CK",
     "RS_Rating": 78
   },
   {
@@ -776,7 +776,7 @@
     "RS_Rating": 78
   },
   {
-    "Ticker": "CK",
+    "Ticker": "LHSC",
     "RS_Rating": 78
   },
   {
@@ -784,7 +784,7 @@
     "RS_Rating": 78
   },
   {
-    "Ticker": "D",
+    "Ticker": "NNCL",
     "RS_Rating": 77
   },
   {
@@ -804,6 +804,10 @@
     "RS_Rating": 77
   },
   {
+    "Ticker": "D",
+    "RS_Rating": 77
+  },
+  {
     "Ticker": "SAT",
     "RS_Rating": 77
   },
@@ -812,19 +816,15 @@
     "RS_Rating": 77
   },
   {
-    "Ticker": "NNCL",
-    "RS_Rating": 77
+    "Ticker": "PLAT",
+    "RS_Rating": 76
+  },
+  {
+    "Ticker": "BR",
+    "RS_Rating": 76
   },
   {
     "Ticker": "AIMIRT",
-    "RS_Rating": 76
-  },
-  {
-    "Ticker": "IMPACT",
-    "RS_Rating": 76
-  },
-  {
-    "Ticker": "TPP",
     "RS_Rating": 76
   },
   {
@@ -840,7 +840,7 @@
     "RS_Rating": 76
   },
   {
-    "Ticker": "BR",
+    "Ticker": "IMPACT",
     "RS_Rating": 76
   },
   {
@@ -848,8 +848,32 @@
     "RS_Rating": 76
   },
   {
-    "Ticker": "PLAT",
+    "Ticker": "TPP",
     "RS_Rating": 76
+  },
+  {
+    "Ticker": "NUT",
+    "RS_Rating": 75
+  },
+  {
+    "Ticker": "ICN",
+    "RS_Rating": 75
+  },
+  {
+    "Ticker": "ALLY",
+    "RS_Rating": 75
+  },
+  {
+    "Ticker": "PHOL",
+    "RS_Rating": 75
+  },
+  {
+    "Ticker": "PTTEP",
+    "RS_Rating": 75
+  },
+  {
+    "Ticker": "DMT",
+    "RS_Rating": 75
   },
   {
     "Ticker": "CBG",
@@ -860,35 +884,11 @@
     "RS_Rating": 75
   },
   {
-    "Ticker": "PTTEP",
-    "RS_Rating": 75
-  },
-  {
-    "Ticker": "ICN",
-    "RS_Rating": 75
-  },
-  {
-    "Ticker": "NUT",
-    "RS_Rating": 75
-  },
-  {
-    "Ticker": "DMT",
-    "RS_Rating": 75
-  },
-  {
-    "Ticker": "PHOL",
-    "RS_Rating": 75
-  },
-  {
-    "Ticker": "ALLY",
-    "RS_Rating": 75
-  },
-  {
     "Ticker": "BLESS",
     "RS_Rating": 75
   },
   {
-    "Ticker": "BANPU",
+    "Ticker": "SCGD",
     "RS_Rating": 74
   },
   {
@@ -896,7 +896,7 @@
     "RS_Rating": 74
   },
   {
-    "Ticker": "SCGD",
+    "Ticker": "CI",
     "RS_Rating": 74
   },
   {
@@ -904,7 +904,7 @@
     "RS_Rating": 74
   },
   {
-    "Ticker": "BPP",
+    "Ticker": "BANPU",
     "RS_Rating": 74
   },
   {
@@ -916,11 +916,11 @@
     "RS_Rating": 74
   },
   {
-    "Ticker": "CI",
+    "Ticker": "BPP",
     "RS_Rating": 74
   },
   {
-    "Ticker": "BIOTEC",
+    "Ticker": "ROCTEC",
     "RS_Rating": 73
   },
   {
@@ -932,15 +932,11 @@
     "RS_Rating": 73
   },
   {
-    "Ticker": "ROCTEC",
+    "Ticker": "BIOTEC",
     "RS_Rating": 73
   },
   {
     "Ticker": "SICT",
-    "RS_Rating": 73
-  },
-  {
-    "Ticker": "SUTHA",
     "RS_Rating": 73
   },
   {
@@ -956,23 +952,11 @@
     "RS_Rating": 73
   },
   {
-    "Ticker": "STP",
-    "RS_Rating": 72
-  },
-  {
-    "Ticker": "RJH",
-    "RS_Rating": 72
-  },
-  {
-    "Ticker": "AH",
-    "RS_Rating": 72
-  },
-  {
     "Ticker": "AGE",
-    "RS_Rating": 72
+    "RS_Rating": 73
   },
   {
-    "Ticker": "YUASA",
+    "Ticker": "KCG",
     "RS_Rating": 72
   },
   {
@@ -980,11 +964,15 @@
     "RS_Rating": 72
   },
   {
-    "Ticker": "KCG",
+    "Ticker": "RJH",
     "RS_Rating": 72
   },
   {
-    "Ticker": "SCG",
+    "Ticker": "STP",
+    "RS_Rating": 72
+  },
+  {
+    "Ticker": "ITNS",
     "RS_Rating": 72
   },
   {
@@ -992,11 +980,19 @@
     "RS_Rating": 72
   },
   {
-    "Ticker": "STECH",
-    "RS_Rating": 71
+    "Ticker": "AH",
+    "RS_Rating": 72
   },
   {
-    "Ticker": "ITNS",
+    "Ticker": "SCG",
+    "RS_Rating": 72
+  },
+  {
+    "Ticker": "YUASA",
+    "RS_Rating": 72
+  },
+  {
+    "Ticker": "STECH",
     "RS_Rating": 71
   },
   {
@@ -1004,19 +1000,11 @@
     "RS_Rating": 71
   },
   {
-    "Ticker": "SCC",
-    "RS_Rating": 71
-  },
-  {
     "Ticker": "CPI",
     "RS_Rating": 71
   },
   {
-    "Ticker": "TVO",
-    "RS_Rating": 71
-  },
-  {
-    "Ticker": "TIPH",
+    "Ticker": "SCC",
     "RS_Rating": 71
   },
   {
@@ -1024,7 +1012,35 @@
     "RS_Rating": 71
   },
   {
+    "Ticker": "TVO",
+    "RS_Rating": 71
+  },
+  {
+    "Ticker": "SUTHA",
+    "RS_Rating": 71
+  },
+  {
+    "Ticker": "TIPH",
+    "RS_Rating": 71
+  },
+  {
+    "Ticker": "CCP",
+    "RS_Rating": 70
+  },
+  {
+    "Ticker": "EGCO",
+    "RS_Rating": 70
+  },
+  {
     "Ticker": "MFEC",
+    "RS_Rating": 70
+  },
+  {
+    "Ticker": "LHHOTEL",
+    "RS_Rating": 70
+  },
+  {
+    "Ticker": "TSI",
     "RS_Rating": 70
   },
   {
@@ -1036,27 +1052,11 @@
     "RS_Rating": 70
   },
   {
-    "Ticker": "EGCO",
-    "RS_Rating": 70
-  },
-  {
-    "Ticker": "TSI",
-    "RS_Rating": 70
-  },
-  {
     "Ticker": "TTW",
     "RS_Rating": 70
   },
   {
     "Ticker": "ASW",
-    "RS_Rating": 70
-  },
-  {
-    "Ticker": "LHHOTEL",
-    "RS_Rating": 70
-  },
-  {
-    "Ticker": "CCP",
     "RS_Rating": 70
   },
   {
@@ -1200,7 +1200,7 @@
     "RS_Rating": 66
   },
   {
-    "Ticker": "ARIP",
+    "Ticker": "WHABT",
     "RS_Rating": 65
   },
   {
@@ -1208,7 +1208,7 @@
     "RS_Rating": 65
   },
   {
-    "Ticker": "WHABT",
+    "Ticker": "ARIP",
     "RS_Rating": 65
   },
   {
@@ -1220,7 +1220,7 @@
     "RS_Rating": 65
   },
   {
-    "Ticker": "TPRIME",
+    "Ticker": "PDG",
     "RS_Rating": 65
   },
   {
@@ -1228,11 +1228,11 @@
     "RS_Rating": 65
   },
   {
-    "Ticker": "PCC",
+    "Ticker": "ROCK",
     "RS_Rating": 65
   },
   {
-    "Ticker": "ROCK",
+    "Ticker": "PCC",
     "RS_Rating": 65
   },
   {
@@ -1244,7 +1244,7 @@
     "RS_Rating": 64
   },
   {
-    "Ticker": "PDG",
+    "Ticker": "KBS",
     "RS_Rating": 64
   },
   {
@@ -1252,15 +1252,7 @@
     "RS_Rating": 64
   },
   {
-    "Ticker": "SSSC",
-    "RS_Rating": 64
-  },
-  {
-    "Ticker": "KBS",
-    "RS_Rating": 64
-  },
-  {
-    "Ticker": "ORN",
+    "Ticker": "TPRIME",
     "RS_Rating": 64
   },
   {
@@ -1268,11 +1260,15 @@
     "RS_Rating": 64
   },
   {
-    "Ticker": "OSP",
-    "RS_Rating": 63
+    "Ticker": "SSSC",
+    "RS_Rating": 64
   },
   {
-    "Ticker": "KSL",
+    "Ticker": "ORN",
+    "RS_Rating": 64
+  },
+  {
+    "Ticker": "TMT",
     "RS_Rating": 63
   },
   {
@@ -1280,15 +1276,7 @@
     "RS_Rating": 63
   },
   {
-    "Ticker": "TSC",
-    "RS_Rating": 63
-  },
-  {
-    "Ticker": "TMT",
-    "RS_Rating": 63
-  },
-  {
-    "Ticker": "UTP",
+    "Ticker": "FM",
     "RS_Rating": 63
   },
   {
@@ -1296,11 +1284,23 @@
     "RS_Rating": 63
   },
   {
-    "Ticker": "FM",
+    "Ticker": "OSP",
+    "RS_Rating": 63
+  },
+  {
+    "Ticker": "UTP",
     "RS_Rating": 63
   },
   {
     "Ticker": "ILINK",
+    "RS_Rating": 63
+  },
+  {
+    "Ticker": "TSC",
+    "RS_Rating": 63
+  },
+  {
+    "Ticker": "KSL",
     "RS_Rating": 63
   },
   {
@@ -1316,11 +1316,11 @@
     "RS_Rating": 62
   },
   {
-    "Ticker": "EASON",
+    "Ticker": "SMPC",
     "RS_Rating": 62
   },
   {
-    "Ticker": "SMPC",
+    "Ticker": "SPI",
     "RS_Rating": 62
   },
   {
@@ -1336,19 +1336,15 @@
     "RS_Rating": 62
   },
   {
-    "Ticker": "SPI",
+    "Ticker": "EASON",
     "RS_Rating": 62
-  },
-  {
-    "Ticker": "DUSIT",
-    "RS_Rating": 61
   },
   {
     "Ticker": "SIRI",
     "RS_Rating": 61
   },
   {
-    "Ticker": "CGH",
+    "Ticker": "SGP",
     "RS_Rating": 61
   },
   {
@@ -1356,7 +1352,11 @@
     "RS_Rating": 61
   },
   {
-    "Ticker": "TIDLOR",
+    "Ticker": "CGH",
+    "RS_Rating": 61
+  },
+  {
+    "Ticker": "DUSIT",
     "RS_Rating": 61
   },
   {
@@ -1364,7 +1364,7 @@
     "RS_Rating": 61
   },
   {
-    "Ticker": "SGP",
+    "Ticker": "TIDLOR",
     "RS_Rating": 61
   },
   {
@@ -1380,7 +1380,7 @@
     "RS_Rating": 60
   },
   {
-    "Ticker": "AKP",
+    "Ticker": "ADD",
     "RS_Rating": 60
   },
   {
@@ -1392,6 +1392,10 @@
     "RS_Rating": 60
   },
   {
+    "Ticker": "TEAMG",
+    "RS_Rating": 60
+  },
+  {
     "Ticker": "S&J",
     "RS_Rating": 60
   },
@@ -1400,19 +1404,19 @@
     "RS_Rating": 60
   },
   {
-    "Ticker": "TEAMG",
+    "Ticker": "AKP",
     "RS_Rating": 60
   },
   {
-    "Ticker": "ADD",
-    "RS_Rating": 60
+    "Ticker": "ORI",
+    "RS_Rating": 59
   },
   {
     "Ticker": "VRANDA",
     "RS_Rating": 59
   },
   {
-    "Ticker": "THCOM",
+    "Ticker": "SKR",
     "RS_Rating": 59
   },
   {
@@ -1424,15 +1428,7 @@
     "RS_Rating": 59
   },
   {
-    "Ticker": "HTC",
-    "RS_Rating": 59
-  },
-  {
     "Ticker": "PL",
-    "RS_Rating": 59
-  },
-  {
-    "Ticker": "SKR",
     "RS_Rating": 59
   },
   {
@@ -1440,7 +1436,11 @@
     "RS_Rating": 59
   },
   {
-    "Ticker": "AXTRART",
+    "Ticker": "THCOM",
+    "RS_Rating": 59
+  },
+  {
+    "Ticker": "HTC",
     "RS_Rating": 59
   },
   {
@@ -1452,7 +1452,7 @@
     "RS_Rating": 58
   },
   {
-    "Ticker": "ORI",
+    "Ticker": "AXTRART",
     "RS_Rating": 58
   },
   {
@@ -1472,7 +1472,7 @@
     "RS_Rating": 58
   },
   {
-    "Ticker": "PMC",
+    "Ticker": "NPK",
     "RS_Rating": 58
   },
   {
@@ -1492,7 +1492,7 @@
     "RS_Rating": 57
   },
   {
-    "Ticker": "NPK",
+    "Ticker": "PMC",
     "RS_Rating": 57
   },
   {
@@ -1516,7 +1516,7 @@
     "RS_Rating": 56
   },
   {
-    "Ticker": "PRTR",
+    "Ticker": "MITSIB",
     "RS_Rating": 56
   },
   {
@@ -1528,7 +1528,7 @@
     "RS_Rating": 56
   },
   {
-    "Ticker": "MITSIB",
+    "Ticker": "PRTR",
     "RS_Rating": 56
   },
   {
@@ -1540,11 +1540,11 @@
     "RS_Rating": 56
   },
   {
-    "Ticker": "SUPER",
+    "Ticker": "CWT",
     "RS_Rating": 56
   },
   {
-    "Ticker": "CWT",
+    "Ticker": "SUPER",
     "RS_Rating": 56
   },
   {
@@ -1556,11 +1556,11 @@
     "RS_Rating": 55
   },
   {
-    "Ticker": "III",
+    "Ticker": "HARN",
     "RS_Rating": 55
   },
   {
-    "Ticker": "HARN",
+    "Ticker": "III",
     "RS_Rating": 55
   },
   {
@@ -1584,7 +1584,7 @@
     "RS_Rating": 54
   },
   {
-    "Ticker": "VIH",
+    "Ticker": "NTSC",
     "RS_Rating": 54
   },
   {
@@ -1596,7 +1596,7 @@
     "RS_Rating": 54
   },
   {
-    "Ticker": "ECF",
+    "Ticker": "VIH",
     "RS_Rating": 54
   },
   {
@@ -1612,7 +1612,7 @@
     "RS_Rating": 54
   },
   {
-    "Ticker": "TU-PF",
+    "Ticker": "ECF",
     "RS_Rating": 54
   },
   {
@@ -1620,7 +1620,11 @@
     "RS_Rating": 53
   },
   {
-    "Ticker": "TM",
+    "Ticker": "JCT",
+    "RS_Rating": 53
+  },
+  {
+    "Ticker": "SMART",
     "RS_Rating": 53
   },
   {
@@ -1632,15 +1636,11 @@
     "RS_Rating": 53
   },
   {
-    "Ticker": "ETC",
-    "RS_Rating": 53
-  },
-  {
     "Ticker": "EAST",
     "RS_Rating": 53
   },
   {
-    "Ticker": "NTSC",
+    "Ticker": "ETC",
     "RS_Rating": 53
   },
   {
@@ -1648,7 +1648,7 @@
     "RS_Rating": 53
   },
   {
-    "Ticker": "SMART",
+    "Ticker": "TM",
     "RS_Rating": 53
   },
   {
@@ -1660,11 +1660,11 @@
     "RS_Rating": 52
   },
   {
-    "Ticker": "AEONTS",
+    "Ticker": "DTCENT",
     "RS_Rating": 52
   },
   {
-    "Ticker": "TRU",
+    "Ticker": "AEONTS",
     "RS_Rating": 52
   },
   {
@@ -1672,7 +1672,7 @@
     "RS_Rating": 52
   },
   {
-    "Ticker": "JCT",
+    "Ticker": "TRU",
     "RS_Rating": 52
   },
   {
@@ -1688,31 +1688,7 @@
     "RS_Rating": 51
   },
   {
-    "Ticker": "SELIC",
-    "RS_Rating": 51
-  },
-  {
-    "Ticker": "PSH",
-    "RS_Rating": 51
-  },
-  {
-    "Ticker": "TU",
-    "RS_Rating": 51
-  },
-  {
-    "Ticker": "SHR",
-    "RS_Rating": 51
-  },
-  {
-    "Ticker": "DTCENT",
-    "RS_Rating": 51
-  },
-  {
     "Ticker": "TVT",
-    "RS_Rating": 51
-  },
-  {
-    "Ticker": "WP",
     "RS_Rating": 51
   },
   {
@@ -1720,7 +1696,31 @@
     "RS_Rating": 51
   },
   {
-    "Ticker": "GGC",
+    "Ticker": "PSH",
+    "RS_Rating": 51
+  },
+  {
+    "Ticker": "SHR",
+    "RS_Rating": 51
+  },
+  {
+    "Ticker": "TEKA",
+    "RS_Rating": 51
+  },
+  {
+    "Ticker": "TU",
+    "RS_Rating": 51
+  },
+  {
+    "Ticker": "WP",
+    "RS_Rating": 51
+  },
+  {
+    "Ticker": "SELIC",
+    "RS_Rating": 51
+  },
+  {
+    "Ticker": "SENA",
     "RS_Rating": 50
   },
   {
@@ -1728,7 +1728,7 @@
     "RS_Rating": 50
   },
   {
-    "Ticker": "PCSGH",
+    "Ticker": "KWM",
     "RS_Rating": 50
   },
   {
@@ -1740,7 +1740,7 @@
     "RS_Rating": 50
   },
   {
-    "Ticker": "KWM",
+    "Ticker": "PCSGH",
     "RS_Rating": 50
   },
   {
@@ -1748,11 +1748,11 @@
     "RS_Rating": 50
   },
   {
-    "Ticker": "SENA",
+    "Ticker": "GGC",
     "RS_Rating": 50
   },
   {
-    "Ticker": "TEKA",
+    "Ticker": "TPA",
     "RS_Rating": 50
   },
   {
@@ -1764,7 +1764,7 @@
     "RS_Rating": 49
   },
   {
-    "Ticker": "PJW",
+    "Ticker": "UEC",
     "RS_Rating": 49
   },
   {
@@ -1772,7 +1772,7 @@
     "RS_Rating": 49
   },
   {
-    "Ticker": "UEC",
+    "Ticker": "PJW",
     "RS_Rating": 49
   },
   {
@@ -1780,12 +1780,16 @@
     "RS_Rating": 49
   },
   {
+    "Ticker": "UPOIC",
+    "RS_Rating": 49
+  },
+  {
     "Ticker": "BEYOND",
     "RS_Rating": 49
   },
   {
-    "Ticker": "UPOIC",
-    "RS_Rating": 49
+    "Ticker": "SONIC",
+    "RS_Rating": 48
   },
   {
     "Ticker": "IRCP",
@@ -1796,11 +1800,7 @@
     "RS_Rating": 48
   },
   {
-    "Ticker": "TNPC",
-    "RS_Rating": 48
-  },
-  {
-    "Ticker": "SONIC",
+    "Ticker": "GREEN",
     "RS_Rating": 48
   },
   {
@@ -1812,23 +1812,19 @@
     "RS_Rating": 48
   },
   {
-    "Ticker": "OCC",
-    "RS_Rating": 48
-  },
-  {
     "Ticker": "AKR",
     "RS_Rating": 48
   },
   {
-    "Ticker": "GREEN",
+    "Ticker": "TNPC",
     "RS_Rating": 48
   },
   {
-    "Ticker": "LEE",
-    "RS_Rating": 47
+    "Ticker": "LST",
+    "RS_Rating": 48
   },
   {
-    "Ticker": "LST",
+    "Ticker": "SABINA",
     "RS_Rating": 47
   },
   {
@@ -1836,11 +1832,15 @@
     "RS_Rating": 47
   },
   {
+    "Ticker": "ASIMAR",
+    "RS_Rating": 47
+  },
+  {
     "Ticker": "KOOL",
     "RS_Rating": 47
   },
   {
-    "Ticker": "ASIMAR",
+    "Ticker": "LEE",
     "RS_Rating": 47
   },
   {
@@ -1848,15 +1848,15 @@
     "RS_Rating": 47
   },
   {
-    "Ticker": "SABINA",
-    "RS_Rating": 47
-  },
-  {
-    "Ticker": "CHOTI",
-    "RS_Rating": 47
-  },
-  {
     "Ticker": "TPCS",
+    "RS_Rating": 47
+  },
+  {
+    "Ticker": "F&D",
+    "RS_Rating": 47
+  },
+  {
+    "Ticker": "CSC",
     "RS_Rating": 47
   },
   {
@@ -1864,7 +1864,7 @@
     "RS_Rating": 46
   },
   {
-    "Ticker": "CSC",
+    "Ticker": "L&E",
     "RS_Rating": 46
   },
   {
@@ -1872,7 +1872,11 @@
     "RS_Rating": 46
   },
   {
-    "Ticker": "L&E",
+    "Ticker": "XPG",
+    "RS_Rating": 46
+  },
+  {
+    "Ticker": "OCC",
     "RS_Rating": 46
   },
   {
@@ -1880,31 +1884,19 @@
     "RS_Rating": 46
   },
   {
-    "Ticker": "F&D",
-    "RS_Rating": 46
-  },
-  {
     "Ticker": "EA",
     "RS_Rating": 46
   },
   {
-    "Ticker": "XPG",
+    "Ticker": "KWC",
     "RS_Rating": 46
-  },
-  {
-    "Ticker": "HENG",
-    "RS_Rating": 45
   },
   {
     "Ticker": "ACE",
     "RS_Rating": 45
   },
   {
-    "Ticker": "KWC",
-    "RS_Rating": 45
-  },
-  {
-    "Ticker": "TNP",
+    "Ticker": "SVR",
     "RS_Rating": 45
   },
   {
@@ -1912,7 +1904,15 @@
     "RS_Rating": 45
   },
   {
+    "Ticker": "TNP",
+    "RS_Rating": 45
+  },
+  {
     "Ticker": "MK",
+    "RS_Rating": 45
+  },
+  {
+    "Ticker": "TU-PF",
     "RS_Rating": 45
   },
   {
@@ -1920,12 +1920,28 @@
     "RS_Rating": 45
   },
   {
-    "Ticker": "TPA",
+    "Ticker": "HENG",
     "RS_Rating": 45
   },
   {
     "Ticker": "LEO",
     "RS_Rating": 45
+  },
+  {
+    "Ticker": "CHOTI",
+    "RS_Rating": 44
+  },
+  {
+    "Ticker": "CSR",
+    "RS_Rating": 44
+  },
+  {
+    "Ticker": "BIG",
+    "RS_Rating": 44
+  },
+  {
+    "Ticker": "SAK",
+    "RS_Rating": 44
   },
   {
     "Ticker": "AIMCG",
@@ -1936,23 +1952,7 @@
     "RS_Rating": 44
   },
   {
-    "Ticker": "CSR",
-    "RS_Rating": 44
-  },
-  {
-    "Ticker": "SAK",
-    "RS_Rating": 44
-  },
-  {
     "Ticker": "AP",
-    "RS_Rating": 44
-  },
-  {
-    "Ticker": "KDH",
-    "RS_Rating": 44
-  },
-  {
-    "Ticker": "SVR",
     "RS_Rating": 44
   },
   {
@@ -1964,7 +1964,7 @@
     "RS_Rating": 44
   },
   {
-    "Ticker": "TCOAT",
+    "Ticker": "SCN",
     "RS_Rating": 43
   },
   {
@@ -1972,11 +1972,11 @@
     "RS_Rating": 43
   },
   {
-    "Ticker": "PREB",
+    "Ticker": "SFLEX",
     "RS_Rating": 43
   },
   {
-    "Ticker": "SFLEX",
+    "Ticker": "TCOAT",
     "RS_Rating": 43
   },
   {
@@ -1984,27 +1984,23 @@
     "RS_Rating": 43
   },
   {
+    "Ticker": "TTI",
+    "RS_Rating": 43
+  },
+  {
+    "Ticker": "PREB",
+    "RS_Rating": 43
+  },
+  {
     "Ticker": "SR",
     "RS_Rating": 43
   },
   {
-    "Ticker": "BIG",
-    "RS_Rating": 43
-  },
-  {
-    "Ticker": "SCN",
-    "RS_Rating": 43
+    "Ticker": "TEGH",
+    "RS_Rating": 42
   },
   {
     "Ticker": "FPI",
-    "RS_Rating": 42
-  },
-  {
-    "Ticker": "QTCG",
-    "RS_Rating": 42
-  },
-  {
-    "Ticker": "TEGH",
     "RS_Rating": 42
   },
   {
@@ -2012,11 +2008,15 @@
     "RS_Rating": 42
   },
   {
+    "Ticker": "JR",
+    "RS_Rating": 42
+  },
+  {
     "Ticker": "LH",
     "RS_Rating": 42
   },
   {
-    "Ticker": "NER",
+    "Ticker": "QTCG",
     "RS_Rating": 42
   },
   {
@@ -2024,23 +2024,23 @@
     "RS_Rating": 42
   },
   {
-    "Ticker": "TTI",
+    "Ticker": "NER",
     "RS_Rating": 42
   },
   {
-    "Ticker": "JR",
+    "Ticker": "KCAR",
     "RS_Rating": 42
   },
   {
-    "Ticker": "SAMART",
-    "RS_Rating": 41
-  },
-  {
-    "Ticker": "ASIA",
+    "Ticker": "BCPG",
     "RS_Rating": 41
   },
   {
     "Ticker": "PT",
+    "RS_Rating": 41
+  },
+  {
+    "Ticker": "ASIA",
     "RS_Rating": 41
   },
   {
@@ -2052,19 +2052,19 @@
     "RS_Rating": 41
   },
   {
-    "Ticker": "CHASE",
-    "RS_Rating": 41
-  },
-  {
-    "Ticker": "BCPG",
-    "RS_Rating": 41
-  },
-  {
     "Ticker": "UNIQ",
     "RS_Rating": 41
   },
   {
-    "Ticker": "KCAR",
+    "Ticker": "SAMART",
+    "RS_Rating": 41
+  },
+  {
+    "Ticker": "CHASE",
+    "RS_Rating": 41
+  },
+  {
+    "Ticker": "MODERN",
     "RS_Rating": 41
   },
   {
@@ -2072,11 +2072,11 @@
     "RS_Rating": 40
   },
   {
-    "Ticker": "SUSCO",
+    "Ticker": "TASCO",
     "RS_Rating": 40
   },
   {
-    "Ticker": "SPG",
+    "Ticker": "SUSCO",
     "RS_Rating": 40
   },
   {
@@ -2084,11 +2084,11 @@
     "RS_Rating": 40
   },
   {
-    "Ticker": "POLY",
+    "Ticker": "SPG",
     "RS_Rating": 40
   },
   {
-    "Ticker": "TAN",
+    "Ticker": "POLY",
     "RS_Rating": 40
   },
   {
@@ -2096,15 +2096,15 @@
     "RS_Rating": 40
   },
   {
-    "Ticker": "MODERN",
+    "Ticker": "TAN",
     "RS_Rating": 40
   },
   {
-    "Ticker": "PG",
+    "Ticker": "AMATAV",
     "RS_Rating": 39
   },
   {
-    "Ticker": "EKH",
+    "Ticker": "PG",
     "RS_Rating": 39
   },
   {
@@ -2112,11 +2112,7 @@
     "RS_Rating": 39
   },
   {
-    "Ticker": "SPALI",
-    "RS_Rating": 39
-  },
-  {
-    "Ticker": "THRE",
+    "Ticker": "KDH",
     "RS_Rating": 39
   },
   {
@@ -2124,7 +2120,11 @@
     "RS_Rating": 39
   },
   {
-    "Ticker": "AMATAV",
+    "Ticker": "THRE",
+    "RS_Rating": 39
+  },
+  {
+    "Ticker": "SPALI",
     "RS_Rating": 39
   },
   {
@@ -2132,7 +2132,7 @@
     "RS_Rating": 39
   },
   {
-    "Ticker": "TASCO",
+    "Ticker": "EKH",
     "RS_Rating": 39
   },
   {
@@ -2140,11 +2140,15 @@
     "RS_Rating": 38
   },
   {
-    "Ticker": "WINDOW",
+    "Ticker": "LPN",
     "RS_Rating": 38
   },
   {
     "Ticker": "TKC",
+    "RS_Rating": 38
+  },
+  {
+    "Ticker": "MCS",
     "RS_Rating": 38
   },
   {
@@ -2156,15 +2160,7 @@
     "RS_Rating": 38
   },
   {
-    "Ticker": "LPN",
-    "RS_Rating": 38
-  },
-  {
-    "Ticker": "MEDEZE",
-    "RS_Rating": 38
-  },
-  {
-    "Ticker": "MCS",
+    "Ticker": "WINDOW",
     "RS_Rating": 38
   },
   {
@@ -2172,11 +2168,11 @@
     "RS_Rating": 38
   },
   {
-    "Ticker": "ILM",
-    "RS_Rating": 37
+    "Ticker": "MEDEZE",
+    "RS_Rating": 38
   },
   {
-    "Ticker": "SINO",
+    "Ticker": "PMTA",
     "RS_Rating": 37
   },
   {
@@ -2184,15 +2180,15 @@
     "RS_Rating": 37
   },
   {
+    "Ticker": "SINO",
+    "RS_Rating": 37
+  },
+  {
     "Ticker": "AHC",
     "RS_Rating": 37
   },
   {
-    "Ticker": "PMTA",
-    "RS_Rating": 37
-  },
-  {
-    "Ticker": "SUC",
+    "Ticker": "ILM",
     "RS_Rating": 37
   },
   {
@@ -2204,11 +2200,15 @@
     "RS_Rating": 37
   },
   {
-    "Ticker": "BCT",
+    "Ticker": "SUC",
+    "RS_Rating": 37
+  },
+  {
+    "Ticker": "NV",
     "RS_Rating": 36
   },
   {
-    "Ticker": "SAV",
+    "Ticker": "IVF",
     "RS_Rating": 36
   },
   {
@@ -2216,7 +2216,7 @@
     "RS_Rating": 36
   },
   {
-    "Ticker": "NV",
+    "Ticker": "SAV",
     "RS_Rating": 36
   },
   {
@@ -2228,10 +2228,6 @@
     "RS_Rating": 36
   },
   {
-    "Ticker": "IVF",
-    "RS_Rating": 36
-  },
-  {
     "Ticker": "TRP",
     "RS_Rating": 36
   },
@@ -2240,7 +2236,11 @@
     "RS_Rating": 36
   },
   {
-    "Ticker": "PTG",
+    "Ticker": "BCT",
+    "RS_Rating": 36
+  },
+  {
+    "Ticker": "BGT",
     "RS_Rating": 35
   },
   {
@@ -2248,7 +2248,7 @@
     "RS_Rating": 35
   },
   {
-    "Ticker": "BGT",
+    "Ticker": "PTG",
     "RS_Rating": 35
   },
   {
@@ -2256,7 +2256,7 @@
     "RS_Rating": 35
   },
   {
-    "Ticker": "CPH",
+    "Ticker": "AMR",
     "RS_Rating": 35
   },
   {
@@ -2264,7 +2264,7 @@
     "RS_Rating": 35
   },
   {
-    "Ticker": "TNR",
+    "Ticker": "CPH",
     "RS_Rating": 35
   },
   {
@@ -2272,7 +2272,7 @@
     "RS_Rating": 35
   },
   {
-    "Ticker": "AMR",
+    "Ticker": "TNR",
     "RS_Rating": 35
   },
   {
@@ -2288,19 +2288,7 @@
     "RS_Rating": 34
   },
   {
-    "Ticker": "SPC",
-    "RS_Rating": 34
-  },
-  {
     "Ticker": "SPTX",
-    "RS_Rating": 34
-  },
-  {
-    "Ticker": "BM",
-    "RS_Rating": 34
-  },
-  {
-    "Ticker": "PRIN",
     "RS_Rating": 34
   },
   {
@@ -2308,19 +2296,31 @@
     "RS_Rating": 34
   },
   {
+    "Ticker": "SPC",
+    "RS_Rating": 34
+  },
+  {
+    "Ticker": "TFI",
+    "RS_Rating": 34
+  },
+  {
+    "Ticker": "PRIN",
+    "RS_Rating": 34
+  },
+  {
     "Ticker": "TH",
     "RS_Rating": 34
+  },
+  {
+    "Ticker": "NEX",
+    "RS_Rating": 33
   },
   {
     "Ticker": "BLC",
     "RS_Rating": 33
   },
   {
-    "Ticker": "JSP",
-    "RS_Rating": 33
-  },
-  {
-    "Ticker": "NEX",
+    "Ticker": "BM",
     "RS_Rating": 33
   },
   {
@@ -2328,7 +2328,7 @@
     "RS_Rating": 33
   },
   {
-    "Ticker": "MOTHER",
+    "Ticker": "JSP",
     "RS_Rating": 33
   },
   {
@@ -2364,14 +2364,6 @@
     "RS_Rating": 32
   },
   {
-    "Ticker": "BIS",
-    "RS_Rating": 32
-  },
-  {
-    "Ticker": "BCH",
-    "RS_Rating": 32
-  },
-  {
     "Ticker": "YONG",
     "RS_Rating": 32
   },
@@ -2380,11 +2372,19 @@
     "RS_Rating": 32
   },
   {
-    "Ticker": "VIBHA",
-    "RS_Rating": 31
+    "Ticker": "MOTHER",
+    "RS_Rating": 32
+  },
+  {
+    "Ticker": "BCH",
+    "RS_Rating": 32
   },
   {
     "Ticker": "AMA",
+    "RS_Rating": 31
+  },
+  {
+    "Ticker": "VIBHA",
     "RS_Rating": 31
   },
   {
@@ -2408,27 +2408,35 @@
     "RS_Rating": 31
   },
   {
-    "Ticker": "FTI",
-    "RS_Rating": 31
-  },
-  {
     "Ticker": "A5",
     "RS_Rating": 31
   },
   {
-    "Ticker": "ARIN",
-    "RS_Rating": 30
+    "Ticker": "BIS",
+    "RS_Rating": 31
   },
   {
     "Ticker": "SYNEX",
     "RS_Rating": 30
   },
   {
-    "Ticker": "SKE",
+    "Ticker": "ARIN",
+    "RS_Rating": 30
+  },
+  {
+    "Ticker": "COMAN",
     "RS_Rating": 30
   },
   {
     "Ticker": "INOX",
+    "RS_Rating": 30
+  },
+  {
+    "Ticker": "FTI",
+    "RS_Rating": 30
+  },
+  {
+    "Ticker": "COLOR",
     "RS_Rating": 30
   },
   {
@@ -2437,14 +2445,6 @@
   },
   {
     "Ticker": "LANNA",
-    "RS_Rating": 30
-  },
-  {
-    "Ticker": "TCC",
-    "RS_Rating": 30
-  },
-  {
-    "Ticker": "COLOR",
     "RS_Rating": 30
   },
   {
@@ -2460,11 +2460,11 @@
     "RS_Rating": 29
   },
   {
-    "Ticker": "AI",
+    "Ticker": "TCC",
     "RS_Rating": 29
   },
   {
-    "Ticker": "NCH",
+    "Ticker": "AI",
     "RS_Rating": 29
   },
   {
@@ -2476,7 +2476,7 @@
     "RS_Rating": 29
   },
   {
-    "Ticker": "COMAN",
+    "Ticker": "SKE",
     "RS_Rating": 29
   },
   {
@@ -2485,10 +2485,6 @@
   },
   {
     "Ticker": "PF",
-    "RS_Rating": 28
-  },
-  {
-    "Ticker": "TFI",
     "RS_Rating": 28
   },
   {
@@ -2501,6 +2497,10 @@
   },
   {
     "Ticker": "CHAO",
+    "RS_Rating": 28
+  },
+  {
+    "Ticker": "NCH",
     "RS_Rating": 28
   },
   {
@@ -2520,7 +2520,7 @@
     "RS_Rating": 28
   },
   {
-    "Ticker": "THMUI",
+    "Ticker": "ATP30",
     "RS_Rating": 27
   },
   {
@@ -2528,7 +2528,7 @@
     "RS_Rating": 27
   },
   {
-    "Ticker": "ATP30",
+    "Ticker": "FMT",
     "RS_Rating": 27
   },
   {
@@ -2536,7 +2536,7 @@
     "RS_Rating": 27
   },
   {
-    "Ticker": "FMT",
+    "Ticker": "THMUI",
     "RS_Rating": 27
   },
   {
@@ -2556,11 +2556,11 @@
     "RS_Rating": 26
   },
   {
-    "Ticker": "LALIN",
+    "Ticker": "TOPP",
     "RS_Rating": 26
   },
   {
-    "Ticker": "TOPP",
+    "Ticker": "M-CHAI",
     "RS_Rating": 26
   },
   {
@@ -2584,19 +2584,19 @@
     "RS_Rating": 26
   },
   {
-    "Ticker": "M-CHAI",
+    "Ticker": "LALIN",
     "RS_Rating": 26
-  },
-  {
-    "Ticker": "ETE",
-    "RS_Rating": 25
   },
   {
     "Ticker": "PR9",
     "RS_Rating": 25
   },
   {
-    "Ticker": "TMC",
+    "Ticker": "ETE",
+    "RS_Rating": 25
+  },
+  {
+    "Ticker": "THE",
     "RS_Rating": 25
   },
   {
@@ -2620,7 +2620,7 @@
     "RS_Rating": 25
   },
   {
-    "Ticker": "THE",
+    "Ticker": "TMC",
     "RS_Rating": 25
   },
   {
@@ -2640,7 +2640,7 @@
     "RS_Rating": 24
   },
   {
-    "Ticker": "TRV",
+    "Ticker": "ZAA",
     "RS_Rating": 24
   },
   {
@@ -2656,7 +2656,11 @@
     "RS_Rating": 24
   },
   {
-    "Ticker": "MFC",
+    "Ticker": "PERM",
+    "RS_Rating": 23
+  },
+  {
+    "Ticker": "FNS",
     "RS_Rating": 23
   },
   {
@@ -2664,27 +2668,7 @@
     "RS_Rating": 23
   },
   {
-    "Ticker": "FE",
-    "RS_Rating": 23
-  },
-  {
-    "Ticker": "MANRIN",
-    "RS_Rating": 23
-  },
-  {
-    "Ticker": "ZAA",
-    "RS_Rating": 23
-  },
-  {
     "Ticker": "STI",
-    "RS_Rating": 23
-  },
-  {
-    "Ticker": "IIG",
-    "RS_Rating": 23
-  },
-  {
-    "Ticker": "AMARC",
     "RS_Rating": 23
   },
   {
@@ -2692,19 +2676,35 @@
     "RS_Rating": 23
   },
   {
-    "Ticker": "NKT",
-    "RS_Rating": 22
+    "Ticker": "AMARC",
+    "RS_Rating": 23
+  },
+  {
+    "Ticker": "IIG",
+    "RS_Rating": 23
+  },
+  {
+    "Ticker": "MFC",
+    "RS_Rating": 23
+  },
+  {
+    "Ticker": "FE",
+    "RS_Rating": 23
   },
   {
     "Ticker": "SRS",
     "RS_Rating": 22
   },
   {
-    "Ticker": "FNS",
+    "Ticker": "SHANG",
     "RS_Rating": 22
   },
   {
-    "Ticker": "COCOCO",
+    "Ticker": "NKT",
+    "RS_Rating": 22
+  },
+  {
+    "Ticker": "MAJOR",
     "RS_Rating": 22
   },
   {
@@ -2716,15 +2716,15 @@
     "RS_Rating": 22
   },
   {
+    "Ticker": "AU",
+    "RS_Rating": 22
+  },
+  {
+    "Ticker": "COCOCO",
+    "RS_Rating": 22
+  },
+  {
     "Ticker": "TKT",
-    "RS_Rating": 22
-  },
-  {
-    "Ticker": "PERM",
-    "RS_Rating": 22
-  },
-  {
-    "Ticker": "BROCK",
     "RS_Rating": 22
   },
   {
@@ -2732,19 +2732,11 @@
     "RS_Rating": 21
   },
   {
+    "Ticker": "BROCK",
+    "RS_Rating": 21
+  },
+  {
     "Ticker": "CPR",
-    "RS_Rating": 21
-  },
-  {
-    "Ticker": "AU",
-    "RS_Rating": 21
-  },
-  {
-    "Ticker": "BYD",
-    "RS_Rating": 21
-  },
-  {
-    "Ticker": "TURTLE",
     "RS_Rating": 21
   },
   {
@@ -2752,11 +2744,19 @@
     "RS_Rating": 21
   },
   {
-    "Ticker": "MAJOR",
+    "Ticker": "THREL",
     "RS_Rating": 21
   },
   {
-    "Ticker": "SHANG",
+    "Ticker": "AIRA",
+    "RS_Rating": 21
+  },
+  {
+    "Ticker": "TRV",
+    "RS_Rating": 21
+  },
+  {
+    "Ticker": "BYD",
     "RS_Rating": 21
   },
   {
@@ -2768,11 +2768,11 @@
     "RS_Rating": 20
   },
   {
-    "Ticker": "THREL",
+    "Ticker": "GCAP",
     "RS_Rating": 20
   },
   {
-    "Ticker": "GCAP",
+    "Ticker": "MANRIN",
     "RS_Rating": 20
   },
   {
@@ -2780,11 +2780,11 @@
     "RS_Rating": 20
   },
   {
-    "Ticker": "MATI",
+    "Ticker": "CMC",
     "RS_Rating": 20
   },
   {
-    "Ticker": "CMC",
+    "Ticker": "MATI",
     "RS_Rating": 20
   },
   {
@@ -2796,15 +2796,15 @@
     "RS_Rating": 20
   },
   {
+    "Ticker": "TKN",
+    "RS_Rating": 19
+  },
+  {
     "Ticker": "THIP",
     "RS_Rating": 19
   },
   {
-    "Ticker": "APCS",
-    "RS_Rating": 19
-  },
-  {
-    "Ticker": "AMARIN",
+    "Ticker": "TURTLE",
     "RS_Rating": 19
   },
   {
@@ -2816,15 +2816,11 @@
     "RS_Rating": 19
   },
   {
+    "Ticker": "APCS",
+    "RS_Rating": 19
+  },
+  {
     "Ticker": "AAV",
-    "RS_Rating": 19
-  },
-  {
-    "Ticker": "TKN",
-    "RS_Rating": 19
-  },
-  {
-    "Ticker": "BEAUTY",
     "RS_Rating": 19
   },
   {
@@ -2832,31 +2828,11 @@
     "RS_Rating": 19
   },
   {
-    "Ticker": "PATO",
-    "RS_Rating": 18
+    "Ticker": "BEAUTY",
+    "RS_Rating": 19
   },
   {
     "Ticker": "WPH",
-    "RS_Rating": 18
-  },
-  {
-    "Ticker": "PROEN",
-    "RS_Rating": 18
-  },
-  {
-    "Ticker": "HANN",
-    "RS_Rating": 18
-  },
-  {
-    "Ticker": "WIN",
-    "RS_Rating": 18
-  },
-  {
-    "Ticker": "SENX",
-    "RS_Rating": 18
-  },
-  {
-    "Ticker": "CRANE",
     "RS_Rating": 18
   },
   {
@@ -2864,19 +2840,39 @@
     "RS_Rating": 18
   },
   {
-    "Ticker": "IMH",
+    "Ticker": "CRANE",
+    "RS_Rating": 18
+  },
+  {
+    "Ticker": "PROEN",
+    "RS_Rating": 18
+  },
+  {
+    "Ticker": "WIN",
+    "RS_Rating": 18
+  },
+  {
+    "Ticker": "AMARIN",
+    "RS_Rating": 18
+  },
+  {
+    "Ticker": "SENX",
+    "RS_Rating": 18
+  },
+  {
+    "Ticker": "PATO",
+    "RS_Rating": 18
+  },
+  {
+    "Ticker": "CPAXT",
+    "RS_Rating": 17
+  },
+  {
+    "Ticker": "SAFE",
     "RS_Rating": 17
   },
   {
     "Ticker": "KTIS",
-    "RS_Rating": 17
-  },
-  {
-    "Ticker": "MTW",
-    "RS_Rating": 17
-  },
-  {
-    "Ticker": "CPAXT",
     "RS_Rating": 17
   },
   {
@@ -2888,27 +2884,31 @@
     "RS_Rating": 17
   },
   {
-    "Ticker": "VARO",
-    "RS_Rating": 17
-  },
-  {
-    "Ticker": "SAFE",
-    "RS_Rating": 17
-  },
-  {
     "Ticker": "MGI",
     "RS_Rating": 17
   },
   {
-    "Ticker": "JCK",
-    "RS_Rating": 16
+    "Ticker": "VARO",
+    "RS_Rating": 17
+  },
+  {
+    "Ticker": "HANN",
+    "RS_Rating": 17
+  },
+  {
+    "Ticker": "IMH",
+    "RS_Rating": 17
   },
   {
     "Ticker": "RICHY",
     "RS_Rating": 16
   },
   {
-    "Ticker": "MJD",
+    "Ticker": "JCK",
+    "RS_Rating": 16
+  },
+  {
+    "Ticker": "MTW",
     "RS_Rating": 16
   },
   {
@@ -2916,11 +2916,11 @@
     "RS_Rating": 16
   },
   {
-    "Ticker": "AIRA",
+    "Ticker": "MALEE",
     "RS_Rating": 16
   },
   {
-    "Ticker": "MALEE",
+    "Ticker": "SUN",
     "RS_Rating": 16
   },
   {
@@ -2928,7 +2928,7 @@
     "RS_Rating": 16
   },
   {
-    "Ticker": "SUN",
+    "Ticker": "MJD",
     "RS_Rating": 16
   },
   {
@@ -2956,15 +2956,15 @@
     "RS_Rating": 15
   },
   {
+    "Ticker": "SKN",
+    "RS_Rating": 15
+  },
+  {
     "Ticker": "STX",
     "RS_Rating": 15
   },
   {
     "Ticker": "CH",
-    "RS_Rating": 15
-  },
-  {
-    "Ticker": "SKN",
     "RS_Rating": 15
   },
   {
@@ -2988,7 +2988,7 @@
     "RS_Rating": 14
   },
   {
-    "Ticker": "PTC",
+    "Ticker": "SISB",
     "RS_Rating": 14
   },
   {
@@ -2996,23 +2996,23 @@
     "RS_Rating": 14
   },
   {
+    "Ticker": "PTC",
+    "RS_Rating": 14
+  },
+  {
     "Ticker": "WINMED",
     "RS_Rating": 14
-  },
-  {
-    "Ticker": "SISB",
-    "RS_Rating": 14
-  },
-  {
-    "Ticker": "K",
-    "RS_Rating": 13
   },
   {
     "Ticker": "JAS",
     "RS_Rating": 13
   },
   {
-    "Ticker": "AS",
+    "Ticker": "PRI",
+    "RS_Rating": 13
+  },
+  {
+    "Ticker": "K",
     "RS_Rating": 13
   },
   {
@@ -3024,7 +3024,7 @@
     "RS_Rating": 13
   },
   {
-    "Ticker": "PRI",
+    "Ticker": "AS",
     "RS_Rating": 13
   },
   {
@@ -3056,7 +3056,7 @@
     "RS_Rating": 12
   },
   {
-    "Ticker": "DCON",
+    "Ticker": "GEL",
     "RS_Rating": 12
   },
   {
@@ -3064,11 +3064,11 @@
     "RS_Rating": 12
   },
   {
-    "Ticker": "GEL",
+    "Ticker": "PK",
     "RS_Rating": 12
   },
   {
-    "Ticker": "PK",
+    "Ticker": "DCON",
     "RS_Rating": 12
   },
   {
@@ -3084,11 +3084,11 @@
     "RS_Rating": 11
   },
   {
-    "Ticker": "PEACE",
+    "Ticker": "PRIME",
     "RS_Rating": 11
   },
   {
-    "Ticker": "PRIME",
+    "Ticker": "TRITN",
     "RS_Rating": 11
   },
   {
@@ -3096,7 +3096,7 @@
     "RS_Rating": 11
   },
   {
-    "Ticker": "TRITN",
+    "Ticker": "PEACE",
     "RS_Rating": 11
   },
   {
@@ -3108,11 +3108,11 @@
     "RS_Rating": 11
   },
   {
-    "Ticker": "RWI",
+    "Ticker": "TCMC",
     "RS_Rating": 10
   },
   {
-    "Ticker": "TCMC",
+    "Ticker": "AQUA",
     "RS_Rating": 10
   },
   {
@@ -3136,11 +3136,11 @@
     "RS_Rating": 10
   },
   {
-    "Ticker": "AQUA",
+    "Ticker": "RWI",
     "RS_Rating": 10
   },
   {
-    "Ticker": "TNL",
+    "Ticker": "DHOUSE",
     "RS_Rating": 10
   },
   {
@@ -3156,11 +3156,11 @@
     "RS_Rating": 9
   },
   {
-    "Ticker": "FANCY",
+    "Ticker": "KTMS",
     "RS_Rating": 9
   },
   {
-    "Ticker": "KTMS",
+    "Ticker": "FANCY",
     "RS_Rating": 9
   },
   {
@@ -3172,11 +3172,11 @@
     "RS_Rating": 9
   },
   {
-    "Ticker": "DHOUSE",
+    "Ticker": "TNL",
     "RS_Rating": 9
   },
   {
-    "Ticker": "CEYE",
+    "Ticker": "JTS",
     "RS_Rating": 8
   },
   {
@@ -3208,7 +3208,7 @@
     "RS_Rating": 8
   },
   {
-    "Ticker": "JTS",
+    "Ticker": "CEYE",
     "RS_Rating": 8
   },
   {
@@ -3224,15 +3224,7 @@
     "RS_Rating": 7
   },
   {
-    "Ticker": "GFC",
-    "RS_Rating": 7
-  },
-  {
     "Ticker": "TGPRO",
-    "RS_Rating": 7
-  },
-  {
-    "Ticker": "NETBAY",
     "RS_Rating": 7
   },
   {
@@ -3240,7 +3232,7 @@
     "RS_Rating": 7
   },
   {
-    "Ticker": "WARRIX",
+    "Ticker": "NETBAY",
     "RS_Rating": 7
   },
   {
@@ -3248,11 +3240,19 @@
     "RS_Rating": 7
   },
   {
+    "Ticker": "WARRIX",
+    "RS_Rating": 7
+  },
+  {
+    "Ticker": "GFC",
+    "RS_Rating": 7
+  },
+  {
     "Ticker": "M-PAT",
     "RS_Rating": 6
   },
   {
-    "Ticker": "CEN",
+    "Ticker": "TPCH",
     "RS_Rating": 6
   },
   {
@@ -3264,11 +3264,11 @@
     "RS_Rating": 6
   },
   {
-    "Ticker": "SKIN",
+    "Ticker": "CEN",
     "RS_Rating": 6
   },
   {
-    "Ticker": "TPCH",
+    "Ticker": "SKIN",
     "RS_Rating": 6
   },
   {
@@ -3280,7 +3280,7 @@
     "RS_Rating": 6
   },
   {
-    "Ticker": "DEXON",
+    "Ticker": "NOVA",
     "RS_Rating": 5
   },
   {
@@ -3288,11 +3288,11 @@
     "RS_Rating": 5
   },
   {
-    "Ticker": "NOVA",
+    "Ticker": "XBIO",
     "RS_Rating": 5
   },
   {
-    "Ticker": "TBSP",
+    "Ticker": "DEXON",
     "RS_Rating": 5
   },
   {
@@ -3300,11 +3300,11 @@
     "RS_Rating": 5
   },
   {
-    "Ticker": "PLANET",
+    "Ticker": "TBSP",
     "RS_Rating": 5
   },
   {
-    "Ticker": "XBIO",
+    "Ticker": "PLANET",
     "RS_Rating": 5
   },
   {
@@ -3328,7 +3328,7 @@
     "RS_Rating": 4
   },
   {
-    "Ticker": "PPPM",
+    "Ticker": "EMC",
     "RS_Rating": 4
   },
   {
@@ -3340,7 +3340,7 @@
     "RS_Rating": 4
   },
   {
-    "Ticker": "EMC",
+    "Ticker": "SDC",
     "RS_Rating": 4
   },
   {
@@ -3348,7 +3348,7 @@
     "RS_Rating": 4
   },
   {
-    "Ticker": "SDC",
+    "Ticker": "PPPM",
     "RS_Rating": 4
   },
   {
@@ -3388,7 +3388,7 @@
     "RS_Rating": 2
   },
   {
-    "Ticker": "HPT",
+    "Ticker": "MVP",
     "RS_Rating": 2
   },
   {
@@ -3400,7 +3400,7 @@
     "RS_Rating": 2
   },
   {
-    "Ticker": "MVP",
+    "Ticker": "HPT",
     "RS_Rating": 2
   },
   {
