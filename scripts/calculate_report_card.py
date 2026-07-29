@@ -62,6 +62,7 @@ SCANNERS = {
     "breakout": "breakout",
     "lekkung_growth": "lekkung",
     "ppbp": "ppbp",
+    "oneil": "oneil",
 }
 
 

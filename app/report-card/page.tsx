@@ -26,13 +26,14 @@ interface ReportCardFile {
 
 const data = rawReportCard as unknown as ReportCardFile;
 
-const SCAN_ORDER = ['sepa', 'kell', 'breakout', 'lekkung_growth', 'ppbp'];
+const SCAN_ORDER = ['sepa', 'kell', 'breakout', 'lekkung_growth', 'ppbp', 'oneil'];
 const SCAN_LABELS: Record<string, string> = {
   sepa: 'SEPA',
   kell: 'Oliver Kell',
   breakout: 'Breakout',
   lekkung_growth: 'Lekkung Growth',
   ppbp: 'PPBP',
+  oneil: "CAN SLIM (O'Neil)",
 };
 const SCAN_COLORS: Record<string, string> = {
   sepa: '#1D9E75',
@@ -40,6 +41,7 @@ const SCAN_COLORS: Record<string, string> = {
   breakout: '#EF9F27',
   lekkung_growth: '#7F77DD',
   ppbp: '#E24B4A',
+  oneil: '#06B6D4',
 };
 const HORIZONS = ['5', '10', '20'];
 
@@ -104,12 +106,23 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
   const color = SCAN_COLORS[scanKey] ?? '#7F77DD';
   const bestCounts = countOccurrences(headline.best5);
   const worstCounts = countOccurrences(headline.worst5);
+  const isSmallSample = headline.n > 0 && headline.n < 30;
 
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-[13px] font-bold text-white">{SCAN_LABELS[scanKey] ?? scanKey}</h3>
-        <span className="text-label text-white/30 tabular-nums">{card.total_picks} picks สะสม</span>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <h3 className="text-[13px] font-bold text-white truncate">{SCAN_LABELS[scanKey] ?? scanKey}</h3>
+          {isSmallSample && (
+            <span
+              className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0"
+              title={`ข้อมูลย้อนหลังที่ครบ D+5 มีเพียง ${headline.n} ตัว (< 30) สถิติอาจยังไม่สะท้อนผลระยะยาว`}
+            >
+              sample น้อย (n={headline.n})
+            </span>
+          )}
+        </div>
+        <span className="text-label text-white/30 tabular-nums flex-shrink-0">{card.total_picks} picks สะสม</span>
       </div>
 
       <div>
@@ -192,10 +205,21 @@ function ComparisonTable({ horizon }: { horizon: string }) {
             const card = data.scans[key];
             if (!card) return null;
             const m = card.horizons[horizon];
+            const isSmallSample = m.n > 0 && m.n < 30;
             return (
               <tr key={key}>
                 <td className="px-3 py-2.5 text-[12px] font-semibold" style={{ color: SCAN_COLORS[key] }}>
-                  {SCAN_LABELS[key]}
+                  <span className="inline-flex items-center gap-1.5">
+                    {SCAN_LABELS[key]}
+                    {isSmallSample && (
+                      <span
+                        className="text-[9px] font-normal px-1 py-0.2 rounded bg-amber-500/10 text-amber-400/90 border border-amber-500/20"
+                        title={`sample น้อย (n = ${m.n} < 30)`}
+                      >
+                        sample น้อย
+                      </span>
+                    )}
+                  </span>
                 </td>
                 <td className="px-3 py-2.5 text-[12px] text-white/50 text-right tabular-nums">{m.n}</td>
                 <td className="px-3 py-2.5 text-[12px] text-right tabular-nums font-medium" style={{ color: returnColor(m.avg_return_pct) }}>
