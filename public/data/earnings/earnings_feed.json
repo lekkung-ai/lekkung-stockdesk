@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-30T01:01:21.647100+07:00",
+  "generatedAt": "2026-07-30T17:55:41.872102+07:00",
   "windowDays": 45,
   "universeSize": 935,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 15,
+      "count": 16,
       "top3": [
         {
           "ticker": "MST",
@@ -28,8 +28,12 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 5,
+      "count": 6,
       "top3": [
+        {
+          "ticker": "HPT",
+          "netProfitYoY": -61.91669171927715
+        },
         {
           "ticker": "SCC",
           "netProfitYoY": -33.46965609265487
@@ -37,38 +41,26 @@
         {
           "ticker": "BBL",
           "netProfitYoY": -19.7802001965394
-        },
-        {
-          "ticker": "SCB",
-          "netProfitYoY": -13.056167006815622
         }
       ]
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 2,
+      "count": 1,
       "top3": [
         {
           "ticker": "CHO",
           "netProfitYoY": 39.8878616540406
-        },
-        {
-          "ticker": "DEXON",
-          "netProfitYoY": 3.0516953863257363
         }
       ]
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 3,
+      "count": 2,
       "top3": [
         {
           "ticker": "SAM",
           "netProfitYoY": -2350.56095736724
-        },
-        {
-          "ticker": "TAPAC",
-          "netProfitYoY": -263.0451794657763
         },
         {
           "ticker": "SCGD",
@@ -83,6 +75,60 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "HPT",
+      "sector": "Consumer",
+      "subsector": "Products",
+      "market": "MAI",
+      "announceDate": "2026-07-30T17:47:06+07:00",
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 11401000.0,
+      "netProfitPrior": 29937000.0,
+      "netProfitYoY": -61.91669171927715,
+      "netProfitPriorQ": 3035000.0,
+      "netProfitQoQ": 275.65074135090606,
+      "profitAcceleration": "stable",
+      "eps": 0.02,
+      "epsPrior": 0.05,
+      "epsYoY": -60.0,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": true,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105561301&symbol=HPT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17853685416711&symbol=HPT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105557001&symbol=HPT",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "ITC",
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-07-30T12:44:55+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 844094000.0,
+      "netProfitPrior": 695956000.0,
+      "netProfitYoY": 21.2855410399508,
+      "netProfitPriorQ": 871273000.0,
+      "netProfitQoQ": -3.1194585394015424,
+      "profitAcceleration": "decelerating",
+      "eps": 0.28133,
+      "epsPrior": 0.23202,
+      "epsYoY": 21.252478234634953,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105559401&symbol=ITC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17853685416061&symbol=ITC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105559001&symbol=ITC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "MST",
       "sector": "Financials",
@@ -730,60 +776,6 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
       "reason": "",
       "reason_source": "none"
-    },
-    {
-      "ticker": "TAPAC",
-      "sector": "Property",
-      "subsector": "& Construction",
-      "market": "MAI",
-      "announceDate": "2026-06-15T17:32:00+07:00",
-      "quarter": "ประจำปี 2567",
-      "periodEnd": "31 ตุลาคม 2567",
-      "netProfit": -278354000.0,
-      "netProfitPrior": -76672000.0,
-      "netProfitYoY": -263.0451794657763,
-      "netProfitPriorQ": -1357000.0,
-      "netProfitQoQ": -20412.453942520264,
-      "profitAcceleration": "stable",
-      "eps": -1.08,
-      "epsPrior": -0.5,
-      "epsYoY": -116.00000000000001,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "loss_worse",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105100501&symbol=TAPAC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17815662380341&symbol=TAPAC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105100601&symbol=TAPAC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract"
-    },
-    {
-      "ticker": "DEXON",
-      "sector": "Services",
-      "subsector": "Services",
-      "market": "MAI",
-      "announceDate": "2026-06-15T17:02:00+07:00",
-      "quarter": "ไตรมาส 1/2569",
-      "periodEnd": "31 มีนาคม 2569",
-      "netProfit": -34882000.0,
-      "netProfitPrior": -35980000.0,
-      "netProfitYoY": 3.0516953863257363,
-      "netProfitPriorQ": -14693000.0,
-      "netProfitQoQ": -137.4055672769346,
-      "profitAcceleration": "decelerating",
-      "eps": -0.073,
-      "epsPrior": -0.076,
-      "epsYoY": 3.9473684210526354,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "loss_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105096001&symbol=DEXON",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105108401&symbol=DEXON",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105095701&symbol=DEXON",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการให้บริการ  153 155 2% รายได้อื่น  0 0 33% รายได้รวม  153 156 2% ต้นทุนค่าบริการ  (135) (138) 2% ค่าใช้จ่ายในการขายและบริหาร  (52) (50) (3%) ต้นทุนทางการเงิน  (2) 1 (139%) ค่าใช้จ่ายอื่นๆ (1) (2) 100%",
-      "reason_source": "mda_extract"
     }
   ],
   "calendar": [
@@ -792,12 +784,6 @@
       "date": "2026-06-12T08:03:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
-    },
-    {
-      "ticker": "DEXON",
-      "date": "2026-06-15T17:02:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "TAPAC",
@@ -978,6 +964,18 @@
       "basedOnLastYear": "2025-07-29T20:25:00+07:00"
     },
     {
+      "ticker": "ITC",
+      "date": "2026-07-30T12:44:55+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "HPT",
+      "date": "2026-07-30T17:47:06+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2568"
+    },
+    {
       "ticker": "BH",
       "date": "2026-07-31T06:41:00+07:00",
       "status": "predicted",
@@ -990,13 +988,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-07-31T08:25:00+07:00"
-    },
-    {
-      "ticker": "ITC",
-      "date": "2026-07-31T19:01:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-07-31T19:01:00+07:00"
     },
     {
       "ticker": "MINT",
@@ -3743,13 +3734,6 @@
       "basedOnLastYear": "2025-08-13T17:28:00+07:00"
     },
     {
-      "ticker": "HPT",
-      "date": "2026-08-13T17:31:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T17:31:00+07:00"
-    },
-    {
       "ticker": "TMI",
       "date": "2026-08-13T17:31:00+07:00",
       "status": "predicted",
@@ -6443,6 +6427,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-14T20:34:00+07:00"
+    },
+    {
+      "ticker": "DEXON",
+      "date": "2026-08-14T20:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-08-14T20:36:00+07:00"
     },
     {
       "ticker": "RABBIT",
