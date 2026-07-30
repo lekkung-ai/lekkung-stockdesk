@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T18:37:20.660283+07:00",
+  "generatedAt": "2026-07-31T00:06:21.036360+07:00",
   "windowDays": 45,
   "universeSize": 935,
   "buckets": {
@@ -99,8 +99,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17853685416711&symbol=HPT",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105557001&symbol=HPT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "รายได้จากการขาย 311.56 300.44 277.71 254.87 22.84 8.96 กำไรจากอัตราแลกเปลี่ยน 0.81 0.00 0.60 0.47 0.13 27.66 รายได้อื่น 4.39 4.00 3.42 3.02 0.40 13.25 รวมรายได้ 316.76 304.44 281.73 258.36 23.37 9.05 ต้นทุนขาย 249.07 221.48",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "ITC",
@@ -126,8 +126,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17853685416061&symbol=ITC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105559001&symbol=ITC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "ซึ่งส่งผลกระทบต่อรายได้จากการขาย และอัตรากำไรขั้นต้นตามงบการเงิน (รายละเอียดเพิ่มเติมสามารถอ่านได้ในการวิเคราะห์ผลการดำเนินงาน) การวิเคราะห์ยอดขายในรายงานนี้จะ อ้างอิงรายได้จากการขายจากการดำเนินงานปกติ (Normalised Sales)",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "MST",
@@ -915,7 +915,7 @@
       "ticker": "STANLY",
       "date": "2026-07-24T12:52:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "DELTA",
