@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-31T18:12:55.175707+07:00",
+  "generatedAt": "2026-07-31T18:36:30.392030+07:00",
   "windowDays": 45,
   "universeSize": 935,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 17,
+      "count": 18,
       "top3": [
         {
           "ticker": "MST",
@@ -81,6 +81,33 @@
   },
   "announcements": [
     {
+      "ticker": "MMM",
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET",
+      "announceDate": "2026-07-31T18:26:33+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 37521000.0,
+      "netProfitPrior": 31373000.0,
+      "netProfitYoY": 19.596468300768176,
+      "netProfitPriorQ": 32539000.0,
+      "netProfitQoQ": 15.310857739942838,
+      "profitAcceleration": "accelerating",
+      "eps": 0.1,
+      "epsPrior": 0.1,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105594601&symbol=MMM",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17854544402131&symbol=MMM",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105590401&symbol=MMM",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "PTTEP",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
@@ -102,7 +129,7 @@
       "bucket": "profit_growth",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105591901&symbol=PTTEP",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17854544400461&symbol=PTTEP",
-      "mdaUrl": null,
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105594101&symbol=PTTEP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none"
@@ -1001,7 +1028,7 @@
       "ticker": "STANLY",
       "date": "2026-07-24T12:52:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 1/2569"
+      "quarter": null
     },
     {
       "ticker": "DELTA",
@@ -1083,6 +1110,12 @@
     {
       "ticker": "PTTEP",
       "date": "2026-07-31T18:04:52+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "MMM",
+      "date": "2026-07-31T18:26:33+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
