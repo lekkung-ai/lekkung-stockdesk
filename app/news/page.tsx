@@ -103,15 +103,11 @@ function NewsPageContent() {
               const dateStr = localDate(n.ts);
               counts.set(dateStr, (counts.get(dateStr) ?? 0) + 1);
             }
-            let bestDate = localDate(list[0].ts);
-            let bestCount = 0;
-            for (const [dStr, n] of counts) {
-              if (n > bestCount || (n === bestCount && dStr > bestDate)) {
-                bestDate = dStr;
-                bestCount = n;
-              }
+            let latestDate = '';
+            for (const dStr of counts.keys()) {
+              if (dStr > latestDate) latestDate = dStr;
             }
-            setSelectedDate(bestDate);
+            if (latestDate) setSelectedDate(latestDate);
           }
         }
       })
