@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T18:36:30.392030+07:00",
+  "generatedAt": "2026-08-01T00:18:39.156896+07:00",
   "windowDays": 45,
   "universeSize": 935,
   "buckets": {
@@ -80,6 +80,33 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "SSTRT",
+      "sector": "Property",
+      "subsector": "& Construction Property Fund & Reits",
+      "market": "SET",
+      "announceDate": "2026-07-31T20:18:19+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105596001&symbol=SSTRT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17854544404391&symbol=SSTRT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105596801&symbol=SSTRT",
+      "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "MMM",
       "sector": "Property",
@@ -1028,7 +1055,7 @@
       "ticker": "STANLY",
       "date": "2026-07-24T12:52:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "DELTA",
@@ -1116,6 +1143,12 @@
     {
       "ticker": "MMM",
       "date": "2026-07-31T18:26:33+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "SSTRT",
+      "date": "2026-07-31T20:18:19+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -4534,13 +4567,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T19:03:00+07:00"
-    },
-    {
-      "ticker": "SSTRT",
-      "date": "2026-08-13T19:05:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T19:05:00+07:00"
     },
     {
       "ticker": "SC",
