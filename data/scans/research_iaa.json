@@ -1,8 +1,624 @@
 {
-  "generated_at": "2026-07-31T01:10:03+07:00",
+  "generated_at": "2026-07-31T18:10:41+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "5a279e0f-f99a-4dfa-8aa3-defde83b0d98",
+      "title": "Trading by ASP | ELECTRICITY GENERATING PUBLIC COMPANY LIMITED (EGCO) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119422-trading-asp-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "ASP",
+      "rating": "Trading",
+      "companyName": "ELECTRICITY GENERATING PUBLIC COMPANY LIMITED",
+      "date": "2026-07-31T15:01:14+07:00",
+      "ts": 1785484874000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ITC260731-31085213.pdf"
+    },
+    {
+      "uuid": "cebd76f7-49e0-4d8b-b996-4a9edf0d9d12",
+      "title": "BUY by ASP | i-Tail Corporation Public Company Limited (ITC) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119421-buy-asp-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "i-Tail Corporation Public Company Limited",
+      "date": "2026-07-31T14:47:45+07:00",
+      "ts": 1785484065000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ITC260731.pdf"
+    },
+    {
+      "uuid": "f4d4119c-5821-4706-bc02-2fe9b06ed83f",
+      "title": "BUY โดย KSS | บริษัท พีทีจี เอ็นเนอยี จำกัด (มหาชน) (PTG) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119418-buy-kss-ptg",
+      "tickers": [
+        "PTG"
+      ],
+      "symbolId": "18478",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท พีทีจี เอ็นเนอยี จำกัด (มหาชน)",
+      "date": "2026-07-31T14:32:03+07:00",
+      "ts": 1785483123000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731-PTG_EP.pdf"
+    },
+    {
+      "uuid": "5ceb6dae-550f-4443-b9c7-3fc81a37bd39",
+      "title": "TRINITY | Block Trade AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119415-trinity-block-trade-afternoon-stock",
+      "tickers": [
+        "CPALL"
+      ],
+      "symbolId": "4086",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade AFTERNOON Stock",
+      "date": "2026-07-31T14:32:02+07:00",
+      "ts": 1785483122000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BlockTrade-Afternoon-31JULY26-cpall.pdf"
+    },
+    {
+      "uuid": "5820826d-6f9a-4807-a9f1-06c2d7bb4813",
+      "title": "TRINITY | QUICK WIN AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119416-trinity-quick-win-afternoon-stock",
+      "tickers": [
+        "TEAMG"
+      ],
+      "symbolId": "88122",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN AFTERNOON Stock",
+      "date": "2026-07-31T14:32:02+07:00",
+      "ts": 1785483122000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/AFTERNOON-STOCK-31JULY26-teamg.pdf"
+    },
+    {
+      "uuid": "3d6a1b65-2a24-4ad7-a2ae-5534942f7fe5",
+      "title": "BUY by KSS | THANACHART CAPITAL PUBLIC COMPANY LIMITED (TCAP) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119417-buy-kss-tcap",
+      "tickers": [
+        "TCAP"
+      ],
+      "symbolId": "23",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "THANACHART CAPITAL PUBLIC COMPANY LIMITED",
+      "date": "2026-07-31T14:32:02+07:00",
+      "ts": 1785483122000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731_TCAP_EP(E).pdf"
+    },
+    {
+      "uuid": "1fd24c83-75da-4888-a9f2-25c8c886d8d1",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119411-lhs-trading-ideas",
+      "tickers": [
+        "CPALL",
+        "WHA"
+      ],
+      "symbolId": "4086,17351",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-07-31T14:25:26+07:00",
+      "ts": 1785482726000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Trading-Ideas_20260731.pdf"
+    },
+    {
+      "uuid": "926dd26a-8fd2-4dec-a5d5-646b380e7b5b",
+      "title": "Buy by KSS | SISB PUBLIC COMPANY LIMITED (SISB) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119409-buy-kss-sisb",
+      "tickers": [
+        "SISB"
+      ],
+      "symbolId": "89853",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "SISB PUBLIC COMPANY LIMITED",
+      "date": "2026-07-31T14:15:16+07:00",
+      "ts": 1785482116000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731_SISB_EP(E).pdf"
+    },
+    {
+      "uuid": "74d37314-aa6a-40a6-a259-6ba751be4986",
+      "title": "Buy by KSS | Maguro Group Public Company Limited (MAGURO) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119406-buy-kss-maguro",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "Maguro Group Public Company Limited",
+      "date": "2026-07-31T14:15:15+07:00",
+      "ts": 1785482115000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/MAGURO_260731_EP.pdf"
+    },
+    {
+      "uuid": "14701335-fc17-4203-a086-378dbfec8748",
+      "title": "Neutral by KSS | MK RESTAURANT GROUP PUBLIC COMPANY LIMITED (M) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119407-neutral-kss-m",
+      "tickers": [
+        "M"
+      ],
+      "symbolId": "19017",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "MK RESTAURANT GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-31T14:15:15+07:00",
+      "ts": 1785482115000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/M_260731_EP-31075436.pdf"
+    },
+    {
+      "uuid": "91ce7c0f-8821-49ea-a22c-d6f09a164656",
+      "title": "Buy by KSS | i-Tail Corporation Public Company Limited (ITC) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119405-buy-kss-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "i-Tail Corporation Public Company Limited",
+      "date": "2026-07-31T13:22:03+07:00",
+      "ts": 1785478923000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731_ITC_ER(E).pdf"
+    },
+    {
+      "uuid": "c9230d1a-d60a-462e-b763-fc8907d807ac",
+      "title": "BUY โดย LHS | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119403-buy-lhs-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T13:22:02+07:00",
+      "ts": 1785478922000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ITC_20260730_Preview.pdf"
+    },
+    {
+      "uuid": "8521f826-e11a-4d66-87b2-6ad72b52abee",
+      "title": "BUY โดย LHS | บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน) (AWC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119402-buy-lhs-awc",
+      "tickers": [
+        "AWC"
+      ],
+      "symbolId": "93918",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน)",
+      "date": "2026-07-31T13:22:02+07:00",
+      "ts": 1785478922000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/AWC_20260731.pdf"
+    },
+    {
+      "uuid": "f1a893f8-0262-48c0-819d-5aa93de77e51",
+      "title": "Neutral โดย KSS | บริษัท เอ็มเค เรสโตรองต์ กรุ๊ป จำกัด (มหาชน) (M) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119399-neutral-kss-m",
+      "tickers": [
+        "M"
+      ],
+      "symbolId": "19017",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท เอ็มเค เรสโตรองต์ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-31T13:15:03+07:00",
+      "ts": 1785478503000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/M_260731_EP.pdf"
+    },
+    {
+      "uuid": "b65466d3-22f6-44d4-9b23-c23857d765e8",
+      "title": "Buy โดย KSS | บริษัท มากุโระ กรุ๊ป จำกัด (มหาชน) (MAGURO) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119400-buy-kss-maguro",
+      "tickers": [
+        "MAGURO"
+      ],
+      "symbolId": "122321",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "บริษัท มากุโระ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-07-31T13:15:03+07:00",
+      "ts": 1785478503000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/EP_MAGURO_260731-31073046.pdf"
+    },
+    {
+      "uuid": "61fa0b6d-2f47-4a2d-819a-5bb9548112be",
+      "title": "Non-rated โดย YUANTA | บริษัท สกาย ไอซีที จำกัด (มหาชน) (SKY) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119396-non-rated-yuanta-sky",
+      "tickers": [
+        "SKY"
+      ],
+      "symbolId": "20853",
+      "broker": "YUANTA",
+      "rating": "Non-rated",
+      "companyName": "บริษัท สกาย ไอซีที จำกัด (มหาชน)",
+      "date": "2026-07-31T13:05:57+07:00",
+      "ts": 1785477957000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/SKY_Analyst_Note_310726.pdf"
+    },
+    {
+      "uuid": "4a4544ec-2c20-49af-9b9e-584ac0c24037",
+      "title": "Buy โดย KSS | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119398-buy-kss-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T13:05:57+07:00",
+      "ts": 1785477957000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731_ITC_ER.pdf"
+    },
+    {
+      "uuid": "0e8f6ee8-3fd7-4ca1-8b91-341e1f866121",
+      "title": "TRADING (Downside) โดย YUANTA | บริษัท สเปเชี่ยลตี้ เนเชอรัล โปรดักส์ จำกัด (มหาชน) (SNPS) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119397-trading-downside-yuanta-snps",
+      "tickers": [
+        "SNPS"
+      ],
+      "symbolId": "122235",
+      "broker": "YUANTA",
+      "rating": "TRADING (Downside)",
+      "companyName": "บริษัท สเปเชี่ยลตี้ เนเชอรัล โปรดักส์ จำกัด (มหาชน)",
+      "date": "2026-07-31T13:05:57+07:00",
+      "ts": 1785477957000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/SNPS_Update_310726.pdf"
+    },
+    {
+      "uuid": "23001be0-0cde-4c38-ac88-aa9a007480ba",
+      "title": "BUY (Initiate) โดย YUANTA | บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน) (NCAP) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119395-buy-initiate-yuanta-ncap",
+      "tickers": [
+        "NCAP"
+      ],
+      "symbolId": "100051",
+      "broker": "YUANTA",
+      "rating": "BUY (Initiate)",
+      "companyName": "บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน)",
+      "date": "2026-07-31T12:59:53+07:00",
+      "ts": 1785477593000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/NCAP_Initiate_31072026.pdf"
+    },
+    {
+      "uuid": "1bd50bfd-f572-4510-b0b1-b6d4264d5010",
+      "title": "BUY (Upgrade) โดย YUANTA | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119394-buy-upgrade-yuanta-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "YUANTA",
+      "rating": "BUY (Upgrade)",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T12:59:52+07:00",
+      "ts": 1785477592000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ITC_Update_310726.pdf"
+    },
+    {
+      "uuid": "93fc5e37-2053-42d3-a2e5-e67da24f11ee",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท โรงพยาบาลจุฬารัตน์ จำกัด (มหาชน) (CHG) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119392-buy-maintain-yuanta-chg",
+      "tickers": [
+        "CHG"
+      ],
+      "symbolId": "18407",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท โรงพยาบาลจุฬารัตน์ จำกัด (มหาชน)",
+      "date": "2026-07-31T12:55:14+07:00",
+      "ts": 1785477314000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/CHG_CompanyUpdate_310726.pdf"
+    },
+    {
+      "uuid": "1b155b48-6d80-444c-959c-9747c6660ade",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน) (BAM) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119393-buy-maintain-yuanta-bam",
+      "tickers": [
+        "BAM"
+      ],
+      "symbolId": "94830",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน)",
+      "date": "2026-07-31T12:55:14+07:00",
+      "ts": 1785477314000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BAM_Company_Update_31072026.pdf"
+    },
+    {
+      "uuid": "24d5a662-fdf8-4f08-b5fd-a0f9ded968e4",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ผลิตไฟฟ้า จำกัด (มหาชน) (EGCO) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119391-buy-maintain-yuanta-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ผลิตไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-07-31T12:55:13+07:00",
+      "ts": 1785477313000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/EGCO_Update_310726.pdf"
+    },
+    {
+      "uuid": "6447cfbb-dbbd-4679-a354-1b8e9fbf1cbf",
+      "title": "Neutral (Upgraded) by KGI | S HOTELS AND RESORTS PUBLIC COMPANY LIMITED (SHR) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119389-neutral-upgraded-kgi-shr",
+      "tickers": [
+        "SHR"
+      ],
+      "symbolId": "94385",
+      "broker": "KGI",
+      "rating": "Neutral (Upgraded)",
+      "companyName": "S HOTELS AND RESORTS PUBLIC COMPANY LIMITED",
+      "date": "2026-07-31T12:16:39+07:00",
+      "ts": 1785474999000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_SHR_2026_07_31_e_th.pdf"
+    },
+    {
+      "uuid": "074cb1e6-42e0-4528-9ac3-0d87e088679f",
+      "title": "Neutral (Upgraded) โดย KGI | บริษัท เอส โฮเทล แอนด์ รีสอร์ท จำกัด (มหาชน) (SHR) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119390-neutral-upgraded-kgi-shr",
+      "tickers": [
+        "SHR"
+      ],
+      "symbolId": "94385",
+      "broker": "KGI",
+      "rating": "Neutral (Upgraded)",
+      "companyName": "บริษัท เอส โฮเทล แอนด์ รีสอร์ท จำกัด (มหาชน)",
+      "date": "2026-07-31T12:16:39+07:00",
+      "ts": 1785474999000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_SHR_2026_07_31_th.pdf"
+    },
+    {
+      "uuid": "26454bb5-1a4e-4794-b54c-0385308b6ea5",
+      "title": "Neutral (Maintained) by KGI | ELECTRICITY GENERATING PUBLIC COMPANY LIMITED (EGCO) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119388-neutral-maintained-kgi-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "ELECTRICITY GENERATING PUBLIC COMPANY LIMITED",
+      "date": "2026-07-31T12:02:19+07:00",
+      "ts": 1785474139000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_EGCO_2026_07_31_e_th.pdf"
+    },
+    {
+      "uuid": "7575f591-c299-484a-b67c-28ba84805b23",
+      "title": "Neutral (Maintained) โดย KGI | บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน) (AWC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119387-neutral-maintained-kgi-awc",
+      "tickers": [
+        "AWC"
+      ],
+      "symbolId": "93918",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน)",
+      "date": "2026-07-31T11:50:20+07:00",
+      "ts": 1785473420000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_AWC_2026_07_31_th.pdf"
+    },
+    {
+      "uuid": "42da04bc-a9f3-4152-8cc0-29f949185978",
+      "title": "Neutral (Maintained) by KGI | ASSET WORLD CORP PUBLIC COMPANY LIMITED (AWC) | Research as of 31 July 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119386-neutral-maintained-kgi-awc",
+      "tickers": [
+        "AWC"
+      ],
+      "symbolId": "93918",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "ASSET WORLD CORP PUBLIC COMPANY LIMITED",
+      "date": "2026-07-31T11:50:19+07:00",
+      "ts": 1785473419000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Daily-Story_AWC_2026_07_31_th.pdf"
+    },
+    {
+      "uuid": "d967ca80-cefb-4375-b0dc-0a9c143eb62e",
+      "title": "BUY โดย KSS | บริษัท เอสไอเอสบี จำกัด (มหาชน) (SISB) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119374-buy-kss-sisb",
+      "tickers": [
+        "SISB"
+      ],
+      "symbolId": "89853",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสไอเอสบี จำกัด (มหาชน)",
+      "date": "2026-07-31T11:22:15+07:00",
+      "ts": 1785471735000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731_SISB_EP.pdf"
+    },
+    {
+      "uuid": "14b11373-5da9-4d2e-967d-be560cab2ed3",
+      "title": "Earning Result โดย SBITO | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119364-earning-result-sbito-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "SBITO",
+      "rating": "Earning Result",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T11:01:31+07:00",
+      "ts": 1785470491000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/Earning-Result-310769--ITC-31051014.pdf"
+    },
+    {
+      "uuid": "3057bc33-9cb8-4273-b44f-26ed955e6a74",
+      "title": "BUY โดย KSS | บริษัท ทุนธนชาต จำกัด (มหาชน) (TCAP) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119356-buy-kss-tcap",
+      "tickers": [
+        "TCAP"
+      ],
+      "symbolId": "23",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ทุนธนชาต จำกัด (มหาชน)",
+      "date": "2026-07-31T10:16:02+07:00",
+      "ts": 1785467762000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731_TCAP_EP.pdf"
+    },
+    {
+      "uuid": "fbc90210-c583-42a0-a8ac-b5ac768fdb77",
+      "title": "Trading Buy โดย TRINITY | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119355-trading-buy-trinity-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "TRINITY",
+      "rating": "Trading Buy",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T10:16:01+07:00",
+      "ts": 1785467761000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ITC_Thai_20260731.pdf"
+    },
+    {
+      "uuid": "81ceb30c-4156-4653-992e-c281b21d8665",
+      "title": "Gradual buying (Maintain recommendation) โดย PST | ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) (KKP) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119349-gradual-buying-maintain-recommendation-pst-kkp",
+      "tickers": [
+        "KKP"
+      ],
+      "symbolId": "327",
+      "broker": "PST",
+      "rating": "Gradual buying (Maintain recommendation)",
+      "companyName": "ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน)",
+      "date": "2026-07-31T10:13:12+07:00",
+      "ts": 1785467592000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/KKP073126_t.pdf"
+    },
+    {
+      "uuid": "bb81101b-f3b7-49a0-8194-e98a6eb0bb12",
+      "title": "Buy (Maintain recommendation) โดย PST | บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน) (AP) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119347-buy-maintain-recommendation-pst-ap",
+      "tickers": [
+        "AP"
+      ],
+      "symbolId": "852",
+      "broker": "PST",
+      "rating": "Buy (Maintain recommendation)",
+      "companyName": "บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน)",
+      "date": "2026-07-31T10:13:11+07:00",
+      "ts": 1785467591000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/AP073126_t.pdf"
+    },
+    {
+      "uuid": "2dd4be12-dc1a-43dd-8943-a98f15df2573",
+      "title": "Buy (Maintain recommendation) โดย PST | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119348-buy-maintain-recommendation-pst-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "PST",
+      "rating": "Buy (Maintain recommendation)",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T10:13:11+07:00",
+      "ts": 1785467591000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/itc073126_t.pdf"
+    },
+    {
+      "uuid": "b27fe528-da35-43e9-8b49-bded5d5bbb13",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119331-trinity-quick-win---moring-stock",
+      "tickers": [
+        "ADVANC",
+        "KCE"
+      ],
+      "symbolId": "743,330",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-07-31T09:26:40+07:00",
+      "ts": 1785464800000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/MORNING-STOCKs31JULY26-kce;advanc.pdf"
+    },
+    {
+      "uuid": "3d3b3ef2-0690-456f-bfa1-32664775d9df",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119327-trinity-block-trade--moring-stock",
+      "tickers": [
+        "AMATA",
+        "DELTA"
+      ],
+      "symbolId": "1609,1353",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-07-31T09:10:47+07:00",
+      "ts": 1785463847000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/BlockTrade-Morning-31JULY26-amata,delta.pdf"
+    },
+    {
+      "uuid": "c440d13b-7c00-4094-ad47-75a6978ca54e",
+      "title": "HOLD โดย PI | บริษัท ไทยสแตนเลย์การไฟฟ้า จำกัด (มหาชน) (STANLY) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119319-hold-pi-stanly",
+      "tickers": [
+        "STANLY"
+      ],
+      "symbolId": "655",
+      "broker": "PI",
+      "rating": "HOLD",
+      "companyName": "บริษัท ไทยสแตนเลย์การไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-07-31T08:53:09+07:00",
+      "ts": 1785462789000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/STANLY-260731.pdf"
+    },
+    {
+      "uuid": "d6bdb073-dbd6-4130-ad00-7545661ff830",
+      "title": "BUY โดย PI | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119318-buy-pi-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T08:53:09+07:00",
+      "ts": 1785462789000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ITC-260731.pdf"
+    },
+    {
+      "uuid": "d340230c-1b7a-496a-8595-a0b578e2e5c6",
+      "title": "BUY โดย PI | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119317-buy-pi-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T08:53:08+07:00",
+      "ts": 1785462788000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/ITC-260731.pdf"
+    },
+    {
+      "uuid": "b78f8f91-3cfd-4555-b008-a1dcbeffadc6",
+      "title": "BUY โดย MST | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 31 กรกฎาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119311-buy-mst-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "MST",
+      "rating": "BUY",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-07-31T08:36:45+07:00",
+      "ts": 1785461805000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Jul/260731_ITC_2Q26_press.pdf"
+    },
     {
       "uuid": "ec2a9fd2-9a22-4e70-b18e-86085612549c",
       "title": "B by TRIS | EASTERN POWER GROUP PUBLIC COMPANY LIMITED (EP) | Research as of 30 July 2026",
@@ -65,14 +681,14 @@
     },
     {
       "uuid": "3176129e-ddda-442c-9e05-8022e3ed62fb",
-      "title": "AA+ โดย TRIS | บริษัท ผลิตไฟฟ้า จำกัด (มหาชน) (EGCO) | บทวิเคราะห์ประจำวันที่ 30 กรกฎาคม 2569",
+      "title": "AA โดย TRIS | บริษัท ผลิตไฟฟ้า จำกัด (มหาชน) (EGCO) | บทวิเคราะห์ประจำวันที่ 30 กรกฎาคม 2569",
       "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119303-aa-tris-egco",
       "tickers": [
         "EGCO"
       ],
       "symbolId": "1283",
       "broker": "TRIS",
-      "rating": "AA+",
+      "rating": "AA",
       "companyName": "บริษัท ผลิตไฟฟ้า จำกัด (มหาชน)",
       "date": "2026-07-30T19:06:49+07:00",
       "ts": 1785413209000,
@@ -80,14 +696,14 @@
     },
     {
       "uuid": "f9190e2a-cc1d-48e1-85ac-55692113b9dc",
-      "title": "AA+ by TRIS | ELECTRICITY GENERATING PUBLIC COMPANY LIMITED (EGCO) | Research as of 30 July 2026",
+      "title": "AA  by TRIS | ELECTRICITY GENERATING PUBLIC COMPANY LIMITED (EGCO) | Research as of 30 July 2026",
       "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119302-aa-tris-egco",
       "tickers": [
         "EGCO"
       ],
       "symbolId": "1283",
       "broker": "TRIS",
-      "rating": "AA+",
+      "rating": "AA",
       "companyName": "ELECTRICITY GENERATING PUBLIC COMPANY LIMITED",
       "date": "2026-07-30T19:01:03+07:00",
       "ts": 1785412863000,
