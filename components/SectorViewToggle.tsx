@@ -4,24 +4,29 @@ import { useMemo, useState } from 'react';
 import type { ScanEntry } from '@/lib/scanData';
 import SectorTickerGrid from './SectorTickerGrid';
 import SectorValuationScatter from './SectorValuationScatter';
+import SectorPEDistribution from './SectorPEDistribution';
 
-type TickerWithScan = { ticker: string; scan: ScanEntry | null };
+type TickerWithScan = { ticker: string; scan: ScanEntry | null; pe: number | null; roe: number | null };
 type SubsectorData = { subsector: string; tickers: TickerWithScan[] };
 
 export default function SectorViewToggle({ subsectors }: { subsectors: SubsectorData[] }) {
-  const [view, setView] = useState<'list' | 'scatter'>('list');
+  const [view, setView] = useState<'list' | 'scatter' | 'pe'>('list');
   const tickers = useMemo(
     () => subsectors.flatMap(s => s.tickers.map(t => t.ticker)),
+    [subsectors]
+  );
+  const points = useMemo(
+    () => subsectors.flatMap(s => s.tickers.map(t => ({ ticker: t.ticker, pe: t.pe, roe: t.roe }))),
     [subsectors]
   );
 
   return (
     <div className="space-y-3">
       <div className="flex justify-end">
-        <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden">
+        <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden p-0.5 bg-black/20">
           <button
             onClick={() => setView('list')}
-            className={`px-3 py-1.5 text-[12px] font-semibold transition-colors ${
+            className={`px-3 py-1.5 text-[12px] font-semibold rounded-md transition-colors ${
               view === 'list' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
             }`}
           >
@@ -29,23 +34,41 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
           </button>
           <button
             onClick={() => setView('scatter')}
-            className={`px-3 py-1.5 text-[12px] font-semibold transition-colors ${
+            className={`px-3 py-1.5 text-[12px] font-semibold rounded-md transition-colors ${
               view === 'scatter' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
             }`}
           >
             Scatter Valuation
+          </button>
+          <button
+            onClick={() => setView('pe')}
+            className={`px-3 py-1.5 text-[12px] font-semibold rounded-md transition-colors ${
+              view === 'pe' ? 'bg-white/10 text-white font-bold border border-white/10' : 'text-white/35 hover:text-white/60'
+            }`}
+          >
+            PE Distribution
           </button>
         </div>
       </div>
 
       {view === 'list' ? (
         <SectorTickerGrid subsectors={subsectors} />
-      ) : (
+      ) : view === 'scatter' ? (
         <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
           <p className="text-[12px] text-white/35 mb-3">
             P/BV × ROE (TTM) ของหุ้นในกลุ่มนี้ - จุดที่เขียวคือ ROE สูงเมื่อเทียบกับ P/BV ต่ำกว่าที่แนวโน้มกลุ่มบ่งชี้ (อาจถูกกว่าที่ควร)
           </p>
           <SectorValuationScatter tickers={tickers} />
+        </div>
+      ) : (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-3">
+          <div>
+            <h3 className="text-[14px] font-bold text-white">P/E Ratio Distribution & Threshold Valuation</h3>
+            <p className="text-[12px] text-white/35 mt-0.5">
+              การกระจายตัวของ P/E Ratio ของหุ้นในกลุ่มนี้ — ปรับ Threshold Slider เพื่อคัดแยกหุ้นถูก (เขียว) และหุ้นแพง (แดง)
+            </p>
+          </div>
+          <SectorPEDistribution points={points} />
         </div>
       )}
     </div>

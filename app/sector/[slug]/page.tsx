@@ -6,6 +6,8 @@ import { scanData } from '@/lib/scanData';
 import { ChevronLeft } from 'lucide-react';
 import SectorViewToggle from '@/components/SectorViewToggle';
 
+import marketStageData from '@/data/scans/market_stage.json';
+
 const SECTOR_COLORS: Record<string, string> = {
   'Agro':             '#5D9E4A',
   'Consump':          '#E24B4A',
@@ -53,11 +55,22 @@ export default async function SectorDetailPage({
   const color = SECTOR_COLORS[sectorName] ?? '#6b7280';
 
   const scanMap = new Map(scanData.map(s => [s.ticker, s]));
+  const peMap = new Map(
+    (marketStageData as Array<{ Ticker: string; PE_Ratio?: number | null; ROE?: number | null }>).map(i => [
+      i.Ticker,
+      { pe: i.PE_Ratio ?? null, roe: i.ROE ?? null },
+    ])
+  );
 
   const subsectorData = subsectors.map(sub => ({
     subsector: sub.subsector,
     tickers: sub.tickers
-      .map(t => ({ ticker: t, scan: scanMap.get(t) ?? null }))
+      .map(t => ({
+        ticker: t,
+        scan: scanMap.get(t) ?? null,
+        pe: peMap.get(t)?.pe ?? null,
+        roe: peMap.get(t)?.roe ?? null,
+      }))
       .sort((a, b) => {
         if (a.scan && b.scan) return b.scan.rs_score - a.scan.rs_score;
         if (a.scan) return -1;
