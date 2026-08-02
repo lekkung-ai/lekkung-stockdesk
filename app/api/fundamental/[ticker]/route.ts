@@ -1,17 +1,7 @@
 import type { NextRequest } from 'next/server';
-import https from 'https';
-import { toYahooSymbol } from '@/lib/setTickers';
 import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 
 const YF_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
-
-function raw(obj: unknown): number | null {
-  if (obj && typeof obj === 'object' && 'raw' in obj) {
-    const v = (obj as { raw: unknown }).raw;
-    return typeof v === 'number' ? v : null;
-  }
-  return null;
-}
 
 function fmtMarketCap(n: number | null): string {
   if (n == null) return '—';
@@ -21,63 +11,69 @@ function fmtMarketCap(n: number | null): string {
   return `${(n / 1_000_000).toFixed(0)} ล้าน`;
 }
 
-function httpsGet(url: string, headers: Record<string, string>): Promise<{ body: string; cookies: string[] }> {
-  return new Promise((resolve, reject) => {
-    const parsed = new URL(url);
-    const req = https.get(
-      {
-        hostname: parsed.hostname,
-        path: parsed.pathname + parsed.search,
-        headers,
-        maxHeaderSize: 65536,
-      },
-      res => {
-        const rawCookies = (res.headers['set-cookie'] ?? []) as string[];
-        let body = '';
-        res.on('data', (chunk: Buffer) => { body += chunk.toString(); });
-        res.on('end', () => resolve({ body, cookies: rawCookies }));
-      }
-    );
-    req.on('error', reject);
-    req.setTimeout(8000, () => { req.destroy(new Error('timeout')); });
-  });
-}
-
-async function getYahooCrumb(symbol: string): Promise<{ cookie: string; crumb: string } | null> {
+async function getSettradeSessionCookie(): Promise<string> {
   try {
-    // Step 1: hit quote page with https module (avoids undici header overflow)
-    const { cookies } = await httpsGet(
-      `https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}/`,
-      { 'User-Agent': YF_UA, Accept: 'text/html', 'Accept-Language': 'en-US,en;q=0.9' }
-    );
+    const res = await fetch('https://www.settrade.com/th/home', {
+      headers: {
+        'User-Agent': YF_UA,
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+      },
+      signal: AbortSignal.timeout(6000),
+    });
+    const rawCookies: string[] =
+      typeof (res.headers as unknown as { getSetCookie?: () => string[] }).getSetCookie === 'function'
+        ? (res.headers as unknown as { getSetCookie: () => string[] }).getSetCookie()
+        : (res.headers.get('set-cookie') ?? '').split(/,(?=\s*\w+=)/);
 
-    const cookie = cookies
-      .map(c => c.split(';')[0].trim())
+    return rawCookies
+      .map(raw => raw.split(';')[0].trim())
       .filter(Boolean)
       .join('; ');
+  } catch {
+    return '';
+  }
+}
 
-    if (!cookie) return null;
+interface SettradeStockInfo {
+  peRatio?: number | null;
+  pbRatio?: number | null;
+  dividendYield?: number | null;
+  marketCap?: number | null;
+}
 
-    // Step 2: get crumb — this endpoint returns plain text, headers are small → fetch is fine
-    const crumbRes = await fetch('https://query1.finance.yahoo.com/v1/test/getcrumb', {
-      headers: { 'User-Agent': YF_UA, Accept: '*/*', 'Accept-Language': 'en-US,en;q=0.9', Cookie: cookie },
+async function fetchSettradeInfo(symbol: string): Promise<SettradeStockInfo | null> {
+  try {
+    const cookie = await getSettradeSessionCookie();
+    const headers: Record<string, string> = {
+      'User-Agent': YF_UA,
+      Accept: 'application/json',
+      Referer: 'https://www.settrade.com/',
+    };
+    if (cookie) {
+      headers['Cookie'] = cookie;
+    }
+    const res = await fetch(`https://www.settrade.com/api/set/stock/${encodeURIComponent(symbol)}/info`, {
+      headers,
+      signal: AbortSignal.timeout(6000),
     });
-    const crumb = (await crumbRes.text()).trim();
-    if (!crumb || crumb.startsWith('{')) return null;
-
-    return { cookie, crumb };
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data || typeof data !== 'object') return null;
+    return {
+      peRatio: typeof data.peRatio === 'number' ? data.peRatio : (data.peRatio === null ? null : undefined),
+      pbRatio: typeof data.pbRatio === 'number' ? data.pbRatio : (data.pbRatio === null ? null : undefined),
+      dividendYield: typeof data.dividendYield === 'number' ? data.dividendYield : (data.dividendYield === null ? null : undefined),
+      marketCap: typeof data.marketCap === 'number' ? data.marketCap : (data.marketCap === null ? null : undefined),
+    };
   } catch {
     return null;
   }
 }
 
-export async function GET(
-  _req: NextRequest,
-  context: { params: Promise<{ ticker: string }> }
-) {
-  const { ticker } = await context.params;
-  const symbol = ticker.toUpperCase();
-
+async function fetchTradingViewData(symbol: string): Promise<any[] | null> {
   try {
     const payload = {
       filter: [{ left: "name", operation: "equal", right: symbol }],
@@ -101,36 +97,65 @@ export async function GET(
       method: "POST",
       headers: TRADINGVIEW_HEADERS,
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(8000),
     });
 
-    if (!res.ok) {
-      return Response.json({ error: `upstream_${res.status}` }, { status: res.status });
-    }
+    if (!res.ok) return null;
 
     const json = await res.json();
     const data = json.data;
 
-    if (!data || data.length === 0) {
+    if (!data || data.length === 0) return null;
+
+    return data[0].d;
+  } catch {
+    return null;
+  }
+}
+
+export async function GET(
+  _req: NextRequest,
+  context: { params: Promise<{ ticker: string }> }
+) {
+  const { ticker } = await context.params;
+  const symbol = ticker.toUpperCase();
+
+  try {
+    const [tvResult, settradeResult] = await Promise.allSettled([
+      fetchTradingViewData(symbol),
+      fetchSettradeInfo(symbol),
+    ]);
+
+    const tvD = tvResult.status === 'fulfilled' ? tvResult.value : null;
+    const settrade = settradeResult.status === 'fulfilled' ? settradeResult.value : null;
+
+    if (!tvD && !settrade) {
       return Response.json({ error: 'no_data' }, { status: 404 });
     }
 
-    const d = data[0].d;
-    
-    // TradingView returns null for missing data
-    // d[1] = PE, d[2] = PB, d[3] = ROE (%), d[4] = EPS, d[5] = DE, d[6] = Div Yield (%), d[7] = Market Cap (Baht), d[8] = Payout Ratio (%)
+    const d = tvD || [];
+
+    // Priority mapping:
+    // SETTrade first for peRatio, pbRatio, dividendYield, marketCap
+    // TradingView for roe, eps, de, payoutRatio
+    const pe = settrade?.peRatio !== undefined ? settrade.peRatio : (d[1] ?? null);
+    const pb = settrade?.pbRatio !== undefined ? settrade.pbRatio : (d[2] ?? null);
+    const divYield = settrade?.dividendYield !== undefined ? settrade.dividendYield : (d[6] ?? null);
+    const marketCapVal = settrade?.marketCap != null ? settrade.marketCap : (d[7] ?? null);
+
     const deValue = d[5] != null ? d[5] * 100 : null; // Multiply DE by 100 to match Yahoo's scale
 
     return Response.json(
       {
-        pe: d[1],
-        pb: d[2],
-        roe: d[3],
-        eps: d[4],
+        pe,
+        pb,
+        roe: d[3] ?? null,
+        eps: d[4] ?? null,
         de: deValue,
         deMissing: deValue == null,
-        divYield: d[6],
-        marketCap: fmtMarketCap(d[7]),
-        payoutRatio: d[8],
+        divYield,
+        marketCap: fmtMarketCap(marketCapVal),
+        payoutRatio: d[8] ?? null,
       },
       { headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' } }
     );
@@ -138,4 +163,5 @@ export async function GET(
     return Response.json({ error: 'fetch_failed' }, { status: 500 });
   }
 }
+
 
