@@ -326,6 +326,19 @@ def main():
         "scans": result_scans,
     }
 
+    total_computable_n = sum(
+        result_scans[s]["horizons"][str(h)]["n"]
+        for s in result_scans
+        for h in HORIZONS
+    )
+    if total_computable_n == 0:
+        print(
+            f"[report-card] ERROR: Total computable n is 0 across all scans. "
+            f"Price CSV files missing or unreadable in {DATA_ENGINE_HISTORY_DIR}. "
+            f"Aborting without overwriting {OUT_FILE}."
+        )
+        sys.exit(1)
+
     with open(OUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, separators=(",", ":"))
     print(f"[report-card] Saved: {OUT_FILE}")
