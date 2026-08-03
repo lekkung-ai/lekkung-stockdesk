@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-03T18:13:07.293530+07:00",
+  "generatedAt": "2026-08-03T20:31:10.675768+07:00",
   "windowDays": 45,
   "universeSize": 935,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 18,
+      "count": 20,
       "top3": [
         {
           "ticker": "MST",
@@ -16,8 +16,8 @@
           "netProfitYoY": 407.90931961055105
         },
         {
-          "ticker": "SCGP",
-          "netProfitYoY": 128.1453723683963
+          "ticker": "TRT",
+          "netProfitYoY": 271.400265125293
         }
       ]
     },
@@ -33,7 +33,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 7,
+      "count": 8,
       "top3": [
         {
           "ticker": "HPT",
@@ -61,7 +61,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 2,
+      "count": 3,
       "top3": [
         {
           "ticker": "SAM",
@@ -70,6 +70,10 @@
         {
           "ticker": "SCGD",
           "netProfitYoY": -226.39153486700218
+        },
+        {
+          "ticker": "TOG",
+          "netProfitYoY": -175.9880542376147
         }
       ]
     },
@@ -80,6 +84,114 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "TRT",
+      "sector": "Industrials",
+      "subsector": "Industrials",
+      "market": "MAI",
+      "announceDate": "2026-08-03T20:30:45+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 127365110.0,
+      "netProfitPrior": 34293220.0,
+      "netProfitYoY": 271.400265125293,
+      "netProfitPriorQ": 162820920.0,
+      "netProfitQoQ": -21.775954834305075,
+      "profitAcceleration": "decelerating",
+      "eps": 0.41351,
+      "epsPrior": 0.11134,
+      "epsYoY": 271.393928507275,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105618501&symbol=TRT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17857134058871&symbol=TRT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105618601&symbol=TRT",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "TOG",
+      "sector": "Consump",
+      "subsector": "& Person",
+      "market": "SET",
+      "announceDate": "2026-08-03T19:52:36+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -31551000.0,
+      "netProfitPrior": 41521000.0,
+      "netProfitYoY": -175.9880542376147,
+      "netProfitPriorQ": 102757000.0,
+      "netProfitQoQ": -130.7044775538406,
+      "profitAcceleration": "stable",
+      "eps": -0.06652,
+      "epsPrior": 0.08754,
+      "epsYoY": -175.9881197167009,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105617701&symbol=TOG",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17857134058211&symbol=TOG",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105617801&symbol=TOG",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "GLOBAL",
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET",
+      "announceDate": "2026-08-03T19:12:38+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 955484000.0,
+      "netProfitPrior": 520401000.0,
+      "netProfitYoY": 83.60533511657357,
+      "netProfitPriorQ": 802569000.0,
+      "netProfitQoQ": 19.05319044219251,
+      "profitAcceleration": "accelerating",
+      "eps": 0.1706,
+      "epsPrior": 0.0929,
+      "epsYoY": 83.63832077502693,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105605201&symbol=GLOBAL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17857134057351&symbol=GLOBAL",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105604901&symbol=GLOBAL",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "TU",
+      "sector": "Agro",
+      "subsector": "& Food Industry Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-08-03T12:50:19+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 1264053000.0,
+      "netProfitPrior": 1272570000.0,
+      "netProfitYoY": -0.6692755604799736,
+      "netProfitPriorQ": 1113270000.0,
+      "netProfitQoQ": 13.544153709342746,
+      "profitAcceleration": "stable",
+      "eps": 0.33,
+      "epsPrior": 0.32,
+      "epsYoY": 3.1250000000000027,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105602101&symbol=TU",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17857134034781&symbol=TU",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105602201&symbol=TU",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "SSTRT",
       "sector": "Property",
@@ -336,7 +448,7 @@
       "netProfitYoY": 31.227576421628946,
       "netProfitPriorQ": 9081176000.0,
       "netProfitQoQ": -33.107804539852545,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.49,
       "epsPrior": 0.37,
       "epsYoY": 32.432432432432435,
@@ -876,7 +988,7 @@
       "netProfitYoY": 2.742929548778955,
       "netProfitPriorQ": 618263000.0,
       "netProfitQoQ": 28.264185306253164,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 3.2,
       "epsPrior": 3.09,
       "epsYoY": 3.559870550161823,
@@ -1061,7 +1173,7 @@
       "ticker": "DELTA",
       "date": "2026-07-24T18:35:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "HMPRO",
@@ -1074,13 +1186,6 @@
       "date": "2026-07-27T17:11:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "GLOBAL",
-      "date": "2026-07-29T07:24:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-07-29T07:24:00+07:00"
     },
     {
       "ticker": "OHTL",
@@ -1174,18 +1279,35 @@
       "basedOnLastYear": "2025-08-01T17:19:00+07:00"
     },
     {
+      "ticker": "TU",
+      "date": "2026-08-03T12:50:19+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "GLOBAL",
+      "date": "2026-08-03T19:12:38+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TOG",
+      "date": "2026-08-03T19:52:36+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TRT",
+      "date": "2026-08-03T20:30:45+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
       "ticker": "MORE",
       "date": "2026-08-04T07:57:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-04T07:57:00+07:00"
-    },
-    {
-      "ticker": "TU",
-      "date": "2026-08-04T12:51:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-04T12:51:00+07:00"
     },
     {
       "ticker": "AF",
@@ -1207,13 +1329,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-04T18:28:00+07:00"
-    },
-    {
-      "ticker": "TOG",
-      "date": "2026-08-04T20:33:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-04T20:33:00+07:00"
     },
     {
       "ticker": "ANI",
@@ -3111,13 +3226,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T07:48:00+07:00"
-    },
-    {
-      "ticker": "TRT",
-      "date": "2026-08-13T07:49:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T07:49:00+07:00"
     },
     {
       "ticker": "JTS",
