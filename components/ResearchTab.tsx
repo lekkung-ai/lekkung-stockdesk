@@ -89,15 +89,11 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
             const d = localDate(it.ts);
             counts.set(d, (counts.get(d) ?? 0) + 1);
           }
-          let bestDate = localDate(basis[0].ts);
-          let bestCount = 0;
-          for (const [d, n] of counts) {
-            if (n > bestCount || (n === bestCount && d > bestDate)) {
-              bestDate = d;
-              bestCount = n;
-            }
+          let latestDate = '';
+          for (const d of counts.keys()) {
+            if (d > latestDate) latestDate = d;
           }
-          setSelectedDate(bestDate);
+          setSelectedDate(latestDate || localDate(basis[0].ts));
         }
       })
       .catch(() => {
