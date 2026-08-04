@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-03T20:31:10.675768+07:00",
+  "generatedAt": "2026-08-04T18:12:26.647627+07:00",
   "windowDays": 45,
   "universeSize": 935,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 20,
+      "count": 23,
       "top3": [
         {
           "ticker": "MST",
@@ -23,8 +23,12 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 1,
+      "count": 2,
       "top3": [
+        {
+          "ticker": "TAE",
+          "netProfitYoY": 540.7905803195963
+        },
         {
           "ticker": "BANPU",
           "netProfitYoY": 395.6364256997648
@@ -33,7 +37,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 8,
+      "count": 9,
       "top3": [
         {
           "ticker": "HPT",
@@ -44,8 +48,8 @@
           "netProfitYoY": -33.46965609265487
         },
         {
-          "ticker": "BBL",
-          "netProfitYoY": -19.7802001965394
+          "ticker": "TSC",
+          "netProfitYoY": -23.02386873259793
         }
       ]
     },
@@ -85,11 +89,200 @@
   },
   "announcements": [
     {
+      "ticker": "TSC",
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET",
+      "announceDate": "2026-08-04T17:20:50+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 72433000.0,
+      "netProfitPrior": 94098000.0,
+      "netProfitYoY": -23.02386873259793,
+      "netProfitPriorQ": 102681000.0,
+      "netProfitQoQ": -29.458224988069848,
+      "profitAcceleration": "stable",
+      "eps": 0.28,
+      "epsPrior": 0.36,
+      "epsYoY": -22.222222222222214,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105634901&symbol=TSC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008083231&symbol=TSC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105635001&symbol=TSC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "TRUE",
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET",
+      "announceDate": "2026-08-04T17:14:45+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 6554129000.0,
+      "netProfitPrior": 2031150000.0,
+      "netProfitYoY": 222.680698126677,
+      "netProfitPriorQ": 6588720000.0,
+      "netProfitQoQ": -0.5250033390400564,
+      "profitAcceleration": "decelerating",
+      "eps": 0.19,
+      "epsPrior": 0.06,
+      "epsYoY": 216.66666666666669,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105627301&symbol=TRUE",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008082301&symbol=TRUE",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105627201&symbol=TRUE",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "LANNA",
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "announceDate": "2026-08-04T17:09:16+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 397899000.0,
+      "netProfitPrior": 176558000.0,
+      "netProfitYoY": 125.36446946612445,
+      "netProfitPriorQ": 176401000.0,
+      "netProfitQoQ": 125.56504781718925,
+      "profitAcceleration": "accelerating",
+      "eps": 0.76,
+      "epsPrior": 0.34,
+      "epsYoY": 123.52941176470587,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105626801&symbol=LANNA",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008080391&symbol=LANNA",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105630801&symbol=LANNA",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "NCAP",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-08-04T17:02:53+07:00",
+      "quarter": null,
+      "periodEnd": null,
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": 179191840.0,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105630901&symbol=NCAP",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008073551&symbol=NCAP",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105631201&symbol=NCAP",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "DCC",
+      "sector": "Property",
+      "subsector": "& Construction Construction Materials",
+      "market": "SET",
+      "announceDate": "2026-08-04T12:50:51+07:00",
+      "quarter": null,
+      "periodEnd": null,
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105624601&symbol=DCC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008064661&symbol=DCC",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "TAE",
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "announceDate": "2026-08-04T08:31:52+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 99579000.0,
+      "netProfitPrior": -22591000.0,
+      "netProfitYoY": 540.7905803195963,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": 0.1,
+      "epsPrior": -0.023,
+      "epsYoY": 534.7826086956521,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "turnaround",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105622701&symbol=TAE",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008060821&symbol=TAE",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105622801&symbol=TAE",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "CSR",
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET",
+      "announceDate": "2026-08-03T22:13:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 12968000.0,
+      "netProfitPrior": 10085000.0,
+      "netProfitYoY": 28.587010411502227,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": 0.63,
+      "epsPrior": 0.49,
+      "epsYoY": 28.571428571428577,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105600901&symbol=CSR",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17857134059191&symbol=CSR",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105601001&symbol=CSR",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "TRT",
       "sector": "Industrials",
       "subsector": "Industrials",
       "market": "MAI",
-      "announceDate": "2026-08-03T20:30:45+07:00",
+      "announceDate": "2026-08-03T20:30:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 127365110.0,
@@ -143,7 +336,7 @@
       "sector": "Services",
       "subsector": "Commerce",
       "market": "SET",
-      "announceDate": "2026-08-03T19:12:38+07:00",
+      "announceDate": "2026-08-03T19:12:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 955484000.0,
@@ -170,7 +363,7 @@
       "sector": "Agro",
       "subsector": "& Food Industry Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-03T12:50:19+07:00",
+      "announceDate": "2026-08-03T12:50:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 1264053000.0,
@@ -610,7 +803,7 @@
       "netProfitYoY": 6.929657116544921,
       "netProfitPriorQ": 1164674000.0,
       "netProfitQoQ": -15.060866817667435,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.8,
       "epsPrior": 0.75,
       "epsYoY": 6.666666666666672,
@@ -880,7 +1073,7 @@
       "netProfitYoY": 9.806496569468267,
       "netProfitPriorQ": 496694000.0,
       "netProfitQoQ": -17.512593266679282,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.04865,
       "epsPrior": 0.04431,
       "epsYoY": 9.794628751974715,
@@ -988,7 +1181,7 @@
       "netProfitYoY": 2.742929548778955,
       "netProfitPriorQ": 618263000.0,
       "netProfitQoQ": 28.264185306253164,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 3.2,
       "epsPrior": 3.09,
       "epsYoY": 3.559870550161823,
@@ -1047,7 +1240,7 @@
       "ticker": "SAM",
       "date": "2026-07-06T08:16:00+07:00",
       "status": "confirmed",
-      "quarter": "ประจำปี 2568"
+      "quarter": null
     },
     {
       "ticker": "AEONTS",
@@ -1221,13 +1414,6 @@
       "basedOnLastYear": "2025-07-31T06:41:00+07:00"
     },
     {
-      "ticker": "TAE",
-      "date": "2026-07-31T08:25:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-07-31T08:25:00+07:00"
-    },
-    {
       "ticker": "TFM",
       "date": "2026-07-31T12:37:00+07:00",
       "status": "confirmed",
@@ -1280,13 +1466,13 @@
     },
     {
       "ticker": "TU",
-      "date": "2026-08-03T12:50:19+07:00",
+      "date": "2026-08-03T12:50:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "GLOBAL",
-      "date": "2026-08-03T19:12:38+07:00",
+      "date": "2026-08-03T19:12:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1298,7 +1484,13 @@
     },
     {
       "ticker": "TRT",
-      "date": "2026-08-03T20:30:45+07:00",
+      "date": "2026-08-03T20:30:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "CSR",
+      "date": "2026-08-03T22:13:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1310,6 +1502,18 @@
       "basedOnLastYear": "2025-08-04T07:57:00+07:00"
     },
     {
+      "ticker": "TAE",
+      "date": "2026-08-04T08:31:52+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "DCC",
+      "date": "2026-08-04T12:50:51+07:00",
+      "status": "confirmed",
+      "quarter": null
+    },
+    {
       "ticker": "AF",
       "date": "2026-08-04T17:02:00+07:00",
       "status": "predicted",
@@ -1317,18 +1521,28 @@
       "basedOnLastYear": "2025-08-04T17:02:00+07:00"
     },
     {
-      "ticker": "CSR",
-      "date": "2026-08-04T17:04:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-04T17:04:00+07:00"
+      "ticker": "NCAP",
+      "date": "2026-08-04T17:02:53+07:00",
+      "status": "confirmed",
+      "quarter": null
     },
     {
       "ticker": "LANNA",
-      "date": "2026-08-04T18:28:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-04T18:28:00+07:00"
+      "date": "2026-08-04T17:09:16+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TRUE",
+      "date": "2026-08-04T17:14:45+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TSC",
+      "date": "2026-08-04T17:20:50+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "ANI",
@@ -1345,13 +1559,6 @@
       "basedOnLastYear": "2025-08-05T12:34:00+07:00"
     },
     {
-      "ticker": "DCC",
-      "date": "2026-08-05T12:50:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-05T12:50:00+07:00"
-    },
-    {
       "ticker": "IFS",
       "date": "2026-08-05T17:06:00+07:00",
       "status": "predicted",
@@ -1364,13 +1571,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-05T17:13:00+07:00"
-    },
-    {
-      "ticker": "TRUE",
-      "date": "2026-08-05T17:20:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-05T17:20:00+07:00"
     },
     {
       "ticker": "WHAIR",
@@ -1434,13 +1634,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-06T06:47:00+07:00"
-    },
-    {
-      "ticker": "TSC",
-      "date": "2026-08-06T07:12:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-06T07:12:00+07:00"
     },
     {
       "ticker": "TPLAS",
@@ -2267,13 +2460,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-08T17:02:00+07:00"
-    },
-    {
-      "ticker": "NCAP",
-      "date": "2026-08-08T17:03:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-08T17:03:00+07:00"
     },
     {
       "ticker": "NKT",
