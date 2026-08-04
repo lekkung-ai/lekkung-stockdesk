@@ -141,15 +141,11 @@ function NewsPageContent() {
         const dStr = localDate(n.ts);
         counts.set(dStr, (counts.get(dStr) ?? 0) + 1);
       }
-      let bestDate = localDate(relevant[0].ts);
-      let bestCount = 0;
-      for (const [dStr, cnt] of counts) {
-        if (cnt > bestCount || (cnt === bestCount && dStr > bestDate)) {
-          bestDate = dStr;
-          bestCount = cnt;
-        }
+      let latestDate = '';
+      for (const dStr of counts.keys()) {
+        if (dStr > latestDate) latestDate = dStr;
       }
-      setSelectedDate(bestDate);
+      setSelectedDate(latestDate || localDate(relevant[0].ts));
     }
   }, [allNews, activeTab, selectedDate]);
 
