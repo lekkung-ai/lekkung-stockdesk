@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-04T18:12:26.647627+07:00",
+  "generatedAt": "2026-08-04T18:36:06.036496+07:00",
   "windowDays": 45,
   "universeSize": 935,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 23,
+      "count": 25,
       "top3": [
         {
           "ticker": "MST",
@@ -37,7 +37,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 9,
+      "count": 10,
       "top3": [
         {
           "ticker": "HPT",
@@ -65,19 +65,19 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 3,
+      "count": 4,
       "top3": [
         {
           "ticker": "SAM",
           "netProfitYoY": -2350.56095736724
         },
         {
-          "ticker": "SCGD",
-          "netProfitYoY": -226.39153486700218
+          "ticker": "SAMCO",
+          "netProfitYoY": -500.02552322613576
         },
         {
-          "ticker": "TOG",
-          "netProfitYoY": -175.9880542376147
+          "ticker": "SCGD",
+          "netProfitYoY": -226.39153486700218
         }
       ]
     },
@@ -88,6 +88,33 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "SAMCO",
+      "sector": "Property",
+      "subsector": "& Construction Property Development",
+      "market": "SET",
+      "announceDate": "2026-08-04T18:13:30+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -23509000.0,
+      "netProfitPrior": -3918000.0,
+      "netProfitYoY": -500.02552322613576,
+      "netProfitPriorQ": 156786000.0,
+      "netProfitQoQ": -114.99432347275904,
+      "profitAcceleration": "stable",
+      "eps": -0.037,
+      "epsPrior": -0.006,
+      "epsYoY": -516.6666666666667,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105637101&symbol=SAMCO",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008090381&symbol=SAMCO",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105637201&symbol=SAMCO",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "TSC",
       "sector": "Industrials",
@@ -175,20 +202,20 @@
       "subsector": "Finance & Securities",
       "market": "SET",
       "announceDate": "2026-08-04T17:02:53+07:00",
-      "quarter": null,
-      "periodEnd": null,
-      "netProfit": null,
-      "netProfitPrior": null,
-      "netProfitYoY": null,
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 196626990.0,
+      "netProfitPrior": 146600770.0,
+      "netProfitYoY": 34.124118174822684,
       "netProfitPriorQ": 179191840.0,
-      "netProfitQoQ": null,
-      "profitAcceleration": "stable",
-      "eps": null,
-      "epsPrior": null,
-      "epsYoY": null,
-      "auditorOpinion": null,
+      "netProfitQoQ": 9.729879440938829,
+      "profitAcceleration": "accelerating",
+      "eps": 0.15,
+      "epsPrior": 0.11,
+      "epsYoY": 36.36363636363636,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
       "isCorrection": false,
-      "bucket": null,
+      "bucket": "profit_growth",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105630901&symbol=NCAP",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008073551&symbol=NCAP",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105631201&symbol=NCAP",
@@ -202,24 +229,51 @@
       "subsector": "& Construction Construction Materials",
       "market": "SET",
       "announceDate": "2026-08-04T12:50:51+07:00",
-      "quarter": null,
-      "periodEnd": null,
-      "netProfit": null,
-      "netProfitPrior": null,
-      "netProfitYoY": null,
-      "netProfitPriorQ": null,
-      "netProfitQoQ": null,
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 220709000.0,
+      "netProfitPrior": 229580000.0,
+      "netProfitYoY": -3.8640125446467466,
+      "netProfitPriorQ": 243670000.0,
+      "netProfitQoQ": -9.422990109574425,
       "profitAcceleration": "stable",
-      "eps": null,
-      "epsPrior": null,
-      "epsYoY": null,
-      "auditorOpinion": null,
+      "eps": 0.024,
+      "epsPrior": 0.025,
+      "epsYoY": -4.0000000000000036,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
       "isCorrection": false,
-      "bucket": null,
+      "bucket": "profit_shrink",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105624601&symbol=DCC",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008064661&symbol=DCC",
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "SCGP",
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET",
+      "announceDate": "2026-08-04T12:34:24+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 2303796000.0,
+      "netProfitPrior": 1009793000.0,
+      "netProfitYoY": 128.1453723683963,
+      "netProfitPriorQ": 2303796000.0,
+      "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
+      "eps": 0.53665,
+      "epsPrior": 0.23522,
+      "epsYoY": 128.14811665674685,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105624001&symbol=SCGP",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858008064441&symbol=SCGP",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105624101&symbol=SCGP",
+      "headline": "สรุปผลการดำเนินงานของไตรมาสที่ 2/2569(F45) (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none"
     },
@@ -234,9 +288,9 @@
       "netProfit": 99579000.0,
       "netProfitPrior": -22591000.0,
       "netProfitYoY": 540.7905803195963,
-      "netProfitPriorQ": null,
-      "netProfitQoQ": null,
-      "profitAcceleration": "stable",
+      "netProfitPriorQ": 125684000.0,
+      "netProfitQoQ": -20.770344673944177,
+      "profitAcceleration": "decelerating",
       "eps": 0.1,
       "epsPrior": -0.023,
       "epsYoY": 534.7826086956521,
@@ -261,9 +315,9 @@
       "netProfit": 12968000.0,
       "netProfitPrior": 10085000.0,
       "netProfitYoY": 28.587010411502227,
-      "netProfitPriorQ": null,
-      "netProfitQoQ": null,
-      "profitAcceleration": "stable",
+      "netProfitPriorQ": 23304000.0,
+      "netProfitQoQ": -44.352900789564025,
+      "profitAcceleration": "decelerating",
       "eps": 0.63,
       "epsPrior": 0.49,
       "epsYoY": 28.571428571428577,
@@ -309,7 +363,7 @@
       "sector": "Consump",
       "subsector": "& Person",
       "market": "SET",
-      "announceDate": "2026-08-03T19:52:36+07:00",
+      "announceDate": "2026-08-03T19:52:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -31551000.0,
@@ -641,7 +695,7 @@
       "netProfitYoY": 31.227576421628946,
       "netProfitPriorQ": 9081176000.0,
       "netProfitQoQ": -33.107804539852545,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": 0.49,
       "epsPrior": 0.37,
       "epsYoY": 32.432432432432435,
@@ -803,7 +857,7 @@
       "netProfitYoY": 6.929657116544921,
       "netProfitPriorQ": 1164674000.0,
       "netProfitQoQ": -15.060866817667435,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": 0.8,
       "epsPrior": 0.75,
       "epsYoY": 6.666666666666672,
@@ -1073,7 +1127,7 @@
       "netProfitYoY": 9.806496569468267,
       "netProfitPriorQ": 496694000.0,
       "netProfitQoQ": -17.512593266679282,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": 0.04865,
       "epsPrior": 0.04431,
       "epsYoY": 9.794628751974715,
@@ -1181,7 +1235,7 @@
       "netProfitYoY": 2.742929548778955,
       "netProfitPriorQ": 618263000.0,
       "netProfitQoQ": 28.264185306253164,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 3.2,
       "epsPrior": 3.09,
       "epsYoY": 3.559870550161823,
@@ -1240,7 +1294,7 @@
       "ticker": "SAM",
       "date": "2026-07-06T08:16:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ประจำปี 2568"
     },
     {
       "ticker": "AEONTS",
@@ -1309,12 +1363,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "SCGP",
-      "date": "2026-07-21T12:31:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "SCB",
       "date": "2026-07-21T12:46:00+07:00",
       "status": "confirmed",
@@ -1366,7 +1414,7 @@
       "ticker": "DELTA",
       "date": "2026-07-24T18:35:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "HMPRO",
@@ -1478,7 +1526,7 @@
     },
     {
       "ticker": "TOG",
-      "date": "2026-08-03T19:52:36+07:00",
+      "date": "2026-08-03T19:52:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1508,10 +1556,16 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
+      "ticker": "SCGP",
+      "date": "2026-08-04T12:34:24+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
       "ticker": "DCC",
       "date": "2026-08-04T12:50:51+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "AF",
@@ -1524,7 +1578,7 @@
       "ticker": "NCAP",
       "date": "2026-08-04T17:02:53+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "LANNA",
@@ -1543,6 +1597,12 @@
       "date": "2026-08-04T17:20:50+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "SAMCO",
+      "date": "2026-08-04T18:13:30+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ANI",
@@ -1564,13 +1624,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-05T17:06:00+07:00"
-    },
-    {
-      "ticker": "SAMCO",
-      "date": "2026-08-05T17:13:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-05T17:13:00+07:00"
     },
     {
       "ticker": "WHAIR",
