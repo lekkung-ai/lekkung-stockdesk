@@ -6,13 +6,13 @@ import SectorTickerGrid from './SectorTickerGrid';
 import SectorValuationScatter from './SectorValuationScatter';
 import SectorPEDistribution from './SectorPEDistribution';
 
-type TickerWithScan = { ticker: string; scan: ScanEntry | null; pe: number | null; roe: number | null };
+type TickerWithScan = { ticker: string; scan: ScanEntry | null; pe: number | null; pb: number | null; roe: number | null };
 type SubsectorData = { subsector: string; tickers: TickerWithScan[] };
 
 export default function SectorViewToggle({ subsectors }: { subsectors: SubsectorData[] }) {
   const [view, setView] = useState<'list' | 'scatter' | 'pe'>('list');
-  const tickers = useMemo(
-    () => subsectors.flatMap(s => s.tickers.map(t => t.ticker)),
+  const scatterPoints = useMemo(
+    () => subsectors.flatMap(s => s.tickers.map(t => ({ ticker: t.ticker, pb: t.pb, roe: t.roe }))),
     [subsectors]
   );
   const points = useMemo(
@@ -58,7 +58,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
           <p className="text-[12px] text-white/35 mb-3">
             P/BV × ROE (TTM) ของหุ้นในกลุ่มนี้ - จุดที่เขียวคือ ROE สูงเมื่อเทียบกับ P/BV ต่ำกว่าที่แนวโน้มกลุ่มบ่งชี้ (อาจถูกกว่าที่ควร)
           </p>
-          <SectorValuationScatter tickers={tickers} />
+          <SectorValuationScatter points={scatterPoints} />
         </div>
       ) : (
         <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-3">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface RawPoint { ticker: string; pb: number | null; roe: number | null; }
@@ -36,23 +36,11 @@ function linearRegression(points: Point[]): { a: number; b: number } | null {
   return { a, b };
 }
 
-export default function SectorValuationScatter({ tickers }: { tickers: string[] }) {
+export default function SectorValuationScatter({ points: rawPoints }: { points: RawPoint[] }) {
   const router = useRouter();
-  const [raw, setRaw] = useState<RawPoint[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [hover, setHover] = useState<Point | null>(null);
 
-  useEffect(() => {
-    if (tickers.length === 0) return;
-    setLoading(true);
-    setError(false);
-    fetch(`/api/sector-fundamentals?tickers=${tickers.map(encodeURIComponent).join(',')}`)
-      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-      .then(json => setRaw(json.data ?? []))
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, [tickers]);
+  const raw = rawPoints;
 
   const { points, excludedCount, regression } = useMemo(() => {
     if (!raw) return { points: [] as Point[], excludedCount: 0, regression: null as { a: number; b: number } | null };
@@ -113,12 +101,6 @@ export default function SectorValuationScatter({ tickers }: { tickers: string[] 
     return { xMin, xMax, yMax, plotted, residualStd };
   }, [points, regression]);
 
-  if (loading) {
-    return <div className="py-16 text-center text-[13px] text-white/25">กำลังโหลดข้อมูล P/BV · ROE...</div>;
-  }
-  if (error) {
-    return <div className="py-16 text-center text-[13px] text-white/25">ไม่สามารถโหลดข้อมูลได้</div>;
-  }
   if (points.length === 0) {
     return <div className="py-16 text-center text-[13px] text-white/25">ไม่มีข้อมูล P/BV · ROE ที่ใช้ได้ในกลุ่มนี้</div>;
   }

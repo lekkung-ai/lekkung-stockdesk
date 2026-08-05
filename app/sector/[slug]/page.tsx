@@ -56,9 +56,13 @@ export default async function SectorDetailPage({
 
   const scanMap = new Map(scanData.map(s => [s.ticker, s]));
   const peMap = new Map(
-    (marketStageData as Array<{ Ticker: string; PE_Ratio?: number | null; ROE?: number | null }>).map(i => [
+    (marketStageData as Array<{ Ticker: string; PE_Ratio?: number | null; PBV?: number | null; ROE?: number | null }>).map(i => [
       i.Ticker,
-      { pe: i.PE_Ratio ?? null, roe: i.ROE ?? null },
+      {
+        pe: i.PE_Ratio ?? null,
+        pb: i.PBV ?? null,
+        roe: i.ROE != null ? i.ROE * 100 : null,
+      },
     ])
   );
 
@@ -69,6 +73,7 @@ export default async function SectorDetailPage({
         ticker: t,
         scan: scanMap.get(t) ?? null,
         pe: peMap.get(t)?.pe ?? null,
+        pb: peMap.get(t)?.pb ?? null,
         roe: peMap.get(t)?.roe ?? null,
       }))
       .sort((a, b) => {
