@@ -31,13 +31,14 @@ export async function GET(
     const closes: (number | null)[] = result.indicators?.quote?.[0]?.close ?? [];
     const valid = closes.filter((c): c is number => c != null);
 
-    if (valid.length < 2) return Response.json({ error: 'insufficient data' }, { status: 404 });
+    if (valid.length < 1) return Response.json({ error: 'insufficient data' }, { status: 404 });
 
-    const last = meta.regularMarketPrice ?? valid[valid.length - 1];
-    const prev = meta.previousClose ?? valid[valid.length - 2];
-    const change1d = meta.regularMarketChangePercent != null
-      ? meta.regularMarketChangePercent
-      : ((last - prev) / prev) * 100;
+    const last = valid[valid.length - 1] ?? meta.regularMarketPrice;
+    const prev = valid.length >= 2
+      ? valid[valid.length - 2]
+      : (meta.previousClose ?? null);
+    const computedChange = (prev != null && prev !== 0) ? ((last - prev) / prev) * 100 : null;
+    const change1d = computedChange ?? meta.regularMarketChangePercent ?? 0;
 
     return Response.json(
       {

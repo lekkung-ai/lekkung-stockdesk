@@ -517,7 +517,7 @@ export default function StockDetailPage({
               </div>
             ))}
           </div>
-          <p className="text-label text-meta mt-3 text-right">ที่มา: TradingView · อัปเดตทุก 5 นาที</p>
+          <p className="text-label text-meta mt-3 text-right">ที่มา: SETTrade · อัปเดตทุก 5 นาที</p>
         </div>
       )}
 
