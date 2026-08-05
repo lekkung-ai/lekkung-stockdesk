@@ -47,8 +47,9 @@ function NewsPageContent() {
   );
 
   useEffect(() => {
-    const targetTab = rawTab === 'set' ? 'set' : rawTab === 'research' ? 'research' : 'news';
-    setActiveTab(targetTab);
+    if (rawTab === 'set') setActiveTab('set');
+    else if (rawTab === 'research') setActiveTab('research');
+    else if (rawTab === 'news') setActiveTab('news');
   }, [rawTab]);
 
   function switchTab(next: 'set' | 'news' | 'research') {
