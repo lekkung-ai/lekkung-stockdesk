@@ -261,7 +261,10 @@ export async function GET(
       item => (item.tickerHint && item.tickerHint.toUpperCase() === t) || titleHasTicker(item.title, t)
     );
     if (matches.length > 0) {
-      selected = matches.slice(0, 20);
+      const isSet = (item: NewsItem) => item.source === 'SET (ตลาดหลักทรัพย์)' || item.link.includes('set.or.th');
+      const setMatches = matches.filter(isSet);
+      const generalMatches = matches.filter(item => !isSet(item));
+      selected = [...setMatches.slice(0, 20), ...generalMatches.slice(0, 20)];
       isGeneral = false;
     } else {
       selected = all.slice(0, 8);
