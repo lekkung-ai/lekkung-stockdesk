@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-05T18:12:41.378072+07:00",
+  "generatedAt": "2026-08-05T18:29:01.630212+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 28,
+      "count": 29,
       "top3": [
         {
           "ticker": "MST",
@@ -92,6 +92,33 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "TEKA",
+      "sector": "Property",
+      "subsector": "& Construction Construction Services",
+      "market": "SET",
+      "announceDate": "2026-08-05T18:16:26+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 24782000.0,
+      "netProfitPrior": 20278000.0,
+      "netProfitYoY": 22.2112634382089,
+      "netProfitPriorQ": 15680000.0,
+      "netProfitQoQ": 58.0484693877551,
+      "profitAcceleration": "accelerating",
+      "eps": 0.08,
+      "epsPrior": 0.07,
+      "epsYoY": 14.285714285714276,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105657001&symbol=TEKA",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17858869957381&symbol=TEKA",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105656201&symbol=TEKA",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "NER",
       "sector": "Agro",
@@ -1941,6 +1968,12 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
+      "ticker": "TEKA",
+      "date": "2026-08-05T18:16:26+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
       "ticker": "Q-CON",
       "date": "2026-08-05T18:30:00+07:00",
       "status": "predicted",
@@ -2121,13 +2154,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-06T19:28:00+07:00"
-    },
-    {
-      "ticker": "TEKA",
-      "date": "2026-08-06T19:35:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-06T19:35:00+07:00"
     },
     {
       "ticker": "READY",
