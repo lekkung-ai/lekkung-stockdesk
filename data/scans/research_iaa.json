@@ -1,8 +1,624 @@
 {
-  "generated_at": "2026-08-04T18:36:01+07:00",
+  "generated_at": "2026-08-05T18:10:27+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "86d21e8a-413d-4cb5-972d-b1faec7e975b",
+      "title": "Neutral by KSS | HOME PRODUCT CENTER PUBLIC COMPANY LIMITED (HMPRO) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119845-neutral-kss-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "HOME PRODUCT CENTER PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T17:29:55+07:00",
+      "ts": 1785925795000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_HMPRO_QC-(E).pdf"
+    },
+    {
+      "uuid": "c54986ae-13ee-4973-8363-1bd7bb5d7e75",
+      "title": "BUY by GLOBLEX | PTT PUBLIC COMPANY LIMITED (PTT) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119844-buy-globlex-ptt",
+      "tickers": [
+        "PTT"
+      ],
+      "symbolId": "2599",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "PTT PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T16:14:50+07:00",
+      "ts": 1785921290000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_35933_1_20260805-PTT_U_EN.pdf"
+    },
+    {
+      "uuid": "fac7358a-a86c-470e-8a91-4eb2ac5ee6d2",
+      "title": "Neutral by KSS | 3BB INTERNET INFRASTRUCTURE FU ND (3BBIF) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119843-neutral-kss-3bbif",
+      "tickers": [
+        "3BBIF"
+      ],
+      "symbolId": "26028",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "3BB INTERNET INFRASTRUCTURE FU ND",
+      "date": "2026-08-05T16:14:49+07:00",
+      "ts": 1785921289000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_3BBIF_ER-(E).pdf"
+    },
+    {
+      "uuid": "56969295-d5c5-4686-86f6-75c901432a32",
+      "title": "Neutral โดย KSS | กองทุนรวมโครงสร้างพื้นฐานบรอดแบนด์อินเทอร์เน็ต สามบีบี (3BBIF) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119842-neutral-kss-3bbif",
+      "tickers": [
+        "3BBIF"
+      ],
+      "symbolId": "26028",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "กองทุนรวมโครงสร้างพื้นฐานบรอดแบนด์อินเทอร์เน็ต สามบีบี",
+      "date": "2026-08-05T16:14:49+07:00",
+      "ts": 1785921289000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_3BBIF_ER.pdf"
+    },
+    {
+      "uuid": "b5571e62-51b7-44a1-b6a0-47e8cb0fc82c",
+      "title": "BUY by KSS | SIAM GLOBAL HOUSE PUBLIC COMPANY LIMITED (GLOBAL) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119840-buy-kss-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "SIAM GLOBAL HOUSE PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T16:14:47+07:00",
+      "ts": 1785921287000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260804_GLOBAL_ER-(E).pdf"
+    },
+    {
+      "uuid": "a4ef8282-ae07-4813-b31d-ac00e7c90d7a",
+      "title": "BUY by ASP | TRUE CORPORATION PUBLIC COMPANY LIMITED (TRUE) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119835-buy-asp-true",
+      "tickers": [
+        "TRUE"
+      ],
+      "symbolId": "115875",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "TRUE CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T14:53:09+07:00",
+      "ts": 1785916389000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TRUE260805.pdf"
+    },
+    {
+      "uuid": "4f9c7aec-219a-45af-b148-c823440620cc",
+      "title": "TRINITY | Block Trade  AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119833-trinity-block-trade--afternoon-stock",
+      "tickers": [
+        "HANA"
+      ],
+      "symbolId": "902",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  AFTERNOON Stock",
+      "date": "2026-08-05T14:48:55+07:00",
+      "ts": 1785916135000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BlockTrade-Afternoon-05AUG26;HANA.pdf"
+    },
+    {
+      "uuid": "b7090fa3-4be6-402e-a014-314d0fdaf0ed",
+      "title": "ASP | Industry Snapshot : Tourism | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/industry-sector/119831-asp-industry-snapshot--tourism",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "ASP",
+      "rating": null,
+      "companyName": "Industry Snapshot : Tourism",
+      "date": "2026-08-05T14:48:55+07:00",
+      "ts": 1785916135000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Tourism260805.pdf"
+    },
+    {
+      "uuid": "88b559b7-4fd1-4319-a548-c5273be0f90e",
+      "title": "TRINITY | QUICK WIN AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119830-trinity-quick-win-afternoon-stock",
+      "tickers": [
+        "HANA"
+      ],
+      "symbolId": "902",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN AFTERNOON Stock",
+      "date": "2026-08-05T14:48:55+07:00",
+      "ts": 1785916135000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BlockTrade-Afternoon-05AUG26;HANA.pdf"
+    },
+    {
+      "uuid": "ca15fb24-51d2-45a1-a9d7-c32c99350732",
+      "title": "TRINITY | QUICK WIN AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119829-trinity-quick-win-afternoon-stock",
+      "tickers": [
+        "LTS"
+      ],
+      "symbolId": "121321",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN AFTERNOON Stock",
+      "date": "2026-08-05T14:48:55+07:00",
+      "ts": 1785916135000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/AFTERNOON-STOCK-05AUG26-lts.pdf"
+    },
+    {
+      "uuid": "1286c649-792a-40d7-b835-5df965eca5c1",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119828-lhs-trading-ideas",
+      "tickers": [
+        "HMPRO",
+        "OR"
+      ],
+      "symbolId": "2574,99543",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-08-05T14:43:23+07:00",
+      "ts": 1785915803000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Trading-Ideas_20260805.pdf"
+    },
+    {
+      "uuid": "1880c374-d7dd-4c50-9cbb-0a3b0367e9fc",
+      "title": "BUY by KSS | KASIKORNBANK PUBLIC COMPANY LIMITED (KBANK) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119823-buy-kss-kbank",
+      "tickers": [
+        "KBANK"
+      ],
+      "symbolId": "41",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "KASIKORNBANK PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T14:43:22+07:00",
+      "ts": 1785915802000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_KBANK_QC-(E).pdf"
+    },
+    {
+      "uuid": "d6088fe9-ea18-409e-b4b2-6f6d36ff2039",
+      "title": "BUY (from TRADING) โดย YUANTA | บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (CCET) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119822-buy-from-trading-yuanta-ccet",
+      "tickers": [
+        "CCET"
+      ],
+      "symbolId": "2071",
+      "broker": "YUANTA",
+      "rating": "BUY (from TRADING)",
+      "companyName": "บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-05T13:56:03+07:00",
+      "ts": 1785912963000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CCET_Company_Update_050826.pdf"
+    },
+    {
+      "uuid": "0ff8cbed-b7f4-49a1-9c7a-f69a7e5c23e8",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท ท่าอากาศยานไทย จำกัด (มหาชน) (AOT) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119821-trading-maintain-yuanta-aot",
+      "tickers": [
+        "AOT"
+      ],
+      "symbolId": "4473",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท ท่าอากาศยานไทย จำกัด (มหาชน)",
+      "date": "2026-08-05T13:56:03+07:00",
+      "ts": 1785912963000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/AOT_Company_Update_050826.pdf"
+    },
+    {
+      "uuid": "68b90e8b-4dd8-49c5-9aa0-d8690d2ac66a",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ทรู คอร์ปอเรชั่น จำกัด (มหาชน) (TRUE) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119820-buy-maintain-yuanta-true",
+      "tickers": [
+        "TRUE"
+      ],
+      "symbolId": "115875",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ทรู คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-05T13:55:59+07:00",
+      "ts": 1785912959000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TRUE_Earnings_Results_050826.pdf"
+    },
+    {
+      "uuid": "cf04abe0-9b7a-4275-b7f8-0f29772ab848",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ศรีสวัสดิ์ คอร์ปอเรชั่น จำกัด (มหาชน) (SAWAD) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119818-buy-maintain-yuanta-sawad",
+      "tickers": [
+        "SAWAD"
+      ],
+      "symbolId": "20867",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ศรีสวัสดิ์ คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-05T13:39:38+07:00",
+      "ts": 1785911978000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SAWAD_Company_Update_05082026.pdf"
+    },
+    {
+      "uuid": "3c3a8461-b846-4356-b88e-0237b5fd6097",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน) (NCAP) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119817-buy-maintain-yuanta-ncap",
+      "tickers": [
+        "NCAP"
+      ],
+      "symbolId": "100051",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน)",
+      "date": "2026-08-05T13:39:32+07:00",
+      "ts": 1785911972000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/NCAP_Earnings_Results_050826.pdf"
+    },
+    {
+      "uuid": "b37f3bcd-ff4d-4998-a8e7-b2bddaddfe3b",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119816-buy-maintain-yuanta-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-08-05T13:39:31+07:00",
+      "ts": 1785911971000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/HMPRO_Analyst_Note_050826.pdf"
+    },
+    {
+      "uuid": "1ad6f524-e79e-41e3-bf04-7f7ba435153d",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน) (CENTEL) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119815-buy-maintain-yuanta-centel",
+      "tickers": [
+        "CENTEL"
+      ],
+      "symbolId": "506",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน)",
+      "date": "2026-08-05T13:39:31+07:00",
+      "ts": 1785911971000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CENTEL_Company_Update_050826.pdf"
+    },
+    {
+      "uuid": "8ae4bc26-5428-4627-9715-2bfd50681967",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท เอ็นทีเอฟ อินเตอร์กรุ๊ป (ประเทศไทย) จำกัด (มหาชน) (NTF) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119812-outperform-maintained-kgi-ntf",
+      "tickers": [
+        "NTF"
+      ],
+      "symbolId": "129137",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท เอ็นทีเอฟ อินเตอร์กรุ๊ป (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-05T13:29:34+07:00",
+      "ts": 1785911374000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Alert_NTF_2026_08_05_e_th.pdf"
+    },
+    {
+      "uuid": "a5d59a63-0f5c-4253-9c52-4c4dc9bb27ac",
+      "title": "Neutral (Downgraded) by KGI | HOME PRODUCT CENTER PUBLIC COMPANY LIMITED (HMPRO) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119811-neutral-downgraded-kgi-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "KGI",
+      "rating": "Neutral (Downgraded)",
+      "companyName": "HOME PRODUCT CENTER PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T13:25:08+07:00",
+      "ts": 1785911108000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_HMPRO_2026_08_05_e_th.pdf"
+    },
+    {
+      "uuid": "c14c7b09-8e9a-410d-9df7-785f2dfcd42f",
+      "title": "Neutral (Downgraded) โดย KGI | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119810-outperform-maintained-kgi-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "KGI",
+      "rating": "Neutral (Downgraded)",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-08-05T13:25:07+07:00",
+      "ts": 1785911107000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_HMPRO_2026_08_05_th_THAI.pdf"
+    },
+    {
+      "uuid": "f2cbb46a-3857-4ef0-8b97-3062e2ec2ace",
+      "title": "Outperform (Maintained) by KGI | TRUE CORPORATION PUBLIC COMPANY LIMITED (TRUE) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119809-outperform-maintained-kgi-true",
+      "tickers": [
+        "TRUE"
+      ],
+      "symbolId": "115875",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "TRUE CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T13:15:19+07:00",
+      "ts": 1785910519000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_TRUE_2026_08_05_e_th.pdf"
+    },
+    {
+      "uuid": "18ebb4a5-403c-4bd9-9fa3-4827e13ef5e4",
+      "title": "Top Pick โดย SBITO | บริษัท เอสไอเอสบี จำกัด (มหาชน) (SISB) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119803-top-pick-sbito-sisb",
+      "tickers": [
+        "SISB"
+      ],
+      "symbolId": "89853",
+      "broker": "SBITO",
+      "rating": "Top Pick",
+      "companyName": "บริษัท เอสไอเอสบี จำกัด (มหาชน)",
+      "date": "2026-08-05T13:07:48+07:00",
+      "ts": 1785910068000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Top-Pick-050869---SISB.pdf"
+    },
+    {
+      "uuid": "63901a74-f840-434c-b7cb-84ecb476b5c7",
+      "title": "BUY โดย KSS | บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน) (TU) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119796-buy-kss-tu",
+      "tickers": [
+        "TU"
+      ],
+      "symbolId": "1247",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-05T11:35:36+07:00",
+      "ts": 1785904536000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_TU_QC.pdf"
+    },
+    {
+      "uuid": "e70f3b78-9663-4bed-81e8-92bfcc9ea70a",
+      "title": "BUY โดย KSS | ธนาคารกรุงไทย จำกัด (มหาชน) (KTB) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119794-buy-kss-ktb",
+      "tickers": [
+        "KTB"
+      ],
+      "symbolId": "422",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ธนาคารกรุงไทย จำกัด (มหาชน)",
+      "date": "2026-08-05T11:35:35+07:00",
+      "ts": 1785904535000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_KTB_QC.pdf"
+    },
+    {
+      "uuid": "5c6910cc-3239-4e00-aaeb-cbcd701dacc9",
+      "title": "BUY by KSS | KRUNG THAI BANK PUBLIC COMPANY LIMITED (KTB) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119795-buy-kss-ktb",
+      "tickers": [
+        "KTB"
+      ],
+      "symbolId": "422",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "KRUNG THAI BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T11:35:35+07:00",
+      "ts": 1785904535000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_KTB_QC.pdf"
+    },
+    {
+      "uuid": "ccd5f168-6ceb-447e-9cda-9255dae5c7d0",
+      "title": "BUY โดย KSS | ธนาคารกสิกรไทย จำกัด (มหาชน) (KBANK) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119792-buy-kss-kbank",
+      "tickers": [
+        "KBANK"
+      ],
+      "symbolId": "41",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ธนาคารกสิกรไทย จำกัด (มหาชน)",
+      "date": "2026-08-05T11:29:52+07:00",
+      "ts": 1785904192000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_KBANK_QC.pdf"
+    },
+    {
+      "uuid": "b6840fc1-b48b-4ccd-be1f-bd233355d367",
+      "title": "BUY โดย BYD | บริษัท เอ็นทีเอฟ อินเตอร์กรุ๊ป (ประเทศไทย) จำกัด (มหาชน) (NTF) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119787-buy-byd-ntf",
+      "tickers": [
+        "NTF"
+      ],
+      "symbolId": "129137",
+      "broker": "BYD",
+      "rating": "BUY",
+      "companyName": "บริษัท เอ็นทีเอฟ อินเตอร์กรุ๊ป (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-05T11:13:12+07:00",
+      "ts": 1785903192000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/NTF_R_20260805_TH.pdf"
+    },
+    {
+      "uuid": "84bc4e1a-819a-4008-8a1e-bf3496a50cfc",
+      "title": "Neutral โดย KSS | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119780-neutral-kss-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-08-05T10:40:46+07:00",
+      "ts": 1785901246000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_HMPRO_QC.pdf"
+    },
+    {
+      "uuid": "7ebf7b97-f98c-4dca-8951-fd02d52cead1",
+      "title": "Buy (Maintain recommendation) โดย PST | บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน) (TU) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119775-buy-maintain-recommendation-pst-tu",
+      "tickers": [
+        "TU"
+      ],
+      "symbolId": "1247",
+      "broker": "PST",
+      "rating": "Buy (Maintain recommendation)",
+      "companyName": "บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-05T10:40:44+07:00",
+      "ts": 1785901244000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TU080526_t.pdf"
+    },
+    {
+      "uuid": "234624e3-f799-47ee-a947-5643f4cb0238",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119769-trinity-quick-win---moring-stock",
+      "tickers": [
+        "BA",
+        "CREDIT"
+      ],
+      "symbolId": "22222,119346",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-08-05T10:28:27+07:00",
+      "ts": 1785900507000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TECHNICAL-FUND-MORNING-NEW-FORMAT-05AUG26.pdf"
+    },
+    {
+      "uuid": "fd081a6f-4ee5-4e32-ae98-21669a6098f0",
+      "title": "BUY by KSS | TRUE CORPORATION PUBLIC COMPANY LIMITED (TRUE) | Research as of 5 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119762-buy-kss-true",
+      "tickers": [
+        "TRUE"
+      ],
+      "symbolId": "115875",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "TRUE CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-05T10:22:46+07:00",
+      "ts": 1785900166000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TRUE_260805_ER.pdf"
+    },
+    {
+      "uuid": "1c1fee55-4f3b-4b6d-8c94-5e9dd512dd26",
+      "title": "BUY โดย KSS | บริษัท ทรู คอร์ปอเรชั่น จำกัด (มหาชน) (TRUE) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119761-buy-kss-true",
+      "tickers": [
+        "TRUE"
+      ],
+      "symbolId": "115875",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ทรู คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-05T10:06:39+07:00",
+      "ts": 1785899199000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/ER_TRUE_260805.pdf"
+    },
+    {
+      "uuid": "a1cd1dbb-f5b4-4ec7-9c0f-9234abfc6626",
+      "title": "HOLD โดย PI | บริษัท ไทยยูเนี่ยน ฟีดมิลล์ จำกัด (มหาชน) (TFM) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119752-hold-pi-tfm",
+      "tickers": [
+        "TFM"
+      ],
+      "symbolId": "106037",
+      "broker": "PI",
+      "rating": "HOLD",
+      "companyName": "บริษัท ไทยยูเนี่ยน ฟีดมิลล์ จำกัด (มหาชน)",
+      "date": "2026-08-05T10:00:25+07:00",
+      "ts": 1785898825000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TFM-260805.pdf"
+    },
+    {
+      "uuid": "217057b8-799f-4cbe-bb73-741e2f7653e1",
+      "title": "BUY โดย PI | บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน) (TU) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119751-buy-pi-tu",
+      "tickers": [
+        "TU"
+      ],
+      "symbolId": "1247",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-05T10:00:24+07:00",
+      "ts": 1785898824000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TU-260805.pdf"
+    },
+    {
+      "uuid": "be400ad3-9fbc-4002-a5b7-d58f46c517cd",
+      "title": "BUY โดย PI | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119749-buy-pi-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-08-05T09:47:46+07:00",
+      "ts": 1785898066000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/HMPRO-260805.pdf"
+    },
+    {
+      "uuid": "079e9a6d-897e-4a41-9b47-7b9223f0dad7",
+      "title": "BUY โดย PI | ธนาคารไทยเครดิต จำกัด (มหาชน) (CREDIT) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119750-buy-pi-credit",
+      "tickers": [
+        "CREDIT"
+      ],
+      "symbolId": "119346",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "ธนาคารไทยเครดิต จำกัด (มหาชน)",
+      "date": "2026-08-05T09:47:46+07:00",
+      "ts": 1785898066000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CREDIT-260805.pdf"
+    },
+    {
+      "uuid": "2a22f71d-390a-4aaa-8096-3b78487987aa",
+      "title": "HOLD โดย PI | บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน) (GLOBAL) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119748-hold-pi-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "PI",
+      "rating": "HOLD",
+      "companyName": "บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน)",
+      "date": "2026-08-05T09:47:45+07:00",
+      "ts": 1785898065000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/GLOBAL-260805.pdf"
+    },
+    {
+      "uuid": "e5b456f7-0783-412b-921a-d7cb2a1e98f4",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119742-trinity-block-trade--moring-stock",
+      "tickers": [
+        "HMPRO",
+        "TTA"
+      ],
+      "symbolId": "2574,1381",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-08-05T09:13:23+07:00",
+      "ts": 1785896003000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BlockTrade-Morning-05AUG26;TTA;HMPRO.pdf"
+    },
+    {
+      "uuid": "7a767603-bf08-48ac-b0ae-3c178036c1da",
+      "title": "BUY โดย MST | บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน) (TU) | บทวิเคราะห์ประจำวันที่ 5 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119739-buy-mst-tu",
+      "tickers": [
+        "TU"
+      ],
+      "symbolId": "1247",
+      "broker": "MST",
+      "rating": "BUY",
+      "companyName": "บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-05T09:13:21+07:00",
+      "ts": 1785896001000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260805_TU_2Q26-results_UG-to-BUY_press.pdf"
+    },
     {
       "uuid": "895fd977-9e95-40b1-8300-17f3c48f01ea",
       "title": "A- โดย TRIS | บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน) (CENTEL) | บทวิเคราะห์ประจำวันที่ 4 สิงหาคม 2569",
