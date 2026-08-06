@@ -34,6 +34,9 @@ import csv
 import json
 import os
 import sys
+import time
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone, timedelta
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -88,36 +91,52 @@ def tickers_of(data) -> set:
 
 def load_ticker_prices(ticker: str):
     """Returns a sorted list of (date_str, close_float, volume_float_or_None) for
-    one ticker, or [] if missing. Volume is carried alongside Close so
-    forward_return() can detect a trading halt (0 volume) inside the window -
-    a stock frozen at a stale Close during a suspension isn't tradeable at
-    that price, so a huge return spanning a halt is a data-quality issue, not
-    a real, actionable outcome."""
-    path = os.path.join(DATA_ENGINE_HISTORY_DIR, f"{ticker}.csv")
-    if not os.path.exists(path):
-        return []
-    out = []
-    with open(path, encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        # first column has no header (pandas index) - DictReader keys it as None or ''
-        date_key = reader.fieldnames[0]
-        for row in reader:
-            date_str = row.get(date_key)
-            close_raw = row.get("Close")
-            if not date_str or not close_raw:
-                continue
-            try:
-                close = float(close_raw)
-            except ValueError:
-                continue
-            volume_raw = row.get("Volume")
-            try:
-                volume = float(volume_raw) if volume_raw not in (None, "") else None
-            except ValueError:
-                volume = None
-            out.append((date_str, close, volume))
-    out.sort(key=lambda x: x[0])
-    return out
+    one ticker from Yahoo Finance Chart API, or [] if missing. Volume is carried
+    alongside Close so forward_return() can detect a trading halt (0 volume) inside
+    the window — a stock frozen at a stale Close during a suspension isn't tradeable
+    at that price, so a huge return spanning a halt is a data-quality issue, not a
+    real, actionable outcome."""
+    sym = f"{ticker}.BK"
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(sym)}?interval=1d&range=3mo"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json",
+    }
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.load(resp)
+            result = data.get("chart", {}).get("result", [])
+            if not result:
+                return []
+            res = result[0]
+            timestamps = res.get("timestamp", [])
+            quote = res.get("indicators", {}).get("quote", [{}])[0]
+            closes = quote.get("close", [])
+            volumes = quote.get("volume", [])
+            meta = res.get("meta", {})
+            gmtoffset = meta.get("gmtoffset", 25200)
+            tz = timezone(timedelta(seconds=gmtoffset))
+
+            out = []
+            for i, ts in enumerate(timestamps):
+                if ts is None:
+                    continue
+                c = closes[i] if i < len(closes) else None
+                if c is None:
+                    continue
+                v = volumes[i] if i < len(volumes) and volumes[i] is not None else 0.0
+                dt = datetime.fromtimestamp(ts, tz=tz)
+                date_str = dt.strftime("%Y-%m-%d")
+                out.append((date_str, float(c), float(v)))
+
+            out.sort(key=lambda x: x[0])
+            time.sleep(0.05)
+            return out
+        except Exception:
+            time.sleep(0.3)
+    return []
 
 
 def load_set_index_series():
@@ -256,10 +275,17 @@ def main():
         print("[report-card] WARNING: no SET Index series found in breadth.json - excess return will be null.")
 
     price_cache = {}  # ticker -> (series, date_index), loaded lazily
+    fetched_ok = 0
+    fetched_fail = 0
 
     def get_price_series(ticker):
+        nonlocal fetched_ok, fetched_fail
         if ticker not in price_cache:
             series = load_ticker_prices(ticker)
+            if series:
+                fetched_ok += 1
+            else:
+                fetched_fail += 1
             price_cache[ticker] = (series, build_date_index(series))
         return price_cache[ticker]
 
@@ -300,9 +326,9 @@ def main():
         n5 = result_scans[scan_key]["horizons"]["5"]["n"]
         print(f"  {scan_key}: {len(entries)} unique entries, D+5 computable for {n5}")
 
+    print(f"[report-card] Price fetch summary: {fetched_ok} succeeded, {fetched_fail} failed out of {len(price_cache)} unique tickers")
     if total_missing_price_file:
-        print(f"[report-card] {total_missing_price_file} (ticker, entry) pairs skipped - no price CSV found "
-              f"in {DATA_ENGINE_HISTORY_DIR}")
+        print(f"[report-card] {total_missing_price_file} (ticker, entry) pairs skipped - no price data fetched")
     if total_excluded_outliers:
         print(f"[report-card] {total_excluded_outliers} (ticker, horizon) pair(s) excluded as trading-halt outliers "
               f"(|return| > {OUTLIER_RETURN_THRESHOLD_PCT:.0f}% with a zero-volume day in the window)")
@@ -334,7 +360,7 @@ def main():
     if total_computable_n == 0:
         print(
             f"[report-card] ERROR: Total computable n is 0 across all scans. "
-            f"Price CSV files missing or unreadable in {DATA_ENGINE_HISTORY_DIR}. "
+            f"Price data missing or unreadable from Yahoo API. "
             f"Aborting without overwriting {OUT_FILE}."
         )
         sys.exit(1)
