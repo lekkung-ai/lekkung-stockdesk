@@ -24,6 +24,7 @@ import NewBadge from '@/components/NewBadge';
 import ReportCardBar from '@/components/ReportCardBar';
 import { getScanDiff } from '@/lib/scanDiff';
 import { getScanHistory } from '@/lib/scanHistory';
+import { computeScanMarkers } from '@/lib/scanMarkers';
 import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
 
@@ -40,6 +41,7 @@ export default function LekkungPage() {
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [historyInitialTicker, setHistoryInitialTicker] = useState<string | null>(null);
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
+  const [chartCollapsed, setChartCollapsed] = useState(false);
   const { priceMap, fetchDone } = useLivePrices(lekkungData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('lekkung')?.newTickers ?? []), []);
 
@@ -89,10 +91,10 @@ export default function LekkungPage() {
   );
   const displayRows = isMobile ? visibleRows : filtered;
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
-  const firstSeenDate = useMemo(() => {
-    if (!activeTicker || !lekkungHistory) return null;
+  const scanMarkers = useMemo(() => {
+    if (!activeTicker || !lekkungHistory) return { firstSeen: null, reentries: [] };
     const match = lekkungHistory.tickers.find(t => t.ticker === activeTicker);
-    return match?.firstSeen ?? null;
+    return computeScanMarkers(match?.hitDates);
   }, [activeTicker, lekkungHistory]);
 
   return (
@@ -144,28 +146,46 @@ export default function LekkungPage() {
             <div className="flex items-center gap-3 flex-wrap">
               <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
               <span className="text-[11.5px] text-white/40">Technical Chart (Lekkung Strategy)</span>
-              {firstSeenDate && (
+              {scanMarkers.firstSeen && (
                 <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
                   <span>📍 เจอครั้งแรก:</span>
-                  <span>{formatThaiDate(firstSeenDate)}</span>
+                  <span>{formatThaiDate(scanMarkers.firstSeen)}</span>
+                </span>
+              )}
+              {scanMarkers.reentries.length > 0 && (
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1">
+                  <span>🔄 เจอใหม่:</span>
+                  <span>{formatThaiDate(scanMarkers.reentries[scanMarkers.reentries.length - 1])}</span>
                 </span>
               )}
             </div>
-            {selectedTicker && (
+            <div className="flex items-center gap-2">
+              {selectedTicker && (
+                <button
+                  onClick={() => setSelectedTicker(null)}
+                  className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                >
+                  ย้อนกลับไปตัวแรก
+                </button>
+              )}
               <button
-                onClick={() => setSelectedTicker(null)}
-                className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                onClick={() => setChartCollapsed(prev => !prev)}
+                title="ย่อ/ขยายกราฟ"
+                className="text-[12px] text-white/40 hover:text-white/70 px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
               >
-                ย้อนกลับไปตัวแรก
+                {chartCollapsed ? '▼' : '▲'}
               </button>
-            )}
+            </div>
           </div>
-          <StockChart
-            ticker={activeTicker}
-            height={340}
-            showEma10={true}
-            highlightDates={firstSeenDate ? [firstSeenDate] : undefined}
-          />
+          {!chartCollapsed && (
+            <StockChart
+              ticker={activeTicker}
+              height={340}
+              showEma10={true}
+              highlightDates={scanMarkers.firstSeen ? [scanMarkers.firstSeen] : undefined}
+              reentryDates={scanMarkers.reentries.length ? scanMarkers.reentries : undefined}
+            />
+          )}
         </div>
       )}
 
