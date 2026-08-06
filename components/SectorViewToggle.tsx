@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import type { ScanEntry } from '@/lib/scanData';
 import SectorTickerGrid from './SectorTickerGrid';
+import SectorTickerTable from './SectorTickerTable';
 import SectorValuationScatter from './SectorValuationScatter';
 import SectorPEDistribution from './SectorPEDistribution';
 
@@ -11,6 +12,8 @@ type SubsectorData = { subsector: string; tickers: TickerWithScan[] };
 
 export default function SectorViewToggle({ subsectors }: { subsectors: SubsectorData[] }) {
   const [view, setView] = useState<'list' | 'scatter' | 'pe'>('list');
+  const [listLayout, setListLayout] = useState<'grid' | 'table'>('grid');
+
   const scatterPoints = useMemo(
     () => subsectors.flatMap(s => s.tickers.map(t => ({ ticker: t.ticker, pb: t.pb, roe: t.roe }))),
     [subsectors]
@@ -52,7 +55,36 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
       </div>
 
       {view === 'list' ? (
-        <SectorTickerGrid subsectors={subsectors} />
+        <div className="space-y-3">
+          <div className="flex justify-end">
+            <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden p-0.5 bg-black/20">
+              <button
+                onClick={() => setListLayout('grid')}
+                title="การ์ด"
+                className={`px-2.5 py-1 text-[12px] font-semibold rounded-md transition-colors ${
+                  listLayout === 'grid' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+                }`}
+              >
+                ⊞
+              </button>
+              <button
+                onClick={() => setListLayout('table')}
+                title="ตาราง"
+                className={`px-2.5 py-1 text-[12px] font-semibold rounded-md transition-colors ${
+                  listLayout === 'table' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+                }`}
+              >
+                ☰
+              </button>
+            </div>
+          </div>
+
+          {listLayout === 'grid' ? (
+            <SectorTickerGrid subsectors={subsectors} />
+          ) : (
+            <SectorTickerTable subsectors={subsectors} />
+          )}
+        </div>
       ) : view === 'scatter' ? (
         <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
           <p className="text-[12px] text-white/35 mb-3">
