@@ -80,6 +80,13 @@ def close_by_ticker(rows: list) -> dict:
     return out
 
 
+def _is_weekday(dstr: str) -> bool:
+    try:
+        return datetime.fromisoformat(dstr).weekday() < 5
+    except ValueError:
+        return False
+
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     stockdesk_dir = os.path.dirname(script_dir)
@@ -87,7 +94,7 @@ def main():
 
     all_dates = sorted(
         d for d in os.listdir(hist_dir)
-        if os.path.isdir(os.path.join(hist_dir, d)) and d[0].isdigit()
+        if os.path.isdir(os.path.join(hist_dir, d)) and d[0].isdigit() and _is_weekday(d)
     )
     if not all_dates:
         print("  No history dates - nothing to aggregate")
