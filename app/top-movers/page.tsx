@@ -33,8 +33,9 @@ const sigMap = new Map(scanData.map(e => [e.ticker.toUpperCase(), e]));
 // enough; a fully historical version of these would need its own daily
 // archive, which is out of scope here).
 const w52Map = new Map<string, { high: number; low: number }>(
-  (rawWeinstein as unknown as { Ticker: string; '52W_High': number; '52W_Low': number }[])
-    .map(w => [w.Ticker.toUpperCase(), { high: w['52W_High'], low: w['52W_Low'] }])
+  (rawWeinstein as unknown as { Ticker: string; '52W_High': number | null; '52W_Low': number | null }[])
+    .filter(w => w && w.Ticker && w['52W_High'] != null && w['52W_Low'] != null)
+    .map(w => [w.Ticker.toUpperCase(), { high: w['52W_High']!, low: w['52W_Low']! }])
 );
 
 interface ChartEntry { bars: { date: string; open: number; high: number; low: number; close: number }[]; ema200: (number | null)[]; }
@@ -251,7 +252,7 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, cha
                       {volTd}
                     </td>
                     <td className="px-2 text-right whitespace-nowrap hidden md:table-cell" style={{ paddingTop: 12, paddingBottom: 12 }}>
-                      {w52 ? (
+                      {w52 && w52.high != null && w52.low != null ? (
                         <div className="flex flex-col items-end leading-tight text-[11px] tabular-nums">
                           <span className="text-[#E24B4A]">{w52.high.toFixed(2)}</span>
                           <span className="text-[#1D9E75]">{w52.low.toFixed(2)}</span>
