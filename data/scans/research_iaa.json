@@ -1,8 +1,654 @@
 {
-  "generated_at": "2026-08-05T18:28:57+07:00",
+  "generated_at": "2026-08-06T18:11:22+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "74cc6683-3061-4d87-a0ed-2d12c8b62305",
+      "title": "BUY โดย TRINITY | บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน) (NER) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119963-buy-trinity-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน)",
+      "date": "2026-08-06T16:04:21+07:00",
+      "ts": 1786007061000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/NER_Thai_20260806.pdf"
+    },
+    {
+      "uuid": "19756d77-63bd-4640-aa85-d6409dfa7361",
+      "title": "BUY โดย TRINITY | บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน) (BAM) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119962-buy-trinity-bam",
+      "tickers": [
+        "BAM"
+      ],
+      "symbolId": "94830",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน)",
+      "date": "2026-08-06T16:04:21+07:00",
+      "ts": 1786007061000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BAM_Thai_20260806.pdf"
+    },
+    {
+      "uuid": "38dffee1-06be-4f51-a165-aaa79bbe1ffc",
+      "title": "Trading by ASP | BCPG PUBLIC COMPANY LIMITED (BCPG) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119961-trading-asp-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "ASP",
+      "rating": "Trading",
+      "companyName": "BCPG PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T15:55:41+07:00",
+      "ts": 1786006541000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BCPG20260806.pdf"
+    },
+    {
+      "uuid": "fd533173-be54-4ec2-a531-ca5471c603ad",
+      "title": "BUY by GLOBLEX | BCPG PUBLIC COMPANY LIMITED (BCPG) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119960-buy-globlex-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "BCPG PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T15:55:39+07:00",
+      "ts": 1786006539000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_35939_1_20260806-BCPG_R_EN.pdf"
+    },
+    {
+      "uuid": "ec5707cc-4458-486a-adf5-7c0bdd1673c9",
+      "title": "BUY by GLOBLEX | BBGI PUBLIC COMPANY LIMITED (BBGI) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119959-buy-globlex-bbgi",
+      "tickers": [
+        "BBGI"
+      ],
+      "symbolId": "109257",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "BBGI PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T15:54:43+07:00",
+      "ts": 1786006483000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_35940_1_20260806-BBGI_R_EN.pdf"
+    },
+    {
+      "uuid": "b03298e7-51cf-409f-8ea9-55620fc1263d",
+      "title": "BUY by KSS | BCPG PUBLIC COMPANY LIMITED (BCPG) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119956-buy-kss-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "BCPG PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T13:41:08+07:00",
+      "ts": 1785998468000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806_BCPG_ER(E).pdf"
+    },
+    {
+      "uuid": "16507f60-cd04-4e94-bb28-5fd64631548c",
+      "title": "AA- โดย TRIS | บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (CRC) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119953-aa--tris-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "TRIS",
+      "rating": "AA-",
+      "companyName": "บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-06T13:40:31+07:00",
+      "ts": 1785998431000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CRC6Aug26-t.pdf"
+    },
+    {
+      "uuid": "63a91c07-7c38-427f-a257-0cd13ccfe5ae",
+      "title": "AA- by TRIS | CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED (CRC) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119952-aa--tris-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "TRIS",
+      "rating": "AA-",
+      "companyName": "CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T13:40:31+07:00",
+      "ts": 1785998431000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CRC6Aug26-e.pdf"
+    },
+    {
+      "uuid": "587ef08b-84dd-4d00-8487-8254a78878a4",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119949-lhs-trading-ideas",
+      "tickers": [
+        "CBG",
+        "OSP"
+      ],
+      "symbolId": "21988,88769",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-08-06T13:11:29+07:00",
+      "ts": 1785996689000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Trading-Ideas_20260806.pdf"
+    },
+    {
+      "uuid": "5cd017dd-921d-44e3-a0dc-bbc457dec3e9",
+      "title": "Neutral by KSS | SYNNEX (THAILAND) PUBLIC COMPANY LIMITED (SYNEX) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119948-neutral-kss-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "SYNNEX (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T13:11:28+07:00",
+      "ts": 1785996688000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806_SYNEX_ER-(E).pdf"
+    },
+    {
+      "uuid": "d81df095-b2c2-48f9-88c0-2c2420bdbdcc",
+      "title": "Buy โดย KSS | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119947-buy-kss-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-08-06T13:11:25+07:00",
+      "ts": 1785996685000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806_BCPG_ER.pdf"
+    },
+    {
+      "uuid": "138baa26-465c-4961-8fa9-197122b63ea7",
+      "title": "Buy by ASP | CH. KARNCHANG PUBLIC COMPANY LIMITED (CK) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119946-buy-asp-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "ASP",
+      "rating": "Buy",
+      "companyName": "CH. KARNCHANG PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T12:55:10+07:00",
+      "ts": 1785995710000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Ck20260805.pdf"
+    },
+    {
+      "uuid": "82b5dc91-7133-475f-a37f-5651db80bc40",
+      "title": "BUY (Upgrade) โดย YUANTA | บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน) (SYNEX) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119944-buy-upgrade-yuanta-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "YUANTA",
+      "rating": "BUY (Upgrade)",
+      "companyName": "บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-06T12:55:05+07:00",
+      "ts": 1785995705000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SYNEX_Earning_Result_060826.pdf"
+    },
+    {
+      "uuid": "7fb4d74c-d985-432a-a038-d773ef20dbfd",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน) (NER) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119943-buy-maintain-yuanta-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน)",
+      "date": "2026-08-06T12:55:05+07:00",
+      "ts": 1785995705000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/NER_2Q26-Results_060826.pdf"
+    },
+    {
+      "uuid": "067cccf7-9911-4154-a5ba-85659e17353d",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ปตท. จำกัด (มหาชน) (PTT) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119942-buy-maintain-yuanta-ptt",
+      "tickers": [
+        "PTT"
+      ],
+      "symbolId": "2599",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ปตท. จำกัด (มหาชน)",
+      "date": "2026-08-06T12:55:05+07:00",
+      "ts": 1785995705000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/PTT_Company_update_060826.pdf"
+    },
+    {
+      "uuid": "a9949623-c85e-4dca-9fb9-edf96c1f8007",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ช.การช่าง จำกัด (มหาชน) (CK) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119941-buy-maintain-yuanta-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ช.การช่าง จำกัด (มหาชน)",
+      "date": "2026-08-06T12:55:05+07:00",
+      "ts": 1785995705000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CK_Update_060826.pdf"
+    },
+    {
+      "uuid": "1e409801-4bc7-491b-a8b9-35db0c5582b3",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ปูนซีเมนต์นครหลวง จำกัด (มหาชน) (SCCC) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119940-buy-maintain-yuanta-sccc",
+      "tickers": [
+        "SCCC"
+      ],
+      "symbolId": "62",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ปูนซีเมนต์นครหลวง จำกัด (มหาชน)",
+      "date": "2026-08-06T12:55:04+07:00",
+      "ts": 1785995704000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SCCC_2Q26_Result_060826.pdf"
+    },
+    {
+      "uuid": "14b7b28d-5b48-49df-95aa-83b801cd5aec",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท พี.เอส.พี.สเปเชียลตี้ส์ จำกัด (มหาชน) (PSP) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119939-buy-maintain-yuanta-psp",
+      "tickers": [
+        "PSP"
+      ],
+      "symbolId": "116789",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท พี.เอส.พี.สเปเชียลตี้ส์ จำกัด (มหาชน)",
+      "date": "2026-08-06T12:48:22+07:00",
+      "ts": 1785995302000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/PSP_SMID_060826.pdf"
+    },
+    {
+      "uuid": "8ce8272d-fb46-4dd6-a618-6ed95efb8537",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119938-buy-maintain-yuanta-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-08-06T12:48:22+07:00",
+      "ts": 1785995302000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BCPG_2Q26_result_060826.pdf"
+    },
+    {
+      "uuid": "e725ad8f-e657-4018-8976-3315e47cb178",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท บีบีจีไอ จำกัด (มหาชน) (BBGI) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119934-outperform-maintained-kgi-bbgi",
+      "tickers": [
+        "BBGI"
+      ],
+      "symbolId": "109257",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท บีบีจีไอ จำกัด (มหาชน)",
+      "date": "2026-08-06T12:38:51+07:00",
+      "ts": 1785994731000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_BBGI_2026_08_06_th.pdf"
+    },
+    {
+      "uuid": "18b2e415-04ca-44a2-a790-328447be09fa",
+      "title": "Outperform (Maintained) by KGI | BBGI PUBLIC COMPANY LIMITED (BBGI) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119933-outperform-maintained-kgi-bbgi",
+      "tickers": [
+        "BBGI"
+      ],
+      "symbolId": "109257",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "BBGI PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T11:25:44+07:00",
+      "ts": 1785990344000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_BBGI_2026_08_06_e_th.pdf"
+    },
+    {
+      "uuid": "6ca45868-fdda-4463-b1df-e701ffc15cfa",
+      "title": "Outperform (Maintained) by KGI | SYNNEX (THAILAND) PUBLIC COMPANY LIMITED (SYNEX) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119931-outperform-maintained-kgi-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "SYNNEX (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T11:16:57+07:00",
+      "ts": 1785989817000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CK_2026_08_05_e_th.pdf"
+    },
+    {
+      "uuid": "0d9d9af3-4cdb-44b7-aa5a-00c766141c06",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน) (SYNEX) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119932-outperform-maintained-kgi-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-06T11:16:57+07:00",
+      "ts": 1785989817000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Alert_SYNEX_2026_08_06_th_THAI.pdf"
+    },
+    {
+      "uuid": "7f58ed64-8734-4da1-acfd-f911128f29b2",
+      "title": "Outperform (Maintained) by KGI | CH. KARNCHANG PUBLIC COMPANY LIMITED (CK) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119929-outperform-maintained-kgi-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "CH. KARNCHANG PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T11:12:09+07:00",
+      "ts": 1785989529000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CK_2026_08_05_e_th.pdf"
+    },
+    {
+      "uuid": "08e1f3e1-05ee-488c-9cdf-13b0edb44bb3",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท ช.การช่าง จำกัด (มหาชน) (CK) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119930-outperform-maintained-kgi-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท ช.การช่าง จำกัด (มหาชน)",
+      "date": "2026-08-06T11:12:09+07:00",
+      "ts": 1785989529000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CK_2026_08_05_th.pdf"
+    },
+    {
+      "uuid": "40c00db3-d45b-4272-8549-1f520cb1e3b1",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท ปตท. จำกัด (มหาชน) (PTT) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119928-outperform-maintained-kgi-ptt",
+      "tickers": [
+        "PTT"
+      ],
+      "symbolId": "2599",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท ปตท. จำกัด (มหาชน)",
+      "date": "2026-08-06T11:12:08+07:00",
+      "ts": 1785989528000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_PTT_2026_08_06_e_th.pdf"
+    },
+    {
+      "uuid": "20b1b2c1-ab9e-4c4b-8106-5e4a315b5466",
+      "title": "Outperform (Maintained) by KGI | PTT PUBLIC COMPANY LIMITED (PTT) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119928-outperform-maintained-kgi-ptt",
+      "tickers": [
+        "PTT"
+      ],
+      "symbolId": "2599",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "PTT PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T11:12:08+07:00",
+      "ts": 1785989528000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_PTT_2026_08_06_e_th.pdf"
+    },
+    {
+      "uuid": "b9156a1e-5d2d-49ef-8ce7-ebf7224e1f65",
+      "title": "Not Rated โดย KGI | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119927-not-rated-kgi-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KGI",
+      "rating": "Not Rated",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-08-06T11:09:30+07:00",
+      "ts": 1785989370000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Alert_BCPG_2026_08_06_th.pdf"
+    },
+    {
+      "uuid": "a37700b8-18be-491f-84dd-4dd56c5c9594",
+      "title": "Not Rated by KGI | BCPG PUBLIC COMPANY LIMITED (BCPG) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119926-not-rated-kgi-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KGI",
+      "rating": "Not Rated",
+      "companyName": "BCPG PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T11:09:30+07:00",
+      "ts": 1785989370000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Alert_BCPG_2026_08_06_e_th.pdf"
+    },
+    {
+      "uuid": "db874adb-29bf-4b0b-87fe-8aeca8553b87",
+      "title": "Neutral โดย KSS | บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน) (SYNEX) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119920-neutral-kss-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-06T11:02:38+07:00",
+      "ts": 1785988958000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806_SYNEX_ER.pdf"
+    },
+    {
+      "uuid": "bb75da8d-306d-42ea-8c8a-4a7230d8624c",
+      "title": "BUY by KSS | TRUE CORPORATION PUBLIC COMPANY LIMITED (TRUE) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119918-buy-kss-true",
+      "tickers": [
+        "TRUE"
+      ],
+      "symbolId": "115875",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "TRUE CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T10:54:52+07:00",
+      "ts": 1785988492000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TRUE_260806_QC.pdf"
+    },
+    {
+      "uuid": "b984f953-069f-4994-a8ab-faabb7f5f93f",
+      "title": "BUY โดย KSS | บริษัท ทรู คอร์ปอเรชั่น จำกัด (มหาชน) (TRUE) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119917-buy-kss-true",
+      "tickers": [
+        "TRUE"
+      ],
+      "symbolId": "115875",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ทรู คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-06T10:54:52+07:00",
+      "ts": 1785988492000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/QC_TRUE_260806.pdf"
+    },
+    {
+      "uuid": "4d9da0d9-dae6-42c9-85d0-d0cb5a55b1a6",
+      "title": "BUY โดย KSS | บริษัท ปตท. จำกัด (มหาชน) (PTT) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119916-buy-kss-ptt",
+      "tickers": [
+        "PTT"
+      ],
+      "symbolId": "2599",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ปตท. จำกัด (มหาชน)",
+      "date": "2026-08-06T10:54:51+07:00",
+      "ts": 1785988491000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806-PTT_EP.pdf"
+    },
+    {
+      "uuid": "ded76575-5343-4a2f-b01b-d24bc4eedc80",
+      "title": "BUY โดย PST | บริษัท ช.การช่าง จำกัด (มหาชน) (CK) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119904-buy-pst-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท ช.การช่าง จำกัด (มหาชน)",
+      "date": "2026-08-06T10:31:56+07:00",
+      "ts": 1785987116000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CK080626_t.pdf"
+    },
+    {
+      "uuid": "2480d2e6-bd8c-4c30-8f13-1b15976b8c21",
+      "title": "BUY โดย KSS | บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน) (NER) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119905-buy-kss-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน)",
+      "date": "2026-08-06T10:31:56+07:00",
+      "ts": 1785987116000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806_NER_ER.pdf"
+    },
+    {
+      "uuid": "5ff2a057-f27f-48c8-882d-18e59a80e0bc",
+      "title": "Top Pick โดย Sbito | บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน) (TU) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119882-top-pick-sbito-tu",
+      "tickers": [
+        "TU"
+      ],
+      "symbolId": "1247",
+      "broker": "SBITO",
+      "rating": "Top Pick",
+      "companyName": "บริษัท ไทยยูเนี่ยน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-06T10:30:00+07:00",
+      "ts": 1785987000000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Top-Pick-060869-TU.pdf"
+    },
+    {
+      "uuid": "80cecd08-4607-4d6f-a675-86b96d97d69b",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119888-trinity-quick-win---moring-stock",
+      "tickers": [
+        "AMATA",
+        "KTC"
+      ],
+      "symbolId": "1609,3182",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-08-06T10:19:16+07:00",
+      "ts": 1785986356000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/MORNING-STOCKs06AUG26-ktc,amata.pdf"
+    },
+    {
+      "uuid": "22327abb-9d71-43a3-bd65-d9496c9fe93d",
+      "title": "HOLD โดย LHS | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119878-hold-lhs-bcpg",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "LHS",
+      "rating": "HOLD",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-08-06T09:50:25+07:00",
+      "ts": 1785984625000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BCPG_20260806.pdf"
+    },
+    {
+      "uuid": "df7834e9-9ddf-45b2-a4e7-8d011dbeba47",
+      "title": "BUY โดย LHS | บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน) (SYNEX) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119877-buy-lhs-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ซินเน็ค (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-06T09:50:24+07:00",
+      "ts": 1785984624000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SYNEX_20260806.pdf"
+    },
+    {
+      "uuid": "15acb5a3-6a16-426c-89df-54b9b57578e3",
+      "title": "BUY โดย PI | บริษัท ช.การช่าง จำกัด (มหาชน) (CK) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119868-buy-pi-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ช.การช่าง จำกัด (มหาชน)",
+      "date": "2026-08-06T09:45:39+07:00",
+      "ts": 1785984339000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CK-260806.pdf"
+    },
+    {
+      "uuid": "e22dec79-ebec-4b32-a62c-e97e8f96a0cb",
+      "title": "TRINITY | Block Trade  AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/derivatives/set50-index/119858-trinity-block-trade--afternoon-stock",
+      "tickers": [
+        "BCH",
+        "STECON"
+      ],
+      "symbolId": "5271,124457",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  AFTERNOON Stock",
+      "date": "2026-08-06T09:17:37+07:00",
+      "ts": 1785982657000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BlockTrade-Morning-06AUG26;stecon,BCH.pdf"
+    },
+    {
+      "uuid": "94e907a0-0d98-4403-aa30-899ccf1eb0c7",
+      "title": "BUY by MST | DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED (DELTA) | Research as of 6 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119854-buy-mst-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "MST",
+      "rating": "BUY",
+      "companyName": "DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-08-06T09:17:35+07:00",
+      "ts": 1785982655000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806_DELTA-Post-2Q26-_e.pdf"
+    },
+    {
+      "uuid": "04644bd0-c7ed-4ccd-b027-39c8672c6cd5",
+      "title": "BUY โดย MST | บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (DELTA) | บทวิเคราะห์ประจำวันที่ 6 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/119855-buy-mst-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "MST",
+      "rating": "BUY",
+      "companyName": "บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-06T09:17:35+07:00",
+      "ts": 1785982655000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260806_DELTA-Post-2Q26-_t.pdf"
+    },
     {
       "uuid": "86d21e8a-413d-4cb5-972d-b1faec7e975b",
       "title": "Neutral by KSS | HOME PRODUCT CENTER PUBLIC COMPANY LIMITED (HMPRO) | Research as of 5 August 2026",
