@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   TableWrap,
+  Th,
   SortableTh,
   SortConfig,
   Td,
@@ -56,6 +57,8 @@ interface ScanDataProps {
   setups?: SetupEntry[];
   setup_summary?: SetupSummary;
 }
+
+const PER_PAGE = 20;
 
 function fmtPct(n: number | null, showSign = true): string {
   if (n == null) return '—';
@@ -117,6 +120,7 @@ export default function ReportCardDetailClient({
 }) {
   const [viewMode, setViewMode] = useState<'setup' | 'horizon'>('setup');
   const [sort, setSort] = useState<SortConfig>({ key: 'return_pct', dir: 'desc' });
+  const [page, setPage] = useState(1);
 
   const setups = scanData.setups ?? [];
   const summary = scanData.setup_summary ?? {
@@ -129,7 +133,66 @@ export default function ReportCardDetailClient({
     avg_mae_pct: null,
   };
 
+  // Pre-calculate per-ticker setup counts & sequence numbers based on entry_date asc
+  const tickerTotalCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const s of setups) {
+      counts[s.ticker] = (counts[s.ticker] ?? 0) + 1;
+    }
+    return counts;
+  }, [setups]);
+
+  const tickerSetupSeq = useMemo(() => {
+    const seqMap = new Map<SetupEntry, number>();
+    const grouped: Record<string, SetupEntry[]> = {};
+    for (const s of setups) {
+      if (!grouped[s.ticker]) grouped[s.ticker] = [];
+      grouped[s.ticker].push(s);
+    }
+    for (const t in grouped) {
+      grouped[t].sort((a, b) => a.entry_date.localeCompare(b.entry_date));
+      grouped[t].forEach((s, i) => seqMap.set(s, i + 1));
+    }
+    return seqMap;
+  }, [setups]);
+
+  const openSetups = useMemo(() => {
+    return setups
+      .filter(s => s.status === 'open')
+      .sort((a, b) => b.entry_date.localeCompare(a.entry_date));
+  }, [setups]);
+
+  const closedSetups = useMemo(() => {
+    const list = setups.filter(s => s.status === 'closed');
+    if (!sort) return list;
+    const { key, dir } = sort;
+    return [...list].sort((a, b) => {
+      const va = (a as any)[key];
+      const vb = (b as any)[key];
+
+      if (va == null && vb == null) return 0;
+      if (va == null) return 1;
+      if (vb == null) return -1;
+
+      if (typeof va === 'string' && typeof vb === 'string') {
+        return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+      }
+      const na = Number(va);
+      const nb = Number(vb);
+      return dir === 'asc' ? na - nb : nb - na;
+    });
+  }, [setups, sort]);
+
+  const totalPages = Math.max(1, Math.ceil(closedSetups.length / PER_PAGE));
+  const currentPage = Math.min(page, totalPages);
+
+  const paginatedClosedSetups = useMemo(() => {
+    const start = (currentPage - 1) * PER_PAGE;
+    return closedSetups.slice(start, start + PER_PAGE);
+  }, [closedSetups, currentPage]);
+
   const handleSort = (key: string) => {
+    setPage(1);
     setSort(prev => {
       if (prev?.key === key) {
         return prev.dir === 'desc' ? { key, dir: 'asc' } : null;
@@ -138,23 +201,59 @@ export default function ReportCardDetailClient({
     });
   };
 
-  const sortedSetups = [...setups].sort((a, b) => {
-    if (!sort) return 0;
-    const { key, dir } = sort;
-    const va = (a as any)[key];
-    const vb = (b as any)[key];
+  const renderSetupRow = (s: SetupEntry, idx: number) => {
+    const total = tickerTotalCounts[s.ticker] ?? 1;
+    const seq = tickerSetupSeq.get(s) ?? 1;
+    const isMulti = total > 1;
 
-    if (va == null && vb == null) return 0;
-    if (va == null) return 1;
-    if (vb == null) return -1;
-
-    if (typeof va === 'string' && typeof vb === 'string') {
-      return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
-    }
-    const na = Number(va);
-    const nb = Number(vb);
-    return dir === 'asc' ? na - nb : nb - na;
-  });
+    return (
+      <tr
+        key={`${s.ticker}-${s.entry_date}-${idx}`}
+        className={`border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors ${
+          isMulti ? 'border-l-2 border-l-[#378ADD]/50' : ''
+        }`}
+      >
+        <Td>
+          <Link
+            href={`/stock/${s.ticker}`}
+            className="font-bold text-white hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+          >
+            <span>{s.ticker}</span>
+            {isMulti && (
+              <span className="text-[10px] text-[#378ADD] font-medium bg-[#378ADD]/10 px-1 py-0.2 rounded border border-[#378ADD]/20">
+                #{seq}
+              </span>
+            )}
+          </Link>
+        </Td>
+        <Td mono>
+          <span className="text-white/80">{s.entry_date}</span>
+          <span className="text-white/35 ml-1.5">@{s.entry_price.toFixed(2)}</span>
+        </Td>
+        <Td mono>
+          <span className="text-white/80">{s.exit_date}</span>
+          <span className="text-white/35 ml-1.5">@{s.exit_price.toFixed(2)}</span>
+        </Td>
+        <Td right mono>{s.holding_days}</Td>
+        <Td right mono className="font-semibold">
+          <span style={{ color: returnColor(s.return_pct) }}>{fmtPct(s.return_pct)}</span>
+        </Td>
+        <Td right mono className="text-white/50">{fmtPct(s.mfe_pct)}</Td>
+        <Td right mono className="text-white/50">{fmtPct(s.mae_pct)}</Td>
+        <Td>
+          {s.status === 'open' ? (
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#378ADD]/15 text-[#378ADD] border border-[#378ADD]/30">
+              ยังถือ (open)
+            </span>
+          ) : (
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-white/[0.05] text-white/40">
+              closed
+            </span>
+          )}
+        </Td>
+      </tr>
+    );
+  };
 
   return (
     <div className="p-4 md:p-6 space-y-6">
@@ -249,65 +348,103 @@ export default function ReportCardDetailClient({
             </div>
           </div>
 
-          {/* Full-path Setups Table */}
-          <TableWrap>
-            <thead className="border-b border-white/[0.06] bg-white/[0.015]">
-              <tr>
-                <SortableTh sortKey="ticker" currentSort={sort} onSort={handleSort}>Symbol</SortableTh>
-                <SortableTh sortKey="entry_date" currentSort={sort} onSort={handleSort}>Entry (D+1)</SortableTh>
-                <SortableTh sortKey="exit_date" currentSort={sort} onSort={handleSort}>Exit</SortableTh>
-                <SortableTh right sortKey="holding_days" currentSort={sort} onSort={handleSort}>ถือ (วัน)</SortableTh>
-                <SortableTh right sortKey="return_pct" currentSort={sort} onSort={handleSort}>Return</SortableTh>
-                <SortableTh right sortKey="mfe_pct" currentSort={sort} onSort={handleSort}>MFE</SortableTh>
-                <SortableTh right sortKey="mae_pct" currentSort={sort} onSort={handleSort}>MAE</SortableTh>
-                <SortableTh sortKey="status" currentSort={sort} onSort={handleSort}>สถานะ</SortableTh>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedSetups.length === 0 ? (
-                <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-white/30 text-[12px]">
-                    ยังไม่มีข้อมูล setup ในสแกนนี้
-                  </td>
-                </tr>
-              ) : (
-                sortedSetups.map((s, idx) => (
-                  <tr key={`${s.ticker}-${s.entry_date}-${idx}`} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors">
-                    <Td>
-                      <Link href={`/stock/${s.ticker}`} className="font-bold text-white hover:text-emerald-400 transition-colors">
-                        {s.ticker}
-                      </Link>
-                    </Td>
-                    <Td mono>
-                      <span className="text-white/80">{s.entry_date}</span>
-                      <span className="text-white/35 ml-1.5">@{s.entry_price.toFixed(2)}</span>
-                    </Td>
-                    <Td mono>
-                      <span className="text-white/80">{s.exit_date}</span>
-                      <span className="text-white/35 ml-1.5">@{s.exit_price.toFixed(2)}</span>
-                    </Td>
-                    <Td right mono>{s.holding_days}</Td>
-                    <Td right mono className="font-semibold">
-                      <span style={{ color: returnColor(s.return_pct) }}>{fmtPct(s.return_pct)}</span>
-                    </Td>
-                    <Td right mono className="text-white/50">{fmtPct(s.mfe_pct)}</Td>
-                    <Td right mono className="text-white/50">{fmtPct(s.mae_pct)}</Td>
-                    <Td>
-                      {s.status === 'open' ? (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#378ADD]/15 text-[#378ADD] border border-[#378ADD]/30">
-                          ยังถือ (open)
-                        </span>
-                      ) : (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-white/[0.05] text-white/40">
-                          closed
-                        </span>
-                      )}
-                    </Td>
+          {/* Section 1: Open Setups (Shown only if openSetups.length > 0) */}
+          {openSetups.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 px-1">
+                <div className="w-2 h-2 rounded-full bg-[#378ADD] animate-pulse" />
+                <h2 className="text-[14px] font-bold text-white">
+                  🔵 ยังถืออยู่ ({openSetups.length})
+                </h2>
+              </div>
+
+              <TableWrap>
+                <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+                  <tr>
+                    <Th>Symbol</Th>
+                    <Th>Entry (D+1)</Th>
+                    <Th>Latest MTM</Th>
+                    <Th right>ถือ (วัน)</Th>
+                    <Th right>Return</Th>
+                    <Th right>MFE</Th>
+                    <Th right>MAE</Th>
+                    <Th>สถานะ</Th>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </TableWrap>
+                </thead>
+                <tbody>
+                  {openSetups.map((s, idx) => renderSetupRow(s, idx))}
+                </tbody>
+              </TableWrap>
+            </div>
+          )}
+
+          {/* Section 2: Closed Setups */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between px-1">
+              <h2 className="text-[14px] font-bold text-white">
+                ปิดรอบแล้ว ({closedSetups.length})
+              </h2>
+              <span className="text-[11px] text-white/35">
+                หน้า {currentPage} / {totalPages}
+              </span>
+            </div>
+
+            <TableWrap>
+              <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+                <tr>
+                  <SortableTh sortKey="ticker" currentSort={sort} onSort={handleSort}>Symbol</SortableTh>
+                  <SortableTh sortKey="entry_date" currentSort={sort} onSort={handleSort}>Entry (D+1)</SortableTh>
+                  <SortableTh sortKey="exit_date" currentSort={sort} onSort={handleSort}>Exit</SortableTh>
+                  <SortableTh right sortKey="holding_days" currentSort={sort} onSort={handleSort}>ถือ (วัน)</SortableTh>
+                  <SortableTh right sortKey="return_pct" currentSort={sort} onSort={handleSort}>Return</SortableTh>
+                  <SortableTh right sortKey="mfe_pct" currentSort={sort} onSort={handleSort}>MFE</SortableTh>
+                  <SortableTh right sortKey="mae_pct" currentSort={sort} onSort={handleSort}>MAE</SortableTh>
+                  <SortableTh sortKey="status" currentSort={sort} onSort={handleSort}>สถานะ</SortableTh>
+                </tr>
+              </thead>
+              <tbody>
+                {closedSetups.length === 0 ? (
+                  <tr>
+                    <td colSpan={8} className="px-4 py-8 text-center text-white/30 text-[12px]">
+                      ยังไม่มีข้อมูล closed setup ในสแกนนี้
+                    </td>
+                  </tr>
+                ) : (
+                  paginatedClosedSetups.map((s, idx) => renderSetupRow(s, idx))
+                )}
+              </tbody>
+            </TableWrap>
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between px-3 py-2.5 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px]">
+                <span className="text-white/40 text-[11px]">
+                  ปิดรอบ {closedSetups.length} ตัว · แสดง {(currentPage - 1) * PER_PAGE + 1}–{Math.min(currentPage * PER_PAGE, closedSetups.length)}
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors text-white/70"
+                  >
+                    <ChevronLeft size={13} />
+                    ก่อนหน้า
+                  </button>
+                  <span className="text-white/60 font-medium px-1">
+                    {currentPage} / {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors text-white/70"
+                  >
+                    ถัดไป
+                    <ChevronRight size={13} />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <div className="space-y-6">
