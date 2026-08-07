@@ -38,6 +38,7 @@ interface SetupEntry {
   return_pct: number;
   mfe_pct: number | null;
   mae_pct: number | null;
+  price_path?: number[];
   status: 'open' | 'closed';
 }
 
@@ -71,6 +72,33 @@ function returnColor(n: number | null): string {
   if (n > 0) return '#1D9E75';
   if (n < 0) return '#E24B4A';
   return 'rgba(255,255,255,0.5)';
+}
+
+function Sparkline({ path, positive }: { path?: number[]; positive: boolean }) {
+  if (!path || path.length < 2) return <span className="text-white/20">—</span>;
+  const W = 100, H = 28, pad = 3;
+  const stroke = positive ? '#1D9E75' : '#E24B4A';
+  const pts = path
+    .map((v, i) => {
+      const x = pad + (i * (W - 2 * pad)) / (path.length - 1);
+      const y = H - pad - (v / 100) * (H - 2 * pad);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(' ');
+  const firstPt = pts.split(' ')[0].split(',');
+  const ex = firstPt[0];
+  const ey = firstPt[1];
+  const lastPt = pts.split(' ').slice(-1)[0].split(',');
+  const lx = lastPt[0];
+  const ly = lastPt[1];
+
+  return (
+    <svg width={W} height={H} className="inline-block vertical-middle">
+      <polyline points={pts} fill="none" stroke={stroke} strokeWidth="1.5" />
+      <circle cx={ex} cy={ey} r="2.5" fill="#378ADD" />
+      <circle cx={lx} cy={ly} r="2.5" fill={stroke} />
+    </svg>
+  );
 }
 
 const SHORT_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
@@ -240,6 +268,9 @@ export default function ReportCardDetailClient({
         </Td>
         <Td right mono className="text-white/50">{fmtPct(s.mfe_pct)}</Td>
         <Td right mono className="text-white/50">{fmtPct(s.mae_pct)}</Td>
+        <Td className="text-center">
+          <Sparkline path={s.price_path} positive={s.return_pct >= 0} />
+        </Td>
         <Td>
           {s.status === 'open' ? (
             <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#378ADD]/15 text-[#378ADD] border border-[#378ADD]/30">
@@ -368,6 +399,7 @@ export default function ReportCardDetailClient({
                     <Th right>Return</Th>
                     <Th right>MFE</Th>
                     <Th right>MAE</Th>
+                    <Th className="text-center">ทรงราคา</Th>
                     <Th>สถานะ</Th>
                   </tr>
                 </thead>
@@ -399,13 +431,14 @@ export default function ReportCardDetailClient({
                   <SortableTh right sortKey="return_pct" currentSort={sort} onSort={handleSort}>Return</SortableTh>
                   <SortableTh right sortKey="mfe_pct" currentSort={sort} onSort={handleSort}>MFE</SortableTh>
                   <SortableTh right sortKey="mae_pct" currentSort={sort} onSort={handleSort}>MAE</SortableTh>
+                  <Th className="text-center">ทรงราคา</Th>
                   <SortableTh sortKey="status" currentSort={sort} onSort={handleSort}>สถานะ</SortableTh>
                 </tr>
               </thead>
               <tbody>
                 {closedSetups.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-4 py-8 text-center text-white/30 text-[12px]">
+                    <td colSpan={9} className="px-4 py-8 text-center text-white/30 text-[12px]">
                       ยังไม่มีข้อมูล closed setup ในสแกนนี้
                     </td>
                   </tr>
@@ -414,6 +447,12 @@ export default function ReportCardDetailClient({
                 )}
               </tbody>
             </TableWrap>
+
+            {/* Sparkline Legend */}
+            <div className="flex items-center gap-1.5 text-[11px] text-white/35 px-1 pt-1">
+              <span className="text-[#378ADD]">🔵</span>
+              <span>จุดเข้า · เส้น=ราคาช่วงถือ (เขียว=กำไร แดง=ขาดทุน)</span>
+            </div>
 
             {/* Pagination controls */}
             {totalPages > 1 && (

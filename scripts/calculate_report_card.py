@@ -299,6 +299,20 @@ def compute_setups(hitDates, series):
         if mae is not None and not math.isfinite(mae):
             mae = None
 
+        closes_seg = [x[1] for x in seg if len(x) > 1 and x[1] is not None and math.isfinite(x[1])]
+        if len(closes_seg) >= 2:
+            N = 10
+            if len(closes_seg) <= N:
+                sampled = closes_seg
+            else:
+                idxs = [round(i * (len(closes_seg) - 1) / (N - 1)) for i in range(N)]
+                sampled = [closes_seg[i] for i in idxs]
+            lo, hi = min(sampled), max(sampled)
+            rng = hi - lo
+            path = [round((c - lo) / rng * 100.0, 1) if rng > 0 else 50.0 for c in sampled]
+        else:
+            path = []
+
         out.append({
             "entry_date": entry_d,
             "entry_price": round(entry_p, 2),
@@ -308,6 +322,7 @@ def compute_setups(hitDates, series):
             "return_pct": round(ret_pct, 2),
             "mfe_pct": round(mfe, 2) if mfe is not None else None,
             "mae_pct": round(mae, 2) if mae is not None else None,
+            "price_path": path,
             "status": status,
         })
     return out
