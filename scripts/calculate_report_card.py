@@ -32,6 +32,7 @@ Usage:
 
 import csv
 import json
+import math
 import os
 import sys
 import time
@@ -90,12 +91,8 @@ def tickers_of(data) -> set:
 
 
 def load_ticker_prices(ticker: str):
-    """Returns a sorted list of (date_str, close_float, volume_float_or_None) for
-    one ticker from Yahoo Finance Chart API, or [] if missing. Volume is carried
-    alongside Close so forward_return() can detect a trading halt (0 volume) inside
-    the window — a stock frozen at a stale Close during a suspension isn't tradeable
-    at that price, so a huge return spanning a halt is a data-quality issue, not a
-    real, actionable outcome."""
+    """Returns a sorted list of (date_str, close_float, volume_float, high_float, low_float)
+    for one ticker from Yahoo Finance Chart API, or [] if missing."""
     sym = f"{ticker}.BK"
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(sym)}?interval=1d&range=3mo"
     headers = {
@@ -115,6 +112,8 @@ def load_ticker_prices(ticker: str):
             quote = res.get("indicators", {}).get("quote", [{}])[0]
             closes = quote.get("close", [])
             volumes = quote.get("volume", [])
+            highs = quote.get("high", [])
+            lows = quote.get("low", [])
             meta = res.get("meta", {})
             gmtoffset = meta.get("gmtoffset", 25200)
             tz = timezone(timedelta(seconds=gmtoffset))
@@ -127,9 +126,17 @@ def load_ticker_prices(ticker: str):
                 if c is None:
                     continue
                 v = volumes[i] if i < len(volumes) and volumes[i] is not None else 0.0
+                h = highs[i] if i < len(highs) and highs[i] is not None else None
+                l = lows[i] if i < len(lows) and lows[i] is not None else None
                 dt = datetime.fromtimestamp(ts, tz=tz)
                 date_str = dt.strftime("%Y-%m-%d")
-                out.append((date_str, float(c), float(v)))
+                out.append((
+                    date_str,
+                    float(c),
+                    float(v),
+                    float(h) if h is not None else None,
+                    float(l) if l is not None else None,
+                ))
 
             out.sort(key=lambda x: x[0])
             time.sleep(0.05)
@@ -140,24 +147,24 @@ def load_ticker_prices(ticker: str):
 
 
 def load_set_index_series():
-    """Returns a sorted list of (date_str, close_float, volume) for the SET
-    Index, from breadth.json. Volume is a constant non-zero placeholder (the
-    index itself is never "halted") purely so this series has the same
-    3-tuple shape forward_return() expects for both stock and benchmark
-    series."""
+    """Returns a sorted list of (date_str, close_float, volume, high, low) for the SET Index."""
     breadth = load_json(os.path.join(SCANS_DIR, "breadth.json"))
     if not breadth or "set_index" not in breadth:
         return []
     rows = breadth["set_index"]
     if isinstance(rows, dict):
         rows = list(rows.values())
-    out = [(r["date"], float(r["close"]), 1.0) for r in rows if r.get("date") and r.get("close") is not None]
+    out = [
+        (r["date"], float(r["close"]), 1.0, float(r["close"]), float(r["close"]))
+        for r in rows
+        if r.get("date") and r.get("close") is not None
+    ]
     out.sort(key=lambda x: x[0])
     return out
 
 
 def build_date_index(series):
-    """date_str -> row index, for O(1) lookups into a sorted (date, close, volume) list."""
+    """date_str -> row index, for O(1) lookups into a sorted series list."""
     return {row[0]: i for i, row in enumerate(series)}
 
 
@@ -165,14 +172,7 @@ OUTLIER_RETURN_THRESHOLD_PCT = 40.0
 
 
 def _has_volume_halt(series, entry_idx: int, exit_idx: int) -> bool:
-    """True if any day in [entry_idx, exit_idx] (inclusive) has zero/missing
-    volume - the signature of a trading halt/suspension. A stock frozen at a
-    stale Close while suspended isn't tradeable at that price, so a Close-to-
-    Close return spanning a halt doesn't reflect a real, actionable outcome
-    (confirmed against real data: INGRS's reported -61% D+5 return was two
-    weeks of zero-volume suspension followed by the market's first real
-    repricing on resumption, not a stock anyone could have bought or sold at
-    the "entry" price used here)."""
+    """True if any day in [entry_idx, exit_idx] (inclusive) has zero/missing volume."""
     for i in range(entry_idx, exit_idx + 1):
         vol = series[i][2]
         if vol is None or vol <= 0:
@@ -181,17 +181,6 @@ def _has_volume_halt(series, entry_idx: int, exit_idx: int) -> bool:
 
 
 def forward_return(series, date_index, signal_date: str, horizon: int):
-    """
-    Entry = close at D+1 (row after signal_date). Exit = close at D+horizon
-    (measured from signal_date, per the stated assumption). Returns
-    (return_pct, is_outlier) - return_pct is None if the signal date isn't in
-    the series, or D+1 / D+horizon fall past the end of available price
-    history (not enough forward data yet). is_outlier is True when the return
-    exceeds +/-40% AND the window contains a volume-halt signature - the
-    caller drops these from the stats (they're a data-quality artifact, not a
-    real tradeable outcome) rather than folding an unreachable price into
-    "average return".
-    """
     if signal_date not in date_index:
         return None, False
     d_idx = date_index[signal_date]
@@ -209,12 +198,6 @@ def forward_return(series, date_index, signal_date: str, horizon: int):
 
 
 def first_appearances(dates, date_sets):
-    """
-    dates: sorted list of history date strings.
-    date_sets: {date: set(tickers)}.
-    Returns [(ticker, entry_date), ...] — one entry per NEW streak start
-    (a ticker present on consecutive dates counts once, on the first date).
-    """
     entries = []
     prev_set = set()
     for d in dates:
@@ -227,7 +210,6 @@ def first_appearances(dates, date_sets):
 
 
 def summarize_horizon(rows):
-    """rows: list of {ticker, entry_date, return_pct, set_return_pct}. Returns metrics dict."""
     n = len(rows)
     if n == 0:
         return {
@@ -254,6 +236,121 @@ def summarize_horizon(rows):
         "excess_return_pct": round(avg - avg_set, 2) if avg_set is not None else None,
         "best5": best5,
         "worst5": worst5,
+    }
+
+
+def compute_setups(hitDates, series):
+    if not hitDates or not series:
+        return []
+    date_to_idx = {s[0]: i for i, s in enumerate(series)}
+    GAP = 5  # gap >= 5 trading days = แตก setup
+
+    # 1. แบ่ง setup
+    setups_dates = []
+    cur = [hitDates[0]]
+    for prev, curr in zip(hitDates, hitDates[1:]):
+        pi = date_to_idx.get(prev)
+        ci = date_to_idx.get(curr)
+        gap = 99 if (pi is None or ci is None) else (ci - pi - 1)
+        if gap >= GAP:
+            setups_dates.append(cur)
+            cur = [curr]
+        else:
+            cur.append(curr)
+    setups_dates.append(cur)
+
+    # 2. คำนวณต่อ setup
+    out = []
+    for s in setups_dates:
+        first_hit, last_hit = s[0], s[-1]
+        fi = date_to_idx.get(first_hit)
+        if fi is None or fi + 1 >= len(series):
+            continue  # ไม่มี D+1
+        entry_i = fi + 1
+        entry_d, entry_p = series[entry_i][0], series[entry_i][1]
+        if entry_p is None or entry_p <= 0 or not math.isfinite(entry_p):
+            continue
+        li = date_to_idx.get(last_hit)
+        is_open = (last_hit == hitDates[-1] and last_hit == series[-1][0])
+        if is_open:
+            exit_i = len(series) - 1
+            status = "open"
+        else:
+            exit_i = li + 1 if (li is not None and li + 1 < len(series)) else li
+            status = "closed"
+        if exit_i is None or exit_i >= len(series):
+            continue
+        exit_d, exit_p = series[exit_i][0], series[exit_i][1]
+        if exit_p is None or not math.isfinite(exit_p):
+            continue
+
+        ret_pct = (exit_p / entry_p - 1.0) * 100.0
+        if not math.isfinite(ret_pct):
+            continue
+
+        seg = series[entry_i : exit_i + 1]
+        highs = [x[3] for x in seg if len(x) > 3 and x[3] is not None and math.isfinite(x[3])]
+        lows = [x[4] for x in seg if len(x) > 4 and x[4] is not None and math.isfinite(x[4])]
+
+        mfe = (max(highs) / entry_p - 1.0) * 100.0 if highs else None
+        mae = (min(lows) / entry_p - 1.0) * 100.0 if lows else None
+        if mfe is not None and not math.isfinite(mfe):
+            mfe = None
+        if mae is not None and not math.isfinite(mae):
+            mae = None
+
+        out.append({
+            "entry_date": entry_d,
+            "entry_price": round(entry_p, 2),
+            "exit_date": exit_d,
+            "exit_price": round(exit_p, 2),
+            "holding_days": exit_i - entry_i,
+            "return_pct": round(ret_pct, 2),
+            "mfe_pct": round(mfe, 2) if mfe is not None else None,
+            "mae_pct": round(mae, 2) if mae is not None else None,
+            "status": status,
+        })
+    return out
+
+
+def summarize_setups(all_setups):
+    closed = [s for s in all_setups if s.get("status") == "closed"]
+    n_closed = len(closed)
+    n_open = sum(1 for s in all_setups if s.get("status") == "open")
+
+    if n_closed == 0:
+        return {
+            "n_closed": 0,
+            "n_open": n_open,
+            "avg_return_pct": None,
+            "win_rate_pct": None,
+            "avg_holding_days": None,
+            "avg_mfe_pct": None,
+            "avg_mae_pct": None,
+        }
+
+    returns = [s["return_pct"] for s in closed if s.get("return_pct") is not None and math.isfinite(s["return_pct"])]
+    wins = sum(1 for r in returns if r > 0)
+    avg_return = sum(returns) / len(returns) if returns else None
+    win_rate = (wins / len(returns) * 100.0) if returns else None
+
+    holds = [s["holding_days"] for s in closed if s.get("holding_days") is not None and math.isfinite(s["holding_days"])]
+    avg_holding = (sum(holds) / len(holds)) if holds else None
+
+    mfes = [s["mfe_pct"] for s in closed if s.get("mfe_pct") is not None and math.isfinite(s["mfe_pct"])]
+    avg_mfe = (sum(mfes) / len(mfes)) if mfes else None
+
+    maes = [s["mae_pct"] for s in closed if s.get("mae_pct") is not None and math.isfinite(s["mae_pct"])]
+    avg_mae = (sum(maes) / len(maes)) if maes else None
+
+    return {
+        "n_closed": n_closed,
+        "n_open": n_open,
+        "avg_return_pct": round(avg_return, 2) if avg_return is not None and math.isfinite(avg_return) else None,
+        "win_rate_pct": round(win_rate, 2) if win_rate is not None and math.isfinite(win_rate) else None,
+        "avg_holding_days": round(avg_holding, 1) if avg_holding is not None and math.isfinite(avg_holding) else None,
+        "avg_mfe_pct": round(avg_mfe, 2) if avg_mfe is not None and math.isfinite(avg_mfe) else None,
+        "avg_mae_pct": round(avg_mae, 2) if avg_mae is not None and math.isfinite(avg_mae) else None,
     }
 
 
@@ -319,12 +416,39 @@ def main():
                     "return_pct": ret, "set_return_pct": set_ret,
                 })
 
+        # Compute setup-based history for this scan
+        scan_setups = []
+        hist_file = os.path.join(SCANS_DIR, f"{fname}_history.json")
+        hist_data = load_json(hist_file)
+
+        if hist_data and "tickers" in hist_data and isinstance(hist_data["tickers"], list):
+            ticker_hits = [(rec.get("ticker"), rec.get("hitDates", [])) for rec in hist_data["tickers"] if rec.get("ticker")]
+        else:
+            all_scan_tickers = sorted(set(t for d_set in date_sets.values() for t in d_set))
+            ticker_hits = [(t, sorted(d for d in dates if t in date_sets[d])) for t in all_scan_tickers]
+
+        for ticker, hit_dates in ticker_hits:
+            if not ticker or not hit_dates:
+                continue
+            series, _ = get_price_series(ticker)
+            if not series:
+                continue
+            t_setups = compute_setups(hit_dates, series)
+            for st in t_setups:
+                scan_setups.append({"ticker": ticker, **st})
+
+        scan_setups.sort(key=lambda s: (s["entry_date"], s["ticker"]))
+
         result_scans[scan_key] = {
             "total_picks": len(entries),
             "horizons": {str(h): summarize_horizon(horizon_rows[h]) for h in HORIZONS},
+            "setups": scan_setups,
+            "setup_summary": summarize_setups(scan_setups),
         }
         n5 = result_scans[scan_key]["horizons"]["5"]["n"]
-        print(f"  {scan_key}: {len(entries)} unique entries, D+5 computable for {n5}")
+        n_closed = result_scans[scan_key]["setup_summary"]["n_closed"]
+        n_open = result_scans[scan_key]["setup_summary"]["n_open"]
+        print(f"  {scan_key}: {len(entries)} unique entries, D+5 computable for {n5}, setups: {n_closed} closed, {n_open} open")
 
     print(f"[report-card] Price fetch summary: {fetched_ok} succeeded, {fetched_fail} failed out of {len(price_cache)} unique tickers")
     if total_missing_price_file:
@@ -372,3 +496,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
