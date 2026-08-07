@@ -149,7 +149,6 @@ interface PanelProps {
   chartMap: Record<string, ChartEntry>;
   feMap: Record<string, Fundamental>;
   emptyReason?: string;
-  useCandlestick: boolean;
 }
 
 function emptyStateMessage(reason: string | undefined): string {
@@ -169,7 +168,7 @@ function fmtPe(n: number | null | undefined): string {
   return n.toFixed(1);
 }
 
-function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, chartMap, feMap, emptyReason, useCandlestick }: PanelProps) {
+function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, chartMap, feMap, emptyReason }: PanelProps) {
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden flex flex-col">
       <div
@@ -268,15 +267,12 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, cha
                       <SignalBadges sym={sym} />
                     </td>
                     {/* CHART — rightmost, hidden on mobile. Candlestick for
-                        live/today data; a plain sparkline for any historical
-                        date (see useCandlestick prop) - building an
-                        as-of-that-date candlestick would mean archiving the
-                        ~2MB chart bundle every single day forever, which
-                        isn't worth it for a rarely-used ย้อนหลัง view. */}
+                        both live and historical views; falls back to sparkline
+                        if candlestick bars are unavailable. */}
                     <td className="hidden sm:table-cell" style={{ paddingTop: 10, paddingBottom: 10, paddingLeft: 8, paddingRight: 8 }}>
                       {sym && (
-                        useCandlestick
-                          ? <MiniCandlestick bars={chart?.bars} ema200={chart?.ema200} width={180} height={32} />
+                        chart?.bars && chart.bars.length > 0
+                          ? <MiniCandlestick bars={chart.bars} ema200={chart.ema200} width={180} height={32} />
                           : <TrendSparkline data={sparklineMap[symKey]} width={180} height={32} />
                       )}
                     </td>
@@ -310,7 +306,6 @@ export default function TopMoversPage() {
   const [activeVolume,setActiveVolume]= useState<MoverItem[]>([]);
   const [reasons, setReasons] = useState<{ gainers?: string; losers?: string; activeValue?: string; activeVolume?: string }>({});
   const [label, setLabel] = useState('');
-  const [useCandlestick, setUseCandlestick] = useState(true);
   const [loading, setLoading] = useState(false);
   const [chartMap, setChartMap] = useState<Record<string, ChartEntry>>({});
   const [feMap, setFeMap] = useState<Record<string, Fundamental>>({});
@@ -378,15 +373,14 @@ export default function TopMoversPage() {
     if (res?.markets) {
       applyRanking(m, res.markets);
       setLabel(`ณ ปิดตลาด ${isoToThaiLabel(res.resolvedDate)}`);
-      setUseCandlestick(false);
       const allSyms = Array.from(new Set(
         [res.markets.topGainer, res.markets.topLoser, res.markets.mostActiveValue, res.markets.mostActiveVolume]
           .flat().map((it: MoverItem) => it.symbol?.toUpperCase()).filter((s: string | undefined): s is string => !!s)
       ));
-      const { pe } = await fetchChartsAndPe(allSyms, false);
+      const { charts, pe } = await fetchChartsAndPe(allSyms, true);
       if (reqId !== requestIdRef.current) return;
       setFeMap(pe);
-      setChartMap({});
+      setChartMap(charts);
     } else {
       applyRanking(m, EMPTY_RANKING, {
         topGainer: 'no_history', topLoser: 'no_history', mostActiveValue: 'no_history', mostActiveVolume: 'no_history',
@@ -418,7 +412,6 @@ export default function TopMoversPage() {
     setActiveVolume(vol.items ?? []);
     setReasons({ gainers: g.error, losers: l.error, activeValue: v.error, activeVolume: vol.error });
     setLabel(isMarketOpenNowBangkok() ? 'ระหว่างวัน · realtime' : `ล่าสุด ${nowThaiTime()}`);
-    setUseCandlestick(true);
 
     const allSyms = Array.from(new Set(
       [g.items, l.items, v.items, vol.items]
@@ -540,19 +533,19 @@ export default function TopMoversPage() {
       {/* Mobile: single panel */}
       <div className="md:hidden">
         {mobilePanel === 'gainers'
-          ? <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} useCandlestick={useCandlestick} />
-          : <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} useCandlestick={useCandlestick} />
+          ? <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} />
+          : <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} />
         }
       </div>
       {/* Desktop: side by side */}
       <div className="hidden md:grid md:grid-cols-2 gap-4">
-        <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} useCandlestick={useCandlestick} />
-        <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} useCandlestick={useCandlestick} />
+        <MoverPanel title="Top Gainers" accentColor="#1D9E75" items={gainers} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.gainers} />
+        <MoverPanel title="Top Losers"  accentColor="#E24B4A" items={losers}  loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.losers} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <MoverPanel title="Most Active Value"  accentColor="#378ADD" items={activeValue}  loading={loading} volMode="value"  onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeValue} useCandlestick={useCandlestick} />
-        <MoverPanel title="Most Active Volume" accentColor="#BA7517" items={activeVolume} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeVolume} useCandlestick={useCandlestick} />
+        <MoverPanel title="Most Active Value"  accentColor="#378ADD" items={activeValue}  loading={loading} volMode="value"  onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeValue} />
+        <MoverPanel title="Most Active Volume" accentColor="#BA7517" items={activeVolume} loading={loading} volMode="volume" onSymbol={go} chartMap={chartMap} feMap={feMap} emptyReason={reasons.activeVolume} />
       </div>
 
       <p className="text-[10px] text-white/20 text-right">
