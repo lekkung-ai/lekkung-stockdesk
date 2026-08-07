@@ -2,7 +2,6 @@ import Link from 'next/link';
 import rawReportCard from '@/data/scans/report_card.json';
 import { formatThaiDate } from '@/lib/utils';
 
-interface BestWorstEntry { ticker: string; entry_date: string; return_pct: number; }
 interface HorizonMetric {
   n: number;
   avg_return_pct: number | null;
@@ -10,8 +9,6 @@ interface HorizonMetric {
   win_rate_pct: number | null;
   avg_set_return_pct: number | null;
   excess_return_pct: number | null;
-  best5: BestWorstEntry[];
-  worst5: BestWorstEntry[];
 }
 interface ScanCard {
   total_picks: number;
@@ -45,9 +42,6 @@ const SCAN_COLORS: Record<string, string> = {
 };
 const HORIZONS = ['5', '10', '20'];
 
-// Below this many history snapshot-dates, forward-return stats (especially
-// D+10/D+20) are still thin — flag it rather than let a good/bad win rate
-// look more reliable than it actually is yet.
 const SHORT_HISTORY_THRESHOLD = 30;
 
 function fmtPct(n: number | null, showSign = true): string {
@@ -63,115 +57,63 @@ function returnColor(n: number | null): string {
   return 'rgba(255,255,255,0.5)';
 }
 
-const SHORT_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
-function fmtShortDate(iso: string): string {
-  const [, m, d] = iso.split('-');
-  return `${parseInt(d)} ${SHORT_MONTHS[parseInt(m) - 1]}`;
-}
-
-function countOccurrences(entries: BestWorstEntry[]): Record<string, number> {
-  const counts: Record<string, number> = {};
-  for (const e of entries) counts[e.ticker] = (counts[e.ticker] ?? 0) + 1;
-  return counts;
-}
-
-// Same ticker can legitimately appear more than once in a Best/Worst list -
-// different scan-signal dates, not a rendering bug - so always show the date
-// and flag the repeat count (×2) rather than let two identical-looking rows
-// silently sit side by side.
-function TickerChip({ entry, occurrenceCount }: { entry: BestWorstEntry; occurrenceCount: number }) {
-  return (
-    <Link
-      href={`/stock/${entry.ticker}`}
-      className="flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.07] transition-colors"
-    >
-      <span className="flex items-center gap-1.5 min-w-0">
-        <span className="text-label font-semibold text-white/80 truncate">{entry.ticker}</span>
-        {occurrenceCount > 1 && (
-          <span className="text-[10px] text-white/30 flex-shrink-0" title={`ติดลิสต์นี้ ${occurrenceCount} ครั้ง คนละวันสัญญาณ`}>
-            ×{occurrenceCount}
-          </span>
-        )}
-        <span className="text-[10px] text-white/25 tabular-nums flex-shrink-0">{fmtShortDate(entry.entry_date)}</span>
-      </span>
-      <span className="text-label font-medium tabular-nums flex-shrink-0" style={{ color: returnColor(entry.return_pct) }}>
-        {fmtPct(entry.return_pct)}
-      </span>
-    </Link>
-  );
+function winRateColor(winRate: number | null): string {
+  if (winRate == null) return 'rgba(255,255,255,0.4)';
+  if (winRate > 50) return '#1D9E75';
+  if (winRate >= 45) return 'rgba(255,255,255,0.85)';
+  return '#E24B4A';
 }
 
 function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard }) {
   const headline = card.horizons['5'];
-  const color = SCAN_COLORS[scanKey] ?? '#7F77DD';
-  const bestCounts = countOccurrences(headline.best5);
-  const worstCounts = countOccurrences(headline.worst5);
-  const isSmallSample = headline.n > 0 && headline.n < 30;
+  const winRate = headline?.win_rate_pct;
+  const avgReturn = headline?.avg_return_pct;
+  const color = winRateColor(winRate);
+  const isSmallSample = headline?.n > 0 && headline.n < 30;
 
   return (
-    <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-4">
-      <div className="flex items-center justify-between gap-2">
+    <Link
+      href={`/report-card/${scanKey}`}
+      className="bg-[#13161e] border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.025] rounded-xl p-4 transition-all block group"
+    >
+      <div className="flex items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2 min-w-0">
-          <h3 className="text-[13px] font-bold text-white truncate">{SCAN_LABELS[scanKey] ?? scanKey}</h3>
+          <h3 className="text-[13px] font-bold text-white group-hover:text-[#378ADD] transition-colors truncate">
+            {SCAN_LABELS[scanKey] ?? scanKey}
+          </h3>
           {isSmallSample && (
             <span
-              className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0"
-              title={`ข้อมูลย้อนหลังที่ครบ D+5 มีเพียง ${headline.n} ตัว (< 30) สถิติอาจยังไม่สะท้อนผลระยะยาว`}
+              className="text-[9.5px] font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0"
+              title={`ข้อมูลย้อนหลังที่ครบ D+5 มีเพียง ${headline.n} ตัว (< 30)`}
             >
-              sample น้อย (n={headline.n})
+              n={headline.n}
             </span>
           )}
         </div>
-        <span className="text-label text-white/30 tabular-nums flex-shrink-0">{card.total_picks} picks สะสม</span>
+        <span className="text-[11px] text-white/30 tabular-nums flex-shrink-0">{card.total_picks} picks สะสม</span>
       </div>
 
-      <div>
-        <div className="text-[10px] uppercase tracking-wider text-white/25 mb-1">Win Rate (D+5)</div>
-        <div className="text-[32px] font-bold tabular-nums leading-none" style={{ color }}>
-          {headline.win_rate_pct != null ? `${headline.win_rate_pct.toFixed(0)}%` : '—'}
-        </div>
-        <div className="text-label text-white/25 mt-1">
-          {headline.n > 0 ? `จาก ${headline.n} entries ที่ครบ D+5 แล้ว` : 'ยังไม่มี entry ที่ครบ D+5'}
-        </div>
+      <div className="flex items-baseline gap-1.5 mb-2">
+        <span className="text-[28px] font-bold tabular-nums leading-none" style={{ color }}>
+          {winRate != null ? `${winRate.toFixed(0)}%` : '—'}
+        </span>
+        <span className="text-[12px] font-medium text-white/35">win rate</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 pt-1 border-t border-white/[0.06]">
-        {HORIZONS.map(h => {
-          const m = card.horizons[h];
-          return (
-            <div key={h} className="text-center">
-              <div className="text-[9.5px] text-white/25 mb-1">D+{h}</div>
-              <div className="text-[13px] font-semibold tabular-nums" style={{ color: returnColor(m.avg_return_pct) }}>
-                {fmtPct(m.avg_return_pct)}
-              </div>
-              <div
-                className="text-[9px] text-white/20 mt-0.5"
-                title="ส่วนต่าง = ผลตอบแทนเฉลี่ยของ scan ลบผลตอบแทน SET ช่วงเดียวกัน"
-              >
-                {m.excess_return_pct != null ? `ส่วนต่าง ${fmtPct(m.excess_return_pct)}` : 'ส่วนต่าง —'}
-              </div>
-            </div>
-          );
-        })}
+      <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden mb-3">
+        <div
+          className="h-full rounded-full transition-all duration-300"
+          style={{ width: `${Math.min(100, Math.max(0, winRate ?? 0))}%`, backgroundColor: color }}
+        />
       </div>
 
-      {(headline.best5.length > 0 || headline.worst5.length > 0) && (
-        <div className="grid grid-cols-2 gap-3 pt-1 border-t border-white/[0.06]">
-          <div>
-            <div className="text-[9.5px] uppercase tracking-wider text-[#1D9E75]/70 mb-1.5">Best 5 (D+5)</div>
-            <div className="space-y-1">
-              {headline.best5.map(e => <TickerChip key={e.ticker + e.entry_date} entry={e} occurrenceCount={bestCounts[e.ticker]} />)}
-            </div>
-          </div>
-          <div>
-            <div className="text-[9.5px] uppercase tracking-wider text-[#E24B4A]/70 mb-1.5">Worst 5 (D+5)</div>
-            <div className="space-y-1">
-              {headline.worst5.map(e => <TickerChip key={e.ticker + e.entry_date} entry={e} occurrenceCount={worstCounts[e.ticker]} />)}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+      <div className="flex items-center justify-between text-[11.5px] pt-2 border-t border-white/[0.05]">
+        <span className="text-white/35">D+5 avg return</span>
+        <span className="font-semibold tabular-nums" style={{ color: returnColor(avgReturn) }}>
+          {fmtPct(avgReturn)}
+        </span>
+      </div>
+    </Link>
   );
 }
 
@@ -276,8 +218,8 @@ export default function ReportCardPage() {
         </div>
       )}
 
-      {/* ── Summary cards ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {/* ── Slim Option A Summary cards ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         {SCAN_ORDER.map(key => {
           const card = data.scans[key];
           if (!card) return null;
