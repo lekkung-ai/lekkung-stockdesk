@@ -373,8 +373,9 @@ export default function TopMoversPage() {
     if (res?.markets) {
       applyRanking(m, res.markets);
       setLabel(`ณ ปิดตลาด ${isoToThaiLabel(res.resolvedDate)}`);
+      const mData = res.markets[m] ?? res.markets;
       const allSyms = Array.from(new Set(
-        [res.markets.topGainer, res.markets.topLoser, res.markets.mostActiveValue, res.markets.mostActiveVolume]
+        [mData.topGainer, mData.topLoser, mData.mostActiveValue, mData.mostActiveVolume]
           .flat().map((it: MoverItem) => it.symbol?.toUpperCase()).filter((s: string | undefined): s is string => !!s)
       ));
       const { charts, pe } = await fetchChartsAndPe(allSyms, true);
