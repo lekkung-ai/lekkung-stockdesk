@@ -15,6 +15,7 @@ export interface EarningsAnnouncement {
   netProfitYoY: number | null;
   netProfitPriorQ?: number | null;
   netProfitQoQ?: number | null;
+  profitAcceleration?: string | boolean | null;
   eps: number | null;
   epsPrior: number | null;
   epsYoY: number | null;
@@ -31,6 +32,9 @@ export interface EarningsAnnouncement {
   // change; the frontend only needs reason to be non-empty.
   reason: string;
   reason_source: 'mda_extract' | 'none';
+  gap_pct?: number | null;
+  drift_d1_pct?: number | null;
+  drift_d5_pct?: number | null;
 }
 
 export interface EarningsCalendarEntry {

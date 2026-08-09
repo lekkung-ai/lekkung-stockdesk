@@ -462,7 +462,119 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
   );
 }
 
+function PeadWatchSection({ announcements }: { announcements: EarningsAnnouncement[] }) {
+  const router = useRouter();
+
+  const peadList = useMemo(() => {
+    return announcements
+      .filter(a => {
+        const hasGoodProfit = (a.netProfitYoY != null && a.netProfitYoY > 0) || a.profitAcceleration === 'accelerating';
+        const hasGapUp = a.gap_pct != null && a.gap_pct > 0;
+        const hasDrift5 = a.drift_d5_pct != null && a.drift_d5_pct > 0;
+        return hasGoodProfit && hasGapUp && hasDrift5;
+      })
+      .sort((a, b) => (b.drift_d5_pct ?? 0) - (a.drift_d5_pct ?? 0));
+  }, [announcements]);
+
+  return (
+    <div className="bg-[#13161e] border border-emerald-500/25 rounded-2xl p-4 md:p-5 space-y-3.5 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <h2 className="text-[15px] font-bold text-white flex items-center gap-1.5">
+              <span>🔥 PEAD Watch</span>
+            </h2>
+            <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold tabular-nums">
+              {peadList.length} ตัว
+            </span>
+          </div>
+          <p className="text-[11.5px] text-white/50 mt-0.5">
+            งบดี + ราคาตอบรับ (Gap Up) + วิ่งต่อต่อเนื่อง (Drift D+5 บวกล้น)
+          </p>
+        </div>
+        <div className="text-[11px] text-meta">
+          * เฉพาะหุ้นที่ประกาศงบแล้วเกิน 5 วันทำการ (ครบ D+5)
+        </div>
+      </div>
+
+      {peadList.length === 0 ? (
+        <div className="py-6 text-center text-label text-meta">
+          ยังไม่มีหุ้นเข้าเกณฑ์ PEAD ช่วงนี้
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          {peadList.map(a => {
+            const spark = sparklineMap[a.ticker];
+            return (
+              <div
+                key={a.ticker}
+                onClick={() => router.push(`/stock/${a.ticker}`)}
+                className="bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.07] hover:border-emerald-500/40 rounded-xl p-3.5 transition-all cursor-pointer flex flex-col justify-between space-y-2.5 group"
+              >
+                {/* Header: Ticker + Quarter + Acceleration Badge */}
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[15px] font-extrabold text-blue-400 group-hover:text-blue-300 transition-colors">
+                        {a.ticker}
+                      </span>
+                      <ExternalLink size={12} className="text-white/30 group-hover:text-blue-400 transition-colors" />
+                    </div>
+                    <div className="text-[11px] text-white/50 mt-0.5">
+                      {a.quarter ?? '—'}
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <YoyBadge value={a.netProfitYoY} />
+                    {a.profitAcceleration === 'accelerating' && (
+                      <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        ⚡ เร่งตัว
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Optional Sparkline */}
+                {spark && spark.length >= 2 && (
+                  <div className="py-1 flex justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                    <TrendSparkline data={spark} width={180} height={36} />
+                  </div>
+                )}
+
+                {/* PEAD Price Reaction Metrics: Gap & Drift D+1, D+5 */}
+                <div className="bg-black/30 rounded-lg p-2.5 grid grid-cols-3 gap-1.5 text-center border border-white/[0.04]">
+                  <div>
+                    <div className="text-[10px] text-white/40 uppercase font-medium">Gap T0</div>
+                    <div className="text-[12px] font-extrabold text-emerald-400 tabular-nums mt-0.5">
+                      +{a.gap_pct?.toFixed(2)}%
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-white/40 uppercase font-medium">Drift D+1</div>
+                    <div className={`text-[12px] font-extrabold tabular-nums mt-0.5 ${
+                      (a.drift_d1_pct ?? 0) >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                    }`}>
+                      {a.drift_d1_pct != null ? `${a.drift_d1_pct >= 0 ? '+' : ''}${a.drift_d1_pct.toFixed(2)}%` : '—'}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-white/40 uppercase font-medium">Drift D+5</div>
+                    <div className="text-[12px] font-black text-emerald-400 tabular-nums mt-0.5">
+                      +{a.drift_d5_pct?.toFixed(2)}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 type QuickFilterTag = 'all' | 'today' | 'growth50' | 'qoqGrowth' | 'accelerating' | 'turnaround' | 'hasMda' | 'pead';
+
 
 function parseQuarterScore(q: string): number {
   const yearMatch = q.match(/\d{4}/);
@@ -1247,6 +1359,7 @@ export default function EarningsPage() {
 
               <WeekCalendarStrip feed={feed} />
               <KpiSummaryHighlights feed={feed} />
+              <PeadWatchSection announcements={feed.announcements} />
               <BucketCards feed={feed} activeFilter={bucketFilter} onFilterChange={setBucketFilter} />
               <AnnouncementsTable
                 announcements={feed.announcements}
