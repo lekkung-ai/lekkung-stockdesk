@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import rawHistory from '@/data/scans/sector_rs_history.json';
-import { ArrowUp, ArrowDown, Minus, Info, AlertTriangle } from 'lucide-react';
+import { ArrowUp, ArrowDown, Minus, Info, AlertTriangle, ChevronLeft, Layers } from 'lucide-react';
 
 type Market = 'SET' | 'MAI';
 type Quadrant = 'Leading' | 'Weakening' | 'Improving' | 'Lagging';
@@ -41,6 +41,50 @@ function sectorColor(sector: string): string {
   return SECTOR_COLORS[sector] ?? '#6b7280';
 }
 
+export interface SectorSpreadInfo {
+  spread: number;
+  maxSubsector: string;
+  maxRs: number;
+  minSubsector: string;
+  minRs: number;
+  hasSpreadFlag: boolean;
+}
+
+export function computeSectorSpreads(): Record<string, SectorSpreadInfo> {
+  const setSectors = historyData.sectors?.['SET'] ?? {};
+  const result: Record<string, SectorSpreadInfo> = {};
+
+  for (const [sector, item] of Object.entries(setSectors)) {
+    const subsectors = item.subsectors ?? {};
+    const latestValues: { subsector: string; rs: number }[] = [];
+
+    for (const [subName, subItem] of Object.entries(subsectors)) {
+      const series = (subItem.rs_series ?? []).filter((v): v is number => typeof v === 'number');
+      if (series.length > 0) {
+        latestValues.push({ subsector: subName, rs: series[series.length - 1] });
+      }
+    }
+
+    if (latestValues.length > 1) {
+      latestValues.sort((a, b) => b.rs - a.rs);
+      const maxSub = latestValues[0];
+      const minSub = latestValues[latestValues.length - 1];
+      const spread = Number((maxSub.rs - minSub.rs).toFixed(1));
+
+      result[sector] = {
+        spread,
+        maxSubsector: maxSub.subsector,
+        maxRs: maxSub.rs,
+        minSubsector: minSub.subsector,
+        minRs: minSub.rs,
+        hasSpreadFlag: spread > 25,
+      };
+    }
+  }
+
+  return result;
+}
+
 export interface CalculatedSector {
   sector: string;
   count: number;
@@ -50,15 +94,32 @@ export interface CalculatedSector {
   incomplete20Days: boolean;
   quadrant: Quadrant;
   rsSeries: number[];
+  spreadInfo?: SectorSpreadInfo | null;
+  isSmallSample?: boolean;
 }
 
-export function computeSectorRotationData(market: Market): {
+export function computeSectorRotationData(
+  market: Market,
+  selectedSector?: string | null
+): {
   sectors: CalculatedSector[];
   quadrantCounts: Record<Quadrant, number>;
   dates: string[];
   totalSectors: number;
 } {
-  const marketSectorsMap = historyData.sectors?.[market] ?? {};
+  const isSubsectorMode = market === 'SET' && Boolean(selectedSector);
+  let marketSectorsMap: Record<string, SectorHistoryItem> = {};
+
+  if (isSubsectorMode && selectedSector) {
+    marketSectorsMap = (historyData.sectors?.['SET']?.[selectedSector]?.subsectors ?? {}) as Record<
+      string,
+      SectorHistoryItem
+    >;
+  } else {
+    marketSectorsMap = historyData.sectors?.[market] ?? {};
+  }
+
+  const spreadsMap = market === 'SET' ? computeSectorSpreads() : {};
   const dates = historyData.dates ?? [];
 
   const sectors: CalculatedSector[] = [];
@@ -95,6 +156,9 @@ export function computeSectorRotationData(market: Market): {
 
     quadrantCounts[quadrant] = (quadrantCounts[quadrant] ?? 0) + 1;
 
+    const spreadInfo = isSubsectorMode ? null : spreadsMap[sector] ?? null;
+    const isSmallSample = isSubsectorMode ? count < 5 : false;
+
     sectors.push({
       sector,
       count,
@@ -104,6 +168,8 @@ export function computeSectorRotationData(market: Market): {
       incomplete20Days,
       quadrant,
       rsSeries: series,
+      spreadInfo,
+      isSmallSample,
     });
   }
 
@@ -149,15 +215,36 @@ function Sparkline({ series, color }: { series: number[]; color: string }) {
   );
 }
 
-export default function RotationLeaderboard() {
-  const [market, setMarket] = useState<Market>('SET');
+interface RotationLeaderboardProps {
+  market?: Market;
+  selectedSector?: string | null;
+  onSelectSector?: (sector: string | null) => void;
+  onMarketChange?: (m: Market) => void;
+}
+
+export default function RotationLeaderboard({
+  market: propMarket,
+  selectedSector: propSelectedSector,
+  onSelectSector,
+  onMarketChange,
+}: RotationLeaderboardProps) {
+  const [internalMarket, setInternalMarket] = useState<Market>('SET');
   const [sortField, setSortField] = useState<SortField>('rs');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [selectedQuadrant, setSelectedQuadrant] = useState<Quadrant | 'All'>('All');
+  const [maiNotice, setMaiNotice] = useState<string | null>(null);
+
+  const market = propMarket ?? internalMarket;
+  const setMarket = (m: Market) => {
+    if (onMarketChange) onMarketChange(m);
+    else setInternalMarket(m);
+  };
+
+  const selectedSector = propSelectedSector ?? null;
 
   const { sectors, quadrantCounts, dates, totalSectors } = useMemo(
-    () => computeSectorRotationData(market),
-    [market]
+    () => computeSectorRotationData(market, selectedSector),
+    [market, selectedSector]
   );
 
   const filteredAndSortedSectors = useMemo(() => {
@@ -188,6 +275,20 @@ export default function RotationLeaderboard() {
     } else {
       setSortField(field);
       setSortOrder('desc');
+    }
+  };
+
+  const handleRowClick = (sectorName: string) => {
+    if (selectedSector) return; // Already in subsector view
+
+    if (market === 'MAI') {
+      setMaiNotice(`ตลาด MAI ไม่มี Subsector (แสดงระดับ Sector สรุปภาพรวมเท่านั้น)`);
+      setTimeout(() => setMaiNotice(null), 3500);
+      return;
+    }
+
+    if (onSelectSector) {
+      onSelectSector(sectorName);
     }
   };
 
@@ -227,40 +328,74 @@ export default function RotationLeaderboard() {
 
   return (
     <div className="space-y-6">
+      {/* MAI Notice Toast */}
+      {maiNotice && (
+        <div className="p-3 bg-amber-500/15 border border-amber-500/30 rounded-xl text-[12px] text-amber-300 flex items-center justify-between animate-fade-in">
+          <span>{maiNotice}</span>
+          <button
+            onClick={() => setMaiNotice(null)}
+            className="text-amber-300/60 hover:text-amber-300 text-[14px] font-bold px-2"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Top Header & Market Toggle */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-[20px] font-bold text-white tracking-tight">
-              Sector Rotation Leaderboard
-            </h1>
-            <span className="px-2 py-0.5 text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">
-              RRG Phase 2
-            </span>
+            {selectedSector ? (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => onSelectSector?.(null)}
+                  className="flex items-center gap-1 text-[12px] text-indigo-400 hover:text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-1 rounded-lg transition-colors"
+                >
+                  <ChevronLeft size={14} /> กลับ Sector
+                </button>
+                <h1 className="text-[18px] font-bold text-white tracking-tight flex items-center gap-2">
+                  <span className="text-white/40">{market} /</span> {selectedSector}{' '}
+                  <span className="text-white/40 font-normal">→ Subsector Leaderboard</span>
+                </h1>
+              </div>
+            ) : (
+              <>
+                <h1 className="text-[20px] font-bold text-white tracking-tight">
+                  Sector Rotation Leaderboard
+                </h1>
+                <span className="px-2 py-0.5 text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">
+                  RRG Phase 4
+                </span>
+              </>
+            )}
           </div>
           <p className="text-[13px] text-white/40 mt-1">
-            จัดอันดับ Sector ตาม Relative Strength (RS) และ Momentum 20 วันทำการ
+            {selectedSector
+              ? `ตารางย่อยระดับ Subsector ในกลุ่ม ${selectedSector}`
+              : `จัดอันดับ Sector ตาม Relative Strength (RS) และ Momentum 20 วันทำการ`}
             {dates.length > 0 && ` (${dates[0]} ถึง ${dates[dates.length - 1]})`}
           </p>
         </div>
 
         {/* Market Toggle */}
-        <div className="flex gap-2">
-          {(['SET', 'MAI'] as Market[]).map(m => (
-            <button
-              key={m}
-              onClick={() => setMarket(m)}
-              className={[
-                'px-4 py-2 rounded-xl text-[12px] font-bold uppercase tracking-wider transition-all border shadow-sm',
-                market === m
-                  ? 'bg-white text-black border-white'
-                  : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:bg-white/[0.08] hover:text-white',
-              ].join(' ')}
-            >
-              {m}
-            </button>
-          ))}
-        </div>
+        {!selectedSector && (
+          <div className="flex gap-2">
+            {(['SET', 'MAI'] as Market[]).map(m => (
+              <button
+                key={m}
+                onClick={() => setMarket(m)}
+                className={[
+                  'px-4 py-2 rounded-xl text-[12px] font-bold uppercase tracking-wider transition-all border shadow-sm',
+                  market === m
+                    ? 'bg-white text-black border-white'
+                    : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:bg-white/[0.08] hover:text-white',
+                ].join(' ')}
+              >
+                {m}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Summary Cards */}
@@ -301,7 +436,7 @@ export default function RotationLeaderboard() {
         <div className="p-4 border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="text-[13px] font-bold text-white">
-              {market} Sectors ({filteredAndSortedSectors.length} / {totalSectors})
+              {selectedSector ? `${selectedSector} Subsectors` : `${market} Sectors`} ({filteredAndSortedSectors.length} / {totalSectors})
             </span>
             {selectedQuadrant !== 'All' && (
               <button
@@ -343,7 +478,7 @@ export default function RotationLeaderboard() {
                   : 'bg-white/[0.03] text-white/50 border-white/[0.06] hover:text-white'
               }`}
             >
-              ชื่อ Sector {sortField === 'name' ? (sortOrder === 'desc' ? '▼' : '▲') : ''}
+              ชื่อ {selectedSector ? 'Subsector' : 'Sector'} {sortField === 'name' ? (sortOrder === 'desc' ? '▼' : '▲') : ''}
             </button>
           </div>
         </div>
@@ -351,7 +486,7 @@ export default function RotationLeaderboard() {
         {/* Table Content */}
         {filteredAndSortedSectors.length === 0 ? (
           <div className="p-8 text-center text-white/40 text-[13px]">
-            ไม่พบ Sector ใน Quadrant นี้
+            ไม่พบรายการใน Quadrant นี้
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -359,7 +494,7 @@ export default function RotationLeaderboard() {
               <thead className="bg-white/[0.02] text-white/40 font-semibold border-b border-white/[0.06] text-[11px] uppercase tracking-wider">
                 <tr>
                   <th className="py-3 px-4 w-12 text-center">#</th>
-                  <th className="py-3 px-4">Sector</th>
+                  <th className="py-3 px-4">{selectedSector ? 'Subsector' : 'Sector'}</th>
                   <th className="py-3 px-4 text-center">RS Score</th>
                   <th className="py-3 px-4 text-center">Momentum (20d)</th>
                   <th className="py-3 px-4 text-center">Quadrant</th>
@@ -369,13 +504,16 @@ export default function RotationLeaderboard() {
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
                 {filteredAndSortedSectors.map((item, idx) => {
-                  const color = sectorColor(item.sector);
+                  const color = sectorColor(selectedSector ?? item.sector);
                   const qCfg = QUADRANT_CONFIG[item.quadrant];
 
                   return (
                     <tr
                       key={item.sector}
-                      className="hover:bg-white/[0.02] transition-colors group cursor-default"
+                      onClick={() => handleRowClick(item.sector)}
+                      className={`hover:bg-white/[0.03] transition-colors group ${
+                        !selectedSector && market === 'SET' ? 'cursor-pointer' : 'cursor-default'
+                      }`}
                     >
                       {/* Rank */}
                       <td className="py-3 px-4 text-center font-bold text-white/40 tabular-nums">
@@ -390,10 +528,35 @@ export default function RotationLeaderboard() {
                             style={{ backgroundColor: color }}
                           />
                           <div>
-                            <div className="flex items-center gap-2">
-                              <span className="font-extrabold text-white text-[14px]">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="font-extrabold text-white text-[14px] group-hover:text-indigo-300 transition-colors">
                                 {item.sector}
                               </span>
+
+                              {/* Spread Flag Warning */}
+                              {item.spreadInfo?.hasSpreadFlag && (
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleRowClick(item.sector);
+                                  }}
+                                  className="flex items-center gap-1 text-[10px] font-bold text-amber-300 bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5 rounded hover:bg-amber-500/25 transition-colors"
+                                  title={`subsector RS กระจาย ${item.spreadInfo.spread} จุด (สูงสุด: ${item.spreadInfo.maxSubsector} ${item.spreadInfo.maxRs}, ต่ำสุด: ${item.spreadInfo.minSubsector} ${item.spreadInfo.minRs}) — กดดูข้างใน`}
+                                >
+                                  <AlertTriangle size={10} /> ⚠ subsector แตกแถว ({item.spreadInfo.spread}pt)
+                                </button>
+                              )}
+
+                              {/* Small Sample Warning for Subsector */}
+                              {item.isSmallSample && (
+                                <span
+                                  className="flex items-center gap-1 text-[10px] text-sky-300 bg-sky-500/15 border border-sky-500/30 px-1.5 py-0.5 rounded"
+                                  title={`มีหุ้นเพียง ${item.count} ตัว ค่า median อาจแกว่งง่าย`}
+                                >
+                                  <Info size={10} /> sample น้อย ({item.count} หุ้น)
+                                </span>
+                              )}
+
                               {item.incomplete20Days && (
                                 <span
                                   className="flex items-center gap-1 text-[10px] text-amber-400 bg-amber-400/10 border border-amber-400/20 px-1.5 py-0.5 rounded"
@@ -404,7 +567,7 @@ export default function RotationLeaderboard() {
                               )}
                             </div>
                             <span className="text-[11px] text-white/35 font-medium">
-                              {item.count} หุ้น
+                              {item.count} หุ้น {!selectedSector && market === 'SET' && '· กดเพื่อดู Subsector RRG'}
                             </span>
                           </div>
                         </div>
@@ -475,11 +638,10 @@ export default function RotationLeaderboard() {
       <div className="flex items-start gap-2 p-4 bg-white/[0.02] border border-white/[0.05] rounded-xl text-[12px] text-white/40">
         <Info size={14} className="mt-0.5 flex-shrink-0 text-white/50" />
         <div>
-          <p className="font-semibold text-white/60">วิธีการคำนวณ Quadrant:</p>
+          <p className="font-semibold text-white/60">วิธีการอ่านและเจาะลึก Subsector:</p>
           <p className="mt-0.5">
-            • <b>Leading</b> (RS ≥ 50, Momentum ≥ 0) | <b>Weakening</b> (RS ≥ 50, Momentum &lt; 0)
-            <br />• <b>Improving</b> (RS &lt; 50, Momentum ≥ 0) | <b>Lagging</b> (RS &lt; 50, Momentum &lt; 0)
-            <br />• Threshold RS 50 คือจุดกึ่งกลาง scale RS (1-99) — สามารถปรับเปลี่ยนตาม Market Median ได้ในภายหลัง
+            • <b>⚠ subsector แตกแถว:</b> เตือนเมื่อค่า RS ระหว่าง Subsector ในกลุ่มต่างกัน &gt; 25 จุด (Aggregation Trap)
+            <br />• <b>กดที่แถว Sector:</b> เพื่อเจาะลึกดู Subsector RRG ของกลุ่มนั้น
           </p>
         </div>
       </div>

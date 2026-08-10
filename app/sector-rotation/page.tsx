@@ -6,9 +6,17 @@ import RotationLeaderboard from '@/components/RotationLeaderboard';
 import { ScatterChart, Table } from 'lucide-react';
 
 type ViewMode = 'chart' | 'table';
+type Market = 'SET' | 'MAI';
 
 export default function SectorRotationPage() {
   const [viewMode, setViewMode] = useState<ViewMode>('chart');
+  const [market, setMarket] = useState<Market>('SET');
+  const [selectedSector, setSelectedSector] = useState<string | null>(null);
+
+  const handleMarketChange = (m: Market) => {
+    setMarket(m);
+    setSelectedSector(null); // Reset subsector drill-down when market changes
+  };
 
   return (
     <div className="p-4 md:p-6 max-w-[1400px] mx-auto space-y-5">
@@ -20,11 +28,11 @@ export default function SectorRotationPage() {
               Relative Rotation Graph (RRG)
             </h1>
             <span className="px-2 py-0.5 text-[10px] md:text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">
-              Phase 3
+              Phase 4
             </span>
           </div>
           <p className="text-[12px] text-white/40 mt-0.5">
-            วิเคราะห์ทิศทางและโมเมนตัมการหมุนเวียนเงินของ Sector ย้อนหลัง 4 สัปดาห์
+            วิเคราะห์ทิศทางและโมเมนตัมการหมุนเวียนเงินของ Sector & Subsector ย้อนหลัง 4 สัปดาห์
           </p>
         </div>
 
@@ -59,9 +67,19 @@ export default function SectorRotationPage() {
 
       {/* Main View Area */}
       {viewMode === 'chart' ? (
-        <RRGChart />
+        <RRGChart
+          market={market}
+          selectedSector={selectedSector}
+          onSelectSector={setSelectedSector}
+          onMarketChange={handleMarketChange}
+        />
       ) : (
-        <RotationLeaderboard />
+        <RotationLeaderboard
+          market={market}
+          selectedSector={selectedSector}
+          onSelectSector={setSelectedSector}
+          onMarketChange={handleMarketChange}
+        />
       )}
     </div>
   );

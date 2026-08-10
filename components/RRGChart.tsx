@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import rawHistory from '@/data/scans/sector_rs_history.json';
-import { Info, HelpCircle } from 'lucide-react';
+import { computeSectorSpreads, SectorSpreadInfo } from '@/components/RotationLeaderboard';
+import { Info, AlertTriangle, ChevronLeft } from 'lucide-react';
 
 type Market = 'SET' | 'MAI';
 type Quadrant = 'Leading' | 'Weakening' | 'Improving' | 'Lagging';
@@ -52,14 +53,31 @@ export interface SectorRRGData {
   count: number;
   head: TrailPoint;
   trail: TrailPoint[];
+  spreadInfo?: SectorSpreadInfo | null;
+  isSmallSample?: boolean;
 }
 
-export function computeSectorRRGTrails(market: Market): {
+export function computeSectorRRGTrails(
+  market: Market,
+  selectedSector?: string | null
+): {
   sectorsData: SectorRRGData[];
   dates: string[];
   maxAbsMom: number;
 } {
-  const marketSectorsMap = historyData.sectors?.[market] ?? {};
+  const isSubsectorMode = market === 'SET' && Boolean(selectedSector);
+  let marketSectorsMap: Record<string, SectorHistoryItem> = {};
+
+  if (isSubsectorMode && selectedSector) {
+    marketSectorsMap = (historyData.sectors?.['SET']?.[selectedSector]?.subsectors ?? {}) as Record<
+      string,
+      SectorHistoryItem
+    >;
+  } else {
+    marketSectorsMap = historyData.sectors?.[market] ?? {};
+  }
+
+  const spreadsMap = market === 'SET' ? computeSectorSpreads() : {};
   const dates = historyData.dates ?? [];
 
   const sectorsData: SectorRRGData[] = [];
@@ -118,11 +136,16 @@ export function computeSectorRRGTrails(market: Market): {
 
     if (trail.length > 0) {
       const head = trail[trail.length - 1];
+      const spreadInfo = isSubsectorMode ? null : spreadsMap[sector] ?? null;
+      const isSmallSample = isSubsectorMode ? count < 5 : false;
+
       sectorsData.push({
         sector,
         count,
         head,
         trail,
+        spreadInfo,
+        isSmallSample,
       });
     }
   }
@@ -139,12 +162,20 @@ export function computeSectorRRGTrails(market: Market): {
 
 interface RRGChartProps {
   market?: Market;
+  selectedSector?: string | null;
+  onSelectSector?: (sector: string | null) => void;
   onMarketChange?: (m: Market) => void;
 }
 
-export default function RRGChart({ market: propMarket, onMarketChange }: RRGChartProps) {
+export default function RRGChart({
+  market: propMarket,
+  selectedSector: propSelectedSector,
+  onSelectSector,
+  onMarketChange,
+}: RRGChartProps) {
   const [internalMarket, setInternalMarket] = useState<Market>('SET');
   const [hoveredSector, setHoveredSector] = useState<string | null>(null);
+  const [maiNotice, setMaiNotice] = useState<string | null>(null);
 
   const market = propMarket ?? internalMarket;
   const setMarket = (m: Market) => {
@@ -152,9 +183,11 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
     else setInternalMarket(m);
   };
 
+  const selectedSector = propSelectedSector ?? null;
+
   const { sectorsData, dates, maxAbsMom } = useMemo(
-    () => computeSectorRRGTrails(market),
-    [market]
+    () => computeSectorRRGTrails(market, selectedSector),
+    [market, selectedSector]
   );
 
   const quadrantCounts = useMemo(() => {
@@ -169,6 +202,20 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
     }
     return counts;
   }, [sectorsData]);
+
+  const handleSectorClick = (sectorName: string) => {
+    if (selectedSector) return; // Already in subsector view
+
+    if (market === 'MAI') {
+      setMaiNotice(`ตลาด MAI ไม่มี Subsector (แสดงระดับ Sector สรุปภาพรวมเท่านั้น)`);
+      setTimeout(() => setMaiNotice(null), 3500);
+      return;
+    }
+
+    if (onSelectSector) {
+      onSelectSector(sectorName);
+    }
+  };
 
   // SVG Dimension Constants
   const viewBoxWidth = 720;
@@ -194,12 +241,40 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
 
   return (
     <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 md:p-6 space-y-4 shadow-sm">
+      {/* MAI Notice Toast */}
+      {maiNotice && (
+        <div className="p-3 bg-amber-500/15 border border-amber-500/30 rounded-xl text-[12px] text-amber-300 flex items-center justify-between animate-fade-in">
+          <span>{maiNotice}</span>
+          <button
+            onClick={() => setMaiNotice(null)}
+            className="text-amber-300/60 hover:text-amber-300 text-[14px] font-bold px-2"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Chart Top Title & Legend */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-white/[0.06]">
         <div>
-          <h2 className="text-[16px] font-bold text-white flex items-center gap-2">
-            RRG Rotation Scatter Chart
-          </h2>
+          {selectedSector ? (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => onSelectSector?.(null)}
+                className="flex items-center gap-1 text-[12px] text-indigo-400 hover:text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-1 rounded-lg transition-colors"
+              >
+                <ChevronLeft size={14} /> กลับ Sector
+              </button>
+              <h2 className="text-[16px] font-bold text-white flex items-center gap-2">
+                <span className="text-white/40">{market} /</span> {selectedSector}{' '}
+                <span className="text-white/40 font-normal">→ Subsector RRG Chart</span>
+              </h2>
+            </div>
+          ) : (
+            <h2 className="text-[16px] font-bold text-white flex items-center gap-2">
+              RRG Rotation Scatter Chart ({market})
+            </h2>
+          )}
           <p className="text-[12px] text-white/40 mt-0.5">
             แกน X: RS Score (0–100) · แกน Y: 20-Day RS Momentum (▲/▼) · หาง (Trail): 4 สัปดาห์ย้อนหลัง
             {dates.length > 0 && ` (${dates[0]} ถึง ${dates[dates.length - 1]})`}
@@ -209,24 +284,26 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
         {/* Market Switcher & Quadrant Quick Legend */}
         <div className="flex flex-wrap items-center gap-3">
           {/* Market Toggle */}
-          <div className="flex gap-1.5 bg-white/[0.04] p-1 rounded-xl border border-white/[0.08]">
-            {(['SET', 'MAI'] as Market[]).map(m => (
-              <button
-                key={m}
-                onClick={() => setMarket(m)}
-                className={[
-                  'px-3 py-1 rounded-lg text-[11px] font-bold uppercase transition-all',
-                  market === m
-                    ? 'bg-white text-black shadow-sm'
-                    : 'text-white/50 hover:text-white',
-                ].join(' ')}
-              >
-                {m}
-              </button>
-            ))}
-          </div>
+          {!selectedSector && (
+            <div className="flex gap-1.5 bg-white/[0.04] p-1 rounded-xl border border-white/[0.08]">
+              {(['SET', 'MAI'] as Market[]).map(m => (
+                <button
+                  key={m}
+                  onClick={() => setMarket(m)}
+                  className={[
+                    'px-3 py-1 rounded-lg text-[11px] font-bold uppercase transition-all',
+                    market === m
+                      ? 'bg-white text-black shadow-sm'
+                      : 'text-white/50 hover:text-white',
+                  ].join(' ')}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+          )}
 
-          <div className="h-4 w-px bg-white/10 hidden sm:block" />
+          {!selectedSector && <div className="h-4 w-px bg-white/10 hidden sm:block" />}
 
           {/* Quadrant Quick Legend */}
           <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold">
@@ -416,7 +493,7 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
 
           {/* Sector Trails & Head Nodes */}
           {sectorsData.map(sec => {
-            const color = sectorColor(sec.sector);
+            const color = sectorColor(selectedSector ?? sec.sector);
             const isHovered = hoveredSector === sec.sector;
             const isDimmed = hoveredSector !== null && !isHovered;
 
@@ -433,6 +510,7 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
                 key={sec.sector}
                 onMouseEnter={() => setHoveredSector(sec.sector)}
                 onMouseLeave={() => setHoveredSector(null)}
+                onClick={() => handleSectorClick(sec.sector)}
                 className={`transition-opacity duration-200 cursor-pointer ${
                   isDimmed ? 'opacity-25' : 'opacity-100'
                 }`}
@@ -486,6 +564,7 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
                   }`}
                 >
                   {sec.sector}
+                  {sec.spreadInfo?.hasSpreadFlag ? ' ⚠' : ''}
                 </text>
               </g>
             );
@@ -507,19 +586,19 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
               : 'text-rose-400 border-rose-500/30 bg-rose-500/10';
 
           return (
-            <div className="absolute top-4 left-16 bg-[#0b0d12]/95 border border-white/20 rounded-xl p-3.5 shadow-2xl backdrop-blur-md max-w-[260px] space-y-2 pointer-events-none z-10">
+            <div className="absolute top-4 left-16 bg-[#0b0d12]/95 border border-white/20 rounded-xl p-3.5 shadow-2xl backdrop-blur-md max-w-[280px] space-y-2 pointer-events-none z-10">
               <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-2">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 min-w-0">
                   <div
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: sectorColor(sec.sector) }}
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: sectorColor(selectedSector ?? sec.sector) }}
                   />
-                  <span className="font-extrabold text-white text-[14px]">
+                  <span className="font-extrabold text-white text-[13px] truncate">
                     {sec.sector}
                   </span>
                 </div>
                 <span
-                  className={`px-2 py-0.5 text-[10px] font-bold rounded border ${qColor}`}
+                  className={`px-2 py-0.5 text-[10px] font-bold rounded border flex-shrink-0 ${qColor}`}
                 >
                   {sec.head.quadrant}
                 </span>
@@ -548,6 +627,28 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
                 </div>
               </div>
 
+              {/* Spread Flag Warning Banner inside Tooltip */}
+              {sec.spreadInfo?.hasSpreadFlag && (
+                <div className="p-2 bg-amber-500/15 border border-amber-500/30 rounded-lg text-[11px] text-amber-300 space-y-1">
+                  <div className="flex items-center gap-1 font-bold">
+                    <AlertTriangle size={11} /> ⚠ subsector แตกแถว ({sec.spreadInfo.spread}pt)
+                  </div>
+                  <p className="text-[10.5px] text-amber-200/80 leading-tight">
+                    กระจายตัวสูง: {sec.spreadInfo.maxSubsector} ({sec.spreadInfo.maxRs}) vs {sec.spreadInfo.minSubsector} ({sec.spreadInfo.minRs})
+                  </p>
+                  <p className="text-[10px] text-amber-400 font-semibold underline pt-0.5">
+                    👉 กดที่จุดเพื่อดู Subsector RRG
+                  </p>
+                </div>
+              )}
+
+              {/* Small Sample Warning */}
+              {sec.isSmallSample && (
+                <div className="p-2 bg-sky-500/15 border border-sky-500/30 rounded-lg text-[11px] text-sky-300">
+                  ℹ sample น้อย ({sec.count} หุ้น) — ค่า RS อาจแกว่งง่าย
+                </div>
+              )}
+
               <div className="pt-1.5 border-t border-white/10 text-[11px] text-white/50">
                 <p className="font-semibold text-white/70 mb-1">ประวัติหาง (Trail History):</p>
                 <div className="space-y-0.5">
@@ -569,11 +670,13 @@ export default function RRGChart({ market: propMarket, onMarketChange }: RRGChar
       </div>
 
       {/* Bottom Info Tip */}
-      <div className="flex items-center gap-2 text-[11.5px] text-white/40 pt-1">
-        <Info size={13} className="text-white/50 flex-shrink-0" />
-        <span>
-          <b>วิธีอ่าน RRG Chart:</b> ลากเมาส์เหนือจุด หรือหางเพื่อดูเส้นทางหมุนเวียน (Clockwise Rotation) จาก Lagging → Improving → Leading → Weakening
-        </span>
+      <div className="flex items-center justify-between text-[11.5px] text-white/40 pt-1">
+        <div className="flex items-center gap-2">
+          <Info size={13} className="text-white/50 flex-shrink-0" />
+          <span>
+            <b>วิธีอ่าน RRG Chart:</b> ลากเมาส์เพื่อดูหาง 4w {!selectedSector && market === 'SET' && '· กดที่จุดเพื่อดู Subsector RRG'}
+          </span>
+        </div>
       </div>
     </div>
   );
