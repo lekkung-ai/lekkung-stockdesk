@@ -130,7 +130,7 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
   const router = useRouter();
   const [weekOffset, setWeekOffset] = useState(0);
 
-  const todayAnchor = feed.generatedAt ? feed.generatedAt.slice(0, 10) : new Date().toISOString().slice(0, 10);
+  const todayAnchor = new Date().toISOString().slice(0, 10);
   const weekMonday = addDaysISO(mondayOf(todayAnchor), weekOffset * 7);
   const weekDates = [0, 1, 2, 3, 4].map(i => addDaysISO(weekMonday, i));
 
