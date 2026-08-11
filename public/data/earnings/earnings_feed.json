@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-10T22:00:38.850430+07:00",
+  "generatedAt": "2026-08-11T11:07:09.711504+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 88,
+      "count": 96,
       "top3": [
         {
           "ticker": "MST",
@@ -23,7 +23,7 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 22,
+      "count": 24,
       "top3": [
         {
           "ticker": "MORE",
@@ -41,19 +41,19 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 67,
+      "count": 72,
       "top3": [
         {
           "ticker": "SORKON",
           "netProfitYoY": -98.37682573232529
         },
         {
-          "ticker": "SUN",
-          "netProfitYoY": -94.16626322705581
+          "ticker": "PMTA",
+          "netProfitYoY": -97.83705140640156
         },
         {
-          "ticker": "PANEL",
-          "netProfitYoY": -88.46216709495228
+          "ticker": "SUN",
+          "netProfitYoY": -94.16626322705581
         }
       ]
     },
@@ -77,7 +77,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 28,
+      "count": 30,
       "top3": [
         {
           "ticker": "SAM",
@@ -101,11 +101,545 @@
   },
   "announcements": [
     {
+      "ticker": "CPANEL",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-08-11T09:41:17+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -18715000.0,
+      "netProfitPrior": 2189000.0,
+      "netProfitYoY": -954.956601187757,
+      "netProfitPriorQ": -14705000.0,
+      "netProfitQoQ": -27.269636178170693,
+      "profitAcceleration": "stable",
+      "eps": -0.11469,
+      "epsPrior": 0.013,
+      "epsYoY": -982.2307692307693,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105762501&symbol=CPANEL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105831901&symbol=CPANEL",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105762401&symbol=CPANEL",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.84,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "JCT",
+      "sector": "Consump",
+      "subsector": "Personal Products & Pharmaceuticals",
+      "market": "SET",
+      "announceDate": "2026-08-11T09:10:06+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 33240000.0,
+      "netProfitPrior": 30893000.0,
+      "netProfitYoY": 7.597190302010164,
+      "netProfitPriorQ": 33240000.0,
+      "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
+      "eps": 2.46,
+      "epsPrior": 2.29,
+      "epsYoY": 7.423580786026197,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": true,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105830201&symbol=JCT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031989561&symbol=JCT",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.6,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "ABM",
+      "sector": "Resources",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-08-11T08:43:52+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 12416920.0,
+      "netProfitPrior": -21955460.0,
+      "netProfitYoY": 156.55504371122262,
+      "netProfitPriorQ": 12416920.0,
+      "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
+      "eps": 0.02,
+      "epsPrior": -0.04,
+      "epsYoY": 150.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": true,
+      "bucket": "turnaround",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105829001&symbol=ABM",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17863133344051&symbol=ABM",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105818901&symbol=ABM",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 11.54,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "TRU",
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:38:43+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 64617000.0,
+      "netProfitPrior": 79034000.0,
+      "netProfitYoY": -18.241516309436445,
+      "netProfitPriorQ": 48968000.0,
+      "netProfitQoQ": 31.95760496650874,
+      "profitAcceleration": "stable",
+      "eps": 0.1,
+      "epsPrior": 0.12,
+      "epsYoY": -16.66666666666666,
+      "auditorOpinion": "มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105828601&symbol=TRU",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031989661&symbol=TRU",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105829301&symbol=TRU",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "ASIMAR",
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:37:10+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 14859000.0,
+      "netProfitPrior": 12125000.0,
+      "netProfitYoY": 22.548453608247424,
+      "netProfitPriorQ": 1933000.0,
+      "netProfitQoQ": 668.7015002586653,
+      "profitAcceleration": "accelerating",
+      "eps": 0.06,
+      "epsPrior": 0.05,
+      "epsYoY": 19.99999999999999,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105804401&symbol=ASIMAR",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031989681&symbol=ASIMAR",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105806301&symbol=ASIMAR",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 1.38,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "SMIT",
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:31:22+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 46423000.0,
+      "netProfitPrior": 39724000.0,
+      "netProfitYoY": 16.863860638404997,
+      "netProfitPriorQ": 38892000.0,
+      "netProfitQoQ": 19.363879461071686,
+      "profitAcceleration": "accelerating",
+      "eps": 0.09,
+      "epsPrior": 0.07,
+      "epsYoY": 28.57142857142855,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105802901&symbol=SMIT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031988871&symbol=SMIT",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "PCSGH",
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:29:59+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 53761000.0,
+      "netProfitPrior": 116942000.0,
+      "netProfitYoY": -54.02763763233056,
+      "netProfitPriorQ": 124832000.0,
+      "netProfitQoQ": -56.93331837990259,
+      "profitAcceleration": "stable",
+      "eps": 0.037,
+      "epsPrior": 0.077,
+      "epsYoY": -51.948051948051955,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105827201&symbol=PCSGH",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031988211&symbol=PCSGH",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105827301&symbol=PCSGH",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.64,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "PMTA",
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:28:47+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 1338000.0,
+      "netProfitPrior": 61860000.0,
+      "netProfitYoY": -97.83705140640156,
+      "netProfitPriorQ": 12678000.0,
+      "netProfitQoQ": -89.44628490298155,
+      "profitAcceleration": "stable",
+      "eps": 0.01,
+      "epsPrior": 0.61,
+      "epsYoY": -98.36065573770492,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105756301&symbol=PMTA",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031988661&symbol=PMTA",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105780401&symbol=PMTA",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.53,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "ANI",
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:18:33+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 261720000.0,
+      "netProfitPrior": 135997000.0,
+      "netProfitYoY": 92.44542159018214,
+      "netProfitPriorQ": 113490000.0,
+      "netProfitQoQ": 130.61062648691515,
+      "profitAcceleration": "accelerating",
+      "eps": 0.1416,
+      "epsPrior": 0.0736,
+      "epsYoY": 92.3913043478261,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105822601&symbol=ANI",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031988171&symbol=ANI",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105822701&symbol=ANI",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 3.3,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "SPG",
+      "sector": "Industrials",
+      "subsector": "Automotive",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:14:41+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 103762000.0,
+      "netProfitPrior": 96986000.0,
+      "netProfitYoY": 6.986575382013899,
+      "netProfitPriorQ": 116573000.0,
+      "netProfitQoQ": -10.989680286172613,
+      "profitAcceleration": "decelerating",
+      "eps": 0.3,
+      "epsPrior": 0.28,
+      "epsYoY": 7.142857142857128,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105768101&symbol=SPG",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031987901&symbol=SPG",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105768201&symbol=SPG",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 1.77,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "PJW",
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:10:22+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 22247000.0,
+      "netProfitPrior": 36501000.0,
+      "netProfitYoY": -39.05098490452316,
+      "netProfitPriorQ": 30455000.0,
+      "netProfitQoQ": -26.951239533738303,
+      "profitAcceleration": "stable",
+      "eps": 0.038,
+      "epsPrior": 0.063,
+      "epsYoY": -39.682539682539684,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105827401&symbol=PJW",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031986981&symbol=PJW",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105826601&symbol=PJW",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -1.92,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "SAPPE",
+      "sector": "Agro",
+      "subsector": "Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-08-11T08:08:46+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 188827000.0,
+      "netProfitPrior": 248059000.0,
+      "netProfitYoY": -23.87819026925046,
+      "netProfitPriorQ": 182879000.0,
+      "netProfitQoQ": 3.2524237337255784,
+      "profitAcceleration": "stable",
+      "eps": 0.62,
+      "epsPrior": 0.81,
+      "epsYoY": -23.456790123456795,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105823601&symbol=SAPPE",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031987571&symbol=SAPPE",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105820601&symbol=SAPPE",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -2.19,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "PPM",
+      "sector": "Industrials",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-08-11T07:50:20+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 23371000.0,
+      "netProfitPrior": -8586000.0,
+      "netProfitYoY": 372.1989284882367,
+      "netProfitPriorQ": 53379000.0,
+      "netProfitQoQ": -56.21686430993462,
+      "profitAcceleration": "decelerating",
+      "eps": 0.0554,
+      "epsPrior": -0.0203,
+      "epsYoY": 372.90640394088666,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "turnaround",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105824601&symbol=PPM",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031986671&symbol=PPM",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105824501&symbol=PPM",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "VNG",
+      "sector": "Property",
+      "subsector": "Construction Materials",
+      "market": "SET",
+      "announceDate": "2026-08-11T07:23:58+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -155805000.0,
+      "netProfitPrior": -30556000.0,
+      "netProfitYoY": -409.8998560020945,
+      "netProfitPriorQ": -239230000.0,
+      "netProfitQoQ": 34.87229862475442,
+      "profitAcceleration": "stable",
+      "eps": -0.09,
+      "epsPrior": -0.02,
+      "epsYoY": -349.99999999999994,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105811401&symbol=VNG",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031986181&symbol=VNG",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105811501&symbol=VNG",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.97,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "MADAME",
+      "sector": "Agro",
+      "subsector": "Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-08-11T06:59:58+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 36276000.0,
+      "netProfitPrior": 16718000.0,
+      "netProfitYoY": 116.98767795190813,
+      "netProfitPriorQ": 21512000.0,
+      "netProfitQoQ": 68.63146150985496,
+      "profitAcceleration": "accelerating",
+      "eps": 0.045,
+      "epsPrior": 0.021,
+      "epsYoY": 114.28571428571426,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105824101&symbol=MADAME",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031986021&symbol=MADAME",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105824201&symbol=MADAME",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 1.2,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "TNL",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-08-11T06:33:29+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 135308000.0,
+      "netProfitPrior": 68632000.0,
+      "netProfitYoY": 97.1500174845553,
+      "netProfitPriorQ": 114404000.0,
+      "netProfitQoQ": 18.272088388517886,
+      "profitAcceleration": "accelerating",
+      "eps": 0.44,
+      "epsPrior": 0.23,
+      "epsYoY": 91.30434782608695,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105823201&symbol=TNL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17864031985061&symbol=TNL",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105824401&symbol=TNL",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 2.17,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "SIRIPRT",
+      "sector": "Property",
+      "subsector": "Property Fund & REITs",
+      "market": "SET",
+      "announceDate": "2026-08-10T22:12:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105776701&symbol=SIRIPRT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17863133346261&symbol=SIRIPRT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105776801&symbol=SIRIPRT",
+      "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "COCOCO",
+      "sector": "Agro",
+      "subsector": "Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-08-10T22:11:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 122425000.0,
+      "netProfitPrior": 77325000.0,
+      "netProfitYoY": 58.32525056579373,
+      "netProfitPriorQ": 82329000.0,
+      "netProfitQoQ": 48.70215841319583,
+      "profitAcceleration": "accelerating",
+      "eps": 0.08,
+      "epsPrior": 0.05,
+      "epsYoY": 60.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105810501&symbol=COCOCO",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17863133346201&symbol=COCOCO",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105812801&symbol=COCOCO",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 1.67,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
+    },
+    {
       "ticker": "PTL",
       "sector": "Industrials",
       "subsector": "Packaging",
       "market": "SET",
-      "announceDate": "2026-08-10T21:47:08+07:00",
+      "announceDate": "2026-08-10T21:47:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 503760000.0,
@@ -121,18 +655,21 @@
       "isCorrection": false,
       "bucket": "turnaround",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105821801&symbol=PTL",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17863133345761&symbol=PTL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105822501&symbol=PTL",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105821701&symbol=PTL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 1.36,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "AMATAV",
       "sector": "Property",
       "subsector": "Property Development",
       "market": "SET",
-      "announceDate": "2026-08-10T21:40:03+07:00",
+      "announceDate": "2026-08-10T21:40:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 359820000.0,
@@ -152,14 +689,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105814201&symbol=AMATAV",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 7.77,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "BANPU",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET",
-      "announceDate": "2026-08-10T21:19:05+07:00",
+      "announceDate": "2026-08-10T21:19:00+07:00",
       "quarter": null,
       "periodEnd": null,
       "netProfit": null,
@@ -179,14 +719,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105820901&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บมจ. บ้านปู (BANPUU) ไตรมาสที่ 2/2569 (F45) (สอบทานแล้ว) (ก่อนการควบบริษัท)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.68,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TAKUNI",
       "sector": "Resources",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T21:17:48+07:00",
+      "announceDate": "2026-08-10T21:17:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 21927000.0,
@@ -206,14 +749,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105821001&symbol=TAKUNI",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รวมรายได้จากการขายและให้บริการ 2,041.08 2,002.54 38.54 1.92% 932.89 1,063.53 (130.64) (12.28%) ธุรกิจขายก๊าซ 141.52 163.74 (22.22) (13.57%) 62.77 78.76 (15.99) (20.30%) ธุรกิจขนส่งทางบก 18.41 19.04 (0.63) (3.31%) 10.77 9.80 0.97",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 5.26,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "BLC",
       "sector": "Consump",
       "subsector": "Personal Products & Pharmaceuticals",
       "market": "SET",
-      "announceDate": "2026-08-10T21:04:11+07:00",
+      "announceDate": "2026-08-10T21:04:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 29868000.0,
@@ -233,7 +779,10 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105818001&symbol=BLC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขายและให้บริการ 412.8 417.8 399.0 -3.3% -4.5% 853.2 816.8 -4.3% กำไรขั้นต้น 245.7 229.0 223.6 -9.0% -2.4% 498.8 452.6 -9.3% อัตรากำไรขั้นต้น (%) 59.5% 54.8% 56.0% -5.8% 2.2% 58.5% 55.4% -5.2% รายได้อื่น 3.9 1.8",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -1.43,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ABM",
@@ -260,14 +809,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105818901&symbol=ABM",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "เป็นผลจากการปรับกลยุทธ์เน้น การขายที่มุ่งสร้างกำไรและไม่แข่งขันราคาที่ต่ำกว่าต้นทุน ส่งผลให้แม้ปริมาณการขายจะลดลง แต่กำไรขั้นต้นของบริษัทฯดีขึ้น ปริมาณการขายในประเทศ ปริมาณการขายในประเทศในไตรมาสที่ 2 ปี 2569 อยู่ที่",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 11.54,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TFG",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T20:50:43+07:00",
+      "announceDate": "2026-08-10T20:50:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 1474460000.0,
@@ -287,14 +839,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105818701&symbol=TFG",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "สาเหตุหลักมาจากราคาไก่และ ราคาสุกรที่ลดลง ส่งผลให้อัตรากำไรขั้นต้นปรับตัวลดลง โดยในไตรมาส 2 ปี 2569 บริษัทมีอัตรากำไรขั้นต้น เท่ากับ ร้อยละ 18.45 ลดลงจากงวดเดียวกันของปีก่อนที่เท่ากับร้อยละ 24.02",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "QH",
       "sector": "Property",
       "subsector": "Property Development",
       "market": "SET",
-      "announceDate": "2026-08-10T20:38:57+07:00",
+      "announceDate": "2026-08-10T20:38:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 458031000.0,
@@ -314,14 +869,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105815901&symbol=QH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการดำเนินงานแยกตามประเภทธุรกิจ (หน่วย : ล้านบาท) ไตรมาส 2 สะสม 6 เดือน 2569 2568 ผลต่าง % 2569 2568 ผลต่าง % รายได้จากการขายอสังหาริมทรัพย์ 1,370 1,393 (23) (2) 2,654 2,356 298 13 รายได้จากธุรกิจโรงแรม 299 305 (6)",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.69,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "APP",
       "sector": "Technology",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T20:34:25+07:00",
+      "announceDate": "2026-08-10T20:34:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 41505000.0,
@@ -341,14 +899,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105816701&symbol=APP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "มีสาเหตุหลักมาจาก • รายได้ขายซอฟต์แวร์ กลุ่มบริษัท เพิ่มขึ้น 36.05 ล้ำนบำท บริษัท 30.76 ล้ำนบำท และบริษัท พีที อินโดนีเซีย แอพพลิแคด 5.45 ล้ำนบำท • รายได้ขายฮาร์ดแวร์ กลุ่มบริษัท ลดลง 8.18 ล้ำนบำท จำกบริษัท 9.16 ล้ำนบำท",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 17.69,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "WINDOW",
       "sector": "Property",
       "subsector": "Construction Materials",
       "market": "SET",
-      "announceDate": "2026-08-10T20:19:17+07:00",
+      "announceDate": "2026-08-10T20:19:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 22864710.0,
@@ -368,14 +929,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105748201&symbol=WINDOW",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขายสินค้า - ร้านค้าปลีกวัสดุก่อสร้างสมัยใหม่ 150.26 75.73 146.35 72.59 (3.91) (2.60) - ร้านค้าปลีกวัสดุก่อสร้างแบบดั้งเดิม 17.06 8.60 20.68 10.26 3.62 21.22 - ร้านค้าวินโดว์ เอเชีย 14.19 7.15 15.92 7.90 1.73 12.19",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 1.39,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "DHOUSE",
       "sector": "Property",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T20:17:22+07:00",
+      "announceDate": "2026-08-10T20:17:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -12320000.0,
@@ -395,14 +959,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105774801&symbol=DHOUSE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 3.57,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CHASE",
       "sector": "Financials",
       "subsector": "Finance & Securities",
       "market": "SET",
-      "announceDate": "2026-08-10T20:15:47+07:00",
+      "announceDate": "2026-08-10T20:15:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -10237000.0,
@@ -422,7 +989,10 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105809701&symbol=CHASE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -5.56,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "Q-CON",
@@ -449,14 +1019,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105801101&symbol=Q-CON",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขาย 452.9 452.8 0.1 0 ต้นทุนขาย 373.8 342.7 31.1 9 อัตรากำไรขั้นต้น (ร้อยละ) 17 24 - (7) ต้นทุนในการจัดจำหน่ายและค่าใช้จ่ายในการบริหาร 49.3 51.2 (1.9) (4) ต้นทุนทางการเงิน 0.3 0.4 (0.1) (25) ค่าใช้จ่ายภาษีเงินได้",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -0.82,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "AIMIRT",
       "sector": "Property",
       "subsector": "Property Fund & REITs",
       "market": "SET",
-      "announceDate": "2026-08-10T20:07:28+07:00",
+      "announceDate": "2026-08-10T20:07:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": null,
@@ -476,14 +1049,17 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.79,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ITEL",
       "sector": "Technology",
       "subsector": "Information & Communication Technology",
       "market": "SET",
-      "announceDate": "2026-08-10T20:05:51+07:00",
+      "announceDate": "2026-08-10T20:05:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 19703000.0,
@@ -503,14 +1079,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105815501&symbol=ITEL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "AIMCG",
       "sector": "Property",
       "subsector": "Property Fund & REITs",
       "market": "SET",
-      "announceDate": "2026-08-10T20:05:27+07:00",
+      "announceDate": "2026-08-10T20:05:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": null,
@@ -530,14 +1109,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105804101&symbol=AIMCG",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "มีรายได้จากการลงทุนรวมเท่ากับ 69.03 ล้านบาท เพิ่มขึ้น 3.54 ล้านบาท หรือเพิ่มขึ้นร้อยละ 5.40 จากงวดเดียวกัน ของปีก่อนหน้า โดยหลักเป็นผลจากการรับรู้รายได้จากการเข้าลงทุนในโครงการ วิลเลจ ฮับ ราชพฤกษ์ รวมถึงการรับรู้",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ASIA",
       "sector": "Services",
       "subsector": "Tourism & Leisure",
       "market": "SET",
-      "announceDate": "2026-08-10T19:58:21+07:00",
+      "announceDate": "2026-08-10T19:58:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -28744000.0,
@@ -564,7 +1146,7 @@
       "sector": "Services",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T19:51:39+07:00",
+      "announceDate": "2026-08-10T19:51:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 16004840.0,
@@ -584,14 +1166,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105813901&symbol=JPARK",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PORT",
       "sector": "Services",
       "subsector": "Transportation & Logistics",
       "market": "SET",
-      "announceDate": "2026-08-10T19:49:19+07:00",
+      "announceDate": "2026-08-10T19:49:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 8196000.0,
@@ -611,14 +1196,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105792101&symbol=PORT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "JUBILE",
       "sector": "Consumer",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T19:43:38+07:00",
+      "announceDate": "2026-08-10T19:43:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 20691000.0,
@@ -638,14 +1226,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105818201&symbol=JUBILE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "นอกจากการติดตามสถานการณ์อย่างใกล้ชิด เพื่อรองรับสถานการณ์ดังกล่าว ในไตรมาสที่ 3 บริษัทมีแผนกลยุทธ์ที่จะกระตุ้นยอดขาย และขยายฐานลูกค้า โดยการจัดงานเฉลิมฉลองครบรอบ 97 ปี ของ Jubilee Diamond ในแต่ละภูมิภาค",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -1.88,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "NCH",
       "sector": "Property",
       "subsector": "Property Development",
       "market": "SET",
-      "announceDate": "2026-08-10T19:41:34+07:00",
+      "announceDate": "2026-08-10T19:41:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -13606000.0,
@@ -665,14 +1256,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105814301&symbol=NCH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ขณะที่รายได้จากการดำเนินงานรวมอยู่ที่ 290.59 ล้านบาท เพิ่มขึ้น 26.01 ล้านบาท หรือร้อยละ 9.83 จาก 264.58 ล้านบาทในช่วงเดียวกันของปีก่อน เป็นรายได้จากการขาย อสังหาริมทรัพย์ที่เพิ่มขึ้น 26.91 ล้านบาท หรือร้อยละ 11.01",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -2.17,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "XO",
       "sector": "Agro",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T19:33:04+07:00",
+      "announceDate": "2026-08-10T19:33:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 109766000.0,
@@ -692,14 +1286,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105813301&symbol=XO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ATLAS",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET",
-      "announceDate": "2026-08-10T19:24:32+07:00",
+      "announceDate": "2026-08-10T19:24:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 59193360.0,
@@ -719,21 +1316,24 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105799301&symbol=ATLAS",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการจำหน่ายก๊าซ LPG จำนวน 5,435.3 ล้านบาท (ii) รายได้จากการรับจ้างบริหารส่วนจำหน่ายน ้ามัน 544.4 ล้านบาท และ (iii) รายได้จาก การจำหน่ายสินค้าอื่น จำนวน 72.2 ล้านบาท 2/773 สาขาที่ให้บริการ ประกอบด้วย (i)",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -3.68,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ONEE",
       "sector": "Services",
       "subsector": "Media & Publishing",
       "market": "SET",
-      "announceDate": "2026-08-10T19:20:56+07:00",
+      "announceDate": "2026-08-10T19:20:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 72900000.0,
       "netProfitPrior": 86082000.0,
       "netProfitYoY": -15.313305917613437,
-      "netProfitPriorQ": 53720000.0,
-      "netProfitQoQ": 35.703648548026806,
+      "netProfitPriorQ": 205566000.0,
+      "netProfitQoQ": -64.53693704211786,
       "profitAcceleration": "stable",
       "eps": 0.03061,
       "epsPrior": 0.03615,
@@ -746,14 +1346,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105811201&symbol=ONEE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "LEE",
       "sector": "Agro",
       "subsector": "Agribusiness",
       "market": "SET",
-      "announceDate": "2026-08-10T19:20:51+07:00",
+      "announceDate": "2026-08-10T19:20:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 26535000.0,
@@ -773,14 +1376,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105811901&symbol=LEE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2/2569 (F45) (สอบทานแล้ว)",
       "reason": "รายไดจากการขาย 714 663 593 -17% -11% กำไรขั้นตน 128 88 74 -42% -16% อัตรากำไรขั้นตน 18% 13% 12% -6% -1% กำไรสุทธิ 78 41 27 -65% -34% กำไรสวนที่เปนของผูถือหุนของบริษัทฯ 76 41 27 -64% -34% กระแสเงินสดจากการดำเนินงาน 451",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -1.59,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "BSBM",
       "sector": "Industrials",
       "subsector": "Steel",
       "market": "SET",
-      "announceDate": "2026-08-10T19:20:14+07:00",
+      "announceDate": "2026-08-10T19:20:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -17526000.0,
@@ -800,14 +1406,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105787901&symbol=BSBM",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -1.41,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SORKON",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T19:15:20+07:00",
+      "announceDate": "2026-08-10T19:15:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 599000.0,
@@ -827,14 +1436,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105789501&symbol=SORKON",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "กำไร(ขาดทุน)จากการให้เช่าและบริการ 1.2 0.1% (1.8) -0.1% 168.2% กำไร(ขาดทุน)จากการเปลี่ยนแปลงมูลค่า ยุติธรรมหักต้นทุนในการขายของสินทรัพย์ ชีวภาพ (5.0) -0.3% 19.1 1.1% -126.3% รายได้อื่น 17.1 1.1% 27.0 1.5% -36.6% ก",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -1.13,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SE-ED",
       "sector": "Services",
       "subsector": "Media & Publishing",
       "market": "SET",
-      "announceDate": "2026-08-10T19:04:29+07:00",
+      "announceDate": "2026-08-10T19:04:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 22422000.0,
@@ -861,7 +1473,7 @@
       "sector": "Consump",
       "subsector": "Home & Office Products",
       "market": "SET",
-      "announceDate": "2026-08-10T19:00:10+07:00",
+      "announceDate": "2026-08-10T19:00:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 8662000.0,
@@ -881,14 +1493,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105808801&symbol=ROCK",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขาย 195.20 213.25 (18.05) (8.5) รายได้จากการบริการ 6.30 4.50 1.80 40.0 รวมรายได้ 201.50 217.75 (16.25) (7.5) ต้นทุนขาย (139.85) (142.89) 3.04 2.1 ต้นทุนบริการ (5.41) (2.01) (3.40) (169.2) รวมต้นทุน (145.26)",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TCAP",
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-08-10T18:58:58+07:00",
+      "announceDate": "2026-08-10T18:58:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 2641274000.0,
@@ -908,14 +1523,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105805901&symbol=TCAP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 2.03,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "KWC",
       "sector": "Services",
       "subsector": "Transportation & Logistics",
       "market": "SET",
-      "announceDate": "2026-08-10T18:54:41+07:00",
+      "announceDate": "2026-08-10T18:54:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 23379000.0,
@@ -969,7 +1587,7 @@
       "sector": "Consumer",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T18:39:24+07:00",
+      "announceDate": "2026-08-10T18:39:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 13164000.0,
@@ -989,14 +1607,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105800201&symbol=88TH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CENTEL",
       "sector": "Services",
       "subsector": "Tourism & Leisure",
       "market": "SET",
-      "announceDate": "2026-08-10T18:36:51+07:00",
+      "announceDate": "2026-08-10T18:36:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 166443000.0,
@@ -1016,14 +1637,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105806401&symbol=CENTEL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "เนื่องจากระบบจัดเก็บข้อมูลสถิติขัดข้อง จึง ไม่นำข้อมูลจำนวนนักท่องเที่ยวและรายได้จากนักท่องเที่ยวชาวต่างชาติในช่วงวันที่ 22–25 มิถุนายน 2568 มาประกอบการ จัดทำรายงานด้วย",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 1.91,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "BIZ",
       "sector": "Consump",
       "subsector": "Personal Products & Pharmaceuticals",
       "market": "SET",
-      "announceDate": "2026-08-10T18:31:46+07:00",
+      "announceDate": "2026-08-10T18:31:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 85178000.0,
@@ -1043,14 +1667,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105788001&symbol=BIZ",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "เนื่องจากการเพิ่มขึ้นของกำไรสุทธิ บริษัทและบริษัทยอยมีอัตราสวนหนี้สินตอสวนของผูถือหุนและอัตราสวนหนี้สินที่มีภาระดอกเบี้ยตอสวนของผูถือหุนใกลเคียง กันกับจากชวงเดียวกันของปกอนหนา สรุปผลการดำเนินงาน",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.84,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "LIT",
       "sector": "Financials",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T18:21:02+07:00",
+      "announceDate": "2026-08-10T18:21:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -2483000.0,
@@ -1070,14 +1697,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105795001&symbol=LIT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ซึ่งเป็นผลจากความต้องการใช้สินเชื่อของ SMEs ที่เป็นคู่ค้าภาครัฐ ซึ่งเป็นลูกค้าเป้าหมายหลักปรับตัวสูงขึ้น ส่งผลให้พอร์ตสินเชื่อรวมสำหรับไตรมาสของบริษัทฯ มีจำนวน",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -4.44,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SCGD",
       "sector": "Property",
       "subsector": "Construction Materials",
       "market": "SET",
-      "announceDate": "2026-08-10T18:15:09+07:00",
+      "announceDate": "2026-08-10T18:15:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -281297000.0,
@@ -1097,14 +1727,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105798001&symbol=SCGD",
       "headline": "สรุปผลการดำเนินงานไตรมาสที่ 2/2569 (F45) (สอบทานแล้ว)",
       "reason": "จากการบริหารจัดการต้นทุนเพื่อลดผลกระทบจากความผันผวนของราคาพลังงาน อีกทั้งการบริหาร จัดการต้นทุนทางการเงิน และรักษาความสามารถในการทำกำไร 2.",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "GFC",
       "sector": "Services",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T18:11:58+07:00",
+      "announceDate": "2026-08-10T18:11:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -6825000.0,
@@ -1124,14 +1757,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105798301&symbol=GFC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "มีรายได้จากการให้บริการจํานวน 58.33 ล้านบาท ลดลง 31.31 ล้านบาท หรือคิดเป็นร้อยละ 34.93 เมื่อเทียบกับงวดเดียวกันของปีก่อน และลดลง 8.87 ล้านบาท หรือร้อยละ 13.20 เมื่อเทียบกับไตรมาสก่อนหน้า โดยมีผลขาดทุนสุทธิจํานวน 5.56 ล้านบาท",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -3.7,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "NUT",
       "sector": "Consumer",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T18:10:55+07:00",
+      "announceDate": "2026-08-10T18:10:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 12267960.0,
@@ -1151,14 +1787,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105799101&symbol=NUT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "บทสรุปของผู้บริหาร ภาพรวมผลการดำเนินงาน ไตรมาส 2/2569 ไตรมาส 1/2569 ไตรมาส 2/2568 เปลี่ยนแปลง +/- 6 เดือน 2569 6 เดือน 2568 เปลี่ยนแปลง +/- หน่วย: ล้านบาท %QoQ %YoY %YoY รายได้จากการขาย 279.72 272.49 239.49 2.65% 16.80% 552.21 529.46 4.30% กำไรขั้นต้น 243.18 239.75 206.39 1.43% 17.83% 482.93 453.36 6.52 ค่าใช้จ่ายในการขายและบริหาร 228.29 213.77 188.68 6.79% 20.99% 442.06 399.81 10.57%",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 3.66,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "DEXON",
       "sector": "Services",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T18:06:59+07:00",
+      "announceDate": "2026-08-10T18:06:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -2092000.0,
@@ -1178,14 +1817,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105784501&symbol=DEXON",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 3.49,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SCL",
       "sector": "Industrials",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T18:06:43+07:00",
+      "announceDate": "2026-08-10T18:06:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 11043000.0,
@@ -1205,14 +1847,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105799201&symbol=SCL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
       "reason": "โดยรายได้จากการขายของบริษัทฯ แบ่งแยกออกได้เป็น 1.1.",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -3.03,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CHIC",
       "sector": "Services",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T18:02:19+07:00",
+      "announceDate": "2026-08-10T18:02:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -3166000.0,
@@ -1232,14 +1877,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105791201&symbol=CHIC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -3.33,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SUN",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T17:58:47+07:00",
+      "announceDate": "2026-08-10T17:58:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 5061000.0,
@@ -1259,14 +1907,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105797101&symbol=SUN",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "บทสรุปผู้บริหาร (หน่วย: ล้านบาท) ไตรมาส ไตรมาส ไตรมาส %เพิ่ม (ลด) 6M2569 6M2568 %เพิ่ม 2/69 1/69 2/68 YoY QoQ (ลด) รายได้จากการขาย 848.7 898.5 961.9 (11.8%) (5.5%) 1,747.2 1,788.1 (2.3%) กำไรขั้นต้น 127.9 122.9 176.0 (27.4%) 4.0% 250.7 321.2 (21.9%) กำไรสุทธิ 5.1 11.3 86.8 (94.2%) (55.4%) 16.4 134.7 (87.8%) กำไรสุทธิต่อหุ้น (บาท/หุ้น)",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -4.65,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SGP",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET",
-      "announceDate": "2026-08-10T17:52:36+07:00",
+      "announceDate": "2026-08-10T17:52:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 2591449000.0,
@@ -1286,14 +1937,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105796001&symbol=SGP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "เนื่องจากเหตุผลหลักที่สำคัญ ดังนี้ 1.",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 7.14,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PROSPECT",
       "sector": "Property",
       "subsector": "Property Fund & REITs",
       "market": "SET",
-      "announceDate": "2026-08-10T17:46:22+07:00",
+      "announceDate": "2026-08-10T17:46:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": null,
@@ -1313,14 +1967,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105796201&symbol=PROSPECT",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "มีกำไรจากการลงทุนสุทธิ (กำไรจากการดำเนินงาน) เท่ากับ 167.42 ล้านบาท เพิ่มขึ้น 68.73 ล้านบาท หรือร้อยละ 69.64 จากผลการดำเนินงานสำหรับไตรมาส 2 สิ้นสุดวันที่ 30 มิถุนายน 2568 และมี รายการกำไรสุทธิจากเงินลงทุนรวม 0.60 ล้านบาท",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CKP",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET",
-      "announceDate": "2026-08-10T17:44:10+07:00",
+      "announceDate": "2026-08-10T17:44:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 98865000.0,
@@ -1340,14 +1997,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105782301&symbol=CKP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "สาเหตุหลักมา จากรายได้จากการขายไฟฟ้าของ NN2 ลดลง ตามปริมาณน ้าไหลเข้าอ่าง เก็บน ้าที่น้อยกว่าช่วงเดียวกันของปีก่อน รายได้รวมในงวด 6 เดือนปี 2569 ลดลงร้อยละ 14.8 YoY เนื่องจาก รายได้จากการขายไฟฟ้าของ BIC ลดลง",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -2.34,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "NCP",
       "sector": "Services",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T17:38:12+07:00",
+      "announceDate": "2026-08-10T17:38:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 4017000.0,
@@ -1367,14 +2027,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105775801&symbol=NCP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MSC",
       "sector": "Technology",
       "subsector": "Information & Communication Technology",
       "market": "SET",
-      "announceDate": "2026-08-10T17:37:09+07:00",
+      "announceDate": "2026-08-10T17:37:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 46182000.0,
@@ -1394,7 +2057,10 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105792601&symbol=MSC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.85,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ESTAR",
@@ -1421,14 +2087,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105791801&symbol=ESTAR",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขายอสังหาริมทรัพย์ลดลงร้อยละ 5 o บริษัทมีรายได้จากการขายอสังหาริมทรัพย์ลดลง 17.38 ล้านบาท หรือร้อยละ 5 เมื่อเทียบกับช่วงเดียวกันของปีก่อน เนื่องจากภาวะเศรษฐกิจที่ชะลอตัว",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SCM",
       "sector": "Services",
       "subsector": "Commerce",
       "market": "SET",
-      "announceDate": "2026-08-10T17:27:37+07:00",
+      "announceDate": "2026-08-10T17:27:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -10919000.0,
@@ -1448,7 +2117,10 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105780301&symbol=SCM",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขายสินค้าและบริการ รายได้จากการขายสินค้าผ่านนักธุรกิจในประเทศ ในงวด 6 เดือนแรกของปี 2569 ลดลง 15.0 ล้านบาท หรือลดลง 8.3% โดย มีสาเหตุหลักมาจากภาวะเศรษฐกิจและกำลังซื้อของผู้บริโภคในประเทศ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -8.33,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ASIA",
@@ -1482,7 +2154,7 @@
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T17:21:06+07:00",
+      "announceDate": "2026-08-10T17:21:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 18117000.0,
@@ -1502,14 +2174,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105786201&symbol=TWPC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -2.1,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "EGATIF",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET",
-      "announceDate": "2026-08-10T17:19:18+07:00",
+      "announceDate": "2026-08-10T17:19:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": null,
@@ -1529,14 +2204,17 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "KBS",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T17:18:22+07:00",
+      "announceDate": "2026-08-10T17:18:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 91937000.0,
@@ -1556,14 +2234,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105776001&symbol=KBS",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -1.64,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "WHAUP",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET",
-      "announceDate": "2026-08-10T17:16:58+07:00",
+      "announceDate": "2026-08-10T17:16:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 531766000.0,
@@ -1583,14 +2264,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105793101&symbol=WHAUP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ปัจจัยหลักมาจากการเพิ่มขึ้นของส่วนแบ่งกำไรปกติและเงินปันผลรับจากเงินลงทุนในบริษัทร่วมและการร่วมค้า ซึ่งเพิ่มขึ้นร้อยละ 111.6 เมื่อ เทียบกับช่วงเดียวกันของปีก่อน จากการรับรู้ส่วนแบ่งกำไรจากโรงไฟฟ้าเก็คโค่วันเพิ่มขึ้น",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 1.95,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CPT",
       "sector": "Industrials",
       "subsector": "Industrial Materials & Machinery",
       "market": "SET",
-      "announceDate": "2026-08-10T17:15:26+07:00",
+      "announceDate": "2026-08-10T17:15:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 18523000.0,
@@ -1610,14 +2294,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105756001&symbol=CPT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขาย สําหรับงวด 3 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569 และ 2568 บริษัทมีรายได้จากการขาย จํานวน 180.10 ล้านบาท และ 51.00 ล้านบาท ตามลําดับ เพิ่มขึ้น 129.10 ล้านบาท เมื่อเทียบกับงวดเดียวกันของปีก่อน โดยการ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 1.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SALEE",
       "sector": "Industrials",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T17:14:52+07:00",
+      "announceDate": "2026-08-10T17:14:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 23402000.0,
@@ -1637,14 +2324,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105779701&symbol=SALEE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 6.67,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SAT",
       "sector": "Industrials",
       "subsector": "Automotive",
       "market": "SET",
-      "announceDate": "2026-08-10T17:12:06+07:00",
+      "announceDate": "2026-08-10T17:12:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 156032000.0,
@@ -1664,14 +2354,17 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 1.23,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SLP",
       "sector": "Industrials",
       "subsector": "Packaging",
       "market": "SET",
-      "announceDate": "2026-08-10T17:11:50+07:00",
+      "announceDate": "2026-08-10T17:11:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 14488000.0,
@@ -1691,14 +2384,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105778001&symbol=SLP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 6.67,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "GYT",
       "sector": "Industrials",
       "subsector": "Automotive",
       "market": "SET",
-      "announceDate": "2026-08-10T17:10:27+07:00",
+      "announceDate": "2026-08-10T17:10:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 60366000.0,
@@ -1725,7 +2421,7 @@
       "sector": "Property",
       "subsector": "Property Development",
       "market": "SET",
-      "announceDate": "2026-08-10T17:07:28+07:00",
+      "announceDate": "2026-08-10T17:07:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 659171000.0,
@@ -1745,14 +2441,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105767501&symbol=WHA",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -2.05,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "DMT",
       "sector": "Services",
       "subsector": "Transportation & Logistics",
       "market": "SET",
-      "announceDate": "2026-08-10T17:05:49+07:00",
+      "announceDate": "2026-08-10T17:05:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 238026000.0,
@@ -1772,14 +2471,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105790601&symbol=DMT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "BRR",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T17:03:29+07:00",
+      "announceDate": "2026-08-10T17:03:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -2574410.0,
@@ -1799,14 +2501,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105795601&symbol=BRR",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.55,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CFARM",
       "sector": "Agro",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T17:03:16+07:00",
+      "announceDate": "2026-08-10T17:03:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 6087000.0,
@@ -1826,14 +2531,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105775301&symbol=CFARM",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 2.44,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "UMS",
       "sector": "Resources",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T17:02:38+07:00",
+      "announceDate": "2026-08-10T17:02:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -60296000.0,
@@ -1850,17 +2558,20 @@
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105773801&symbol=UMS",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17863133311531&symbol=UMS",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105782601&symbol=UMS",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105828301&symbol=UMS",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "เป็นผลจากรายได้จากการให้บริการลดลง ในขณะที่บริษัทฯ ได้เริ่มขยาย ตลาดไปยังเชื้อเพลิงชีวมวล เช่น กะลาปาล์ม มากขึ้น รวมทั้ง การขายถ่านหินผงที่เพิ่มขึ้น จึงทำให้รายได้รวม ของบริษัทฯ ไม่ค่อยได้รับผลกระทบ อย่างไรก็ตาม",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "BR",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T17:01:42+07:00",
+      "announceDate": "2026-08-10T17:01:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 24544000.0,
@@ -1880,14 +2591,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105771101&symbol=BR",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.5,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ARROW",
       "sector": "Property",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T17:00:53+07:00",
+      "announceDate": "2026-08-10T17:00:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 52487000.0,
@@ -1907,14 +2621,17 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105810001&symbol=ARROW",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "บริษัทมีรายได้จากการขายและบริการเพิ่มขึ้น 56.35 ล้านบาท หรือเพิ่มขึ้นร้อยละ 9.59 จากงวดเดียวกันของปีก่อน เกิด จากลูกค้าเร่งสั่งซื้อสินค้าก่อนปรับราคาขาย และจากการขายโครงการใหญ่ที่เกิดใหม่ 2.",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.85,
+      "drift_d1_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SNNP",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-08-10T13:08:24+07:00",
+      "announceDate": "2026-08-10T13:08:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 69887000.0,
@@ -1936,7 +2653,7 @@
       "reason": "บริษัทมีรายได้จากการขายเพิ่มขึ้นร้อยละ 3.5 เมื่อเทียบกับไตรมาสก่อนหน้า โดยได้รับแรงสนับสนุน จากทั้งตลาดในประเทศและต่างประเทศ โดยรายได้จากการขายในประเทศเพิ่มขึ้นร้อยละ 2.2 เมื่อเทียบกับไตรมาสก่อน หน้า",
       "reason_source": "mda_extract",
       "gap_pct": -0.7,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.7,
       "drift_d5_pct": null
     },
     {
@@ -1944,7 +2661,7 @@
       "sector": "Industrials",
       "subsector": "Packaging",
       "market": "SET",
-      "announceDate": "2026-08-10T12:57:08+07:00",
+      "announceDate": "2026-08-10T12:57:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 63095000.0,
@@ -1974,7 +2691,7 @@
       "sector": "Property",
       "subsector": "Property Fund & REITs",
       "market": "SET",
-      "announceDate": "2026-08-10T12:40:02+07:00",
+      "announceDate": "2026-08-10T12:40:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": null,
@@ -2004,7 +2721,7 @@
       "sector": "Industrials",
       "subsector": "Petrochemicals & Chemicals",
       "market": "SET",
-      "announceDate": "2026-08-10T12:37:12+07:00",
+      "announceDate": "2026-08-10T12:37:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 146425000.0,
@@ -2026,7 +2743,7 @@
       "reason": "รายได้จากการขาย 5,902 5,176 3,248 กําไรขัѸนต้น 412 420 424 กําไรจากการดําเนินงาน 265 262 295 กําไรสําหรับปี 191 195 231 กําไร(ขาดทุน)เบ็ดเสร็จอืѷน 0 (2) 0 กําไร(ขาดทุน)เบ็ดเสร็จรวมสําหรับปี 191 193 231 อัตราส่วนทางการเงิน",
       "reason_source": "mda_extract",
       "gap_pct": 8.41,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 7.48,
       "drift_d5_pct": null
     },
     {
@@ -2034,7 +2751,7 @@
       "sector": "Industrials",
       "subsector": "Industrial Materials & Machinery",
       "market": "SET",
-      "announceDate": "2026-08-10T12:35:30+07:00",
+      "announceDate": "2026-08-10T12:35:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 120557000.0,
@@ -2056,7 +2773,7 @@
       "reason": "รายได้จากการขาย 1,393.50 63.2 1,394.65 70.7 รายได้จากการให้บริการและโครงการก่อสร้าง 804.87 36.5 545.70 27.6 รายได้จากการขายและการให้บริการ 2,198.37 99.7 1,940.35 98.3 รายได้อืˠน 6.48 0.3 32.90 1.7 รวมรายได้ 2,204.85 100.0",
       "reason_source": "mda_extract",
       "gap_pct": -0.67,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.33,
       "drift_d5_pct": null
     },
     {
@@ -2064,7 +2781,7 @@
       "sector": "Technology",
       "subsector": "Information & Communication Technology",
       "market": "SET",
-      "announceDate": "2026-08-10T12:30:39+07:00",
+      "announceDate": "2026-08-10T12:30:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 78618000.0,
@@ -2086,7 +2803,7 @@
       "reason": "0 จากร้อยละ 13.7 ในไตรมาส 2/2568 ซึ่งเป็นผลหลักจากการรับรู้กำไรของโครงการใหม่ที่กลุ่มบริษัทฯได้รับตั้งแต่ปี 2568 โดยเฉพาะงานบำรุงรักษาระบบงาน (MA) งานพัฒนาด้านเทคโนโลยีสารสนเทศ ซึ่งมีอัตรากำไรขั้นต้นสูงขึ้นจากการปรับตัวของกำไรที่ได้รับจาก",
       "reason_source": "mda_extract",
       "gap_pct": 4.96,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 4.96,
       "drift_d5_pct": null
     },
     {
@@ -2094,7 +2811,7 @@
       "sector": "Property",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T09:11:45+07:00",
+      "announceDate": "2026-08-10T09:11:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 43937000.0,
@@ -2116,7 +2833,7 @@
       "reason": "2568 เพิ่มขึ้น (ลดลง) ร้อยละ (%) รายได้จากการบริการ 847.90 950.46 (102.56) (10.79) 1,838.92 1,774.29 64.63 3.64 o งานให้บริการรับเหมาก่อสร้าง แบบครบวงจร (EPC Service)* 818.04 185.09 632.95 341.97 1,791.73 272.50 1,519.23 557.52 o",
       "reason_source": "mda_extract",
       "gap_pct": 4.24,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 4.24,
       "drift_d5_pct": null
     },
     {
@@ -2124,7 +2841,7 @@
       "sector": "Property",
       "subsector": "Property Development",
       "market": "SET",
-      "announceDate": "2026-08-10T08:31:13+07:00",
+      "announceDate": "2026-08-10T08:31:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 4750437000.0,
@@ -2146,7 +2863,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.37,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.93,
       "drift_d5_pct": null
     },
     {
@@ -2154,7 +2871,7 @@
       "sector": "Industrials",
       "subsector": "Steel",
       "market": "SET",
-      "announceDate": "2026-08-10T08:04:27+07:00",
+      "announceDate": "2026-08-10T08:04:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 153720000.0,
@@ -2176,7 +2893,7 @@
       "reason": "รายได้จากการขายและการให้บริการ 5,694.50 5,791.23 (96.73) (1.67) รายได้ตามสัญญา 176.93 - 176.93 100.00 รวม 5,871.43 5,791.23 80.20 1.38 ล้านเยน (JPY) รายละเอียด 3) ในไตรมาส 2/2569 บริษัทฯ มีรายได้จากการขายและการให้บริการ",
       "reason_source": "mda_extract",
       "gap_pct": -1.86,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.48,
       "drift_d5_pct": null
     },
     {
@@ -2184,7 +2901,7 @@
       "sector": "Industrials",
       "subsector": "Packaging",
       "market": "SET",
-      "announceDate": "2026-08-10T07:46:13+07:00",
+      "announceDate": "2026-08-10T07:46:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 98440000.0,
@@ -2206,7 +2923,7 @@
       "reason": "รายได้จากการขาย ในไตรมาส 2/2569 บริษัทมียอดขายรวมอยู่ที่ 1,190.91 ล้านบาท ลดลง 17.57 ล้านบาท หรือลดลงร้อยละ 1.45 จากช่วงเดียวกันของปีที่ผ่านมา โดยที่ยอดขายส่วนใหญ่ (ประมาณร้อยละ 53.11) มาจากการขายในประเทศ ยอดขายกลุ่มสินค้า",
       "reason_source": "mda_extract",
       "gap_pct": 7.98,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 8.59,
       "drift_d5_pct": null
     },
     {
@@ -2214,7 +2931,7 @@
       "sector": "Industrials",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T07:44:39+07:00",
+      "announceDate": "2026-08-10T07:44:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 36888000.0,
@@ -2236,7 +2953,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 13.09,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 19.37,
       "drift_d5_pct": null
     },
     {
@@ -2244,7 +2961,7 @@
       "sector": "Consumer",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T07:26:47+07:00",
+      "announceDate": "2026-08-10T07:26:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 8619000.0,
@@ -2266,7 +2983,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.09,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.09,
       "drift_d5_pct": null
     },
     {
@@ -2274,7 +2991,7 @@
       "sector": "Services",
       "subsector": "Health Care Services",
       "market": "SET",
-      "announceDate": "2026-08-10T07:18:36+07:00",
+      "announceDate": "2026-08-10T07:18:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 26294000.0,
@@ -2296,7 +3013,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.8,
       "drift_d5_pct": null
     },
     {
@@ -2304,7 +3021,7 @@
       "sector": "Industrials",
       "subsector": "Industrial Materials & Machinery",
       "market": "SET",
-      "announceDate": "2026-08-10T07:18:10+07:00",
+      "announceDate": "2026-08-10T07:18:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 60898000.0,
@@ -2326,7 +3043,7 @@
       "reason": "รายได้จากการดำเนินงานของบริษัทจำนวน 736.55 ล้านบาท เพิ่มขึ้นร้อยละ 73.20 จากงวดเดียวกันของปีก่อน โดย มีสาเหตุหลักมาจาก รายได้จากการจำหน่ายหม้อแปลงไฟฟ้าที่เพิ่มขึ้น จากการเติบโตของการลงทุนในโครงสร้าง พื้นฐานภาครัฐ",
       "reason_source": "mda_extract",
       "gap_pct": 0.99,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.97,
       "drift_d5_pct": null
     },
     {
@@ -2334,7 +3051,7 @@
       "sector": "Property",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-10T07:00:29+07:00",
+      "announceDate": "2026-08-10T07:00:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": -16632000.0,
@@ -2356,7 +3073,7 @@
       "reason": "โดยมีสาเหตุหลักมาจากอัตรากำไรขั้นต้นที่ปรับลดลง ตามสภาวะการแข่งขันด้านราคา ประกอบกับผลกระทบจากการจัดกิจกรรมส่งเสริมการขายเพื่อเร่งระบายทรัพย์สินคงเหลือใน ไตรมาสที่ 1",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.53,
       "drift_d5_pct": null
     },
     {
@@ -2364,7 +3081,7 @@
       "sector": "Industrials",
       "subsector": "Industrial Materials & Machinery",
       "market": "SET",
-      "announceDate": "2026-08-10T06:30:38+07:00",
+      "announceDate": "2026-08-10T06:30:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 77383000.0,
@@ -2386,7 +3103,7 @@
       "reason": "กลุ่มงำน Auto รายได้จากกลุ่มงาน Auto สำหรับไตรมาส 2 และงวด 6 เดือน ปรับตัวลดลงร้อยละ 9 และร้อยละ 7 ตามลำดับ เมื่อเทียบกับช่วงเดียวกันของปีก่อน โดยมีสาเหตุหลักมาจากสภาวะตลาดยานยนต์ที่ชะลอตัวและการแข่งขันที่ สูงขึ้น 2.",
       "reason_source": "mda_extract",
       "gap_pct": -4.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -14.29,
       "drift_d5_pct": null
     },
     {
@@ -2394,7 +3111,7 @@
       "sector": "Services",
       "subsector": "Professional Services",
       "market": "SET",
-      "announceDate": "2026-08-10T06:30:32+07:00",
+      "announceDate": "2026-08-10T06:30:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 47038000.0,
@@ -2416,7 +3133,7 @@
       "reason": "จากการ กลับมาขยายตัวของธุรกิจ Outsourcing ด้านความสามารถในการทำกำไร กำไรขั้นต้นงวดหกเดือนอยู่ที่ 338.0 ล้าน บาท เพิ่มขึ้น 3.9 ล้านบาท หรือร้อยละ 1.2 และอัตรากำไรขั้นต้นทรงตัวที่ ร้อยละ 8.8",
       "reason_source": "mda_extract",
       "gap_pct": -1.69,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.95,
       "drift_d5_pct": null
     },
     {
@@ -2446,7 +3163,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 7.65,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 25.88,
       "drift_d5_pct": null
     },
     {
@@ -2476,7 +3193,7 @@
       "reason": "​กำไรจากการดำเนินงาน​ ​(20.28)​ ​(57.32)​ ​37.04​ ​(64.62)​ ​(77.60)​ ​47.99​ ​(125.59)​ ​(261.70)​ ​กำไร/(ขาดทุน)สำหรับงวด​ ​(27.73)​ ​(68.82)​ ​41.09​ ​(59.71)​ ​(96.55)​ ​24.44​ ​(120.99)​ ​(495.05)​",
       "reason_source": "mda_extract",
       "gap_pct": -3.17,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -10.32,
       "drift_d5_pct": null
     },
     {
@@ -2506,7 +3223,7 @@
       "reason": "รายได้จากการขายและบริการ: ในไตรมาส 2 ปี 2569 บริษัท มีรายได้รวม 2,353 ล้านบาท ลดลง 8.7% เมื่อเทียบกับช่วง เดียวกันของปีก่อน และลดลง 2.3% เมื่อเทียบกับไตรมาสก่อนหน้า โดยรายได้ตามประเภทธุรกิจลดลงในธุรกิจอาหารทะเล",
       "reason_source": "mda_extract",
       "gap_pct": -1.32,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.95,
       "drift_d5_pct": null
     },
     {
@@ -2566,7 +3283,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2596,7 +3313,7 @@
       "reason": "โดยมีปัจจัยสนับสนุนหลักจากการเติบโตของรายได้จากการให้บริการและการขาย เพิ่มขึ้นร้อยละ 5 ซึ่งมาจากการปรับยุทธศาสตร์การขายมุ่งเน้นการขายตามกลุ่มลูกค้า และการขยายตัวของ รายได้ค่าโฆษณา โดยเฉพาะกลุ่มสื่อออนไลน์ที่เติบโตถึงร้อยละ 7",
       "reason_source": "mda_extract",
       "gap_pct": -25.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2626,7 +3343,7 @@
       "reason": "การลดลงของรายได้รวมดังกล่าวมีสาเหตุหลักจาก (1) สินค้าปรับตัวลดลงเมื่อเทียบกับช่วงเดียวกันของปีก่อน สอดคล้องกับภาวะตลาดและกำลังซื้อของผู้บริโภคที่ชะลอตัว รวมถึงการแข่งขันในเชิงธุรกิจพาณิชย์ที่เพิ่มสูงขึ้น (2) การ สนับสนุน (Sponsor) งานประกวด",
       "reason_source": "mda_extract",
       "gap_pct": -1.72,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -6.03,
       "drift_d5_pct": null
     },
     {
@@ -2656,7 +3373,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2686,7 +3403,7 @@
       "reason": "ภาพรวมผลการดำเนินงานรวม ข้อมูลทางการเงินรวม (หน่วย: ล้านบาท) Q2/69 Q2/68 YoY 1H/69 1H/68 YoY รายได้จากการขายสินค้า 126,494 123,892 2.1% 257,227 248,641 3.5% กลุ่มธุรกิจค้าส่ง (1) 71,150 68,761 3.5% 145,195 138,687 4.7% กลุ่มธุรกิจค้าปลีก (2) 55,344 55,131 0.4% 112,032 109,954 1.9%",
       "reason_source": "mda_extract",
       "gap_pct": -0.67,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.33,
       "drift_d5_pct": null
     },
     {
@@ -2746,7 +3463,7 @@
       "reason": "โดยมีสาเหตุหลักจากรายได้และกำไรขั้นต้นของธุรกิจ ขนส่งที่ลดลงตามการสิ้นสุดของสัญญาและการปรับลดจำนวนเส้นทางให้บริการ รวมถึงผลการดำเนินงานของธุรกิจที่เกี่ยวเนื่องกับผลิตภัณฑ์ ก๊าซธรรมชาติและน ้ามัน",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.44,
       "drift_d5_pct": null
     },
     {
@@ -2776,7 +3493,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.04,
       "drift_d5_pct": null
     },
     {
@@ -2806,7 +3523,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.6,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2836,7 +3553,7 @@
       "reason": "โดยมีสาเหตุหลัก ดังนี้ รายได้ : รายได้รวมของไตรมาส 2 ปี 2569 เพิ่มขึ้นจากงวดเดียวกันของปี 2568 เป็นจำนวน 1.5 ล้านบาท เนื่องจาก 1.",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2866,7 +3583,7 @@
       "reason": "สาเหตุเกิดจากผลกำไรจากการวัดมูลค่าสินทรัพย์ทางการเงินและกำไรจากการจำหน่ายสินทรัพย์ทางการ เงินเพิ่มขึ้น เนื่องจากดัชนีราคาตลาดหลักทรัพย์แห่งประเทศไทยปรับตัวสูงขึ้นอย่างต่อเนื่องสาเหตุหลักเกิดจาก ปัจจัยทั้งภายในและภายนอกประเทศ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 15.49,
       "drift_d5_pct": null
     },
     {
@@ -2896,7 +3613,7 @@
       "reason": "รายได้จากการดำเนินงาน ผลการดำเนินงานรวมประจำไตรมาสที่ 2 ปี 2569 (เดือนเมษายน–มิถุนายน 2569) บริษัทฯ มีรายได้รวมทั้งสิ้น 182.30 ล้านบาท เพิ่มขึ้นจากช่วงเดียวกันของปีก่อนจำนวน 4.00 ล้านบาท หรือคิดเป็นร้อยละ 2.24",
       "reason_source": "mda_extract",
       "gap_pct": 1.35,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -10.81,
       "drift_d5_pct": null
     },
     {
@@ -2926,7 +3643,7 @@
       "reason": "อาจมีการคาดเคลื่อนของตัวเลขเนื่องจากการปัดจุดทศนิยม • ในไตรมาส 2 ปี 2569 บริษัทฯ มีรายได้จากการดำเนินงานรวม จำนวน 283.2 ล้านบาท เพิ่มขึ้นจากไตรมาสที่ 2 ปี 2568 มูลค่า 4.5 ล้านบาท หรือ ร้อยละ 1.6 โดยมี",
       "reason_source": "mda_extract",
       "gap_pct": 0.71,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.57,
       "drift_d5_pct": null
     },
     {
@@ -2956,7 +3673,7 @@
       "reason": "​รายได้จากการให้บริการ​ ​47.79​ ​50.60​ ​(2.81)​ ​(6)​ ​48.83​ ​(1.04)​ ​(2)​ ​กำไรสุทธิของบริษัทและ​ ​บริษัทย่อย​ ​5.30​ ​7.74​ ​(2.44)​ ​(32)​ ​8.72​ ​(3.42)​ ​(39)​ ​ส่วนแบ่งขาดทุนของ​ ​บริษัทร่วม​ ​(1.31)​ ​(1.48)​ ​0.17​",
       "reason_source": "mda_extract",
       "gap_pct": 1.33,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.0,
       "drift_d5_pct": null
     },
     {
@@ -2986,7 +3703,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.02,
       "drift_d5_pct": null
     },
     {
@@ -3016,7 +3733,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.77,
       "drift_d5_pct": null
     },
     {
@@ -3046,7 +3763,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.88,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -3076,7 +3793,7 @@
       "reason": "เนื่องจาก (1) การรับรู้กำไรจากการปรับมูลค่ายุติธรรมสินทรัพย์ทางการเงิน หมุนเวียนอื่น (2) การเพิ่มขึ้นของรายได้จากการจำหน่ายน้ำประปาบริเวณเกาะเสม็ด ส่งผลให้บริษัทมีผลการดำเนินงานโดยรวม เป็นกำไรสุทธิในไตรมาสนี้",
       "reason_source": "mda_extract",
       "gap_pct": 20.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 20.0,
       "drift_d5_pct": null
     },
     {
@@ -3106,7 +3823,7 @@
       "reason": "รายได้จากการขายและบริการ 2,585.19 2,889.47 2,555.45 (10.53%) 1.16% 5,474.67 5,169.62 5.90% ต้นทุนขายและบริการ 2,213.51 2,505.10 2,250.39 (11.64%) (1.64%) 4,718.61 4,553.89 3.62% กำไรขั้นต้น 371.68 384.37 305.06 (3.30%) 21.84%",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.49,
       "drift_d5_pct": null
     },
     {
@@ -3136,7 +3853,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -5.52,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -6.67,
       "drift_d5_pct": null
     },
     {
@@ -3166,7 +3883,7 @@
       "reason": "รายได้จากการขายและให้บริการ 328.06 100.00% 360.23 100.00% 32.17 9.81% ต้นทุนขายและบริการ 302.58 92.23% 338.54 93.98% 35.96 11.88% ก ำไรขั้นต้น 25.48 7.77% 21.69 6.02% (3.79) (14.87%) ค่าใช้จ่ายในการขาย 2.78 0.85% 2.30 0.64%",
       "reason_source": "mda_extract",
       "gap_pct": -6.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -8.0,
       "drift_d5_pct": null
     },
     {
@@ -3196,7 +3913,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.86,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -3226,7 +3943,7 @@
       "reason": "ของรายได้จากการลงทุน ซึ่งเพิ่มขึ้น 2.56 ล้านบาท หรือคิดเป็นร้อยละ 2.27 เมื่อเทียบจาก ผลการดำเนินงานของไตรมาสที่ 2/2568 สาเหตุมาจากอัตราการเช่าที่เพิ่มขึ้น และกองทรัสต์มีรายได้อื่นจำนวน 1.50 ล้านบาท หรือคิดเป็นร้อยละ 1.28",
       "reason_source": "mda_extract",
       "gap_pct": 0.46,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.39,
       "drift_d5_pct": null
     },
     {
@@ -3256,7 +3973,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.65,
       "drift_d5_pct": null
     },
     {
@@ -3286,7 +4003,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 4.76,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 9.52,
       "drift_d5_pct": null
     },
     {
@@ -3316,7 +4033,7 @@
       "reason": "อสังหาริมทรัพย์ที่ยังชะลอตัวต่อเนื่องจากปีก่อน อย่างไรก็ตามบริษัทยังคงมีคำสั่งซื้อจากโครงการภาครัฐและ เอกชน โดยเฉพาะโครงการในพื้นที่เขตพัฒนาพิเศษภาคตะวันออก (EEC) ซึ่งมีความต้องการใช้อิฐมวลเบา สำหรับโครงการก่อสร้างโรงงานอุตสาหกรรม คลังสินค้า",
       "reason_source": "mda_extract",
       "gap_pct": 3.51,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.75,
       "drift_d5_pct": null
     },
     {
@@ -3376,7 +4093,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 5.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 9.29,
       "drift_d5_pct": null
     },
     {
@@ -3406,7 +4123,7 @@
       "reason": "มีรายได้จากการประกันภัย จำนวน 7,464.7 ล้านบาท ลดลง 128.3 ล้านบาท หรือคิดเป็นร้อยละ 1.7 เมื่อ เปรียบเทียบกับงวดเดียวกันของปีก่อนซึ่งมีจำนวน 7,593.0 ล้านบาท ขณะที่ค่าใช้จ่ายในการบริการประกันภัยสุทธิ จำนวน 6,377.9 ล้านบาท ลดลง",
       "reason_source": "mda_extract",
       "gap_pct": 0.8,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.53,
       "drift_d5_pct": null
     },
     {
@@ -3436,7 +4153,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.84,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.84,
       "drift_d5_pct": null
     },
     {
@@ -3466,7 +4183,7 @@
       "reason": "รายได้จากการให้บริการ 177.59 258.53 (31.3%) 227.13 (21.8%) 404.71 522.25 (22.5%) รายได้อื่น 2.42 4.01 (39.7%) 1.36 77.9% 3.78 6.69 (43.5%) รวมรำยได้ 180.00 262.54 (31.4%) 228.49 (21.2%) 408.49 528.93 (22.8%) ต้นทุนบริการ",
       "reason_source": "mda_extract",
       "gap_pct": -3.62,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -6.79,
       "drift_d5_pct": null
     },
     {
@@ -3496,7 +4213,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 5.19,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 43.7,
       "drift_d5_pct": null
     },
     {
@@ -3526,7 +4243,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -9.22,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -17.02,
       "drift_d5_pct": null
     },
     {
@@ -3556,7 +4273,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.36,
       "drift_d5_pct": null
     },
     {
@@ -3586,7 +4303,7 @@
       "reason": "ขาดทุนจากการด้อยค่าทรัพย์สินรอการขาย (โอนกลับรายการ) 42.76 ล้านบาท และผลขาดทุนด้านเครดิตที่คาด ว่าจะเกิดขึ้นจำนวน 82.69 ล้านบาท มีสินทรัพย์รวมจำนวน 38,835.99 ล้านบาท หนี้สินรวมจำนวน 24,747.01 ล้านบาท และ",
       "reason_source": "mda_extract",
       "gap_pct": 0.84,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.52,
       "drift_d5_pct": null
     },
     {
@@ -3916,7 +4633,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -4696,7 +5413,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.2,
       "drift_d5_pct": null
     },
     {
@@ -5367,8 +6084,8 @@
       "netProfit": 484845000.0,
       "netProfitPrior": -39820000.0,
       "netProfitYoY": 1317.5916624811653,
-      "netProfitPriorQ": 93746000.0,
-      "netProfitQoQ": 417.19006677618245,
+      "netProfitPriorQ": 264676000.0,
+      "netProfitQoQ": 83.18434614396469,
       "profitAcceleration": "accelerating",
       "eps": 0.34,
       "epsPrior": -0.03,
@@ -5684,7 +6401,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -1.35,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.68
     },
     {
       "ticker": "SCGP",
@@ -5714,7 +6431,7 @@
       "reason_source": "none",
       "gap_pct": 4.92,
       "drift_d1_pct": 1.64,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.64
     },
     {
       "ticker": "TAE",
@@ -5744,7 +6461,7 @@
       "reason_source": "none",
       "gap_pct": 3.01,
       "drift_d1_pct": -8.43,
-      "drift_d5_pct": null
+      "drift_d5_pct": -4.82
     },
     {
       "ticker": "CSR",
@@ -5804,7 +6521,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.66,
       "drift_d1_pct": -2.63,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.26
     },
     {
       "ticker": "TOG",
@@ -5834,7 +6551,7 @@
       "reason_source": "none",
       "gap_pct": -1.99,
       "drift_d1_pct": -3.31,
-      "drift_d5_pct": null
+      "drift_d5_pct": -3.31
     },
     {
       "ticker": "GLOBAL",
@@ -5864,7 +6581,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 7.24,
       "drift_d1_pct": 3.95,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.32
     },
     {
       "ticker": "TU",
@@ -6689,7 +7406,7 @@
       "netProfitYoY": 17.44339220347141,
       "netProfitPriorQ": 2171234000.0,
       "netProfitQoQ": 2.490473159502845,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.86,
       "epsPrior": 0.73,
       "epsYoY": 17.808219178082194,
@@ -6868,7 +7585,7 @@
       "ticker": "KTC",
       "date": "2026-07-17T17:29:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TSTH",
@@ -7105,7 +7822,7 @@
       "ticker": "SAMCO",
       "date": "2026-08-04T18:13:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "KUN",
@@ -7124,13 +7841,6 @@
       "date": "2026-08-05T08:27:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "ANI",
-      "date": "2026-08-05T08:31:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-05T08:31:00+07:00"
     },
     {
       "ticker": "3BBIF",
@@ -7528,13 +8238,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-07T06:53:00+07:00"
-    },
-    {
-      "ticker": "SPG",
-      "date": "2026-08-07T07:45:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-07T07:45:00+07:00"
     },
     {
       "ticker": "CMAN",
@@ -8056,20 +8759,6 @@
       "basedOnLastYear": "2025-08-08T08:37:00+07:00"
     },
     {
-      "ticker": "PMTA",
-      "date": "2026-08-08T08:40:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-08T08:40:00+07:00"
-    },
-    {
-      "ticker": "TNL",
-      "date": "2026-08-08T08:51:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-08T08:51:00+07:00"
-    },
-    {
       "ticker": "AI",
       "date": "2026-08-08T12:31:00+07:00",
       "status": "predicted",
@@ -8315,13 +9004,6 @@
       "basedOnLastYear": "2025-08-08T18:20:00+07:00"
     },
     {
-      "ticker": "PCSGH",
-      "date": "2026-08-08T18:29:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-08T18:29:00+07:00"
-    },
-    {
       "ticker": "SYMC",
       "date": "2026-08-08T18:44:00+07:00",
       "status": "predicted",
@@ -8449,205 +9131,205 @@
     },
     {
       "ticker": "PRTR",
-      "date": "2026-08-10T06:30:32+07:00",
+      "date": "2026-08-10T06:30:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SNC",
-      "date": "2026-08-10T06:30:38+07:00",
+      "date": "2026-08-10T06:30:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BKA",
-      "date": "2026-08-10T07:00:29+07:00",
+      "date": "2026-08-10T07:00:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "QTC",
-      "date": "2026-08-10T07:18:10+07:00",
+      "date": "2026-08-10T07:18:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "RPH",
-      "date": "2026-08-10T07:18:36+07:00",
+      "date": "2026-08-10T07:18:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TM",
-      "date": "2026-08-10T07:26:47+07:00",
+      "date": "2026-08-10T07:26:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "MGT",
-      "date": "2026-08-10T07:44:39+07:00",
+      "date": "2026-08-10T07:44:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TPBI",
-      "date": "2026-08-10T07:46:13+07:00",
+      "date": "2026-08-10T07:46:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "MCS",
-      "date": "2026-08-10T08:04:27+07:00",
+      "date": "2026-08-10T08:04:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CPN",
-      "date": "2026-08-10T08:31:13+07:00",
+      "date": "2026-08-10T08:31:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CAZ",
-      "date": "2026-08-10T09:11:45+07:00",
+      "date": "2026-08-10T09:11:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "MFEC",
-      "date": "2026-08-10T12:30:39+07:00",
+      "date": "2026-08-10T12:30:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "PCC",
-      "date": "2026-08-10T12:35:30+07:00",
+      "date": "2026-08-10T12:35:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "GC",
-      "date": "2026-08-10T12:37:12+07:00",
+      "date": "2026-08-10T12:37:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TTLPF",
-      "date": "2026-08-10T12:40:02+07:00",
+      "date": "2026-08-10T12:40:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BGC",
-      "date": "2026-08-10T12:57:08+07:00",
+      "date": "2026-08-10T12:57:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SNNP",
-      "date": "2026-08-10T13:08:24+07:00",
+      "date": "2026-08-10T13:08:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ARROW",
-      "date": "2026-08-10T17:00:53+07:00",
+      "date": "2026-08-10T17:00:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BR",
-      "date": "2026-08-10T17:01:42+07:00",
+      "date": "2026-08-10T17:01:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "UMS",
-      "date": "2026-08-10T17:02:38+07:00",
+      "date": "2026-08-10T17:02:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CFARM",
-      "date": "2026-08-10T17:03:16+07:00",
+      "date": "2026-08-10T17:03:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BRR",
-      "date": "2026-08-10T17:03:29+07:00",
+      "date": "2026-08-10T17:03:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "DMT",
-      "date": "2026-08-10T17:05:49+07:00",
+      "date": "2026-08-10T17:05:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "WHA",
-      "date": "2026-08-10T17:07:28+07:00",
+      "date": "2026-08-10T17:07:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "GYT",
-      "date": "2026-08-10T17:10:27+07:00",
+      "date": "2026-08-10T17:10:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SLP",
-      "date": "2026-08-10T17:11:50+07:00",
+      "date": "2026-08-10T17:11:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SAT",
-      "date": "2026-08-10T17:12:06+07:00",
+      "date": "2026-08-10T17:12:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SALEE",
-      "date": "2026-08-10T17:14:52+07:00",
+      "date": "2026-08-10T17:14:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CPT",
-      "date": "2026-08-10T17:15:26+07:00",
+      "date": "2026-08-10T17:15:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "WHAUP",
-      "date": "2026-08-10T17:16:58+07:00",
+      "date": "2026-08-10T17:16:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "KBS",
-      "date": "2026-08-10T17:18:22+07:00",
+      "date": "2026-08-10T17:18:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "EGATIF",
-      "date": "2026-08-10T17:19:18+07:00",
+      "date": "2026-08-10T17:19:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TWPC",
-      "date": "2026-08-10T17:21:06+07:00",
+      "date": "2026-08-10T17:21:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SCM",
-      "date": "2026-08-10T17:27:37+07:00",
+      "date": "2026-08-10T17:27:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -8659,97 +9341,97 @@
     },
     {
       "ticker": "MSC",
-      "date": "2026-08-10T17:37:09+07:00",
+      "date": "2026-08-10T17:37:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "NCP",
-      "date": "2026-08-10T17:38:12+07:00",
+      "date": "2026-08-10T17:38:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CKP",
-      "date": "2026-08-10T17:44:10+07:00",
+      "date": "2026-08-10T17:44:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "PROSPECT",
-      "date": "2026-08-10T17:46:22+07:00",
+      "date": "2026-08-10T17:46:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SGP",
-      "date": "2026-08-10T17:52:36+07:00",
+      "date": "2026-08-10T17:52:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SUN",
-      "date": "2026-08-10T17:58:47+07:00",
+      "date": "2026-08-10T17:58:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CHIC",
-      "date": "2026-08-10T18:02:19+07:00",
+      "date": "2026-08-10T18:02:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SCL",
-      "date": "2026-08-10T18:06:43+07:00",
+      "date": "2026-08-10T18:06:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "DEXON",
-      "date": "2026-08-10T18:06:59+07:00",
+      "date": "2026-08-10T18:06:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "NUT",
-      "date": "2026-08-10T18:10:55+07:00",
+      "date": "2026-08-10T18:10:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "GFC",
-      "date": "2026-08-10T18:11:58+07:00",
+      "date": "2026-08-10T18:11:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SCGD",
-      "date": "2026-08-10T18:15:09+07:00",
+      "date": "2026-08-10T18:15:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "LIT",
-      "date": "2026-08-10T18:21:02+07:00",
+      "date": "2026-08-10T18:21:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BIZ",
-      "date": "2026-08-10T18:31:46+07:00",
+      "date": "2026-08-10T18:31:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CENTEL",
-      "date": "2026-08-10T18:36:51+07:00",
+      "date": "2026-08-10T18:36:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "88TH",
-      "date": "2026-08-10T18:39:24+07:00",
+      "date": "2026-08-10T18:39:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -8761,109 +9443,109 @@
     },
     {
       "ticker": "KWC",
-      "date": "2026-08-10T18:54:41+07:00",
+      "date": "2026-08-10T18:54:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TCAP",
-      "date": "2026-08-10T18:58:58+07:00",
+      "date": "2026-08-10T18:58:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ROCK",
-      "date": "2026-08-10T19:00:10+07:00",
+      "date": "2026-08-10T19:00:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SE-ED",
-      "date": "2026-08-10T19:04:29+07:00",
+      "date": "2026-08-10T19:04:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SORKON",
-      "date": "2026-08-10T19:15:20+07:00",
+      "date": "2026-08-10T19:15:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BSBM",
-      "date": "2026-08-10T19:20:14+07:00",
+      "date": "2026-08-10T19:20:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "LEE",
-      "date": "2026-08-10T19:20:51+07:00",
+      "date": "2026-08-10T19:20:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ONEE",
-      "date": "2026-08-10T19:20:56+07:00",
+      "date": "2026-08-10T19:20:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ATLAS",
-      "date": "2026-08-10T19:24:32+07:00",
+      "date": "2026-08-10T19:24:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "XO",
-      "date": "2026-08-10T19:33:04+07:00",
+      "date": "2026-08-10T19:33:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "NCH",
-      "date": "2026-08-10T19:41:34+07:00",
+      "date": "2026-08-10T19:41:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "JUBILE",
-      "date": "2026-08-10T19:43:38+07:00",
+      "date": "2026-08-10T19:43:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "PORT",
-      "date": "2026-08-10T19:49:19+07:00",
+      "date": "2026-08-10T19:49:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "JPARK",
-      "date": "2026-08-10T19:51:39+07:00",
+      "date": "2026-08-10T19:51:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ASIA",
-      "date": "2026-08-10T19:58:21+07:00",
+      "date": "2026-08-10T19:58:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "AIMCG",
-      "date": "2026-08-10T20:05:27+07:00",
+      "date": "2026-08-10T20:05:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ITEL",
-      "date": "2026-08-10T20:05:51+07:00",
+      "date": "2026-08-10T20:05:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "AIMIRT",
-      "date": "2026-08-10T20:07:28+07:00",
+      "date": "2026-08-10T20:07:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -8875,75 +9557,177 @@
     },
     {
       "ticker": "CHASE",
-      "date": "2026-08-10T20:15:47+07:00",
+      "date": "2026-08-10T20:15:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "DHOUSE",
-      "date": "2026-08-10T20:17:22+07:00",
+      "date": "2026-08-10T20:17:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "WINDOW",
-      "date": "2026-08-10T20:19:17+07:00",
+      "date": "2026-08-10T20:19:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "APP",
-      "date": "2026-08-10T20:34:25+07:00",
+      "date": "2026-08-10T20:34:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "QH",
-      "date": "2026-08-10T20:38:57+07:00",
+      "date": "2026-08-10T20:38:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TFG",
-      "date": "2026-08-10T20:50:43+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "ABM",
-      "date": "2026-08-10T21:00:46+07:00",
+      "date": "2026-08-10T20:50:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BLC",
-      "date": "2026-08-10T21:04:11+07:00",
+      "date": "2026-08-10T21:04:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TAKUNI",
-      "date": "2026-08-10T21:17:48+07:00",
+      "date": "2026-08-10T21:17:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BANPU",
-      "date": "2026-08-10T21:19:05+07:00",
+      "date": "2026-08-10T21:19:00+07:00",
       "status": "confirmed",
       "quarter": null
     },
     {
       "ticker": "AMATAV",
-      "date": "2026-08-10T21:40:03+07:00",
+      "date": "2026-08-10T21:40:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "PTL",
-      "date": "2026-08-10T21:47:08+07:00",
+      "date": "2026-08-10T21:47:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 1/2569"
+    },
+    {
+      "ticker": "COCOCO",
+      "date": "2026-08-10T22:11:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "SIRIPRT",
+      "date": "2026-08-10T22:12:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TNL",
+      "date": "2026-08-11T06:33:29+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "MADAME",
+      "date": "2026-08-11T06:59:58+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "VNG",
+      "date": "2026-08-11T07:23:58+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "PPM",
+      "date": "2026-08-11T07:50:20+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "SAPPE",
+      "date": "2026-08-11T08:08:46+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "PJW",
+      "date": "2026-08-11T08:10:22+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "SPG",
+      "date": "2026-08-11T08:14:41+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "ANI",
+      "date": "2026-08-11T08:18:33+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "PMTA",
+      "date": "2026-08-11T08:28:47+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "PCSGH",
+      "date": "2026-08-11T08:29:59+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "SMIT",
+      "date": "2026-08-11T08:31:22+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "ASIMAR",
+      "date": "2026-08-11T08:37:10+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TRU",
+      "date": "2026-08-11T08:38:43+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "ABM",
+      "date": "2026-08-11T08:43:52+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "JCT",
+      "date": "2026-08-11T09:10:06+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "CPANEL",
+      "date": "2026-08-11T09:41:17+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "LEO",
@@ -9037,13 +9821,6 @@
       "basedOnLastYear": "2025-08-13T06:49:00+07:00"
     },
     {
-      "ticker": "CPANEL",
-      "date": "2026-08-13T06:50:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T06:50:00+07:00"
-    },
-    {
       "ticker": "SSF",
       "date": "2026-08-13T06:50:00+07:00",
       "status": "predicted",
@@ -9135,13 +9912,6 @@
       "basedOnLastYear": "2025-08-13T07:26:00+07:00"
     },
     {
-      "ticker": "PPM",
-      "date": "2026-08-13T07:26:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T07:26:00+07:00"
-    },
-    {
       "ticker": "FN",
       "date": "2026-08-13T07:27:00+07:00",
       "status": "predicted",
@@ -9203,13 +9973,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T07:38:00+07:00"
-    },
-    {
-      "ticker": "VNG",
-      "date": "2026-08-13T07:41:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T07:41:00+07:00"
     },
     {
       "ticker": "SITHAI",
@@ -9280,13 +10043,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T08:08:00+07:00"
-    },
-    {
-      "ticker": "SAPPE",
-      "date": "2026-08-13T08:09:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T08:09:00+07:00"
     },
     {
       "ticker": "AH",
@@ -9394,13 +10150,6 @@
       "basedOnLastYear": "2025-08-13T08:36:00+07:00"
     },
     {
-      "ticker": "COCOCO",
-      "date": "2026-08-13T08:39:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T08:39:00+07:00"
-    },
-    {
       "ticker": "JDF",
       "date": "2026-08-13T08:41:00+07:00",
       "status": "predicted",
@@ -9504,13 +10253,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T12:41:00+07:00"
-    },
-    {
-      "ticker": "ASIMAR",
-      "date": "2026-08-13T12:54:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T12:54:00+07:00"
     },
     {
       "ticker": "TPRIME",
@@ -9619,13 +10361,6 @@
     },
     {
       "ticker": "SGF",
-      "date": "2026-08-13T17:04:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T17:04:00+07:00"
-    },
-    {
-      "ticker": "SIRIPRT",
       "date": "2026-08-13T17:04:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -10990,21 +11725,7 @@
       "basedOnLastYear": "2025-08-14T08:25:00+07:00"
     },
     {
-      "ticker": "SMIT",
-      "date": "2026-08-14T08:26:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-14T08:26:00+07:00"
-    },
-    {
       "ticker": "PIS",
-      "date": "2026-08-14T08:27:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-14T08:27:00+07:00"
-    },
-    {
-      "ticker": "PJW",
       "date": "2026-08-14T08:27:00+07:00",
       "status": "predicted",
       "quarter": null,
@@ -11858,13 +12579,6 @@
       "basedOnLastYear": "2025-08-14T18:18:00+07:00"
     },
     {
-      "ticker": "JCT",
-      "date": "2026-08-14T18:19:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-14T18:19:00+07:00"
-    },
-    {
       "ticker": "CPTREIT",
       "date": "2026-08-14T18:20:00+07:00",
       "status": "predicted",
@@ -12696,13 +13410,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-15T08:02:00+07:00"
-    },
-    {
-      "ticker": "MADAME",
-      "date": "2026-08-15T08:18:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-15T08:18:00+07:00"
     },
     {
       "ticker": "STECH",
