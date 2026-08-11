@@ -17,8 +17,6 @@ import { fetchSetNews } from '@/lib/setNews';
 // Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
 // works (see console output). A failing feed is skipped, not fatal.
 const FEEDS: Feed[] = [
-  { name: 'Share2Trade', url: 'https://www.share2trade.com/feed/rss' },
-  { name: 'มิติหุ้น', url: 'https://www.mitihoon.com/feed/' },
   { name: 'InfoQuest', url: 'https://www.infoquest.co.th/stock/feed/' },
   { name: 'ข่าวหุ้น', url: 'https://www.kaohoon.com/feed' },
   { name: 'ข่าวหุ้น (ด่วน)', url: 'https://www.kaohoon.com/breakingnews/feed' },
@@ -26,7 +24,6 @@ const FEEDS: Feed[] = [
   { name: 'RYT9 (SET)', url: 'https://www.ryt9.com/tag/SET/rss.xml' },
   { name: 'RYT9 (หุ้น)', url: 'https://www.ryt9.com/tag/%E0%B8%AB%E0%B8%B8%E0%B9%89%E0%B8%99/rss.xml' },
   { name: 'Money & Banking', url: 'https://moneyandbanking.co.th/feed/' },
-  { name: 'Prachachat', url: 'https://www.prachachat.net/finance/feed' },
   { name: 'Standard Wealth', url: 'https://thestandard.co/category/wealth/feed' },
   { name: 'Reporter Journey', url: 'https://www.reporterjourney.com/feed' },
   { name: 'มติชน', url: 'https://www.matichon.co.th/economy/feed' },
@@ -75,7 +72,7 @@ const FEEDS: Feed[] = [
 //   RYT9 tag names tried and 404: STOCK, ตลาดหลักทรัพย์, การเงิน, MAI, หลักทรัพย์,
 //     งบการเงิน, ปันผล, บล, หุ้นกู้ (only "SET", "IPO", and "หุ้น" tags resolve)
 
-const FEED_TIMEOUT_MS = 12000;
+const FEED_TIMEOUT_MS = 3000;
 const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
 
 // Shared across concurrent page loads via Next.js's fetch Data Cache, instead
