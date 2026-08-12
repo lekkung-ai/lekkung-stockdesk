@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 enrich_earnings_pead.py - Enrich earnings_feed.json with PEAD (Post-Earnings Announcement Drift)
-gap_pct, drift_d1_pct, and drift_d5_pct using Yahoo Finance 3-month daily series.
+gap_pct, drift_d1_pct, drift_d2_pct, and drift_d5_pct using Yahoo Finance 3-month daily series.
 
 Usage:
     python scripts/enrich_earnings_pead.py
@@ -76,8 +76,8 @@ def yahoo_series(ticker):
 
 def compute_pead(ticker, announce_iso):
     """
-    Compute Gap % and Drift (D+1, D+5) % based on announcement hour and Yahoo daily series.
-    Returns dict with gap_pct, drift_d1_pct, drift_d5_pct or {} if data insufficient.
+    Compute Gap % and Drift (D+1, D+2, D+5) % based on announcement hour and Yahoo daily series.
+    Returns dict with gap_pct, drift_d1_pct, drift_d2_pct, drift_d5_pct or {} if data insufficient.
     """
     series = yahoo_series(ticker)
     if len(series) < 2:
@@ -127,6 +127,7 @@ def compute_pead(ticker, announce_iso):
         
     gap = (reaction / pre - 1) * 100
     d1c = series[t0 + 1][2] if t0 + 1 < len(series) else None
+    d2c = series[t0 + 2][2] if t0 + 2 < len(series) else None
     d5c = series[t0 + 5][2] if t0 + 5 < len(series) else None
     
     def safe(v):
@@ -136,6 +137,7 @@ def compute_pead(ticker, announce_iso):
     return {
         'gap_pct': g,
         'drift_d1_pct': safe(d1c),
+        'drift_d2_pct': safe(d2c),
         'drift_d5_pct': safe(d5c)
     }
 
