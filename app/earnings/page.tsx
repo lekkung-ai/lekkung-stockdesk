@@ -471,10 +471,10 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
       .filter(a => {
         const hasGoodProfit = (a.netProfitYoY != null && a.netProfitYoY > 0) || a.profitAcceleration === 'accelerating';
         const hasGapUp = a.gap_pct != null && a.gap_pct > 0;
-        const hasDrift5 = a.drift_d5_pct != null && a.drift_d5_pct > 0;
-        return hasGoodProfit && hasGapUp && hasDrift5;
+        const hasDrift2 = a.drift_d2_pct != null && a.drift_d2_pct > 0;
+        return hasGoodProfit && hasGapUp && hasDrift2;
       })
-      .sort((a, b) => (b.drift_d5_pct ?? 0) - (a.drift_d5_pct ?? 0));
+      .sort((a, b) => (b.drift_d2_pct ?? 0) - (a.drift_d2_pct ?? 0));
   }, [announcements]);
 
   return (
@@ -490,11 +490,11 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
             </span>
           </div>
           <p className="text-[11.5px] text-white/50 mt-0.5">
-            งบดี + ราคาตอบรับ (Gap Up) + วิ่งต่อต่อเนื่อง (Drift D+5 บวกล้น)
+            งบดี + ราคาตอบรับ (Gap Up) + วิ่งต่อบวก (Drift D+2 บวกล้น)
           </p>
         </div>
         <div className="text-[11px] text-meta">
-          * เฉพาะหุ้นที่ประกาศงบแล้วเกิน 5 วันทำการ (ครบ D+5)
+          * เฉพาะหุ้นที่ประกาศงบแล้วเกิน 2 วันทำการ (ครบ D+2)
         </div>
       </div>
 
@@ -542,26 +542,34 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
                   </div>
                 )}
 
-                {/* PEAD Price Reaction Metrics: Gap & Drift D+1, D+5 */}
-                <div className="bg-black/30 rounded-lg p-2.5 grid grid-cols-3 gap-1.5 text-center border border-white/[0.04]">
+                {/* PEAD Price Reaction Metrics: Gap & Drift D+1, D+2, D+5 */}
+                <div className="bg-black/30 rounded-lg p-2 grid grid-cols-4 gap-1 text-center border border-white/[0.04]">
                   <div>
                     <div className="text-[10px] text-white/40 uppercase font-medium">Gap T0</div>
-                    <div className="text-[12px] font-extrabold text-emerald-400 tabular-nums mt-0.5">
+                    <div className="text-[11.5px] font-extrabold text-emerald-400 tabular-nums mt-0.5">
                       +{a.gap_pct?.toFixed(2)}%
                     </div>
                   </div>
                   <div>
                     <div className="text-[10px] text-white/40 uppercase font-medium">Drift D+1</div>
-                    <div className={`text-[12px] font-extrabold tabular-nums mt-0.5 ${
+                    <div className={`text-[11.5px] font-extrabold tabular-nums mt-0.5 ${
                       (a.drift_d1_pct ?? 0) >= 0 ? 'text-emerald-400' : 'text-rose-400'
                     }`}>
                       {a.drift_d1_pct != null ? `${a.drift_d1_pct >= 0 ? '+' : ''}${a.drift_d1_pct.toFixed(2)}%` : '—'}
                     </div>
                   </div>
                   <div>
+                    <div className="text-[10px] text-white/40 uppercase font-medium">Drift D+2</div>
+                    <div className="text-[11.5px] font-black text-emerald-400 tabular-nums mt-0.5">
+                      +{a.drift_d2_pct?.toFixed(2)}%
+                    </div>
+                  </div>
+                  <div>
                     <div className="text-[10px] text-white/40 uppercase font-medium">Drift D+5</div>
-                    <div className="text-[12px] font-black text-emerald-400 tabular-nums mt-0.5">
-                      +{a.drift_d5_pct?.toFixed(2)}%
+                    <div className={`text-[11.5px] font-semibold tabular-nums mt-0.5 ${
+                      a.drift_d5_pct == null ? 'text-white/40' : (a.drift_d5_pct >= 0 ? 'text-emerald-400' : 'text-rose-400')
+                    }`}>
+                      {a.drift_d5_pct != null ? `${a.drift_d5_pct >= 0 ? '+' : ''}${a.drift_d5_pct.toFixed(2)}%` : '—'}
                     </div>
                   </div>
                 </div>

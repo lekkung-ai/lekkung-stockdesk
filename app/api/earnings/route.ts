@@ -34,6 +34,7 @@ export interface EarningsAnnouncement {
   reason_source: 'mda_extract' | 'none';
   gap_pct?: number | null;
   drift_d1_pct?: number | null;
+  drift_d2_pct?: number | null;
   drift_d5_pct?: number | null;
 }
 
