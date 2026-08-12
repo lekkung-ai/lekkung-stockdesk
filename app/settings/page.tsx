@@ -192,7 +192,14 @@ function PendingUniverseChanges() {
   const [approvedRenamed, setApprovedRenamed] = useState<Set<string>>(new Set());
   const [approvedPossibleRename, setApprovedPossibleRename] = useState<Set<string>>(new Set());
 
-  const [rejectedItems, setRejectedItems] = useState<Set<string>>(new Set());
+  const [rejectedItems, setRejectedItems] = useState<Set<string>>(() => {
+    if (typeof window === 'undefined') return new Set();
+    try {
+      return new Set(JSON.parse(localStorage.getItem('rejected_universe_items') || '[]'));
+    } catch {
+      return new Set();
+    }
+  });
   const [sectorEdits, setSectorEdits] = useState<Record<string, { sector: string; subsector: string }>>({});
   const [copied, setCopied] = useState(false);
 
@@ -232,7 +239,17 @@ function PendingUniverseChanges() {
   }
 
   function handleReject(key: string) {
-    setRejectedItems(prev => new Set(prev).add(key));
+    setRejectedItems(prev => {
+      const next = new Set(prev).add(key);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('rejected_universe_items', JSON.stringify([...next]));
+        } catch {
+          // ignore
+        }
+      }
+      return next;
+    });
   }
 
   // Toggle helpers
@@ -245,6 +262,10 @@ function PendingUniverseChanges() {
     });
   }
 
+  const rejectedSingleTickers = useMemo(() => {
+    return Array.from(rejectedItems).filter(k => !k.includes('->'));
+  }, [rejectedItems]);
+
   const totalApproved =
     approvedNew.size +
     approvedDelisted.size +
@@ -252,12 +273,14 @@ function PendingUniverseChanges() {
     approvedRenamed.size +
     approvedPossibleRename.size;
 
+  const totalActions = totalApproved + rejectedSingleTickers.length;
+
   function buildPrompt(): string {
     const lines: string[] = [];
     lines.push('====================================================');
     lines.push('📌 พรอมต์สำหรับ Executor: อัปเดต Universe & Sector Map');
     lines.push('====================================================');
-    lines.push('คำสั่ง: โปรดดำเนินการอัปเดตไฟล์ Universe และ Sector Map ตามรายการที่ได้รับอนุมัติ');
+    lines.push('คำสั่ง: โปรดดำเนินการอัปเดตไฟล์ Universe และ Sector Map ตามรายการที่ได้รับอนุมัติ / ปฏิเสธ');
     lines.push('');
 
     // 1. New IPOs
@@ -324,11 +347,36 @@ function PendingUniverseChanges() {
       lines.push('');
     }
 
+    // 6. Rejected Tickers (MERGE into universe_ignore.json)
+    if (rejectedSingleTickers.length > 0) {
+      lines.push(`🚫 6. เพิ่ม Ticker ที่ปฏิเสธ (Reject) เข้า Ignore List (${rejectedSingleTickers.length} ตัว):`);
+      lines.push(`   - รายการ Ticker: [${rejectedSingleTickers.map(t => `"${t}"`).join(', ')}]`);
+      lines.push(`   - Target File: data_engine/data/scans/universe_ignore.json (Path ใน repo: E:\\AI Agent\\Stock Agent\\data_engine\\data\\scans\\universe_ignore.json)`);
+      lines.push(`   - วิธีการ (MERGE ห้าม overwrite):`);
+      lines.push(`     1. อ่านไฟล์ data_engine/data/scans/universe_ignore.json เดิมก่อน (schema: {"rejected": [...]})`);
+      lines.push(`     2. เพิ่มเฉพาะ ticker ใหม่ [${rejectedSingleTickers.map(t => `"${t}"`).join(', ')}] เข้าใน array "rejected" (ทำการ Deduplicate ห้ามมี ticker ซ้ำ)`);
+      lines.push(`     3. ⚠️ ย้ำ MERGE ไม่ overwrite: อ่านไฟล์เดิมก่อน เพิ่มเฉพาะ ticker ใหม่เข้า rejected array ห้ามเขียนทับ array เดิม`);
+      lines.push(`     4. บันทึกไฟล์ data_engine/data/scans/universe_ignore.json`);
+      lines.push(`   - Git procedure (สำหรับ repository data_engine):`);
+      lines.push(`     1. cd เข้าไปที่ E:\\AI Agent\\Stock Agent\\data_engine`);
+      lines.push(`     2. git pull --rebase ก่อนเสมอ`);
+      lines.push(`     3. git add data/scans/universe_ignore.json`);
+      lines.push(`     4. git commit -m "chore: merge rejected tickers into universe_ignore.json"`);
+      lines.push(`     5. git push data_engine`);
+      lines.push('');
+    }
+
     lines.push('📌 ตรวจสอบและยืนยันงาน:');
-    lines.push('1. ดำเนินการอัปเดตไฟล์ sector_map.json และ Remap ประวัติในไฟล์ history ตามรายการข้างต้น');
-    lines.push('2. รันคำสั่ง validation: python scripts/validate_sector_mapping.py');
-    lines.push('3. รันคำสั่ง build: npm run build');
-    lines.push('4. สรุปรายงานผลการเปลี่ยนแปลงให้ผมตรวจสอบก่อน Push');
+    if (totalApproved > 0) {
+      lines.push('1. ดำเนินการอัปเดตไฟล์ sector_map.json และ Remap ประวัติในไฟล์ history ตามรายการอนุมัติข้างต้น');
+      lines.push('2. รันคำสั่ง validation: python scripts/validate_sector_mapping.py');
+      lines.push('3. รันคำสั่ง build: npm run build');
+    }
+    if (rejectedSingleTickers.length > 0) {
+      lines.push('• ดำเนินการ append ticker ที่ถูก reject เข้า data_engine/data/scans/universe_ignore.json แบบ MERGE (อ่านก่อน + dedup + ห้าม overwrite)');
+      lines.push('• ทำ git pull --rebase -> commit -> push repo data_engine');
+    }
+    lines.push('• สรุปรายงานผลการเปลี่ยนแปลงให้ผมตรวจสอบก่อน Push');
 
     return lines.join('\n');
   }
@@ -682,15 +730,17 @@ function PendingUniverseChanges() {
           <div className="pt-3 border-t border-white/[0.07] flex flex-wrap items-center justify-between gap-3">
             <button
               onClick={handleCopyPrompt}
-              disabled={totalApproved === 0}
+              disabled={totalActions === 0}
               className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12.5px] font-bold transition-all ${
-                totalApproved === 0
+                totalActions === 0
                   ? 'bg-white/[0.04] text-white/20 cursor-not-allowed border border-white/[0.05]'
                   : 'bg-[#1D9E75] text-black hover:bg-[#158763] shadow-lg shadow-[#1D9E75]/20'
               }`}
             >
               <Copy size={15} />
-              {copied ? 'คัดลอกพรอมต์แล้ว!' : `คัดลอกพรอมต์สำหรับ Executor (${totalApproved} รายการอนุมัติ)`}
+              {copied
+                ? 'คัดลอกพรอมต์แล้ว!'
+                : `คัดลอกพรอมต์สำหรับ Executor (${totalApproved} อนุมัติ${rejectedSingleTickers.length > 0 ? `, ${rejectedSingleTickers.length} ปฏิเสธ` : ''})`}
             </button>
             <span className="text-[11px] text-white/35">
               คัดลอกไปวางใน Claude Code / Executor เพื่อสั่งอัปเดตไฟล์จริง
