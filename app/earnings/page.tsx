@@ -167,10 +167,11 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
       }
     }
 
-    // 3. Source for predicted earnings: feed.calendar (dedup: skip if ticker is already confirmed)
+    // 3. Source for predicted earnings: feed.calendar (dedup: skip if ticker is already confirmed & skip predicted overdue)
     for (const c of feed.calendar) {
       if (c.status === 'predicted' && !confirmedTickers.has(c.ticker)) {
         const raw = c.date.slice(0, 10);
+        if (raw < todayAnchor) continue;
         const effDate = rollToWeekday(raw);
         if (!map.has(effDate)) map.set(effDate, { confirmed: [], predicted: [] });
         map.get(effDate)!.predicted.push(c);
@@ -178,7 +179,7 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
     }
 
     return map;
-  }, [feed.announcements, feed.calendar]);
+  }, [feed.announcements, feed.calendar, todayAnchor]);
 
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4">
