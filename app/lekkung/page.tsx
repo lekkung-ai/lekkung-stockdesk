@@ -10,7 +10,7 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
   formatPE, ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -31,11 +31,6 @@ import React from 'react';
 const incompleteItems = Array.isArray(rawIncomplete) ? rawIncomplete : [];
 
 export default function LekkungPage() {
-  const [profitMin, setProfitMin] = useState(20);
-  const [revMin, setRevMin] = useState(10);
-  const [roeMin, setRoeMin] = useState(15);
-  const [mcapMin, setMcapMin] = useState(0);
-  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -58,11 +53,6 @@ export default function LekkungPage() {
 
   const filtered = useMemo(() => {
     let result = lekkungData
-      .filter(s => s.NetProfit_Growth_QoQY >= profitMin)
-      .filter(s => s.Revenue_Growth_YoY >= revMin)
-      .filter(s => (s.ROE * 100) >= roeMin)
-      .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin)
-      .filter(s => adtvMin === 0 || (s.ADTV_MB || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -83,11 +73,11 @@ export default function LekkungPage() {
       result = result.sort((a, b) => b.NetProfit_Growth_QoQY - a.NetProfit_Growth_QoQY);
     }
     return result;
-  }, [profitMin, revMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]);
+  }, [sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [profitMin, revMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]
+    [sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
@@ -122,16 +112,6 @@ export default function LekkungPage() {
       ) : (
       <>
       <FilterBar>
-        <SliderField label="Profit Growth (QoQY) %" min={0} max={100} value={profitMin} onChange={setProfitMin} />
-        <Divider />
-        <SliderField label="Revenue Growth (YoY) %" min={0} max={100} value={revMin} onChange={setRevMin} />
-        <Divider />
-        <SliderField label="ROE %" min={15} max={50} value={roeMin} onChange={setRoeMin} />
-        <Divider />
-        <SliderField label="Market Cap (MB)" min={0} max={50000} value={mcapMin} onChange={setMcapMin} step={1000} />
-        <Divider />
-        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={setAdtvMin} step={5} />
-        <Divider />
         <ScanDiffChips scanName="lekkung" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
 
