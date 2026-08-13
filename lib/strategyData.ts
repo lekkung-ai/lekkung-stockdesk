@@ -8,6 +8,7 @@ import rawWeinstein from '@/data/scans/weinstein.json';
 
 export interface LekkungEntry {
   Ticker: string;
+  EMA_10?: number;
   Close: number;
   PE_Ratio: number;
   ROE: number;

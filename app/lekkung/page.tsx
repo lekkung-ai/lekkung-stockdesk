@@ -62,6 +62,11 @@ export default function LekkungPage() {
           const bVal = daysInScan('lekkung', b.Ticker) ?? -1;
           return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
         }
+        if (sortConfig.key === '__ema10diff') {
+          const aVal = (a.Close != null && a.EMA_10 != null) ? (a.Close - a.EMA_10) : -Infinity;
+          const bVal = (b.Close != null && b.EMA_10 != null) ? (b.Close - b.EMA_10) : -Infinity;
+          return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
         const aVal = (a as any)[sortConfig.key];
         const bVal = (b as any)[sortConfig.key];
         if (typeof aVal === 'string' && typeof bVal === 'string') {
@@ -182,6 +187,7 @@ export default function LekkungPage() {
             <SortableTh right sortKey="Revenue_Growth_YoY" currentSort={sortConfig} onSort={handleSort}>Rev Gr (YoY)</SortableTh>
             <SortableTh right sortKey="NetProfit_Growth_QoQY" currentSort={sortConfig} onSort={handleSort}>Profit Gr (QoQY)</SortableTh>
             <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52w H/L</SortableTh>
+            <SortableTh right sortKey="__ema10diff" currentSort={sortConfig} onSort={handleSort}>vs EMA10</SortableTh>
             <SortableTh right sortKey="Market_Cap" currentSort={sortConfig} onSort={handleSort}>Market Cap (MB)</SortableTh>
             <SortableTh right sortKey="ADTV_MB" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
           </tr>
@@ -243,6 +249,18 @@ export default function LekkungPage() {
                     <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
                     <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
                   </div>
+                </Td>
+                <Td right mono>
+                  {(s.EMA_10 != null && s.Close != null) ? (
+                    <div className="flex flex-col items-end leading-tight text-label">
+                      <span className={s.Close >= s.EMA_10 ? 'text-[#1D9E75]' : 'text-[#3B9EFF]'}>
+                        {(s.Close - s.EMA_10 >= 0 ? '+' : '') + (s.Close - s.EMA_10).toFixed(2)}
+                      </span>
+                      <span className={s.Close >= s.EMA_10 ? 'text-[#1D9E75]' : 'text-[#3B9EFF]'}>
+                        {(((s.Close - s.EMA_10) / s.EMA_10) * 100 >= 0 ? '+' : '') + (((s.Close - s.EMA_10) / s.EMA_10) * 100).toFixed(1) + '%'}
+                      </span>
+                    </div>
+                  ) : <span className="text-white/30">—</span>}
                 </Td>
                 <Td right mono>
                   <span className="text-white/70">
