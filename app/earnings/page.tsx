@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart, X } from 'lucide-react';
-import { SortableTh, SortConfig } from '@/components/StrategyTable';
+import { SortableTh, SortConfig, TableWrap, Th, Td } from '@/components/StrategyTable';
 import TableSkeleton from '@/components/TableSkeleton';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
@@ -465,17 +465,39 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
 
 function PeadWatchSection({ announcements }: { announcements: EarningsAnnouncement[] }) {
   const router = useRouter();
+  const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'drift_d2_pct', dir: 'desc' });
+
+  const handleSort = (key: string) => {
+    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
+  };
 
   const peadList = useMemo(() => {
-    return announcements
+    let list = announcements
       .filter(a => {
         const hasGoodProfit = (a.netProfitYoY != null && a.netProfitYoY > 0) || a.profitAcceleration === 'accelerating';
         const hasGapUp = a.gap_pct != null && a.gap_pct > 0;
         const hasDrift2 = a.drift_d2_pct != null && a.drift_d2_pct > 0;
         return hasGoodProfit && hasGapUp && hasDrift2;
-      })
-      .sort((a, b) => (b.drift_d2_pct ?? 0) - (a.drift_d2_pct ?? 0));
-  }, [announcements]);
+      });
+
+    if (sortConfig) {
+      list = list.sort((a, b) => {
+        const aVal = (a as any)[sortConfig.key];
+        const bVal = (b as any)[sortConfig.key];
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        const aNull = aVal == null;
+        const bNull = bVal == null;
+        if (aNull && bNull) return 0;
+        if (aNull) return 1;
+        if (bNull) return -1;
+        return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+      });
+    }
+    return list;
+  }, [announcements, sortConfig]);
 
   return (
     <div className="bg-[#13161e] border border-emerald-500/25 rounded-2xl p-4 md:p-5 space-y-3.5 shadow-sm">
@@ -488,9 +510,29 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
             <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold tabular-nums">
               {peadList.length} ตัว
             </span>
+            <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden p-0.5 bg-black/20 ml-1">
+              <button
+                onClick={() => setViewMode('card')}
+                title="มุมมองการ์ด"
+                className={`px-2.5 py-1 text-[12px] font-semibold rounded-md transition-colors ${
+                  viewMode === 'card' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+                }`}
+              >
+                ⊞
+              </button>
+              <button
+                onClick={() => setViewMode('table')}
+                title="มุมมองตาราง"
+                className={`px-2.5 py-1 text-[12px] font-semibold rounded-md transition-colors ${
+                  viewMode === 'table' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+                }`}
+              >
+                ☰
+              </button>
+            </div>
           </div>
           <p className="text-[11.5px] text-white/50 mt-0.5">
-            งบดี + ราคาตอบรับ (Gap Up) + วิ่งต่อบวก (Drift D+2 บวกล้น)
+            เรียงตาม Drift D+2 (ราคาวิ่งต่อ 2 วันทำการหลังงบ) · % กำไร YoY เทียบไตรมาสเดียวกันปีก่อน (turnaround ฐานติดลบ → % สูงผิดปกติ) · QoQ เทียบไตรมาสก่อน
           </p>
         </div>
         <div className="text-[11px] text-meta">
@@ -502,7 +544,7 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
         <div className="py-6 text-center text-label text-meta">
           ยังไม่มีหุ้นเข้าเกณฑ์ PEAD ช่วงนี้
         </div>
-      ) : (
+      ) : viewMode === 'card' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {peadList.map(a => {
             const spark = sparklineMap[a.ticker];
@@ -526,7 +568,20 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-1">
-                    <YoyBadge value={a.netProfitYoY} />
+                    <div className="flex items-center gap-2 text-[11px] tabular-nums">
+                      <div className="flex items-center gap-1">
+                        <span className="text-white/40 text-[10px]">YoY</span>
+                        <YoyBadge value={a.netProfitYoY} />
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-white/40 text-[10px]">QoQ</span>
+                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${
+                          a.netProfitQoQ == null ? 'text-meta' : a.netProfitQoQ >= 0 ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]'
+                        }`}>
+                          {a.netProfitQoQ != null ? `${a.netProfitQoQ >= 0 ? '+' : ''}${a.netProfitQoQ.toFixed(1)}%` : '—'}
+                        </span>
+                      </div>
+                    </div>
                     <div className="flex items-center gap-1 flex-wrap justify-end">
                       {a.profitAcceleration === 'accelerating' && (
                         <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
@@ -559,7 +614,7 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
                   <div>
                     <div className="text-[10px] text-white/40 uppercase font-medium">Gap T0</div>
                     <div className="text-[11.5px] font-extrabold text-emerald-400 tabular-nums mt-0.5">
-                      +{a.gap_pct?.toFixed(2)}%
+                      {a.gap_pct != null ? `${a.gap_pct >= 0 ? '+' : ''}${a.gap_pct.toFixed(2)}%` : '—'}
                     </div>
                   </div>
                   <div>
@@ -573,7 +628,7 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
                   <div>
                     <div className="text-[10px] text-white/40 uppercase font-medium">Drift D+2</div>
                     <div className="text-[11.5px] font-black text-emerald-400 tabular-nums mt-0.5">
-                      +{a.drift_d2_pct?.toFixed(2)}%
+                      {a.drift_d2_pct != null ? `${a.drift_d2_pct >= 0 ? '+' : ''}${a.drift_d2_pct.toFixed(2)}%` : '—'}
                     </div>
                   </div>
                   <div>
@@ -589,6 +644,86 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
             );
           })}
         </div>
+      ) : (
+        <TableWrap>
+          <table className="w-full text-left">
+            <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+              <tr>
+                <SortableTh sortKey="ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
+                <SortableTh sortKey="quarter" currentSort={sortConfig} onSort={handleSort}>งวด</SortableTh>
+                <SortableTh right sortKey="netProfitYoY" currentSort={sortConfig} onSort={handleSort}>กำไร %YoY</SortableTh>
+                <SortableTh right sortKey="netProfitQoQ" currentSort={sortConfig} onSort={handleSort}>กำไร %QoQ</SortableTh>
+                <SortableTh right sortKey="gap_pct" currentSort={sortConfig} onSort={handleSort}>Gap T0</SortableTh>
+                <SortableTh right sortKey="drift_d1_pct" currentSort={sortConfig} onSort={handleSort}>Drift D+1</SortableTh>
+                <SortableTh right sortKey="drift_d2_pct" currentSort={sortConfig} onSort={handleSort}>Drift D+2</SortableTh>
+                <SortableTh right sortKey="drift_d5_pct" currentSort={sortConfig} onSort={handleSort}>Drift D+5</SortableTh>
+                <Th>สถานะ</Th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/[0.03]">
+              {peadList.map(a => (
+                <tr
+                  key={a.ticker}
+                  onClick={() => router.push(`/stock/${a.ticker}`)}
+                  className="hover:bg-white/[0.03] cursor-pointer transition-colors"
+                >
+                  <Td className="font-extrabold text-blue-400 group-hover:text-blue-300">
+                    <span className="flex items-center gap-1">
+                      {a.ticker}
+                      <ExternalLink size={11} className="text-white/30" />
+                    </span>
+                  </Td>
+                  <Td className="text-white/60">{a.quarter ?? '—'}</Td>
+                  <Td right>
+                    <YoyBadge value={a.netProfitYoY} />
+                  </Td>
+                  <Td right>
+                    <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${
+                      a.netProfitQoQ == null ? 'text-meta' : a.netProfitQoQ >= 0 ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]'
+                    }`}>
+                      {a.netProfitQoQ != null ? `${a.netProfitQoQ >= 0 ? '+' : ''}${a.netProfitQoQ.toFixed(1)}%` : '—'}
+                    </span>
+                  </Td>
+                  <Td right className="font-extrabold text-emerald-400 tabular-nums">
+                    {a.gap_pct != null ? `${a.gap_pct >= 0 ? '+' : ''}${a.gap_pct.toFixed(2)}%` : '—'}
+                  </Td>
+                  <Td right className={`font-semibold tabular-nums ${
+                    (a.drift_d1_pct ?? 0) >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                  }`}>
+                    {a.drift_d1_pct != null ? `${a.drift_d1_pct >= 0 ? '+' : ''}${a.drift_d1_pct.toFixed(2)}%` : '—'}
+                  </Td>
+                  <Td right className="font-black text-emerald-400 tabular-nums">
+                    {a.drift_d2_pct != null ? `${a.drift_d2_pct >= 0 ? '+' : ''}${a.drift_d2_pct.toFixed(2)}%` : '—'}
+                  </Td>
+                  <Td right className={`font-semibold tabular-nums ${
+                    a.drift_d5_pct == null ? 'text-white/40' : (a.drift_d5_pct >= 0 ? 'text-emerald-400' : 'text-rose-400')
+                  }`}>
+                    {a.drift_d5_pct != null ? `${a.drift_d5_pct >= 0 ? '+' : ''}${a.drift_d5_pct.toFixed(2)}%` : '—'}
+                  </Td>
+                  <Td>
+                    <div className="flex items-center gap-1 flex-wrap">
+                      {a.profitAcceleration === 'accelerating' && (
+                        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          ⚡ เร่งตัว
+                        </span>
+                      )}
+                      {a.bucket === 'turnaround' && (
+                        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                          🔄 พลิกกำไร
+                        </span>
+                      )}
+                      {a.bucket === 'loss_shrink' && (
+                        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                          📉 ขาดทุนแคบลง
+                        </span>
+                      )}
+                    </div>
+                  </Td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TableWrap>
       )}
     </div>
   );
