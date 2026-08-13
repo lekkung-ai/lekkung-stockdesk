@@ -26,6 +26,7 @@ import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import { getScanHistory } from '@/lib/scanHistory';
 import ReportCardBar from '@/components/ReportCardBar';
+import ReportCardButton from '@/components/ReportCardButton';
 
 // Trend Template — 8 เงื่อนไขตาม Minervini (Trade Like a Stock Market Wizard, p.79)
 const TREND_TEMPLATE_CONDITIONS: { key: keyof SepaEntry; label: string }[] = [
@@ -176,6 +177,7 @@ export default function SepaPage() {
           total={sepaData.length}
         />
         <div className="flex items-center gap-3">
+          <ReportCardButton scanKey="sepa" />
           <ExportCSVButton data={filtered} filename="sepa_trend_template.csv" />
           <ModeToggle mode={mode} onChange={setMode} />
         </div>

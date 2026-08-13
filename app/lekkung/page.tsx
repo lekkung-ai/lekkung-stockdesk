@@ -22,6 +22,7 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import ReportCardBar from '@/components/ReportCardBar';
+import ReportCardButton from '@/components/ReportCardButton';
 import { getScanDiff } from '@/lib/scanDiff';
 import { getScanHistory } from '@/lib/scanHistory';
 import { computeScanMarkers } from '@/lib/scanMarkers';
@@ -103,6 +104,7 @@ export default function LekkungPage() {
           total={lekkungData.length}
         />
         <div className="flex items-center gap-3">
+          <ReportCardButton scanKey="lekkung_growth" />
           <ExportCSVButton data={filtered} filename="lekkung_growth.csv" />
           <IncompletePopover items={incompleteItems} />
           <ModeToggle mode={mode} onChange={setMode} />

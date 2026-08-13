@@ -25,6 +25,7 @@ import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import { getScanHistory } from '@/lib/scanHistory';
 import ReportCardBar from '@/components/ReportCardBar';
+import ReportCardButton from '@/components/ReportCardButton';
 
 export default function OneilPage() {
   const [rsMin, setRsMin] = useState(80);
@@ -97,6 +98,7 @@ export default function OneilPage() {
           total={oneilData.length}
         />
         <div className="flex items-center gap-3">
+          <ReportCardButton scanKey="oneil" />
           <ExportCSVButton data={filtered} filename="oneil_canslim.csv" />
           <ModeToggle mode={mode} onChange={setMode} />
         </div>

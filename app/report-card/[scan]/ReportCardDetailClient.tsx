@@ -61,6 +61,15 @@ interface ScanDataProps {
 
 const PER_PAGE = 20;
 
+const SCAN_ROUTE_MAP: Record<string, string> = {
+  lekkung_growth: '/lekkung',
+  sepa: '/sepa',
+  kell: '/kell',
+  breakout: '/breakout',
+  oneil: '/oneil',
+  ppbp: '/scanner',
+};
+
 function fmtPct(n: number | null, showSign = true): string {
   if (n == null) return '—';
   const sign = showSign && n > 0 ? '+' : '';
@@ -137,6 +146,7 @@ function TickerChip({ entry, occurrenceCount }: { entry: BestWorstEntry; occurre
 }
 
 export default function ReportCardDetailClient({
+  scanKey,
   scanLabel,
   scanColor,
   scanData,
@@ -288,14 +298,25 @@ export default function ReportCardDetailClient({
 
   return (
     <div className="p-4 md:p-6 space-y-6">
-      {/* Back button */}
-      <Link
-        href="/report-card"
-        className="inline-flex items-center gap-1 text-[12px] text-white/40 hover:text-white/70 transition-colors"
-      >
-        <ChevronLeft size={14} />
-        กลับไป Report Card Overview
-      </Link>
+      {/* Back buttons */}
+      <div className="flex items-center gap-4 flex-wrap">
+        <Link
+          href="/report-card"
+          className="inline-flex items-center gap-1 text-[12px] text-white/40 hover:text-white/70 transition-colors"
+        >
+          <ChevronLeft size={14} />
+          กลับไป Report Card Overview
+        </Link>
+        {SCAN_ROUTE_MAP[scanKey] && (
+          <Link
+            href={SCAN_ROUTE_MAP[scanKey]}
+            className="inline-flex items-center gap-1 text-[12px] text-[#1D9E75]/70 hover:text-[#1D9E75] transition-colors"
+          >
+            <ChevronLeft size={14} />
+            กลับไปหน้าสแกน {scanLabel}
+          </Link>
+        )}
+      </div>
 
       {/* Header & Sub-toggle */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

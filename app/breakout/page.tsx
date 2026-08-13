@@ -25,6 +25,7 @@ import { getScanDiff } from '@/lib/scanDiff';
 import { getScanHistory } from '@/lib/scanHistory';
 import StockChart from '@/components/StockChart';
 import ReportCardBar from '@/components/ReportCardBar';
+import ReportCardButton from '@/components/ReportCardButton';
 
 export default function BreakoutPage() {
   const [toBreakMax, setToBreakMax] = useState(10);
@@ -121,6 +122,7 @@ export default function BreakoutPage() {
           total={breakoutData.length}
         />
         <div className="flex items-center gap-3">
+          <ReportCardButton scanKey="breakout" />
           <ExportCSVButton data={filtered} filename="breakout_setup.csv" />
           <ModeToggle mode={mode} onChange={setMode} />
         </div>

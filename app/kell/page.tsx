@@ -25,6 +25,7 @@ import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import { getScanHistory } from '@/lib/scanHistory';
 import ReportCardBar from '@/components/ReportCardBar';
+import ReportCardButton from '@/components/ReportCardButton';
 
 const SIGNALS = ['ทั้งหมด', 'EMAC Buy', 'Trend Riding'] as const;
 type SignalFilter = (typeof SIGNALS)[number];
@@ -131,6 +132,7 @@ export default function KellPage() {
           total={kellData.length}
         />
         <div className="flex items-center gap-3">
+          <ReportCardButton scanKey="kell" />
           <ExportCSVButton data={filtered} filename="kell_emac.csv" />
           <ModeToggle mode={mode} onChange={setMode} />
         </div>
