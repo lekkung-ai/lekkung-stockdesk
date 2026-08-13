@@ -12,6 +12,16 @@ import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, BUCKET_BADGE_STYLE, type Earn
 import { classifyQoQ, QOQ_COLOR, QOQ_LABEL, QOQ_BADGE_STYLE, getAccelerationStatus } from '@/lib/qoqBucket';
 import type { EarningsFeed, EarningsAnnouncement, EarningsCalendarEntry } from '@/app/api/earnings/route';
 
+// cap % ที่ ±1000 กันเลขระเบิดจากฐานจิ๋ว/พลิกขั้ว — คืน string พร้อมเครื่องหมาย
+// คืน { text, title } : text = ที่โชว์, title = ค่าจริงสำหรับ hover
+function fmtGrowthPct(n: number | null | undefined): { text: string; title: string } {
+  if (n == null || !Number.isFinite(n)) return { text: '—', title: '' };
+  const real = `${n >= 0 ? '+' : ''}${n.toFixed(1)}%`;
+  if (n > 1000) return { text: '>+1000%', title: real };
+  if (n < -1000) return { text: '<-1000%', title: real };
+  return { text: real, title: real };
+}
+
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const WEEKDAY_LABELS = ['จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์'];
 
@@ -110,8 +120,8 @@ function BucketCards({
                 b.top3.map(t => (
                   <div key={t.ticker} className="flex items-center justify-between text-label">
                     <span className="text-white/60 font-medium">{t.ticker}</span>
-                    <span className="tabular-nums" style={{ color }}>
-                      {t.netProfitYoY >= 0 ? '+' : ''}{t.netProfitYoY.toFixed(1)}%
+                    <span className="tabular-nums" style={{ color }} title={fmtGrowthPct(t.netProfitYoY).title}>
+                      {fmtGrowthPct(t.netProfitYoY).text}
                     </span>
                   </div>
                 ))
@@ -287,8 +297,8 @@ function YoyBadge({ value }: { value: number | null }) {
   if (value == null) return <span className="text-meta">—</span>;
   const cls = value >= 0 ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]';
   return (
-    <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${cls}`}>
-      {value >= 0 ? '+' : ''}{value.toFixed(1)}%
+    <span title={fmtGrowthPct(value).title} className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${cls}`}>
+      {fmtGrowthPct(value).text}
     </span>
   );
 }
@@ -310,12 +320,13 @@ function QoqBadge({
   if (info.category === 'no_base') return <span className="text-meta">—</span>;
 
   const status = getAccelerationStatus(netProfit, netProfitPrior, netProfitPriorQ, netProfitYoY, info.pct);
-  const formattedPct = info.pct != null ? `${info.pct >= 0 ? '+' : ''}${info.pct.toFixed(1)}%` : info.label;
+  const capped = fmtGrowthPct(info.pct);
+  const formattedPct = info.pct != null ? capped.text : info.label;
 
   return (
     <div className="flex items-center gap-1">
       <span
-        title={`QoQ: ${info.label}`}
+        title={info.pct != null && capped.text !== capped.title ? `QoQ จริง: ${capped.title}` : `QoQ: ${info.label}`}
         className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${info.badgeStyle}`}
       >
         <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: info.color }} />
@@ -403,8 +414,8 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
                 <span className="text-white/30 text-[10px]">#{i + 1}</span>
                 {a.ticker}
               </span>
-              <span className="font-bold text-emerald-400 tabular-nums">
-                +{a.netProfitYoY?.toFixed(1)}%
+              <span className="font-bold text-emerald-400 tabular-nums" title={fmtGrowthPct(a.netProfitYoY ?? null).title}>
+                {fmtGrowthPct(a.netProfitYoY ?? null).text}
               </span>
             </div>
           ))}
@@ -575,10 +586,10 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
                       </div>
                       <div className="flex items-center gap-1">
                         <span className="text-white/40 text-[10px]">QoQ</span>
-                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${
+                        <span title={fmtGrowthPct(a.netProfitQoQ).title} className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${
                           a.netProfitQoQ == null ? 'text-meta' : a.netProfitQoQ >= 0 ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]'
                         }`}>
-                          {a.netProfitQoQ != null ? `${a.netProfitQoQ >= 0 ? '+' : ''}${a.netProfitQoQ.toFixed(1)}%` : '—'}
+                          {fmtGrowthPct(a.netProfitQoQ).text}
                         </span>
                       </div>
                     </div>
@@ -678,10 +689,10 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
                     <YoyBadge value={a.netProfitYoY} />
                   </Td>
                   <Td right>
-                    <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${
+                    <span title={fmtGrowthPct(a.netProfitQoQ).title} className={`inline-flex items-center px-1.5 py-0.5 rounded text-label font-bold tabular-nums ${
                       a.netProfitQoQ == null ? 'text-meta' : a.netProfitQoQ >= 0 ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]'
                     }`}>
-                      {a.netProfitQoQ != null ? `${a.netProfitQoQ >= 0 ? '+' : ''}${a.netProfitQoQ.toFixed(1)}%` : '—'}
+                      {fmtGrowthPct(a.netProfitQoQ).text}
                     </span>
                   </Td>
                   <Td right className="font-extrabold text-emerald-400 tabular-nums">
