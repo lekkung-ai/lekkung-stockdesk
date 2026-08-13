@@ -527,11 +527,23 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
                   </div>
                   <div className="flex flex-col items-end gap-1">
                     <YoyBadge value={a.netProfitYoY} />
-                    {a.profitAcceleration === 'accelerating' && (
-                      <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                        ⚡ เร่งตัว
-                      </span>
-                    )}
+                    <div className="flex items-center gap-1 flex-wrap justify-end">
+                      {a.profitAcceleration === 'accelerating' && (
+                        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          ⚡ เร่งตัว
+                        </span>
+                      )}
+                      {a.bucket === 'turnaround' && (
+                        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                          🔄 พลิกกำไร
+                        </span>
+                      )}
+                      {a.bucket === 'loss_shrink' && (
+                        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                          📉 ขาดทุนแคบลง
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
