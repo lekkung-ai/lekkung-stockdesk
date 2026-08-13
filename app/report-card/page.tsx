@@ -120,7 +120,16 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
 function ComparisonTable({ horizon }: { horizon: string }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-left min-w-[560px]">
+      <table className="w-full text-left min-w-[560px] table-fixed">
+        <colgroup>
+          <col style={{ width: '22%' }} />
+          <col style={{ width: '9%' }} />
+          <col style={{ width: '14%' }} />
+          <col style={{ width: '13%' }} />
+          <col style={{ width: '13%' }} />
+          <col style={{ width: '15%' }} />
+          <col style={{ width: '14%' }} />
+        </colgroup>
         <thead>
           <tr className="border-b border-white/[0.06]">
             <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25">Scan</th>
@@ -150,7 +159,7 @@ function ComparisonTable({ horizon }: { horizon: string }) {
             const isSmallSample = m.n > 0 && m.n < 30;
             return (
               <tr key={key}>
-                <td className="px-3 py-2.5 text-[12px] font-semibold" style={{ color: SCAN_COLORS[key] }}>
+                <td className="px-3 py-2.5 text-[12px] font-semibold whitespace-nowrap" style={{ color: SCAN_COLORS[key] }}>
                   <span className="inline-flex items-center gap-1.5">
                     {SCAN_LABELS[key]}
                     {isSmallSample && (

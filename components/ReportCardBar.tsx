@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import rawReportCard from '@/data/scans/report_card.json';
 
 interface HorizonMetric {
@@ -13,6 +13,8 @@ interface ReportCardFile {
 
 const reportCard = rawReportCard as unknown as ReportCardFile;
 
+const DETAIL_PAGE_KEYS = ['sepa', 'kell', 'breakout', 'lekkung_growth', 'ppbp', 'oneil'];
+
 // Per-scan performance summary, pulled from the same report_card.json that
 // drives /report-card - "10 วันที่ผ่านมา" uses the D+10 forward-return
 // horizon (win rate + avg return of picks made ~10 trading days ago).
@@ -26,10 +28,11 @@ export default function ReportCardBar({ scanKey }: { scanKey: string }) {
   }
 
   const avg = horizon10.avg_return_pct;
+  const href = DETAIL_PAGE_KEYS.includes(scanKey) ? `/report-card/${scanKey}` : '/report-card';
 
   return (
     <Link
-      href="/report-card"
+      href={href}
       className="flex items-center gap-1.5 text-label text-white/40 hover:text-white/70 transition-colors"
     >
       <span>10 วันที่ผ่านมา:</span>
