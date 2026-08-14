@@ -4,11 +4,13 @@ the SEC office received / disclosed the filing) and save as static JSON so the
 dashboard can paint instantly, then refresh live in the browser.
 
 Usage:
-    python -X utf8 save_sec_reports.py
+    python -X utf8 save_sec_reports.py [YYYY-MM-DD]
 
 Output:
     stockdesk/public/data/sec/r59.json
     stockdesk/public/data/sec/r246.json
+    stockdesk/public/data/history/YYYY-MM-DD/r59.json
+    stockdesk/public/data/history/YYYY-MM-DD/r246.json
 
 Mirrors the logic in app/api/sec/r59/route.ts and r246/route.ts:
   - r59  : POST rblDateType=2  ("วันที่ สนง.รับเอกสาร")
@@ -16,6 +18,7 @@ Mirrors the logic in app/api/sec/r59/route.ts and r246/route.ts:
 Default window = today -> today (matches the pages' default date picker).
 """
 
+import argparse
 import json
 import os
 import re
@@ -23,6 +26,9 @@ import sys
 import urllib.request
 import urllib.parse
 from datetime import datetime, timezone
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
 UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -199,12 +205,25 @@ def fetch_r246(date_from: str, date_to: str):
 # ── Main ────────────────────────────────────────────────────────────────────────
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("run_date", nargs="?", default=None, help="advisory date YYYY-MM-DD (default: today)")
+    args = parser.parse_args()
+
     # Use UTC so the "date" field matches the client's todayISO()
     # (new Date().toISOString()), keeping the JSON snapshot in sync with the
     # live API's default query even across the UTC/ICT midnight boundary.
     now_utc = datetime.now(timezone.utc)
-    today_iso = now_utc.strftime("%Y-%m-%d")
-    today_sec = now_utc.strftime("%d/%m/%Y")
+    run_date = args.run_date or now_utc.strftime("%Y-%m-%d")
+
+    if args.run_date:
+        try:
+            dt = datetime.strptime(run_date, "%Y-%m-%d")
+            query_sec_date = dt.strftime("%d/%m/%Y")
+        except ValueError:
+            print(f"Error: Invalid date format '{run_date}'. Expected YYYY-MM-DD.")
+            sys.exit(1)
+    else:
+        query_sec_date = now_utc.strftime("%d/%m/%Y")
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     stockdesk_dir = os.path.dirname(script_dir)
@@ -217,39 +236,52 @@ def main():
     ]
 
     for name, fetcher, basis in jobs:
-        print(f"  Fetching {name} for {today_iso} ({today_sec})...")
+        print(f"  Fetching {name} for {run_date} ({query_sec_date})...")
         try:
-            headers, rows = fetcher(today_sec, today_sec)
+            headers, rows = fetcher(query_sec_date, query_sec_date)
         except Exception as e:  # noqa: BLE001
             print(f"    Warning: {name} failed: {e}")
             continue
 
-        out_file = os.path.join(out_dir, f"{name}.json")
-
-        # Empty snapshot drop guard
-        if len(rows) == 0 and os.path.exists(out_file):
-            try:
-                with open(out_file, "r", encoding="utf-8") as f:
-                    prev = json.load(f)
-                if len(prev.get("rows", [])) > 0 and prev.get("date") == today_iso:
-                    print(f"    [SEC-GUARD] Fetch returned 0 rows for {name}, preserving previous {len(prev['rows'])} rows snapshot for {today_iso}")
-                    continue
-            except Exception:
-                pass
-
         payload = {
             "generatedAt": now_utc.isoformat(timespec="seconds"),
-            "date": today_iso,
-            "from": today_iso,
-            "to": today_iso,
+            "date": run_date,
+            "from": run_date,
+            "to": run_date,
             "dateBasis": basis,
-            "fetchDate": today_iso,
+            "fetchDate": run_date,
             "headers": headers,
             "rows": rows,
         }
-        with open(out_file, "w", encoding="utf-8") as f:
-            json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
-        print(f"    {name.upper()}: {len(rows)} rows -> {out_file}")
+
+        # (1) Snapshot เดิม (คงไว้สำหรับ backward compatibility)
+        snap_file = os.path.join(out_dir, f"{name}.json")
+        skip_snapshot = False
+        if len(rows) == 0 and os.path.exists(snap_file):
+            try:
+                with open(snap_file, "r", encoding="utf-8") as f:
+                    prev = json.load(f)
+                if len(prev.get("rows", [])) > 0 and prev.get("date") == run_date:
+                    print(f"    [SEC-GUARD] Fetch returned 0 rows for {name}, preserving previous {len(prev['rows'])} rows snapshot for {run_date}")
+                    skip_snapshot = True
+            except Exception:
+                pass
+
+        if not skip_snapshot:
+            with open(snap_file, "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+            print(f"    {name.upper()}: {len(rows)} rows -> {snap_file}")
+
+        # (2) History ใหม่
+        if len(rows) == 0:
+            print(f"    {name.upper()}: 0 rows for {run_date} — ไม่เขียน history (วันนี้ไม่มีข้อมูล)")
+        else:
+            hist_dir = os.path.join(stockdesk_dir, "public", "data", "history", run_date)
+            os.makedirs(hist_dir, exist_ok=True)
+            hist_file = os.path.join(hist_dir, f"{name}.json")
+            with open(hist_file, "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+            print(f"    {name.upper()} history -> {hist_file} ({len(rows)} rows)")
 
 
 if __name__ == "__main__":
