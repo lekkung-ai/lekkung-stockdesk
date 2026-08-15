@@ -9,8 +9,8 @@ Usage:
 Output:
     stockdesk/public/data/sec/r59.json
     stockdesk/public/data/sec/r246.json
-    stockdesk/public/data/history/YYYY-MM-DD/r59.json
-    stockdesk/public/data/history/YYYY-MM-DD/r246.json
+    stockdesk/data/history/YYYY-MM-DD/r59.json
+    stockdesk/data/history/YYYY-MM-DD/r246.json
 
 Mirrors the logic in app/api/sec/r59/route.ts and r246/route.ts:
   - r59  : POST rblDateType=2  ("วันที่ สนง.รับเอกสาร")
@@ -276,7 +276,7 @@ def main():
         if len(rows) == 0:
             print(f"    {name.upper()}: 0 rows for {run_date} — ไม่เขียน history (วันนี้ไม่มีข้อมูล)")
         else:
-            hist_dir = os.path.join(stockdesk_dir, "public", "data", "history", run_date)
+            hist_dir = os.path.join(stockdesk_dir, "data", "history", run_date)
             os.makedirs(hist_dir, exist_ok=True)
             hist_file = os.path.join(hist_dir, f"{name}.json")
             with open(hist_file, "w", encoding="utf-8") as f:

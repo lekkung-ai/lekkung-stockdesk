@@ -1,4 +1,4 @@
-"""Backfill historical Form 59-2 and 246-2 data into public/data/history/{date}/
+"""Backfill historical Form 59-2 and 246-2 data into data/history/{date}/
 from export CSV files.
 """
 
@@ -77,7 +77,7 @@ def clean_str(val: Any) -> str:
 
 
 def backfill_r59(csv_path: Path, history_root: Path) -> tuple[int, int]:
-    """Read CSV, filter 59-2, and write public/data/history/{date}/r59.json."""
+    """Read CSV, filter 59-2, and write data/history/{date}/r59.json."""
     if not csv_path.exists():
         print(f"⚠️ r59 file not found: {csv_path}")
         return 0, 0
@@ -148,7 +148,7 @@ def backfill_r59(csv_path: Path, history_root: Path) -> tuple[int, int]:
 
 
 def backfill_r246(csv_path: Path, history_root: Path) -> tuple[int, int]:
-    """Read CSV, filter 246-2, and write public/data/history/{date}/r246.json."""
+    """Read CSV, filter 246-2, and write data/history/{date}/r246.json."""
     if not csv_path.exists():
         print(f"⚠️ r246 file not found: {csv_path}")
         return 0, 0
@@ -245,7 +245,7 @@ def main() -> None:
     args = parser.parse_args()
 
     root_dir = Path(__file__).resolve().parent.parent
-    history_root = root_dir / "public" / "data" / "history"
+    history_root = root_dir / "data" / "history"
 
     r59_path = resolve_csv_path(args.r59_csv, root_dir, "59_246.csv")
     r246_path = resolve_csv_path(args.r246_csv, root_dir, "246.csv")
