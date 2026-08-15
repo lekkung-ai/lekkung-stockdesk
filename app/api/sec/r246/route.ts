@@ -1,4 +1,6 @@
 import type { NextRequest } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import {
   cleanSupHeader,
   enumerateDaysISO,
@@ -17,6 +19,24 @@ const PUBLISH_COL = 'วันที่เผยแพร่'; // disclosure dat
 const REPORT_NO_COL = 'หมายเลข';
 const HEADER_SIGNATURE = ['หลักทรัพย์', 'วิธีการ', TX_COL, REPORT_NO_COL];
 const LIVE_FETCH_DELAY_MS = 350;
+
+interface StaticDayPayload {
+  headers?: string[];
+  rows?: Record<string, string>[];
+  date?: string;
+  dateBasis?: string;
+}
+
+function readStaticDay(date: string, fname: string): StaticDayPayload | null {
+  try {
+    const p = path.join(process.cwd(), 'data', 'history', date, fname);
+    if (fs.existsSync(p)) {
+      const d = JSON.parse(fs.readFileSync(p, 'utf-8'));
+      if (Array.isArray(d?.rows)) return d;
+    }
+  } catch {}
+  return null;
+}
 
 function buildFields(secDateStr: string) {
   return {
@@ -51,12 +71,23 @@ export async function GET(req: NextRequest) {
     let anyParseFailure = false;
 
     for (const dayISO of days) {
-      const isToday = dayISO === todayISOStr;
-      const result = await getCachedSecDay(ROUTE_KEY, BASE, buildFields, HEADER_SIGNATURE, cleanSupHeader, dayISO, isToday);
-      if (!result.found) { anyParseFailure = true; continue; }
+      const staticDay = readStaticDay(dayISO, 'r246.json');
+      let dayRows: Record<string, string>[] = [];
+
+      if (staticDay) {
+        dayRows = staticDay.rows ?? [];
+      } else {
+        const isToday = dayISO === todayISOStr;
+        const result = await getCachedSecDay(ROUTE_KEY, BASE, buildFields, HEADER_SIGNATURE, cleanSupHeader, dayISO, isToday);
+        if (!result.found) { anyParseFailure = true; continue; }
+        dayRows = result.rows;
+        if (result.live) await sleep(LIVE_FETCH_DELAY_MS);
+      }
 
       const beLabel = isoToBELabel(dayISO);
-      for (const row of result.rows) {
+      for (const rawRow of dayRows) {
+        if (rawRow['หลักทรัพย์'] === 'ไม่พบข้อมูล') continue;
+        const row = { ...rawRow };
         const txISO = thaiDateToISO(row[TX_COL]);
         row[PUBLISH_COL] = beLabel;
         row['__publishISO'] = dayISO;
@@ -64,7 +95,6 @@ export async function GET(req: NextRequest) {
         row['__retroactive'] = txISO && businessDaysBetween(txISO, dayISO) > 2 ? '1' : '';
         allRows.push(row);
       }
-      if (result.live) await sleep(LIVE_FETCH_DELAY_MS);
     }
 
     // Dedupe by report number - a filing can be resubmitted/corrected and
