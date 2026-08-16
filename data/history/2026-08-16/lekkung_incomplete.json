@@ -1,0 +1,22 @@
+[
+  {
+    "Ticker": "AJ",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "KGEN",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "KSL",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "SMT",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "SET_INDEX",
+    "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
+  }
+]
