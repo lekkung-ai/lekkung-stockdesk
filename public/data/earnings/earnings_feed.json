@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T18:12:22.441874+07:00",
+  "generatedAt": "2026-08-16T18:13:36.289497+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -1920,9 +1920,9 @@
       "netProfit": 30897000.0,
       "netProfitPrior": 4295000.0,
       "netProfitYoY": 619.3713620488941,
-      "netProfitPriorQ": 31233000.0,
-      "netProfitQoQ": -1.075785227163577,
-      "profitAcceleration": "decelerating",
+      "netProfitPriorQ": 6926000.0,
+      "netProfitQoQ": 346.1016459717008,
+      "profitAcceleration": "accelerating",
       "eps": 0.0515,
       "epsPrior": 0.00716,
       "epsYoY": 619.2737430167598,
@@ -5453,7 +5453,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106188901&symbol=TLHPF",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "เนื่องจากเหตุผลหลักคือ กองทุนรวมมีรายได้รวม 19.22 ล้านบาท ลดลงเป็นจำนวนเงิน 11.82 ล้านบาท หรือคิดเป็นร้อยละ 38.08 เมื่อ เปรียบเทียบกับงวดเดียวกันของปี 2568",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "HTC",
@@ -5573,7 +5577,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 3 (F45) (แก้ไข)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.7,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PM",
@@ -8758,7 +8766,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106102201&symbol=TNPF",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "คิดเป็นการเปลี่ยนแปลงเพิ่มขึ้นในสินทรัพย์สุทธิจากการดำเนินงาน ร้อยละ 21.01 - สำหรับงวดหกเดือน กองทุนมีกำไรสุทธิจำนวน 5,242,074 บาท เมื่อเทียบกับช่วงเดียวกันของปี 2568 ซึ่งมีกำไรสุทธิ จำนวน 4,162,563 บาท คิดเป็นการเปลี่ยนแปลงเพิ่มขึ้นในสินทรัพย์สุทธิจากการดำเนินงาน",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "BIOTEC",
@@ -9405,7 +9417,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106064801&symbol=CPNCG",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "ที่มีการเพิ่มขึ้นของสินทรัพย์สุทธิจากการดำเนินงานจำนวน 81.47 ล้านบาท หรือคิด เป็นการลดลงจำนวน 22.96 ล้านบาท (ลดลงร้อยละ 28.2) จากงวดเดียวกันของปีก่อน โดยมีสาเหตุหลักมาจาก กองทุนรวมมีรายได้รวมทั้งสิ้น 180.04 ล้านบาท เมื่อเทียบกับปี 2568 ที่มีรายได้รวม",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -0.92,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PRG",
@@ -10021,7 +10037,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106074701&symbol=POPF",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "โดยมีสาเหตุหลักมาจากกองทุนรวมมีรายการขาดทุนจากการเปลี่ยนแปลงในมูลค่ายุติธรรมของเงินลงทุนเป็นจำนวน 17.57 ล้านบาท เมื่อเทียบกับงวดเดียวกันของปี 2568 ซึ่งมีรายการกำไรจากการเปลี่ยนแปลงในมูลค่ายุติธรรม จำนวน 36.59 ล้านบาท",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -0.57,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PROUD",
@@ -10792,7 +10812,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "DCON",
@@ -11997,7 +12021,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106063901&symbol=BTSGIF",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 1 (F45)",
       "reason": "กำไรจากการลงทุนสุทธิ ส ำหรับไตรมำส 1 ปี 69/70 มีจ ำนวน 1,061.1 ล้ำนบำท ลดลง 1.4% จำกไตรมำสเดียวกันของปีก่อน และลดลง 6.6% จำกไตรมำสก่อน • การเปลี่ยนแปลงสินทรัพย์สุทธิจากการดำเนินงาน ส ำหรับไตรมำส 1 ปี 69/70 เป็น 210.7",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -0.82,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "UV",
@@ -12303,7 +12331,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106180201&symbol=KBSPIF",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TGE",
@@ -12424,7 +12456,7 @@
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 3 (F45)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": -0.69,
+      "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -12857,7 +12889,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105991501&symbol=MNRF",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 1.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "NEO",
@@ -12915,7 +12951,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.81,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "METCO",
@@ -13500,7 +13540,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.4,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SGF",
@@ -13651,7 +13695,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106010801&symbol=M-STOR",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "โดยมีสาเหตุหลัก เนื่องจาก - ในระหว่างงวด กองทุนได้ปรับมูลค่ายุติธรรมของอสังหาริมทรัพย์ ทำให้มีกำไรจากการเปลี่ยนแปลงในมูลค่ายุติธรรมของ เงินลงทุนจำนวน 1.59 ล้านบาท เปรียบเทียบกับงวดเดียวกันปีที่แล้ว",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ITNS",
@@ -13926,7 +13974,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105995901&symbol=M-PAT",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CRANE",
@@ -14544,7 +14596,7 @@
       "reason": "รายได้จากการลงทุนสุทธิ 163.6 150.8 8.5% 183.3 (10.8)% 346.9 328.4 5.6% รายการกําไร (ขาดทุน) สุทธิจากเงินลงทุน (21.0) (43.0) 51.2% (113.0) (81.4)% (134.0) (230.0) (41.7)% การเปลี่ยนแปลงในสินทรัพย์สุทธิ จากการดําเนินงาน 142.6",
       "reason_source": "mda_extract",
       "gap_pct": 0.79,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 6.35,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -21247,8 +21299,8 @@
       "netProfit": 23379000.0,
       "netProfitPrior": 23538000.0,
       "netProfitYoY": -0.6755034412439459,
-      "netProfitPriorQ": 25693000.0,
-      "netProfitQoQ": -9.006344140427354,
+      "netProfitPriorQ": 25366000.0,
+      "netProfitQoQ": -7.833320192383505,
       "profitAcceleration": "stable",
       "eps": 3.9,
       "epsPrior": 3.92,
