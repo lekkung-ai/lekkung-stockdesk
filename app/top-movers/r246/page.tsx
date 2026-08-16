@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Search, Calendar, ArrowDown, ArrowUp } from 'lucide-react';
+import { RefreshCw, Search, Calendar, ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 import TableSkeleton from '@/components/TableSkeleton';
 
@@ -11,10 +11,10 @@ const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','�
 
 function todayISO() { return new Date().toISOString().slice(0, 10); }
 
-function daysAgoISO(days: number): string {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  return d.toISOString().slice(0, 10);
+function shiftDay(d: string, n: number): string {
+  const [y, m, day] = d.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, day + n));
+  return dt.toISOString().slice(0, 10);
 }
 
 function isoToThaiLabel(iso: string): string {
@@ -88,11 +88,22 @@ export default function Report246Page() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
-  const [fromDate, setFromDate] = useState(daysAgoISO(6)); // default: last 7 days by publish date
-  const [toDate, setToDate] = useState(todayISO());
+  const [selectedDate, setSelectedDate] = useState(todayISO());
   const [page, setPage] = useState(1);
   const [sortCol, setSortCol] = useState(COL_PUBLISH);
   const [sortDesc, setSortDesc] = useState(true);
+
+  const prevDay = () => {
+    setSelectedDate(shiftDay(selectedDate, -1));
+    setPage(1);
+  };
+  const nextDay = () => {
+    const nx = shiftDay(selectedDate, 1);
+    if (nx <= todayISO()) {
+      setSelectedDate(nx);
+      setPage(1);
+    }
+  };
 
   const handleSort = (col: string) => {
     if (sortCol === col) setSortDesc(!sortDesc);
@@ -100,12 +111,12 @@ export default function Report246Page() {
     setPage(1);
   };
 
-  const loadData = useCallback(async (from: string, to: string, background = false) => {
+  const loadData = useCallback(async (date: string, background = false) => {
     if (background) setRefreshing(true);
     else { setLoading(true); setPage(1); }
     setError(false);
     try {
-      const res = await fetch(`/api/sec/r246?from=${from}&to=${to}`);
+      const res = await fetch(`/api/sec/r246?date=${date}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
       setHeaders(data.headers ?? []);
@@ -120,8 +131,8 @@ export default function Report246Page() {
   }, []);
 
   useEffect(() => {
-    loadData(fromDate, toDate);
-  }, [loadData, fromDate, toDate]);
+    loadData(selectedDate);
+  }, [loadData, selectedDate]);
 
   const filteredRows = useMemo(() => {
     // Date range is applied server-side; here we only do text search + sort.
@@ -178,7 +189,7 @@ export default function Report246Page() {
             {refreshing && ' · กำลังอัปเดต…'}
           </p>
         </div>
-        <button onClick={() => loadData(fromDate, toDate)} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
+        <button onClick={() => loadData(selectedDate)} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
           <RefreshCw size={13} className={loading || refreshing ? 'animate-spin' : ''} />
         </button>
       </div>
@@ -196,22 +207,45 @@ export default function Report246Page() {
           />
         </div>
         <div className="flex items-center gap-1.5 flex-shrink-0">
-          <Calendar size={12} className="text-white/30" />
-          <input
-            type="date"
-            value={fromDate}
-            max={toDate}
-            onChange={e => { setFromDate(e.target.value); setPage(1); }}
-            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
-          />
-          <span className="text-white/25 text-[11px]">ถึง</span>
-          <input
-            type="date"
-            value={toDate}
-            max={todayISO()}
-            onChange={e => { setToDate(e.target.value); setPage(1); }}
-            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
-          />
+          <button
+            type="button"
+            onClick={prevDay}
+            className="p-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-white/50 hover:text-white/80 hover:border-white/20 transition-colors"
+            title="วันก่อนหน้า"
+          >
+            <ChevronLeft size={14} />
+          </button>
+          <div className="relative flex items-center">
+            <Calendar size={12} className="absolute left-2.5 text-white/30 pointer-events-none" />
+            <input
+              type="date"
+              value={selectedDate}
+              max={todayISO()}
+              onChange={e => { setSelectedDate(e.target.value); setPage(1); }}
+              className="pl-7 pr-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
+            />
+          </div>
+          <button
+            type="button"
+            onClick={nextDay}
+            disabled={selectedDate >= todayISO()}
+            className="p-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-white/50 hover:text-white/80 hover:border-white/20 disabled:opacity-30 disabled:hover:text-white/50 disabled:hover:border-white/[0.07] transition-colors"
+            title="วันถัดไป"
+          >
+            <ChevronRight size={14} />
+          </button>
+          <span className="text-[12px] text-white/60 font-medium px-1">
+            {selectedDate === todayISO() ? 'วันนี้' : isoToThaiLabel(selectedDate)}
+          </span>
+          <span
+            className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${
+              selectedDate === todayISO()
+                ? 'bg-green-500/20 text-green-400'
+                : 'bg-blue-500/20 text-blue-400'
+            }`}
+          >
+            {selectedDate === todayISO() ? '● Live' : 'Static'}
+          </span>
         </div>
       </div>
 
@@ -221,7 +255,7 @@ export default function Report246Page() {
         ) : error ? (
           <div className="py-16 text-center space-y-3">
             <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
-            <button onClick={() => loadData(fromDate, toDate)} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
+            <button onClick={() => loadData(selectedDate)} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
               ลองอีกครั้ง
             </button>
           </div>

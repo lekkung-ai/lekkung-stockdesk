@@ -61,8 +61,9 @@ function daysAgoISO(days: number): string {
 export async function GET(req: NextRequest) {
   const fromParam = req.nextUrl.searchParams.get('from');
   const toParam = req.nextUrl.searchParams.get('to');
-  const toISO = toParam || todayISOBangkok();
-  const fromISO = fromParam || daysAgoISO(6); // default: last 7 days (inclusive) by publish date
+  const dateParam = req.nextUrl.searchParams.get('date');
+  const toISO = dateParam || toParam || todayISOBangkok();
+  const fromISO = dateParam || fromParam || daysAgoISO(6); // default: last 7 days (inclusive) by publish date
 
   try {
     const { days, truncated } = enumerateDaysISO(fromISO, toISO);
