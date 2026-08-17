@@ -1,8 +1,909 @@
 {
-  "generated_at": "2026-08-17T10:35:43+07:00",
+  "generated_at": "2026-08-17T18:11:12+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "114f8cdd-b522-42b2-b6fa-3ffe60535ecd",
+      "title": "Neutral by KSS | GUNKUL ENGINEERING PUBLIC COMPANY LIMITED (GUNKUL) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121091-neutral-kss-gunkul",
+      "tickers": [
+        "GUNKUL"
+      ],
+      "symbolId": "13590",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "GUNKUL ENGINEERING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:55:00+07:00",
+      "ts": 1786964100000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_GUNKUL_ER(E).pdf"
+    },
+    {
+      "uuid": "1e4ad1de-16b6-4e65-bf18-990a3df7acc5",
+      "title": "BUY by KSS | MICRO LEASING PUBLIC COMPANY LIMITED (MICRO) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121090-buy-kss-micro",
+      "tickers": [
+        "MICRO"
+      ],
+      "symbolId": "98431",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "MICRO LEASING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:54:57+07:00",
+      "ts": 1786964097000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_MICRO_ER-(E).pdf"
+    },
+    {
+      "uuid": "fa7cb563-9e4c-4643-8cb6-945661c8da01",
+      "title": "BUY by KSS | SRISAWAD CORPORATION PUBLIC COMPANY LIMITED (SAWAD) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121089-buy-kss-sawad",
+      "tickers": [
+        "SAWAD"
+      ],
+      "symbolId": "20867",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "SRISAWAD CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:54:57+07:00",
+      "ts": 1786964097000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_SAWAD_QC-(E).pdf"
+    },
+    {
+      "uuid": "2a6d22a6-0bfb-441e-8fc8-7b03106bfeed",
+      "title": "Neutral by KSS | MEB Corporation Public Company Limited (MEB) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121088-neutral-kss-meb",
+      "tickers": [
+        "MEB"
+      ],
+      "symbolId": "115563",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "MEB Corporation Public Company Limited",
+      "date": "2026-08-17T17:37:44+07:00",
+      "ts": 1786963064000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_MEB_ER(E).pdf"
+    },
+    {
+      "uuid": "334fb327-504c-4d40-8265-555949e476b5",
+      "title": "U.R. by KSS | ELECTRICITY GENERATING PUBLIC COMPANY LIMITED (EGCO) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121086-ur-kss-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "KSS",
+      "rating": "U.R.",
+      "companyName": "ELECTRICITY GENERATING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:37:43+07:00",
+      "ts": 1786963063000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_EGCO_ER(E).pdf"
+    },
+    {
+      "uuid": "94a471ce-0573-4ce3-b510-85264c629bdf",
+      "title": "Neutral by KSS | MAJOR CINEPLEX GROUP PUBLIC COMPANY LIMITED (MAJOR) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121085-neutral-kss-major",
+      "tickers": [
+        "MAJOR"
+      ],
+      "symbolId": "2627",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "MAJOR CINEPLEX GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:37:43+07:00",
+      "ts": 1786963063000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_MAJOR_ER-(E).pdf"
+    },
+    {
+      "uuid": "5d4a7866-22d3-42d9-9938-22c736e7e364",
+      "title": "BUY by KSS | STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED (SPRC) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121084-buy-kss-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:37:39+07:00",
+      "ts": 1786963059000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817-SPRC_ER-(E).pdf"
+    },
+    {
+      "uuid": "b753f425-6140-4924-851e-dfc92c6cddc2",
+      "title": "BUY by KSS | BEC WORLD PUBLIC COMPANY LIMITED (BEC) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121083-buy-kss-bec",
+      "tickers": [
+        "BEC"
+      ],
+      "symbolId": "1527",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "BEC WORLD PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:37:37+07:00",
+      "ts": 1786963057000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_BEC_ER-(E).pdf"
+    },
+    {
+      "uuid": "c5810f76-a683-451c-b981-e73858605f2c",
+      "title": "BUY by KSS | ASSET WORLD CORP PUBLIC COMPANY LIMITED (AWC) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121082-buy-kss-awc",
+      "tickers": [
+        "AWC"
+      ],
+      "symbolId": "93918",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ASSET WORLD CORP PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:37:35+07:00",
+      "ts": 1786963055000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_AWC_ER-(E).pdf"
+    },
+    {
+      "uuid": "16495c51-6f4f-4b7d-9f0c-c5743e617dc8",
+      "title": "BUY (from HOLD) by GLOBLEX | GUNKUL ENGINEERING PUBLIC COMPANY LIMITED (GUNKUL) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121075-buy-from-hold-globlex-gunkul",
+      "tickers": [
+        "GUNKUL"
+      ],
+      "symbolId": "13590",
+      "broker": "GLOBLEX",
+      "rating": "BUY (from HOLD)",
+      "companyName": "GUNKUL ENGINEERING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T17:04:41+07:00",
+      "ts": 1786961081000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_36033_1_20260817-GUNKUL_R_EN.pdf"
+    },
+    {
+      "uuid": "041951a3-e9de-46e7-a2cd-98a0f57d6aaf",
+      "title": "BUY by GLOBLEX | STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED (SPRC) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121074-buy-globlex-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T16:57:24+07:00",
+      "ts": 1786960644000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_36032_1_20260817-SPRC_R_EN.pdf"
+    },
+    {
+      "uuid": "dff46cb5-4cc5-4c49-b4dd-fc521f588865",
+      "title": "BUY by ASP | CH. KARNCHANG PUBLIC COMPANY LIMITED (CK) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121073-buy-asp-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "CH. KARNCHANG PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T16:57:23+07:00",
+      "ts": 1786960643000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Ck20260817.pdf"
+    },
+    {
+      "uuid": "c09ebe09-e5b7-4f58-97aa-620fbf6fc856",
+      "title": "BUY by ASP | CHAROEN POKPHAND FOODS PUBLIC COMPANY LIMITED (CPF) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121072-buy-asp-cpf",
+      "tickers": [
+        "CPF"
+      ],
+      "symbolId": "273",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "CHAROEN POKPHAND FOODS PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T16:57:23+07:00",
+      "ts": 1786960643000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CPF20260817.pdf"
+    },
+    {
+      "uuid": "18009081-a317-4c04-b376-c13f7a7f65cb",
+      "title": "BUY by GLOBLEX | Pluk Phak Praw Rak Mae Public Company Limited (OKJ) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121071-buy-globlex-okj",
+      "tickers": [
+        "OKJ"
+      ],
+      "symbolId": "123541",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "Pluk Phak Praw Rak Mae Public Company Limited",
+      "date": "2026-08-17T16:57:22+07:00",
+      "ts": 1786960642000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_36031_1_20260817-OKJ_R_EN.pdf"
+    },
+    {
+      "uuid": "92440e89-b2aa-44b5-a6b4-a8bd11cf7c90",
+      "title": "BUY by GLOBLEX | CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED (CRC) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121070-buy-globlex-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T16:57:22+07:00",
+      "ts": 1786960642000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_36030_1_20260817-CRC_R_EN.pdf"
+    },
+    {
+      "uuid": "ead83e3c-fdf4-48b1-b9d9-a540a06febdc",
+      "title": "HOLD โดย TRINITY | บริษัทแลนด์แอนด์เฮ้าส์ จำกัด (มหาชน) (LH) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121068-hold-trinity-lh",
+      "tickers": [
+        "LH"
+      ],
+      "symbolId": "392",
+      "broker": "TRINITY",
+      "rating": "HOLD",
+      "companyName": "บริษัทแลนด์แอนด์เฮ้าส์ จำกัด (มหาชน)",
+      "date": "2026-08-17T16:53:42+07:00",
+      "ts": 1786960422000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/LH_Thai_20260817.pdf"
+    },
+    {
+      "uuid": "0695baaf-017a-41a2-947c-7fa1237912d0",
+      "title": "BUY by GLOBLEX | HANA MICROELECTRONICS PUBLIC COMPANY LIMITED (HANA) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121067-buy-globlex-hana",
+      "tickers": [
+        "HANA"
+      ],
+      "symbolId": "902",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "HANA MICROELECTRONICS PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T16:53:41+07:00",
+      "ts": 1786960421000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_36028_1_20260817-HANA_R_EN.pdf"
+    },
+    {
+      "uuid": "749214bd-d42c-4c0c-888a-7ef008ba71ac",
+      "title": "BUY โดย KSS | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121066-buy-kss-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-08-17T16:51:29+07:00",
+      "ts": 1786960289000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817-SPRC_ER-17101724.pdf"
+    },
+    {
+      "uuid": "0a330053-0199-4235-9ecc-210ab2ca4a25",
+      "title": "Neutral โดย KSS | บริษัท ออริจิ้น พร็อพเพอร์ตี้ จำกัด (มหาชน) (ORI) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121065-neutral-kss-ori",
+      "tickers": [
+        "ORI"
+      ],
+      "symbolId": "56757",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท ออริจิ้น พร็อพเพอร์ตี้ จำกัด (มหาชน)",
+      "date": "2026-08-17T16:51:29+07:00",
+      "ts": 1786960289000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_ORI_ER.pdf"
+    },
+    {
+      "uuid": "c853e077-4036-47ef-8e26-4e3ef97bfa4e",
+      "title": "BUY โดย PI | บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน) (TIDLOR) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121064-buy-pi-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-08-17T16:51:28+07:00",
+      "ts": 1786960288000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TIDLOR-260817.pdf"
+    },
+    {
+      "uuid": "f8d52378-95ed-4586-86c6-f7dff08b2d55",
+      "title": "BUY โดย ASL | บริษัท เจมาร์ท กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน) (JMART) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121062-buy-asl-jmart",
+      "tickers": [
+        "JMART"
+      ],
+      "symbolId": "11404",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท เจมาร์ท กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-08-17T16:47:40+07:00",
+      "ts": 1786960060000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Company-Report-2Q26-JMART-17082026.pdf"
+    },
+    {
+      "uuid": "cbd54737-1f7f-4500-8bb2-9423a50ec936",
+      "title": "BUY โดย ASL | บริษัท เบทาโกร จำกัด (มหาชน) (BTG) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121063-buy-asl-btg",
+      "tickers": [
+        "BTG"
+      ],
+      "symbolId": "2480",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท เบทาโกร จำกัด (มหาชน)",
+      "date": "2026-08-17T16:47:40+07:00",
+      "ts": 1786960060000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BTG-Company-Update-2Q26-17082026.pdf"
+    },
+    {
+      "uuid": "add0c7be-1ae4-4788-b67c-38e0df9d0f6a",
+      "title": "Buy by KSS | STECON GROUP PUBLIC COMPANY LIMITED (STECON) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121061-buy-kss-stecon",
+      "tickers": [
+        "STECON"
+      ],
+      "symbolId": "124457",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "STECON GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T16:47:39+07:00",
+      "ts": 1786960059000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/STECON_260817_ER.pdf"
+    },
+    {
+      "uuid": "9fbde319-503b-4254-af45-2dd9ebeecebc",
+      "title": "Buy โดย KSS | บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน) (BCH) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121059-buy-kss-bch",
+      "tickers": [
+        "BCH"
+      ],
+      "symbolId": "5271",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน)",
+      "date": "2026-08-17T16:47:39+07:00",
+      "ts": 1786960059000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_BCH_ER.pdf"
+    },
+    {
+      "uuid": "57cad602-cfab-4049-ae4e-1ff70dd04d1f",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121060-lhs-trading-ideas",
+      "tickers": [
+        "COM7",
+        "CPALL"
+      ],
+      "symbolId": "76340,4086",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-08-17T16:47:39+07:00",
+      "ts": 1786960059000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Trading-Ideas_20260817.pdf"
+    },
+    {
+      "uuid": "7eb92f91-6147-4f9a-b2b8-070feaf2991e",
+      "title": "Neutral โดย KSS | บริษัท มาสเตอร์ สไตล์ จำกัด (มหาชน) (MASTER) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121057-neutral-kss-master",
+      "tickers": [
+        "MASTER"
+      ],
+      "symbolId": "114671",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท มาสเตอร์ สไตล์ จำกัด (มหาชน)",
+      "date": "2026-08-17T16:31:52+07:00",
+      "ts": 1786959112000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_MASTER_ER.pdf"
+    },
+    {
+      "uuid": "684e2b1b-b18b-43cc-92bf-6581c78264c5",
+      "title": "BUY โดย KSS | บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (CRC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121056-buy-kss-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-17T16:31:52+07:00",
+      "ts": 1786959112000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_CRC_ER.pdf"
+    },
+    {
+      "uuid": "0786dc4d-551b-48e3-ae52-f2082673092d",
+      "title": "Neutral โดย KSS | บริษัท อินเตอร์ลิ้งค์ เทเลคอม จำกัด (มหาชน) (ITEL) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121058-neutral-kss-itel",
+      "tickers": [
+        "ITEL"
+      ],
+      "symbolId": "79721",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท อินเตอร์ลิ้งค์ เทเลคอม จำกัด (มหาชน)",
+      "date": "2026-08-17T16:31:52+07:00",
+      "ts": 1786959112000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/ER_ITEL_260817.pdf"
+    },
+    {
+      "uuid": "1f50777a-1b4f-4ad7-926e-3f8d556337e2",
+      "title": "BUY โดย KSS | บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน) (ADVICE) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121055-buy-kss-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน)",
+      "date": "2026-08-17T16:20:47+07:00",
+      "ts": 1786958447000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_ADVICE_ER.pdf"
+    },
+    {
+      "uuid": "be17bd9f-3e37-45f5-99f2-31677d969881",
+      "title": "BUY โดย KSS | บริษัท ศรีสวัสดิ์ คอร์ปอเรชั่น จำกัด (มหาชน) (SAWAD) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121054-buy-kss-sawad",
+      "tickers": [
+        "SAWAD"
+      ],
+      "symbolId": "20867",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ศรีสวัสดิ์ คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-17T16:20:45+07:00",
+      "ts": 1786958445000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_SAWAD_QC.pdf"
+    },
+    {
+      "uuid": "d9fe58f5-cd31-4caa-b85c-48fd2c2a815c",
+      "title": "BUY โดย KSS | บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน) (AWC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121053-buy-kss-awc",
+      "tickers": [
+        "AWC"
+      ],
+      "symbolId": "93918",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน)",
+      "date": "2026-08-17T16:20:44+07:00",
+      "ts": 1786958444000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260817_AWC_ER.pdf"
+    },
+    {
+      "uuid": "8240f925-feb9-4707-b2e3-4531cce1f2f4",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท แสนสิริ จำกัด (มหาชน) (SIRI) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121052-trading-maintain-yuanta-siri",
+      "tickers": [
+        "SIRI"
+      ],
+      "symbolId": "1530",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท แสนสิริ จำกัด (มหาชน)",
+      "date": "2026-08-17T16:20:44+07:00",
+      "ts": 1786958444000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SIRI_Earnings_Results_170826.pdf"
+    },
+    {
+      "uuid": "cc449cae-26a1-499e-bf3a-5256b4523f1a",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน) (ADVICE) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121049-buy-maintain-yuanta-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน)",
+      "date": "2026-08-17T16:17:36+07:00",
+      "ts": 1786958256000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/ADVICE_Earning-Result_170826.pdf"
+    },
+    {
+      "uuid": "9673fb57-d6be-4ab5-be2c-7e1690b8476f",
+      "title": "BUY (Upgrade) โดย YUANTA | บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (CRC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121051-buy-upgrade-yuanta-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "YUANTA",
+      "rating": "BUY (Upgrade)",
+      "companyName": "บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-17T16:17:36+07:00",
+      "ts": 1786958256000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CRC_Company-Update_170826.pdf"
+    },
+    {
+      "uuid": "2e9b4841-c152-4b94-bbe8-f65291bca1c5",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เจริญโภคภัณฑ์อาหาร จำกัด (มหาชน) (CPF) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121050-buy-maintain-yuanta-cpf",
+      "tickers": [
+        "CPF"
+      ],
+      "symbolId": "273",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เจริญโภคภัณฑ์อาหาร จำกัด (มหาชน)",
+      "date": "2026-08-17T16:17:36+07:00",
+      "ts": 1786958256000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CPF_Results_2Q26_170826.pdf"
+    },
+    {
+      "uuid": "ccbc240e-239d-4478-9b5d-401f46bb28d0",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ช.การช่าง จำกัด (มหาชน) (CK) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121048-buy-maintain-yuanta-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ช.การช่าง จำกัด (มหาชน)",
+      "date": "2026-08-17T16:08:40+07:00",
+      "ts": 1786957720000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CK_Result_2Q26_170826.pdf"
+    },
+    {
+      "uuid": "93d8e114-3f06-42e5-95ce-c099a1f4a240",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เมเจอร์ ซีนีเพล็กซ์ กรุ้ป จำกัด (มหาชน) (MAJOR) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121047-buy-maintain-yuanta-major",
+      "tickers": [
+        "MAJOR"
+      ],
+      "symbolId": "2627",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เมเจอร์ ซีนีเพล็กซ์ กรุ้ป จำกัด (มหาชน)",
+      "date": "2026-08-17T16:08:40+07:00",
+      "ts": 1786957720000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/MAJOR_2Q26_Result_17.08.26.pdf"
+    },
+    {
+      "uuid": "d7eb5f11-7451-4ad1-8ab9-461ae12cc290",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ไทยประกันชีวิต จำกัด (มหาชน) (TLI) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121044-buy-maintain-yuanta-tli",
+      "tickers": [
+        "TLI"
+      ],
+      "symbolId": "109680",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ไทยประกันชีวิต จำกัด (มหาชน)",
+      "date": "2026-08-17T16:08:39+07:00",
+      "ts": 1786957719000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TLI_Company_Update_17082026.pdf"
+    },
+    {
+      "uuid": "a960dce7-fd91-4353-b646-a1cdad9644fe",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (CCET) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121045-buy-maintain-yuanta-ccet",
+      "tickers": [
+        "CCET"
+      ],
+      "symbolId": "2071",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-17T16:08:39+07:00",
+      "ts": 1786957719000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CCET_Earning_Results_170826.pdf"
+    },
+    {
+      "uuid": "298845d9-fe9d-402f-b745-a985583e22ac",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน) (CBG) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121046-buy-maintain-yuanta-cbg",
+      "tickers": [
+        "CBG"
+      ],
+      "symbolId": "21988",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-17T16:08:39+07:00",
+      "ts": 1786957719000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CBG_Update_170826.pdf"
+    },
+    {
+      "uuid": "b9020b46-eb2a-45b4-9d59-0e6a65580839",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121042-buy-maintain-yuanta-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-08-17T16:06:29+07:00",
+      "ts": 1786957589000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SPRC_2Q26_Result_170826.pdf"
+    },
+    {
+      "uuid": "8db61266-5de9-4322-afeb-27bf34f5a0ee",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ทีคิวเอ็ม อัลฟา จำกัด (มหาชน) (TQM) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121043-buy-maintain-yuanta-tqm",
+      "tickers": [
+        "TQM"
+      ],
+      "symbolId": "89817",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ทีคิวเอ็ม อัลฟา จำกัด (มหาชน)",
+      "date": "2026-08-17T16:06:25+07:00",
+      "ts": 1786957585000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TQM_SMID-Caps-Update_17082026.pdf"
+    },
+    {
+      "uuid": "bb769eeb-9d9e-4738-a6c6-7d260af39559",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เสริมสร้าง พาวเวอร์ คอร์ปอเรชั่น จำกัด (มหาชน) (SSP) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121041-buy-maintain-yuanta-ssp",
+      "tickers": [
+        "SSP"
+      ],
+      "symbolId": "84112",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เสริมสร้าง พาวเวอร์ คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-17T15:58:03+07:00",
+      "ts": 1786957083000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SSP_2Q26_Result_170826.pdf"
+    },
+    {
+      "uuid": "9611a30d-8541-4bb6-bb11-8e51064c8140",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน) (STA) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121040-buy-maintain-yuanta-sta",
+      "tickers": [
+        "STA"
+      ],
+      "symbolId": "709",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน)",
+      "date": "2026-08-17T15:58:02+07:00",
+      "ts": 1786957082000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/STA_2Q26-Results_170826.pdf"
+    },
+    {
+      "uuid": "55bfffde-6d98-4cad-9b23-4a3a01676443",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ผลิตไฟฟ้า จำกัด (มหาชน) (EGCO) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121039-buy-maintain-yuanta-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ผลิตไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-08-17T15:46:54+07:00",
+      "ts": 1786956414000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/EGCO_2Q26_Result_170826---2.pdf"
+    },
+    {
+      "uuid": "163776eb-3f13-4df3-900f-1dad30041bb1",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน) (GUNKUL) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121038-buy-maintain-yuanta-gunkul",
+      "tickers": [
+        "GUNKUL"
+      ],
+      "symbolId": "13590",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน)",
+      "date": "2026-08-17T15:46:53+07:00",
+      "ts": 1786956413000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/GUNKUL_2Q26-Results_170826.pdf"
+    },
+    {
+      "uuid": "f1cb518c-7e65-448f-abdc-c5b1af313d14",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ฮานา ไมโครอิเล็คโทรนิคส จำกัด (มหาชน) (HANA) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121037-buy-maintain-yuanta-hana",
+      "tickers": [
+        "HANA"
+      ],
+      "symbolId": "902",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ฮานา ไมโครอิเล็คโทรนิคส จำกัด (มหาชน)",
+      "date": "2026-08-17T15:46:52+07:00",
+      "ts": 1786956412000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/HANA_Earning_Results_170826.pdf"
+    },
+    {
+      "uuid": "8fdc53ca-4a9a-492d-9573-e2d2c7ac031a",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท สเตคอน กรุ๊ป จำกัด (มหาชน) (STECON) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121036-trading-maintain-yuanta-stecon",
+      "tickers": [
+        "STECON"
+      ],
+      "symbolId": "124457",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท สเตคอน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-17T15:46:52+07:00",
+      "ts": 1786956412000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/STECON_Result_2Q26_170826.pdf"
+    },
+    {
+      "uuid": "d1d3cd8a-f66b-4487-b5c4-6ef93dbcaad3",
+      "title": "Outperform ( Maintained) โดย KGI | บริษัท อาฟเตอร์ ยู จำกัด (มหาชน) (AU) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121032-outperform--maintained-kgi-au",
+      "tickers": [
+        "AU"
+      ],
+      "symbolId": "80950",
+      "broker": "KGI",
+      "rating": "Outperform ( Maintained)",
+      "companyName": "บริษัท อาฟเตอร์ ยู จำกัด (มหาชน)",
+      "date": "2026-08-17T15:45:52+07:00",
+      "ts": 1786956352000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_AU_2026_08_17_th.pdf"
+    },
+    {
+      "uuid": "c01b0a72-81f0-490d-8ec3-3796eda435a5",
+      "title": "Outperform ( Maintained) by KGI | CAL-COMP ELECTRONICS (THAILAND) PUBLIC CO., LTD. (CCET) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121033-outperform--maintained-kgi-ccet",
+      "tickers": [
+        "CCET"
+      ],
+      "symbolId": "2071",
+      "broker": "KGI",
+      "rating": "Outperform ( Maintained)",
+      "companyName": "CAL-COMP ELECTRONICS (THAILAND) PUBLIC CO., LTD.",
+      "date": "2026-08-17T15:45:52+07:00",
+      "ts": 1786956352000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CCET_2026_08_17_e_th.pdf"
+    },
+    {
+      "uuid": "563d64c6-8c8a-499c-b8c5-37c3c7bb719d",
+      "title": "Outperform ( Maintained) โดย KGI | บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (CCET) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121034-outperform--maintained-kgi-ccet",
+      "tickers": [
+        "CCET"
+      ],
+      "symbolId": "2071",
+      "broker": "KGI",
+      "rating": "Outperform ( Maintained)",
+      "companyName": "บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-17T15:45:52+07:00",
+      "ts": 1786956352000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CCET_2026_08_17_th-thai.pdf"
+    },
+    {
+      "uuid": "0c4e7b78-7624-4cf8-b219-2b0fd8fe6653",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ซิมโฟนี่ คอมมูนิเคชั่น จำกัด (มหาชน) (SYMC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121035-buy-maintain-yuanta-symc",
+      "tickers": [
+        "SYMC"
+      ],
+      "symbolId": "13717",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ซิมโฟนี่ คอมมูนิเคชั่น จำกัด (มหาชน)",
+      "date": "2026-08-17T15:45:52+07:00",
+      "ts": 1786956352000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/SYMC_Result_170826.pdf"
+    },
+    {
+      "uuid": "574e9d5f-77ae-4a2d-ab72-63d47bacf4f0",
+      "title": "Outperform ( Maintained) by KGI | AFTER YOU PUBLIC COMPANY LIMITED (AU) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121031-outperform--maintained-kgi-au",
+      "tickers": [
+        "AU"
+      ],
+      "symbolId": "80950",
+      "broker": "KGI",
+      "rating": "Outperform ( Maintained)",
+      "companyName": "AFTER YOU PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T15:37:37+07:00",
+      "ts": 1786955857000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_AU_2026_08_17_e_th.pdf"
+    },
+    {
+      "uuid": "589a4d11-4fb5-4eca-9e1f-ce07fe4d6e37",
+      "title": "Outperform (Upgraded) โดย KGI | บริษัท ฮานา ไมโครอิเล็คโทรนิคส จำกัด (มหาชน) (HANA) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121029-outperform-upgraded-kgi-hana",
+      "tickers": [
+        "HANA"
+      ],
+      "symbolId": "902",
+      "broker": "KGI",
+      "rating": "Outperform (Upgraded)",
+      "companyName": "บริษัท ฮานา ไมโครอิเล็คโทรนิคส จำกัด (มหาชน)",
+      "date": "2026-08-17T15:37:36+07:00",
+      "ts": 1786955856000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_HANA_2026_08_17_th_THAI.pdf"
+    },
+    {
+      "uuid": "a01f7689-9796-4789-a97c-24ebc207a8f9",
+      "title": "Outperform (Upgraded) by KGI | HANA MICROELECTRONICS PUBLIC COMPANY LIMITED (HANA) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121030-outperform-upgraded-kgi-hana",
+      "tickers": [
+        "HANA"
+      ],
+      "symbolId": "902",
+      "broker": "KGI",
+      "rating": "Outperform (Upgraded)",
+      "companyName": "HANA MICROELECTRONICS PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T15:36:15+07:00",
+      "ts": 1786955775000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_HANA_2026_08_17_e_th.pdf"
+    },
+    {
+      "uuid": "8a76f6e2-6761-427a-aba6-e513d27ac2ca",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121028-outperform-upgraded-kgi-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-08-17T15:36:15+07:00",
+      "ts": 1786955775000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_SPRC_2026_08_17_th.pdf"
+    },
+    {
+      "uuid": "d08a4df5-bbe3-4b3d-ac8c-f5a67ba6be61",
+      "title": "Outperform (Maintained) by KGI | STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED (SPRC) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121027-outperform-maintained-kgi-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T15:36:14+07:00",
+      "ts": 1786955774000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_SPRC_2026_08_17_e_th.pdf"
+    },
+    {
+      "uuid": "2be599f9-9519-4ea9-852d-0c31089da680",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน) (AWC) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121026-outperform-maintained-kgi-awc",
+      "tickers": [
+        "AWC"
+      ],
+      "symbolId": "93918",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท แอสเสท เวิรด์ คอร์ป จำกัด (มหาชน)",
+      "date": "2026-08-17T15:35:42+07:00",
+      "ts": 1786955742000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_AWC_2026_08_17_th.pdf"
+    },
+    {
+      "uuid": "ccdd2cd4-0728-4be3-84f7-f68cf7feb695",
+      "title": "Outperform (Maintained) by KGI | ASSET WORLD CORP PUBLIC COMPANY LIMITED (AWC) | Research as of 17 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121025-outperform-maintained-kgi-awc",
+      "tickers": [
+        "AWC"
+      ],
+      "symbolId": "93918",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "ASSET WORLD CORP PUBLIC COMPANY LIMITED",
+      "date": "2026-08-17T15:35:42+07:00",
+      "ts": 1786955742000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_AWC_2026_08_17_e_th.pdf"
+    },
+    {
+      "uuid": "388f45de-4a84-4230-9c92-6a1412bde98c",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน) (CBG) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121024-outperform-maintained-kgi-cbg",
+      "tickers": [
+        "CBG"
+      ],
+      "symbolId": "21988",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-17T15:35:41+07:00",
+      "ts": 1786955741000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CBG_2026_08_17_e_th.pdf"
+    },
     {
       "uuid": "6aaa17fc-5faa-4c42-8da6-13a301b1ef43",
       "title": "U.R. โดย KSS | บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน) (CBG) | บทวิเคราะห์ประจำวันที่ 17 สิงหาคม 2569",
