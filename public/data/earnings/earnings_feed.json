@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T10:35:48.148061+07:00",
+  "generatedAt": "2026-08-17T18:14:46.798022+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -155,8 +155,12 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573736071&symbol=MUD",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106290901&symbol=MUD",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "โดยสาเหตุหลักเกิดจากกำลังซื้อของประชากรในประเทศลดลง และมีการปิดสาขาที่มีรายได้น้อยในระหว่าง งวด ต้นทุนขำยและบริกำร บริษัทฯ มีต้นทุนขายและบริการในไตรมาส 2 ปี 2568 และปี 2569 เท่ากับ 499 ล้านบาท และ 379 ล้านบาท ตามลำดับ",
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SST",
@@ -183,7 +187,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106369101&symbol=SST",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.99,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PLE",
@@ -240,8 +248,12 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201216101&symbol=CIG",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106356801&symbol=CIG",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "เกิดจากการเพิ่มขึ้นของ กำไรจากการขายและบริการ จำนวน 11.54 ล้านบาท ซึ่งเป็นผลจากการเพิ่มขึ้นของคำสั่งซื้อชิ้นส่วนเครื่องปรับอากาศจากลูกค้า ทั้งในและต่างประเทศ รวมถึงการขยายงานรับจ้างผลิตและให้บริการงานก่อสร้าง Data Center",
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "VIBHA",
@@ -267,8 +279,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201211751&symbol=VIBHA",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106312201&symbol=VIBHA",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "บริษัทมีผลกำไรจากการวัดมูลค่ายุติธรรมของสินทรัพย์ทาง การเงินจำนวน 60.38 ล้านบาท เพิ่มขึ้นจากงวดก่อนจำนวน 140.64 ล้านบาทคิดเป็นร้อยละ 175.22 1.4 รายได้อื่นๆ จำนวน 57.07 ล้านบาทลดลงจากปีก่อนร้อยละ 22.73 จากที่บริษัทย่อย",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -329,8 +341,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201214121&symbol=LTS",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106364201&symbol=LTS",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "เนื่องจากในไตรมาสนี้ยังไม่มีการส่งมอบสินค้าสำหรับงานโครงการสวนสาธารณะ ดังนั้นไตรมาสนี้ จึงมีกำไรสุทธิที่ ลดลงเล็กน้อย ผลการดำเนินงาน ภาพรวมผลการดำเนินงานของไตรมาส 2/2569 ผลประกอบการลดลงเล็กน้อยจาก ไตรมาสที่ 1/2569 โดยมี",
+      "reason_source": "mda_extract",
       "gap_pct": -2.11,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -360,8 +372,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201213541&symbol=NSL",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106370201&symbol=NSL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "กลุ่มบริษัทมีรายได้จากการขาย 1,821.6 ล้านบาท เพิ่มขึ้น 54.2 ล้านบาท หรือ 3.1% จากงวดเดียวกันของปีก่อน และงวด 6M69 มีรายได้จากการขาย 3,690.4 ล้านบาท เพิ่มขึ้น 217.7 ล้านบาท หรือ 6.3% โดยมีแรงขับเคลื่อนหลักจากกลุ่มเบ เกอรี่และรองท้อง",
+      "reason_source": "mda_extract",
       "gap_pct": -1.74,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -391,8 +403,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201213491&symbol=BTW",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106357901&symbol=BTW",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้จากการรับจ้างผลิตและบริการ : ส ำหรับไตรมำส 2 ปี 2569 เท่ำกับ 14.31 ล้ำนบำท ลดลง 129.04 ล้ำนบำท หรือ 90.02% เมื่อเปรียบเทียบกับไตรมำสเดียวกันของปีก่อน เนื่องจำกในไตรมำส 2 ปี 2569 บริษัทมีกำรรับรู้รำยได้จำกกำรผลิตลดลง",
+      "reason_source": "mda_extract",
       "gap_pct": -12.5,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -422,8 +434,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201213251&symbol=STECH",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106273001&symbol=STECH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "68 ล้านบาท ล้านบาท ล้านบาท ร้อยละ ล้านบาท ล้านบาท ล้านบาท ร้อยละ รายได้ รายได้จากการขายและบริการ 611.33 541.10 70.23 12.98 1,326.29 1,201.27 125.02 10.41 รายได้จากงานก่อสร้างโครงการ 6.16 - 6.16 100.00 25.42 - 25.42 100.00 รวมรายได้ 617.49 541.10 76.39 14.12 1,351.71 1,201.27 150.44 12.52 ต้นทุน -",
+      "reason_source": "mda_extract",
       "gap_pct": 8.33,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -542,8 +554,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201211371&symbol=FVC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106351001&symbol=FVC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รวมถึงผลขาดทุนจากการวัดมูลค่าสินทรัพย์ที ถือไว้เพื อขายไปเป็นการดําเนินงานที ยกเลิกตามหมายเหตุประกอบงบการเงินระหว่างกาลแบบย่อ ข้อ / เรื อง การดําเนินงานที ยกเลิก ดังนั@นข้อมูลเพิ มเติมของกลุ่ม KTMS",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -573,8 +585,12 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201211121&symbol=LALIN",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106368201&symbol=LALIN",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "รายได้จากการขาย ในไตรมาส 2 ปี 2569 บริษัทมีรายได้จากการขายเท่ากับ 658.20 ล้านบาท ลดลง 164.78 ล้านบาทจากช่วง เดียวกันของปีก่อนซึ งอยู่ที 822.98 ล้านบาท หรือคิดเป็นการลดลงร้อยละ 20.02 ซึ งเป็นไปตามทิศทางเดียวกับการ",
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SKY",
@@ -628,7 +644,7 @@
       "isCorrection": false,
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106304801&symbol=SQ",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106371701&symbol=SQ",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106378001&symbol=SQ",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106342401&symbol=SQ",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
@@ -720,8 +736,12 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201210451&symbol=K",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106352001&symbol=K",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "รายได้จากการให้บริการ 106.54 ล้านบาท ลดลงจากปีก่อน 92.85 ล้านบาท คิดเป็น -47% y-y ลดลงทั้ง 2 ส่วน ทั้งงานแสดงสินค้า/กิจกรรมทางการตลาด และ งานการตกแต่งภายใน (INT) ต้นทุนการให้บริการ 99.76 ล้านบาท ลดลง -49% y-y กําไรขั้นต้น",
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "HYDRO",
@@ -747,8 +767,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201209991&symbol=HYDRO",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106358501&symbol=HYDRO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้จากการขาย บริษัท มีรายได้จากการขายสินค้า 1.90 ล้านบาท เพิ่มขึ้น 1.90 ล้านบาท คิดเป็น ร้อยละ 100 เนื่องจากบริษัทมีการขายวัสดุคงเหลือที่ใช้ในการก่อสร้างซึ่งคงเหลือจากการใช้งานและยังไม่ต้องใช้ในช่วงเวลา ดังกล่าว",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -778,8 +798,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201209871&symbol=SUPER",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106360501&symbol=SUPER",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "แม้ว่ารายได้รวมของบริษัทจะลดลงจากการสิ้นสภาพการเป็นบริษัทย่อยของโครงการภายใต้ DAISY ธุรกรรมที่ 1 , ธุรกรรมที่ 2 (APL) และ GL รวมถึงผลกระทบจากอัตราแลกเปลี่ยน และปัจจัยด้านสภาพอากาศของโครงการโรงไฟฟ้าพลังงานทดแทน แต่บริษัทสามารถรักษา",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -809,8 +829,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17869201207681&symbol=FORTH",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106359001&symbol=FORTH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "โดยส่วนใหญ่เกิดจากการ เพิ่มขึ้นกำไรขั้นต้น การวิเคราะห์รายได้ ธุรกิจอีเอ็มเอส บริษัทมีรายได้จากธุรกิจอีเอ็มเอสสำหรับไตรมาส 2 ปี 2569 จำนวน 835 ล้านบาท เพิ่มขึ้น 283 ล้านบาท หรือ เพิ่มขึ้น ร้อยละ 51",
+      "reason_source": "mda_extract",
       "gap_pct": -1.8,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -871,8 +891,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573790871&symbol=KC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106337601&symbol=KC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้จากการขาย 2569 2568 เพิ่ม(ลด)จากงวดก่อน 2569 2568 รายได้จากการขาย 0.40 15.73 (15.33) (97.43) 43.25 100.00 รายได้จากธุรกิจให้เช่าและการให้บริการ 0.53 - 0.53 100.00 56.75 - รวม รายได้ 0.93 15.73 (14.80) (94.06) 100.00",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -903,7 +923,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106345901&symbol=TSI",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -16.67,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MK",
@@ -1112,7 +1136,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106347601&symbol=LDC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ผลลัพธ์ที่เป็นรูปธรรมจากการปรับจุดยืนทางการตลาด (Repositioning) ของ LDC Dental สู่การเป็น 'ทันตกรรมพรีเมียมใน ราคาที่เข้าถึงง่าย' รวมถึงการเดินหน้ายกระดับประสิทธิภาพการดําเนินงาน ชี้ให้เห็นถึงโมเดลธุรกิจที่มีศักยภาพพร้อมผลักดัน ให้บริษัทฯ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "EGCO",
@@ -1511,7 +1539,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106315601&symbol=PLANET",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "AQUA",
@@ -1786,7 +1818,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106335301&symbol=TNDT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการให้บริการ 77.74 127.47 (49.73) (39.01%) รายได้จากการขาย 0.78 0.07 0.71 1014.29% รายได้อื่น 5.05 3.85 1.20 31.17% รวมรายได้ 83.57 131.39 (47.82) (36.40%) ค่าใช้จ่าย : ต้นทุนการให้บริการ 61.96 79.00 (17.04) (21.57%)",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CBG",
@@ -2056,8 +2092,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573786261&symbol=ASAP",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106353801&symbol=ASAP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้จากการขายและบริการมีจำนวน 4,219.21 ล้านบาท เพิ่มขึ้น 2,106.01 ล้านบาท หรือร้อยละ 99.66 จากจำนวน 2,113.20 ล้านบาท ในงวดเดียวกันของปีก่อน สาเหตุหลักมาจากรายได้จากการขายรถยนต์ใหม่ที่เพิ่มขึ้น 2,161.14 ล้านบาท ขณะที่รายได้",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -2176,8 +2212,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573784401&symbol=AJ",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106355201&symbol=AJ",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "ไม่รวมผลขาดทุนจากการยกเลิกสัญญาซื้อเครื่องจักรจำนวน 9.18 ล้านบาท ไตรมาส 2/2569 เปรียบเทียบกับไตรมาส 1/2569: รายได้ รายได้รวม ในไตรมาส 2/2569 อยู่ที่ 2,018.78 ล้านบาท เพิ่มขึ้น 184.19 ล้านบาท หรือร้อยละ 10.04 จากไตรมาสก่อน โดยมี",
+      "reason_source": "mda_extract",
       "gap_pct": -1.7,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -2301,7 +2337,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106321001&symbol=RML",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SONIC",
@@ -2452,7 +2492,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106233001&symbol=PLT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
       "reason": "เนื่องจากปริมาณการขนส่งของลูกค้าในประเทศยังต ่ากว่าช่วงเดียวกันของปีก่อน ด้ำนควำมสำมำรถในกำรท ำก ำไร บริษัทฯ มี มี EBITDA จ ำนวน 77.90 ล้ำนบำท เพิ่มขึ้น 3.61% QoQ แต่ลดลง 4.42% YoY โดยมี EBITDA Margin อยู่ ที่ 27.87%",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PRINC",
@@ -2571,8 +2615,12 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573777071&symbol=APCO",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106350901&symbol=APCO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "รายได้ บริษัทมีรายได้จากการขายในงวด 3 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569 เท่ากับ 44.21 ล้านบาท ลดลง 5.20 ล้านบาท คิดเป็นอัตราร้อยละ 10.52 จากไตรมาสเดียวกันของปี 2568 เนื่องจากในไตรมาสนี้ บริษัทมียอดขายลดลงจากทุกช่องทางการจำหน่าย",
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "WAVE",
@@ -2847,7 +2895,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106348001&symbol=CHOTI",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "IP",
@@ -3060,7 +3112,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106305001&symbol=IHL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ส่งผลกระทบต่อรายได้จากการส่งออก พบว่า ค่าเงินบาทมีความผันผวนโดยค่าเงินบาทมีความแข็งค่าขึ้นเมื่อเทียบกับปี 2568 ที่ผ่านมา ผลการดำเนินงาน ไตรมาส 2 ปี 2569 (ล้านบาท) % เปลี่ยนแปลง Y-o-Y % เปลี่ยนแปลง Q-o-Q รายได้จากการขาย 518.13 (13.15%)",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SPI",
@@ -3290,8 +3346,8 @@
       "netProfit": 257052000.0,
       "netProfitPrior": 418576000.0,
       "netProfitYoY": -38.58893008677038,
-      "netProfitPriorQ": 251965000.0,
-      "netProfitQoQ": 2.018931200762011,
+      "netProfitPriorQ": 582442000.0,
+      "netProfitQoQ": -55.86650687965496,
       "profitAcceleration": "stable",
       "eps": 0.34,
       "epsPrior": 0.56,
@@ -3304,7 +3360,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106291501&symbol=TGH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -7.56,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "VIH",
@@ -3455,7 +3515,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106203301&symbol=COLOR",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 1.01,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "FM",
@@ -3513,7 +3577,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106286801&symbol=CHEWA",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -6.67,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TBSP",
@@ -3540,7 +3608,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106277301&symbol=TBSP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "LHK",
@@ -3629,7 +3701,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106288401&symbol=PDJ",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "จากการเติบโต ของฐานการผลิต การปรับปรุงอัตรากำไรขั้นต้น และการควบคุมค่าใช้จ่ายในการดำเนินงาน ส่งผลให้บริษัทกลับมามีกำไรสุทธิในไตรมาสนี้ สำหรับผลการดำเนินงานไตรมาสที่ 2 สิ้นสุดวันที่ 30 มิถุนายน 2569 เทียบจากงวดเดียวกัน",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "STA",
@@ -3749,7 +3825,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 2.46,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PRAPAT",
@@ -3776,7 +3856,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106217601&symbol=PRAPAT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขาย 220.45 80.47% 216.14 78.97% รายได้ค่าเช่าและค่าบริการ 53.50 19.53% 57.57 21.03% รวมรายได้จากการขายและบริการ 273.95 100% 273.70 100% ต้นทุน ต้นทุนจากการขาย -125.37 -45.76% -121.18 -44.28% ต้นทุนให้เช่าและบริการ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 1.27,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TNPC",
@@ -3896,7 +3980,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106277001&symbol=RICHY",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขายอสังหาริมทรัพย์ 148.48 68.28 123.57 70.38 138.94 73.00 113.29 74.23 24.91 20.16 รายได้จากการให้เช่าและบริการ 55.53 25.53 48.43 27.58 25.01 13.14 23.52 15.41 7.10 14.65 รายได้อื่น 13.45 6.19 3.58 2.04 26.39",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "FANCY",
@@ -3985,7 +4073,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106246101&symbol=GEL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "EURO",
@@ -4136,7 +4228,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106213701&symbol=BIG",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "มีรายได้จากการขายและบริการ จำนวน 935 ล้านบาท เพิ่มขึ้นจากปีก่อน 17 ล้านบาทคิดเป็น ร้อยละ 2 เนื่องจากยังคงได้รับผลกระทบบางส่วนจากสภาวะความขัดแย้ง ตะวันออกกลางที่เริ่มมาตั้งแต่ช่วงปลายเดือนกุมภาพันธ์ที่ผ่านมา",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 3.03,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TPP",
@@ -4225,7 +4321,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106287801&symbol=ALUCON",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SMD100",
@@ -4300,8 +4400,8 @@
       "netProfit": 13389000.0,
       "netProfitPrior": 11777000.0,
       "netProfitYoY": 13.687696357306613,
-      "netProfitPriorQ": 5563000.0,
-      "netProfitQoQ": 140.67948948409133,
+      "netProfitPriorQ": 12829000.0,
+      "netProfitQoQ": 4.365110296983397,
       "profitAcceleration": "accelerating",
       "eps": 0.025,
       "epsPrior": 0.022,
@@ -4407,7 +4507,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106325901&symbol=AMARIN",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -2.45,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "M-CHAI",
@@ -4434,7 +4538,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106269301&symbol=M-CHAI",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "QHHRREIT",
@@ -4612,7 +4720,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106269901&symbol=CHARAN",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.5,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CH",
@@ -4728,7 +4840,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106233001&symbol=PLT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "เนื่องจากปริมาณการขนส่งของลูกค้าในประเทศยังต ่ากว่าช่วงเดียวกันของปีก่อน ด้ำนควำมสำมำรถในกำรท ำก ำไร บริษัทฯ มี มี EBITDA จ ำนวน 77.90 ล้ำนบำท เพิ่มขึ้น 3.61% QoQ แต่ลดลง 4.42% YoY โดยมี EBITDA Margin อยู่ ที่ 27.87%",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "GUNKUL",
@@ -4817,7 +4933,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106194501&symbol=TTT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1/2569 (เมษายน - มิถุนายน 2569) (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.57,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SCP",
@@ -4937,7 +5057,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106238101&symbol=ASN",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.97,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ORN",
@@ -4964,7 +5088,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106245701&symbol=ORN",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "2.รายได้จากการขายรวมอสังหาริมทรัพย์ 611.79 361.32 69.32% 1) รายได้จากการขายโครงการแนวราบ 357.07 240.24 48.63% 2) รายได้จากการขายโครงการแนวสูง 239.00 119.66 99.73% 3) รายได้จาก Mill Hill International School Thailand ** 9.28 -",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "AMANAH",
@@ -5049,7 +5177,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106194601&symbol=MATI",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 5.26,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "NWR",
@@ -5311,8 +5443,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573735031&symbol=HANN",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106371201&symbol=HANN",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "จากการปิดกิจการบริษัทย่อย YASO-C เสร็จสิ/นในเดือนมีนาคม 2568 ซึ งส่งผลให้กลุ่มบริษัทรับรู้กําไรจากผลต่างการแปลงค่างบการเงินจากการปิดกิจการของบริษัทย่อยในต่างประเทศ จํานวน 2.83 ล้านบาท และมีรายได้ภาษีเงินได้เพิ",
+      "reason_source": "mda_extract",
       "gap_pct": 1.19,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -5343,7 +5475,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106239601&symbol=TRV",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ซึ่งเข้ามาช่วยกระจายความเสี่ยงจากการชะลอตัวของกลุ่มยานยนต์และเครื่องใช้ไฟฟ้า และมี แนวโน้มที่จะเป็นกลยุทธ์สำคัญในการสร้างการเติบโตของรายได้ในอนาคต ภาพรวมผลการดำเนินงานงวด 6 เดือนแรกของปี บริษัทฯ สามารถสร้างการเติบโตของกำไรสุทธิได้อย่างมีนัยสำคัญ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -0.64,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "JCK",
@@ -5459,7 +5595,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106290901&symbol=MUD",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "โดยสาเหตุหลักเกิดจากกำลังซื้อของประชากรในประเทศลดลง และมีการปิดสาขาที่มีรายได้น้อยในระหว่าง งวด ต้นทุนขำยและบริกำร บริษัทฯ มีต้นทุนขายและบริการในไตรมาส 2 ปี 2568 และปี 2569 เท่ากับ 499 ล้านบาท และ 379 ล้านบาท ตามลำดับ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MIPF",
@@ -5486,7 +5626,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.53,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "RABBIT",
@@ -5544,7 +5688,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106218001&symbol=RSP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "YUASA",
@@ -5571,7 +5719,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106233601&symbol=YUASA",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ด้านผลการดำเนินงาน ตารางสรุปข้อมูลผลการดำเนินงาน หน่วย: ล้านบาท Q2/ 2569 Q1/ 2569 QoQ Q2/ 2568 YoY 6M 2569 6M 2568 YoY รายได้จากการขาย 723.41 740.49 (2.3%) 729.78 (0.9%) 1,463.90 1,464.72 (0.1%) ต้นทุนขาย 522.55 520.24 0.4% 539.02 (3.1%) 1,042.79 1,063.80 (2.0%) กำไรขั้นต้น 200.87 220.25 (8.8%) 190.77 5.3% 421.11 400.93 5.0% รายได้อื่น 30.80",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.67,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TR",
@@ -5749,7 +5901,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106230601&symbol=WACOAL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "ขณะที่รายได้จากการท่องเที่ยว จำนวน นักท่องเที่ยวต่างชาติ และกิจกรรมในภาคบริการที่เกี่ยวเนื่องกับการท่องเที่ยวลดลง ประกอบกับหนี้ครัวเรือนที่ยังอยู่ ในระดับสูงเป็นปัจจัยกดดันต่อกำลังซื้อและความเชื่อมั่นของผู้บริโภค อย่างไรก็ตาม",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ADD",
@@ -6082,7 +6238,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106200801&symbol=PATO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SK",
@@ -6199,10 +6359,10 @@
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106236301&symbol=BEC",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573729951&symbol=BEC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106272401&symbol=BEC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106395101&symbol=BEC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "ซึ่งเป็นผลกระทบหลักจากการหดตัวอย่างมีนัยสําคัญของรายได้จากการขายเวลาโฆษณา ในอัตรา 21.9% สืบเนื่องจากสถานการณ์ความขัดแย้งทางภูมิรัฐศาสตร์ที่ส่งผลกระทบโดยตรงต่อต้นทุนพลังงาน และต้นทุนการผลิตโดยรวม",
+      "reason_source": "mda_extract",
       "gap_pct": -1.9,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -6510,7 +6670,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 8.91,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6541,7 +6701,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.87,
-      "drift_d1_pct": -0.87,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6572,7 +6732,7 @@
       "reason": "• จากผลการดำเนินงานของเอเชียทีค เดอะ ริเวอร์ฟร้อนท์ เดสติเนชั่น ที่ประสบความสำเร็จจากการเปิด Jurassic World: The Experience และเครื่องเล่น SkyFlyers: Wings of Garudapterus • รายได้และ EBITDA ต่อตร.ม.",
       "reason_source": "mda_extract",
       "gap_pct": -1.31,
-      "drift_d1_pct": -0.65,
+      "drift_d1_pct": -1.31,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6665,7 +6825,7 @@
       "reason": "รายได้จากการขาย 6,684.17 6,935.75 -3.63% 13,063.86 13,987.72 -6.60% ต้นทุนขาย 4,446.67 4,734.76 -6.08% 8,691.69 9,560.16 -9.08% กำไรขั้นต้น 2,237.50 2,200.99 1.66% 4,372.17 4,427.56 -1.25% อัตรากำไรขั้นต้น 33.47% 31.73% -",
       "reason_source": "mda_extract",
       "gap_pct": -0.53,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.27,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6758,7 +6918,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.64,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.18,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6789,7 +6949,7 @@
       "reason": "เนื่องจากเหตุผลหลักคือ กองทุนรวมมีรายได้รวม 19.22 ล้านบาท ลดลงเป็นจำนวนเงิน 11.82 ล้านบาท หรือคิดเป็นร้อยละ 38.08 เมื่อ เปรียบเทียบกับงวดเดียวกันของปี 2568",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6820,7 +6980,7 @@
       "reason": "รายงานรายได้จากการขาย เท่ากับ 2,106.4 ล้านบาท เพิ่มขึ้นร้อยละ 8.7 จาก ช่วงเวลาเดียวกันปีก่อน มีอัตรากำไรขั้นต้น เท่ากับร้อยละ 41.7 ลดลง 1.0 จุดเปอร์เซ็นต์จากช่วงเดียวกันปี ก่อน",
       "reason_source": "mda_extract",
       "gap_pct": -5.42,
-      "drift_d1_pct": -6.02,
+      "drift_d1_pct": -5.42,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6882,7 +7042,7 @@
       "reason": "สาเหตุหลักของกำไรที่ลดลง เป็นผลมาจากปริมาณผลปาล์มสดที่ส่งเข้าผลิตลดลง ราคาน ้ามันปาล์มดิบที่ ลดลง และราคาผลปาล์มสดที่สูงมาก ปัจจัยดังกล่าวส่งผลให้อัตรากำไรจากการผลิตลดลงอย่างมีนัยสำคัญ นอกจากนี้ยังทำให้",
       "reason_source": "mda_extract",
       "gap_pct": -6.41,
-      "drift_d1_pct": -10.26,
+      "drift_d1_pct": -8.97,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6975,7 +7135,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -4.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7006,7 +7166,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.72,
-      "drift_d1_pct": -1.36,
+      "drift_d1_pct": -0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7037,7 +7197,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7130,7 +7290,7 @@
       "reason": "รายได้จากการขายอสังหาริมทรัพย์ สำหรับไตรมาส 2/2569 และไตรมาส 2/2568 รายได้จากการพัฒนาโครงการเพื่อขาย จำนวน 78.36 ล้านบาท และจำนวน 105.77 ล้านบาท ท่ามกลางสงครามระหว่างประเทศ ส่งผลให้สภาวะเศรษฐกิจชะลอตัว รวมไปถึงความ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 2.86,
+      "drift_d1_pct": 5.71,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7161,7 +7321,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.05,
-      "drift_d1_pct": -1.05,
+      "drift_d1_pct": 1.05,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7223,7 +7383,7 @@
       "reason": "รายได้จากการประกอบกิจการโรงแรม 570,299 432,031 32.0% ต้นทุนขายและบริการ 342,336 280,816 21.9% ค่าใช้จ่ายในการดำเนินงาน 181,552 161,056 12.7% ต้นทุนทางการเงิน - ดอกเบี้ยจ่าย 11,874 20,158 (41.1%) กำไร (ขาดทุน) สุทธิ 30,691",
       "reason_source": "mda_extract",
       "gap_pct": 3.41,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7285,7 +7445,7 @@
       "reason": "เนื่องจากบริษัทฯ รับรู้รายได้จากงานพัฒนาแพลตฟอร์มการจัดการเรียนรู้แห่งชาติ และงานขยายบริการ คลาวด์กลางภาครัฐ ซึ่งเป็นโครงการขนาดใหญ่ บริษัทฯ เทิร์นคีย์ คอมมูนิเคชั่น เซอร์วิส จ ำกัด (มหำชน) T: 02-401-8222 44/44",
       "reason_source": "mda_extract",
       "gap_pct": 3.98,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.84,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7316,7 +7476,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7347,7 +7507,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7378,7 +7538,7 @@
       "reason": "​รายได้จากการขาย​ ​อสังหาริมทรัพย์​ ​463.43​ ​96.63​ ​453.08​ ​95.70​ ​10.36​ ​2.29​ ​รายได้จากการให้เช่าและบริการ​ ​9.19​ ​1.92​ ​9.19​ ​1.94​ ​0.00​ ​0.00​ ​รายได้อื่น​ ​6.95​ ​1.45​ ​11.17​ ​2.36​ ​(4.22)​ ​(37.79)​",
       "reason_source": "mda_extract",
       "gap_pct": -0.74,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.21,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7409,7 +7569,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7440,7 +7600,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.45,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7471,7 +7631,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.92,
-      "drift_d1_pct": 0.92,
+      "drift_d1_pct": 2.75,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7533,7 +7693,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.93,
-      "drift_d1_pct": -6.48,
+      "drift_d1_pct": -5.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7564,7 +7724,7 @@
       "reason": "มีรายได้จากการขายและการให้บริการรวม 694.87 ล้านบาท ลดลง 252.84 ล้านบาท หรือร้อยละ 26.68 (YoY) จากรายได้ของกลุ่มธุรกิจ Trading ที่ลดลง ขณะที่มีกำไรส่วนที่ เป็นของผู้ถือหุ้นของบริษัทจำนวน 61.77 ล้านบาท และมีกำไรก่อนดอกเบี้ย ภาษี",
       "reason_source": "mda_extract",
       "gap_pct": 1.54,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.77,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7595,7 +7755,7 @@
       "reason": "มีรายได้จากการให้บริการ 337.74 ล้านบาท ขยายตัวร้อยละ 12.4 เมื่อเทียบกับงวด เดียวกันของปีก่อน อย่างไรก็ตาม บริษัทฯ ยังคงเผชิญแรงกดดันจากต้นทุนโครงการที่ปรับตัวสูงขึ้นและการ แข่งขันด้านราคาที่รุนแรง",
       "reason_source": "mda_extract",
       "gap_pct": -1.47,
-      "drift_d1_pct": -5.88,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7626,7 +7786,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 4.0,
-      "drift_d1_pct": 1.0,
+      "drift_d1_pct": 2.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7657,7 +7817,7 @@
       "reason": "สนับสนุนจากการส่งออกและการลงทุนภาคเอกชน ขณะที่การบริโภคภาคเอกชนยังเผชิญแรงกดดันจากรายได้ที่ชะลอตัว และค่าครองชีพที่อยู่ในระดับสูง แม้ว่าสัดส่วนหนี้ครัวเรือนต่อ GDP ในไตรมาส 1 ปี 2569 จะปรับลดลงมาอยู่ที่ 85.9% ซึ่ง เป็นระดับต",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -0.65,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7719,7 +7879,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.35,
-      "drift_d1_pct": 6.76,
+      "drift_d1_pct": 4.05,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7750,7 +7910,7 @@
       "reason": "รายได้จากการขายอสังหาริมทรัพย์ 325,109,733 98.22 414,619,046 99.53 (89,509,313) (21.59) รายได้จากการบริการรับเหมาต่อเติมและตกแต่ง 1,635,574 0.50 - - 1,635,574 100.00 รายได้จากการให้บริการ 1,269,665 0.38 - - 1,269,665 100.00",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7812,7 +7972,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.68,
-      "drift_d1_pct": -4.05,
+      "drift_d1_pct": -2.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7874,7 +8034,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -10.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7936,7 +8096,7 @@
       "reason": "รายได้จากการขายและการบริการ 369.37 97.43% 389.50 98.48% (20.12) (5.17%) ต้นทุนขายและบริการ 241.58 63.72% 286.40 72.41% (44.82) (15.65%) กำไรขั้นต้น 127.80 33.71% 103.10 26.07% 24.70 23.96% รายได้อื่น 9.74 2.57% 6.03 1.52%",
       "reason_source": "mda_extract",
       "gap_pct": 0.6,
-      "drift_d1_pct": 0.6,
+      "drift_d1_pct": -0.6,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7998,7 +8158,7 @@
       "reason": "รายได้จากการขาย 526.75 548.30 585.13 -3.93 -9.98 รวมรายได้ 536.03 557.33 594.63 -3.82 -9.86 รวมค่าใช้จ่าย 531.87 533.20 567.94 -0.25 -6.35 กำไร (ขาดทุน) สำหรับงวด 0.31 16.80 18.54 -98.15 -98.32 EBITDA 30.02 48.40 51.76 -37.97",
       "reason_source": "mda_extract",
       "gap_pct": -2.75,
-      "drift_d1_pct": -3.67,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8029,7 +8189,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.28,
-      "drift_d1_pct": -4.49,
+      "drift_d1_pct": -5.13,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8060,7 +8220,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -2.48,
+      "drift_d1_pct": -3.11,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8091,7 +8251,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.7,
-      "drift_d1_pct": -3.5,
+      "drift_d1_pct": -6.29,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8122,7 +8282,7 @@
       "reason": "รายได้จากการขายอสังหาริมทรัพย์ 518.3 430.8 87.5 20.3% รายได้จากการก่อสร้าง 22.4 0.0 22.4 53307.1% รายได้จากการให้บริการ 167.8 138.1 29.7 21.5% รายได้จากการขายสินค้า 14.6 7.3 7.3 100.0% รวมรายได้ 723.1 576.2 146.9 25.5% •",
       "reason_source": "mda_extract",
       "gap_pct": -2.27,
-      "drift_d1_pct": -4.55,
+      "drift_d1_pct": -6.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8153,7 +8313,7 @@
       "reason": "ขอชี้แจงรายได้จากการขายและกำไรสุทธิตามงบ การเงินรวม งวด 3 เดือน และ 6 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569 โดยสรุปดังนี้ งบการเงินรวม ไตรมาส 2 '69 ไตรมาส 2 '68 เพิ่ม / (ลด) (ล้านบาท) (ร้อยละ) (ล้านบาท) (ร้อยละ) (ร้อยละ)",
       "reason_source": "mda_extract",
       "gap_pct": 1.9,
-      "drift_d1_pct": 4.76,
+      "drift_d1_pct": 5.24,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8184,7 +8344,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.83,
-      "drift_d1_pct": -2.5,
+      "drift_d1_pct": -1.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8215,7 +8375,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.05,
-      "drift_d1_pct": 1.84,
+      "drift_d1_pct": 0.53,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8246,7 +8406,7 @@
       "reason": "รายได้จากการขาย และการให้บริการ 158.33 98.8 161.19 99.5 156.83 96.8 2.86 1.8 4.36 2.8 รายได้อื่น 2.00 1.2 2.00 1.2 5.19 3.2 (0.00) (0.1) (3.19) (61.5) รายได้รวม 160.33 100.0 163.19 100.7 162.02 100.0 2.86 1.8 1.17 0.7",
       "reason_source": "mda_extract",
       "gap_pct": 1.38,
-      "drift_d1_pct": -0.69,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8277,7 +8437,7 @@
       "reason": "บริษัทมีรายได้จากการขาย 122.18 ล้านบาท ลดลง 28.77 ล้านบาท หรือลดลงในอัตราร้อย ละ 19.06 และมีขาดทุนจากการดำเนินงาน 3.36 ล้านบาท ในขณะที่ช่วงเวลาเดียวกันของปีก่อนมีกำไรจากการ ดำเนินงาน 7.70 ล้านบาท คิดเป็นการลดลง 11.06 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -2.0,
-      "drift_d1_pct": -2.0,
+      "drift_d1_pct": -1.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8339,7 +8499,7 @@
       "reason": "มีรายได้จากการให้บริการจำนวน 1,490 ล้านบาท เพิ่มขึ้น 261 ล้านบาท หรือร้อยละ 21.3 เมื่อ เทียบกับช่วงเดียวกันของปีก่อน โดยได้รับแรงสนับสนุนจากการเติบโตของกลุ่มธุรกิจหลัก โดยเฉพาะธุรกิจขนส่งสินค้าทางอากาศ (Air Freight)",
       "reason_source": "mda_extract",
       "gap_pct": -1.18,
-      "drift_d1_pct": -5.29,
+      "drift_d1_pct": -3.53,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8370,7 +8530,7 @@
       "reason": "คือการรับรู้ผลกำไรและการกลับรายการขาดทุนจากการด้อยค่า เนื่องจากบริษัทได้รับชำระ เงินกู้ยืมคืนจากบริษัทย่อยของบริษัทร่วมค้าแห่งหนึ่งจำนวน 225 ล้านบาท ซึ่งเป็นผลสืบเนื่องจากการจำหน่ายที่ดินในโครงการเลเจนด์ สยาม รายได้รวมสำหรับงวด 3 เดือน บริษัทฯ มีรายได้รวม 182",
       "reason_source": "mda_extract",
       "gap_pct": -3.85,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8401,7 +8561,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -7.14,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8432,7 +8592,7 @@
       "reason": "มีรายได้จากการขายและบริการ 802.98 ล้านบาท (งวด 6 เดือนแรกปี 2568: 710.70 ล้านบาท) เพิ่มขึ้น 92.28 ล้านบาทหรือคิดเป็นร้อยละ 13.0 โดยรายได้จากธุรกิจด้านทรัพยากรบุคคลเพิ่มขึ้น 78.30 ล้านบาท หรือร้อยละ 12.3 จากธุรกิจเดิมจำนวน 41.20",
       "reason_source": "mda_extract",
       "gap_pct": -0.46,
-      "drift_d1_pct": 1.39,
+      "drift_d1_pct": 5.09,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8494,7 +8654,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.43,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -0.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8525,7 +8685,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -16.67,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8556,7 +8716,7 @@
       "reason": "และมีรายได้จากการโอนกรรมสิทธิ์เท่ากับ 481.7 ล้านบาท กลุ่มบริษัทมีรายได้จากการขาย อสังหาริมทรัพย์เท่ากับ 347.3 ล้านบาท รายได้ค่าบริหารโครงการ เท่ากับ 28.8 ล้านบาท รายได้จากการให้บริการ เท่ากับ 11.4 ล้านบาท และมีรายได้อื่น เท่ากับ",
       "reason_source": "mda_extract",
       "gap_pct": -2.19,
-      "drift_d1_pct": -5.11,
+      "drift_d1_pct": -2.92,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8614,7 +8774,7 @@
       "reason": "กลุ่มบริษัทมีรายได้จากการขายและบริการสำหรับงวดไตรมาส 2 2569 รวมจำนวน 129.52 ล้านบาท เพิ่มขึ้น จากงวดเดียวกันของปีที่ผ่านมา จำนวน 78.45 ล้านบาท หรือเพิ่มขึ้นร้อยละ 153.63 เนื่องจากการรับรู้รายได้ของกลุ่มธุรกิจ",
       "reason_source": "mda_extract",
       "gap_pct": -6.9,
-      "drift_d1_pct": -20.69,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8645,7 +8805,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.43,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.43,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8676,7 +8836,7 @@
       "reason": "รายไดจากการขายสินคาและการใหบริการ 418.22 371.40 252.77 46.82 12.61 165.45 65.45 ตนทุนขายสินคาและการใหบริการ 333.74 315.54 192.39 18.20 5.77 141.35 73.47 กำไรขั้นตน 84.48 55.86 60.38 28.62 51.24 24.10 39.91",
       "reason_source": "mda_extract",
       "gap_pct": 1.99,
-      "drift_d1_pct": 0.66,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8707,7 +8867,7 @@
       "reason": "รายได้จากการขายและการให้บริการ (ล้านบาท) 61,863 56,833 56,496 8.9% 9.5% 118,696 113,903 4.2% กำไรขั้นต้น (ล้านบาท) 4,602 4,268 4,341 7.8% 6.0% 8,871 8,366 6.0% EBITDA (ล้านบาท) 1,691 1,281 1,729 32.0% (2.2%) 2,973 3,236",
       "reason_source": "mda_extract",
       "gap_pct": -0.67,
-      "drift_d1_pct": -0.67,
+      "drift_d1_pct": 0.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8738,7 +8898,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8769,7 +8929,7 @@
       "reason": "รายได้จากการให้บริการ 130.35 100.91 29.44 29.17 รายได้จากการขาย 0.45 0.07 0.38 583.50 ต้นทุนการให้บริการ 65.35 52.92 12.44 23.50 ต้นทุนขาย 0.14 0.02 0.12 603.45 กำไรขั้นต้น 65.30 48.04 17.26 35.94 รายได้อื่น 1.48 3.04 (1.55)",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.49,
+      "drift_d1_pct": 1.47,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8800,7 +8960,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 10.09,
-      "drift_d1_pct": 11.93,
+      "drift_d1_pct": 10.09,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8862,7 +9022,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 5.73,
+      "drift_d1_pct": 9.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8893,7 +9053,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -4.44,
+      "drift_d1_pct": -6.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8924,7 +9084,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 3.45,
-      "drift_d1_pct": 0.49,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8955,7 +9115,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.72,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -1.72,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8986,7 +9146,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 8.91,
-      "drift_d1_pct": 5.94,
+      "drift_d1_pct": 8.42,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9017,7 +9177,7 @@
       "reason": "รายได้จากการขายและบริการจำแนกตามธุรกิจ 1.",
       "reason_source": "mda_extract",
       "gap_pct": -0.64,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9048,7 +9208,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 20.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9079,7 +9239,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.7,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9110,7 +9270,7 @@
       "reason": "รายได้จากการขายสินค้าและบริการอื่นๆ 3.05 2.78 0.27 9.61% 4.64 6.68 (2.04) -30.49% รายได้จากการดำเนินงานรวม 328.06 356.24 (28.18) -7.91% 621.69 646.16 (24.47) -3.79% ต้นทุนจากการดำเนินงานรวม 284.54 313.59 (29.05) -9.26% 530.11",
       "reason_source": "mda_extract",
       "gap_pct": -1.72,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9141,7 +9301,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.91,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.23,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9172,7 +9332,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.49,
-      "drift_d1_pct": -5.97,
+      "drift_d1_pct": -2.99,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9203,7 +9363,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.85,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -2.54,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9234,7 +9394,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -3.88,
+      "drift_d1_pct": -3.4,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9265,7 +9425,7 @@
       "reason": "รายได้จากการให้บริการ ส ำหรับไตรมำสที่ 2 ปี 2569 บริษัทมีรำยได้จำกกำรให้บริกำรจ ำนวน 321.4 ล้ำนบำท เพิ่มขึ้น 54.5 ล้ำนบำท หรือคิด เป็น 20.4% จำกงวดเดียวกันของปีก่อน",
       "reason_source": "mda_extract",
       "gap_pct": 11.46,
-      "drift_d1_pct": 14.58,
+      "drift_d1_pct": 16.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9296,7 +9456,7 @@
       "reason": "รายได้จากการขาย 302.73 198.34 104.39 52.63 รายได้จากงานโครงการและการให้บริการ 183.50 128.59 54.91 42.70 รวมรายได้จากการขายและบริการ 486.23 326.93 159.30 48.73 ต้นทุนขาย 216.69 142.21 74.48 52.37",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 4.76,
+      "drift_d1_pct": 5.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9327,7 +9487,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.64,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9389,7 +9549,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 12.43,
-      "drift_d1_pct": 19.77,
+      "drift_d1_pct": 26.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9451,7 +9611,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.4,
-      "drift_d1_pct": -0.97,
+      "drift_d1_pct": -1.94,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9482,7 +9642,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 3.85,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 3.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9513,7 +9673,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.11,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9544,7 +9704,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.9,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 2.38,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9575,7 +9735,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.53,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 0.53,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9668,7 +9828,7 @@
       "reason": "รายได้จากการขายเปนหลัก • รายได้จากการขายสําหรับงวด 6 เดือนและงวด 3 เดือน จํานวน 9,407.77 ล้านบาท และ 6,598.42 ล้านบาท เพิ มขึน 33.13% และ 36.42% ตามลําดับ เพิ มขึนจากการเปดโอนโครงการ คอนโดมิเนียม โค้บบ์ รัชดา-พระราม 9 •",
       "reason_source": "mda_extract",
       "gap_pct": 0.97,
-      "drift_d1_pct": 1.94,
+      "drift_d1_pct": 5.83,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9730,7 +9890,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.51,
-      "drift_d1_pct": 1.52,
+      "drift_d1_pct": 2.54,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9792,7 +9952,7 @@
       "reason": "สาเหตุหลักเนื่องจาก 1.",
       "reason_source": "mda_extract",
       "gap_pct": 7.14,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 7.14,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9823,7 +9983,7 @@
       "reason": "รายได้จากการขาย 289.93 235.70 310.79 7.2% 31.9% ต้นทุนขาย (244.95) (232.17) (282.77) 15.4% 21.8% ร้อยละของต้นทุนขายต่อยอดขาย 84.5% 98.5% 91.0% 6.5% -7.5% กำไรขั้นต้น 44.97 3.54 28.02 -37.7% 692.4% กำไร (ขาดทุน)",
       "reason_source": "mda_extract",
       "gap_pct": -1.91,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9854,7 +10014,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -16.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9885,7 +10045,7 @@
       "reason": "รายได้จากการขาย รายได้จากการขายสำหรับไตรมาส 2/2569 งวด 3 เดือน และงวด 6 เดือน มีจำนวน 561.00 ล้านบาท และ 1,193.91 ล้านบาท ตามลำดับ เพิ่มขึ้นจากงวดเดียวกันของปีก่อนจำนวน 370.67 ล้านบาท และ 815.36 ล้านบาท หรือ คิดเป็นร้อยละ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9916,7 +10076,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -14.29,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9947,7 +10107,7 @@
       "reason": "กำไรสุทธิที่เพิ่มขึ้นมีสาเหตุหลักมาจากอัตรากำไรขั้นต้นที่ปรับตัวดีขึ้นเป็นร้อยละ 18.30 จากร้อยละ 4.64 ในไตรมาส 2 ปี 2568 1.",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -5.26,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -9964,7 +10124,7 @@
       "netProfitYoY": 12.25696847668785,
       "netProfitPriorQ": -53381000.0,
       "netProfitQoQ": 21.62941870703059,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": -0.072,
       "epsPrior": -0.081,
       "epsYoY": 11.11111111111112,
@@ -9978,7 +10138,7 @@
       "reason": "สะทอนถึงการรับรูรายไดจากการดำเนินโครงการที่เพิ่มขึ้น แมผลการดำเนินงานในชวงครึ่งแรกของป 2569 ยังคงมีผลขาดทุนสุทธิ อยางไรก็ตาม ผลประกอบการรายไตรมาสมีทิศทาง ปรับตัวดีขึ้น โดยบริษัทฯ",
       "reason_source": "mda_extract",
       "gap_pct": -5.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10009,7 +10169,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.09,
-      "drift_d1_pct": 1.63,
+      "drift_d1_pct": 4.35,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10040,7 +10200,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.01,
-      "drift_d1_pct": -8.43,
+      "drift_d1_pct": -9.04,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10071,7 +10231,7 @@
       "reason": "กลุ่มบริษัทมีรายได้จากการขายและบริการจำนวน 252.20 ล้านบาท ลดลง 100.09 ล้านบาท หรือ 28.41% เมื่อเทียบกับช่วงเดียวกันของปีก่อนหน้า (Q2/2568 352.29 ล้านบาท) ส่งผลให้ กำไรสุทธิปรับตัวลดลงอยู่ที่ 8.60 ล้านบาท ลดลงจากปีก่อน 47.85% (Q2/2568:",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -8.33,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10164,7 +10324,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.01,
-      "drift_d1_pct": -3.02,
+      "drift_d1_pct": -3.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10195,7 +10355,7 @@
       "reason": "รายได้จากการประกันภัย 5,446,035 5,210,439 4.52% ค่าใช้จ่ายในการบริการประกันภัย (4,403,766) (5,541,407) 20.53% รายได้(ค่าใช้จ่าย)สุทธิจากสัญญาประกันภัยต่อที่ถือไว้ (429,754) 588,679 -173.00% ผลการดำเนินงานการบริการประกันภัย",
       "reason_source": "mda_extract",
       "gap_pct": 2.96,
-      "drift_d1_pct": 2.96,
+      "drift_d1_pct": 7.1,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10226,7 +10386,7 @@
       "reason": "รายได้จากการขายและการให้บริการเพิ่มขึ้น 2.6% YoY โดยมีปัจจัยหลักจากการเติบโตที่แข็งแกร่งของกลุ่มสินค้าและบริการทางบรรจุภัณฑ์ ขณะที่ความสามารถในการทำกำไรของกลุ่มบริษัทปรับตัวดีขึ้น จากการขยายตัวของอัตรากำไร",
       "reason_source": "mda_extract",
       "gap_pct": -0.63,
-      "drift_d1_pct": -1.88,
+      "drift_d1_pct": -1.25,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10257,7 +10417,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.57,
-      "drift_d1_pct": 2.29,
+      "drift_d1_pct": 3.43,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10381,7 +10541,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -50.0,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10412,7 +10572,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.88,
+      "drift_d1_pct": 6.14,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10443,7 +10603,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 33.33,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10536,7 +10696,7 @@
       "reason": "รายได้จากการขายสินค้า และบริการ 4,419.2 93.1 8,357.2 96.3 3,938.0 89.1 รายได้ค่าเช่า ค่าบริการจาก สัญญาเช่าดำเนินงาน 297.8 6.3 295.0 3.4 (2.8) (0.9) รายได้รวม 4,745.0 100.0 8,680.2 100.0 3,935.2 82.9 ต้นทุนขาย 3,814.7 80.4",
       "reason_source": "mda_extract",
       "gap_pct": 2.99,
-      "drift_d1_pct": 2.4,
+      "drift_d1_pct": 5.99,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10567,7 +10727,7 @@
       "reason": "โดยมีสาเหตุหลักของ การเปลี่ยนแปลงของผลการดำเนินงาน ดังนี้ • รายได้จากธุรกิจก่อสร้างเพิ่มขึ้นจาก 1,841ล้านบาทเป็น 1,914ล้านบาทอัตรากำไรขั้นต้นเพิ่มขึ้นจาก ร้อยละ 10.91 เป็นร้อยละ 11.96 และกำไรขั้นต้นเพิ่มขึ้น 28 ล้านบาท •",
       "reason_source": "mda_extract",
       "gap_pct": 1.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10598,7 +10758,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 1.14,
+      "drift_d1_pct": -3.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10629,7 +10789,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 0.66,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10660,7 +10820,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -4.72,
-      "drift_d1_pct": -17.32,
+      "drift_d1_pct": -16.54,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10691,7 +10851,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.82,
-      "drift_d1_pct": 1.64,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10753,7 +10913,7 @@
       "reason": "ที่มีการเพิ่มขึ้นของสินทรัพย์สุทธิจากการดำเนินงานจำนวน 81.47 ล้านบาท หรือคิด เป็นการลดลงจำนวน 22.96 ล้านบาท (ลดลงร้อยละ 28.2) จากงวดเดียวกันของปีก่อน โดยมีสาเหตุหลักมาจาก กองทุนรวมมีรายได้รวมทั้งสิ้น 180.04 ล้านบาท เมื่อเทียบกับปี 2568 ที่มีรายได้รวม",
       "reason_source": "mda_extract",
       "gap_pct": -0.92,
-      "drift_d1_pct": -6.42,
+      "drift_d1_pct": -3.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10846,7 +11006,7 @@
       "reason": "บริษัทมีรายได้จากการรับจ้างก่อสร้างรวม 415.13 ล้านบาท เพิѷมขึѸนจากงวด เดียวกันของปีก่อน 6.82% โดยมีการรับรู้รายได้ในโครงการประเภทต่าง ๆ รวมทัѸงสิѸน 11 โครงการ ประกอบด้วย โครงการภาคเอกชน : ห้างสรรพสินค้า/ Mixed- Use / อาคารชุด /",
       "reason_source": "mda_extract",
       "gap_pct": 2.76,
-      "drift_d1_pct": 4.42,
+      "drift_d1_pct": 6.63,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10877,7 +11037,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -7.89,
-      "drift_d1_pct": -5.26,
+      "drift_d1_pct": -3.51,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10908,7 +11068,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.76,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10939,7 +11099,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.3,
-      "drift_d1_pct": -3.9,
+      "drift_d1_pct": -2.6,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -10970,7 +11130,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11001,7 +11161,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.81,
-      "drift_d1_pct": 2.41,
+      "drift_d1_pct": 3.01,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11063,7 +11223,7 @@
       "reason": "รายได้จากการขายและบริการ 1,456.12 599.38 856.74 142.94 2,787.87 1,313.23 1,474.64 112.29 ต้นทุนสินค้าที่ขายและบริการ (1,147.21) (461.48) 685.74 148.60 (2,191.08) (1,011.08) 1,180.00 116.71 กำไรขั้นต้น 308.91 137.90 171.00",
       "reason_source": "mda_extract",
       "gap_pct": 3.25,
-      "drift_d1_pct": 0.81,
+      "drift_d1_pct": -2.44,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11094,7 +11254,7 @@
       "reason": "โดยสาเหตุหลักมาจากรายได้จากการจำหน่ายรถยนต์ที่ลดลงจากฐาน เปรียบเทียบที่สูงในปีก่อน ขณะที่ธุรกิจให้เช่ารถยนต์ยังคงมีผลการดำเนินงานที่แข็งแกร่งและสามารถรักษาอัตรา การทำกำไรได้ดี 2 ผลการดำเนินงานสำหรับไตรมาส 2 ปี 2569",
       "reason_source": "mda_extract",
       "gap_pct": -0.4,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.4,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11125,7 +11285,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11156,7 +11316,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11218,7 +11378,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.52,
-      "drift_d1_pct": -4.15,
+      "drift_d1_pct": -3.11,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11249,7 +11409,7 @@
       "reason": "โดยมีสาเหตุหลักจากรายได้ค่าเช่าและค่าบริการ ที่ลดลง จึงเรียนมาเพื่อโปรดทราบ และเพื่อให้เป็นไปตามประกาศสำนักงานคณะกรรมการกำกับหลักทรัพย์และตลาด หลักทรัพย์ที่ ทจ.20/2561 ขอแสดงความนับถือ นางวิไล อินทกูล กรรมการผู้จัดการ บริษัท",
       "reason_source": "mda_extract",
       "gap_pct": -0.79,
-      "drift_d1_pct": -3.15,
+      "drift_d1_pct": -2.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11280,7 +11440,7 @@
       "reason": "รายได้ งบการเงินรวม (หน่วย : พันบาท) สำหรับหกเดือน เปลี่ยนแปลง สำหรับไตรมาส 2 เปลี่ยนแปลง ปี 2569 ปี 2568 จำนวน ร้อยละ ปี 2569 ปี 2568 จำนวน ร้อยละ รายได้จากการขาย 865,723 1,482,877 -617,154 -41.62% 377,451 748,630 -371,179 -49.58% รายได้อื่น 7,727 25,848 -18,121 -70.11% 2,062 8,499 -6,437 -75.74% รายได้รวม 873,450 1,508,725 -635,275 -42.11% 379,513 757,129 -377,616",
       "reason_source": "mda_extract",
       "gap_pct": -0.97,
-      "drift_d1_pct": -7.18,
+      "drift_d1_pct": -7.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11311,7 +11471,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.35,
-      "drift_d1_pct": -3.53,
+      "drift_d1_pct": -2.94,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11373,7 +11533,7 @@
       "reason": "โดยมีสาเหตุหลักมาจากกองทุนรวมมีรายการขาดทุนจากการเปลี่ยนแปลงในมูลค่ายุติธรรมของเงินลงทุนเป็นจำนวน 17.57 ล้านบาท เมื่อเทียบกับงวดเดียวกันของปี 2568 ซึ่งมีรายการกำไรจากการเปลี่ยนแปลงในมูลค่ายุติธรรม จำนวน 36.59 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -0.57,
-      "drift_d1_pct": -1.14,
+      "drift_d1_pct": -0.57,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11404,7 +11564,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 4.5,
-      "drift_d1_pct": 4.5,
+      "drift_d1_pct": 5.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11435,7 +11595,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.48,
-      "drift_d1_pct": 1.99,
+      "drift_d1_pct": 1.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11466,7 +11626,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.2,
-      "drift_d1_pct": 1.2,
+      "drift_d1_pct": 1.8,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11528,7 +11688,7 @@
       "reason": "โรงงานดังกล่าวมีรายได้จากการขายและบริการจำนวน 52.49 ล้านบาท และมีผล ขาดทุนขั้นต้นจำนวน 46 ล้านบาท ปัจจุบัน เอ็น15 อยู่ระหว่างพิจารณาแนวทางบริหารจัดการทรัพย์สินจากการหยุดดำเนินงาน ชั่วคราวเพื่อให้เกิดประโยชน์สูงสุดต่อ เอ็น15 และกลุ่มบริษัท",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -5.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11559,7 +11719,7 @@
       "reason": "มีรายได้อื่นจากการรับเงินจาก สถาบันการเงินหนึ่งแห่ง จำนวนเงิน 70 ล้านบาท เพื่อชดเชยความเสียหายของบริษัทจากปฏิบัติหน้าที่โดยมิ ชอบของอดีตพนักงานรายหนึ่งโดยมีวิธีการที่เกี่ยวข้องกับกระบวนการดำเนินการและการยืนยันธุรกรรม",
       "reason_source": "mda_extract",
       "gap_pct": 4.35,
-      "drift_d1_pct": 4.35,
+      "drift_d1_pct": 7.73,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11590,7 +11750,7 @@
       "reason": "รายได้จากการขาย 1,658.39 99.29 1,694.73 99.47 (36.34) (2.14) รายได้รวม 1,670.19 100 1,703.72 100 (33.53) (1.97) ต้นทุนขาย 912.25 55.01 940.57 55.50 (28.32) (3.01) กําไรขั+นต้น 746.14 44.99 754.16 44.50 (8.02) (1.06)",
       "reason_source": "mda_extract",
       "gap_pct": -1.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11652,7 +11812,7 @@
       "reason": "รวมรายได้จากการขาย 79.93 92.93 92.06 96.41 รายได้จากการบริการ: 5.39 6.27 3.05 3.19 3) รายได้จากการให้บริการ รวมรายได้จากการขายและบริการ 85.32 99.20 95.11 99.60",
       "reason_source": "mda_extract",
       "gap_pct": -2.5,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -5.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11714,7 +11874,7 @@
       "reason": "68 ล้านบาท ร้อยละ ก ำไรหรือขำดทุน: รายได้จากการประกันภัย 3,939.6 3,806.6 133.0 3.5% ค่าใช้จ่ายในการบริการประกันภัย (3,164.4) (3,357.1) 192.7 (5.7%) รายได้ (ค่าใช้จ่าย) สุทธิจากสัญญาประกันภัยต่อที่ถือไว้ (68.9) 75.4 (144.3) (191.4%) ผลกำรด",
       "reason_source": "mda_extract",
       "gap_pct": 3.42,
-      "drift_d1_pct": 4.27,
+      "drift_d1_pct": 2.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11745,7 +11905,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -5.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -5.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11776,7 +11936,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.93,
-      "drift_d1_pct": -0.93,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11807,7 +11967,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.06,
-      "drift_d1_pct": 3.09,
+      "drift_d1_pct": 5.15,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11869,7 +12029,7 @@
       "reason": "จากการเติบโตของรายได้ จากสองธุรกิจหลัก ได้แก่ ธุรกิจสินเชื่อและธุรกิจนายหน้าประกันภัย การปรับตัวดีขึ้นของส่วนต่างอัตราดอกเบี้ยสุทธิ ควบคู่กับ การบริหารต้นทุนและคุณภาพสินเชื่ออย่างมีประสิทธิภาพ",
       "reason_source": "mda_extract",
       "gap_pct": 1.04,
-      "drift_d1_pct": -1.04,
+      "drift_d1_pct": 0.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11900,7 +12060,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 5.63,
-      "drift_d1_pct": 0.7,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11931,7 +12091,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.08,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.08,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11962,7 +12122,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.43,
-      "drift_d1_pct": -1.29,
+      "drift_d1_pct": -0.86,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11993,7 +12153,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -9.63,
-      "drift_d1_pct": -14.07,
+      "drift_d1_pct": -15.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12024,7 +12184,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.87,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.87,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12055,7 +12215,7 @@
       "reason": "รวมทั้งรายได้จากการขายภายในประเทศเติบโตขึ้น 6.3% จากเครื่องดื่มน้ำมะพร้าว 100% แบรนด์ “COCO ROYAL” นอกจากนี้ บริษัทยังคงมุ่งเน้นและให้ความสำคัญกับคุณภาพและมาตรฐาน การผลิต",
       "reason_source": "mda_extract",
       "gap_pct": -6.98,
-      "drift_d1_pct": -10.85,
+      "drift_d1_pct": -10.08,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12117,7 +12277,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12210,7 +12370,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.68,
-      "drift_d1_pct": 0.56,
+      "drift_d1_pct": 1.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12272,7 +12432,7 @@
       "reason": "รายได้จากการให้บริการ 401.12 91% 340.59 93% 360.29 92% +17.77% รายได้จากการขาย 29.72 7% 21.47 6% 21.96 6% +38.43% ดอกเบี้ยรับและรายได้อื่น 9.52 2% 5.22 1% 9.37 2% +82.38% รายได้รวม 440.36 100% 367.27 100% 391.62 100% +19.90%",
       "reason_source": "mda_extract",
       "gap_pct": -0.62,
-      "drift_d1_pct": -6.17,
+      "drift_d1_pct": -4.94,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12303,7 +12463,7 @@
       "reason": "เนื่องจากสาเหตุหลักคือ 1.) กลุ่มบริษัทมีกำไรขั้นต้น เพิ่มขึ้น จากปีก่อนจำนวน 6.1 ล้านบาท โดยมีปัจจัยสนับสนุนหลักมาจากกลุ่มธุรกิจจำหน่ายเชื้อเพลิง 2.) ส่วนแบ่งขาดทุนจากเงินลงทุนในการร่วมค้า ลดลง จากปี ก่อนทั้งจำนวน 94.3",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -2.78,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12334,7 +12494,7 @@
       "reason": "ขับเคลื่อนโดยรายได้จากการขายและบริการซึ่งเป็นแกนหลักถึง 250.14 ล้านบาท (คิดเป็นร้อยละ 96.51 ของรายได้รวม) เสริมความมั่นคงด้วยการเติบโตอย่างโดดเด่นของรายได้อื่นที่เพิ่มขึ้น ร้อยละ 18.77 YoY เป็น 9.05 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -0.89,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -1.79,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12365,7 +12525,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.64,
-      "drift_d1_pct": 1.27,
+      "drift_d1_pct": 0.64,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12396,7 +12556,7 @@
       "reason": "รายได้จากการดำเนินงาน 27,514 1% 56,068 1% EBITDA 6,058 (1)% 13,074 (2)% กำไรสุทธิ 3,248 (7)% 7,306 (7)% หมายเหตุ : YoY หมายถึง การเปลี่ยนแปลงจากไตรมาส 2/2568 และ 6 เดือน ปี 2568 ผลการดำเนินงานในไตรมาส 2 ปี 2569 บริษัท",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -1.02,
+      "drift_d1_pct": -0.51,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12427,7 +12587,7 @@
       "reason": "รายได้จากการขายและการให้บริการ 2,571 2,484 2,252 3.5% 14.2% 5,054 4,502 12.3% ธุรกิจสื่อโฆษณานอกที่อยู่อาศัย 1,945 1,830 1,888 6.3% 3.0% 3,774 3,572 5.6% - สื่อโฆษณานอกที่อยู่อาศัย Plan B 1,927 1,810 1,877 6.5% 2.7% 3,737",
       "reason_source": "mda_extract",
       "gap_pct": 0.9,
-      "drift_d1_pct": 7.21,
+      "drift_d1_pct": 16.22,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12489,7 +12649,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -2.06,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12520,7 +12680,7 @@
       "reason": "มีรายไดจากการขายและบริการเปน จำนวนเงินรวม 56.36 ลานบาท โดยเปนรายไดที่มาจากธุรกิจภายในประเทศ เปนจำนวนเงิน 8.61 ลานบาท คิดเปน สัดสวน 15.28% และเปนรายไดจากธุรกิจโทรคมนาคมในประเทศฟลิปปนส เปนจำนวนเงิน 47.75 ลานบาท",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12551,7 +12711,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.91,
-      "drift_d1_pct": -5.73,
+      "drift_d1_pct": -5.1,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12582,7 +12742,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.54,
-      "drift_d1_pct": -4.86,
+      "drift_d1_pct": -0.54,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12613,7 +12773,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.5,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12644,7 +12804,7 @@
       "reason": "รายได้รวมจากการประกอบกิจการ อัตรากำไรขั้นต้น และอัตรากำไรสุทธิเพิ่มขึ้น เมื่อเทียบกับไตรมาสที่แล้วและ ไตรมาสเดียวกันของปีก่อน รายได้จากประกันสังคมคิดเป็น 56% ของรายได้รวม และมีอัตราการเติบโตที่สูงขึ้นกว่า",
       "reason_source": "mda_extract",
       "gap_pct": 2.55,
-      "drift_d1_pct": 3.18,
+      "drift_d1_pct": 0.64,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12675,7 +12835,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.75,
-      "drift_d1_pct": 1.49,
+      "drift_d1_pct": 0.75,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12737,7 +12897,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.38,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12768,7 +12928,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.91,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.91,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12799,7 +12959,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.47,
-      "drift_d1_pct": -2.47,
+      "drift_d1_pct": -1.23,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12830,7 +12990,7 @@
       "reason": "รายได้จากการก่อสร้าง, ขายและบริการ 294.76 142.59 106.72% 468.14 311.92 50.08% รายได้อื่น 16.28 2.34 595.73% 17.46 4.19 316.71% รวมรายได้ 311.04 144.93 114.61% 485.60 316.11 53.62% ต้นทุน (229.66) (109.66) 109.43% (366.97)",
       "reason_source": "mda_extract",
       "gap_pct": 7.89,
-      "drift_d1_pct": 15.79,
+      "drift_d1_pct": 5.26,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12861,7 +13021,7 @@
       "reason": "รายไดจากการกอสราง 66.84 157.23 (90.39) -57.49 รายไดจากการขาย 1.34 - 1.34 100.00 ตนทุนจากการกอสราง (73.65) (143.24) (69.59) -48.58 ตนทุนขาย (1.10) - (1.10) 100.00 กำไรขั้นตน (6.57) 13.99 (20.56) -146.96 รายไดอื่น",
       "reason_source": "mda_extract",
       "gap_pct": -7.14,
-      "drift_d1_pct": 7.14,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12892,7 +13052,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -11.21,
-      "drift_d1_pct": -13.08,
+      "drift_d1_pct": -11.21,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12923,7 +13083,7 @@
       "reason": "รายได้จากการขาย งานตามสัญญา บริการและค่าเช่า รายได้จากการขาย งานตามสัญญา บริการและค่าเช่า ในไตรมาส 2/2569 เท่ากับ 1,124 ล้านบาท เพิ่มขึ้นจากช่วงเดียวกันของปีที่แล้ว จำนวน 133 ล้านบาท หรือเพิ่มขึ้นร้อยละ 13",
       "reason_source": "mda_extract",
       "gap_pct": -1.31,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -12954,7 +13114,7 @@
       "reason": "ข้อมูลทางการเงินที่สำคัญรายได้จากการขายสินค้าและบริการ ไตรมำสที่ 2 ปี 2569 บริษัทมีรำยได้จำกกำรขำยสินค้ำและบริกำร จ ำนวน 228.75 ล้ำน บำท ปรับตัวเพิ่มขึ้นจ ำนวน 34.07 ล้ำนบำท คิดเป็นร้อยละ 17.50 จำกไตรมำสที่ 1 ปี 2569 และเพิ่มขึ้นจ ำนวน 29.75 ล้ำนบำท",
       "reason_source": "mda_extract",
       "gap_pct": 2.34,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 15.79,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13016,7 +13176,7 @@
       "reason": "รายได้จากการขายและการให้บริการ 83.89 100.00 118.00 100.00 (34.11) (28.91) ต้นทุนขายและต้นทุนบริการ 65.30 77.84 86.36 73.19 (21.06) (24.39) กําไรขั˕นต้น 18.59 22.16 31.64 26.81 (13.05) (41.25) รายได้อื˒น 0.59 0.70 0.39 0.33",
       "reason_source": "mda_extract",
       "gap_pct": -3.37,
-      "drift_d1_pct": -6.74,
+      "drift_d1_pct": -5.62,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13047,7 +13207,7 @@
       "reason": "ที่เติบโตได้ต่อเนื่องจากช่วงเดียวกันของปีก่อน เหตุการณ์และพัฒนาการที่สําคัญ CyberGenics ผู้นําด้าน AI Security และ Managed Security Services ในกลุ่มบริษัทฯ เปิดเวที CyberGenics Summit 2026 ภายใต้แนวคิด “Galaxies of Trust: Securing the",
       "reason_source": "mda_extract",
       "gap_pct": -4.67,
-      "drift_d1_pct": -7.01,
+      "drift_d1_pct": -7.48,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13078,7 +13238,7 @@
       "reason": "รายได้จากการให้บริการเป็นรายได้หลักของบริษัท คิดเป็นร้อยละ 96 ของรายได้รวม รายได้จากการให้บริการ แบ่งออกเป็น 3 กลุ่ม ได้แก่ รายได้จากทางพิเศษ (ร้อยละ 50) รายได้จากระบบราง (ร้อยละ 40) และรายได้ จากการพัฒนาเชิงพาณิชย์ (ร้อยละ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 1.44,
+      "drift_d1_pct": 4.32,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13171,7 +13331,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 3.57,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.57,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13202,7 +13362,7 @@
       "reason": "รายได้จากการขายจำนวน 8.4 ล้านบาทลดลงจากงวดเดียวกันของปีก่อนหน้า จำนวน 9.1 ล้านบาท คิดเป็น ลดลงร้อยละ 52.0 - ขาดทุนสำหรับงวดจำนวน 7.9 ล้านบาท ขาดทุนลดลงจากงวดเดียวกันของปีก่อนหน้าจำนวน 0.1 ล้านบาท คิดเป็นขาดทุนลดลงร้อยละ 1.2",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.31,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13233,7 +13393,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.82,
-      "drift_d1_pct": 1.64,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13295,7 +13455,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.2,
-      "drift_d1_pct": -1.1,
+      "drift_d1_pct": 1.1,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13326,7 +13486,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.75,
-      "drift_d1_pct": -4.39,
+      "drift_d1_pct": -6.14,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13357,7 +13517,7 @@
       "reason": "กำไรจากการลงทุนสุทธิ ส ำหรับไตรมำส 1 ปี 69/70 มีจ ำนวน 1,061.1 ล้ำนบำท ลดลง 1.4% จำกไตรมำสเดียวกันของปีก่อน และลดลง 6.6% จำกไตรมำสก่อน • การเปลี่ยนแปลงสินทรัพย์สุทธิจากการดำเนินงาน ส ำหรับไตรมำส 1 ปี 69/70 เป็น 210.7",
       "reason_source": "mda_extract",
       "gap_pct": -0.82,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -0.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13388,7 +13548,7 @@
       "reason": "และสิ่งแวดล้อมต่อเนื่องจากปีก่อนหน้า โดยเพิ่มสัดส่วนรายได้ที่มีความสม ่าเสมอ (Recurring Income) ซึ่งมาจากธุรกิจพลังงาน และกำหนดเป้าหมายในการเพิ่มรายได้จากธุรกิจผลิตไฟฟ้าจากพลังงานหมุนเวียน และธุรกิจติดตั้งสถานีชาร์จรถยนต์ไฟฟ้ามากขึ้น",
       "reason_source": "mda_extract",
       "gap_pct": -1.94,
-      "drift_d1_pct": -1.94,
+      "drift_d1_pct": -4.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13419,7 +13579,7 @@
       "reason": "จากการปรับอัตราแลกเปลี่ยน ณ วันสิ้นงวดบัญชี 71.85 (390.49) 462.34 (118.40) 188.14 (428.12) 616.26 (143.95) - ค่ำเผื่อกำรด้อยค่ำของสินทรัพย์ (245.08) (245.08) EBIDA (กรณีไม่รวมผลขำดทุน",
       "reason_source": "mda_extract",
       "gap_pct": -4.76,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -7.14,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13450,7 +13610,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -1.79,
+      "drift_d1_pct": 0.89,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13481,7 +13641,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.55,
-      "drift_d1_pct": -2.21,
+      "drift_d1_pct": -1.1,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13512,7 +13672,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 2.5,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13543,7 +13703,7 @@
       "reason": "เป็นผลมาจากปริมาณขายลดลง แต่ราคา วัตถุดิบใกล้เคียงกับไตรมาสเดียวกันของปีก่อน 1.3 รายได้อื่นมีจำนวน 14.37 ล้านบาท เพิ่มขึ้น 0.85 ล้านบาท หรือ เพิ่มขึ้นร้อยละ 6.29 เมื่อ เปรียบเทียบกับไตรมาสเดียวกันของปีก่อน 1.4",
       "reason_source": "mda_extract",
       "gap_pct": 1.72,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 5.17,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13574,7 +13734,7 @@
       "reason": "และการสำรองผลขาดทุนจากการด้อยค่าของสินทรัพย์ 2 ไม่รวมส่วนแบ่งกำไร (ขาดทุน) จากบริษัทร่วม ก ำไร (ขำดทุน) สุทธิส่วนของบริษัทใหญ่ (ไม่รวมรำยกำรพิเศษ) ส ำหรับ Q2’2569 เปรียบเทียบ Q1’2569 และ Q2’2568 และ 6M’2569 เทียบกับ 6M’2568 บริษัท",
       "reason_source": "mda_extract",
       "gap_pct": -1.01,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 1.01,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13636,7 +13796,7 @@
       "reason": "ขณะที่รายได้จากการจำหน่ายไฟฟ้าของกลุ่มบริษัทย่อยเพิ่มขึ้นตามปริมาณ การผลิตและจำหน่ายไฟฟ้าที่ปรับตัวดีขึ้น สำหรับงวดหกเดือนแรกของปี 2569 กลุ่มบริษัทมีรายได้รวม 1,442.01 ล้านบาท เพิ่มขึ้น 179.80 ล้านบาท หรือ 14.25% จาก",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 4.17,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13698,7 +13858,7 @@
       "reason": "กลุ่มบริษัทมีรายได้จากการดําเนินงานรวม467.0 ล้านบาทลดลงเล็กน้อย6.2 ล้านบาทหรือร้อยละ1.3 และมีกําไรสุทธิ96.0 ล้านบาทลดลง 21.9 ล้านบาทหรือร้อยละ18.5 โดยมีปัจจัยหลักจาก (i)",
       "reason_source": "mda_extract",
       "gap_pct": -2.54,
-      "drift_d1_pct": -7.63,
+      "drift_d1_pct": -5.08,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13729,7 +13889,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.6,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.2,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13760,7 +13920,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -16.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13822,7 +13982,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.64,
-      "drift_d1_pct": -2.56,
+      "drift_d1_pct": -3.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13853,7 +14013,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 4.46,
-      "drift_d1_pct": 1.91,
+      "drift_d1_pct": 1.27,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13884,7 +14044,7 @@
       "reason": "ซึ่งได้รับผลจากการปรับลดอัตราดอกเบี้ย MLR ในช่วงที่ผ่านมา ส่งผลให้กองทรัสต์มีรายได้จากการลงทุนสุทธิที่ 49.69 ล้านบาท ทั้งนี้ กองทรัสต์มีรายการขาดทุนสุทธิจากเงิน ลงทุนเท่ากับ 0.20 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -0.67,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13915,7 +14075,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.5,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13946,7 +14106,7 @@
       "reason": "มีกำไรจากการดำเนินงาน 32.15 ล้านบาท และมีผลขาดทุนสุทธิหลังภาษี 16.63 ล้านบาท ซึ่งเป็นส่วนขาดทุนของบริษัทใหญ่จำนวน 16.30 ล้านบาท กลุ่มบริษัทฯ มีผลขาดทุนลดลงอย่างมีนัยสำคัญ",
       "reason_source": "mda_extract",
       "gap_pct": -1.96,
-      "drift_d1_pct": -3.92,
+      "drift_d1_pct": -2.94,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13977,7 +14137,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.39,
-      "drift_d1_pct": 2.39,
+      "drift_d1_pct": 6.22,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14008,7 +14168,7 @@
       "reason": "โดยรายได้จากการขายและบริการอยู่ที่ 192.13 ล้านบาท เพิ่มขึ้น 13.91% สอดคล้องกับปริมาณ การจำหน่ายไฟฟ้าของโรงไฟฟ้าที่ปรับตัวดีขึ้นเมื่อเทียบกับปีก่อน สำหรับงวดหกเดือนแรกของปี 2569 กลุ่มบริษัทมีรายได้รวม 387.90 ล้านบาท เพิ่มขึ้น",
       "reason_source": "mda_extract",
       "gap_pct": 1.45,
-      "drift_d1_pct": 2.9,
+      "drift_d1_pct": 1.45,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14039,7 +14199,7 @@
       "reason": "รายได้จากการขายและการให้บริการ 2,976 2,651 325 12% ต้นทุนขายและต้นทุนการให้บริการ (2,473) (2,205) 268 12% กําไรขั้นต้น 503 446 57 13% % กําไรขั้นต้น 17% 17% ต้นทุนในการจัดจําหน่ายและค่าใช้จ่ายในการบริหาร (510) (482) 28 6%",
       "reason_source": "mda_extract",
       "gap_pct": -3.05,
-      "drift_d1_pct": -3.66,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14101,7 +14261,7 @@
       "reason": "บริการเทคโนโลยีและพลังงานทดแทน 0.26 0.09 26.05 4.91 รายได้จากการขายและการให้บริการ 275.05 97.56 520.92 98.09 รายได้อื่น 6.87 2.44 10.14 1.91 รวมรายได้ 281.93 100.00 531.06 100.00 สรุปเหตุการณ์และพัฒนาการที่สำคัญ สำหรับงวด 6 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569",
       "reason_source": "mda_extract",
       "gap_pct": 0.99,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -1.98,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14132,7 +14292,7 @@
       "reason": "สนับสนุนหลักจากการลดลงของต้นทุนทางการเงินตามแผนบริหารโครงสร้างเงินทุนของบริษัทฯ อย่างต่อเนื่อง เมื่อรวมค่าใช้จ่ายพิเศษ จากค่าธรรมเนียมการชำระคืนเงินกู้ก่อนครบกำหนดสัญญาจำนวน 11 ล้านบาท บริษัทฯ มีกำไรสุทธิอยู่ที่ 72 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -2.69,
-      "drift_d1_pct": -1.08,
+      "drift_d1_pct": 1.08,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14163,7 +14323,7 @@
       "reason": "บริษัทและบริษัทย่อยมีรายได้จากการรับเหมาและให้บริการรวมเท่ากับ 169.26 ล้านบาท โดยมีกําไรสุทธิ เท่ากับ 1.81 ล้านบาท คิดเป็นอัตรากําไรสุทธิเท่ากับ 1.06% บริษัทมีมูลค่างานที่ยังไม่ส่งมอบ ณ วันที่ 30 มิถุนายน 2569 เท่ากับ 1,447.80 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -12.28,
-      "drift_d1_pct": -19.3,
+      "drift_d1_pct": -17.54,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14194,7 +14354,7 @@
       "reason": "สะท้อนถึงความสามารถในการทํากําไรที]ดีขึeนจากการบริหารต้นทุนและประสิทธิภาพการดําเนินงาน สําหรับงวด 6 เดือน สิeนสุดวันที] 30 มิถุนายน 2569 บริษัทมีผลกําไรจากงบการเงิน จํานวน 59.68 ล้านบาท เปรียบเทียบ กับผลการดําเนินงานงวดเดียวกันของปีก่อน มีผลกําไรจากงบการเงิน",
       "reason_source": "mda_extract",
       "gap_pct": -0.83,
-      "drift_d1_pct": -2.5,
+      "drift_d1_pct": -3.33,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14225,7 +14385,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 1.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14256,7 +14416,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.24,
-      "drift_d1_pct": -0.83,
+      "drift_d1_pct": -0.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14287,7 +14447,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.81,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.81,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14318,7 +14478,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.68,
-      "drift_d1_pct": -4.05,
+      "drift_d1_pct": -2.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14349,7 +14509,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -6.85,
+      "drift_d1_pct": -5.48,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14380,7 +14540,7 @@
       "reason": "68 ล้ำนบำท % ล้ำนบำท % ล้ำนบำท % รำยได้ รายได้ค่าบริการจัดหาบุคลากรและบริการอื่น 1,136.75 79.48% 1,140.21 79.33% (3.46) (0.30)% รายได้ค่าเช่าและบริการ 274.11 19.16% 240.59 16.74% 33.52 13.93% กำไรจากการจำหน่ายสินทรัพย์ให้เช่ารอการขายและอุปกรณ์ 12.84 0.90% 51.37 3.57% (38.53) (75.00)% รายได้อื่น /1 6.54 0.46% 5.16 0.36% 1.38 26.74% รวมรำยได้ 1,430.24 100.00% 1,437.33 100.00% (7.09) (0.49)% ค่ำใช้จ่ำย",
       "reason_source": "mda_extract",
       "gap_pct": -0.84,
-      "drift_d1_pct": -1.67,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14411,7 +14571,7 @@
       "reason": "รายได้จากการขาย 221.8 258.73 280.15 58.35 26.31% 21.415 8.28% กำไร(ขาดทุน)อัตราแลกเปลี่ยน 0.56 0.56 0.34 -0.22 -39.68% -0.222 -39.57% ผลประโยชน์ภาษีเงินได้ 0 0 0 0 0 รายได้อื่นๆ 2.575 0.78 2.969 0.39 15.30% 2.189 280.64%",
       "reason_source": "mda_extract",
       "gap_pct": 4.55,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.84,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14442,7 +14602,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.64,
-      "drift_d1_pct": -2.46,
+      "drift_d1_pct": -4.92,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14473,7 +14633,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.79,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 5.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14535,7 +14695,7 @@
       "reason": "มีกําไรที&ยังไม่เกิดขึ-นจากการ ประเมินจํานวน 2.30 ล้านบาท -กองทุนมีรายได้ทั-งสิ-นจํานวน 9.04 ล้านบาท เพิ&มขึ-นจาก 8.77 ล้านบาทในงวดเดียวกันปีที&แล้ว หรือคิดเป็นการ เพิ&มขึ-นร้อยละ 3.06 -กองทุนมีค่าใช้จ่ายทั-งสิ-นจํานวน 4.19 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -0.52,
-      "drift_d1_pct": 1.55,
+      "drift_d1_pct": 0.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14566,7 +14726,7 @@
       "reason": "โดยมีสาเหตุหลักมาจากการดําเนินงาน และปริมาณงาน ของโครงการทีѷเพิѷมขึѸน รายได้อืѷน ในไตรมาส 2/2569 บริษัทมีรายได้อืѷน (ไม่รวมกําไรจากอัตราแลกเปลีѷยน) เท่ากับ 8.8 ล้านบาท เพิѷมขึѸนร้อยละ 137.5 จากในไตรมาส 2/2568 ทีѷเท่ากับ 3.7",
       "reason_source": "mda_extract",
       "gap_pct": -0.62,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 5.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14628,7 +14788,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.52,
-      "drift_d1_pct": -7.58,
+      "drift_d1_pct": -9.09,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14659,7 +14819,7 @@
       "reason": "เนื่องจาก ล้านบาท งบกำไรขาดทุน 30 มิถุนายน 2569 30 มิถุนายน 2568 เพิ่มขึ้น (ลดลง) % รายได้จากการขายและให้บริการ 5.9 2.7 3.3 122% ต้นทุนขายและบริการ 3.8 4.5 -0.7 -16% กำไรขั้นต้น 2.1 -1.9 4.0 215% รายได้อื่น 0.0 0.3 -0.3",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14690,7 +14850,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -5.42,
-      "drift_d1_pct": -15.06,
+      "drift_d1_pct": -13.25,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14721,7 +14881,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.36,
-      "drift_d1_pct": 6.12,
+      "drift_d1_pct": 8.84,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14783,7 +14943,7 @@
       "reason": "ประกอบด้วยกำไรจากการดำเนินงานต่อเนื่องจำนวน 113 ล้านบาท และขาดทุนจากการดำเนินงานที่ ยกเลิกจำนวน 4 ล้านบาท สะท้อนผลสำเร็จของการดำเนินกลยุทธ์ที่มุ่งยกระดับความสามารถในการทำกำไร โดยให้",
       "reason_source": "mda_extract",
       "gap_pct": 1.47,
-      "drift_d1_pct": -1.47,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14845,7 +15005,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 5.12,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.94,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14907,7 +15067,7 @@
       "reason": "แต่เนื่องจากยอดสินเชื่อรวมลดลง ส่งผลให้สัดส่วนหนี้ที่ไม่ ก่อให้เกิดรายได้เพิ่มขึ้นเป็น 13.29% บริษัทฯ จึงยังคงเร่งติดตามและบริหารจัดการลูกหนี้เดิมอย่างใกล้ชิด พร้อมรักษา มาตรฐานการพิจารณาสินเชื่อใหม่อย่างต่อเนื่อง",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -11.76,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14933,12 +15093,12 @@
       "bucket": "profit_growth",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106010301&symbol=SSSC",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17865761870781&symbol=SSSC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106010501&symbol=SSSC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106383901&symbol=SSSC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.72,
-      "drift_d1_pct": -0.86,
+      "drift_d1_pct": 0.86,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14969,7 +15129,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.27,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.03,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15031,7 +15191,7 @@
       "reason": "โดยมีสาเหตุหลัก เนื่องจาก - ในระหว่างงวด กองทุนได้ปรับมูลค่ายุติธรรมของอสังหาริมทรัพย์ ทำให้มีกำไรจากการเปลี่ยนแปลงในมูลค่ายุติธรรมของ เงินลงทุนจำนวน 1.59 ล้านบาท เปรียบเทียบกับงวดเดียวกันปีที่แล้ว",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.27,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15062,7 +15222,7 @@
       "reason": "รำยได้จำกกำรให้เช่ำอุปกรณ์ 0.70 2.56 2.03 (1.86) (72.66) (1.33) (65.52) รวมรายได้จากการขายและการให้บริการ 172.89 192.49 124.22 (19.60) (10.18) 48.67 39.18 รำยได้อื่น 0.03 0.13 0.18 (0.10) (76.92) (0.15) (83.33) รวมรายได้ทั้งหมด 172.92 192.62 124.40 (19.70) (10.23) 48.52 39.00 ต้นทุนขำยและบริกำร",
       "reason_source": "mda_extract",
       "gap_pct": -1.08,
-      "drift_d1_pct": -3.78,
+      "drift_d1_pct": -3.24,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15124,7 +15284,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.32,
-      "drift_d1_pct": -1.32,
+      "drift_d1_pct": -1.99,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15155,7 +15315,7 @@
       "reason": "รายได้ งบการเงินรวม (หน่วย : พันบาท) สำหรับหกเดือน เปลี่ยนแปลง สำหรับไตรมาส 2 เปลี่ยนแปลง ปี 2569 ปี 2568 จำนวน ร้อยละ ปี 2569 ปี 2568 จำนวน ร้อยละ รายได้จากการขาย 865,723 1,482,877 -617,154 -41.62% 377,451 748,630 -371,179 -49.58% รายได้อื่น 7,727 25,848 -18,121 -70.11% 2,062 8,499 -6,437 -75.74% รายได้รวม 873,450 1,508,725 -635,275 -42.11% 379,513 757,129 -377,616",
       "reason_source": "mda_extract",
       "gap_pct": -0.97,
-      "drift_d1_pct": -7.18,
+      "drift_d1_pct": -7.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15186,7 +15346,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.91,
-      "drift_d1_pct": -5.45,
+      "drift_d1_pct": -4.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15217,7 +15377,7 @@
       "reason": "มีรายได้จากการดําเนินงานรวมในไตรมาสที่ 2 ปี 2569 (“ไตรมาสที่ 2/2569”) จํานวน 1,377.87 ล้านบาท ลดลงร้อยละ 10.76 จากจํานวน 1,544.02 ล้านบาท ในไตรมาสที่ 2/2568 มี สาเหตุมาจากการลดลงของรายได้จากการรักษาพยาบาลจํานวน 165.01 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": 0.63,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.63,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15279,7 +15439,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.18,
-      "drift_d1_pct": 2.36,
+      "drift_d1_pct": 3.94,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15341,7 +15501,7 @@
       "reason": "รายได้จากการขายและการให้บริการ 47.91 50.85 (2.94) (5.78) ต้นทุนขายและการให้บริการ (46.29) (49.60) (3.31) (6.67) กําไรขั-นต้น 1.62 1.25 0.37 29.60 อัตราส่วนกําไรขั นต้น 3.38% 2.46% รายได้อื น 1.63 2.88 (1.25) (43.40) หน่วย :",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.03,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15372,7 +15532,7 @@
       "reason": "สาเหตุหลักเกิดจากรายได้จากการขายที่เพิ่มขึ้น อันเป็นผลมาจากราคาขาย และค่าการตลาดเฉลี่ยต่อลิตรที่ปรับตัวสูงขึ้น ประกอบกับรายได้อื่นได้เพิ่มขึ้นจากกำไรจากอัตราแลกเปลี่ยน นอกจากนี้ค่าใช้จ่าย ในการบริหารลดลง",
       "reason_source": "mda_extract",
       "gap_pct": 2.56,
-      "drift_d1_pct": 5.13,
+      "drift_d1_pct": 2.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15434,7 +15594,7 @@
       "reason": "รายได้จากการขายสินค้าและบริการ มีจำนวน 257,098 ล้านบาท เพิ่มขึ้นร้อยละ 3.3 จากช่วงเดียวกันของปีก่อน หน้า โดยมีสาเหตุหลักมาจากการปรับเพิ่มขึ้นของรายได้จากการขายสินค้าของทุกกลุ่มธุรกิจ ซึ่งประกอบด้วยธุรกิจร้านสะดวก",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -3.08,
+      "drift_d1_pct": -4.1,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15466,7 +15626,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.62,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 0.62,
       "drift_d5_pct": null
     },
     {
@@ -15528,7 +15688,7 @@
       "reason_source": "none",
       "gap_pct": -2.5,
       "drift_d1_pct": -5.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -15652,7 +15812,7 @@
       "reason_source": "none",
       "gap_pct": 3.67,
       "drift_d1_pct": 0.92,
-      "drift_d2_pct": 1.83,
+      "drift_d2_pct": 0.92,
       "drift_d5_pct": null
     },
     {
@@ -15745,7 +15905,7 @@
       "reason_source": "none",
       "gap_pct": 30.43,
       "drift_d1_pct": 32.92,
-      "drift_d2_pct": 29.19,
+      "drift_d2_pct": 49.07,
       "drift_d5_pct": null
     },
     {
@@ -15807,7 +15967,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.69,
       "drift_d1_pct": -6.9,
-      "drift_d2_pct": -6.21,
+      "drift_d2_pct": -4.14,
       "drift_d5_pct": null
     },
     {
@@ -15838,7 +15998,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -4.0,
-      "drift_d2_pct": -4.0,
+      "drift_d2_pct": -2.0,
       "drift_d5_pct": null
     },
     {
@@ -15869,7 +16029,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.86,
       "drift_d1_pct": -1.9,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.86,
       "drift_d5_pct": null
     },
     {
@@ -15931,7 +16091,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.79,
       "drift_d1_pct": 6.35,
-      "drift_d2_pct": 6.35,
+      "drift_d2_pct": 7.14,
       "drift_d5_pct": null
     },
     {
@@ -15962,7 +16122,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.93,
       "drift_d1_pct": -0.93,
-      "drift_d2_pct": -0.93,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -15993,7 +16153,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 11.11,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -16024,7 +16184,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.23,
       "drift_d1_pct": -0.61,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.61,
       "drift_d5_pct": null
     },
     {
@@ -16055,7 +16215,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.16,
       "drift_d1_pct": -5.23,
-      "drift_d2_pct": -5.23,
+      "drift_d2_pct": -4.65,
       "drift_d5_pct": null
     },
     {
@@ -16086,7 +16246,7 @@
       "reason_source": "none",
       "gap_pct": -0.73,
       "drift_d1_pct": -3.64,
-      "drift_d2_pct": -5.82,
+      "drift_d2_pct": -8.36,
       "drift_d5_pct": null
     },
     {
@@ -16148,7 +16308,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -0.55,
-      "drift_d2_pct": -1.1,
+      "drift_d2_pct": -0.55,
       "drift_d5_pct": null
     },
     {
@@ -16179,7 +16339,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 6.0,
       "drift_d5_pct": null
     },
     {
@@ -16210,7 +16370,7 @@
       "reason_source": "none",
       "gap_pct": 2.83,
       "drift_d1_pct": 2.83,
-      "drift_d2_pct": 1.89,
+      "drift_d2_pct": 2.83,
       "drift_d5_pct": null
     },
     {
@@ -16241,7 +16401,7 @@
       "reason_source": "none",
       "gap_pct": 0.89,
       "drift_d1_pct": 2.68,
-      "drift_d2_pct": 3.57,
+      "drift_d2_pct": 6.25,
       "drift_d5_pct": null
     },
     {
@@ -16272,7 +16432,7 @@
       "reason_source": "none",
       "gap_pct": 0.97,
       "drift_d1_pct": 0.97,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 8.74,
       "drift_d5_pct": null
     },
     {
@@ -16334,7 +16494,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.75,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -16365,7 +16525,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -10.24,
-      "drift_d2_pct": -14.96,
+      "drift_d2_pct": -2.36,
       "drift_d5_pct": null
     },
     {
@@ -16396,7 +16556,7 @@
       "reason_source": "none",
       "gap_pct": 0.7,
       "drift_d1_pct": 2.82,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 2.82,
       "drift_d5_pct": null
     },
     {
@@ -16458,7 +16618,7 @@
       "reason_source": "none",
       "gap_pct": 2.55,
       "drift_d1_pct": -0.43,
-      "drift_d2_pct": 0.43,
+      "drift_d2_pct": -0.43,
       "drift_d5_pct": null
     },
     {
@@ -16551,7 +16711,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 4.46,
       "drift_d1_pct": 20.3,
-      "drift_d2_pct": 25.0,
+      "drift_d2_pct": 21.29,
       "drift_d5_pct": null
     },
     {
@@ -16613,7 +16773,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 1.52,
-      "drift_d2_pct": 2.27,
+      "drift_d2_pct": 3.03,
       "drift_d5_pct": null
     },
     {
@@ -20556,8 +20716,8 @@
       "netProfit": 79989000.0,
       "netProfitPrior": 29288000.0,
       "netProfitYoY": 173.11185468451242,
-      "netProfitPriorQ": 64948000.0,
-      "netProfitQoQ": 23.158526821457166,
+      "netProfitPriorQ": 38921000.0,
+      "netProfitQoQ": 105.51630225328228,
       "profitAcceleration": "accelerating",
       "eps": 0.126,
       "epsPrior": 0.046,
@@ -23798,7 +23958,7 @@
       "gap_pct": -0.7,
       "drift_d1_pct": -2.11,
       "drift_d2_pct": -2.11,
-      "drift_d5_pct": -3.52
+      "drift_d5_pct": -2.82
     },
     {
       "ticker": "BGC",
@@ -23813,7 +23973,7 @@
       "netProfitYoY": 7.588029670048598,
       "netProfitPriorQ": 52673000.0,
       "netProfitQoQ": 19.786228238376395,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.09,
       "epsPrior": 0.08,
       "epsYoY": 12.499999999999993,
@@ -23860,7 +24020,7 @@
       "gap_pct": -2.21,
       "drift_d1_pct": -2.76,
       "drift_d2_pct": -2.76,
-      "drift_d5_pct": -16.02
+      "drift_d5_pct": -13.81
     },
     {
       "ticker": "GC",
@@ -23922,7 +24082,7 @@
       "gap_pct": -0.67,
       "drift_d1_pct": -1.33,
       "drift_d2_pct": -1.33,
-      "drift_d5_pct": -2.67
+      "drift_d5_pct": -2.0
     },
     {
       "ticker": "MFEC",
@@ -23984,7 +24144,7 @@
       "gap_pct": 4.24,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -3.39
+      "drift_d5_pct": -2.54
     },
     {
       "ticker": "CPN",
@@ -24015,7 +24175,7 @@
       "gap_pct": -0.37,
       "drift_d1_pct": -3.3,
       "drift_d2_pct": -3.3,
-      "drift_d5_pct": -2.56
+      "drift_d5_pct": -2.93
     },
     {
       "ticker": "MCS",
@@ -24077,7 +24237,7 @@
       "gap_pct": 7.98,
       "drift_d1_pct": 7.36,
       "drift_d2_pct": 7.36,
-      "drift_d5_pct": 6.13
+      "drift_d5_pct": 7.98
     },
     {
       "ticker": "MGT",
@@ -24108,7 +24268,7 @@
       "gap_pct": 13.09,
       "drift_d1_pct": 15.18,
       "drift_d2_pct": 15.18,
-      "drift_d5_pct": 20.42
+      "drift_d5_pct": 21.47
     },
     {
       "ticker": "TM",
@@ -24139,7 +24299,7 @@
       "gap_pct": 1.09,
       "drift_d1_pct": 1.09,
       "drift_d2_pct": 1.09,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 2.17
     },
     {
       "ticker": "RPH",
@@ -24170,7 +24330,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -2.0,
       "drift_d2_pct": -2.0,
-      "drift_d5_pct": -1.2
+      "drift_d5_pct": -1.6
     },
     {
       "ticker": "QTC",
@@ -24201,7 +24361,7 @@
       "gap_pct": 0.99,
       "drift_d1_pct": 3.96,
       "drift_d2_pct": 3.96,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.98
     },
     {
       "ticker": "BKA",
@@ -24232,7 +24392,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -2.53,
       "drift_d2_pct": -2.53,
-      "drift_d5_pct": 5.06
+      "drift_d5_pct": 3.8
     },
     {
       "ticker": "SNC",
@@ -24263,7 +24423,7 @@
       "gap_pct": -4.0,
       "drift_d1_pct": -14.86,
       "drift_d2_pct": -14.86,
-      "drift_d5_pct": null
+      "drift_d5_pct": -14.29
     },
     {
       "ticker": "PRTR",
@@ -24294,7 +24454,7 @@
       "gap_pct": -1.69,
       "drift_d1_pct": -5.08,
       "drift_d2_pct": -5.08,
-      "drift_d5_pct": -5.65
+      "drift_d5_pct": -4.52
     },
     {
       "ticker": "TPAC",
@@ -24325,7 +24485,7 @@
       "gap_pct": 7.65,
       "drift_d1_pct": 15.88,
       "drift_d2_pct": 15.88,
-      "drift_d5_pct": 21.18
+      "drift_d5_pct": 17.65
     },
     {
       "ticker": "BE8",
@@ -24356,7 +24516,7 @@
       "gap_pct": -3.17,
       "drift_d1_pct": -13.49,
       "drift_d2_pct": -13.49,
-      "drift_d5_pct": -11.11
+      "drift_d5_pct": -9.52
     },
     {
       "ticker": "ASIAN",
@@ -24387,7 +24547,7 @@
       "gap_pct": -1.32,
       "drift_d1_pct": -3.95,
       "drift_d2_pct": -3.95,
-      "drift_d5_pct": -3.29
+      "drift_d5_pct": -2.63
     },
     {
       "ticker": "SAAM",
@@ -24418,7 +24578,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.43,
       "drift_d2_pct": 0.43,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "YONG",
@@ -24449,7 +24609,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -1.41,
       "drift_d2_pct": -1.41,
-      "drift_d5_pct": -1.41
+      "drift_d5_pct": -2.82
     },
     {
       "ticker": "NATION",
@@ -24480,7 +24640,7 @@
       "gap_pct": -25.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "MGI",
@@ -24511,7 +24671,7 @@
       "gap_pct": -1.72,
       "drift_d1_pct": -7.76,
       "drift_d2_pct": -7.76,
-      "drift_d5_pct": -8.62
+      "drift_d5_pct": -6.9
     },
     {
       "ticker": "FTREIT",
@@ -24542,7 +24702,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -0.78,
       "drift_d2_pct": -0.78,
-      "drift_d5_pct": -1.55
+      "drift_d5_pct": -0.78
     },
     {
       "ticker": "CPAXT",
@@ -24604,7 +24764,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 2.04,
       "drift_d2_pct": 2.04,
-      "drift_d5_pct": 6.12
+      "drift_d5_pct": 2.04
     },
     {
       "ticker": "SCN",
@@ -24635,7 +24795,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.44
     },
     {
       "ticker": "HENG",
@@ -24697,7 +24857,7 @@
       "gap_pct": -1.6,
       "drift_d1_pct": -1.6,
       "drift_d2_pct": -1.6,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.6
     },
     {
       "ticker": "KDH",
@@ -24728,7 +24888,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.3
     },
     {
       "ticker": "GREEN",
@@ -24759,7 +24919,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 14.08,
       "drift_d2_pct": 14.08,
-      "drift_d5_pct": null
+      "drift_d5_pct": 12.68
     },
     {
       "ticker": "RP",
@@ -24821,7 +24981,7 @@
       "gap_pct": 0.71,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.71
     },
     {
       "ticker": "READY",
@@ -24883,7 +25043,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -0.51,
       "drift_d2_pct": -0.51,
-      "drift_d5_pct": -1.02
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "WHABT",
@@ -24945,7 +25105,7 @@
       "gap_pct": 0.88,
       "drift_d1_pct": -0.88,
       "drift_d2_pct": -0.88,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.88
     },
     {
       "ticker": "MORE",
@@ -24976,7 +25136,7 @@
       "gap_pct": 20.0,
       "drift_d1_pct": 20.0,
       "drift_d2_pct": 20.0,
-      "drift_d5_pct": 20.0
+      "drift_d5_pct": 40.0
     },
     {
       "ticker": "CPW",
@@ -25038,7 +25198,7 @@
       "gap_pct": -5.52,
       "drift_d1_pct": -7.81,
       "drift_d2_pct": -7.81,
-      "drift_d5_pct": -12.76
+      "drift_d5_pct": -10.1
     },
     {
       "ticker": "TIGER",
@@ -25100,7 +25260,7 @@
       "gap_pct": -0.86,
       "drift_d1_pct": -1.72,
       "drift_d2_pct": -1.72,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 1.72
     },
     {
       "ticker": "SPRIME",
@@ -25131,7 +25291,7 @@
       "gap_pct": 0.46,
       "drift_d1_pct": 1.85,
       "drift_d2_pct": 1.85,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.93
     },
     {
       "ticker": "TPIPP",
@@ -25162,7 +25322,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -1.65,
       "drift_d2_pct": -1.65,
-      "drift_d5_pct": -1.65
+      "drift_d5_pct": -1.1
     },
     {
       "ticker": "ADB",
@@ -25224,7 +25384,7 @@
       "gap_pct": 3.51,
       "drift_d1_pct": 3.51,
       "drift_d2_pct": 3.51,
-      "drift_d5_pct": 5.26
+      "drift_d5_pct": 7.02
     },
     {
       "ticker": "ICC",
@@ -25255,7 +25415,7 @@
       "gap_pct": -0.83,
       "drift_d1_pct": -0.83,
       "drift_d2_pct": -0.83,
-      "drift_d5_pct": -1.24
+      "drift_d5_pct": -2.49
     },
     {
       "ticker": "TC",
@@ -25286,7 +25446,7 @@
       "gap_pct": 5.0,
       "drift_d1_pct": 10.0,
       "drift_d2_pct": 10.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 12.86
     },
     {
       "ticker": "BKIH",
@@ -25317,7 +25477,7 @@
       "gap_pct": 0.8,
       "drift_d1_pct": 0.53,
       "drift_d2_pct": 0.53,
-      "drift_d5_pct": 1.6
+      "drift_d5_pct": 1.87
     },
     {
       "ticker": "LST",
@@ -25348,7 +25508,7 @@
       "gap_pct": -0.84,
       "drift_d1_pct": -0.84,
       "drift_d2_pct": -0.84,
-      "drift_d5_pct": -2.95
+      "drift_d5_pct": -2.53
     },
     {
       "ticker": "AUCT",
@@ -25379,7 +25539,7 @@
       "gap_pct": -3.62,
       "drift_d1_pct": -5.88,
       "drift_d2_pct": -5.88,
-      "drift_d5_pct": -5.43
+      "drift_d5_pct": -4.98
     },
     {
       "ticker": "SPACK",
@@ -25410,7 +25570,7 @@
       "gap_pct": 5.19,
       "drift_d1_pct": 35.56,
       "drift_d2_pct": 35.56,
-      "drift_d5_pct": 33.33
+      "drift_d5_pct": 28.89
     },
     {
       "ticker": "TPCH",
@@ -25441,7 +25601,7 @@
       "gap_pct": -9.22,
       "drift_d1_pct": -14.89,
       "drift_d2_pct": -14.89,
-      "drift_d5_pct": -14.89
+      "drift_d5_pct": -16.31
     },
     {
       "ticker": "KYE",
@@ -25534,7 +25694,7 @@
       "gap_pct": 0.48,
       "drift_d1_pct": 0.97,
       "drift_d2_pct": 0.97,
-      "drift_d5_pct": 1.45
+      "drift_d5_pct": 0.48
     },
     {
       "ticker": "DDD",
@@ -25547,8 +25707,8 @@
       "netProfit": -51767000.0,
       "netProfitPrior": 13515000.0,
       "netProfitYoY": -483.03366629670734,
-      "netProfitPriorQ": 19889000.0,
-      "netProfitQoQ": -360.2795515108854,
+      "netProfitPriorQ": -22800000.0,
+      "netProfitQoQ": -127.0482456140351,
       "profitAcceleration": "stable",
       "eps": -0.16363,
       "epsPrior": 0.04272,
@@ -29780,7 +29940,7 @@
       "ticker": "BGC",
       "date": "2026-08-10T12:57:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SNNP",
@@ -32412,7 +32572,7 @@
       "ticker": "AMR",
       "date": "2026-08-13T19:31:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "TOA",
