@@ -386,6 +386,11 @@ function DcfValuationContent() {
               onChange={e => setTerminalGrowthStr(e.target.value)}
               className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-[14px] font-bold text-white focus:outline-none focus:border-emerald-500/50"
             />
+            {parseFloat(terminalGrowthStr || '0') > 5 && (
+              <p className="text-[11px] text-amber-400 font-medium mt-1">
+                ⚠ terminal growth ปกติ ~2-4% (ไม่ควรเกินอัตราโต GDP ระยะยาว) — 5%+ ถือว่าสูงผิดปกติ
+              </p>
+            )}
           </div>
 
           {/* 5. WACC */}
@@ -545,20 +550,20 @@ function DcfValuationContent() {
         </div>
       </div>
 
-      {/* PV Breakdown Chart */}
+      {/* PV Breakdown Chart: 2 Large Blocks + Summary + Valuation Bridge */}
       {calculationResults && (
-        <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 space-y-4">
+        <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h2 className="text-[15px] font-bold text-white">Present Value Breakdown (โครงสร้างมูลค่าปัจจุบัน)</h2>
+              <h2 className="text-[16px] font-bold text-white">มูลค่าบริษัทมาจากไหน?</h2>
               <p className="text-[12px] text-white/40 mt-0.5">
-                เปรียบเทียบมูลค่าปัจจุบันของกระแสเงินสดรายปี (Y1..Y{nYears}) เทียบกับ Terminal Value (TV)
+                แยกมูลค่าปัจจุบัน (ล้านบาท) ของ FCF {nYears} ปี เทียบ Terminal Value — รวมกัน = Enterprise Value
               </p>
             </div>
             <div className="flex items-center gap-4 text-[11px] font-bold">
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-3 rounded-sm bg-[#2a78d6]" />
-                <span className="text-white/70">PV FCF รายปี</span>
+                <span className="text-white/70">PV FCF {nYears} ปี</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-3 rounded-sm bg-[#eda100]" />
@@ -567,60 +572,169 @@ function DcfValuationContent() {
             </div>
           </div>
 
-          {/* Bar Chart Container */}
-          <div className="pt-6 pb-2 px-2 overflow-x-auto">
-            <div className="flex items-end gap-2 sm:gap-3 min-w-[550px] border-b border-white/[0.08] pb-2">
-              {/* Forecast years bars */}
-              {calculationResults.yearlyPv.map(bar => {
-                const heightPct = Math.max(4, Math.round((bar.pv / maxBarValue) * 100));
-                return (
-                  <div key={bar.year} className="flex-1 flex flex-col items-center justify-end group relative">
-                    <div className="text-[10px] text-white/40 group-hover:text-white transition-colors font-medium mb-1.5 whitespace-nowrap">
-                      {(bar.pv / 1000).toFixed(1)}k
-                    </div>
-                    <div className="w-full h-36 flex items-end">
-                      <div
-                        style={{ height: `${heightPct}%` }}
-                        className="w-full bg-[#2a78d6] hover:bg-[#3b8ef0] rounded-t-md transition-all relative min-h-[4px]"
-                      >
-                        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-md transition-colors" />
+          {/* 2 Large Bars Comparison */}
+          {(() => {
+            const sumPV = calculationResults.sumPV;
+            const pvTv = calculationResults.pvTv;
+            const ev = calculationResults.ev;
+            const maxVal = Math.max(sumPV, pvTv, 1);
+            const sumPvPct = ev > 0 ? (sumPV / ev) * 100 : 0;
+            const tvPct = calculationResults.tvPctOfEv;
+            const sumPvHeightPct = Math.max(8, Math.round((sumPV / maxVal) * 100));
+            const tvHeightPct = Math.max(8, Math.round((pvTv / maxVal) * 100));
+
+            return (
+              <div className="space-y-6">
+                {/* 2 Bars */}
+                <div className="pt-4 pb-2 px-4">
+                  <div className="flex items-end justify-center gap-8 sm:gap-20 max-w-xl mx-auto border-b border-white/[0.08] pb-3">
+                    {/* Bar 1: Sum PV FCF */}
+                    <div className="flex-1 max-w-[200px] flex flex-col items-center justify-end group">
+                      <div className="text-center mb-2">
+                        <div className="text-[15px] font-extrabold text-[#2a78d6]">
+                          {Math.round(sumPV).toLocaleString()} <span className="text-[11px] font-normal text-white/50">ลบ.</span>
+                        </div>
+                        <div className="text-[11px] font-bold text-white/40">
+                          {sumPvPct.toFixed(1)}% ของ EV
+                        </div>
+                      </div>
+                      <div className="w-full h-48 flex items-end">
+                        <div
+                          style={{ height: `${sumPvHeightPct}%` }}
+                          className="w-full bg-[#2a78d6] hover:bg-[#3b8ef0] rounded-t-xl transition-all relative shadow-lg shadow-[#2a78d6]/10"
+                        >
+                          <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-xl transition-colors" />
+                        </div>
+                      </div>
+                      <div className="text-center mt-2.5 space-y-0.5">
+                        <div className="text-[12px] font-extrabold text-white">
+                          PV FCF · {nYears} ปี
+                        </div>
+                        <div className="text-[10.5px] text-white/40">
+                          เงินสดที่คาดได้ Y1–Y{nYears}
+                        </div>
                       </div>
                     </div>
-                    <span className="text-[11px] text-white/60 font-bold mt-2">Y{bar.year}</span>
-                  </div>
-                );
-              })}
 
-              {/* Terminal Value Bar */}
-              <div className="flex-1 flex flex-col items-center justify-end group relative">
-                <div className="text-[10px] text-amber-300 font-bold mb-1.5 whitespace-nowrap">
-                  {(calculationResults.pvTv / 1000).toFixed(1)}k
-                </div>
-                <div className="w-full h-36 flex items-end">
-                  <div
-                    style={{ height: `${Math.max(4, Math.round((calculationResults.pvTv / maxBarValue) * 100))}%` }}
-                    className="w-full bg-[#eda100] hover:bg-[#ffb31a] rounded-t-md transition-all relative min-h-[4px]"
-                  >
-                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-md transition-colors" />
+                    {/* Bar 2: Terminal Value PV */}
+                    <div className="flex-1 max-w-[200px] flex flex-col items-center justify-end group">
+                      <div className="text-center mb-2">
+                        <div className="text-[15px] font-extrabold text-[#eda100]">
+                          {Math.round(pvTv).toLocaleString()} <span className="text-[11px] font-normal text-white/50">ลบ.</span>
+                        </div>
+                        <div className="text-[11px] font-bold text-white/40">
+                          {tvPct.toFixed(1)}% ของ EV
+                        </div>
+                      </div>
+                      <div className="w-full h-48 flex items-end">
+                        <div
+                          style={{ height: `${tvHeightPct}%` }}
+                          className="w-full bg-[#eda100] hover:bg-[#ffb31a] rounded-t-xl transition-all relative shadow-lg shadow-[#eda100]/10"
+                        >
+                          <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-xl transition-colors" />
+                        </div>
+                      </div>
+                      <div className="text-center mt-2.5 space-y-0.5">
+                        <div className="text-[12px] font-extrabold text-[#eda100]">
+                          PV Terminal Value
+                        </div>
+                        <div className="text-[10.5px] text-white/40">
+                          เงินสดหลังปีสุดท้ายตลอดกาล
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <span className="text-[11px] text-amber-400 font-extrabold mt-2">PV TV</span>
+
+                {/* Summary Row: FCF + Terminal = EV */}
+                <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-wrap items-center justify-between gap-3 text-[13px]">
+                  <div className="flex items-center gap-2 flex-wrap font-medium">
+                    <span className="text-[#2a78d6] font-bold">
+                      {Math.round(sumPV).toLocaleString()} ลบ. (FCF)
+                    </span>
+                    <span className="text-white/40">+</span>
+                    <span className="text-[#eda100] font-bold">
+                      {Math.round(pvTv).toLocaleString()} ลบ. (Terminal)
+                    </span>
+                    <span className="text-white/40">=</span>
+                    <span className="text-white font-extrabold text-[15px]">
+                      {Math.round(ev).toLocaleString()} ล้านบาท
+                    </span>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-md bg-white/10 text-white font-extrabold text-[11px] uppercase tracking-wider">
+                    Enterprise Value
+                  </span>
+                </div>
+
+                {/* Valuation Bridge: EV -> Equity -> Fair Value */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {/* Step 1: EV & Net Debt */}
+                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5">
+                    <div className="text-[11px] font-bold text-white/40 uppercase tracking-wider">1. มูลค่ากิจการ (EV)</div>
+                    <div className="text-[18px] font-extrabold text-white">
+                      {Math.round(ev).toLocaleString()} <span className="text-[12px] text-white/40 font-normal">ล้านบาท</span>
+                    </div>
+                    <div className="text-[11px] text-white/50">
+                      {netDebt >= 0
+                        ? `− หนี้สุทธิ ${Math.round(netDebt).toLocaleString()} ลบ.`
+                        : `+ เงินสดสุทธิ ${Math.round(Math.abs(netDebt)).toLocaleString()} ลบ.`}
+                    </div>
+                  </div>
+
+                  {/* Step 2: Equity & Shares */}
+                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5">
+                    <div className="text-[11px] font-bold text-white/40 uppercase tracking-wider">2. มูลค่าส่วนของผู้ถือหุ้น (Equity)</div>
+                    <div className="text-[18px] font-extrabold text-white">
+                      {Math.round(calculationResults.equity).toLocaleString()} <span className="text-[12px] text-white/40 font-normal">ล้านบาท</span>
+                    </div>
+                    <div className="text-[11px] text-white/50">
+                      ÷ จำนวนหุ้น {shares.toLocaleString(undefined, { maximumFractionDigits: 2 })} ล้านหุ้น
+                    </div>
+                  </div>
+
+                  {/* Step 3: Fair Value & Upside */}
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-[#181d29] to-[#13161e] border border-emerald-500/30 space-y-1.5 shadow-md">
+                    <div className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">3. มูลค่าพื้นฐานต่อหุ้น (Fair Value)</div>
+                    <div className="text-[20px] font-extrabold text-white flex items-baseline justify-between">
+                      <span>
+                        {calculationResults.fairValue.toFixed(2)} <span className="text-[12px] text-white/40 font-normal">บาท/หุ้น</span>
+                      </span>
+                      {calculationResults.upside != null && (
+                        <span
+                          className={`text-[12px] font-extrabold px-2.5 py-0.5 rounded-lg flex items-center gap-1 ${
+                            calculationResults.upside >= 0
+                              ? 'bg-emerald-500/20 text-emerald-400'
+                              : 'bg-rose-500/20 text-rose-400'
+                          }`}
+                        >
+                          {calculationResults.upside >= 0 ? <TrendingUp size={13} /> : <TrendingDown size={13} />}
+                          {calculationResults.upside >= 0
+                            ? `+${calculationResults.upside.toFixed(1)}%`
+                            : `${calculationResults.upside.toFixed(1)}%`}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-white/50">
+                      เทียบราคาปัจจุบัน {price.toFixed(2)} บาท
+                    </div>
+                  </div>
+                </div>
+
+                {/* Terminal Value % Notice */}
+                <div className="text-[12px] p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-white/70">
+                  <span>
+                    Terminal Value คิดเป็น{' '}
+                    <strong className="text-white font-extrabold">{tvPct.toFixed(1)}%</strong> ของ Enterprise Value
+                  </span>
+                  {tvPct > 75 && (
+                    <span className="text-amber-400 font-bold ml-1.5">
+                      (สัดส่วนสูงมาก — Valuation มีความอ่อนไหวสูงต่อ WACC และ Terminal Growth)
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Terminal Value % Notice */}
-          <div className="text-[12px] p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-white/70">
-            <span>
-              Terminal Value คิดเป็น{' '}
-              <strong className="text-white font-extrabold">{calculationResults.tvPctOfEv.toFixed(1)}%</strong> ของ Enterprise Value
-            </span>
-            {calculationResults.tvPctOfEv > 75 && (
-              <span className="text-amber-400 font-bold ml-1.5">
-                (สัดส่วนสูงมาก — Valuation มีความอ่อนไหวสูงต่อ WACC และ Terminal Growth)
-              </span>
-            )}
-          </div>
+            );
+          })()}
         </div>
       )}
 
