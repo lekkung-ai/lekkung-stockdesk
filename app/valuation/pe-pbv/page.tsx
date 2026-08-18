@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -22,8 +22,7 @@ function PePbvValuationContent() {
   const [targetPeStr, setTargetPeStr] = useState<string>('');
   const [targetPbvStr, setTargetPbvStr] = useState<string>('');
 
-  // Table mode & Scenario state
-  const [tableMode, setTableMode] = useState<'sens' | 'scen'>('sens');
+  // Scenario state
   const [epsScenarios, setEpsScenarios] = useState<string[]>(['', '', '']); // Bear/Base/Bull
   const [peColumns, setPeColumns] = useState<string[]>(['10', '13', '16', '20']);
 
@@ -169,23 +168,6 @@ function PePbvValuationContent() {
 
   const peDiffPct = currPe != null && secPe != null && secPe > 0 ? ((currPe - secPe) / secPe) * 100 : null;
   const pbDiffPct = currPb != null && secPb != null && secPb > 0 ? ((currPb - secPb) / secPb) * 100 : null;
-
-  // Sensitivity Matrix Variations
-  const peSteps = useMemo(() => {
-    if (!isValidTargetPe) return [];
-    const deltas = [-4, -2, 0, 2, 4];
-    return deltas
-      .map(d => parseFloat((targetPe + d).toFixed(1)))
-      .filter(v => v > 0);
-  }, [targetPe, isValidTargetPe]);
-
-  const pbvSteps = useMemo(() => {
-    if (!isValidTargetPbv) return [];
-    const deltas = [-0.2, -0.1, 0, 0.1, 0.2];
-    return deltas
-      .map(d => parseFloat((targetPbv + d).toFixed(2)))
-      .filter(v => v > 0);
-  }, [targetPbv, isValidTargetPbv]);
 
   // Valid Scenario lists
   const validEpsScenarios = useMemo(() => {
@@ -460,118 +442,23 @@ function PePbvValuationContent() {
         </div>
       </div>
 
-      {/* Table Section: Sensitivity vs Scenario Toggle */}
+      {/* Scenario Matrix (fwd EPS × Target P/E) */}
       <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h2 className="text-[15px] font-bold text-white">
-              {tableMode === 'sens' ? 'Sensitivity Analysis (เมทริกซ์ความอ่อนไหว)' : 'Scenario Matrix (fwd EPS × Target P/E)'}
-            </h2>
-            <p className="text-[12px] text-white/40 mt-0.5">
-              {tableMode === 'sens'
-                ? 'มูลค่าพื้นฐานเฉลี่ย (บาท) และ % Upside ตามช่วง Target P/E (แถว) และ Target P/BV (คอลัมน์)'
-                : 'จำลองมูลค่าหุ้นตาม Forward EPS แต่ละกรณี (Bear / Base / Bull) เทียบกับ Target P/E Multiples'}
-            </p>
-          </div>
-
-          {/* Toggle pill buttons */}
-          <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/[0.08] w-fit">
-            <button
-              type="button"
-              onClick={() => setTableMode('sens')}
-              className={`px-3.5 py-1.5 rounded-lg text-[12px] font-bold transition-all ${
-                tableMode === 'sens'
-                  ? 'bg-white text-black shadow-sm'
-                  : 'text-white/50 hover:text-white hover:bg-white/[0.04]'
-              }`}
-            >
-              Sensitivity · PE × PBV
-            </button>
-            <button
-              type="button"
-              onClick={() => setTableMode('scen')}
-              className={`px-3.5 py-1.5 rounded-lg text-[12px] font-bold transition-all ${
-                tableMode === 'scen'
-                  ? 'bg-white text-black shadow-sm'
-                  : 'text-white/50 hover:text-white hover:bg-white/[0.04]'
-              }`}
-            >
-              Scenario · fwd EPS × PE
-            </button>
-          </div>
+        <div>
+          <h2 className="text-[15px] font-bold text-white">
+            Scenario Matrix (fwd EPS × Target P/E)
+          </h2>
+          <p className="text-[12px] text-white/40 mt-0.5">
+            จำลองมูลค่าหุ้นตาม Forward EPS แต่ละกรณี (Bear / Base / Bull) เทียบกับ Target P/E Multiples
+          </p>
         </div>
 
-        {/* Tab 1: Sensitivity (PE x PBV) */}
-        {tableMode === 'sens' && (
-          isValidEps && isValidBvps && isValidTargetPe && isValidTargetPbv ? (
-            <div className="overflow-x-auto">
-              <table className="w-full text-center border-collapse">
-                <thead>
-                  <tr>
-                    <th className="p-3 text-left text-white/40 font-medium border-b border-white/[0.06] text-[13px]">
-                      P/E \ P/BV
-                    </th>
-                    {pbvSteps.map(pb => (
-                      <th
-                        key={pb}
-                        className={`p-3 font-bold border-b border-white/[0.06] text-[13px] ${
-                          Math.abs(pb - targetPbv) < 0.001 ? 'text-emerald-400' : 'text-white/60'
-                        }`}
-                      >
-                        {pb.toFixed(2)}x {Math.abs(pb - targetPbv) < 0.001 && '(Base)'}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {peSteps.map(pe => (
-                    <tr key={pe} className="border-b border-white/[0.03]">
-                      <td className={`p-3 text-left font-bold text-[13px] ${
-                        Math.abs(pe - targetPe) < 0.001 ? 'text-emerald-400' : 'text-white/60'
-                      }`}>
-                        {pe.toFixed(1)}x {Math.abs(pe - targetPe) < 0.001 && '(Base)'}
-                      </td>
-                      {pbvSteps.map(pb => {
-                        const fPe = eps * pe;
-                        const fPb = bvps * pb;
-                        const fAvg = (fPe + fPb) / 2;
-                        const up = isValidPrice ? ((fAvg - price) / price) * 100 : null;
-                        const isBase = Math.abs(pe - targetPe) < 0.001 && Math.abs(pb - targetPbv) < 0.001;
-
-                        return (
-                          <td
-                            key={pb}
-                            className={`p-3 transition-all ${
-                              isBase ? 'ring-2 ring-emerald-400 rounded-lg bg-emerald-500/10 font-extrabold' : ''
-                            }`}
-                          >
-                            <div className="font-bold text-white text-[14px]">{fAvg.toFixed(2)}</div>
-                            {up != null && (
-                              <div className={`text-[12px] font-semibold mt-0.5 ${
-                                up >= 0 ? 'text-emerald-400' : 'text-rose-400'
-                              }`}>
-                                {up >= 0 ? `+${up.toFixed(1)}%` : `${up.toFixed(1)}%`}
-                              </div>
-                            )}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="py-8 text-center text-white/40 text-[13px] bg-white/[0.01] rounded-xl border border-white/[0.03] space-y-1">
-              <p>⚠ EPS ไม่มีค่า (หุ้นขาดทุน) — สลับไปแท็บ Scenario เพื่อกรอก forward EPS ที่คาดการณ์เอง</p>
-              <p className="text-[12px] text-white/25">หรือกรอก EPS, BVPS, Target P/E และ Target P/BV ให้ครบถ้วนเพื่อแสดงตาราง</p>
-            </div>
-          )
+        {!isValidEps && (
+          <div className="py-3 px-4 text-center text-amber-300/80 text-[12px] bg-amber-500/[0.06] rounded-xl border border-amber-500/20">
+            ⚠ EPS trailing ไม่มีค่า (หุ้นขาดทุน) — กรอก forward EPS ที่คาดการณ์เองด้านล่าง
+          </div>
         )}
-
-        {/* Tab 2: Scenario (fwd EPS x PE) */}
-        {tableMode === 'scen' && (
-          <div className="space-y-6">
+        <div className="space-y-6">
             {/* 2-Col Config Inputs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
               {/* Left Col: Forward EPS Rows */}
@@ -712,7 +599,6 @@ function PePbvValuationContent() {
               </div>
             )}
           </div>
-        )}
       </div>
     </div>
   );
