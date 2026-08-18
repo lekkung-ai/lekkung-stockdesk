@@ -569,38 +569,42 @@ function DcfValuationContent() {
 
           {/* Bar Chart Container */}
           <div className="pt-6 pb-2 px-2 overflow-x-auto">
-            <div className="flex items-end gap-2 sm:gap-3 h-48 min-w-[550px] border-b border-white/[0.08] pb-1">
+            <div className="flex items-end gap-2 sm:gap-3 min-w-[550px] border-b border-white/[0.08] pb-2">
               {/* Forecast years bars */}
               {calculationResults.yearlyPv.map(bar => {
                 const heightPct = Math.max(4, Math.round((bar.pv / maxBarValue) * 100));
                 return (
-                  <div key={bar.year} className="flex-1 flex flex-col items-center gap-2 group relative">
-                    <div className="text-[10px] text-white/40 group-hover:text-white transition-colors font-medium">
+                  <div key={bar.year} className="flex-1 flex flex-col items-center justify-end group relative">
+                    <div className="text-[10px] text-white/40 group-hover:text-white transition-colors font-medium mb-1.5 whitespace-nowrap">
                       {(bar.pv / 1000).toFixed(1)}k
                     </div>
-                    <div
-                      style={{ height: `${heightPct}%` }}
-                      className="w-full bg-[#2a78d6] hover:bg-[#3b8ef0] rounded-t-md transition-all relative"
-                    >
-                      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-md transition-colors" />
+                    <div className="w-full h-36 flex items-end">
+                      <div
+                        style={{ height: `${heightPct}%` }}
+                        className="w-full bg-[#2a78d6] hover:bg-[#3b8ef0] rounded-t-md transition-all relative min-h-[4px]"
+                      >
+                        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-md transition-colors" />
+                      </div>
                     </div>
-                    <span className="text-[11px] text-white/60 font-bold">Y{bar.year}</span>
+                    <span className="text-[11px] text-white/60 font-bold mt-2">Y{bar.year}</span>
                   </div>
                 );
               })}
 
               {/* Terminal Value Bar */}
-              <div className="flex-1 flex flex-col items-center gap-2 group relative">
-                <div className="text-[10px] text-amber-300 font-bold">
+              <div className="flex-1 flex flex-col items-center justify-end group relative">
+                <div className="text-[10px] text-amber-300 font-bold mb-1.5 whitespace-nowrap">
                   {(calculationResults.pvTv / 1000).toFixed(1)}k
                 </div>
-                <div
-                  style={{ height: `${Math.max(4, Math.round((calculationResults.pvTv / maxBarValue) * 100))}%` }}
-                  className="w-full bg-[#eda100] hover:bg-[#ffb31a] rounded-t-md transition-all relative"
-                >
-                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-md transition-colors" />
+                <div className="w-full h-36 flex items-end">
+                  <div
+                    style={{ height: `${Math.max(4, Math.round((calculationResults.pvTv / maxBarValue) * 100))}%` }}
+                    className="w-full bg-[#eda100] hover:bg-[#ffb31a] rounded-t-md transition-all relative min-h-[4px]"
+                  >
+                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-t-md transition-colors" />
+                  </div>
                 </div>
-                <span className="text-[11px] text-amber-400 font-extrabold">PV TV</span>
+                <span className="text-[11px] text-amber-400 font-extrabold mt-2">PV TV</span>
               </div>
             </div>
           </div>
