@@ -1,9 +1,11 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Search, Sparkles, TrendingUp, TrendingDown, Scale } from 'lucide-react';
+import { Search, Sparkles, TrendingUp, TrendingDown, Scale, Plus, X } from 'lucide-react';
 import { getStockValuation, getSectorMedians, type StockValuation } from '@/lib/valuation';
+
+const EPS_LABELS = ['Bear', 'Base', 'Bull'];
 
 function PePbvValuationContent() {
   const router = useRouter();
@@ -19,6 +21,11 @@ function PePbvValuationContent() {
   const [bvpsStr, setBvpsStr] = useState<string>('');
   const [targetPeStr, setTargetPeStr] = useState<string>('');
   const [targetPbvStr, setTargetPbvStr] = useState<string>('');
+
+  // Table mode & Scenario state
+  const [tableMode, setTableMode] = useState<'sens' | 'scen'>('sens');
+  const [epsScenarios, setEpsScenarios] = useState<string[]>(['', '', '']); // Bear/Base/Bull
+  const [peColumns, setPeColumns] = useState<string[]>(['10', '13', '16', '20']);
 
   const [stockVal, setStockVal] = useState<StockValuation | null>(null);
   const [secMedians, setSecMedians] = useState<{ sector: string; secPe: number | null; secPb: number | null; n: number } | null>(null);
@@ -89,6 +96,43 @@ function PePbvValuationContent() {
     }
   };
 
+  // Scenario handlers
+  const handleUpdateEpsScenario = (index: number, val: string) => {
+    setEpsScenarios(prev => {
+      const next = [...prev];
+      next[index] = val;
+      return next;
+    });
+  };
+
+  const handleAddEpsScenario = () => {
+    setEpsScenarios(prev => [...prev, '']);
+  };
+
+  const handleRemoveEpsScenario = (index: number) => {
+    if (epsScenarios.length > 1) {
+      setEpsScenarios(prev => prev.filter((_, i) => i !== index));
+    }
+  };
+
+  const handleUpdatePeColumn = (index: number, val: string) => {
+    setPeColumns(prev => {
+      const next = [...prev];
+      next[index] = val;
+      return next;
+    });
+  };
+
+  const handleAddPeColumn = () => {
+    setPeColumns(prev => [...prev, '15']);
+  };
+
+  const handleRemovePeColumn = (index: number) => {
+    if (peColumns.length > 1) {
+      setPeColumns(prev => prev.filter((_, i) => i !== index));
+    }
+  };
+
   // Parsed numeric values
   const price = parseFloat(priceStr);
   const eps = parseFloat(epsStr);
@@ -142,6 +186,28 @@ function PePbvValuationContent() {
       .map(d => parseFloat((targetPbv + d).toFixed(2)))
       .filter(v => v > 0);
   }, [targetPbv, isValidTargetPbv]);
+
+  // Valid Scenario lists
+  const validEpsScenarios = useMemo(() => {
+    return epsScenarios
+      .map((val, idx) => ({
+        val: parseFloat(val),
+        raw: val,
+        idx,
+        label: EPS_LABELS[idx] ?? `#${idx + 1}`,
+      }))
+      .filter(item => Number.isFinite(item.val));
+  }, [epsScenarios]);
+
+  const validPeColumns = useMemo(() => {
+    return peColumns
+      .map((val, idx) => ({
+        val: parseFloat(val),
+        raw: val,
+        idx,
+      }))
+      .filter(item => Number.isFinite(item.val) && item.val > 0);
+  }, [peColumns]);
 
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">
@@ -394,76 +460,257 @@ function PePbvValuationContent() {
         </div>
       </div>
 
-      {/* Sensitivity Analysis Table */}
-      <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 space-y-4">
-        <div>
-          <h2 className="text-[15px] font-bold text-white">Sensitivity Analysis (เมทริกซ์ความอ่อนไหว)</h2>
-          <p className="text-[12px] text-white/40 mt-0.5">
-            มูลค่าพื้นฐานเฉลี่ย (บาท) และ % Upside ตามช่วง Target P/E (แถว) และ Target P/BV (คอลัมน์)
-          </p>
+      {/* Table Section: Sensitivity vs Scenario Toggle */}
+      <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 className="text-[15px] font-bold text-white">
+              {tableMode === 'sens' ? 'Sensitivity Analysis (เมทริกซ์ความอ่อนไหว)' : 'Scenario Matrix (fwd EPS × Target P/E)'}
+            </h2>
+            <p className="text-[12px] text-white/40 mt-0.5">
+              {tableMode === 'sens'
+                ? 'มูลค่าพื้นฐานเฉลี่ย (บาท) และ % Upside ตามช่วง Target P/E (แถว) และ Target P/BV (คอลัมน์)'
+                : 'จำลองมูลค่าหุ้นตาม Forward EPS แต่ละกรณี (Bear / Base / Bull) เทียบกับ Target P/E Multiples'}
+            </p>
+          </div>
+
+          {/* Toggle pill buttons */}
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/[0.08] w-fit">
+            <button
+              type="button"
+              onClick={() => setTableMode('sens')}
+              className={`px-3.5 py-1.5 rounded-lg text-[12px] font-bold transition-all ${
+                tableMode === 'sens'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'text-white/50 hover:text-white hover:bg-white/[0.04]'
+              }`}
+            >
+              Sensitivity · PE × PBV
+            </button>
+            <button
+              type="button"
+              onClick={() => setTableMode('scen')}
+              className={`px-3.5 py-1.5 rounded-lg text-[12px] font-bold transition-all ${
+                tableMode === 'scen'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'text-white/50 hover:text-white hover:bg-white/[0.04]'
+              }`}
+            >
+              Scenario · fwd EPS × PE
+            </button>
+          </div>
         </div>
 
-        {isValidEps && isValidBvps && isValidTargetPe && isValidTargetPbv ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-[12px] text-center border-collapse">
-              <thead>
-                <tr>
-                  <th className="p-2.5 text-left text-white/40 font-medium border-b border-white/[0.06]">
-                    P/E \ P/BV
-                  </th>
-                  {pbvSteps.map(pb => (
-                    <th
-                      key={pb}
-                      className={`p-2.5 font-bold border-b border-white/[0.06] ${
-                        Math.abs(pb - targetPbv) < 0.001 ? 'text-emerald-400' : 'text-white/60'
-                      }`}
-                    >
-                      {pb.toFixed(2)}x {Math.abs(pb - targetPbv) < 0.001 && '(Base)'}
+        {/* Tab 1: Sensitivity (PE x PBV) */}
+        {tableMode === 'sens' && (
+          isValidEps && isValidBvps && isValidTargetPe && isValidTargetPbv ? (
+            <div className="overflow-x-auto">
+              <table className="w-full text-[12px] text-center border-collapse">
+                <thead>
+                  <tr>
+                    <th className="p-2.5 text-left text-white/40 font-medium border-b border-white/[0.06]">
+                      P/E \ P/BV
                     </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {peSteps.map(pe => (
-                  <tr key={pe} className="border-b border-white/[0.03]">
-                    <td className={`p-2.5 text-left font-bold ${
-                      Math.abs(pe - targetPe) < 0.001 ? 'text-emerald-400' : 'text-white/60'
-                    }`}>
-                      {pe.toFixed(1)}x {Math.abs(pe - targetPe) < 0.001 && '(Base)'}
-                    </td>
-                    {pbvSteps.map(pb => {
-                      const fPe = eps * pe;
-                      const fPb = bvps * pb;
-                      const fAvg = (fPe + fPb) / 2;
-                      const up = isValidPrice ? ((fAvg - price) / price) * 100 : null;
-                      const isBase = Math.abs(pe - targetPe) < 0.001 && Math.abs(pb - targetPbv) < 0.001;
-
-                      return (
-                        <td
-                          key={pb}
-                          className={`p-2.5 transition-all ${
-                            isBase ? 'ring-2 ring-emerald-400 rounded-lg bg-emerald-500/10 font-extrabold' : ''
-                          }`}
-                        >
-                          <div className="font-bold text-white">{fAvg.toFixed(2)}</div>
-                          {up != null && (
-                            <div className={`text-[10.5px] font-semibold mt-0.5 ${
-                              up >= 0 ? 'text-emerald-400' : 'text-rose-400'
-                            }`}>
-                              {up >= 0 ? `+${up.toFixed(1)}%` : `${up.toFixed(1)}%`}
-                            </div>
-                          )}
-                        </td>
-                      );
-                    })}
+                    {pbvSteps.map(pb => (
+                      <th
+                        key={pb}
+                        className={`p-2.5 font-bold border-b border-white/[0.06] ${
+                          Math.abs(pb - targetPbv) < 0.001 ? 'text-emerald-400' : 'text-white/60'
+                        }`}
+                      >
+                        {pb.toFixed(2)}x {Math.abs(pb - targetPbv) < 0.001 && '(Base)'}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="py-8 text-center text-white/30 text-[13px] italic bg-white/[0.01] rounded-xl border border-white/[0.03]">
-            กรอก EPS, BVPS, Target P/E และ Target P/BV ให้ครบถ้วนเพื่อแสดงตาราง Sensitivity Analysis
+                </thead>
+                <tbody>
+                  {peSteps.map(pe => (
+                    <tr key={pe} className="border-b border-white/[0.03]">
+                      <td className={`p-2.5 text-left font-bold ${
+                        Math.abs(pe - targetPe) < 0.001 ? 'text-emerald-400' : 'text-white/60'
+                      }`}>
+                        {pe.toFixed(1)}x {Math.abs(pe - targetPe) < 0.001 && '(Base)'}
+                      </td>
+                      {pbvSteps.map(pb => {
+                        const fPe = eps * pe;
+                        const fPb = bvps * pb;
+                        const fAvg = (fPe + fPb) / 2;
+                        const up = isValidPrice ? ((fAvg - price) / price) * 100 : null;
+                        const isBase = Math.abs(pe - targetPe) < 0.001 && Math.abs(pb - targetPbv) < 0.001;
+
+                        return (
+                          <td
+                            key={pb}
+                            className={`p-2.5 transition-all ${
+                              isBase ? 'ring-2 ring-emerald-400 rounded-lg bg-emerald-500/10 font-extrabold' : ''
+                            }`}
+                          >
+                            <div className="font-bold text-white">{fAvg.toFixed(2)}</div>
+                            {up != null && (
+                              <div className={`text-[10.5px] font-semibold mt-0.5 ${
+                                up >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                              }`}>
+                                {up >= 0 ? `+${up.toFixed(1)}%` : `${up.toFixed(1)}%`}
+                              </div>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="py-8 text-center text-white/40 text-[13px] bg-white/[0.01] rounded-xl border border-white/[0.03] space-y-1">
+              <p>⚠ EPS ไม่มีค่า (หุ้นขาดทุน) — สลับไปแท็บ Scenario เพื่อกรอก forward EPS ที่คาดการณ์เอง</p>
+              <p className="text-[12px] text-white/25">หรือกรอก EPS, BVPS, Target P/E และ Target P/BV ให้ครบถ้วนเพื่อแสดงตาราง</p>
+            </div>
+          )
+        )}
+
+        {/* Tab 2: Scenario (fwd EPS x PE) */}
+        {tableMode === 'scen' && (
+          <div className="space-y-6">
+            {/* 2-Col Config Inputs */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+              {/* Left Col: Forward EPS Rows */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[13px] font-bold text-white">Forward EPS (แถว)</span>
+                  <button
+                    type="button"
+                    onClick={handleAddEpsScenario}
+                    className="text-[11px] font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                  >
+                    <Plus size={13} /> เพิ่มแถว
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {epsScenarios.map((val, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <span className="text-[11px] font-medium text-white/40 w-12 flex-shrink-0">
+                        {EPS_LABELS[idx] ?? `#${idx + 1}`}
+                      </span>
+                      <input
+                        type="number"
+                        step="any"
+                        placeholder="เช่น 0.90"
+                        value={val}
+                        onChange={e => handleUpdateEpsScenario(idx, e.target.value)}
+                        className="flex-1 bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-1.5 text-[13px] font-bold text-white focus:outline-none focus:border-emerald-500/50"
+                      />
+                      {epsScenarios.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveEpsScenario(idx)}
+                          className="p-1.5 rounded-lg text-white/30 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                          title="ลบแถวนี้"
+                        >
+                          <X size={14} />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Col: Target PE Columns */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[13px] font-bold text-white">Target P/E (คอลัมน์)</span>
+                  <button
+                    type="button"
+                    onClick={handleAddPeColumn}
+                    className="text-[11px] font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                  >
+                    <Plus size={13} /> เพิ่ม PE
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {peColumns.map((val, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <span className="text-[11px] font-medium text-white/40 w-10 flex-shrink-0">
+                        PE #{idx + 1}
+                      </span>
+                      <input
+                        type="number"
+                        step="any"
+                        placeholder="เช่น 15"
+                        value={val}
+                        onChange={e => handleUpdatePeColumn(idx, e.target.value)}
+                        className="flex-1 bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-1.5 text-[13px] font-bold text-white focus:outline-none focus:border-emerald-500/50"
+                      />
+                      {peColumns.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemovePeColumn(idx)}
+                          className="p-1.5 rounded-lg text-white/30 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                          title="ลบคอลัมน์นี้"
+                        >
+                          <X size={14} />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Matrix Table */}
+            {validEpsScenarios.length > 0 && validPeColumns.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-[12px] text-center border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="p-2.5 text-left text-white/40 font-medium border-b border-white/[0.06]">
+                        Forward EPS \ Target P/E
+                      </th>
+                      {validPeColumns.map(col => (
+                        <th
+                          key={col.idx}
+                          className="p-2.5 font-bold text-white/80 border-b border-white/[0.06]"
+                        >
+                          PE {col.val}x
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {validEpsScenarios.map(row => (
+                      <tr key={row.idx} className="border-b border-white/[0.03]">
+                        <td className="p-2.5 text-left font-bold text-white/80">
+                          EPS {row.val.toFixed(2)} <span className="text-[11px] font-normal text-white/40 ml-1">{row.label}</span>
+                        </td>
+                        {validPeColumns.map(col => {
+                          const fairVal = row.val * col.val;
+                          const up = isValidPrice ? ((fairVal - price) / price) * 100 : null;
+
+                          return (
+                            <td key={col.idx} className="p-2.5">
+                              <div className="font-bold text-white">{fairVal.toFixed(2)}</div>
+                              {up != null && (
+                                <div className={`text-[10.5px] font-semibold mt-0.5 ${
+                                  up >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                                }`}>
+                                  {up >= 0 ? `+${up.toFixed(1)}%` : `${up.toFixed(1)}%`}
+                                </div>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="py-8 text-center text-white/30 text-[13px] italic bg-white/[0.01] rounded-xl border border-white/[0.03]">
+                {validEpsScenarios.length === 0
+                  ? 'กรอก forward EPS อย่างน้อย 1 ค่า เพื่อแสดงตาราง Scenario'
+                  : 'กรอก Target P/E อย่างน้อย 1 ค่า เพื่อแสดงตาราง Scenario'}
+              </div>
+            )}
           </div>
         )}
       </div>
