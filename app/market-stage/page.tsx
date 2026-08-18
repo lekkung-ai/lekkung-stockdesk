@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { stageData } from '@/lib/strategyData';
-import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import { getScanGeneratedAt, hasScanKey } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
@@ -111,7 +111,7 @@ export default function MarketStagePage() {
           <ModeToggle mode={mode} onChange={setMode} />
         </div>
       </div>
-      <StaleDataBanner generatedAt={getScanGeneratedAt('market_stage')} />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('market_stage')} missing={!hasScanKey('market_stage')} />
       <ReportCardBar scanKey="market-stage" />
 
       {mode === 'history' ? (

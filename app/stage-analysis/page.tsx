@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { weinsteinData } from '@/lib/strategyData';
-import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import { getScanGeneratedAt, hasScanKey } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
@@ -94,7 +94,7 @@ export default function StageAnalysisPage() {
           <ModeToggle mode={mode} onChange={setMode} />
         </div>
       </div>
-      <StaleDataBanner generatedAt={getScanGeneratedAt('weinstein')} />
+      <StaleDataBanner generatedAt={getScanGeneratedAt('weinstein')} missing={!hasScanKey('weinstein')} />
       <ReportCardBar scanKey="stage-analysis" />
 
       {mode === 'history' ? (

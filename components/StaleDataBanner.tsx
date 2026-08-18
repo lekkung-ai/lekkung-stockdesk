@@ -39,7 +39,18 @@ function freshnessCutoffMs(nowUtcMs: number): number {
   return todayAt17Bkk - daysBack * 24 * 60 * 60 * 1000;
 }
 
-export default function StaleDataBanner({ generatedAt }: { generatedAt: string | null }) {
+export default function StaleDataBanner({ generatedAt, missing = false }: { generatedAt: string | null; missing?: boolean }) {
+  // missing = scan ถูก drop-guard ข้ามเขียนรอบนี้ (scanner ล่ม) → เตือนแรงสุด
+  // ต้องเช็คก่อน generatedAt เพราะตอน missing ค่า generatedAt จะเป็น null อยู่แล้ว
+  // (ไม่งั้นจะ return null เงียบ = บั๊กเดิมที่ guard สร้างขึ้น)
+  if (missing) {
+    return (
+      <div className="flex items-center gap-2 bg-rose-500/10 border border-rose-500/40 text-rose-400 text-label px-4 py-2.5 rounded-xl">
+        <span className="text-[14px]">⚠</span>
+        <span>ข้อมูลไม่อัปเดตรอบล่าสุด — scanner อาจล่ม กำลังแสดงข้อมูลเดิม</span>
+      </div>
+    );
+  }
   if (!generatedAt) return null;
   const generatedMs = new Date(generatedAt).getTime();
   if (Number.isNaN(generatedMs)) return null;
