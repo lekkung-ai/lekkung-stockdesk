@@ -749,16 +749,16 @@ function DcfValuationContent() {
 
         {sensitivityData ? (
           <div className="overflow-x-auto">
-            <table className="w-full text-[12px] text-center border-collapse">
+            <table className="w-full text-center border-collapse">
               <thead>
                 <tr>
-                  <th className="p-2.5 text-left text-white/40 font-medium border-b border-white/[0.06]">
+                  <th className="p-3 text-left text-white/40 font-medium border-b border-white/[0.06] text-[13px]">
                     WACC \ Terminal Growth
                   </th>
                   {sensitivityData.tgSteps.map(tg => (
                     <th
                       key={tg}
-                      className={`p-2.5 font-bold border-b border-white/[0.06] ${
+                      className={`p-3 font-bold border-b border-white/[0.06] text-[13px] ${
                         Math.abs(tg - sensitivityData.baseTgPct) < 0.001 ? 'text-emerald-400' : 'text-white/60'
                       }`}
                     >
@@ -771,7 +771,7 @@ function DcfValuationContent() {
                 {sensitivityData.rows.map(row => (
                   <tr key={row.wPct} className="border-b border-white/[0.03]">
                     <td
-                      className={`p-2.5 text-left font-bold ${
+                      className={`p-3 text-left font-bold text-[13px] ${
                         Math.abs(row.wPct - sensitivityData.baseWaccPct) < 0.001 ? 'text-emerald-400' : 'text-white/60'
                       }`}
                     >
@@ -780,16 +780,16 @@ function DcfValuationContent() {
                     {row.cols.map((col, cIdx) => (
                       <td
                         key={cIdx}
-                        className={`p-2.5 transition-all ${
+                        className={`p-3 transition-all ${
                           col.isBase ? 'ring-2 ring-emerald-400 rounded-lg bg-emerald-500/10 font-extrabold' : ''
                         }`}
                       >
                         {col.fairValue != null && Number.isFinite(col.fairValue) ? (
                           <>
-                            <div className="font-bold text-white">{col.fairValue.toFixed(2)}</div>
+                            <div className="font-bold text-white text-[14px]">{col.fairValue.toFixed(2)}</div>
                             {col.upside != null && Number.isFinite(col.upside) && (
                               <div
-                                className={`text-[10.5px] font-semibold mt-0.5 ${
+                                className={`text-[12px] font-semibold mt-0.5 ${
                                   col.upside >= 0 ? 'text-emerald-400' : 'text-rose-400'
                                 }`}
                               >
@@ -798,7 +798,7 @@ function DcfValuationContent() {
                             )}
                           </>
                         ) : (
-                          <div className="text-white/20 italic font-mono">—</div>
+                          <div className="text-white/20 italic font-mono text-[14px]">—</div>
                         )}
                       </td>
                     ))}

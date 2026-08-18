@@ -505,16 +505,16 @@ function PePbvValuationContent() {
         {tableMode === 'sens' && (
           isValidEps && isValidBvps && isValidTargetPe && isValidTargetPbv ? (
             <div className="overflow-x-auto">
-              <table className="w-full text-[12px] text-center border-collapse">
+              <table className="w-full text-center border-collapse">
                 <thead>
                   <tr>
-                    <th className="p-2.5 text-left text-white/40 font-medium border-b border-white/[0.06]">
+                    <th className="p-3 text-left text-white/40 font-medium border-b border-white/[0.06] text-[13px]">
                       P/E \ P/BV
                     </th>
                     {pbvSteps.map(pb => (
                       <th
                         key={pb}
-                        className={`p-2.5 font-bold border-b border-white/[0.06] ${
+                        className={`p-3 font-bold border-b border-white/[0.06] text-[13px] ${
                           Math.abs(pb - targetPbv) < 0.001 ? 'text-emerald-400' : 'text-white/60'
                         }`}
                       >
@@ -526,7 +526,7 @@ function PePbvValuationContent() {
                 <tbody>
                   {peSteps.map(pe => (
                     <tr key={pe} className="border-b border-white/[0.03]">
-                      <td className={`p-2.5 text-left font-bold ${
+                      <td className={`p-3 text-left font-bold text-[13px] ${
                         Math.abs(pe - targetPe) < 0.001 ? 'text-emerald-400' : 'text-white/60'
                       }`}>
                         {pe.toFixed(1)}x {Math.abs(pe - targetPe) < 0.001 && '(Base)'}
@@ -541,13 +541,13 @@ function PePbvValuationContent() {
                         return (
                           <td
                             key={pb}
-                            className={`p-2.5 transition-all ${
+                            className={`p-3 transition-all ${
                               isBase ? 'ring-2 ring-emerald-400 rounded-lg bg-emerald-500/10 font-extrabold' : ''
                             }`}
                           >
-                            <div className="font-bold text-white">{fAvg.toFixed(2)}</div>
+                            <div className="font-bold text-white text-[14px]">{fAvg.toFixed(2)}</div>
                             {up != null && (
-                              <div className={`text-[10.5px] font-semibold mt-0.5 ${
+                              <div className={`text-[12px] font-semibold mt-0.5 ${
                                 up >= 0 ? 'text-emerald-400' : 'text-rose-400'
                               }`}>
                                 {up >= 0 ? `+${up.toFixed(1)}%` : `${up.toFixed(1)}%`}
@@ -660,16 +660,16 @@ function PePbvValuationContent() {
             {/* Matrix Table */}
             {validEpsScenarios.length > 0 && validPeColumns.length > 0 ? (
               <div className="overflow-x-auto">
-                <table className="w-full text-[12px] text-center border-collapse">
+                <table className="w-full text-center border-collapse">
                   <thead>
                     <tr>
-                      <th className="p-2.5 text-left text-white/40 font-medium border-b border-white/[0.06]">
+                      <th className="p-3 text-left text-white/40 font-medium border-b border-white/[0.06] text-[13px]">
                         Forward EPS \ Target P/E
                       </th>
                       {validPeColumns.map(col => (
                         <th
                           key={col.idx}
-                          className="p-2.5 font-bold text-white/80 border-b border-white/[0.06]"
+                          className="p-3 font-bold text-white/80 border-b border-white/[0.06] text-[13px]"
                         >
                           PE {col.val}x
                         </th>
@@ -679,7 +679,7 @@ function PePbvValuationContent() {
                   <tbody>
                     {validEpsScenarios.map(row => (
                       <tr key={row.idx} className="border-b border-white/[0.03]">
-                        <td className="p-2.5 text-left font-bold text-white/80">
+                        <td className="p-3 text-left font-bold text-white/80 text-[13px]">
                           EPS {row.val.toFixed(2)} <span className="text-[11px] font-normal text-white/40 ml-1">{row.label}</span>
                         </td>
                         {validPeColumns.map(col => {
@@ -687,10 +687,10 @@ function PePbvValuationContent() {
                           const up = isValidPrice ? ((fairVal - price) / price) * 100 : null;
 
                           return (
-                            <td key={col.idx} className="p-2.5">
-                              <div className="font-bold text-white">{fairVal.toFixed(2)}</div>
+                            <td key={col.idx} className="p-3">
+                              <div className="font-bold text-white text-[14px]">{fairVal.toFixed(2)}</div>
                               {up != null && (
-                                <div className={`text-[10.5px] font-semibold mt-0.5 ${
+                                <div className={`text-[12px] font-semibold mt-0.5 ${
                                   up >= 0 ? 'text-emerald-400' : 'text-rose-400'
                                 }`}>
                                   {up >= 0 ? `+${up.toFixed(1)}%` : `${up.toFixed(1)}%`}
