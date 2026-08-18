@@ -6,7 +6,7 @@ import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings, RotateCw,
-  Scale, Coins, Percent, CircleDollarSign,
+  Scale, Coins, CircleDollarSign,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 
@@ -76,7 +76,6 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'PE / PBV Relative', href: '/valuation/pe-pbv', icon: Scale },
       { label: 'DCF', href: '/valuation/dcf', icon: Coins, indent: true },
-      { label: 'EV / EBITDA', href: '/valuation/ev-ebitda', icon: Percent, indent: true },
       { label: 'DDM', href: '/valuation/ddm', icon: CircleDollarSign, indent: true },
     ],
   },
