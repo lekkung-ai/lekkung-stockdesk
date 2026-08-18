@@ -20,12 +20,19 @@ const sectorRSData = rawSectorRS as SectorRSData;
 interface MarketStageItem {
   Ticker: string;
   PE_Ratio?: number | null;
+  PBV?: number | null;
 }
 
 const peMap = new Map<string, number>(
   (rawMarketStage as MarketStageItem[])
     .filter((item): item is MarketStageItem & { PE_Ratio: number } => typeof item.PE_Ratio === 'number' && !isNaN(item.PE_Ratio))
     .map(item => [item.Ticker, item.PE_Ratio])
+);
+
+const pbMap = new Map<string, number>(
+  (rawMarketStage as MarketStageItem[])
+    .filter((item): item is MarketStageItem & { PBV: number } => typeof item.PBV === 'number' && !isNaN(item.PBV))
+    .map(item => [item.Ticker, item.PBV])
 );
 
 function medianPE(tickers: string[]): { median: number | null; n: number } {
@@ -45,6 +52,25 @@ function medianPE(tickers: string[]): { median: number | null; n: number } {
     ? (peList[mid - 1] + peList[mid]) / 2
     : peList[mid];
   return { median, n: peList.length };
+}
+
+function medianPBV(tickers: string[]): { median: number | null; n: number } {
+  const pbList: number[] = [];
+  for (const ticker of tickers) {
+    const pb = pbMap.get(ticker);
+    if (typeof pb === 'number' && !isNaN(pb) && pb > 0 && pb <= 20) {
+      pbList.push(pb);
+    }
+  }
+  if (pbList.length === 0) {
+    return { median: null, n: 0 };
+  }
+  pbList.sort((a, b) => a - b);
+  const mid = Math.floor(pbList.length / 2);
+  const median = pbList.length % 2 === 0
+    ? (pbList[mid - 1] + pbList[mid]) / 2
+    : pbList[mid];
+  return { median, n: pbList.length };
 }
 
 const SECTOR_COLORS: Record<string, string> = {
@@ -170,6 +196,7 @@ export default function SectorPage() {
           const status = statusMap[sector] ?? 'Neutral';
           const allTickers = subsectors.flatMap(s => s.tickers);
           const { median, n } = medianPE(allTickers);
+          const { median: medianPb, n: nPb } = medianPBV(allTickers);
           return (
             <Link
               key={sector}
@@ -191,6 +218,13 @@ export default function SectorPage() {
                       </p>
                     ) : (
                       <p className="text-[12px] text-white/25 mt-0.5 font-medium">PE —</p>
+                    )}
+                    {medianPb !== null ? (
+                      <p className="text-[12px] text-white/40 mt-0.5 font-medium">
+                        PBV {medianPb.toFixed(2)}x · <span className="text-white/25">n={nPb}</span>
+                      </p>
+                    ) : (
+                      <p className="text-[12px] text-white/25 mt-0.5 font-medium">PBV —</p>
                     )}
                   </div>
                 </div>
