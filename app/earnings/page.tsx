@@ -478,6 +478,8 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
   const router = useRouter();
   const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'drift_d2_pct', dir: 'desc' });
+  const [cardLimit, setCardLimit] = useState(12);
+  const [tablePage, setTablePage] = useState(1);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -509,6 +511,20 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
     }
     return list;
   }, [announcements, sortConfig]);
+
+  const TABLE_PAGE_SIZE = 20;
+  const CARD_STEP = 12;
+  const totalPages = Math.max(1, Math.ceil(peadList.length / TABLE_PAGE_SIZE));
+  const safePage = Math.min(tablePage, totalPages);
+  const visibleCards = peadList.slice(0, cardLimit);
+  const remainingCards = Math.max(0, peadList.length - cardLimit);
+  const visibleRows = peadList.slice((safePage - 1) * TABLE_PAGE_SIZE, safePage * TABLE_PAGE_SIZE);
+
+  // reset paging/limit เมื่อ data เปลี่ยน (สลับ SET/MAI, เปลี่ยนวัน, sort ใหม่)
+  useEffect(() => {
+    setCardLimit(CARD_STEP);
+    setTablePage(1);
+  }, [peadList]);
 
   return (
     <div className="bg-[#13161e] border border-emerald-500/25 rounded-2xl p-4 md:p-5 space-y-3.5 shadow-sm">
@@ -556,8 +572,9 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
           ยังไม่มีหุ้นเข้าเกณฑ์ PEAD ช่วงนี้
         </div>
       ) : viewMode === 'card' ? (
+        <>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-          {peadList.map(a => {
+          {visibleCards.map(a => {
             const spark = sparklineMap[a.ticker];
             return (
               <div
@@ -655,7 +672,19 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
             );
           })}
         </div>
+        {remainingCards > 0 && (
+          <div className="flex justify-center pt-1">
+            <button
+              onClick={() => setCardLimit(prev => prev + CARD_STEP)}
+              className="px-4 py-2 rounded-lg text-[12.5px] font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/25 transition-colors"
+            >
+              แสดงเพิ่ม · เหลืออีก {remainingCards} ตัว
+            </button>
+          </div>
+        )}
+        </>
       ) : (
+        <>
         <TableWrap>
           <table className="w-full text-left">
             <thead className="border-b border-white/[0.06] bg-white/[0.015]">
@@ -672,7 +701,7 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
               </tr>
             </thead>
             <tbody className="divide-y divide-white/[0.03]">
-              {peadList.map(a => (
+              {visibleRows.map(a => (
                 <tr
                   key={a.ticker}
                   onClick={() => router.push(`/stock/${a.ticker}`)}
@@ -735,6 +764,28 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
             </tbody>
           </table>
         </TableWrap>
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-3 pt-3 text-[12.5px]">
+            <button
+              onClick={() => setTablePage(p => Math.max(1, p - 1))}
+              disabled={safePage <= 1}
+              className="px-3 py-1.5 rounded-lg font-semibold border border-white/[0.08] text-white/70 hover:bg-white/[0.05] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              ‹ ก่อนหน้า
+            </button>
+            <span className="text-white/50 tabular-nums font-medium">
+              หน้า {safePage}/{totalPages}
+            </span>
+            <button
+              onClick={() => setTablePage(p => Math.min(totalPages, p + 1))}
+              disabled={safePage >= totalPages}
+              className="px-3 py-1.5 rounded-lg font-semibold border border-white/[0.08] text-white/70 hover:bg-white/[0.05] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              ถัดไป ›
+            </button>
+          </div>
+        )}
+        </>
       )}
     </div>
   );
