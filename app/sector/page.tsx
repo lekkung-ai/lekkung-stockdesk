@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { getSectorsGrouped, sectorToSlug } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
 import rawSectorRS from '@/data/scans/sector_rs.json';
-import rawMarketStage from '@/data/scans/market_stage.json';
+import { medianPE, medianPBV } from '@/lib/valuation';
 
 type Market = 'SET' | 'MAI' | 'WARRANT';
 
@@ -16,62 +16,6 @@ interface SectorRSData {
 }
 
 const sectorRSData = rawSectorRS as SectorRSData;
-
-interface MarketStageItem {
-  Ticker: string;
-  PE_Ratio?: number | null;
-  PBV?: number | null;
-}
-
-const peMap = new Map<string, number>(
-  (rawMarketStage as MarketStageItem[])
-    .filter((item): item is MarketStageItem & { PE_Ratio: number } => typeof item.PE_Ratio === 'number' && !isNaN(item.PE_Ratio))
-    .map(item => [item.Ticker, item.PE_Ratio])
-);
-
-const pbMap = new Map<string, number>(
-  (rawMarketStage as MarketStageItem[])
-    .filter((item): item is MarketStageItem & { PBV: number } => typeof item.PBV === 'number' && !isNaN(item.PBV))
-    .map(item => [item.Ticker, item.PBV])
-);
-
-function medianPE(tickers: string[]): { median: number | null; n: number } {
-  const peList: number[] = [];
-  for (const ticker of tickers) {
-    const pe = peMap.get(ticker);
-    if (typeof pe === 'number' && !isNaN(pe) && pe > 0 && pe <= 100) {
-      peList.push(pe);
-    }
-  }
-  if (peList.length === 0) {
-    return { median: null, n: 0 };
-  }
-  peList.sort((a, b) => a - b);
-  const mid = Math.floor(peList.length / 2);
-  const median = peList.length % 2 === 0
-    ? (peList[mid - 1] + peList[mid]) / 2
-    : peList[mid];
-  return { median, n: peList.length };
-}
-
-function medianPBV(tickers: string[]): { median: number | null; n: number } {
-  const pbList: number[] = [];
-  for (const ticker of tickers) {
-    const pb = pbMap.get(ticker);
-    if (typeof pb === 'number' && !isNaN(pb) && pb > 0 && pb <= 20) {
-      pbList.push(pb);
-    }
-  }
-  if (pbList.length === 0) {
-    return { median: null, n: 0 };
-  }
-  pbList.sort((a, b) => a - b);
-  const mid = Math.floor(pbList.length / 2);
-  const median = pbList.length % 2 === 0
-    ? (pbList[mid - 1] + pbList[mid]) / 2
-    : pbList[mid];
-  return { median, n: pbList.length };
-}
 
 const SECTOR_COLORS: Record<string, string> = {
   'Agro':             '#5D9E4A',
