@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getSectorsGrouped, sectorToSlug } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
 import rawSectorRS from '@/data/scans/sector_rs.json';
+import rawMarketStage from '@/data/scans/market_stage.json';
 
 type Market = 'SET' | 'MAI' | 'WARRANT';
 
@@ -15,6 +16,36 @@ interface SectorRSData {
 }
 
 const sectorRSData = rawSectorRS as SectorRSData;
+
+interface MarketStageItem {
+  Ticker: string;
+  PE_Ratio?: number | null;
+}
+
+const peMap = new Map<string, number>(
+  (rawMarketStage as MarketStageItem[])
+    .filter((item): item is MarketStageItem & { PE_Ratio: number } => typeof item.PE_Ratio === 'number' && !isNaN(item.PE_Ratio))
+    .map(item => [item.Ticker, item.PE_Ratio])
+);
+
+function medianPE(tickers: string[]): { median: number | null; n: number } {
+  const peList: number[] = [];
+  for (const ticker of tickers) {
+    const pe = peMap.get(ticker);
+    if (typeof pe === 'number' && !isNaN(pe) && pe > 0 && pe <= 100) {
+      peList.push(pe);
+    }
+  }
+  if (peList.length === 0) {
+    return { median: null, n: 0 };
+  }
+  peList.sort((a, b) => a - b);
+  const mid = Math.floor(peList.length / 2);
+  const median = peList.length % 2 === 0
+    ? (peList[mid - 1] + peList[mid]) / 2
+    : peList[mid];
+  return { median, n: peList.length };
+}
 
 const SECTOR_COLORS: Record<string, string> = {
   'Agro':             '#5D9E4A',
@@ -137,6 +168,8 @@ export default function SectorPage() {
           const slug = sectorToSlug(sector);
           const rsScore = currentRSMap[sector]?.rsScore ?? 50;
           const status = statusMap[sector] ?? 'Neutral';
+          const allTickers = subsectors.flatMap(s => s.tickers);
+          const { median, n } = medianPE(allTickers);
           return (
             <Link
               key={sector}
@@ -152,6 +185,13 @@ export default function SectorPage() {
                   <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-extrabold text-white leading-tight">{sector}</p>
                     <p className="text-[12px] text-white/40 mt-0.5 font-medium">{totalCount} หุ้น</p>
+                    {median !== null ? (
+                      <p className="text-[12px] text-white/40 mt-0.5 font-medium">
+                        PE {median.toFixed(1)}x · <span className="text-white/25">n={n}</span>
+                      </p>
+                    ) : (
+                      <p className="text-[12px] text-white/25 mt-0.5 font-medium">PE —</p>
+                    )}
                   </div>
                 </div>
                 <div className="text-right flex-shrink-0">
