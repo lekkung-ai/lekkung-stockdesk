@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T10:30:03.054926+07:00",
+  "generatedAt": "2026-08-18T18:15:44.555102+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -101,6 +101,33 @@
   },
   "announcements": [
     {
+      "ticker": "SSPF",
+      "sector": "Property",
+      "subsector": "Property Fund & REITs",
+      "market": "SET",
+      "announceDate": "2026-08-18T17:34:48+07:00",
+      "quarter": "ประจำปี 2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106427101&symbol=SSPF",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17870035881891&symbol=SSPF",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106427201&symbol=SSPF",
+      "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "TRV",
       "sector": "Industrials",
       "subsector": "",
@@ -189,7 +216,7 @@
       "reason": "โดยสาเหตุหลักเกิดจากกำลังซื้อของประชากรในประเทศลดลง และมีการปิดสาขาที่มีรายได้น้อยในระหว่าง งวด ต้นทุนขำยและบริกำร บริษัทฯ มีต้นทุนขายและบริการในไตรมาส 2 ปี 2568 และปี 2569 เท่ากับ 499 ล้านบาท และ 379 ล้านบาท ตามลำดับ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.44,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -220,7 +247,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.99,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.99,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -282,7 +309,7 @@
       "reason": "เกิดจากการเพิ่มขึ้นของ กำไรจากการขายและบริการ จำนวน 11.54 ล้านบาท ซึ่งเป็นผลจากการเพิ่มขึ้นของคำสั่งซื้อชิ้นส่วนเครื่องปรับอากาศจากลูกค้า ทั้งในและต่างประเทศ รวมถึงการขยายงานรับจ้างผลิตและให้บริการงานก่อสร้าง Data Center",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -313,7 +340,7 @@
       "reason": "บริษัทมีผลกำไรจากการวัดมูลค่ายุติธรรมของสินทรัพย์ทาง การเงินจำนวน 60.38 ล้านบาท เพิ่มขึ้นจากงวดก่อนจำนวน 140.64 ล้านบาทคิดเป็นร้อยละ 175.22 1.4 รายได้อื่นๆ จำนวน 57.07 ล้านบาทลดลงจากปีก่อนร้อยละ 22.73 จากที่บริษัทย่อย",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -375,7 +402,7 @@
       "reason": "เนื่องจากในไตรมาสนี้ยังไม่มีการส่งมอบสินค้าสำหรับงานโครงการสวนสาธารณะ ดังนั้นไตรมาสนี้ จึงมีกำไรสุทธิที่ ลดลงเล็กน้อย ผลการดำเนินงาน ภาพรวมผลการดำเนินงานของไตรมาส 2/2569 ผลประกอบการลดลงเล็กน้อยจาก ไตรมาสที่ 1/2569 โดยมี",
       "reason_source": "mda_extract",
       "gap_pct": -2.11,
-      "drift_d1_pct": -2.82,
+      "drift_d1_pct": -4.93,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -406,7 +433,7 @@
       "reason": "กลุ่มบริษัทมีรายได้จากการขาย 1,821.6 ล้านบาท เพิ่มขึ้น 54.2 ล้านบาท หรือ 3.1% จากงวดเดียวกันของปีก่อน และงวด 6M69 มีรายได้จากการขาย 3,690.4 ล้านบาท เพิ่มขึ้น 217.7 ล้านบาท หรือ 6.3% โดยมีแรงขับเคลื่อนหลักจากกลุ่มเบ เกอรี่และรองท้อง",
       "reason_source": "mda_extract",
       "gap_pct": -1.74,
-      "drift_d1_pct": -2.17,
+      "drift_d1_pct": -1.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -468,7 +495,7 @@
       "reason": "68 ล้านบาท ล้านบาท ล้านบาท ร้อยละ ล้านบาท ล้านบาท ล้านบาท ร้อยละ รายได้ รายได้จากการขายและบริการ 611.33 541.10 70.23 12.98 1,326.29 1,201.27 125.02 10.41 รายได้จากงานก่อสร้างโครงการ 6.16 - 6.16 100.00 25.42 - 25.42 100.00 รวมรายได้ 617.49 541.10 76.39 14.12 1,351.71 1,201.27 150.44 12.52 ต้นทุน -",
       "reason_source": "mda_extract",
       "gap_pct": 8.33,
-      "drift_d1_pct": 14.17,
+      "drift_d1_pct": 22.5,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -499,7 +526,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -561,7 +588,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.28,
-      "drift_d1_pct": -2.46,
+      "drift_d1_pct": -1.64,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -623,7 +650,7 @@
       "reason": "รายได้จากการขาย ในไตรมาส 2 ปี 2569 บริษัทมีรายได้จากการขายเท่ากับ 658.20 ล้านบาท ลดลง 164.78 ล้านบาทจากช่วง เดียวกันของปีก่อนซึ งอยู่ที 822.98 ล้านบาท หรือคิดเป็นการลดลงร้อยละ 20.02 ซึ งเป็นไปตามทิศทางเดียวกับการ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.45,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -654,7 +681,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.57,
-      "drift_d1_pct": 6.86,
+      "drift_d1_pct": 7.43,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -716,7 +743,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.29,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 4.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -747,7 +774,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.1,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.2,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -778,7 +805,7 @@
       "reason": "รายได้จากการให้บริการ 106.54 ล้านบาท ลดลงจากปีก่อน 92.85 ล้านบาท คิดเป็น -47% y-y ลดลงทั้ง 2 ส่วน ทั้งงานแสดงสินค้า/กิจกรรมทางการตลาด และ งานการตกแต่งภายใน (INT) ต้นทุนการให้บริการ 99.76 ล้านบาท ลดลง -49% y-y กําไรขั้นต้น",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.06,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -809,7 +836,7 @@
       "reason": "รายได้จากการขาย บริษัท มีรายได้จากการขายสินค้า 1.90 ล้านบาท เพิ่มขึ้น 1.90 ล้านบาท คิดเป็น ร้อยละ 100 เนื่องจากบริษัทมีการขายวัสดุคงเหลือที่ใช้ในการก่อสร้างซึ่งคงเหลือจากการใช้งานและยังไม่ต้องใช้ในช่วงเวลา ดังกล่าว",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -840,7 +867,7 @@
       "reason": "แม้ว่ารายได้รวมของบริษัทจะลดลงจากการสิ้นสภาพการเป็นบริษัทย่อยของโครงการภายใต้ DAISY ธุรกรรมที่ 1 , ธุรกรรมที่ 2 (APL) และ GL รวมถึงผลกระทบจากอัตราแลกเปลี่ยน และปัจจัยด้านสภาพอากาศของโครงการโรงไฟฟ้าพลังงานทดแทน แต่บริษัทสามารถรักษา",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 8.33,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -871,7 +898,7 @@
       "reason": "โดยส่วนใหญ่เกิดจากการ เพิ่มขึ้นกำไรขั้นต้น การวิเคราะห์รายได้ ธุรกิจอีเอ็มเอส บริษัทมีรายได้จากธุรกิจอีเอ็มเอสสำหรับไตรมาส 2 ปี 2569 จำนวน 835 ล้านบาท เพิ่มขึ้น 283 ล้านบาท หรือ เพิ่มขึ้น ร้อยละ 51",
       "reason_source": "mda_extract",
       "gap_pct": -1.8,
-      "drift_d1_pct": 3.59,
+      "drift_d1_pct": 8.38,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -933,7 +960,7 @@
       "reason": "รายได้จากการขาย 2569 2568 เพิ่ม(ลด)จากงวดก่อน 2569 2568 รายได้จากการขาย 0.40 15.73 (15.33) (97.43) 43.25 100.00 รายได้จากธุรกิจให้เช่าและการให้บริการ 0.53 - 0.53 100.00 56.75 - รวม รายได้ 0.93 15.73 (14.80) (94.06) 100.00",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -964,7 +991,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -16.67,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -16.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1026,7 +1053,7 @@
       "reason": "มีรายได้จากการขายจำนวน 637.8 ล้านบาท ลดลง 68.7 ล้านบาท หรือร้อยละ 10 เมื่อเทียบกับรายได้จำนวน 706.5 ล้านบาทในไตรมาสเดียวกันของปีก่อน (YoY) อย่างไรก็ตาม รายได้จากการขายเพิ่มขึ้น 45.1 ล้านบาท หรือร้อยละ 8 จากจำนวน 592.7",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -4.55,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1119,7 +1146,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.51,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.06,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1150,7 +1177,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 3.79,
-      "drift_d1_pct": 6.82,
+      "drift_d1_pct": 8.33,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1181,7 +1208,7 @@
       "reason": "ผลลัพธ์ที่เป็นรูปธรรมจากการปรับจุดยืนทางการตลาด (Repositioning) ของ LDC Dental สู่การเป็น 'ทันตกรรมพรีเมียมใน ราคาที่เข้าถึงง่าย' รวมถึงการเดินหน้ายกระดับประสิทธิภาพการดําเนินงาน ชี้ให้เห็นถึงโมเดลธุรกิจที่มีศักยภาพพร้อมผลักดัน ให้บริษัทฯ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1243,7 +1270,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -6.38,
-      "drift_d1_pct": -5.85,
+      "drift_d1_pct": -7.45,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1305,7 +1332,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.74,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1336,7 +1363,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 23.46,
+      "drift_d1_pct": 24.69,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1367,7 +1394,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 3.76,
-      "drift_d1_pct": 9.02,
+      "drift_d1_pct": 9.77,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1398,7 +1425,7 @@
       "reason": "เนื่องจากตั้งแต่ต้นปี 2569 ที่ผ่านมา บริษัท แอทลาส อีวี จำกัด มิได้ดำเนินกิจการ ตามที่วางแผนไว้ อีกทั้งรายได้เข้ามาสู่แอทลาสแต่อย่างใด ส่งผลให้แอทลาสมีเพียงค่าใช้จ่ายที่เกิดขึ้น ทั้งในด้านการจัดทำบัญชี ต้นทุน",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1429,7 +1456,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.74,
-      "drift_d1_pct": -1.74,
+      "drift_d1_pct": -4.35,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1460,7 +1487,7 @@
       "reason": "โดยมีสาเหตุหลักจากธุรกิจเหล็กที่สามารถผลิตได้ อย่างต่อเนื่อง เมื่อเปรียบเทียบกับการหยุดการผลิตชั่วคราวในช่วงเดียวกัน ในขณะที่ยอดการขายเหล็ก ปรับตัวลดลงซึ่งได้รับ",
       "reason_source": "mda_extract",
       "gap_pct": -1.45,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.17,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1522,7 +1549,7 @@
       "reason": "รายได้จากการขาย ปี 2569 ทำได้ 544.16 ล้านบาท เพิ่มขึ้นจากปีก่อน 95.77 ล้านบาท คิดเป็นร้อยละ 21.36 ประกอบด้วย กลุ่มสินค้าผลิตภัณฑ์โลหะ ทั้งจากการผลิตและจำหน่ายท่อ เหล็กกล้าไร้สนิม และการจำหน่ายแผ่นเหล็ก",
       "reason_source": "mda_extract",
       "gap_pct": -4.03,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1584,7 +1611,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -1.79,
+      "drift_d1_pct": 5.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1646,7 +1673,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.55,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.88,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1677,7 +1704,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 15.79,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1708,7 +1735,7 @@
       "reason": "รายได้จากการขาย 2569 2568 เพิ่ม(ลด)จากงวดก่อน 2569 2568 รายได้จากการขาย 0.40 15.73 (15.33) (97.43) 43.25 100.00 รายได้จากธุรกิจให้เช่าและการให้บริการ 0.53 - 0.53 100.00 56.75 - รวม รายได้ 0.93 15.73 (14.80) (94.06) 100.00",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1739,7 +1766,7 @@
       "reason": "รายได้จากการขาย 359.58 325.26 34.32 10.55% ธุรกิจค้าส่ง 88.27 88.87 -0.60 -0.68% ธุรกิจค้าปลีก 271.31 236.39 34.92 14.77% รายได้จากการให้บริการ 0.87 0.83 0.04 4.27% รายได้อืѷน 1.14 1.39 -0.24 -17.59% รายได้รวม 361.59 327.48",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -3.48,
+      "drift_d1_pct": -1.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1770,7 +1797,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.16,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1801,7 +1828,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.4,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.8,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1832,7 +1859,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.28,
-      "drift_d1_pct": -4.92,
+      "drift_d1_pct": -5.46,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1894,7 +1921,7 @@
       "reason": "รายได้จากการขาย สำหรับงวด 3 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569 บริษัทฯ มีรายได้จากการขายรวมเท่ากับ 5,829 ล้านบาท เพิ่มขึ้น +5% YoY จากงวดเดียวกันของปีก่อนหน้า และ +10% QoQ โดยมีปัจจัยหลักมาจากยอดขายในประเทศ",
       "reason_source": "mda_extract",
       "gap_pct": 3.64,
-      "drift_d1_pct": 4.09,
+      "drift_d1_pct": 2.73,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1925,7 +1952,7 @@
       "reason": "รายได้จากการบริการอินเตอร์เน็ต ในประเทศ และรายได้จากการบริการวงจรเช่ายังคงรักษาระดับรายได้การเติบโตได้ดีภายใต้ภาวะการแข่งขันที่มุ่งเน้น ด้านคุณภาพโครงข่ายและบริการดิจิทัล บริษัทย่อยมีแผนขยายโครงข่ายโทรคมนาคมอย่างต่อเนื่อง",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -0.89,
+      "drift_d1_pct": 2.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1956,7 +1983,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.0,
-      "drift_d1_pct": -8.0,
+      "drift_d1_pct": -10.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -1987,7 +2014,7 @@
       "reason": "จากปริมาณการขนส่งและรายได้จากการให้บริการทีѷเพิѷมขึҟนใน ทุกๆ หน่วยธุรกิจ (SBU) และการปรับตัวเพิѷมขึҟนของค่าระวางเนืѷองจากสงครามอิหร่าน-สหรัฐอเมริกาในช่วงเดือน มีนาคมทีѷผ่านมา",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 5.32,
+      "drift_d1_pct": 4.26,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2018,7 +2045,7 @@
       "reason": "ผลการดำเนินงาน (บริษัทฯ และบริษัทย่อย) หน่วย : ล้านบาท สำหรับงวด สิ้นสุดวันที่ 30 มิถุนายน 3 เดือน 6 เดือน งบการเงินรวม ปี 2569 ปี 2568 + % ปี 2569 ปี 2568 + % รายได้จากการดำเนินงาน(a) 81.19 56.81 +42.91% 162.79 112.10 +45.22% ต้นทุนจากการดำเนินงาน(b) 66.83 41.22 +62.13% 123.86 79.56 +55.68% กำไรขั้นต้นจากการดำเนินงาน 14.36 15.59 -7.89% 38.93 32.54 +19.64% รายได้รวม 88.52 62.18",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 3.03,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2049,7 +2076,7 @@
       "reason": "จากการเพิ่มทีมวิศวกรเพื่อรองรับปริมาณงานที่ เพิ่มขึ้น รวมถึงธุรกิจให้บริการดูแลและบำรุงรักษาสถานีโทรคมนาคม (Operation & Maintenance: O&M) ซึ่งปัจจุบันมีสถานี โทรคมนาคมภายใต้การดูแลมากกว่า 1,400 สถานี",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -1.69,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2111,7 +2138,7 @@
       "reason": "รายได้จากการขายและบริการ 998,858.00 699,239.00 299,619.00 42.85 1,781,307.00 1,446,769.00 334,538.00 23.12 ต้นทุนขายและบริการ (606,827.00) (610,613.00) (3,786.00) (0.62) (1,184,758.00) (1,265,675.00) (80,917.00) (6.39)",
       "reason_source": "mda_extract",
       "gap_pct": 16.04,
-      "drift_d1_pct": 48.11,
+      "drift_d1_pct": 47.17,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2142,7 +2169,7 @@
       "reason": "รายได้จากการขายและบริการมีจำนวน 4,219.21 ล้านบาท เพิ่มขึ้น 2,106.01 ล้านบาท หรือร้อยละ 99.66 จากจำนวน 2,113.20 ล้านบาท ในงวดเดียวกันของปีก่อน สาเหตุหลักมาจากรายได้จากการขายรถยนต์ใหม่ที่เพิ่มขึ้น 2,161.14 ล้านบาท ขณะที่รายได้",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -0.86,
+      "drift_d1_pct": -3.45,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2173,7 +2200,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.43,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.71,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2204,7 +2231,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.74,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2266,7 +2293,7 @@
       "reason": "ไม่รวมผลขาดทุนจากการยกเลิกสัญญาซื้อเครื่องจักรจำนวน 9.18 ล้านบาท ไตรมาส 2/2569 เปรียบเทียบกับไตรมาส 1/2569: รายได้ รายได้รวม ในไตรมาส 2/2569 อยู่ที่ 2,018.78 ล้านบาท เพิ่มขึ้น 184.19 ล้านบาท หรือร้อยละ 10.04 จากไตรมาสก่อน โดยมี",
       "reason_source": "mda_extract",
       "gap_pct": -1.7,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 5.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2297,7 +2324,7 @@
       "reason": "รายได้จากการรักษาพยาบาล 492 479 2.6% 1,289 1,201 7.4% ต้นทุนในการรักษาพยาบาล 387 362 7.0% 853 776 9.9% กำไรขั้นต้น 105 117 -10.7% 436 424 2.8% % กำไรขั้นต้น 21.3% 24.5% 33.8% 35.3% -1.5% ค่าใช้จ่ายในการขายและบริหาร 82 69",
       "reason_source": "mda_extract",
       "gap_pct": -6.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -6.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2328,7 +2355,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -6.86,
-      "drift_d1_pct": -6.86,
+      "drift_d1_pct": -8.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2359,7 +2386,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.11,
-      "drift_d1_pct": 7.22,
+      "drift_d1_pct": 6.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2390,7 +2417,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2421,7 +2448,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.66,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.66,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2452,7 +2479,7 @@
       "reason": "มาจากการประกอบธุรกิจผลิตและจำหน่ายวัตถุดิบที่ใช้เป็นส่วนผสมในอาหาร (Food Ingredients) โดยแบ่งลักษณะผลิตภัณฑ์ ออกเป็น 6 กลุ่ม 1.1 กลุ่มวัตถุแต่งกลิ่น รสและสีผสมอาหาร 1.2 กลุ่มแป้งและซอส 1.3 กลุ่มผลิตภัณฑ์อบแห้ง 1.4",
       "reason_source": "mda_extract",
       "gap_pct": 1.92,
-      "drift_d1_pct": 1.92,
+      "drift_d1_pct": 0.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2483,7 +2510,7 @@
       "reason": "รายได้จากการขายและบริการและให้เช่า 8,775.92 4,746.48 84.89 14,622.33 9,888.92 47.87 กําไรขั้นต้น 185.86 99.46 86.87 372.32 209.30 77.89 รายได้อื่น 5.02 9.46 (46.93) 7.15 22.50 (68.22) ค่าใช้จ่ายในการขายและบริหาร (116.24)",
       "reason_source": "mda_extract",
       "gap_pct": -1.73,
-      "drift_d1_pct": -2.31,
+      "drift_d1_pct": -1.73,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2514,7 +2541,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -4.2,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -5.88,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2545,7 +2572,7 @@
       "reason": "เนื่องจากปริมาณการขนส่งของลูกค้าในประเทศยังต ่ากว่าช่วงเดียวกันของปีก่อน ด้ำนควำมสำมำรถในกำรท ำก ำไร บริษัทฯ มี มี EBITDA จ ำนวน 77.90 ล้ำนบำท เพิ่มขึ้น 3.61% QoQ แต่ลดลง 4.42% YoY โดยมี EBITDA Margin อยู่ ที่ 27.87%",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2576,7 +2603,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.58,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.58,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2607,7 +2634,7 @@
       "reason": "และศูนย์การค้าที่ได้รับอานิสงส์จากการเดินทางมาร่วมกิจกรรม ของแฟนคลับทั้งในและต่างประเทศ • อุตสำหกรรมภำพยนตร์ไทย รายได้จากการจัดจำหน่ายผ่านโรงภาพยนตร์ภายในประเทศมีแนวโน้มชะลอตัวและ ผันผวน",
       "reason_source": "mda_extract",
       "gap_pct": 2.04,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 10.88,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2669,7 +2696,7 @@
       "reason": "รายได้ บริษัทมีรายได้จากการขายในงวด 3 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569 เท่ากับ 44.21 ล้านบาท ลดลง 5.20 ล้านบาท คิดเป็นอัตราร้อยละ 10.52 จากไตรมาสเดียวกันของปี 2568 เนื่องจากในไตรมาสนี้ บริษัทมียอดขายลดลงจากทุกช่องทางการจำหน่าย",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -1.54,
+      "drift_d1_pct": -0.77,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2694,13 +2721,13 @@
       "isCorrection": false,
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106306201&symbol=WAVE",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17866573778071&symbol=WAVE",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17870035872131&symbol=WAVE",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106306101&symbol=WAVE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขายและให้บริการ 92.50 95.37 (2.86) (3.01) ต้นทุนการขายและการให้บริการ (62.59) (56.81) 5.78 10.17 กำไรขั้นต้น 29.91 38.56 (8.65) (22.43) รายได้อื่นๆ 1.49 556.06 (554.57) (99.73) ค่าใช้จ่ายขายและบริหาร (39.60)",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2731,7 +2758,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.71,
-      "drift_d1_pct": -3.43,
+      "drift_d1_pct": -2.29,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2762,7 +2789,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.44,
-      "drift_d1_pct": -3.95,
+      "drift_d1_pct": -4.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2793,7 +2820,7 @@
       "reason": "รายได้จากการขายและบริการ 1.กลุ่มผลิตภัณฑ์และเทคโนโลยีระบบปั๊ม 27.07 43.58 (16.51) (37.88) 72.25 58.51 13.74 23.48 2.กลุ่มผลิตภัณฑ์การจัดการกระบวนการผลิตและระบบท่อ 23.64 43.70 (20.06) (45.90) 48.93 85.34 (36.41) (42.66)",
       "reason_source": "mda_extract",
       "gap_pct": -3.64,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -9.09,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2855,7 +2882,7 @@
       "reason": "ผลการดําเนินงาน งบกําไรขาดทุนเบ็ดเสร็จรวม สําหรับงวด 3 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569 และ 2568 งบการเงินรวม ไตรมาส 2 ปี 2569 ไตรมาส 2 ปี 2568 เปลี่ยนแปลง ล้านบาท % ล้านบาท % ล้านบาท % รายได้จากการขายและการให้บริการ 232 96% 328 97% (96) (29%) รายได้จากการให้เช่า 9 4% 9 3% 0 0% รายได้รวม 241 100% 337 100% (96) (28%) ต้นทุนขายและบริการในประเทศ 191 274 (83) (30%) ต้นทุนจากการให้เช่า 3 2 1 50%",
       "reason_source": "mda_extract",
       "gap_pct": -1.27,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.8,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2886,7 +2913,7 @@
       "reason": "โดยมีสาเหตุหลักมาจากการจัดกิจกรรมการตลาด และส่งเสริมการขายเพื่อกระตุ้นยอดขายในไตรมาสนี้ อย่างไรก็ตาม กลุ่มบริษัทฯ ยังคงยึดมั่นในการบริหารจัดการภายในอย่างมี ประสิทธิภาพ",
       "reason_source": "mda_extract",
       "gap_pct": -1.49,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -1.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2917,7 +2944,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.81,
-      "drift_d1_pct": -7.87,
+      "drift_d1_pct": -8.99,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -2979,7 +3006,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -3.64,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3010,7 +3037,7 @@
       "reason": "กําไรจากการเปลี่ยนแปลงสัญญาเงินกู้ยืมระยะยาว 24.19 - 24.19 100% 24.19 - 24.19 100% กําไรจากยอดดุลสุทธิของรายการที่เป็นตัวเงิน - 0.39 (0.39) -100% - 0.40 (0.40) -100% กําไร (ขาดทุน) จากอัตราแลกเปลี่ยน (5.82) 125.61 (131.43)",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 4.35,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3072,7 +3099,7 @@
       "reason": "และบริษัทมียอดรายได้จากการโอนกรรมสิทธิ์อสังหาริมทรัพย์จำนวน 1,822 ล้านบาท โดยในไตรมาส 2 ที่ผ่านมา มีโครงการสร้างเสร็จและรับรู้รายได้เพิ่ม 1 โครงการ คือ เสนาคิทท์ สำโรง อินเตอร์เชนจ์ รายละเอียดยอดขายและยอดโอนตามตาราง ดังนี้",
       "reason_source": "mda_extract",
       "gap_pct": -3.95,
-      "drift_d1_pct": -2.26,
+      "drift_d1_pct": -4.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3103,7 +3130,7 @@
       "reason": "และบริษัทย่อยมีรายได้จากการขายและบริการ จำนวน 1,009.30 ล้านบาท เพิ่มขึ้น 249.42 ล้านบาท หรือคิดเป็นอัตราเพิ่มขึ้น 33% จากไตรมาสเดียวกันของปีก่อน และมีกำไรสุทธิรวม จำนวน 189.71 ล้านบาท เพิ่มขึ้น 21.49 ล้านบาท หรือคิดเป็นอัตราการเติบโต 13%",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 5.63,
+      "drift_d1_pct": 4.23,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3134,7 +3161,7 @@
       "reason": "เนื่องจากในไตรมาสแรกของปี 2569 บริษัทฯ ไม่มีกำไรจากการเปลี่ยนแปลงประเภทเงินลงทุนจากบริษัท ย่อยเป็นบริษัทร่วมและไม่มีกำไรจากการจำหน่ายเงินลงทุนในบริษัทย่อย สำหรับการดำเนินงานในหกเดือนแรกของปี 2569 บริษัทฯ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -2.86,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3165,7 +3192,7 @@
       "reason": "ส่งผลกระทบต่อรายได้จากการส่งออก พบว่า ค่าเงินบาทมีความผันผวนโดยค่าเงินบาทมีความแข็งค่าขึ้นเมื่อเทียบกับปี 2568 ที่ผ่านมา ผลการดำเนินงาน ไตรมาส 2 ปี 2569 (ล้านบาท) % เปลี่ยนแปลง Y-o-Y % เปลี่ยนแปลง Q-o-Q รายได้จากการขาย 518.13 (13.15%)",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3196,7 +3223,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.9,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.17,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3227,7 +3254,7 @@
       "reason": "เนื่องจากไม่มีรายการค่าใช้จ่ายครั้งเดียวเหมือนในไตรมาสที่ 2 ปี 2568 ที่มีภาระจากการ ตั้งด้อยค่าความนิยมครั้งเดียวจำนวน 149.24 ล้านบาท ของธุรกิจในอังกฤษ และ EBITDA กลับมาเป็นบวกเมื่อเทียบกับช่วงเดียวกันของปีก่อน",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3258,7 +3285,7 @@
       "reason": "รายได้จากการขายและบริการ สําหรับงวดหกเดือนสิ้นสุดวันที่ 30 มิถุนายน 2569 ตามรายละเอียด กลุ่มผลิตภัณฑ์ ม.ค.",
       "reason_source": "mda_extract",
       "gap_pct": -1.12,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3289,7 +3316,7 @@
       "reason": "โดยมีสาเหตุหลักดังนี้ 30 มิถุนายน 2569 30 มิถุนายน 2568 ล้านบาท ล้านบาท ล้านบาท % รายได้จากการขายและบริการ 299.76 346.94 (47.17) (13.60%) กำไร (ขาดทุน) จากอัตราแลกเปลี่ยน (0.22) 0.65 (0.87) (133.64%)",
       "reason_source": "mda_extract",
       "gap_pct": 1.16,
-      "drift_d1_pct": 1.16,
+      "drift_d1_pct": -1.16,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3320,7 +3347,7 @@
       "reason": "โดยปัจจัยหลักมาจากการเติบโตของบริการลูกค้าองค์กรภายในประเทศ และลูกค้าระหว่างประเทศ บริการด้าน ICT Solutions และการทยอยรับรู้รายได้จากสัญญาที่ได้รับในช่วงก่อนหน้า รายได้จากการให้บริการซึ่งเป็นรายได้หลักของบริษัทอยู่ที่ 591.8 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": 5.26,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 10.53,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3351,7 +3378,7 @@
       "reason": "มีรายได้จากการดำเนินงาน 914 ล้านบาท เพิ่มขึ้น 10.8% เมื่อเทียบกับปีก่อน โดยมีแรงขับเคลื่อนจากธุรกิจบริการไอซีที ซึ่งเติบโต 106 ล้านบาท หรือ 15.1% เมื่อเทียบ กับปีก่อน เป็น 809 ล้านบาท คิดเป็น 89% ของรายได้จากการดำเนินงานทั้งหมด",
       "reason_source": "mda_extract",
       "gap_pct": -1.49,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 2.99,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3382,7 +3409,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 5.26,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3413,7 +3440,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -7.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -6.72,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3444,7 +3471,7 @@
       "reason": "จากการเติบโตอย่างแข็งแกร่งของรายได้จากกิจการโรงพยาบาล ซึ่งในไตรมาส 2 บันทึกรายได้ที่‌ 753.19 ล้านบาท (เพิ่มขึ้นร้อยละ 3.85 YOY) และสำหรับงวด 6 เดือนแรกอยู่ที่ 1,491.08 ล้าน‌ บาท (เพิ่มขึ้นร้อยละ 4.62 YOY)‌",
       "reason_source": "mda_extract",
       "gap_pct": -0.55,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.42,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3475,7 +3502,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 16.67,
+      "drift_d1_pct": 8.33,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3506,7 +3533,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 21.39,
-      "drift_d1_pct": 34.1,
+      "drift_d1_pct": 60.69,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3537,7 +3564,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 2.72,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3568,7 +3595,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.01,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3599,7 +3626,7 @@
       "reason": "ยังคงเป็นปัจจัยกดดันต่อการรับรู้รายได้จากการส่งออกเมื่อแปลงกลับเป็นเงินบาท สําหรับตลาดภายในประเทศ ไตรมาส 2/2569 ความต้องการบริโภคเนื้อไก่ยังคงอยู่ในเกณฑ์ที่ดี เนื่องจาก เป็นเนื้อสัตว์ที่ให้โปรตีนสูงในราคาที่เข้าถึงได้ง่ายท่ามกลางภาวะกําลังซื้อที่ชะลอตัว",
       "reason_source": "mda_extract",
       "gap_pct": -0.47,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3661,7 +3688,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -5.88,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3692,7 +3719,7 @@
       "reason": "2568 เปลี่ยนแปลง % เปลี่ยนแปลง รายได้จากการขายและบริการ 750.89 628.92 121.97 19.4% รายได้อื่น 3.72 6.33 -2.61 -41.2% รายได้รวม 754.61 635.25 119.36 18.8% ต้นทุนขายและบริการ 646.25 541.07 105.18 19.4% ค่าใช้จ่ายในการขาย 12.14 11.71 0.43 3.7%",
       "reason_source": "mda_extract",
       "gap_pct": 0.56,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.69,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3723,7 +3750,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -5.08,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -8.47,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3754,7 +3781,7 @@
       "reason": "จากการเติบโต ของฐานการผลิต การปรับปรุงอัตรากำไรขั้นต้น และการควบคุมค่าใช้จ่ายในการดำเนินงาน ส่งผลให้บริษัทกลับมามีกำไรสุทธิในไตรมาสนี้ สำหรับผลการดำเนินงานไตรมาสที่ 2 สิ้นสุดวันที่ 30 มิถุนายน 2569 เทียบจากงวดเดียวกัน",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 7.53,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3785,7 +3812,7 @@
       "reason": "จากการปรับราคาขายเพื่อส่งผ่านต้นทุนที่เพิ่มขึ้นได้อย่าง เหมาะสม 2Q26 2Q25 1Q26 6M26 6M25 อัตรากำไรขั้นต้น 12.0% 4.4% 9.6% 10.8% 6.9% อัตรา EBITDA 9.2% 2.1% 8.8% 9.0% 4.6% อัตรากำไรสุทธิ 2.9% -2.6% 2.4% 2.7% -0.2%",
       "reason_source": "mda_extract",
       "gap_pct": 1.08,
-      "drift_d1_pct": 1.08,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3847,7 +3874,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.89,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.77,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3878,7 +3905,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.46,
-      "drift_d1_pct": 4.1,
+      "drift_d1_pct": 5.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3909,7 +3936,7 @@
       "reason": "รายได้จากการขาย 220.45 80.47% 216.14 78.97% รายได้ค่าเช่าและค่าบริการ 53.50 19.53% 57.57 21.03% รวมรายได้จากการขายและบริการ 273.95 100% 273.70 100% ต้นทุน ต้นทุนจากการขาย -125.37 -45.76% -121.18 -44.28% ต้นทุนให้เช่าและบริการ",
       "reason_source": "mda_extract",
       "gap_pct": 1.27,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.53,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3940,7 +3967,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.11,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 4.44,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -3971,7 +3998,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -2.14,
+      "drift_d1_pct": -1.43,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4002,7 +4029,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 5.83,
-      "drift_d1_pct": 18.45,
+      "drift_d1_pct": 12.62,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4033,7 +4060,7 @@
       "reason": "รายได้จากการขายอสังหาริมทรัพย์ 148.48 68.28 123.57 70.38 138.94 73.00 113.29 74.23 24.91 20.16 รายได้จากการให้เช่าและบริการ 55.53 25.53 48.43 27.58 25.01 13.14 23.52 15.41 7.10 14.65 รายได้อื่น 13.45 6.19 3.58 2.04 26.39",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 6.25,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4064,7 +4091,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 4.17,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.17,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4126,7 +4153,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4157,7 +4184,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.36,
-      "drift_d1_pct": 10.24,
+      "drift_d1_pct": 11.02,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4188,7 +4215,7 @@
       "reason": "ส่งผลให้ปริมาณความต้องการซื้อและรายได้จากการขายยัง อยู่ในระดับที่ต้องติดตามอย่างใกล้ชิด อย่างไรก็ตาม บริษัทฯ สามารถปรับปรุงประสิทธิภาพด้านต้นทุนและรักษาระดับส่วนต่างระหว่างราคาขายกับต้นทุน วัตถุดิบได้ดีขึ้น",
       "reason_source": "mda_extract",
       "gap_pct": 5.63,
-      "drift_d1_pct": 12.68,
+      "drift_d1_pct": 42.02,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4219,7 +4246,7 @@
       "reason": "สรุปผลการดำเนินงาน ในไตรมาสที่สองของปี 2569 กลุ่มบริษัทมีกำไรขั้นต้นจากการดำเนินงาน 3.53 ล้านบาท ปรับลดลงจากช่วงเดียวกันของปีก่อน จำนวน 1.55 ล้านบาท เนื่องจากต้นทุนและยอดขายได้รับผลการทบจากสภาวะเศรษฐกิจ สรุปดังนี้ 3.1 รายได้จากการขายหรือบริการ ในไตรมาสที่สองของปี 2569",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -0.75,
+      "drift_d1_pct": -2.24,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4250,7 +4277,7 @@
       "reason": "โดยเป็นกำไรจากการรับ ประกันภัยต่อในไตรมาส 2/2569 จำนวน 91 ล้านบาท เพิ่มขึ้นจากไตรมาส 1/2569 ร้อยละ 25 และสูงกว่าไตรมาส เดียวกันของปีก่อนร้อยละ 14 โดยรวม 6 เดือน บริษัทฯ มีกำไรจากการรับประกันภัยต่อจำนวน 165 ล้านบาท เพิ่มขึ้น",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 2.33,
+      "drift_d1_pct": 4.65,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4281,7 +4308,7 @@
       "reason": "มีรายได้จากการขายและบริการ จำนวน 935 ล้านบาท เพิ่มขึ้นจากปีก่อน 17 ล้านบาทคิดเป็น ร้อยละ 2 เนื่องจากยังคงได้รับผลกระทบบางส่วนจากสภาวะความขัดแย้ง ตะวันออกกลางที่เริ่มมาตั้งแต่ช่วงปลายเดือนกุมภาพันธ์ที่ผ่านมา",
       "reason_source": "mda_extract",
       "gap_pct": 3.03,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4312,7 +4339,7 @@
       "reason": "บริษัทฯ มีรายได้จากการขายและบริการในไตรมาส 2/2569 จำนวน 75.07 ล้านบาท เปรียบเทียบกับงวด เดียวกันของปี 2568 จำนวน 58.27 ล้านบาท เพิ่มขึ้น 16.80 ล้านบาท หรือร้อยละ 28.83 เนื่องจากปริมาณการ ขายเพิ่มขึ้น 2.",
       "reason_source": "mda_extract",
       "gap_pct": 3.23,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4343,7 +4370,7 @@
       "reason": "ในประเทศกัมพูชาที่ได้รับผลกระทบต่อเนื่องจากความขัดแย่งภายในประเทศ อย่างไรก็ตามผลการดำเนินงานเริ่มฟื้นตัวจาก ไตรมาสก่อนอย่างชัดเจน ทั้งด้านรายได้และอัตรากำไรขั้นต้น ประกอบกับการควบคุมค่าใช้จ่ายในการขายและบริหารอย่าง ต่อเนื่อง การลดลงของภาระดอกเบี้ยจ่าย",
       "reason_source": "mda_extract",
       "gap_pct": 2.34,
-      "drift_d1_pct": 8.19,
+      "drift_d1_pct": 7.02,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4405,7 +4432,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.74,
-      "drift_d1_pct": 52.17,
+      "drift_d1_pct": 36.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4436,7 +4463,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.64,
-      "drift_d1_pct": 3.18,
+      "drift_d1_pct": 2.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4467,7 +4494,7 @@
       "reason": "รายได้จากการขาย จำนวน 684.86 ล้านบาท ลดลงจากช่วงเดียวกันของปีก่อน จำนวน ใ ล้านบาท หรือ ร้อยละ 2.51 สาเหตุหลักเกิดจากธุรกิจรองเท้า 2.",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.22,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4498,7 +4525,7 @@
       "reason": "มีการตั้งสํารองหนี้สูญและคาเผื่อผลขาดทุนจากการดอยคาในไตรมาส 2 ป 2569 มูลคา 61.90 ลานบาท เทียบกับไตรมาสเดียวกันของปกอนมีมูลคา 40.71 ลานบาท โดยเพิ่มขึ้น 21.19 ลานบาท หรือคิดเปนอัตรารอยละ 52.05 ทั้งนี้เนื่องจากคุณภาพหนี้โดยรวมของบริษัทฯ ในสวนของ NPL",
       "reason_source": "mda_extract",
       "gap_pct": -2.0,
-      "drift_d1_pct": 12.0,
+      "drift_d1_pct": 18.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4560,7 +4587,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.45,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4591,7 +4618,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4715,7 +4742,7 @@
       "reason": "รายได้จากการขายและบริการ 662.4 862.1 (199.7) (23%) ต้นทุนจากการขายและบริการ (575.3) (674.6) (99.3) (15%) กำไรขั้นต้น 87.1 187.50 (100.4) (54%) รายได้อื่น 44.8 40.6 4.2 10% ต้นทุนในการจัดจำหน่ายและค่าใช้จ่ายในการบริหาร (158.3)",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4746,7 +4773,7 @@
       "reason": "จากการดําเนินงาน 37.1 54.2 (17.1) (31.5%) (12.3) 54.1 (66.4) (122.7%) กําไรสุทธิ 14.4 24.2 (9.8) (40.5%) 30.2 (7.2) 37.4 519.4% บวกกลับ การรับรู้ค่าปรับงาน ล่าช้าตามคําชีˣขาดของ อนุญาโตตุลาการ - - - 82.2 - 82.2 - หัก",
       "reason_source": "mda_extract",
       "gap_pct": 0.66,
-      "drift_d1_pct": 9.27,
+      "drift_d1_pct": 8.61,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4777,7 +4804,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.5,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.51,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4808,7 +4835,7 @@
       "reason": "ของรายได้จากการขาย โดยมีรูปแบบการจำหน่ายสินค้าเป็นแบบรับจ้างการผลิตตามคำสั่งซื้อของลูกค้า (Original Equipment Manufacturer: OEM) จำหน่ายสินค้าเป็นแพ็คใหญ่ (Bulk Pack) ให้กับกลุ่มลูกค้าผู้ประกอบการในอุตสาหกรรมและกลุ่มลูกค้า",
       "reason_source": "mda_extract",
       "gap_pct": -0.68,
-      "drift_d1_pct": -2.7,
+      "drift_d1_pct": -3.38,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4839,7 +4866,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.66,
+      "drift_d1_pct": 0.33,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4870,7 +4897,7 @@
       "reason": "โดยมีสาเหตุหลักจากรายได้ธุรกิจร้านอาหารลดลง 11% จากการปˣดร้านอาหารที่บริษัทเปˠนเจ้าของหลายสาขาในป˥ที่ผ่านมา ประกอบกับ ยอดขายสาขาเดิมยังคงหดตัวตามการใช้จ่ายของผู้บริโภคที่ระมัดระวังมากขึ้นท่ามกลางภาวะเศรษฐกิจไทยที่อ่อนตัวลง",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.91,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4901,7 +4928,7 @@
       "reason": "เนื่องจากปริมาณการขนส่งของลูกค้าในประเทศยังต ่ากว่าช่วงเดียวกันของปีก่อน ด้ำนควำมสำมำรถในกำรท ำก ำไร บริษัทฯ มี มี EBITDA จ ำนวน 77.90 ล้ำนบำท เพิ่มขึ้น 3.61% QoQ แต่ลดลง 4.42% YoY โดยมี EBITDA Margin อยู่ ที่ 27.87%",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4932,7 +4959,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.98,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 1.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4963,7 +4990,7 @@
       "reason": "จากการลงทุน ในบริษัทร่วม (1.84) (2.56) ( 0.72) (28.13) (2.47) (4.78) ( 2.31) (48.33) ต้นทุนทางการเงิน 3.50 2.98 0.52 17.45 6.91 5.94 0.97 16.33 กำไรก่อนภาษีเงินได้ 51.34 21.79 29.55 135.61 77.47 78.92 (1.45) (1.84)",
       "reason_source": "mda_extract",
       "gap_pct": 4.24,
-      "drift_d1_pct": 9.32,
+      "drift_d1_pct": 6.78,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -4994,7 +5021,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.57,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.57,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5025,7 +5052,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -1.6,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -2.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5056,7 +5083,7 @@
       "reason": "รายได้จากการขาย ปี 2569 ทำได้ 544.16 ล้านบาท เพิ่มขึ้นจากปีก่อน 95.77 ล้านบาท คิดเป็นร้อยละ 21.36 ประกอบด้วย กลุ่มสินค้าผลิตภัณฑ์โลหะ ทั้งจากการผลิตและจำหน่ายท่อ เหล็กกล้าไร้สนิม และการจำหน่ายแผ่นเหล็ก",
       "reason_source": "mda_extract",
       "gap_pct": -4.03,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5087,7 +5114,7 @@
       "reason": "ค่านายหน้าจากการซื อขายหลักทรัพย์ 133.24 96.54 ค่านายหน้าจากการซื อขายตราสารอนุพันธ์ 6.85 6.48 ค่าธรรมเนียมและบริการ 403.20 235.80 ดอกเบี ยเงินให้กู้ยืมเพื อซื อหลักทรัพย์ 16.24 41.33 กําไร(ขาดทุน)และผลตอบแทนจากเครื",
       "reason_source": "mda_extract",
       "gap_pct": 2.54,
-      "drift_d1_pct": 7.63,
+      "drift_d1_pct": 6.78,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5118,7 +5145,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.97,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -7.77,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5149,7 +5176,7 @@
       "reason": "2.รายได้จากการขายรวมอสังหาริมทรัพย์ 611.79 361.32 69.32% 1) รายได้จากการขายโครงการแนวราบ 357.07 240.24 48.63% 2) รายได้จากการขายโครงการแนวสูง 239.00 119.66 99.73% 3) รายได้จาก Mill Hill International School Thailand ** 9.28 -",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": -3.45,
+      "drift_d1_pct": -2.3,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5180,7 +5207,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 2.6,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5304,7 +5331,7 @@
       "reason": "ผลการดำาเนินงาน สำาหรับงวด 3 เดือน สิ้นสุดวันที่ 30 มิถุนายน 2569 (พันบาท) 30 มิถุนายน 2569 30 มิถุนายน 2568 เพิ่มขึ้น(ลดลง) รายได้จากการรักษาพยาบาล 599,269 585,592 13,677 รายได้อื่น 41,117 58,227 (17,110) รวมรายได้จากการดำาเนินงาน 640,386 643,819 (3,433) ส่วนแบ่งกำาไรจากเงินลงทุนในบริษัทร่วม (1,270) (3,078) 1,808 1.",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.81,
+      "drift_d1_pct": 1.61,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5335,7 +5362,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 4.9,
-      "drift_d1_pct": 8.39,
+      "drift_d1_pct": 9.09,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5366,7 +5393,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5397,7 +5424,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.41,
-      "drift_d1_pct": -0.7,
+      "drift_d1_pct": 2.11,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5428,7 +5455,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.6,
-      "drift_d1_pct": 3.61,
+      "drift_d1_pct": 7.23,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5517,7 +5544,7 @@
       "reason": "จากการปิดกิจการบริษัทย่อย YASO-C เสร็จสิ/นในเดือนมีนาคม 2568 ซึ งส่งผลให้กลุ่มบริษัทรับรู้กําไรจากผลต่างการแปลงค่างบการเงินจากการปิดกิจการของบริษัทย่อยในต่างประเทศ จํานวน 2.83 ล้านบาท และมีรายได้ภาษีเงินได้เพิ",
       "reason_source": "mda_extract",
       "gap_pct": 1.19,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.19,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5548,7 +5575,7 @@
       "reason": "ซึ่งเข้ามาช่วยกระจายความเสี่ยงจากการชะลอตัวของกลุ่มยานยนต์และเครื่องใช้ไฟฟ้า และมี แนวโน้มที่จะเป็นกลยุทธ์สำคัญในการสร้างการเติบโตของรายได้ในอนาคต ภาพรวมผลการดำเนินงานงวด 6 เดือนแรกของปี บริษัทฯ สามารถสร้างการเติบโตของกำไรสุทธิได้อย่างมีนัยสำคัญ",
       "reason_source": "mda_extract",
       "gap_pct": -0.64,
-      "drift_d1_pct": 2.56,
+      "drift_d1_pct": -3.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5579,7 +5606,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5610,7 +5637,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -4.55,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 4.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5641,7 +5668,7 @@
       "reason": "จากการดำเนินงานของส่วนที่เป็นของบริษัทใหญ่ จำนวน 37.65 ล้านบาท เมื่อเทียบกับไตรมาสเดียวกันปี 2568 บริษัทมีผลการ ดำเนินงานกำไรเพิ่มขึ้นจำนวน 16.70 ล้านบาท คิดเป็นร้อยละ 79.76 โดยมีสาเหตุหลักดังต่อไปนี้ 1.",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 8.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5672,7 +5699,7 @@
       "reason": "โดยสาเหตุหลักเกิดจากกำลังซื้อของประชากรในประเทศลดลง และมีการปิดสาขาที่มีรายได้น้อยในระหว่าง งวด ต้นทุนขำยและบริกำร บริษัทฯ มีต้นทุนขายและบริการในไตรมาส 2 ปี 2568 และปี 2569 เท่ากับ 499 ล้านบาท และ 379 ล้านบาท ตามลำดับ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.44,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5765,7 +5792,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -3.16,
+      "drift_d1_pct": -2.11,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5796,7 +5823,7 @@
       "reason": "ด้านผลการดำเนินงาน ตารางสรุปข้อมูลผลการดำเนินงาน หน่วย: ล้านบาท Q2/ 2569 Q1/ 2569 QoQ Q2/ 2568 YoY 6M 2569 6M 2568 YoY รายได้จากการขาย 723.41 740.49 (2.3%) 729.78 (0.9%) 1,463.90 1,464.72 (0.1%) ต้นทุนขาย 522.55 520.24 0.4% 539.02 (3.1%) 1,042.79 1,063.80 (2.0%) กำไรขั้นต้น 200.87 220.25 (8.8%) 190.77 5.3% 421.11 400.93 5.0% รายได้อื่น 30.80",
       "reason_source": "mda_extract",
       "gap_pct": 0.67,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5858,7 +5885,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.72,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 5.8,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5889,7 +5916,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.27,
-      "drift_d1_pct": -5.68,
+      "drift_d1_pct": -6.82,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5920,7 +5947,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 3.01,
-      "drift_d1_pct": 6.77,
+      "drift_d1_pct": 5.26,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -5951,7 +5978,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.61,
-      "drift_d1_pct": 0.61,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6013,7 +6040,7 @@
       "reason": "รายได้จากการให้บริการ 104.73 78.23 (26.50) -25.30% 190.95 163.38 (27.58) -14.44% ต้นทุนจากการให้บริการ (69.76) (55.51) 14.24 -20.42% (127.33) (114.45) 12.88 -10.11% กำไรขั้นต้น 34.97 22.72 (12.26) -35.05% 63.62 48.92 (14.70)",
       "reason_source": "mda_extract",
       "gap_pct": -5.35,
-      "drift_d1_pct": -1.07,
+      "drift_d1_pct": -1.6,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6044,7 +6071,7 @@
       "reason": "รายได้จากการดําเนินงาน ในไตรมาส ปี บริษัทฯ มีรายได้จากการดําเนินงานรวม .! ล้านบาท เพิ$มขึ'น .",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.02,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6075,7 +6102,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 3.76,
-      "drift_d1_pct": 9.02,
+      "drift_d1_pct": 9.77,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6106,7 +6133,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.78,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -5.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6137,7 +6164,7 @@
       "reason": "รายได้จากการขาย - ชิ้นส่วนพลาสติก 386,880 358,588 7.89% รายได้จากการขาย - ชิ้นส่วนแมกนีเซียม 640,332 679,243 -5.73% รายได้จากการขาย - แม่พิมพ์ 27,549 23,565 16.91% รวมรายได้จากการขาย 1,054,761 1,061,396 -0.63% ต้นทุนขาย -",
       "reason_source": "mda_extract",
       "gap_pct": -0.44,
-      "drift_d1_pct": -1.75,
+      "drift_d1_pct": -1.31,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6199,7 +6226,7 @@
       "reason": "มีรายได้จากการรักษาพยาบาล จํานวน 500.30 ล้านบาท และ 1,012.83 ล้านบาท สําหรับงวด 3 เดือนและ 6 เดือนตามลําดับซึ่งอยู่ในระดับใกล้เคียงกับปีที่ผ่านมา โดยลดลงเพียง 0.20% และ 0.71% เมื่อเทียบกับช่วง เดียวกันของปีก่อน",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6230,7 +6257,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -20.0,
-      "drift_d1_pct": -20.0,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6261,7 +6288,7 @@
       "reason": "โดยมีสาเหตุหลักของการเปลี่ยนแปลงดังนี้ รำยได้จำกกำรขำย รายได้จากการขาย ในไตรมาสที่ 2 ปี 2569 สำหรับงวด 3 เดือน จำนวน 1,710.01 ล้านบาท เพิ่มขึ้น 246.99 ล้านบาท หรือคิดเป็นการเพิ่มขึ้นร้อยละ 16.88",
       "reason_source": "mda_extract",
       "gap_pct": 0.73,
-      "drift_d1_pct": -0.73,
+      "drift_d1_pct": 0.73,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6292,7 +6319,7 @@
       "reason": "รายได้จากการขาย 8,191 6,572 1,619 24.6 15,830 13,346 2,484 18.6 รายได้จากการขายวัสดุหีบห่อ 94 88 6 7.0 182 169 13 7.4 รวมรายได้จากการขาย 8,285 6,660 1,625 24.4 16,012 13,515 2,496 18.5 ต้นทุนขาย 7,151 5,588 1,563 28.0 14,044",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 4.55,
+      "drift_d1_pct": 3.64,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6323,7 +6350,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.81,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6354,7 +6381,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6385,7 +6412,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.87,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.74,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6416,7 +6443,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.44,
-      "drift_d1_pct": -0.41,
+      "drift_d1_pct": 0.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6509,7 +6536,7 @@
       "reason": "เนื่องจาก เหตุผลคือผู้เช่าไม่ได้ชำระค่าเช่าให้กองทรัสต์ กองทรัสต์จึงบันทึกรายได้ค่าเช่าตามเกณฑ์เงินสด และผลขาดทุนด้านเครดิต ที่คาดว่าจะเกิดขึ้น",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.53,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6571,7 +6598,7 @@
       "reason": "รายได้จากการขายของกลุ่มบริษัทฮานา ไมโครอิเล็คโทรนิคส ในไตรมาสที่ 2/2569 อยู่ที่ 5,365 ล้านบาท เพิ่มขึ้น 3% เมื่อเทียบกับช่วงเดียวกันของปีก่อน ซึ่งมีรายได้จากการขาย 5,199 ล้านบาท รายได้จากการขายในรูปสกุลเงิน",
       "reason_source": "mda_extract",
       "gap_pct": 8.81,
-      "drift_d1_pct": 22.64,
+      "drift_d1_pct": 23.27,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6633,7 +6660,7 @@
       "reason": "โดยมีปัจจัยสนับสนุนหลักมาจากการปรับ กลยุทธ์มุ่งเน้นการขยายตลาดต่างประเทศ ผ่านการเข้าร่วมงานจัดแสดงสินค้า (Exhibition) เพื่อรักษาฐานลูกค้าเดิมและขยาย ฐานลูกค้าใหม่ ตามงบการเงินรวม บริษัทมีกำไรสุทธิ 57.70 ล้านบาท เทียบกับปีก่อนที่มียอดขาดทุนสุทธิ",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6664,7 +6691,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.61,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -6758,7 +6785,7 @@
       "reason_source": "none",
       "gap_pct": 8.91,
       "drift_d1_pct": 3.96,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 3.96,
       "drift_d5_pct": null
     },
     {
@@ -6789,7 +6816,7 @@
       "reason_source": "none",
       "gap_pct": -0.87,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": -0.87,
+      "drift_d2_pct": 0.87,
       "drift_d5_pct": null
     },
     {
@@ -6820,7 +6847,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.31,
       "drift_d1_pct": -1.31,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": -0.65,
       "drift_d5_pct": null
     },
     {
@@ -6851,7 +6878,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -3.77,
       "drift_d1_pct": -1.89,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 1.89,
       "drift_d5_pct": null
     },
     {
@@ -6882,7 +6909,7 @@
       "reason_source": "none",
       "gap_pct": -1.17,
       "drift_d1_pct": -0.78,
-      "drift_d2_pct": -1.56,
+      "drift_d2_pct": -2.33,
       "drift_d5_pct": null
     },
     {
@@ -6913,7 +6940,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.53,
       "drift_d1_pct": -0.27,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.53,
       "drift_d5_pct": null
     },
     {
@@ -6975,7 +7002,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -5.56,
       "drift_d1_pct": -3.7,
-      "drift_d2_pct": -3.7,
+      "drift_d2_pct": -5.56,
       "drift_d5_pct": null
     },
     {
@@ -7068,7 +7095,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -5.42,
       "drift_d1_pct": -5.42,
-      "drift_d2_pct": -4.22,
+      "drift_d2_pct": -4.82,
       "drift_d5_pct": null
     },
     {
@@ -7099,7 +7126,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -7130,7 +7157,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -6.41,
       "drift_d1_pct": -8.97,
-      "drift_d2_pct": -8.97,
+      "drift_d2_pct": -8.33,
       "drift_d5_pct": null
     },
     {
@@ -7160,7 +7187,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.7,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -7192,7 +7219,7 @@
       "reason_source": "none",
       "gap_pct": 0.88,
       "drift_d1_pct": 0.88,
-      "drift_d2_pct": 1.77,
+      "drift_d2_pct": 0.88,
       "drift_d5_pct": null
     },
     {
@@ -7223,7 +7250,7 @@
       "reason_source": "none",
       "gap_pct": -4.0,
       "drift_d1_pct": -4.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.0,
       "drift_d5_pct": null
     },
     {
@@ -7254,7 +7281,7 @@
       "reason_source": "none",
       "gap_pct": -2.72,
       "drift_d1_pct": -0.68,
-      "drift_d2_pct": 1.36,
+      "drift_d2_pct": 0.68,
       "drift_d5_pct": null
     },
     {
@@ -7285,7 +7312,7 @@
       "reason_source": "none",
       "gap_pct": -2.0,
       "drift_d1_pct": -4.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.0,
       "drift_d5_pct": null
     },
     {
@@ -7316,7 +7343,7 @@
       "reason_source": "none",
       "gap_pct": -11.11,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 11.11,
       "drift_d5_pct": null
     },
     {
@@ -7378,7 +7405,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 5.71,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -7409,7 +7436,7 @@
       "reason_source": "none",
       "gap_pct": -1.05,
       "drift_d1_pct": 1.05,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -7440,7 +7467,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.82,
       "drift_d1_pct": -2.82,
-      "drift_d2_pct": -2.82,
+      "drift_d2_pct": -1.41,
       "drift_d5_pct": null
     },
     {
@@ -7533,7 +7560,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 3.98,
       "drift_d1_pct": 2.84,
-      "drift_d2_pct": 3.41,
+      "drift_d2_pct": 1.14,
       "drift_d5_pct": null
     },
     {
@@ -7564,7 +7591,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -7595,7 +7622,7 @@
       "reason_source": "none",
       "gap_pct": -1.56,
       "drift_d1_pct": -1.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -4.69,
       "drift_d5_pct": null
     },
     {
@@ -7626,7 +7653,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.74,
       "drift_d1_pct": 2.21,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.47,
       "drift_d5_pct": null
     },
     {
@@ -7657,7 +7684,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 8.33,
       "drift_d5_pct": null
     },
     {
@@ -7688,7 +7715,7 @@
       "reason_source": "none",
       "gap_pct": 0.45,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.45,
       "drift_d5_pct": null
     },
     {
@@ -7781,7 +7808,7 @@
       "reason_source": "none",
       "gap_pct": -0.93,
       "drift_d1_pct": -5.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -5.56,
       "drift_d5_pct": null
     },
     {
@@ -7812,7 +7839,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 1.54,
       "drift_d1_pct": -0.77,
-      "drift_d2_pct": -1.54,
+      "drift_d2_pct": -0.77,
       "drift_d5_pct": null
     },
     {
@@ -7843,7 +7870,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.47,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.94,
       "drift_d5_pct": null
     },
     {
@@ -7874,7 +7901,7 @@
       "reason_source": "none",
       "gap_pct": 4.0,
       "drift_d1_pct": 2.0,
-      "drift_d2_pct": 1.0,
+      "drift_d2_pct": 2.0,
       "drift_d5_pct": null
     },
     {
@@ -7905,7 +7932,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.65,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -7936,7 +7963,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -0.53,
-      "drift_d2_pct": -0.53,
+      "drift_d2_pct": 0.53,
       "drift_d5_pct": null
     },
     {
@@ -7967,7 +7994,7 @@
       "reason_source": "none",
       "gap_pct": 1.35,
       "drift_d1_pct": 4.05,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 4.05,
       "drift_d5_pct": null
     },
     {
@@ -7998,7 +8025,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -8029,7 +8056,7 @@
       "reason_source": "none",
       "gap_pct": -2.17,
       "drift_d1_pct": -5.8,
-      "drift_d2_pct": -7.25,
+      "drift_d2_pct": -9.42,
       "drift_d5_pct": null
     },
     {
@@ -8060,7 +8087,7 @@
       "reason_source": "none",
       "gap_pct": -0.68,
       "drift_d1_pct": -2.36,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.35,
       "drift_d5_pct": null
     },
     {
@@ -8091,7 +8118,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 1.25,
       "drift_d1_pct": 5.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 5.63,
       "drift_d5_pct": null
     },
     {
@@ -8122,7 +8149,7 @@
       "reason_source": "none",
       "gap_pct": -10.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -8153,7 +8180,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 3.45,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": -3.45,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -8184,7 +8211,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.6,
       "drift_d1_pct": -0.6,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.6,
       "drift_d5_pct": null
     },
     {
@@ -8277,7 +8304,7 @@
       "reason_source": "none",
       "gap_pct": -1.28,
       "drift_d1_pct": -5.13,
-      "drift_d2_pct": -3.85,
+      "drift_d2_pct": -2.56,
       "drift_d5_pct": null
     },
     {
@@ -8308,7 +8335,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -3.11,
-      "drift_d2_pct": -3.73,
+      "drift_d2_pct": -3.11,
       "drift_d5_pct": null
     },
     {
@@ -8339,7 +8366,7 @@
       "reason_source": "none",
       "gap_pct": -0.7,
       "drift_d1_pct": -6.29,
-      "drift_d2_pct": -6.29,
+      "drift_d2_pct": -6.99,
       "drift_d5_pct": null
     },
     {
@@ -8432,7 +8459,7 @@
       "reason_source": "none",
       "gap_pct": -0.83,
       "drift_d1_pct": -1.67,
-      "drift_d2_pct": -2.5,
+      "drift_d2_pct": -5.83,
       "drift_d5_pct": null
     },
     {
@@ -8463,7 +8490,7 @@
       "reason_source": "none",
       "gap_pct": 1.05,
       "drift_d1_pct": 0.53,
-      "drift_d2_pct": 1.32,
+      "drift_d2_pct": 2.37,
       "drift_d5_pct": null
     },
     {
@@ -8494,7 +8521,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 1.38,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.76,
       "drift_d5_pct": null
     },
     {
@@ -8525,7 +8552,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.0,
       "drift_d1_pct": -1.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.0,
       "drift_d5_pct": null
     },
     {
@@ -8587,7 +8614,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.18,
       "drift_d1_pct": -3.53,
-      "drift_d2_pct": -1.76,
+      "drift_d2_pct": -2.94,
       "drift_d5_pct": null
     },
     {
@@ -8618,7 +8645,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -3.85,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -7.69,
       "drift_d5_pct": null
     },
     {
@@ -8649,7 +8676,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -7.14,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": -7.14,
       "drift_d5_pct": null
     },
     {
@@ -8680,7 +8707,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.46,
       "drift_d1_pct": 5.09,
-      "drift_d2_pct": 3.7,
+      "drift_d2_pct": 1.85,
       "drift_d5_pct": null
     },
     {
@@ -8711,7 +8738,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.63,
       "drift_d1_pct": 5.26,
-      "drift_d2_pct": 7.89,
+      "drift_d2_pct": 15.79,
       "drift_d5_pct": null
     },
     {
@@ -8773,7 +8800,7 @@
       "reason_source": "none",
       "gap_pct": -16.67,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -8862,7 +8889,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -6.9,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": -6.9,
       "drift_d5_pct": null
     },
     {
@@ -8893,7 +8920,7 @@
       "reason_source": "none",
       "gap_pct": -1.43,
       "drift_d1_pct": -1.43,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -4.29,
       "drift_d5_pct": null
     },
     {
@@ -8955,7 +8982,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.67,
       "drift_d1_pct": 0.67,
-      "drift_d2_pct": 0.67,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -8986,7 +9013,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -1.85,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -5.56,
       "drift_d5_pct": null
     },
     {
@@ -9017,7 +9044,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 1.47,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.98,
       "drift_d5_pct": null
     },
     {
@@ -9048,7 +9075,7 @@
       "reason_source": "none",
       "gap_pct": 10.09,
       "drift_d1_pct": 10.09,
-      "drift_d2_pct": 12.84,
+      "drift_d2_pct": 9.17,
       "drift_d5_pct": null
     },
     {
@@ -9079,7 +9106,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -5.56,
       "drift_d1_pct": -11.11,
-      "drift_d2_pct": -11.11,
+      "drift_d2_pct": -16.67,
       "drift_d5_pct": null
     },
     {
@@ -9110,7 +9137,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 9.55,
-      "drift_d2_pct": 9.55,
+      "drift_d2_pct": 7.01,
       "drift_d5_pct": null
     },
     {
@@ -9141,7 +9168,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -6.67,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -6.67,
       "drift_d5_pct": null
     },
     {
@@ -9234,7 +9261,7 @@
       "reason_source": "none",
       "gap_pct": 8.91,
       "drift_d1_pct": 8.42,
-      "drift_d2_pct": 8.91,
+      "drift_d2_pct": 9.41,
       "drift_d5_pct": null
     },
     {
@@ -9265,7 +9292,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.64,
       "drift_d1_pct": -3.85,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.85,
       "drift_d5_pct": null
     },
     {
@@ -9296,7 +9323,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 20.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -9327,7 +9354,7 @@
       "reason_source": "none",
       "gap_pct": -3.7,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -9358,7 +9385,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.72,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.72,
       "drift_d5_pct": null
     },
     {
@@ -9389,7 +9416,7 @@
       "reason_source": "none",
       "gap_pct": -3.91,
       "drift_d1_pct": -2.23,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.79,
       "drift_d5_pct": null
     },
     {
@@ -9420,7 +9447,7 @@
       "reason_source": "none",
       "gap_pct": 1.49,
       "drift_d1_pct": -2.99,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.49,
       "drift_d5_pct": null
     },
     {
@@ -9451,7 +9478,7 @@
       "reason_source": "none",
       "gap_pct": -0.85,
       "drift_d1_pct": -2.54,
-      "drift_d2_pct": -2.12,
+      "drift_d2_pct": -2.97,
       "drift_d5_pct": null
     },
     {
@@ -9482,7 +9509,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -3.4,
-      "drift_d2_pct": -2.91,
+      "drift_d2_pct": -0.97,
       "drift_d5_pct": null
     },
     {
@@ -9513,7 +9540,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 11.46,
       "drift_d1_pct": 16.67,
-      "drift_d2_pct": 15.1,
+      "drift_d2_pct": 16.67,
       "drift_d5_pct": null
     },
     {
@@ -9544,7 +9571,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 5.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 6.35,
       "drift_d5_pct": null
     },
     {
@@ -9575,7 +9602,7 @@
       "reason_source": "none",
       "gap_pct": 1.64,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -9606,7 +9633,7 @@
       "reason_source": "none",
       "gap_pct": -1.4,
       "drift_d1_pct": -0.7,
-      "drift_d2_pct": 0.7,
+      "drift_d2_pct": 2.1,
       "drift_d5_pct": null
     },
     {
@@ -9637,7 +9664,7 @@
       "reason_source": "none",
       "gap_pct": 12.43,
       "drift_d1_pct": 26.55,
-      "drift_d2_pct": 24.29,
+      "drift_d2_pct": 43.5,
       "drift_d5_pct": null
     },
     {
@@ -9668,7 +9695,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.63,
       "drift_d1_pct": -5.26,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -7.89,
       "drift_d5_pct": null
     },
     {
@@ -9699,7 +9726,7 @@
       "reason_source": "none",
       "gap_pct": -3.4,
       "drift_d1_pct": -1.94,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.97,
       "drift_d5_pct": null
     },
     {
@@ -9761,7 +9788,7 @@
       "reason_source": "none",
       "gap_pct": 0.56,
       "drift_d1_pct": 1.11,
-      "drift_d2_pct": 1.11,
+      "drift_d2_pct": 3.89,
       "drift_d5_pct": null
     },
     {
@@ -9792,7 +9819,7 @@
       "reason_source": "none",
       "gap_pct": 1.9,
       "drift_d1_pct": 2.38,
-      "drift_d2_pct": 3.81,
+      "drift_d2_pct": 5.71,
       "drift_d5_pct": null
     },
     {
@@ -9823,7 +9850,7 @@
       "reason_source": "none",
       "gap_pct": 0.53,
       "drift_d1_pct": 0.53,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 3.21,
       "drift_d5_pct": null
     },
     {
@@ -9854,7 +9881,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.0,
       "drift_d1_pct": 2.0,
-      "drift_d2_pct": 3.0,
+      "drift_d2_pct": 2.0,
       "drift_d5_pct": null
     },
     {
@@ -9885,7 +9912,7 @@
       "reason_source": "none",
       "gap_pct": 2.22,
       "drift_d1_pct": 1.67,
-      "drift_d2_pct": 1.67,
+      "drift_d2_pct": 2.22,
       "drift_d5_pct": null
     },
     {
@@ -9916,7 +9943,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.97,
       "drift_d1_pct": 5.83,
-      "drift_d2_pct": 6.8,
+      "drift_d2_pct": 2.91,
       "drift_d5_pct": null
     },
     {
@@ -9947,7 +9974,7 @@
       "reason_source": "none",
       "gap_pct": 1.33,
       "drift_d1_pct": -1.33,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -9978,7 +10005,7 @@
       "reason_source": "none",
       "gap_pct": 0.51,
       "drift_d1_pct": 2.54,
-      "drift_d2_pct": 2.54,
+      "drift_d2_pct": 3.05,
       "drift_d5_pct": null
     },
     {
@@ -10040,7 +10067,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 7.14,
       "drift_d1_pct": 7.14,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 7.14,
       "drift_d5_pct": null
     },
     {
@@ -10071,7 +10098,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.91,
       "drift_d1_pct": -3.82,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -4.46,
       "drift_d5_pct": null
     },
     {
@@ -10102,7 +10129,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -16.67,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -10133,7 +10160,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.03,
       "drift_d5_pct": null
     },
     {
@@ -10164,7 +10191,7 @@
       "reason_source": "none",
       "gap_pct": -14.29,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -14.29,
       "drift_d5_pct": null
     },
     {
@@ -10195,7 +10222,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -5.26,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -5.26,
       "drift_d5_pct": null
     },
     {
@@ -10226,7 +10253,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -5.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -10257,7 +10284,7 @@
       "reason_source": "none",
       "gap_pct": 1.09,
       "drift_d1_pct": 4.35,
-      "drift_d2_pct": 4.35,
+      "drift_d2_pct": 3.8,
       "drift_d5_pct": null
     },
     {
@@ -10288,7 +10315,7 @@
       "reason_source": "none",
       "gap_pct": -3.01,
       "drift_d1_pct": -9.04,
-      "drift_d2_pct": -8.43,
+      "drift_d2_pct": -7.83,
       "drift_d5_pct": null
     },
     {
@@ -10412,7 +10439,7 @@
       "reason_source": "none",
       "gap_pct": 2.01,
       "drift_d1_pct": -3.52,
-      "drift_d2_pct": -3.02,
+      "drift_d2_pct": -4.02,
       "drift_d5_pct": null
     },
     {
@@ -10443,7 +10470,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.96,
       "drift_d1_pct": 7.1,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 6.51,
       "drift_d5_pct": null
     },
     {
@@ -10474,7 +10501,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.63,
       "drift_d1_pct": -1.25,
-      "drift_d2_pct": 0.63,
+      "drift_d2_pct": 4.38,
       "drift_d5_pct": null
     },
     {
@@ -10505,7 +10532,7 @@
       "reason_source": "none",
       "gap_pct": 0.57,
       "drift_d1_pct": 3.43,
-      "drift_d2_pct": 4.0,
+      "drift_d2_pct": 1.14,
       "drift_d5_pct": null
     },
     {
@@ -10521,7 +10548,7 @@
       "netProfitYoY": 1032.152687910658,
       "netProfitPriorQ": 1378517000.0,
       "netProfitQoQ": 14.87040058265513,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 1.38,
       "epsPrior": 0.12,
       "epsYoY": 1049.9999999999998,
@@ -10536,7 +10563,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 4.39,
       "drift_d1_pct": 8.77,
-      "drift_d2_pct": 10.53,
+      "drift_d2_pct": 13.16,
       "drift_d5_pct": null
     },
     {
@@ -10629,7 +10656,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -10660,7 +10687,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 6.14,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 6.14,
       "drift_d5_pct": null
     },
     {
@@ -10691,7 +10718,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 33.33,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 33.33,
       "drift_d5_pct": null
     },
     {
@@ -10722,7 +10749,7 @@
       "reason_source": "none",
       "gap_pct": -1.58,
       "drift_d1_pct": -2.63,
-      "drift_d2_pct": -2.11,
+      "drift_d2_pct": -3.16,
       "drift_d5_pct": null
     },
     {
@@ -10784,7 +10811,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.99,
       "drift_d1_pct": 5.99,
-      "drift_d2_pct": 8.38,
+      "drift_d2_pct": 5.99,
       "drift_d5_pct": null
     },
     {
@@ -10846,7 +10873,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -3.41,
-      "drift_d2_pct": -1.14,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -10877,7 +10904,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.66,
-      "drift_d2_pct": 1.32,
+      "drift_d2_pct": 0.66,
       "drift_d5_pct": null
     },
     {
@@ -10908,7 +10935,7 @@
       "reason_source": "none",
       "gap_pct": -4.72,
       "drift_d1_pct": -16.54,
-      "drift_d2_pct": -14.17,
+      "drift_d2_pct": -16.54,
       "drift_d5_pct": null
     },
     {
@@ -10939,7 +10966,7 @@
       "reason_source": "none",
       "gap_pct": 0.82,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 0.82,
       "drift_d5_pct": null
     },
     {
@@ -11000,7 +11027,7 @@
       "reason": "ที่มีการเพิ่มขึ้นของสินทรัพย์สุทธิจากการดำเนินงานจำนวน 81.47 ล้านบาท หรือคิด เป็นการลดลงจำนวน 22.96 ล้านบาท (ลดลงร้อยละ 28.2) จากงวดเดียวกันของปีก่อน โดยมีสาเหตุหลักมาจาก กองทุนรวมมีรายได้รวมทั้งสิ้น 180.04 ล้านบาท เมื่อเทียบกับปี 2568 ที่มีรายได้รวม",
       "reason_source": "mda_extract",
       "gap_pct": -0.92,
-      "drift_d1_pct": -4.59,
+      "drift_d1_pct": -3.67,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11032,7 +11059,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.9,
       "drift_d1_pct": 0.9,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.9,
       "drift_d5_pct": null
     },
     {
@@ -11063,7 +11090,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -11125,7 +11152,7 @@
       "reason_source": "none",
       "gap_pct": -7.89,
       "drift_d1_pct": -3.51,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.51,
       "drift_d5_pct": null
     },
     {
@@ -11156,7 +11183,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.76,
-      "drift_d2_pct": 0.76,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -11187,7 +11214,7 @@
       "reason_source": "none",
       "gap_pct": 1.3,
       "drift_d1_pct": -2.6,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 2.6,
       "drift_d5_pct": null
     },
     {
@@ -11218,7 +11245,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": -4.0,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -11249,7 +11276,7 @@
       "reason_source": "none",
       "gap_pct": 1.81,
       "drift_d1_pct": 3.01,
-      "drift_d2_pct": 4.22,
+      "drift_d2_pct": 3.01,
       "drift_d5_pct": null
     },
     {
@@ -11280,7 +11307,7 @@
       "reason_source": "none",
       "gap_pct": -1.68,
       "drift_d1_pct": -4.2,
-      "drift_d2_pct": -4.2,
+      "drift_d2_pct": -3.36,
       "drift_d5_pct": null
     },
     {
@@ -11311,7 +11338,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 3.25,
       "drift_d1_pct": -2.44,
-      "drift_d2_pct": -1.63,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -11342,7 +11369,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.4,
       "drift_d1_pct": -0.4,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -11373,7 +11400,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -0.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -11404,7 +11431,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 1.41,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.7,
       "drift_d5_pct": null
     },
     {
@@ -11466,7 +11493,7 @@
       "reason_source": "none",
       "gap_pct": -0.52,
       "drift_d1_pct": -3.11,
-      "drift_d2_pct": -2.59,
+      "drift_d2_pct": -3.11,
       "drift_d5_pct": null
     },
     {
@@ -11497,7 +11524,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.79,
       "drift_d1_pct": -2.36,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.15,
       "drift_d5_pct": null
     },
     {
@@ -11528,7 +11555,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.97,
       "drift_d1_pct": -7.96,
-      "drift_d2_pct": -8.74,
+      "drift_d2_pct": -7.96,
       "drift_d5_pct": null
     },
     {
@@ -11559,7 +11586,7 @@
       "reason_source": "none",
       "gap_pct": -2.35,
       "drift_d1_pct": -2.94,
-      "drift_d2_pct": -1.18,
+      "drift_d2_pct": 1.18,
       "drift_d5_pct": null
     },
     {
@@ -11620,7 +11647,7 @@
       "reason": "โดยมีสาเหตุหลักมาจากกองทุนรวมมีรายการขาดทุนจากการเปลี่ยนแปลงในมูลค่ายุติธรรมของเงินลงทุนเป็นจำนวน 17.57 ล้านบาท เมื่อเทียบกับงวดเดียวกันของปี 2568 ซึ่งมีรายการกำไรจากการเปลี่ยนแปลงในมูลค่ายุติธรรม จำนวน 36.59 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -0.57,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.14,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -11652,7 +11679,7 @@
       "reason_source": "none",
       "gap_pct": 4.5,
       "drift_d1_pct": 5.41,
-      "drift_d2_pct": 5.41,
+      "drift_d2_pct": 4.5,
       "drift_d5_pct": null
     },
     {
@@ -11683,7 +11710,7 @@
       "reason_source": "none",
       "gap_pct": -3.48,
       "drift_d1_pct": 1.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.0,
       "drift_d5_pct": null
     },
     {
@@ -11714,7 +11741,7 @@
       "reason_source": "none",
       "gap_pct": 1.2,
       "drift_d1_pct": 1.8,
-      "drift_d2_pct": 1.2,
+      "drift_d2_pct": 1.8,
       "drift_d5_pct": null
     },
     {
@@ -11745,7 +11772,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 2.04,
       "drift_d5_pct": null
     },
     {
@@ -11807,7 +11834,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 4.35,
       "drift_d1_pct": 7.73,
-      "drift_d2_pct": 7.73,
+      "drift_d2_pct": 5.8,
       "drift_d5_pct": null
     },
     {
@@ -11869,7 +11896,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -0.4,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.2,
       "drift_d5_pct": null
     },
     {
@@ -11900,7 +11927,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.5,
       "drift_d1_pct": -5.0,
-      "drift_d2_pct": -2.5,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -11962,7 +11989,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 3.42,
       "drift_d1_pct": 2.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.71,
       "drift_d5_pct": null
     },
     {
@@ -11993,7 +12020,7 @@
       "reason_source": "none",
       "gap_pct": -5.56,
       "drift_d1_pct": -5.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -5.56,
       "drift_d5_pct": null
     },
     {
@@ -12024,7 +12051,7 @@
       "reason_source": "none",
       "gap_pct": 0.93,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": -0.93,
+      "drift_d2_pct": 1.87,
       "drift_d5_pct": null
     },
     {
@@ -12055,7 +12082,7 @@
       "reason_source": "none",
       "gap_pct": 2.06,
       "drift_d1_pct": 5.15,
-      "drift_d2_pct": 10.31,
+      "drift_d2_pct": 17.53,
       "drift_d5_pct": null
     },
     {
@@ -12086,7 +12113,7 @@
       "reason_source": "none",
       "gap_pct": -12.84,
       "drift_d1_pct": -14.19,
-      "drift_d2_pct": -14.19,
+      "drift_d2_pct": -12.84,
       "drift_d5_pct": null
     },
     {
@@ -12148,7 +12175,7 @@
       "reason_source": "none",
       "gap_pct": 5.63,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.7,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -12210,7 +12237,7 @@
       "reason_source": "none",
       "gap_pct": -0.43,
       "drift_d1_pct": -0.86,
-      "drift_d2_pct": -0.86,
+      "drift_d2_pct": -1.29,
       "drift_d5_pct": null
     },
     {
@@ -12241,7 +12268,7 @@
       "reason_source": "none",
       "gap_pct": -9.63,
       "drift_d1_pct": -15.56,
-      "drift_d2_pct": -15.56,
+      "drift_d2_pct": -14.81,
       "drift_d5_pct": null
     },
     {
@@ -12272,7 +12299,7 @@
       "reason_source": "none",
       "gap_pct": -0.87,
       "drift_d1_pct": -0.87,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -12303,7 +12330,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -6.98,
       "drift_d1_pct": -10.08,
-      "drift_d2_pct": -9.3,
+      "drift_d2_pct": -6.98,
       "drift_d5_pct": null
     },
     {
@@ -12334,7 +12361,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 2.17,
-      "drift_d2_pct": 2.17,
+      "drift_d2_pct": 1.45,
       "drift_d5_pct": null
     },
     {
@@ -12365,7 +12392,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -12427,7 +12454,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -5.56,
       "drift_d1_pct": -11.11,
-      "drift_d2_pct": -11.11,
+      "drift_d2_pct": -16.67,
       "drift_d5_pct": null
     },
     {
@@ -12458,7 +12485,7 @@
       "reason_source": "none",
       "gap_pct": 1.68,
       "drift_d1_pct": 1.68,
-      "drift_d2_pct": 2.23,
+      "drift_d2_pct": 6.15,
       "drift_d5_pct": null
     },
     {
@@ -12489,7 +12516,7 @@
       "reason_source": "none",
       "gap_pct": -0.95,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": -0.95,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -12520,7 +12547,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.62,
       "drift_d1_pct": -4.94,
-      "drift_d2_pct": -5.56,
+      "drift_d2_pct": -6.17,
       "drift_d5_pct": null
     },
     {
@@ -12551,7 +12578,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -2.78,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 2.78,
       "drift_d5_pct": null
     },
     {
@@ -12582,7 +12609,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.89,
       "drift_d1_pct": -1.79,
-      "drift_d2_pct": -0.45,
+      "drift_d2_pct": -2.68,
       "drift_d5_pct": null
     },
     {
@@ -12613,7 +12640,7 @@
       "reason_source": "none",
       "gap_pct": 0.64,
       "drift_d1_pct": 0.64,
-      "drift_d2_pct": 1.91,
+      "drift_d2_pct": 3.18,
       "drift_d5_pct": null
     },
     {
@@ -12644,7 +12671,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -0.51,
-      "drift_d2_pct": -1.53,
+      "drift_d2_pct": -1.02,
       "drift_d5_pct": null
     },
     {
@@ -12675,7 +12702,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.9,
       "drift_d1_pct": 16.22,
-      "drift_d2_pct": 16.22,
+      "drift_d2_pct": 19.82,
       "drift_d5_pct": null
     },
     {
@@ -12706,7 +12733,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -3.88,
       "drift_d1_pct": -6.2,
-      "drift_d2_pct": -6.2,
+      "drift_d2_pct": -6.98,
       "drift_d5_pct": null
     },
     {
@@ -12737,7 +12764,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -2.06,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.03,
       "drift_d5_pct": null
     },
     {
@@ -12768,7 +12795,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -12799,7 +12826,7 @@
       "reason_source": "none",
       "gap_pct": -1.91,
       "drift_d1_pct": -5.1,
-      "drift_d2_pct": -6.37,
+      "drift_d2_pct": -7.01,
       "drift_d5_pct": null
     },
     {
@@ -12830,7 +12857,7 @@
       "reason_source": "none",
       "gap_pct": -0.54,
       "drift_d1_pct": -0.54,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.08,
       "drift_d5_pct": null
     },
     {
@@ -12892,7 +12919,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.55,
       "drift_d1_pct": 0.64,
-      "drift_d2_pct": 0.64,
+      "drift_d2_pct": 1.91,
       "drift_d5_pct": null
     },
     {
@@ -12923,7 +12950,7 @@
       "reason_source": "none",
       "gap_pct": -0.75,
       "drift_d1_pct": 0.75,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.49,
       "drift_d5_pct": null
     },
     {
@@ -12954,7 +12981,7 @@
       "reason_source": "none",
       "gap_pct": 9.52,
       "drift_d1_pct": 2.86,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 2.86,
       "drift_d5_pct": null
     },
     {
@@ -12985,7 +13012,7 @@
       "reason_source": "none",
       "gap_pct": 1.38,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": -0.69,
+      "drift_d2_pct": 5.52,
       "drift_d5_pct": null
     },
     {
@@ -13016,7 +13043,7 @@
       "reason_source": "none",
       "gap_pct": -0.91,
       "drift_d1_pct": 0.91,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.91,
       "drift_d5_pct": null
     },
     {
@@ -13047,7 +13074,7 @@
       "reason_source": "none",
       "gap_pct": -2.47,
       "drift_d1_pct": -1.23,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.23,
       "drift_d5_pct": null
     },
     {
@@ -13140,7 +13167,7 @@
       "reason_source": "none",
       "gap_pct": -11.21,
       "drift_d1_pct": -11.21,
-      "drift_d2_pct": -13.08,
+      "drift_d2_pct": -12.15,
       "drift_d5_pct": null
     },
     {
@@ -13171,7 +13198,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.31,
       "drift_d1_pct": -1.96,
-      "drift_d2_pct": -1.31,
+      "drift_d2_pct": -2.61,
       "drift_d5_pct": null
     },
     {
@@ -13202,7 +13229,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.34,
       "drift_d1_pct": 15.79,
-      "drift_d2_pct": 20.47,
+      "drift_d2_pct": 18.13,
       "drift_d5_pct": null
     },
     {
@@ -13264,7 +13291,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -3.37,
       "drift_d1_pct": -5.62,
-      "drift_d2_pct": -7.87,
+      "drift_d2_pct": -5.62,
       "drift_d5_pct": null
     },
     {
@@ -13357,7 +13384,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -0.84,
-      "drift_d2_pct": -1.68,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -13388,7 +13415,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.08,
       "drift_d1_pct": -4.17,
-      "drift_d2_pct": -2.08,
+      "drift_d2_pct": -4.17,
       "drift_d5_pct": null
     },
     {
@@ -13419,7 +13446,7 @@
       "reason_source": "none",
       "gap_pct": 3.57,
       "drift_d1_pct": 3.57,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 3.57,
       "drift_d5_pct": null
     },
     {
@@ -13481,7 +13508,7 @@
       "reason_source": "none",
       "gap_pct": 0.82,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 0.82,
       "drift_d5_pct": null
     },
     {
@@ -13512,7 +13539,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.45,
       "drift_d1_pct": -1.45,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.45,
       "drift_d5_pct": null
     },
     {
@@ -13574,7 +13601,7 @@
       "reason_source": "none",
       "gap_pct": -1.75,
       "drift_d1_pct": -6.14,
-      "drift_d2_pct": -6.14,
+      "drift_d2_pct": -5.26,
       "drift_d5_pct": null
     },
     {
@@ -13729,7 +13756,7 @@
       "reason_source": "none",
       "gap_pct": -0.55,
       "drift_d1_pct": -1.1,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.66,
       "drift_d5_pct": null
     },
     {
@@ -13760,7 +13787,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 2.5,
-      "drift_d2_pct": 2.5,
+      "drift_d2_pct": 10.0,
       "drift_d5_pct": null
     },
     {
@@ -13791,7 +13818,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 1.72,
       "drift_d1_pct": 5.17,
-      "drift_d2_pct": 8.62,
+      "drift_d2_pct": 37.07,
       "drift_d5_pct": null
     },
     {
@@ -13822,7 +13849,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.01,
       "drift_d1_pct": 1.01,
-      "drift_d2_pct": 2.02,
+      "drift_d2_pct": 1.01,
       "drift_d5_pct": null
     },
     {
@@ -13853,7 +13880,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -3.41,
       "drift_d1_pct": -4.55,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -5.68,
       "drift_d5_pct": null
     },
     {
@@ -13914,7 +13941,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.52,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -13946,7 +13973,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.54,
       "drift_d1_pct": -5.08,
-      "drift_d2_pct": -6.78,
+      "drift_d2_pct": -5.08,
       "drift_d5_pct": null
     },
     {
@@ -13977,7 +14004,7 @@
       "reason_source": "none",
       "gap_pct": -0.6,
       "drift_d1_pct": -1.2,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.2,
       "drift_d5_pct": null
     },
     {
@@ -14008,7 +14035,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -16.67,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -14038,7 +14065,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14070,7 +14097,7 @@
       "reason_source": "none",
       "gap_pct": -0.64,
       "drift_d1_pct": -3.85,
-      "drift_d2_pct": -3.21,
+      "drift_d2_pct": -3.85,
       "drift_d5_pct": null
     },
     {
@@ -14101,7 +14128,7 @@
       "reason_source": "none",
       "gap_pct": 4.46,
       "drift_d1_pct": 1.27,
-      "drift_d2_pct": 1.91,
+      "drift_d2_pct": 2.55,
       "drift_d5_pct": null
     },
     {
@@ -14132,7 +14159,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.67,
       "drift_d1_pct": -3.36,
-      "drift_d2_pct": -2.68,
+      "drift_d2_pct": -3.36,
       "drift_d5_pct": null
     },
     {
@@ -14163,7 +14190,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.5,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -14194,7 +14221,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.96,
       "drift_d1_pct": -2.94,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.92,
       "drift_d5_pct": null
     },
     {
@@ -14225,7 +14252,7 @@
       "reason_source": "none",
       "gap_pct": 2.39,
       "drift_d1_pct": 6.22,
-      "drift_d2_pct": 7.66,
+      "drift_d2_pct": 8.13,
       "drift_d5_pct": null
     },
     {
@@ -14287,7 +14314,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -3.05,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": -0.61,
+      "drift_d2_pct": 6.1,
       "drift_d5_pct": null
     },
     {
@@ -14318,7 +14345,7 @@
       "reason_source": "none",
       "gap_pct": 2.08,
       "drift_d1_pct": 2.08,
-      "drift_d2_pct": 4.17,
+      "drift_d2_pct": 2.08,
       "drift_d5_pct": null
     },
     {
@@ -14349,7 +14376,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.99,
       "drift_d1_pct": -1.98,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.98,
       "drift_d5_pct": null
     },
     {
@@ -14380,7 +14407,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.69,
       "drift_d1_pct": 1.08,
-      "drift_d2_pct": 1.61,
+      "drift_d2_pct": 0.54,
       "drift_d5_pct": null
     },
     {
@@ -14411,7 +14438,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -12.28,
       "drift_d1_pct": -17.54,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -17.54,
       "drift_d5_pct": null
     },
     {
@@ -14442,7 +14469,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.83,
       "drift_d1_pct": -3.33,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.5,
       "drift_d5_pct": null
     },
     {
@@ -14472,7 +14499,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14504,7 +14531,7 @@
       "reason_source": "none",
       "gap_pct": 1.24,
       "drift_d1_pct": -0.41,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.49,
       "drift_d5_pct": null
     },
     {
@@ -14534,7 +14561,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.81,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.81,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -14566,7 +14593,7 @@
       "reason_source": "none",
       "gap_pct": -0.68,
       "drift_d1_pct": -2.36,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.35,
       "drift_d5_pct": null
     },
     {
@@ -14597,7 +14624,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -5.48,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -14628,7 +14655,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.84,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -14659,7 +14686,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 4.55,
       "drift_d1_pct": 2.84,
-      "drift_d2_pct": 2.84,
+      "drift_d2_pct": 1.14,
       "drift_d5_pct": null
     },
     {
@@ -14690,7 +14717,7 @@
       "reason_source": "none",
       "gap_pct": -1.64,
       "drift_d1_pct": -4.92,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -4.92,
       "drift_d5_pct": null
     },
     {
@@ -14721,7 +14748,7 @@
       "reason_source": "none",
       "gap_pct": 1.79,
       "drift_d1_pct": 5.36,
-      "drift_d2_pct": 3.57,
+      "drift_d2_pct": 1.79,
       "drift_d5_pct": null
     },
     {
@@ -14783,7 +14810,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.52,
       "drift_d1_pct": 0.52,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.52,
       "drift_d5_pct": null
     },
     {
@@ -14814,7 +14841,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.62,
       "drift_d1_pct": 5.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 5.63,
       "drift_d5_pct": null
     },
     {
@@ -14845,7 +14872,7 @@
       "reason_source": "none",
       "gap_pct": 2.13,
       "drift_d1_pct": -2.13,
-      "drift_d2_pct": -1.06,
+      "drift_d2_pct": -2.13,
       "drift_d5_pct": null
     },
     {
@@ -14876,7 +14903,7 @@
       "reason_source": "none",
       "gap_pct": -1.52,
       "drift_d1_pct": -9.09,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -7.58,
       "drift_d5_pct": null
     },
     {
@@ -14907,7 +14934,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -14938,7 +14965,7 @@
       "reason_source": "none",
       "gap_pct": -5.42,
       "drift_d1_pct": -13.25,
-      "drift_d2_pct": -13.86,
+      "drift_d2_pct": -14.46,
       "drift_d5_pct": null
     },
     {
@@ -14969,7 +14996,7 @@
       "reason_source": "none",
       "gap_pct": 1.36,
       "drift_d1_pct": 8.84,
-      "drift_d2_pct": 7.48,
+      "drift_d2_pct": 4.76,
       "drift_d5_pct": null
     },
     {
@@ -15123,7 +15150,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.4,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15186,7 +15213,7 @@
       "reason_source": "none",
       "gap_pct": 1.72,
       "drift_d1_pct": 0.86,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -15278,7 +15305,7 @@
       "reason": "โดยมีสาเหตุหลัก เนื่องจาก - ในระหว่างงวด กองทุนได้ปรับมูลค่ายุติธรรมของอสังหาริมทรัพย์ ทำให้มีกำไรจากการเปลี่ยนแปลงในมูลค่ายุติธรรมของ เงินลงทุนจำนวน 1.59 ล้านบาท เปรียบเทียบกับงวดเดียวกันปีที่แล้ว",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -15310,7 +15337,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.08,
       "drift_d1_pct": -3.24,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.24,
       "drift_d5_pct": null
     },
     {
@@ -15341,7 +15368,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 4.17,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -15372,7 +15399,7 @@
       "reason_source": "none",
       "gap_pct": -1.32,
       "drift_d1_pct": -1.99,
-      "drift_d2_pct": -2.65,
+      "drift_d2_pct": -3.31,
       "drift_d5_pct": null
     },
     {
@@ -15403,7 +15430,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.97,
       "drift_d1_pct": -7.96,
-      "drift_d2_pct": -8.74,
+      "drift_d2_pct": -7.96,
       "drift_d5_pct": null
     },
     {
@@ -15465,7 +15492,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.63,
       "drift_d1_pct": 0.63,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -15527,7 +15554,7 @@
       "reason_source": "none",
       "gap_pct": 1.18,
       "drift_d1_pct": 3.94,
-      "drift_d2_pct": 5.12,
+      "drift_d2_pct": 4.72,
       "drift_d5_pct": null
     },
     {
@@ -15589,7 +15616,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -3.03,
-      "drift_d2_pct": -3.03,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -15620,7 +15647,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.56,
       "drift_d1_pct": 2.56,
-      "drift_d2_pct": 0.85,
+      "drift_d2_pct": 3.42,
       "drift_d5_pct": null
     },
     {
@@ -15651,7 +15678,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -16178,7 +16205,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.79,
       "drift_d1_pct": 6.35,
-      "drift_d2_pct": 7.14,
+      "drift_d2_pct": 8.73,
       "drift_d5_pct": null
     },
     {
@@ -21007,7 +21034,7 @@
       "gap_pct": 2.23,
       "drift_d1_pct": 2.23,
       "drift_d2_pct": 2.23,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.21
     },
     {
       "ticker": "MII",
@@ -21038,7 +21065,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -0.78,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.43
     },
     {
       "ticker": "CPANEL",
@@ -21069,7 +21096,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "IVL",
@@ -21100,7 +21127,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -2.27,
-      "drift_d5_pct": -0.45
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "BOL",
@@ -21162,7 +21189,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.97,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.94
     },
     {
       "ticker": "BA",
@@ -21193,7 +21220,7 @@
       "gap_pct": -4.57,
       "drift_d1_pct": -4.57,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -1.52
+      "drift_d5_pct": -2.03
     },
     {
       "ticker": "AIE",
@@ -21224,7 +21251,7 @@
       "gap_pct": 17.32,
       "drift_d1_pct": 17.32,
       "drift_d2_pct": 36.22,
-      "drift_d5_pct": 42.52
+      "drift_d5_pct": 45.67
     },
     {
       "ticker": "AMARC",
@@ -21286,7 +21313,7 @@
       "gap_pct": 0.88,
       "drift_d1_pct": 0.88,
       "drift_d2_pct": 2.63,
-      "drift_d5_pct": 3.51
+      "drift_d5_pct": 2.63
     },
     {
       "ticker": "UPF",
@@ -21317,7 +21344,7 @@
       "gap_pct": 0.94,
       "drift_d1_pct": 0.94,
       "drift_d2_pct": 3.77,
-      "drift_d5_pct": null
+      "drift_d5_pct": 6.13
     },
     {
       "ticker": "NPK",
@@ -21379,7 +21406,7 @@
       "gap_pct": 9.46,
       "drift_d1_pct": 9.46,
       "drift_d2_pct": 9.46,
-      "drift_d5_pct": 11.49
+      "drift_d5_pct": 12.16
     },
     {
       "ticker": "CPANEL",
@@ -21409,7 +21436,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -0.84,
       "drift_d1_pct": 0.0,
-      "drift_d5_pct": null,
+      "drift_d5_pct": 0.0,
       "drift_d2_pct": 0.0
     },
     {
@@ -21441,7 +21468,7 @@
       "gap_pct": 0.6,
       "drift_d1_pct": 0.3,
       "drift_d2_pct": 0.3,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "ABM",
@@ -21503,7 +21530,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -0.53,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.53
     },
     {
       "ticker": "ASIMAR",
@@ -21565,7 +21592,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.54,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.09
     },
     {
       "ticker": "PCSGH",
@@ -21596,7 +21623,7 @@
       "gap_pct": -0.64,
       "drift_d1_pct": -2.56,
       "drift_d2_pct": -1.28,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.56
     },
     {
       "ticker": "PMTA",
@@ -21627,7 +21654,7 @@
       "gap_pct": -0.53,
       "drift_d1_pct": -5.26,
       "drift_d2_pct": -3.16,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.26
     },
     {
       "ticker": "ANI",
@@ -21658,7 +21685,7 @@
       "gap_pct": 3.3,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -3.3,
-      "drift_d5_pct": -7.69
+      "drift_d5_pct": -8.79
     },
     {
       "ticker": "SPG",
@@ -21689,7 +21716,7 @@
       "gap_pct": 1.77,
       "drift_d1_pct": 0.88,
       "drift_d2_pct": 0.88,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.77
     },
     {
       "ticker": "PJW",
@@ -21720,7 +21747,7 @@
       "gap_pct": -1.92,
       "drift_d1_pct": -1.92,
       "drift_d2_pct": -2.88,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.96
     },
     {
       "ticker": "SAPPE",
@@ -21813,7 +21840,7 @@
       "gap_pct": -0.97,
       "drift_d1_pct": -3.4,
       "drift_d2_pct": -3.88,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.34
     },
     {
       "ticker": "MADAME",
@@ -21844,7 +21871,7 @@
       "gap_pct": 1.2,
       "drift_d1_pct": 10.84,
       "drift_d2_pct": 22.89,
-      "drift_d5_pct": 38.55
+      "drift_d5_pct": 37.35
     },
     {
       "ticker": "TNL",
@@ -21875,7 +21902,7 @@
       "gap_pct": 2.17,
       "drift_d1_pct": 1.09,
       "drift_d2_pct": 0.54,
-      "drift_d5_pct": null
+      "drift_d5_pct": 2.17
     },
     {
       "ticker": "SIRIPRT",
@@ -21906,7 +21933,7 @@
       "gap_pct": 3.39,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -6.78
     },
     {
       "ticker": "COCOCO",
@@ -21937,7 +21964,7 @@
       "gap_pct": 1.67,
       "drift_d1_pct": 0.83,
       "drift_d2_pct": 2.5,
-      "drift_d5_pct": -0.83
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "PTL",
@@ -21968,7 +21995,7 @@
       "gap_pct": 1.36,
       "drift_d1_pct": 1.36,
       "drift_d2_pct": 1.36,
-      "drift_d5_pct": 0.68
+      "drift_d5_pct": 1.36
     },
     {
       "ticker": "AMATAV",
@@ -22028,7 +22055,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -0.68,
+      "drift_d1_pct": -1.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -22061,7 +22088,7 @@
       "gap_pct": 5.26,
       "drift_d1_pct": 5.26,
       "drift_d2_pct": 7.89,
-      "drift_d5_pct": 5.26
+      "drift_d5_pct": 2.63
     },
     {
       "ticker": "BLC",
@@ -22092,7 +22119,7 @@
       "gap_pct": -1.43,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -1.43
+      "drift_d5_pct": -2.86
     },
     {
       "ticker": "ABM",
@@ -22154,7 +22181,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 3.12,
       "drift_d2_pct": 2.08,
-      "drift_d5_pct": 5.21
+      "drift_d5_pct": 3.12
     },
     {
       "ticker": "QH",
@@ -22216,7 +22243,7 @@
       "gap_pct": 17.69,
       "drift_d1_pct": 13.08,
       "drift_d2_pct": 15.38,
-      "drift_d5_pct": 16.92
+      "drift_d5_pct": 19.23
     },
     {
       "ticker": "WINDOW",
@@ -22247,7 +22274,7 @@
       "gap_pct": 1.39,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "DHOUSE",
@@ -22278,7 +22305,7 @@
       "gap_pct": 3.57,
       "drift_d1_pct": -3.57,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "CHASE",
@@ -22309,7 +22336,7 @@
       "gap_pct": -5.56,
       "drift_d1_pct": -12.96,
       "drift_d2_pct": -12.96,
-      "drift_d5_pct": -12.96
+      "drift_d5_pct": -11.11
     },
     {
       "ticker": "Q-CON",
@@ -22340,7 +22367,7 @@
       "gap_pct": -0.82,
       "drift_d1_pct": -0.82,
       "drift_d2_pct": -1.64,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": -1.64
     },
     {
       "ticker": "AIMIRT",
@@ -22371,7 +22398,7 @@
       "gap_pct": -0.79,
       "drift_d1_pct": -0.79,
       "drift_d2_pct": -0.79,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.79
     },
     {
       "ticker": "ITEL",
@@ -22402,7 +22429,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -7.36,
       "drift_d2_pct": -6.75,
-      "drift_d5_pct": -5.52
+      "drift_d5_pct": -4.91
     },
     {
       "ticker": "AIMCG",
@@ -22433,7 +22460,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -0.57,
       "drift_d2_pct": -1.71,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.14
     },
     {
       "ticker": "ASIA",
@@ -22464,7 +22491,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "JPARK",
@@ -22526,7 +22553,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -4.49,
       "drift_d2_pct": -1.12,
-      "drift_d5_pct": -7.87
+      "drift_d5_pct": -6.74
     },
     {
       "ticker": "JUBILE",
@@ -22557,7 +22584,7 @@
       "gap_pct": -1.88,
       "drift_d1_pct": -1.88,
       "drift_d2_pct": -2.5,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.5
     },
     {
       "ticker": "NCH",
@@ -22588,7 +22615,7 @@
       "gap_pct": -2.17,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -2.17,
-      "drift_d5_pct": null
+      "drift_d5_pct": -4.35
     },
     {
       "ticker": "XO",
@@ -22619,7 +22646,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 2.75,
       "drift_d2_pct": 7.14,
-      "drift_d5_pct": 14.84
+      "drift_d5_pct": 13.19
     },
     {
       "ticker": "ATLAS",
@@ -22650,7 +22677,7 @@
       "gap_pct": -3.68,
       "drift_d1_pct": -4.74,
       "drift_d2_pct": -5.26,
-      "drift_d5_pct": -6.84
+      "drift_d5_pct": -5.26
     },
     {
       "ticker": "ONEE",
@@ -22681,7 +22708,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -2.65,
       "drift_d2_pct": -1.99,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": -1.99
     },
     {
       "ticker": "LEE",
@@ -22743,7 +22770,7 @@
       "gap_pct": -1.41,
       "drift_d1_pct": -9.86,
       "drift_d2_pct": -5.63,
-      "drift_d5_pct": null
+      "drift_d5_pct": -9.86
     },
     {
       "ticker": "SORKON",
@@ -22774,7 +22801,7 @@
       "gap_pct": -1.13,
       "drift_d1_pct": -1.13,
       "drift_d2_pct": -1.69,
-      "drift_d5_pct": -1.69
+      "drift_d5_pct": -2.26
     },
     {
       "ticker": "SE-ED",
@@ -22805,7 +22832,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.78,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.56
     },
     {
       "ticker": "ROCK",
@@ -22836,7 +22863,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -0.94,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.83
     },
     {
       "ticker": "TCAP",
@@ -22867,7 +22894,7 @@
       "gap_pct": 2.03,
       "drift_d1_pct": 3.48,
       "drift_d2_pct": 3.48,
-      "drift_d5_pct": 1.16
+      "drift_d5_pct": -1.16
     },
     {
       "ticker": "KWC",
@@ -22929,7 +22956,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -1.71,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.71
     },
     {
       "ticker": "88TH",
@@ -22960,7 +22987,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -0.51,
       "drift_d2_pct": -1.53,
-      "drift_d5_pct": -5.61
+      "drift_d5_pct": -7.14
     },
     {
       "ticker": "CENTEL",
@@ -22991,7 +23018,7 @@
       "gap_pct": 1.91,
       "drift_d1_pct": 4.46,
       "drift_d2_pct": 10.19,
-      "drift_d5_pct": 8.92
+      "drift_d5_pct": 7.01
     },
     {
       "ticker": "BIZ",
@@ -23022,7 +23049,7 @@
       "gap_pct": 0.84,
       "drift_d1_pct": 1.68,
       "drift_d2_pct": 1.68,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.84
     },
     {
       "ticker": "LIT",
@@ -23053,7 +23080,7 @@
       "gap_pct": -4.44,
       "drift_d1_pct": -15.56,
       "drift_d2_pct": -16.67,
-      "drift_d5_pct": -17.78
+      "drift_d5_pct": -18.89
     },
     {
       "ticker": "SCGD",
@@ -23084,7 +23111,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -1.82,
       "drift_d2_pct": 1.82,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": -1.82
     },
     {
       "ticker": "GFC",
@@ -23115,7 +23142,7 @@
       "gap_pct": -3.7,
       "drift_d1_pct": -2.78,
       "drift_d2_pct": -0.93,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.93
     },
     {
       "ticker": "NUT",
@@ -23146,7 +23173,7 @@
       "gap_pct": 3.66,
       "drift_d1_pct": 4.67,
       "drift_d2_pct": 10.77,
-      "drift_d5_pct": 9.76
+      "drift_d5_pct": 11.79
     },
     {
       "ticker": "DEXON",
@@ -23177,7 +23204,7 @@
       "gap_pct": 3.49,
       "drift_d1_pct": 1.16,
       "drift_d2_pct": 2.33,
-      "drift_d5_pct": 13.95
+      "drift_d5_pct": 8.14
     },
     {
       "ticker": "SCL",
@@ -23208,7 +23235,7 @@
       "gap_pct": -3.03,
       "drift_d1_pct": -5.45,
       "drift_d2_pct": -0.61,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.82
     },
     {
       "ticker": "CHIC",
@@ -23239,7 +23266,7 @@
       "gap_pct": -3.33,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -3.33
     },
     {
       "ticker": "SUN",
@@ -23270,7 +23297,7 @@
       "gap_pct": -4.65,
       "drift_d1_pct": -6.98,
       "drift_d2_pct": -7.75,
-      "drift_d5_pct": -10.08
+      "drift_d5_pct": -9.3
     },
     {
       "ticker": "SGP",
@@ -23301,7 +23328,7 @@
       "gap_pct": 7.14,
       "drift_d1_pct": 2.98,
       "drift_d2_pct": 4.17,
-      "drift_d5_pct": 5.95
+      "drift_d5_pct": 6.55
     },
     {
       "ticker": "PROSPECT",
@@ -23332,7 +23359,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -0.96,
       "drift_d2_pct": -0.96,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": -0.96
     },
     {
       "ticker": "CKP",
@@ -23363,7 +23390,7 @@
       "gap_pct": -2.34,
       "drift_d1_pct": -2.34,
       "drift_d2_pct": -1.56,
-      "drift_d5_pct": -3.91
+      "drift_d5_pct": -1.56
     },
     {
       "ticker": "NCP",
@@ -23394,7 +23421,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 2.78,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.85
     },
     {
       "ticker": "MSC",
@@ -23425,7 +23452,7 @@
       "gap_pct": 0.85,
       "drift_d1_pct": -0.85,
       "drift_d2_pct": 0.85,
-      "drift_d5_pct": -1.69
+      "drift_d5_pct": -3.39
     },
     {
       "ticker": "ESTAR",
@@ -23456,7 +23483,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -4.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -8.0
+      "drift_d5_pct": -4.0
     },
     {
       "ticker": "SCM",
@@ -23487,7 +23514,7 @@
       "gap_pct": -8.33,
       "drift_d1_pct": -8.33,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": -8.33
     },
     {
       "ticker": "ASIA",
@@ -23517,7 +23544,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d5_pct": null,
+      "drift_d5_pct": 0.0,
       "drift_d2_pct": 0.0
     },
     {
@@ -23549,7 +23576,7 @@
       "gap_pct": -2.1,
       "drift_d1_pct": -9.09,
       "drift_d2_pct": -7.69,
-      "drift_d5_pct": -7.69
+      "drift_d5_pct": -8.39
     },
     {
       "ticker": "EGATIF",
@@ -23611,7 +23638,7 @@
       "gap_pct": -1.64,
       "drift_d1_pct": -0.82,
       "drift_d2_pct": -1.64,
-      "drift_d5_pct": 0.82
+      "drift_d5_pct": 2.46
     },
     {
       "ticker": "WHAUP",
@@ -23642,7 +23669,7 @@
       "gap_pct": 1.95,
       "drift_d1_pct": 0.65,
       "drift_d2_pct": 1.95,
-      "drift_d5_pct": 5.19
+      "drift_d5_pct": 2.6
     },
     {
       "ticker": "CPT",
@@ -23673,7 +23700,7 @@
       "gap_pct": 1.0,
       "drift_d1_pct": 1.0,
       "drift_d2_pct": 1.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.0
     },
     {
       "ticker": "SALEE",
@@ -23704,7 +23731,7 @@
       "gap_pct": 6.67,
       "drift_d1_pct": -1.67,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -1.67
+      "drift_d5_pct": -3.33
     },
     {
       "ticker": "SAT",
@@ -23735,7 +23762,7 @@
       "gap_pct": 1.23,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 1.23,
-      "drift_d5_pct": 3.09
+      "drift_d5_pct": 1.85
     },
     {
       "ticker": "SLP",
@@ -23766,7 +23793,7 @@
       "gap_pct": 6.67,
       "drift_d1_pct": 13.33,
       "drift_d2_pct": 8.89,
-      "drift_d5_pct": null
+      "drift_d5_pct": 11.11
     },
     {
       "ticker": "GYT",
@@ -23828,7 +23855,7 @@
       "gap_pct": -2.05,
       "drift_d1_pct": -1.64,
       "drift_d2_pct": -1.64,
-      "drift_d5_pct": 2.46
+      "drift_d5_pct": 1.64
     },
     {
       "ticker": "DMT",
@@ -23890,7 +23917,7 @@
       "gap_pct": -0.55,
       "drift_d1_pct": -1.09,
       "drift_d2_pct": -1.64,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.64
     },
     {
       "ticker": "CFARM",
@@ -23921,7 +23948,7 @@
       "gap_pct": 2.44,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 3.66
+      "drift_d5_pct": 2.44
     },
     {
       "ticker": "UMS",
@@ -23952,7 +23979,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -1.52,
       "drift_d2_pct": -4.55,
-      "drift_d5_pct": -6.06
+      "drift_d5_pct": -9.09
     },
     {
       "ticker": "BR",
@@ -23983,7 +24010,7 @@
       "gap_pct": -0.5,
       "drift_d1_pct": -2.01,
       "drift_d2_pct": -2.01,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.51
     },
     {
       "ticker": "ARROW",
@@ -24014,7 +24041,7 @@
       "gap_pct": 0.85,
       "drift_d1_pct": 1.71,
       "drift_d2_pct": 3.42,
-      "drift_d5_pct": 1.71
+      "drift_d5_pct": 0.85
     },
     {
       "ticker": "SNNP",
@@ -24107,7 +24134,7 @@
       "gap_pct": -2.21,
       "drift_d1_pct": -2.76,
       "drift_d2_pct": -2.76,
-      "drift_d5_pct": -13.81
+      "drift_d5_pct": -11.05
     },
     {
       "ticker": "GC",
@@ -32598,7 +32625,7 @@
       "ticker": "AMATA",
       "date": "2026-08-13T19:08:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BJC",
@@ -34591,18 +34618,17 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
+      "ticker": "SSPF",
+      "date": "2026-08-18T17:34:48+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2569"
+    },
+    {
       "ticker": "MILL",
       "date": "2026-08-18T21:56:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-18T21:56:00+07:00"
-    },
-    {
-      "ticker": "SSPF",
-      "date": "2026-08-20T18:04:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-20T18:04:00+07:00"
     },
     {
       "ticker": "KGI",
