@@ -76,7 +76,9 @@ const COL_METHOD = 'วิธีการ';
 const COL_PUBLISH = 'วันที่เผยแพร่'; // primary sort - the field actually queried by
 const COL_DATE = 'วันที่ได้มา/จำหน่าย'; // transaction date - secondary, distinct field
 const COL_BEFORE = '% ก่อนได้มา/จำหน่าย';
-const COL_CHANGE = '% ได้มา/จำหน่าย';
+// SEC ตั้งชื่อ <th> คอลัมน์นี้ไม่มีเว้นวรรคหลัง % (ต่างจาก ก่อน/หลัง ที่มีเว้นวรรค)
+// ต้อง match ตรงตาม HTML ต้นทาง — อย่าเติมเว้นวรรคให้ "สวย" ไม่งั้นคอลัมน์ Δ% หายทั้งคอลัมน์
+const COL_CHANGE = '%ได้มา/จำหน่าย';
 const COL_AFTER = '% หลังได้มา/จำหน่าย';
 
 export default function Report246Page() {
