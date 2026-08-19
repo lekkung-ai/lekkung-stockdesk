@@ -1,8 +1,521 @@
 {
-  "generated_at": "2026-08-19T10:32:03+07:00",
+  "generated_at": "2026-08-19T18:10:38+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "e1855cf0-10dd-40fd-abf3-4fb771da56b4",
+      "title": "Neutral by KSS | ASIA AVIATION PUBLIC COMPANY LIMITED (AAV) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/market/121346-neutral-kss-aav",
+      "tickers": [
+        "AAV"
+      ],
+      "symbolId": "16399",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "ASIA AVIATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T16:44:40+07:00",
+      "ts": 1787132680000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260818_AAV_ER-(E).pdf"
+    },
+    {
+      "uuid": "c75e7837-ec77-4969-b4b4-9bb3a4f3ae58",
+      "title": "BUY by KSS | PYLON PUBLIC COMPANY LIMITED (PYLON) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121345-buy-kss-pylon",
+      "tickers": [
+        "PYLON"
+      ],
+      "symbolId": "7009",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "PYLON PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T16:44:39+07:00",
+      "ts": 1787132679000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_PYLON_QC(E).pdf"
+    },
+    {
+      "uuid": "10d6a81f-5a00-409a-91a8-85b61c937c3d",
+      "title": "Neutral โดย KSS | บริษัท ศรีตรังโกลฟส์ (ประเทศไทย) จำกัด (มหาชน) (STGT) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121344-neutral-kss-stgt",
+      "tickers": [
+        "STGT"
+      ],
+      "symbolId": "98047",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท ศรีตรังโกลฟส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-08-19T16:44:39+07:00",
+      "ts": 1787132679000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_STGT_ER.pdf"
+    },
+    {
+      "uuid": "dd53d118-c65d-440f-a424-84095620d696",
+      "title": "Neutral โดย KSS | บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน) (STA) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121343-neutral-kss-sta",
+      "tickers": [
+        "STA"
+      ],
+      "symbolId": "709",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท ศรีตรังแอโกรอินดัสทรี จำกัด (มหาชน)",
+      "date": "2026-08-19T16:44:37+07:00",
+      "ts": 1787132677000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_STA_ER.pdf"
+    },
+    {
+      "uuid": "6483d31a-577b-4554-9be0-2425010803f3",
+      "title": "BUY by KSS | T.A.C. CONSUMER PUBLIC COMPANY LIMITED (TACC) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121342-buy-kss-tacc",
+      "tickers": [
+        "TACC"
+      ],
+      "symbolId": "77370",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "T.A.C. CONSUMER PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T16:44:36+07:00",
+      "ts": 1787132676000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_TACC_QC(E).pdf"
+    },
+    {
+      "uuid": "978d0055-8753-46b1-a758-746a29c21898",
+      "title": "BUY by ASP | CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED (CRC) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121341-buy-asp-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T15:14:14+07:00",
+      "ts": 1787127254000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CRC20260819.pdf"
+    },
+    {
+      "uuid": "cefab8c6-d527-4909-a299-9eda69ac6567",
+      "title": "BUY by KSS | SC ASSET CORPORATION PUBLIC COMPANY LIMITED (SC) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121338-buy-kss-sc",
+      "tickers": [
+        "SC"
+      ],
+      "symbolId": "4227",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "SC ASSET CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T15:03:23+07:00",
+      "ts": 1787126603000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_SC_QC-(E).pdf"
+    },
+    {
+      "uuid": "df5fcfcd-5789-4534-900f-1444479ecdd3",
+      "title": "BUY by KSS | TMBTHANACHART BANK PUBLIC COMPANY LIMITED (TTB) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121337-buy-kss-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "TMBTHANACHART BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T15:03:22+07:00",
+      "ts": 1787126602000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_TTB_QC-(E).pdf"
+    },
+    {
+      "uuid": "d68c6ccd-045c-458b-bebe-97d95cdc8d4c",
+      "title": "BUY by KSS | RATCHTHANI LEASING PUBLIC COMPANY LIMITED (THANI) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121336-buy-kss-thani",
+      "tickers": [
+        "THANI"
+      ],
+      "symbolId": "3281",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "RATCHTHANI LEASING PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T15:03:22+07:00",
+      "ts": 1787126602000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_THANI_QC-(E).pdf"
+    },
+    {
+      "uuid": "0f9fb604-340e-4f88-ae34-b012ffbb5f46",
+      "title": "BUY by KSS | KRUNGTHAI CARD PUBLIC COMPANY LIMITED (KTC) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121335-buy-kss-ktc",
+      "tickers": [
+        "KTC"
+      ],
+      "symbolId": "3182",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "KRUNGTHAI CARD PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T15:03:22+07:00",
+      "ts": 1787126602000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_KTC_QC-(E).pdf"
+    },
+    {
+      "uuid": "4b4cf83f-9298-421f-b9c5-a187b3e6f195",
+      "title": "BUY (from HOLD) by GLOBLEX | SRI TRANG AGRO-INDUSTRY PUBLIC COMPANY LIMITED (STA) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121334-buy-from-hold-globlex-sta",
+      "tickers": [
+        "STA"
+      ],
+      "symbolId": "709",
+      "broker": "GLOBLEX",
+      "rating": "BUY (from HOLD)",
+      "companyName": "SRI TRANG AGRO-INDUSTRY PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T14:58:59+07:00",
+      "ts": 1787126339000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/research_36051_1_20260819-STA_R_EN.pdf"
+    },
+    {
+      "uuid": "d4db8df8-45d9-41c2-b2fe-8422cda8b96f",
+      "title": "BUY by KSS | BLUEBIK GROUP PUBLIC COMPANY LIMITED (BBIK) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121329-buy-kss-bbik",
+      "tickers": [
+        "BBIK"
+      ],
+      "symbolId": "105466",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "BLUEBIK GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T14:15:14+07:00",
+      "ts": 1787123714000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_BBIK_QC.pdf"
+    },
+    {
+      "uuid": "c0e9c47b-7881-4444-af84-f0949bd76fde",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท มิลเลนเนียม กรุ๊ป คอร์ปอเรชั่น (เอเชีย) จำกัด (มหาชน) (MGC) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121328-buy-maintain-yuanta-mgc",
+      "tickers": [
+        "MGC"
+      ],
+      "symbolId": "115693",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท มิลเลนเนียม กรุ๊ป คอร์ปอเรชั่น (เอเชีย) จำกัด (มหาชน)",
+      "date": "2026-08-19T14:15:14+07:00",
+      "ts": 1787123714000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/MGC_Note_190826.pdf"
+    },
+    {
+      "uuid": "46b1da68-69ee-453f-ab27-b4b5a80418c4",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน) (NCAP) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121327-buy-maintain-yuanta-ncap",
+      "tickers": [
+        "NCAP"
+      ],
+      "symbolId": "100051",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน)",
+      "date": "2026-08-19T14:15:13+07:00",
+      "ts": 1787123713000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/NCAP_Analyst_Note_19082026.pdf"
+    },
+    {
+      "uuid": "f774f8cc-1bd6-410c-ba8a-5826cda2a207",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท บลูบิค กรุ๊ป จำกัด (มหาชน) (BBIK) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121326-buy-maintain-yuanta-bbik",
+      "tickers": [
+        "BBIK"
+      ],
+      "symbolId": "105466",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท บลูบิค กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-19T14:15:13+07:00",
+      "ts": 1787123713000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BBIK_Company_Update_190826.pdf"
+    },
+    {
+      "uuid": "62829392-7405-4b0e-9489-3b88e64ccf8b",
+      "title": "BUY โดย PI | บริษัท น้ำมันพืชไทย จำกัด (มหาชน) (TVO) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121323-buy-pi-tvo",
+      "tickers": [
+        "TVO"
+      ],
+      "symbolId": "596",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท น้ำมันพืชไทย จำกัด (มหาชน)",
+      "date": "2026-08-19T14:02:49+07:00",
+      "ts": 1787122969000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/TVO-260819-19072031.pdf"
+    },
+    {
+      "uuid": "96acdbbe-119c-493a-b083-bef259839f20",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121321-lhs-trading-ideas",
+      "tickers": [
+        "CPALL",
+        "MINT"
+      ],
+      "symbolId": "4086,343",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-08-19T14:02:45+07:00",
+      "ts": 1787122965000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Trading-Ideas_20260819.pdf"
+    },
+    {
+      "uuid": "7bb3477d-4893-4e33-94da-2794cedddcc8",
+      "title": "Outperform (Upgraded) โดย KGI | บริษัท เอส โฮเทล แอนด์ รีสอร์ท จำกัด (มหาชน) (SHR) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121316-outperform-upgraded-kgi-shr",
+      "tickers": [
+        "SHR"
+      ],
+      "symbolId": "94385",
+      "broker": "KGI",
+      "rating": "Outperform (Upgraded)",
+      "companyName": "บริษัท เอส โฮเทล แอนด์ รีสอร์ท จำกัด (มหาชน)",
+      "date": "2026-08-19T13:26:39+07:00",
+      "ts": 1787120799000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_SHR_2026_08_19_th-19070733.pdf"
+    },
+    {
+      "uuid": "7f0f6912-583d-4d1b-ade2-594a72167b19",
+      "title": "Outperform (Upgraded) by KGI | S HOTELS AND RESORTS PUBLIC COMPANY LIMITED (SHR) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121317-outperform-upgraded-kgi-shr",
+      "tickers": [
+        "SHR"
+      ],
+      "symbolId": "94385",
+      "broker": "KGI",
+      "rating": "Outperform (Upgraded)",
+      "companyName": "S HOTELS AND RESORTS PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T11:41:06+07:00",
+      "ts": 1787114466000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_SHR_2026_08_19_e_th.pdf"
+    },
+    {
+      "uuid": "2e5ac519-8f3f-41e2-999b-acd8dd7b18cb",
+      "title": "Neutral (Downgraded) โดย KGI | บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (CRC) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121315-neutral-downgraded-kgi-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "KGI",
+      "rating": "Neutral (Downgraded)",
+      "companyName": "บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-19T11:41:05+07:00",
+      "ts": 1787114465000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CRC_2026_08_19_th_THAI.pdf"
+    },
+    {
+      "uuid": "ac7003c2-d755-4278-9e92-26cfd728e773",
+      "title": "Neutral (Downgraded) by KGI | CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED (CRC) | Research as of 19 August 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121314-neutral-downgraded-kgi-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "KGI",
+      "rating": "Neutral (Downgraded)",
+      "companyName": "CENTRAL RETAIL CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-08-19T11:39:51+07:00",
+      "ts": 1787114391000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Daily-Story_CRC_2026_08_19_e_th.pdf"
+    },
+    {
+      "uuid": "3eb288df-e983-4b93-a113-22ce19dc1e85",
+      "title": "Buy โดย KSS | บริษัท ราชธานีลิสซิ่ง จำกัด (มหาชน) (THANI) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121293-buy-kss-thani",
+      "tickers": [
+        "THANI"
+      ],
+      "symbolId": "3281",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "บริษัท ราชธานีลิสซิ่ง จำกัด (มหาชน)",
+      "date": "2026-08-19T11:18:02+07:00",
+      "ts": 1787113082000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_THANI_QC.pdf"
+    },
+    {
+      "uuid": "a64fc2a4-7a76-47f3-83b4-a0bc9ae4bdfc",
+      "title": "Buy โดย KSS | บริษัท บัตรกรุงไทย จำกัด (มหาชน) (KTC) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121286-buy-kss-ktc",
+      "tickers": [
+        "KTC"
+      ],
+      "symbolId": "3182",
+      "broker": "KSS",
+      "rating": "Buy",
+      "companyName": "บริษัท บัตรกรุงไทย จำกัด (มหาชน)",
+      "date": "2026-08-19T11:06:11+07:00",
+      "ts": 1787112371000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_KTC_QC.pdf"
+    },
+    {
+      "uuid": "0fc43e98-826e-4b97-aa97-4a62d2a8c1be",
+      "title": "BUY โดย SBITO | บริษัท อินเด็กซ์ ลิฟวิ่งมอลล์ จำกัด (มหาชน) (ILM) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121285-buy-sbito-ilm",
+      "tickers": [
+        "ILM"
+      ],
+      "symbolId": "92836",
+      "broker": "SBITO",
+      "rating": "BUY",
+      "companyName": "บริษัท อินเด็กซ์ ลิฟวิ่งมอลล์ จำกัด (มหาชน)",
+      "date": "2026-08-19T11:06:11+07:00",
+      "ts": 1787112371000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Fundamental-190869---ILM.pdf"
+    },
+    {
+      "uuid": "c876cd55-db1f-429d-ac2e-5f7e895f29c8",
+      "title": "Earning Result โดย SBITO | บริษัท อินเด็กซ์ ลิฟวิ่งมอลล์ จำกัด (มหาชน) (ILM) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121284-earning-result-sbito-ilm",
+      "tickers": [
+        "ILM"
+      ],
+      "symbolId": "92836",
+      "broker": "SBITO",
+      "rating": "Earning Result",
+      "companyName": "บริษัท อินเด็กซ์ ลิฟวิ่งมอลล์ จำกัด (มหาชน)",
+      "date": "2026-08-19T11:06:10+07:00",
+      "ts": 1787112370000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/Earning-Result-190869--ILM.pdf"
+    },
+    {
+      "uuid": "6bbdaae9-9b92-4c1a-ae7a-394402c18068",
+      "title": "BUY โดย ASL | บริษัท เจริญโภคภัณฑ์อาหาร จำกัด (มหาชน) (CPF) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121280-buy-asl-cpf",
+      "tickers": [
+        "CPF"
+      ],
+      "symbolId": "273",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท เจริญโภคภัณฑ์อาหาร จำกัด (มหาชน)",
+      "date": "2026-08-19T10:40:39+07:00",
+      "ts": 1787110839000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CPF-Company-Report-2Q26-19082026.pdf"
+    },
+    {
+      "uuid": "4220cca9-8a02-4ed8-b3c1-08428c3fbd07",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121274-trinity-quick-win---moring-stock",
+      "tickers": [
+        "BBIK",
+        "CSS"
+      ],
+      "symbolId": "105466,19156",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-08-19T10:30:08+07:00",
+      "ts": 1787110208000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/MORNING-STOCKs19AUG26-BBIK;CSS.pdf"
+    },
+    {
+      "uuid": "6400cb84-7600-42da-a29d-44d2cec3918c",
+      "title": "Buy (Upgrade from gradual buying) โดย PST | บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (CRC) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121267-buy-upgrade-from-gradual-buying-pst-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "PST",
+      "rating": "Buy (Upgrade from gradual buying)",
+      "companyName": "บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-19T10:27:47+07:00",
+      "ts": 1787110067000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/CRC081926_t.pdf"
+    },
+    {
+      "uuid": "9868db0d-b512-4ba0-adca-d4b9a234ff82",
+      "title": "Buy (Maintain recommendation) โดย PST | บริษัท โอสถสภา จำกัด (มหาชน) (OSP) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121266-buy-maintain-recommendation-pst-osp",
+      "tickers": [
+        "OSP"
+      ],
+      "symbolId": "88769",
+      "broker": "PST",
+      "rating": "Buy (Maintain recommendation)",
+      "companyName": "บริษัท โอสถสภา จำกัด (มหาชน)",
+      "date": "2026-08-19T10:23:57+07:00",
+      "ts": 1787109837000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/osp081926_t.pdf"
+    },
+    {
+      "uuid": "30482f1f-d4ef-4084-b22c-87c4d9c11bb5",
+      "title": "Gradual buying โดย PST | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121265-gradual-buying-pst-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "PST",
+      "rating": "Gradual buying",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-08-19T10:23:56+07:00",
+      "ts": 1787109836000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_TTB_QC.pdf"
+    },
+    {
+      "uuid": "a409d9e4-6d34-436c-bd6e-cf6547cd6396",
+      "title": "BUY โดย KSS | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121261-buy-kss-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-08-19T10:22:59+07:00",
+      "ts": 1787109779000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_TTB_QC.pdf"
+    },
+    {
+      "uuid": "e06066e5-90f7-4781-861e-bdef02a723d9",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121259-trinity-block-trade--moring-stock",
+      "tickers": [
+        "BDMS",
+        "BGRIM"
+      ],
+      "symbolId": "731,84051",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-08-19T10:22:58+07:00",
+      "ts": 1787109778000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BlockTrade-Morning1-19AUG26;BGRIM;BDMS.pdf"
+    },
+    {
+      "uuid": "4d4ffe57-1e34-4d87-90a3-6b640dc84d39",
+      "title": "BUY โดย KSS | บริษัท เอสซี แอสเสท คอร์ปอเรชั่น จำกัด (มหาชน) (SC) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121260-buy-kss-sc",
+      "tickers": [
+        "SC"
+      ],
+      "symbolId": "4227",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสซี แอสเสท คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-08-19T10:22:58+07:00",
+      "ts": 1787109778000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/260819_SC_QC.pdf"
+    },
+    {
+      "uuid": "8d66a194-6f81-4660-9e2c-1fff6e02f2dc",
+      "title": "BUY โดย LHS | บริษัท บลูบิค กรุ๊ป จำกัด (มหาชน) (BBIK) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/121257-buy-lhs-bbik",
+      "tickers": [
+        "BBIK"
+      ],
+      "symbolId": "105466",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท บลูบิค กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-08-19T10:04:36+07:00",
+      "ts": 1787108676000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Aug/BBIK_20260819.pdf"
+    },
     {
       "uuid": "f6bb4dfe-96f9-4943-a5cc-41050bff9655",
       "title": "BUY โดย KSS | บริษัท ไพลอน จำกัด (มหาชน) (PYLON) | บทวิเคราะห์ประจำวันที่ 19 สิงหาคม 2569",
