@@ -80,6 +80,11 @@ const COL_BEFORE = '% ก่อนได้มา/จำหน่าย';
 // ต้อง match ตรงตาม HTML ต้นทาง — อย่าเติมเว้นวรรคให้ "สวย" ไม่งั้นคอลัมน์ Δ% หายทั้งคอลัมน์
 const COL_CHANGE = '%ได้มา/จำหน่าย';
 const COL_AFTER = '% หลังได้มา/จำหน่าย';
+// คอลัมน์ "(กลุ่ม)" = สัดส่วนที่ถือรวมทั้งกลุ่ม (concert party) ต่างจากตัวเดี่ยว 15.4% ของแถว
+// เคสสำคัญ: ผู้ยื่นถือ 0% เอง แต่กลุ่มถือ 55-82% (เช่น TRUE/FPT) — ตัวเดี่ยวอย่างเดียวทำให้เข้าใจผิด
+// key ก่อน/หลัง มีเว้นวรรคหลัง % (ตาม HTML ต้นทาง SEC) — อย่าแก้
+const COL_BEFORE_G = '% ก่อนได้มา/จำหน่าย (กลุ่ม)';
+const COL_AFTER_G = '% หลังได้มา/จำหน่าย (กลุ่ม)';
 
 export default function Report246Page() {
   const router = useRouter();
@@ -191,6 +196,7 @@ export default function Report246Page() {
 
   // Determine which columns are available in the API response
   const hasBeforeAfter = headers.includes(COL_BEFORE) && headers.includes(COL_AFTER);
+  const hasGroup = headers.includes(COL_BEFORE_G) && headers.includes(COL_AFTER_G);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -347,6 +353,9 @@ export default function Report246Page() {
                   {hasBeforeAfter && (
                     <th className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง</th>
                   )}
+                  {hasGroup && (
+                    <th className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง (กลุ่ม)</th>
+                  )}
                   {headers.includes(COL_CHANGE) && (
                     <th 
                       onClick={() => handleSort(COL_CHANGE)}
@@ -393,6 +402,11 @@ export default function Report246Page() {
                     {hasBeforeAfter && (
                       <td className="px-3 py-2.5 whitespace-nowrap">
                         <PctDelta before={row[COL_BEFORE] ?? ''} after={row[COL_AFTER] ?? ''} />
+                      </td>
+                    )}
+                    {hasGroup && (
+                      <td className="px-3 py-2.5 whitespace-nowrap">
+                        <PctDelta before={row[COL_BEFORE_G] ?? ''} after={row[COL_AFTER_G] ?? ''} />
                       </td>
                     )}
                     {headers.includes(COL_CHANGE) && (
