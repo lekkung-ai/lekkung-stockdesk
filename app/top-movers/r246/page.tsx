@@ -86,7 +86,7 @@ export default function Report246Page() {
   const [fetchDate, setFetchDate] = useState('');
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorKind, setErrorKind] = useState<'' | 'load' | 'timeout'>('');
   const [query, setQuery] = useState('');
   const [selectedDate, setSelectedDate] = useState(todayISO());
   const [page, setPage] = useState(1);
@@ -118,12 +118,14 @@ export default function Report246Page() {
   const loadData = useCallback(async (date: string, days: number, background = false) => {
     if (background) setRefreshing(true);
     else { setLoading(true); setPage(1); }
-    setError(false);
+    setErrorKind('');
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 25000);
     try {
       const url = days > 0
         ? `/api/sec/r246?from=${shiftDay(date, -(days - 1))}&to=${date}`
         : `/api/sec/r246?date=${date}`;
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: ctrl.signal });
       if (!res.ok) throw new Error();
       const data = await res.json();
       setHeaders(data.headers ?? []);
@@ -131,9 +133,10 @@ export default function Report246Page() {
       setFetchDate(data.fetchDate ?? '');
       setTruncated(data.truncated === true);
       setPartial(data.partial === true);
-    } catch {
-      if (!background) setError(true);
+    } catch (err) {
+      if (!background) setErrorKind((err as Error)?.name === 'AbortError' ? 'timeout' : 'load');
     } finally {
+      clearTimeout(timer);
       setLoading(false);
       setRefreshing(false);
     }
@@ -299,9 +302,13 @@ export default function Report246Page() {
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #9F7AEA' }}>
         {loading ? (
           <TableSkeleton rows={10} />
-        ) : error ? (
+        ) : errorKind ? (
           <div className="py-16 text-center space-y-3">
-            <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
+            {errorKind === 'timeout' ? (
+              <p className="text-[13px] text-rose-400/80">ช่วงที่เลือกกว้างเกินไป โหลดไม่ทัน — ลองเลือกช่วงสั้นลง</p>
+            ) : (
+              <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
+            )}
             <button onClick={() => loadData(selectedDate, rangeDays)} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
               ลองอีกครั้ง
             </button>
