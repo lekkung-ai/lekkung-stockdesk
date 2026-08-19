@@ -12,6 +12,8 @@ import {
   todayISOBangkok,
 } from '@/lib/secScrape';
 
+export const maxDuration = 60;
+
 const BASE = 'https://market.sec.or.th/public/idisc/th/r246';
 const ROUTE_KEY = 'r246';
 const TX_COL = 'วันที่ได้มา/จำหน่าย'; // transaction date - the only date column SEC's own table exposes
