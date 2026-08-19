@@ -70,6 +70,10 @@ export default function Report59Page() {
   const [page, setPage] = useState(1);
   const [sortCol, setSortCol] = useState(COL_PUBLISH);
   const [sortDesc, setSortDesc] = useState(true);
+  const [rangeDays, setRangeDays] = useState(0); // 0 = วันเดียว (โหมดเดิม) · 7/14/30 = ค้นย้อนหลัง
+  const [truncated, setTruncated] = useState(false); // API ตัดช่วงเหลือ 45 วัน
+  const [partial, setPartial] = useState(false); // บางวัน scrape ไม่สำเร็จ
+  const isRange = rangeDays > 0;
 
   const prevDay = () => {
     setSelectedDate(shiftDay(selectedDate, -1));
@@ -89,17 +93,22 @@ export default function Report59Page() {
     setPage(1);
   };
 
-  const loadData = useCallback(async (date: string, background = false) => {
+  const loadData = useCallback(async (date: string, days: number, background = false) => {
     if (background) setRefreshing(true);
     else { setLoading(true); setPage(1); }
     setError(false);
     try {
-      const res = await fetch(`/api/sec/r59?date=${date}`);
+      const url = days > 0
+        ? `/api/sec/r59?from=${shiftDay(date, -(days - 1))}&to=${date}`
+        : `/api/sec/r59?date=${date}`;
+      const res = await fetch(url);
       if (!res.ok) throw new Error();
       const data = await res.json();
       setHeaders(data.headers ?? []);
       setRawRows(data.rows ?? []);
       setFetchDate(data.fetchDate ?? '');
+      setTruncated(data.truncated === true);
+      setPartial(data.partial === true);
     } catch {
       if (!background) setError(true);
     } finally {
@@ -109,8 +118,8 @@ export default function Report59Page() {
   }, []);
 
   useEffect(() => {
-    loadData(selectedDate);
-  }, [loadData, selectedDate]);
+    loadData(selectedDate, rangeDays);
+  }, [loadData, selectedDate, rangeDays]);
 
   const filteredRows = useMemo(() => {
     // Date range is applied server-side; here we only do text search + sort.
@@ -119,7 +128,8 @@ export default function Report59Page() {
         const q = query.toLowerCase();
         const company = (row[COL_COMPANY] ?? '').toLowerCase();
         const person = (row[COL_PERSON] ?? '').toLowerCase();
-        if (!company.includes(q) && !person.includes(q)) return false;
+        const ticker = (extractTicker(row[COL_COMPANY] ?? '') ?? '').toLowerCase();
+        if (!company.includes(q) && !person.includes(q) && !ticker.includes(q)) return false;
       }
       return true;
     });
@@ -170,7 +180,7 @@ export default function Report59Page() {
             {refreshing && ' · กำลังอัปเดต…'}
           </p>
         </div>
-        <button onClick={() => loadData(selectedDate)} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
+        <button onClick={() => loadData(selectedDate, rangeDays)} className="p-1.5 rounded-lg border border-white/[0.07] text-white/35 hover:text-white/60 transition-colors flex-shrink-0">
           <RefreshCw size={13} className={loading || refreshing ? 'animate-spin' : ''} />
         </button>
       </div>
@@ -188,14 +198,16 @@ export default function Report59Page() {
           />
         </div>
         <div className="flex items-center gap-1.5 flex-shrink-0">
-          <button
-            type="button"
-            onClick={prevDay}
-            className="p-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-white/50 hover:text-white/80 hover:border-white/20 transition-colors"
-            title="วันก่อนหน้า"
-          >
-            <ChevronLeft size={14} />
-          </button>
+          {!isRange && (
+            <button
+              type="button"
+              onClick={prevDay}
+              className="p-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-white/50 hover:text-white/80 hover:border-white/20 transition-colors"
+              title="วันก่อนหน้า"
+            >
+              <ChevronLeft size={14} />
+            </button>
+          )}
           <div className="relative flex items-center">
             <Calendar size={12} className="absolute left-2.5 text-white/30 pointer-events-none" />
             <input
@@ -206,29 +218,65 @@ export default function Report59Page() {
               className="pl-7 pr-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark]"
             />
           </div>
-          <button
-            type="button"
-            onClick={nextDay}
-            disabled={selectedDate >= todayISO()}
-            className="p-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-white/50 hover:text-white/80 hover:border-white/20 disabled:opacity-30 disabled:hover:text-white/50 disabled:hover:border-white/[0.07] transition-colors"
-            title="วันถัดไป"
+          {!isRange && (
+            <button
+              type="button"
+              onClick={nextDay}
+              disabled={selectedDate >= todayISO()}
+              className="p-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-white/50 hover:text-white/80 hover:border-white/20 disabled:opacity-30 disabled:hover:text-white/50 disabled:hover:border-white/[0.07] transition-colors"
+              title="วันถัดไป"
+            >
+              <ChevronRight size={14} />
+            </button>
+          )}
+          <select
+            value={rangeDays}
+            onChange={e => { setRangeDays(Number(e.target.value)); setPage(1); }}
+            className="px-2 py-2 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px] text-white/70 outline-none focus:border-white/20 [color-scheme:dark] cursor-pointer"
+            title="ช่วงย้อนหลัง"
           >
-            <ChevronRight size={14} />
-          </button>
-          <span className="text-[12px] text-white/60 font-medium px-1">
-            {selectedDate === todayISO() ? 'วันนี้' : isoToThaiLabel(selectedDate)}
-          </span>
-          <span
-            className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${
-              selectedDate === todayISO()
-                ? 'bg-green-500/20 text-green-400'
-                : 'bg-blue-500/20 text-blue-400'
-            }`}
-          >
-            {selectedDate === todayISO() ? '● Live' : 'Static'}
-          </span>
+            <option value={0}>วันเดียว</option>
+            <option value={7}>ย้อนหลัง 7 วัน</option>
+            <option value={14}>ย้อนหลัง 14 วัน</option>
+            <option value={30}>ย้อนหลัง 30 วัน</option>
+          </select>
+          {isRange ? (
+            <span className="text-[12px] text-white/60 font-medium px-1 whitespace-nowrap">
+              {isoToThaiLabel(shiftDay(selectedDate, -(rangeDays - 1)))} – {selectedDate === todayISO() ? 'วันนี้' : isoToThaiLabel(selectedDate)}
+            </span>
+          ) : (
+            <>
+              <span className="text-[12px] text-white/60 font-medium px-1">
+                {selectedDate === todayISO() ? 'วันนี้' : isoToThaiLabel(selectedDate)}
+              </span>
+              <span
+                className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${
+                  selectedDate === todayISO()
+                    ? 'bg-green-500/20 text-green-400'
+                    : 'bg-blue-500/20 text-blue-400'
+                }`}
+              >
+                {selectedDate === todayISO() ? '● Live' : 'Static'}
+              </span>
+            </>
+          )}
         </div>
       </div>
+
+      {(truncated || partial) && (
+        <div className="flex flex-wrap items-center gap-2 text-[11px]">
+          {truncated && (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/25">
+              ⚠ ช่วงเกิน 45 วัน — แสดงเฉพาะ 45 วันล่าสุด
+            </span>
+          )}
+          {partial && (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/25">
+              ⚠ บางวันดึงข้อมูลไม่สำเร็จ — ผลอาจไม่ครบ
+            </span>
+          )}
+        </div>
+      )}
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden" style={{ borderLeft: '3px solid #4B9EF5' }}>
         {loading ? (
@@ -236,7 +284,7 @@ export default function Report59Page() {
         ) : error ? (
           <div className="py-16 text-center space-y-3">
             <p className="text-[13px] text-white/30">ไม่สามารถโหลดข้อมูลได้</p>
-            <button onClick={() => loadData(selectedDate)} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
+            <button onClick={() => loadData(selectedDate, rangeDays)} className="px-4 py-1.5 rounded-lg text-[12px] border border-white/10 text-white/50 hover:text-white/80 transition-colors">
               ลองอีกครั้ง
             </button>
           </div>
