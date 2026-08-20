@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
@@ -10,6 +10,7 @@ import {
   SortConfig,
   Td,
 } from '@/components/StrategyTable';
+import ReportCardChart from '@/components/ReportCardChart';
 
 interface BestWorstEntry {
   ticker: string;
@@ -159,6 +160,7 @@ export default function ReportCardDetailClient({
   const [viewMode, setViewMode] = useState<'setup' | 'horizon'>('setup');
   const [sort, setSort] = useState<SortConfig>({ key: 'return_pct', dir: 'desc' });
   const [page, setPage] = useState(1);
+  const [openSetup, setOpenSetup] = useState<string | null>(null);
 
   const setups = scanData.setups ?? [];
   const summary = scanData.setup_summary ?? {
@@ -243,56 +245,84 @@ export default function ReportCardDetailClient({
     const total = tickerTotalCounts[s.ticker] ?? 1;
     const seq = tickerSetupSeq.get(s) ?? 1;
     const isMulti = total > 1;
+    const setupId = `${s.ticker}-${s.entry_date}`;
+    const isExpanded = openSetup === setupId;
 
     return (
-      <tr
-        key={`${s.ticker}-${s.entry_date}-${idx}`}
-        className={`border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors ${
-          isMulti ? 'border-l-2 border-l-[#378ADD]/50' : ''
-        }`}
-      >
-        <Td>
-          <Link
-            href={`/stock/${s.ticker}`}
-            className="font-bold text-white hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
-          >
-            <span>{s.ticker}</span>
-            {isMulti && (
-              <span className="text-[10px] text-[#378ADD] font-medium bg-[#378ADD]/10 px-1 py-0.2 rounded border border-[#378ADD]/20">
-                #{seq}
+      <React.Fragment key={`${s.ticker}-${s.entry_date}-${idx}`}>
+        <tr
+          onClick={() => setOpenSetup(prev => prev === setupId ? null : setupId)}
+          className={`border-b border-white/[0.04] hover:bg-white/[0.03] transition-colors cursor-pointer ${
+            isExpanded ? 'bg-white/[0.04]' : ''
+          } ${isMulti ? 'border-l-2 border-l-[#378ADD]/50' : ''}`}
+        >
+          <Td>
+            <Link
+              href={`/stock/${s.ticker}`}
+              onClick={(e) => e.stopPropagation()}
+              className="font-bold text-white hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>{s.ticker}</span>
+              {isMulti && (
+                <span className="text-[10px] text-[#378ADD] font-medium bg-[#378ADD]/10 px-1 py-0.2 rounded border border-[#378ADD]/20">
+                  #{seq}
+                </span>
+              )}
+            </Link>
+          </Td>
+          <Td mono>
+            <span className="text-white/80">{s.entry_date}</span>
+            <span className="text-white/35 ml-1.5">@{s.entry_price.toFixed(2)}</span>
+          </Td>
+          <Td mono>
+            <span className="text-white/80">{s.exit_date}</span>
+            <span className="text-white/35 ml-1.5">@{s.exit_price.toFixed(2)}</span>
+          </Td>
+          <Td right mono>{s.holding_days}</Td>
+          <Td right mono className="font-semibold">
+            <span style={{ color: returnColor(s.return_pct) }}>{fmtPct(s.return_pct)}</span>
+          </Td>
+          <Td right mono className="text-white/50">{fmtPct(s.mfe_pct)}</Td>
+          <Td right mono className="text-white/50">{fmtPct(s.mae_pct)}</Td>
+          <Td className="text-center">
+            <Sparkline path={s.price_path} positive={s.return_pct >= 0} />
+          </Td>
+          <Td>
+            {s.status === 'open' ? (
+              <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#378ADD]/15 text-[#378ADD] border border-[#378ADD]/30">
+                ยังถือ (open)
+              </span>
+            ) : (
+              <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-white/[0.05] text-white/40">
+                closed
               </span>
             )}
-          </Link>
-        </Td>
-        <Td mono>
-          <span className="text-white/80">{s.entry_date}</span>
-          <span className="text-white/35 ml-1.5">@{s.entry_price.toFixed(2)}</span>
-        </Td>
-        <Td mono>
-          <span className="text-white/80">{s.exit_date}</span>
-          <span className="text-white/35 ml-1.5">@{s.exit_price.toFixed(2)}</span>
-        </Td>
-        <Td right mono>{s.holding_days}</Td>
-        <Td right mono className="font-semibold">
-          <span style={{ color: returnColor(s.return_pct) }}>{fmtPct(s.return_pct)}</span>
-        </Td>
-        <Td right mono className="text-white/50">{fmtPct(s.mfe_pct)}</Td>
-        <Td right mono className="text-white/50">{fmtPct(s.mae_pct)}</Td>
-        <Td className="text-center">
-          <Sparkline path={s.price_path} positive={s.return_pct >= 0} />
-        </Td>
-        <Td>
-          {s.status === 'open' ? (
-            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#378ADD]/15 text-[#378ADD] border border-[#378ADD]/30">
-              ยังถือ (open)
-            </span>
-          ) : (
-            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-white/[0.05] text-white/40">
-              closed
-            </span>
-          )}
-        </Td>
-      </tr>
+          </Td>
+        </tr>
+        {isExpanded && (
+          <tr key={`${setupId}-chart`} className="bg-black/20 border-b border-white/[0.04]">
+            <td colSpan={9} className="p-3 md:p-4">
+              <div className="bg-[#13161e] border border-emerald-500/25 rounded-xl p-4 m-1">
+                {s.holding_days === 0 ? (
+                  <div className="text-[12px] text-white/50 py-6 text-center">
+                    เข้า–ออกวันเดียว (D+1) — ไม่มีช่วงราคาให้แสดง · เข้า {s.entry_price.toFixed(2)} → ออก {s.exit_price.toFixed(2)} · {fmtPct(s.return_pct)}
+                  </div>
+                ) : (
+                  <ReportCardChart
+                    ticker={s.ticker}
+                    entryDate={s.entry_date}
+                    entryPrice={s.entry_price}
+                    exitDate={s.exit_date}
+                    exitPrice={s.exit_price}
+                    returnPct={s.return_pct}
+                    isOpen={s.status === 'open'}
+                  />
+                )}
+              </div>
+            </td>
+          </tr>
+        )}
+      </React.Fragment>
     );
   };
 
