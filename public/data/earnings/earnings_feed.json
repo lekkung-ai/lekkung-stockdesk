@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T18:14:38.567985+07:00",
+  "generatedAt": "2026-08-20T10:32:00.796863+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -77,7 +77,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 148,
+      "count": 147,
       "top3": [
         {
           "ticker": "TPL",
@@ -125,11 +125,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106427201&symbol=SSPF",
       "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
       "reason": "",
-      "reason_source": "none",
-      "gap_pct": 2.53,
-      "drift_d1_pct": null,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "reason_source": "none"
     },
     {
       "ticker": "TRV",
@@ -221,7 +217,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -4.44,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -4.44,
       "drift_d5_pct": null
     },
     {
@@ -562,7 +558,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2112,7 +2108,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2267,7 +2263,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -2980,7 +2976,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.37,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.37,
       "drift_d5_pct": null
     },
     {
@@ -4592,7 +4588,7 @@
       "reason_source": "none",
       "gap_pct": -2.45,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -4685,7 +4681,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -5274,7 +5270,7 @@
       "reason_source": "none",
       "gap_pct": 5.26,
       "drift_d1_pct": 8.55,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 8.55,
       "drift_d5_pct": null
     },
     {
@@ -5305,7 +5301,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -5704,7 +5700,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -4.44,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -4.44,
       "drift_d5_pct": null
     },
     {
@@ -5735,7 +5731,7 @@
       "reason_source": "none",
       "gap_pct": -0.53,
       "drift_d1_pct": -0.53,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.53,
       "drift_d5_pct": null
     },
     {
@@ -5859,7 +5855,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -6014,7 +6010,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -6634,7 +6630,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -7068,7 +7064,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.41,
-      "drift_d2_pct": 1.63,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -10381,7 +10377,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -13946,7 +13942,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": -0.52,
       "drift_d5_pct": null
     },
     {
@@ -14504,7 +14500,7 @@
       "reason_source": "none",
       "gap_pct": 1.0,
       "drift_d1_pct": 1.0,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 1.0,
       "drift_d5_pct": null
     },
     {
@@ -14566,7 +14562,7 @@
       "reason_source": "none",
       "gap_pct": 0.81,
       "drift_d1_pct": 0.81,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 0.81,
       "drift_d5_pct": null
     },
     {
@@ -15155,7 +15151,7 @@
       "reason_source": "none",
       "gap_pct": -0.4,
       "drift_d1_pct": -1.2,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -15310,7 +15306,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -3.27,
-      "drift_d2_pct": -1.31,
+      "drift_d2_pct": -1.96,
       "drift_d5_pct": null
     },
     {
@@ -15589,7 +15585,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -14.0,
       "drift_d5_pct": null
     },
     {
@@ -15745,7 +15741,7 @@
       "gap_pct": 0.62,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.62,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "UBA",
@@ -15776,7 +15772,7 @@
       "gap_pct": 2.63,
       "drift_d1_pct": 3.51,
       "drift_d2_pct": 3.51,
-      "drift_d5_pct": null
+      "drift_d5_pct": 7.02
     },
     {
       "ticker": "AF",
@@ -15807,7 +15803,7 @@
       "gap_pct": -2.5,
       "drift_d1_pct": -5.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "SCC",
@@ -15838,7 +15834,7 @@
       "gap_pct": -0.77,
       "drift_d1_pct": -1.93,
       "drift_d2_pct": -1.93,
-      "drift_d5_pct": null
+      "drift_d5_pct": -3.86
     },
     {
       "ticker": "TU-PF",
@@ -15900,7 +15896,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -2.06,
       "drift_d2_pct": 4.12,
-      "drift_d5_pct": null
+      "drift_d5_pct": 4.12
     },
     {
       "ticker": "ICN",
@@ -15931,7 +15927,7 @@
       "gap_pct": 3.67,
       "drift_d1_pct": 0.92,
       "drift_d2_pct": 0.92,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.92
     },
     {
       "ticker": "AP",
@@ -15962,7 +15958,7 @@
       "gap_pct": 3.07,
       "drift_d1_pct": 2.45,
       "drift_d2_pct": 1.84,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.23
     },
     {
       "ticker": "QHOP",
@@ -16024,7 +16020,7 @@
       "gap_pct": 30.43,
       "drift_d1_pct": 32.92,
       "drift_d2_pct": 49.07,
-      "drift_d5_pct": null
+      "drift_d5_pct": 57.76
     },
     {
       "ticker": "KCM",
@@ -16086,7 +16082,7 @@
       "gap_pct": -0.69,
       "drift_d1_pct": -6.9,
       "drift_d2_pct": -4.14,
-      "drift_d5_pct": null
+      "drift_d5_pct": -4.83
     },
     {
       "ticker": "TRC",
@@ -16148,7 +16144,7 @@
       "gap_pct": 2.86,
       "drift_d1_pct": -1.9,
       "drift_d2_pct": -2.86,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.9
     },
     {
       "ticker": "GVREIT",
@@ -16179,7 +16175,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.22,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.61
     },
     {
       "ticker": "SUPEREIF",
@@ -16241,7 +16237,7 @@
       "gap_pct": -0.93,
       "drift_d1_pct": -0.93,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.93
     },
     {
       "ticker": "TPOLY",
@@ -16334,7 +16330,7 @@
       "gap_pct": -1.16,
       "drift_d1_pct": -5.23,
       "drift_d2_pct": -4.65,
-      "drift_d5_pct": null
+      "drift_d5_pct": -4.07
     },
     {
       "ticker": "TOP",
@@ -16349,7 +16345,7 @@
       "netProfitYoY": 27.920550049994013,
       "netProfitPriorQ": 19481157000.0,
       "netProfitQoQ": -57.47764365330047,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 3.71,
       "epsPrior": 2.9,
       "epsYoY": 27.93103448275862,
@@ -16365,7 +16361,7 @@
       "gap_pct": -0.73,
       "drift_d1_pct": -3.64,
       "drift_d2_pct": -8.36,
-      "drift_d5_pct": null
+      "drift_d5_pct": -9.09
     },
     {
       "ticker": "YGG",
@@ -16396,7 +16392,7 @@
       "gap_pct": -5.56,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.56
     },
     {
       "ticker": "GPI",
@@ -16489,7 +16485,7 @@
       "gap_pct": 2.83,
       "drift_d1_pct": 2.83,
       "drift_d2_pct": 2.83,
-      "drift_d5_pct": null
+      "drift_d5_pct": 3.77
     },
     {
       "ticker": "KLINIQ",
@@ -16520,7 +16516,7 @@
       "gap_pct": 0.89,
       "drift_d1_pct": 2.68,
       "drift_d2_pct": 6.25,
-      "drift_d5_pct": null
+      "drift_d5_pct": 3.57
     },
     {
       "ticker": "PIS",
@@ -16551,7 +16547,7 @@
       "gap_pct": 0.97,
       "drift_d1_pct": 0.97,
       "drift_d2_pct": 8.74,
-      "drift_d5_pct": null
+      "drift_d5_pct": 15.53
     },
     {
       "ticker": "CPNREIT",
@@ -16582,7 +16578,7 @@
       "gap_pct": 0.74,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.74
     },
     {
       "ticker": "INETREIT",
@@ -16613,7 +16609,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "JAK",
@@ -16644,7 +16640,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -10.24,
       "drift_d2_pct": -2.36,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.36
     },
     {
       "ticker": "SUTHA",
@@ -16737,7 +16733,7 @@
       "gap_pct": 2.55,
       "drift_d1_pct": -0.43,
       "drift_d2_pct": -0.43,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.43
     },
     {
       "ticker": "A",
@@ -16799,7 +16795,7 @@
       "gap_pct": 1.01,
       "drift_d1_pct": 4.04,
       "drift_d2_pct": 3.03,
-      "drift_d5_pct": null
+      "drift_d5_pct": 4.04
     },
     {
       "ticker": "HTECH",
@@ -16830,7 +16826,7 @@
       "gap_pct": 4.46,
       "drift_d1_pct": 20.3,
       "drift_d2_pct": 21.29,
-      "drift_d5_pct": null
+      "drift_d5_pct": 22.28
     },
     {
       "ticker": "UBE",
@@ -18624,7 +18620,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.85,
       "drift_d2_pct": -5.08,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.08
     },
     {
       "ticker": "MENA",
@@ -18779,7 +18775,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "STI",
@@ -19005,8 +19001,8 @@
       "netProfit": -73500000.0,
       "netProfitPrior": -68394000.0,
       "netProfitYoY": -7.465567155013597,
-      "netProfitPriorQ": -26206000.0,
-      "netProfitQoQ": -180.47012134625658,
+      "netProfitPriorQ": -9782000.0,
+      "netProfitQoQ": -651.3800858720099,
       "profitAcceleration": "stable",
       "eps": -0.063,
       "epsPrior": -0.059,
@@ -19488,7 +19484,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "GTB",
@@ -20449,7 +20445,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.76,
       "drift_d2_pct": 1.52,
-      "drift_d5_pct": null
+      "drift_d5_pct": -3.79
     },
     {
       "ticker": "PRAKIT",
@@ -20480,7 +20476,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.5,
       "drift_d2_pct": 0.5,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.5
     },
     {
       "ticker": "PERM",
@@ -22059,7 +22055,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -2.04,
+      "drift_d1_pct": -1.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -23611,7 +23607,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.81,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.81
     },
     {
       "ticker": "KBS",
@@ -29095,37 +29091,6 @@
       "drift_d1_pct": 6.8,
       "drift_d2_pct": 6.8,
       "drift_d5_pct": 7.28
-    },
-    {
-      "ticker": "SAM",
-      "sector": "Industrials",
-      "subsector": "Steel",
-      "market": "SET",
-      "announceDate": "2026-07-06T08:16:00+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": -262112000.0,
-      "netProfitPrior": -10696000.0,
-      "netProfitYoY": -2350.56095736724,
-      "netProfitPriorQ": -81608000.0,
-      "netProfitQoQ": -221.18419762768355,
-      "profitAcceleration": "stable",
-      "eps": -0.2508,
-      "epsPrior": -0.0102,
-      "epsYoY": -2358.823529411765,
-      "auditorOpinion": "มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": true,
-      "bucket": "loss_worse",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105319201&symbol=SAM",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17830350614901&symbol=SAM",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105316201&symbol=SAM",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
@@ -31030,7 +30995,7 @@
       "ticker": "ARIN",
       "date": "2026-08-11T18:18:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "SSF",
@@ -31529,7 +31494,7 @@
       "ticker": "TOP",
       "date": "2026-08-13T08:33:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "BVG",
@@ -32496,7 +32461,7 @@
       "ticker": "IMPACT",
       "date": "2026-08-13T18:38:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 1/2569"
+      "quarter": null
     },
     {
       "ticker": "TVT",
