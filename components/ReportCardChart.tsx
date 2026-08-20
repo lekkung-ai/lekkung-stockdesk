@@ -48,7 +48,7 @@ export default function ReportCardChart({
     setStatus('loading');
     setChartData([]);
 
-    fetch(`/api/chart/${encodeURIComponent(ticker)}?interval=1d&range=1y`)
+    fetch(`/api/chart/${encodeURIComponent(ticker)}?interval=1d&range=2y`)
       .then(r => {
         if (!r.ok) throw new Error('upstream error');
         return r.json();
@@ -65,7 +65,7 @@ export default function ReportCardChart({
         let entryIdx = raw.findIndex(d => d.time === entryDate);
         if (entryIdx === -1) {
           entryIdx = raw.findIndex(d => d.time >= entryDate);
-          if (entryIdx === -1) entryIdx = 0;
+          if (entryIdx === -1) entryIdx = raw.length - 1;
         }
 
         let exitIdx = raw.findIndex(d => d.time === exitDate);

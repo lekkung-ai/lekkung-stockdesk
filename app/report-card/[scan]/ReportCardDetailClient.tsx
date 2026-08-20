@@ -305,7 +305,7 @@ export default function ReportCardDetailClient({
               <div className="bg-[#13161e] border border-emerald-500/25 rounded-xl p-4 m-1">
                 {s.holding_days === 0 ? (
                   <div className="text-[12px] text-white/50 py-6 text-center">
-                    เข้า–ออกวันเดียว (D+1) — ไม่มีช่วงราคาให้แสดง · เข้า {s.entry_price.toFixed(2)} → ออก {s.exit_price.toFixed(2)} · {fmtPct(s.return_pct)}
+                    เข้า–ออกวันเดียว (D+1) — ไม่มีช่วงราคาให้แสดง · เข้า {s.entry_price.toFixed(2)} → {s.status === 'open' ? 'ล่าสุด' : 'ออก'} {s.exit_price.toFixed(2)} · {fmtPct(s.return_pct)}
                   </div>
                 ) : (
                   <ReportCardChart
