@@ -117,8 +117,8 @@ function BucketCards({
               {(b?.top3 ?? []).length === 0 ? (
                 <div className="text-label text-meta">—</div>
               ) : (
-                b.top3.map(t => (
-                  <div key={t.ticker} className="flex items-center justify-between text-label">
+                b.top3.map((t, i) => (
+                  <div key={`${t.ticker}-${i}`} className="flex items-center justify-between text-label">
                     <span className="text-white/60 font-medium">{t.ticker}</span>
                     <span className="tabular-nums" style={{ color }} title={fmtGrowthPct(t.netProfitYoY).title}>
                       {fmtGrowthPct(t.netProfitYoY).text}
@@ -409,7 +409,7 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
         </div>
         <div className="space-y-1.5">
           {topYoY.map((a, i) => (
-            <div key={a.ticker} className="flex items-center justify-between text-[12px] bg-white/[0.03] px-2.5 py-1 rounded-lg">
+            <div key={`${a.ticker}-${a.quarter}-${i}`} className="flex items-center justify-between text-[12px] bg-white/[0.03] px-2.5 py-1 rounded-lg">
               <span className="font-bold text-white flex items-center gap-1.5">
                 <span className="text-white/30 text-[10px]">#{i + 1}</span>
                 {a.ticker}
@@ -436,8 +436,8 @@ function KpiSummaryHighlights({ feed }: { feed: EarningsFeed }) {
           <p className="text-[11.5px] text-white/30 py-2">ไม่พบหุ้นพลิกกำไรในรอบ 45 วันล่าสุด</p>
         ) : (
           <div className="flex flex-wrap gap-1.5 pt-1">
-            {turnaroundList.map(a => (
-              <span key={a.ticker} className="text-[11.5px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+            {turnaroundList.map((a, i) => (
+              <span key={`${a.ticker}-${a.quarter}-${i}`} className="text-[11.5px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
                 {a.ticker}
               </span>
             ))}
@@ -574,11 +574,11 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
       ) : viewMode === 'card' ? (
         <>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-          {visibleCards.map(a => {
+          {visibleCards.map((a, i) => {
             const spark = sparklineMap[a.ticker];
             return (
               <div
-                key={a.ticker}
+                key={`${a.ticker}-${a.quarter}-${i}`}
                 onClick={() => router.push(`/stock/${a.ticker}`)}
                 className="bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.07] hover:border-emerald-500/40 rounded-xl p-3.5 transition-all cursor-pointer flex flex-col justify-between space-y-2.5 group"
               >
@@ -701,9 +701,9 @@ function PeadWatchSection({ announcements }: { announcements: EarningsAnnounceme
               </tr>
             </thead>
             <tbody className="divide-y divide-white/[0.03]">
-              {visibleRows.map(a => (
+              {visibleRows.map((a, i) => (
                 <tr
-                  key={a.ticker}
+                  key={`${a.ticker}-${a.quarter}-${i}`}
                   onClick={() => router.push(`/stock/${a.ticker}`)}
                   className="hover:bg-white/[0.03] cursor-pointer transition-colors"
                 >
