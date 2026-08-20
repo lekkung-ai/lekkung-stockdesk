@@ -158,9 +158,17 @@ export default function ReportCardDetailClient({
   scanData: ScanDataProps;
 }) {
   const [viewMode, setViewMode] = useState<'setup' | 'horizon'>('setup');
-  const [sort, setSort] = useState<SortConfig>({ key: 'return_pct', dir: 'desc' });
-  const [page, setPage] = useState(1);
+  const [openSort, setOpenSort] = useState<SortConfig | null>({ key: 'return_pct', dir: 'desc' });
+  const [openPage, setOpenPage] = useState(1);
+  const [closedSort, setClosedSort] = useState<SortConfig | null>({ key: 'return_pct', dir: 'desc' });
+  const [closedPage, setClosedPage] = useState(1);
   const [openSetup, setOpenSetup] = useState<string | null>(null);
+
+  // Reset page=1 when scan changes
+  React.useEffect(() => {
+    setOpenPage(1);
+    setClosedPage(1);
+  }, [scanKey]);
 
   const setups = scanData.setups ?? [];
   const summary = scanData.setup_summary ?? {
@@ -196,16 +204,9 @@ export default function ReportCardDetailClient({
     return seqMap;
   }, [setups]);
 
-  const openSetups = useMemo(() => {
-    return setups
-      .filter(s => s.status === 'open')
-      .sort((a, b) => b.entry_date.localeCompare(a.entry_date));
-  }, [setups]);
-
-  const closedSetups = useMemo(() => {
-    const list = setups.filter(s => s.status === 'closed');
-    if (!sort) return list;
-    const { key, dir } = sort;
+  const sortSetupsList = (list: SetupEntry[], sortCfg: SortConfig | null) => {
+    if (!sortCfg) return list;
+    const { key, dir } = sortCfg;
     return [...list].sort((a, b) => {
       const va = (a as any)[key];
       const vb = (b as any)[key];
@@ -221,19 +222,51 @@ export default function ReportCardDetailClient({
       const nb = Number(vb);
       return dir === 'asc' ? na - nb : nb - na;
     });
-  }, [setups, sort]);
+  };
 
-  const totalPages = Math.max(1, Math.ceil(closedSetups.length / PER_PAGE));
-  const currentPage = Math.min(page, totalPages);
+  const sortedOpenSetups = useMemo(() => {
+    const list = setups.filter(s => s.status === 'open');
+    if (!openSort) {
+      return [...list].sort((a, b) => b.entry_date.localeCompare(a.entry_date));
+    }
+    return sortSetupsList(list, openSort);
+  }, [setups, openSort]);
+
+  const openTotalPages = Math.max(1, Math.ceil(sortedOpenSetups.length / PER_PAGE));
+  const currentOpenPage = Math.min(openPage, openTotalPages);
+
+  const paginatedOpenSetups = useMemo(() => {
+    const start = (currentOpenPage - 1) * PER_PAGE;
+    return sortedOpenSetups.slice(start, start + PER_PAGE);
+  }, [sortedOpenSetups, currentOpenPage]);
+
+  const handleOpenSort = (key: string) => {
+    setOpenPage(1);
+    setOpenSort(prev => {
+      if (prev?.key === key) {
+        return prev.dir === 'desc' ? { key, dir: 'asc' } : null;
+      }
+      return { key, dir: 'desc' };
+    });
+  };
+
+  const sortedClosedSetups = useMemo(() => {
+    const list = setups.filter(s => s.status === 'closed');
+    if (!closedSort) return list;
+    return sortSetupsList(list, closedSort);
+  }, [setups, closedSort]);
+
+  const closedTotalPages = Math.max(1, Math.ceil(sortedClosedSetups.length / PER_PAGE));
+  const currentClosedPage = Math.min(closedPage, closedTotalPages);
 
   const paginatedClosedSetups = useMemo(() => {
-    const start = (currentPage - 1) * PER_PAGE;
-    return closedSetups.slice(start, start + PER_PAGE);
-  }, [closedSetups, currentPage]);
+    const start = (currentClosedPage - 1) * PER_PAGE;
+    return sortedClosedSetups.slice(start, start + PER_PAGE);
+  }, [sortedClosedSetups, currentClosedPage]);
 
-  const handleSort = (key: string) => {
-    setPage(1);
-    setSort(prev => {
+  const handleClosedSort = (key: string) => {
+    setClosedPage(1);
+    setClosedSort(prev => {
       if (prev?.key === key) {
         return prev.dir === 'desc' ? { key, dir: 'asc' } : null;
       }
@@ -430,34 +463,69 @@ export default function ReportCardDetailClient({
             </div>
           </div>
 
-          {/* Section 1: Open Setups (Shown only if openSetups.length > 0) */}
-          {openSetups.length > 0 && (
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 px-1">
-                <div className="w-2 h-2 rounded-full bg-[#378ADD] animate-pulse" />
-                <h2 className="text-[14px] font-bold text-white">
-                  🔵 ยังถืออยู่ ({openSetups.length})
-                </h2>
+          {/* Section 1: Open Setups (Shown only if sortedOpenSetups.length > 0) */}
+          {sortedOpenSetups.length > 0 && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between px-1">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#378ADD] animate-pulse" />
+                  <h2 className="text-[14px] font-bold text-white">
+                    🔵 ยังถืออยู่ ({sortedOpenSetups.length})
+                  </h2>
+                </div>
+                <span className="text-[11px] text-white/35">
+                  หน้า {currentOpenPage} / {openTotalPages}
+                </span>
               </div>
 
               <TableWrap>
                 <thead className="border-b border-white/[0.06] bg-white/[0.015]">
                   <tr>
-                    <Th>Symbol</Th>
-                    <Th>Entry (D+1)</Th>
-                    <Th>Latest MTM</Th>
-                    <Th right>ถือ (วัน)</Th>
-                    <Th right>Return</Th>
-                    <Th right>MFE</Th>
-                    <Th right>MAE</Th>
+                    <SortableTh sortKey="ticker" currentSort={openSort} onSort={handleOpenSort}>Symbol</SortableTh>
+                    <SortableTh sortKey="entry_date" currentSort={openSort} onSort={handleOpenSort}>Entry (D+1)</SortableTh>
+                    <SortableTh sortKey="exit_date" currentSort={openSort} onSort={handleOpenSort}>Latest MTM</SortableTh>
+                    <SortableTh right sortKey="holding_days" currentSort={openSort} onSort={handleOpenSort}>ถือ (วัน)</SortableTh>
+                    <SortableTh right sortKey="return_pct" currentSort={openSort} onSort={handleOpenSort}>Return</SortableTh>
+                    <SortableTh right sortKey="mfe_pct" currentSort={openSort} onSort={handleOpenSort}>MFE</SortableTh>
+                    <SortableTh right sortKey="mae_pct" currentSort={openSort} onSort={handleOpenSort}>MAE</SortableTh>
                     <Th className="text-center">ทรงราคา</Th>
-                    <Th>สถานะ</Th>
+                    <SortableTh sortKey="status" currentSort={openSort} onSort={handleOpenSort}>สถานะ</SortableTh>
                   </tr>
                 </thead>
                 <tbody>
-                  {openSetups.map((s, idx) => renderSetupRow(s, idx))}
+                  {paginatedOpenSetups.map((s, idx) => renderSetupRow(s, idx))}
                 </tbody>
               </TableWrap>
+
+              {/* Pagination controls for Open Setups */}
+              {openTotalPages > 1 && (
+                <div className="flex items-center justify-between px-3 py-2.5 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px]">
+                  <span className="text-white/40 text-[11px]">
+                    ยังถือ {sortedOpenSetups.length} ตัว · แสดง {(currentOpenPage - 1) * PER_PAGE + 1}–{Math.min(currentOpenPage * PER_PAGE, sortedOpenSetups.length)}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setOpenPage(p => Math.max(1, p - 1))}
+                      disabled={currentOpenPage === 1}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors text-white/70"
+                    >
+                      <ChevronLeft size={13} />
+                      ก่อนหน้า
+                    </button>
+                    <span className="text-white/60 font-medium px-1">
+                      {currentOpenPage} / {openTotalPages}
+                    </span>
+                    <button
+                      onClick={() => setOpenPage(p => Math.min(openTotalPages, p + 1))}
+                      disabled={currentOpenPage === openTotalPages}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors text-white/70"
+                    >
+                      ถัดไป
+                      <ChevronRight size={13} />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -465,29 +533,29 @@ export default function ReportCardDetailClient({
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1">
               <h2 className="text-[14px] font-bold text-white">
-                ปิดรอบแล้ว ({closedSetups.length})
+                ปิดรอบแล้ว ({sortedClosedSetups.length})
               </h2>
               <span className="text-[11px] text-white/35">
-                หน้า {currentPage} / {totalPages}
+                หน้า {currentClosedPage} / {closedTotalPages}
               </span>
             </div>
 
             <TableWrap>
               <thead className="border-b border-white/[0.06] bg-white/[0.015]">
                 <tr>
-                  <SortableTh sortKey="ticker" currentSort={sort} onSort={handleSort}>Symbol</SortableTh>
-                  <SortableTh sortKey="entry_date" currentSort={sort} onSort={handleSort}>Entry (D+1)</SortableTh>
-                  <SortableTh sortKey="exit_date" currentSort={sort} onSort={handleSort}>Exit</SortableTh>
-                  <SortableTh right sortKey="holding_days" currentSort={sort} onSort={handleSort}>ถือ (วัน)</SortableTh>
-                  <SortableTh right sortKey="return_pct" currentSort={sort} onSort={handleSort}>Return</SortableTh>
-                  <SortableTh right sortKey="mfe_pct" currentSort={sort} onSort={handleSort}>MFE</SortableTh>
-                  <SortableTh right sortKey="mae_pct" currentSort={sort} onSort={handleSort}>MAE</SortableTh>
+                  <SortableTh sortKey="ticker" currentSort={closedSort} onSort={handleClosedSort}>Symbol</SortableTh>
+                  <SortableTh sortKey="entry_date" currentSort={closedSort} onSort={handleClosedSort}>Entry (D+1)</SortableTh>
+                  <SortableTh sortKey="exit_date" currentSort={closedSort} onSort={handleClosedSort}>Exit</SortableTh>
+                  <SortableTh right sortKey="holding_days" currentSort={closedSort} onSort={handleClosedSort}>ถือ (วัน)</SortableTh>
+                  <SortableTh right sortKey="return_pct" currentSort={closedSort} onSort={handleClosedSort}>Return</SortableTh>
+                  <SortableTh right sortKey="mfe_pct" currentSort={closedSort} onSort={handleClosedSort}>MFE</SortableTh>
+                  <SortableTh right sortKey="mae_pct" currentSort={closedSort} onSort={handleClosedSort}>MAE</SortableTh>
                   <Th className="text-center">ทรงราคา</Th>
-                  <SortableTh sortKey="status" currentSort={sort} onSort={handleSort}>สถานะ</SortableTh>
+                  <SortableTh sortKey="status" currentSort={closedSort} onSort={handleClosedSort}>สถานะ</SortableTh>
                 </tr>
               </thead>
               <tbody>
-                {closedSetups.length === 0 ? (
+                {sortedClosedSetups.length === 0 ? (
                   <tr>
                     <td colSpan={9} className="px-4 py-8 text-center text-white/30 text-[12px]">
                       ยังไม่มีข้อมูล closed setup ในสแกนนี้
@@ -506,26 +574,26 @@ export default function ReportCardDetailClient({
             </div>
 
             {/* Pagination controls */}
-            {totalPages > 1 && (
+            {closedTotalPages > 1 && (
               <div className="flex items-center justify-between px-3 py-2.5 bg-[#13161e] border border-white/[0.07] rounded-xl text-[12px]">
                 <span className="text-white/40 text-[11px]">
-                  ปิดรอบ {closedSetups.length} ตัว · แสดง {(currentPage - 1) * PER_PAGE + 1}–{Math.min(currentPage * PER_PAGE, closedSetups.length)}
+                  ปิดรอบ {sortedClosedSetups.length} ตัว · แสดง {(currentClosedPage - 1) * PER_PAGE + 1}–{Math.min(currentClosedPage * PER_PAGE, sortedClosedSetups.length)}
                 </span>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => setPage(p => Math.max(1, p - 1))}
-                    disabled={currentPage === 1}
+                    onClick={() => setClosedPage(p => Math.max(1, p - 1))}
+                    disabled={currentClosedPage === 1}
                     className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors text-white/70"
                   >
                     <ChevronLeft size={13} />
                     ก่อนหน้า
                   </button>
                   <span className="text-white/60 font-medium px-1">
-                    {currentPage} / {totalPages}
+                    {currentClosedPage} / {closedTotalPages}
                   </span>
                   <button
-                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                    disabled={currentPage === totalPages}
+                    onClick={() => setClosedPage(p => Math.min(closedTotalPages, p + 1))}
+                    disabled={currentClosedPage === closedTotalPages}
                     className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors text-white/70"
                   >
                     ถัดไป
