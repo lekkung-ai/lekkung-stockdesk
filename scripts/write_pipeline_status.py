@@ -9,6 +9,12 @@ depends on someone noticing a stale generated_at by hand.
 Usage:
     python scripts/write_pipeline_status.py --status success --source local
     python scripts/write_pipeline_status.py --status failure --failed-step "run_all.py scan" --source cloud
+    python scripts/write_pipeline_status.py --status success --source cloud --failed-steps scan_canslim.py scan_ppbp.py
+
+failed_step (เอกพจน์) = step ระดับ workflow ที่ล้ม ทำให้ทั้งรอบเป็น failure
+failed_steps (พหูพจน์) = scan ย่อยที่ returncode != 0 ระหว่างรอบ ซึ่ง run_all.py
+ปล่อยให้รันต่อจนจบ (scan ตัวเดียวพังไม่ควรล้มทั้งรอบ) จึงบันทึกเสมอแม้ status=success
+- ไม่งั้น scan ล่มจะขึ้น success เงียบ เหมือนเคส CAN SLIM 2026-08-20
 
 Output: public/data/pipeline_status.json
     {
@@ -16,6 +22,7 @@ Output: public/data/pipeline_status.json
       "last_success_at": "2026-07-15T09:53:00+07:00",
       "status": "failure",
       "failed_step": "run_all.py scan",
+      "failed_steps": ["scan_canslim.py"],
       "source": "cloud"
     }
 """
@@ -34,6 +41,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--status', required=True, choices=['success', 'failure'])
     parser.add_argument('--failed-step', default=None)
+    parser.add_argument(
+        '--failed-steps', nargs='*', default=None,
+        help='ชื่อ scan ย่อยที่ returncode != 0 (อ่านมาจาก run_all.py -> run_status.json)',
+    )
     parser.add_argument('--source', required=True, choices=['local', 'cloud'])
     args = parser.parse_args()
 
@@ -52,6 +63,9 @@ def main():
         'last_success_at': now if args.status == 'success' else existing.get('last_success_at'),
         'status': args.status,
         'failed_step': args.failed_step if args.status == 'failure' else None,
+        # บันทึกเสมอ ไม่ผูกกับ args.status - รอบที่ทั้ง pipeline สำเร็จแต่มี scan
+        # ย่อยพัง คือเคสที่ต้องเห็นที่สุด (เดิมไม่มีที่ให้บันทึกเลย)
+        'failed_steps': args.failed_steps or [],
         'source': args.source,
     }
 
