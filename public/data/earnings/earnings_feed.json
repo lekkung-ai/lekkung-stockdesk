@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T10:32:00.796863+07:00",
+  "generatedAt": "2026-08-20T18:19:07.441520+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -101,6 +101,33 @@
   },
   "announcements": [
     {
+      "ticker": "LUXF",
+      "sector": "Property",
+      "subsector": "Property Fund & REITs",
+      "market": "SET",
+      "announceDate": "2026-08-20T18:07:47+07:00",
+      "quarter": "ประจำปี 2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106455901&symbol=LUXF",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17871826827171&symbol=LUXF",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "SSPF",
       "sector": "Property",
       "subsector": "Property Fund & REITs",
@@ -125,7 +152,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106427201&symbol=SSPF",
       "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.63,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TRV",
@@ -155,7 +186,7 @@
       "reason_source": "none",
       "gap_pct": 3.23,
       "drift_d1_pct": -0.65,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.65,
       "drift_d5_pct": null
     },
     {
@@ -15741,7 +15772,7 @@
       "gap_pct": 0.62,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.62,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.62
     },
     {
       "ticker": "UBA",
@@ -15772,7 +15803,7 @@
       "gap_pct": 2.63,
       "drift_d1_pct": 3.51,
       "drift_d2_pct": 3.51,
-      "drift_d5_pct": 7.02
+      "drift_d5_pct": 10.53
     },
     {
       "ticker": "AF",
@@ -15803,7 +15834,7 @@
       "gap_pct": -2.5,
       "drift_d1_pct": -5.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": -5.0
     },
     {
       "ticker": "SCC",
@@ -15834,7 +15865,7 @@
       "gap_pct": -0.77,
       "drift_d1_pct": -1.93,
       "drift_d2_pct": -1.93,
-      "drift_d5_pct": -3.86
+      "drift_d5_pct": -5.02
     },
     {
       "ticker": "TU-PF",
@@ -15896,7 +15927,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -2.06,
       "drift_d2_pct": 4.12,
-      "drift_d5_pct": 4.12
+      "drift_d5_pct": 5.15
     },
     {
       "ticker": "ICN",
@@ -15927,7 +15958,7 @@
       "gap_pct": 3.67,
       "drift_d1_pct": 0.92,
       "drift_d2_pct": 0.92,
-      "drift_d5_pct": 0.92
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "AP",
@@ -15958,7 +15989,7 @@
       "gap_pct": 3.07,
       "drift_d1_pct": 2.45,
       "drift_d2_pct": 1.84,
-      "drift_d5_pct": 1.23
+      "drift_d5_pct": 0.61
     },
     {
       "ticker": "QHOP",
@@ -15989,7 +16020,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -4.73,
       "drift_d2_pct": -4.73,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "CPH",
@@ -16020,7 +16051,7 @@
       "gap_pct": 30.43,
       "drift_d1_pct": 32.92,
       "drift_d2_pct": 49.07,
-      "drift_d5_pct": 57.76
+      "drift_d5_pct": 59.01
     },
     {
       "ticker": "KCM",
@@ -16051,7 +16082,7 @@
       "gap_pct": -3.85,
       "drift_d1_pct": 3.85,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 11.54
     },
     {
       "ticker": "UBIS",
@@ -16082,7 +16113,7 @@
       "gap_pct": -0.69,
       "drift_d1_pct": -6.9,
       "drift_d2_pct": -4.14,
-      "drift_d5_pct": -4.83
+      "drift_d5_pct": -2.76
     },
     {
       "ticker": "TRC",
@@ -16113,7 +16144,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -4.0,
       "drift_d2_pct": -2.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -4.0
     },
     {
       "ticker": "MBAX",
@@ -16144,7 +16175,7 @@
       "gap_pct": 2.86,
       "drift_d1_pct": -1.9,
       "drift_d2_pct": -2.86,
-      "drift_d5_pct": -1.9
+      "drift_d5_pct": -2.86
     },
     {
       "ticker": "GVREIT",
@@ -16175,7 +16206,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.22,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -0.61
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "SUPEREIF",
@@ -16268,7 +16299,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "BEYOND",
@@ -16299,7 +16330,7 @@
       "gap_pct": -1.23,
       "drift_d1_pct": -0.61,
       "drift_d2_pct": -0.61,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.84
     },
     {
       "ticker": "BVG",
@@ -16330,7 +16361,7 @@
       "gap_pct": -1.16,
       "drift_d1_pct": -5.23,
       "drift_d2_pct": -4.65,
-      "drift_d5_pct": -4.07
+      "drift_d5_pct": -4.65
     },
     {
       "ticker": "TOP",
@@ -16345,7 +16376,7 @@
       "netProfitYoY": 27.920550049994013,
       "netProfitPriorQ": 19481157000.0,
       "netProfitQoQ": -57.47764365330047,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": 3.71,
       "epsPrior": 2.9,
       "epsYoY": 27.93103448275862,
@@ -16361,7 +16392,7 @@
       "gap_pct": -0.73,
       "drift_d1_pct": -3.64,
       "drift_d2_pct": -8.36,
-      "drift_d5_pct": -9.09
+      "drift_d5_pct": -10.91
     },
     {
       "ticker": "YGG",
@@ -16392,7 +16423,7 @@
       "gap_pct": -5.56,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -5.56
+      "drift_d5_pct": 5.56
     },
     {
       "ticker": "GPI",
@@ -16423,7 +16454,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -0.55,
       "drift_d2_pct": -0.55,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.55
     },
     {
       "ticker": "QLT",
@@ -16454,7 +16485,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 6.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 3.0
     },
     {
       "ticker": "DRT",
@@ -16485,7 +16516,7 @@
       "gap_pct": 2.83,
       "drift_d1_pct": 2.83,
       "drift_d2_pct": 2.83,
-      "drift_d5_pct": 3.77
+      "drift_d5_pct": 4.72
     },
     {
       "ticker": "KLINIQ",
@@ -16516,7 +16547,7 @@
       "gap_pct": 0.89,
       "drift_d1_pct": 2.68,
       "drift_d2_pct": 6.25,
-      "drift_d5_pct": 3.57
+      "drift_d5_pct": 6.25
     },
     {
       "ticker": "PIS",
@@ -16547,7 +16578,7 @@
       "gap_pct": 0.97,
       "drift_d1_pct": 0.97,
       "drift_d2_pct": 8.74,
-      "drift_d5_pct": 15.53
+      "drift_d5_pct": 12.62
     },
     {
       "ticker": "CPNREIT",
@@ -16609,7 +16640,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.75
     },
     {
       "ticker": "JAK",
@@ -16640,7 +16671,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -10.24,
       "drift_d2_pct": -2.36,
-      "drift_d5_pct": -2.36
+      "drift_d5_pct": -1.57
     },
     {
       "ticker": "SUTHA",
@@ -16671,7 +16702,7 @@
       "gap_pct": 0.7,
       "drift_d1_pct": 2.82,
       "drift_d2_pct": 2.82,
-      "drift_d5_pct": null
+      "drift_d5_pct": 3.52
     },
     {
       "ticker": "EASON",
@@ -16702,7 +16733,7 @@
       "gap_pct": 5.13,
       "drift_d1_pct": 5.98,
       "drift_d2_pct": 6.84,
-      "drift_d5_pct": null
+      "drift_d5_pct": 6.84
     },
     {
       "ticker": "III",
@@ -16733,7 +16764,7 @@
       "gap_pct": 2.55,
       "drift_d1_pct": -0.43,
       "drift_d2_pct": -0.43,
-      "drift_d5_pct": 0.43
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "A",
@@ -16764,7 +16795,7 @@
       "gap_pct": -7.25,
       "drift_d1_pct": -7.25,
       "drift_d2_pct": -7.25,
-      "drift_d5_pct": null
+      "drift_d5_pct": -6.52
     },
     {
       "ticker": "SJWD",
@@ -16795,7 +16826,7 @@
       "gap_pct": 1.01,
       "drift_d1_pct": 4.04,
       "drift_d2_pct": 3.03,
-      "drift_d5_pct": 4.04
+      "drift_d5_pct": 1.01
     },
     {
       "ticker": "HTECH",
@@ -16826,7 +16857,7 @@
       "gap_pct": 4.46,
       "drift_d1_pct": 20.3,
       "drift_d2_pct": 21.29,
-      "drift_d5_pct": 22.28
+      "drift_d5_pct": 22.77
     },
     {
       "ticker": "UBE",
@@ -16888,7 +16919,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.52,
       "drift_d2_pct": 2.27,
-      "drift_d5_pct": null
+      "drift_d5_pct": 3.03
     },
     {
       "ticker": "IROYAL",
@@ -19001,8 +19032,8 @@
       "netProfit": -73500000.0,
       "netProfitPrior": -68394000.0,
       "netProfitYoY": -7.465567155013597,
-      "netProfitPriorQ": -9782000.0,
-      "netProfitQoQ": -651.3800858720099,
+      "netProfitPriorQ": -26206000.0,
+      "netProfitQoQ": -180.47012134625658,
       "profitAcceleration": "stable",
       "eps": -0.063,
       "epsPrior": -0.059,
@@ -22055,7 +22086,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -1.36,
+      "drift_d1_pct": -2.04,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -30161,7 +30192,7 @@
       "ticker": "PROSPECT",
       "date": "2026-08-10T17:46:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "SGP",
@@ -30995,7 +31026,7 @@
       "ticker": "ARIN",
       "date": "2026-08-11T18:18:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SSF",
@@ -31494,7 +31525,7 @@
       "ticker": "TOP",
       "date": "2026-08-13T08:33:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BVG",
@@ -32461,7 +32492,7 @@
       "ticker": "IMPACT",
       "date": "2026-08-13T18:38:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "TVT",
@@ -34600,18 +34631,17 @@
       "basedOnLastYear": "2025-08-18T21:56:00+07:00"
     },
     {
+      "ticker": "LUXF",
+      "date": "2026-08-20T18:07:47+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2569"
+    },
+    {
       "ticker": "KGI",
       "date": "2026-08-20T18:15:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-20T18:15:00+07:00"
-    },
-    {
-      "ticker": "LUXF",
-      "date": "2026-08-21T17:48:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-21T17:48:00+07:00"
     },
     {
       "ticker": "AFC",
