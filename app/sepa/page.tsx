@@ -25,6 +25,7 @@ import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import { getScanHistory } from '@/lib/scanHistory';
+import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 
@@ -160,10 +161,10 @@ export default function SepaPage() {
     : filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
 
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
-  const firstSeenDate = useMemo(() => {
-    if (!activeTicker || !sepaHistory) return null;
+  const scanMarkers = useMemo(() => {
+    if (!activeTicker || !sepaHistory) return { firstSeen: null, reentries: [] };
     const match = sepaHistory.tickers.find(t => t.ticker === activeTicker);
-    return match?.firstSeen ?? null;
+    return computeScanMarkers(match?.hitDates);
   }, [activeTicker, sepaHistory]);
 
   return (
@@ -228,10 +229,16 @@ export default function SepaPage() {
             <div className="flex items-center gap-3 flex-wrap">
               <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
               <span className="text-[11.5px] text-white/40">Technical Chart (SEPA Trend Template)</span>
-              {firstSeenDate && (
+              {scanMarkers.firstSeen && (
                 <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
                   <span>📍 เจอครั้งแรก:</span>
-                  <span>{formatThaiDate(firstSeenDate)}</span>
+                  <span>{formatThaiDate(scanMarkers.firstSeen)}</span>
+                </span>
+              )}
+              {scanMarkers.reentries.length > 0 && (
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1">
+                  <span>🔄 เจอใหม่:</span>
+                  <span>{formatThaiDate(scanMarkers.reentries[scanMarkers.reentries.length - 1])}</span>
                 </span>
               )}
             </div>
@@ -248,7 +255,8 @@ export default function SepaPage() {
             ticker={activeTicker}
             height={340}
             showEma10={true}
-            highlightDates={firstSeenDate ? [firstSeenDate] : undefined}
+            highlightDates={scanMarkers.firstSeen ? [scanMarkers.firstSeen] : undefined}
+            reentryDates={scanMarkers.reentries.length ? scanMarkers.reentries : undefined}
           />
         </div>
       )}
