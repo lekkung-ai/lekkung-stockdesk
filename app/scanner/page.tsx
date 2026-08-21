@@ -19,6 +19,7 @@ import TrendSparkline from '@/components/TrendSparkline';
 import { ChangeBadge } from '@/components/ChangeBadge';
 import { sparklineMap } from '@/lib/sparklineData';
 import Pagination from '@/components/Pagination';
+import ReportCardButton from '@/components/ReportCardButton';
 import TableSkeleton from '@/components/TableSkeleton';
 import GrowthScatter, { type ScatterPoint } from '@/components/scanner/GrowthScatter';
 import { LayoutGrid, ScatterChart as ScatterIcon } from 'lucide-react';
@@ -266,7 +267,10 @@ function QuantScannerContent() {
           total={allRows.length}
           updatedAt={formatThaiDate(scanGeneratedAt)}
         />
-        <ExportCSVButton data={rows} filename="quant_scanner.csv" />
+        <div className="flex items-center gap-3">
+          <ReportCardButton scanKey="ppbp" />
+          <ExportCSVButton data={rows} filename="quant_scanner.csv" />
+        </div>
       </div>
       <StaleDataBanner generatedAt={scanGeneratedAt} />
 
