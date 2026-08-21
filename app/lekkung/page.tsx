@@ -37,7 +37,6 @@ export default function LekkungPage() {
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [historyInitialTicker, setHistoryInitialTicker] = useState<string | null>(null);
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
-  const [chartCollapsed, setChartCollapsed] = useState(false);
   const { priceMap, fetchDone } = useLivePrices(lekkungData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('lekkung')?.newTickers ?? []), []);
 
@@ -129,60 +128,6 @@ export default function LekkungPage() {
         <DroppedTickersList scanName="lekkung" />
       ) : (
       <div className="space-y-4">
-      {/* Top Chart Section (Single chart at top, updates on row click) */}
-      {activeTicker ? (
-        <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
-          <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
-            <div className="flex items-center gap-3 flex-wrap">
-              <h2 className="text-[18px] font-extrabold text-white tracking-wide">{activeTicker}</h2>
-              <span className="text-[11.5px] text-white/40">Technical Chart (Lekkung Strategy)</span>
-              {scanMarkers.firstSeen && (
-                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
-                  <span>📍 เจอครั้งแรก:</span>
-                  <span>{formatThaiDate(scanMarkers.firstSeen)}</span>
-                </span>
-              )}
-              {scanMarkers.reentries.length > 0 && (
-                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1">
-                  <span>🔄 เจอใหม่:</span>
-                  <span>{formatThaiDate(scanMarkers.reentries[scanMarkers.reentries.length - 1])}</span>
-                </span>
-              )}
-            </div>
-            <div className="flex items-center gap-2">
-              {selectedTicker && (
-                <button
-                  onClick={() => setSelectedTicker(null)}
-                  className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                >
-                  ปิดกราฟ
-                </button>
-              )}
-              <button
-                onClick={() => setChartCollapsed(prev => !prev)}
-                title="ย่อ/ขยายกราฟ"
-                className="text-[12px] text-white/40 hover:text-white/70 px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-colors"
-              >
-                {chartCollapsed ? '▼' : '▲'}
-              </button>
-            </div>
-          </div>
-          {!chartCollapsed && (
-            <StockChart
-              ticker={activeTicker}
-              height={340}
-              showEma10={true}
-              highlightDates={scanMarkers.firstSeen ? [scanMarkers.firstSeen] : undefined}
-              reentryDates={scanMarkers.reentries.length ? scanMarkers.reentries : undefined}
-            />
-          )}
-        </div>
-      ) : (
-        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-8 text-center">
-          <p className="text-[12px] text-white/40">คลิกชื่อหุ้นในตารางเพื่อดูกราฟ</p>
-        </div>
-      )}
-
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
@@ -206,9 +151,9 @@ export default function LekkungPage() {
             const isActive = activeTicker === s.Ticker;
             const isLowLiquidity = (s.ADTV_MB || 0) < 5;
             return (
+              <React.Fragment key={s.Ticker}>
               <tr
-                key={s.Ticker}
-                onClick={() => setSelectedTicker(s.Ticker)}
+                onClick={() => setSelectedTicker(activeTicker === s.Ticker ? null : s.Ticker)}
                 className={`border-b border-white/[0.04] transition-colors cursor-pointer group ${
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
                 }`}
@@ -282,6 +227,46 @@ export default function LekkungPage() {
                   </span>
                 </Td>
               </tr>
+              {activeTicker === s.Ticker && (
+                <tr key={`${s.Ticker}-chart`} className="bg-black/20 border-b border-white/[0.04]">
+                  <td colSpan={12} className="p-4">
+                    <div className="bg-[#13161e] border border-emerald-500/25 rounded-xl p-4 shadow-xl space-y-3">
+                      <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <h2 className="text-[18px] font-extrabold text-white tracking-wide">{s.Ticker}</h2>
+                          <span className="text-[11.5px] text-white/40">Technical Chart (Lekkung Strategy)</span>
+                          {scanMarkers.firstSeen && (
+                            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                              <span>📍 เจอครั้งแรก:</span>
+                              <span>{formatThaiDate(scanMarkers.firstSeen)}</span>
+                            </span>
+                          )}
+                          {scanMarkers.reentries.length > 0 && (
+                            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1">
+                              <span>🔄 เจอใหม่:</span>
+                              <span>{formatThaiDate(scanMarkers.reentries[scanMarkers.reentries.length - 1])}</span>
+                            </span>
+                          )}
+                        </div>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setSelectedTicker(null); }}
+                          className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                        >
+                          ปิดกราฟ
+                        </button>
+                      </div>
+                      <StockChart
+                        ticker={s.Ticker}
+                        height={340}
+                        showEma10={true}
+                        highlightDates={scanMarkers.firstSeen ? [scanMarkers.firstSeen] : undefined}
+                        reentryDates={scanMarkers.reentries.length ? scanMarkers.reentries : undefined}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              )}
+              </React.Fragment>
             );
           })}
           {isMobile && visibleCount < totalCount && (
