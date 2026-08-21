@@ -2640,21 +2640,6 @@
     "52W_Low": 3.08
   },
   {
-    "Ticker": "TVH",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 11.9,
-    "MA30": 9.81,
-    "MA10": 11.12,
-    "Vol10": 302591.0,
-    "Slope_4W_%": 4.78,
-    "RS_Rating": 81,
-    "ADTV(MB)": 0.7,
-    "PE_Ratio": 5.58,
-    "ROE": 0.154,
-    "52W_High": 12.7,
-    "52W_Low": 7.62
-  },
-  {
     "Ticker": "BLAND",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.59,
@@ -2668,6 +2653,21 @@
     "ROE": 0.0154,
     "52W_High": 0.76,
     "52W_Low": 0.39
+  },
+  {
+    "Ticker": "TVH",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 11.9,
+    "MA30": 9.81,
+    "MA10": 11.12,
+    "Vol10": 302591.0,
+    "Slope_4W_%": 4.78,
+    "RS_Rating": 81,
+    "ADTV(MB)": 0.7,
+    "PE_Ratio": 5.58,
+    "ROE": 0.154,
+    "52W_High": 12.7,
+    "52W_Low": 7.62
   },
   {
     "Ticker": "AFC",
@@ -3225,21 +3225,6 @@
     "52W_Low": 1.46
   },
   {
-    "Ticker": "MBAX",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 2.04,
-    "MA30": 1.85,
-    "MA10": 1.98,
-    "Vol10": 1399700.0,
-    "Slope_4W_%": 5.19,
-    "RS_Rating": 76,
-    "ADTV(MB)": 0.6,
-    "PE_Ratio": 6.84,
-    "ROE": 0.1149,
-    "52W_High": 2.6,
-    "52W_Low": 1.25
-  },
-  {
     "Ticker": "UMI",
     "Stage": "Stage 2 (Advancing)",
     "Price": 0.96,
@@ -3255,6 +3240,21 @@
     "52W_Low": 0.61
   },
   {
+    "Ticker": "MBAX",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 2.04,
+    "MA30": 1.85,
+    "MA10": 1.98,
+    "Vol10": 1399700.0,
+    "Slope_4W_%": 5.19,
+    "RS_Rating": 76,
+    "ADTV(MB)": 0.6,
+    "PE_Ratio": 6.84,
+    "ROE": 0.1149,
+    "52W_High": 2.6,
+    "52W_Low": 1.25
+  },
+  {
     "Ticker": "QLT",
     "Stage": "Stage 2 (Advancing)",
     "Price": 2.04,
@@ -3264,7 +3264,7 @@
     "Slope_4W_%": 4.14,
     "RS_Rating": 76,
     "ADTV(MB)": 0.1,
-    "PE_Ratio": null,
+    "PE_Ratio": 34.0,
     "ROE": -0.0043,
     "52W_High": 2.39,
     "52W_Low": 1.22
@@ -4050,21 +4050,6 @@
     "52W_Low": 8.54
   },
   {
-    "Ticker": "BIS",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 2.46,
-    "MA30": 2.04,
-    "MA10": 2.16,
-    "Vol10": 1628032.0,
-    "Slope_4W_%": 2.23,
-    "RS_Rating": 69,
-    "ADTV(MB)": 0.7,
-    "PE_Ratio": 22.76,
-    "ROE": 0.0445,
-    "52W_High": 2.69,
-    "52W_Low": 1.67
-  },
-  {
     "Ticker": "SAT",
     "Stage": "Stage 2 (Advancing)",
     "Price": 16.5,
@@ -4078,6 +4063,21 @@
     "ROE": 0.0929,
     "52W_High": 16.8,
     "52W_Low": 11.83
+  },
+  {
+    "Ticker": "BIS",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 2.46,
+    "MA30": 2.04,
+    "MA10": 2.16,
+    "Vol10": 1628032.0,
+    "Slope_4W_%": 2.23,
+    "RS_Rating": 69,
+    "ADTV(MB)": 0.7,
+    "PE_Ratio": 22.76,
+    "ROE": 0.0445,
+    "52W_High": 2.69,
+    "52W_Low": 1.67
   },
   {
     "Ticker": "ICHI",
@@ -4455,21 +4455,6 @@
     "52W_Low": 0.0
   },
   {
-    "Ticker": "SCG",
-    "Stage": "Stage 2 (Advancing)",
-    "Price": 2.74,
-    "MA30": 2.5,
-    "MA10": 2.76,
-    "Vol10": 391020.0,
-    "Slope_4W_%": 3.17,
-    "RS_Rating": 65,
-    "ADTV(MB)": 0.2,
-    "PE_Ratio": null,
-    "ROE": -0.0587,
-    "52W_High": 3.22,
-    "52W_Low": 2.0
-  },
-  {
     "Ticker": "STP",
     "Stage": "Stage 2 (Advancing)",
     "Price": 12.3,
@@ -4483,6 +4468,21 @@
     "ROE": 0.191,
     "52W_High": 12.6,
     "52W_Low": 9.18
+  },
+  {
+    "Ticker": "SCG",
+    "Stage": "Stage 2 (Advancing)",
+    "Price": 2.74,
+    "MA30": 2.5,
+    "MA10": 2.76,
+    "Vol10": 391020.0,
+    "Slope_4W_%": 3.17,
+    "RS_Rating": 65,
+    "ADTV(MB)": 0.2,
+    "PE_Ratio": null,
+    "ROE": -0.0587,
+    "52W_High": 3.22,
+    "52W_Low": 2.0
   },
   {
     "Ticker": "MOONG",
@@ -5155,7 +5155,7 @@
     "RS_Rating": 59,
     "ADTV(MB)": 4.2,
     "PE_Ratio": null,
-    "ROE": null,
+    "ROE": -0.0096,
     "52W_High": 4.54,
     "52W_Low": 3.3
   },
@@ -8680,7 +8680,7 @@
     "RS_Rating": 19,
     "ADTV(MB)": 0.1,
     "PE_Ratio": 43.13,
-    "ROE": null,
+    "ROE": 0.0063,
     "52W_High": 0.93,
     "52W_Low": 0.52
   },
@@ -10870,7 +10870,7 @@
     "RS_Rating": 24,
     "ADTV(MB)": 0.4,
     "PE_Ratio": 2.11,
-    "ROE": 0.5063,
+    "ROE": 0.5079,
     "52W_High": 1.58,
     "52W_Low": 1.2
   },
@@ -12672,7 +12672,7 @@
     "PE_Ratio": null,
     "ROE": -0.0988,
     "52W_High": 2.72,
-    "52W_Low": 1.08
+    "52W_Low": 1.09
   },
   {
     "Ticker": "MONO",
