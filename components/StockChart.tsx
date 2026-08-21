@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createChart, CandlestickSeries, LineSeries, HistogramSeries, ColorType, createSeriesMarkers } from 'lightweight-charts';
 import type { IChartApi, Time } from 'lightweight-charts';
 
@@ -63,6 +63,63 @@ function calcVolSMA(data: OhlcvPoint[], period: number): { time: string; value: 
   return result;
 }
 
+// ── Market Stage (opt-in via stageMarker) ────────────────────────────────────
+// getStage is a 1:1 port of get_stage() in the pipeline's
+// tools/scanner/scan_pine_stages.py, and calcEMA above already matches that
+// script's tv_ema (SMA seed, then ewm with adjust=False), so the stage computed
+// here is the same label market_stage.json carries — recomputed per bar, which
+// the JSON itself cannot give us (it only stores today's stage + Bar_Count).
+type Stage =
+  | 'S.Bull' | 'Bull' | 'Accumulation' | 'Recovery'
+  | 'Warning' | 'Distribution' | 'Bear' | 'UNKNOWN';
+
+function getStage(p: number, e15?: number, e50?: number, e200?: number): Stage {
+  if (e200 == null || e50 == null || p == null) return 'UNKNOWN';
+  if (p > e50 && p < e200 && e50 < e200) return 'Recovery';
+  if (p > e50 && p > e200 && e50 < e200) return 'Accumulation';
+  if (p > e50 && p > e200 && e50 > e200) {
+    if (e15 != null && p > e15 && e15 > e50) return 'S.Bull';
+    return 'Bull';
+  }
+  if (p < e50 && p > e200 && e50 > e200) return 'Warning';
+  if (p < e50 && p < e200 && e50 > e200) return 'Distribution';
+  if (p < e50 && p < e200 && e50 < e200) return 'Bear';
+  return 'UNKNOWN';
+}
+
+// First bar of the current stage run — i.e. the day the status actually flipped
+// INTO today's stage. Deliberately stricter than the table's "Days In Stage"
+// (Bar_Count), which folds an earlier S.Bull stretch into a current Bull run:
+// here a Bull run starts the day it stopped being S.Bull.
+// Returns null when the run reaches the oldest bar we can classify — the real
+// entry is then older than the ~2y the chart loads, and pinning the first
+// classifiable bar would claim a stage change that never happened there.
+function findStageRunStart(data: OhlcvPoint[]): { stage: Stage; time: string } | null {
+  if (data.length < 200) return null;
+  const asMap = (pts: { time: string; value: number }[]) =>
+    new Map(pts.map(p => [p.time, p.value]));
+  const e15 = asMap(calcEMA(data, 15));
+  const e50 = asMap(calcEMA(data, 50));
+  const e200 = asMap(calcEMA(data, 200));
+
+  const stageAt = (i: number): Stage => {
+    const t = data[i].time;
+    return getStage(data[i].close, e15.get(t), e50.get(t), e200.get(t));
+  };
+
+  const last = data.length - 1;
+  const current = stageAt(last);
+  if (current === 'UNKNOWN') return null;
+
+  let firstIdx = last;
+  for (let i = last; i >= 0; i--) {
+    if (stageAt(i) !== current) break;
+    firstIdx = i;
+  }
+  if (firstIdx === 0 || stageAt(firstIdx - 1) === 'UNKNOWN') return null;
+  return { stage: current, time: data[firstIdx].time };
+}
+
 function getPpbpTimes(data: OhlcvPoint[]): Set<string> {
   const times = new Set<string>();
   if (data.length <= 50) return times;
@@ -91,16 +148,24 @@ function getPpbpTimes(data: OhlcvPoint[]): Set<string> {
   return times;
 }
 
-export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates, highlightColor = '#f59e0b', reentryDates, reentryColor = '#22c55e' }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[]; highlightColor?: string; reentryDates?: string[]; reentryColor?: string }) {
+export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates, highlightColor = '#f59e0b', reentryDates, reentryColor = '#22c55e', stageMarker = false, stageMarkerColor = '#F472B6', defaultTimeframe = '6M' }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[]; highlightColor?: string; reentryDates?: string[]; reentryColor?: string; stageMarker?: boolean; stageMarkerColor?: string; defaultTimeframe?: Timeframe }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [chartData, setChartData] = useState<OhlcvPoint[]>([]);
-  const [timeframe, setTimeframe] = useState<Timeframe>('6M');
-  const timeframeRef = useRef<Timeframe>('6M');
+  const [timeframe, setTimeframe] = useState<Timeframe>(defaultTimeframe);
+  const timeframeRef = useRef<Timeframe>(defaultTimeframe);
 
   // Sync ref so chart creation reads current timeframe without being a dep
   useEffect(() => { timeframeRef.current = timeframe; }, [timeframe]);
+
+  // Memoised so the object identity is stable across renders — it feeds the
+  // chart-creation effect's dep array, and a fresh value there would tear the
+  // chart down and reset the user's zoom on every render.
+  const stageRun = useMemo(
+    () => (stageMarker && chartData.length ? findStageRunStart(chartData) : null),
+    [stageMarker, chartData]
+  );
 
   // Fetch
   useEffect(() => {
@@ -162,7 +227,7 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
 
     const hasHighlight = highlightDates && highlightDates.length;
     const hasReentry = reentryDates && reentryDates.length;
-    if (hasHighlight || hasReentry) {
+    if (hasHighlight || hasReentry || stageRun) {
       const validTimes = new Set(chartData.map(d => d.time));
       const firstSet = new Set(highlightDates || []);
       const allMarkers: { time: Time; position: 'belowBar'; shape: 'arrowUp'; color: string; text?: string }[] = [];
@@ -193,6 +258,16 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
               text: 'เจอใหม่',
             });
           });
+      }
+
+      if (stageRun && validTimes.has(stageRun.time)) {
+        allMarkers.push({
+          time: stageRun.time as Time,
+          position: 'belowBar',
+          shape: 'arrowUp',
+          color: stageMarkerColor,
+          text: `เข้า ${stageRun.stage}`,
+        });
       }
 
       allMarkers.sort((a, b) => (a.time > b.time ? 1 : -1));
@@ -274,7 +349,7 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
     ro.observe(containerRef.current);
 
     return () => { ro.disconnect(); chart.remove(); chartRef.current = null; };
-  }, [status, chartData, height, isPpbp, highlightDates, highlightColor, reentryDates, reentryColor]);
+  }, [status, chartData, height, isPpbp, highlightDates, highlightColor, reentryDates, reentryColor, stageRun, stageMarkerColor]);
 
   // Update visible range when timeframe changes (chart already created)
   useEffect(() => {
@@ -322,6 +397,14 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
             <div className="w-3 h-0.5 rounded-full" style={{ background: 'rgba(248,201,66,0.7)' }} />
             <span className="text-[10px] text-white/30">Vol SMA50</span>
           </div>
+          {stageRun && (
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-sm" style={{ background: stageMarkerColor }} />
+              <span className="text-[10px] text-white/30">
+                เข้า {stageRun.stage} <span className="tabular-nums">{stageRun.time}</span>
+              </span>
+            </div>
+          )}
           {isPpbp && (
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-sm" style={{ background: 'rgba(127,119,221,0.95)' }} />

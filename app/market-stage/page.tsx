@@ -224,7 +224,7 @@ export default function MarketStagePage() {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-baseline gap-2">
                         <h2 className="text-[16px] font-bold text-white tracking-wide">{s.Ticker}</h2>
-                        <span className="text-label text-white/40">EMA50 / EMA200</span>
+                        <span className="text-label text-white/40">EMA10 / EMA50 / EMA200</span>
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); setSelectedTicker(null); }}
@@ -233,7 +233,13 @@ export default function MarketStagePage() {
                         ปิดกราฟ
                       </button>
                     </div>
-                    <StockChart ticker={s.Ticker} height={350} />
+                    <StockChart ticker={s.Ticker} height={350} showEma10={true} stageMarker={true} defaultTimeframe="1Y" />
+                    <p className="text-[10px] text-white/25 mt-2 leading-relaxed">
+                      📍 หมุดสีชมพู = วันแรกที่ status เปลี่ยนมาเป็น {s.Stage} (คำนวณจากราคาย้อนหลังทีละแท่ง)
+                      {s.Stage === 'Bull' && (
+                        <> · หมายเหตุ: ตัวเลข {s.Bar_Count} วันในตารางนับรวมช่วง S.Bull ก่อนหน้าด้วย หมุดจึงอาจไม่ตรงกัน</>
+                      )}
+                    </p>
                   </div>
                 </td>
               </tr>
