@@ -11,7 +11,7 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
   formatPE, ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -29,11 +29,6 @@ import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 
 export default function OneilPage() {
-  const [rsMin, setRsMin] = useState(80);
-  const [profitMin, setProfitMin] = useState(20);
-  const [roeMin, setRoeMin] = useState(15);
-  const [mcapMin, setMcapMin] = useState(0);
-  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -49,11 +44,6 @@ export default function OneilPage() {
 
   const filtered = useMemo(() => {
     let result = oneilData
-      .filter(s => s.RS_Rating >= rsMin)
-      .filter(s => s.Profit_Growth_YoY >= profitMin)
-      .filter(s => (s.ROE * 100) >= roeMin)
-      .filter(s => mcapMin === 0 || ((s.Market_Cap || 0) / 1e6) >= mcapMin)
-      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -74,11 +64,11 @@ export default function OneilPage() {
       result = result.sort((a, b) => b.RS_Rating - a.RS_Rating);
     }
     return result;
-  }, [rsMin, profitMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]);
+  }, [sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [rsMin, profitMin, roeMin, mcapMin, adtvMin, sortConfig, diffFilter, newSet]
+    [sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
   const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
@@ -112,16 +102,6 @@ export default function OneilPage() {
       ) : (
       <>
       <FilterBar>
-        <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={setRsMin} />
-        <Divider />
-        <SliderField label="Profit Growth %" min={0} max={100} value={profitMin} onChange={setProfitMin} />
-        <Divider />
-        <SliderField label="ROE %" min={15} max={50} value={roeMin} onChange={setRoeMin} />
-        <Divider />
-        <SliderField label="Market Cap (MB)" min={0} max={50000} value={mcapMin} onChange={setMcapMin} step={1000} />
-        <Divider />
-        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={setAdtvMin} step={5} />
-        <Divider />
         <ScanDiffChips scanName="oneil" filter={diffFilter} onChange={setDiffFilter} />
       </FilterBar>
 
