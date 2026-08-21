@@ -71,7 +71,10 @@ export default function OneilPage() {
     [sortConfig, diffFilter, newSet]
   );
   const displayRows = isMobile ? visibleRows : filtered;
-  const activeTicker = selectedTicker ?? filtered[0]?.Ticker ?? null;
+  // No chart until a row is clicked — the top chart used to default to the
+  // first row, which read as "this stock matters most" when it only meant
+  // "this one sorted first".
+  const activeTicker = selectedTicker;
   const scanMarkers = useMemo(() => {
     if (!activeTicker || !oneilHistory) return { firstSeen: null, reentries: [] };
     const match = oneilHistory.tickers.find(t => t.ticker === activeTicker);
@@ -110,7 +113,7 @@ export default function OneilPage() {
       ) : (
       <div className="space-y-4">
       {/* Top Chart Section */}
-      {activeTicker && (
+      {activeTicker ? (
         <div className="bg-[#13161e] border border-emerald-500/30 rounded-xl p-4 shadow-xl space-y-3">
           <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
             <div className="flex items-center gap-3 flex-wrap">
@@ -134,7 +137,7 @@ export default function OneilPage() {
                 onClick={() => setSelectedTicker(null)}
                 className="text-[11px] font-medium text-white/50 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
               >
-                ย้อนกลับไปตัวแรก
+                ปิดกราฟ
               </button>
             )}
           </div>
@@ -145,6 +148,10 @@ export default function OneilPage() {
             highlightDates={scanMarkers.firstSeen ? [scanMarkers.firstSeen] : undefined}
             reentryDates={scanMarkers.reentries.length ? scanMarkers.reentries : undefined}
           />
+        </div>
+      ) : (
+        <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-8 text-center">
+          <p className="text-[12px] text-white/40">คลิกชื่อหุ้นในตารางเพื่อดูกราฟ</p>
         </div>
       )}
 
