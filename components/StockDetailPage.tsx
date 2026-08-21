@@ -835,7 +835,16 @@ export default function StockDetailPage({
       {generalNewsList.length > 0 && (
         <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
           <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between flex-wrap gap-2">
-            <h2 className="text-section text-ink font-bold">ข่าวทั่วไป & บทวิเคราะห์สื่อ</h2>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-section text-ink font-bold">
+                {newsIsGeneral ? 'ข่าวตลาดรวม' : 'ข่าวทั่วไป & บทวิเคราะห์สื่อ'}
+              </h2>
+              {newsIsGeneral && (
+                <span className="px-2 py-0.5 rounded text-label font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                  ไม่มีข่าวเจาะจง {ticker} · ข่าวรวมตลาด
+                </span>
+              )}
+            </div>
             <span className="text-label text-meta">ทั้งหมด {generalNewsList.length} ข่าว</span>
           </div>
           <div className="divide-y divide-white/[0.04]">
