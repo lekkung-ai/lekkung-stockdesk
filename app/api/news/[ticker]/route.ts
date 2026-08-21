@@ -130,9 +130,33 @@ function getSentiment(text: string): 'pos' | 'neg' | 'neu' {
 // import) so new days show up without a redeploy — the batch script commits
 // straight into public/, which the running server can already see on disk.
 const HISTORY_DAYS = 7; // matches the news page's date-picker min range
+// SET disclosures only. A quiet stock can go weeks without filing anything
+// (ZIGA's last one before 2026-08-21 was 2026-08-11), so a 7-day archive gives
+// the "ข่าวแจ้งตลาด" section no safety net whenever the live settrade fetch
+// above fails — the page then falls through to the generic all-market list,
+// which reads as if unrelated news belonged to that ticker. ~73% of the
+// universe has no SET disclosure within any given 7-day window; over 60 days
+// almost every listed name has at least one. Deliberately NOT applied to the
+// RSS/general sources: two-month-old general news adds no value and would
+// bloat the /api/news/ALL payload.
+const SET_HISTORY_DAYS = 60;
 const HISTORY_DIR = path.join(process.cwd(), 'public', 'data', 'history');
+const SET_SOURCE = 'SET (ตลาดหลักทรัพย์)';
 
 let historicalCache: { data: NewsItem[]; timestamp: number } | null = null;
+let setHistoricalCache: { data: NewsItem[]; timestamp: number } | null = null;
+
+function readDayItems(daysAgo: number, now: number): NewsItem[] {
+  const date = new Date(now - daysAgo * 86400000).toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
+  const filePath = path.join(HISTORY_DIR, date, 'news.json');
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(raw) as NewsItem[];
+  } catch {
+    // no snapshot for this day yet — not an error, just nothing to add
+    return [];
+  }
+}
 
 function loadHistoricalItems(): NewsItem[] {
   const now = Date.now();
@@ -141,16 +165,35 @@ function loadHistoricalItems(): NewsItem[] {
   }
   const items: NewsItem[] = [];
   for (let i = 0; i < HISTORY_DAYS; i++) {
-    const date = new Date(now - i * 86400000).toLocaleDateString('en-CA', { timeZone: 'Asia/Bangkok' });
-    const filePath = path.join(HISTORY_DIR, date, 'news.json');
-    try {
-      const raw = fs.readFileSync(filePath, 'utf-8');
-      items.push(...(JSON.parse(raw) as NewsItem[]));
-    } catch {
-      // no snapshot for this day yet — not an error, just nothing to add
-    }
+    items.push(...readDayItems(i, now));
   }
   historicalCache = { data: items, timestamp: now };
+  return items;
+}
+
+// Same daily snapshots, read SET_HISTORY_DAYS back but keeping only the SET
+// disclosures. Newest first; the caller's per-section slice() then still cuts
+// the newest N, so old filings can only fill slots today's news left empty.
+// Deduped by link here as well as in the merge below, since the same filing
+// can be re-archived under more than one date.
+function loadSetHistoricalItems(): NewsItem[] {
+  const now = Date.now();
+  if (setHistoricalCache && (now - setHistoricalCache.timestamp) < 60000) {
+    return setHistoricalCache.data;
+  }
+  const items: NewsItem[] = [];
+  const seen = new Set<string>();
+  for (let i = 0; i < SET_HISTORY_DAYS; i++) {
+    for (const item of readDayItems(i, now)) {
+      if (item.source !== SET_SOURCE) continue;
+      const key = normalizeUrl(item.link ?? '');
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      items.push(item);
+    }
+  }
+  items.sort((a, b) => b.ts - a.ts);
+  setHistoricalCache = { data: items, timestamp: now };
   return items;
 }
 
@@ -200,8 +243,14 @@ export async function GET(
   // Load daily snapshots for the past HISTORY_DAYS days (memory cached)
   const archivedItems: NewsItem[] = loadHistoricalItems();
 
-  // Always include batch-archived SET disclosures from news.json
-  const setArchived = archivedItems.filter(item => item.source === 'SET (ตลาดหลักทรัพย์)');
+  // Always include batch-archived SET disclosures from news.json. A ticker page
+  // reads SET_HISTORY_DAYS back (see above); the all-market list keeps the
+  // HISTORY_DAYS window it already used, so its payload stays as it was — the
+  // extra depth only exists to answer "what did THIS company file", which the
+  // all-market list never asks.
+  const setArchived = wantGeneral
+    ? archivedItems.filter(item => item.source === SET_SOURCE)
+    : loadSetHistoricalItems();
   if (setArchived.length > 0) {
     allLive.push(...setArchived);
   }
