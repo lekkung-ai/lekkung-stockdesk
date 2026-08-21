@@ -139,6 +139,14 @@ export default function MarketStagePage() {
             Reset
           </button>
         )}
+        {stages.size > 0 && (
+          <button
+            onClick={() => setStages(new Set())}
+            className="text-label text-white/25 hover:text-white/60 transition-colors"
+          >
+            ล้างทั้งหมด
+          </button>
+        )}
         <Divider />
         <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={setAdtvMin} step={5} />
         <div className="ml-auto">
