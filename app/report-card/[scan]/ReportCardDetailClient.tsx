@@ -111,6 +111,49 @@ function Sparkline({ path, positive }: { path?: number[]; positive: boolean }) {
   );
 }
 
+// Compact stat card used by the expanded setup panel's stat strip.
+function StatCell({ label, value, sub, color }: { label: string; value: string; sub?: string; color?: string }) {
+  return (
+    <div className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-2.5 py-2">
+      <span className="text-[10px] uppercase tracking-wider text-white/30 block mb-0.5">{label}</span>
+      <span className="text-[14px] font-bold tabular-nums block" style={color ? { color } : undefined}>
+        {value}
+      </span>
+      {sub && <span className="text-[10px] text-white/25 block mt-0.5 tabular-nums">{sub}</span>}
+    </div>
+  );
+}
+
+// เข้า / ออก / ผลตอบแทน / MFE / MAE / ถือ — ใช้เฉพาะ field ที่มีจริงใน setup entry
+// (vs SET ยังไม่มีข้อมูลระดับ setup จึงยังไม่แสดง)
+function SetupStatStrip({ s }: { s: SetupEntry }) {
+  return (
+    <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mb-3">
+      <StatCell label="เข้า" value={s.entry_price.toFixed(2)} sub={s.entry_date} color="rgba(255,255,255,0.85)" />
+      <StatCell
+        label={s.status === 'open' ? 'ล่าสุด' : 'ออก'}
+        value={s.exit_price.toFixed(2)}
+        sub={s.exit_date}
+        color="rgba(255,255,255,0.85)"
+      />
+      <StatCell label="ผลตอบแทน" value={fmtPct(s.return_pct)} color={returnColor(s.return_pct)} />
+      <StatCell
+        label="MFE"
+        value={fmtPct(s.mfe_pct)}
+        sub="กำไรสูงสุดระหว่างถือ"
+        color={s.mfe_pct == null ? undefined : s.mfe_pct >= 0 ? '#1D9E75' : '#E24B4A'}
+      />
+      <StatCell
+        label="MAE"
+        value={fmtPct(s.mae_pct)}
+        sub="ขาดทุนสูงสุดระหว่างถือ"
+        color={s.mae_pct == null ? undefined : '#E24B4A'}
+      />
+      <StatCell label="ถือ" value={`${s.holding_days} วัน`} color="rgba(255,255,255,0.85)" />
+    </div>
+  );
+}
+
 const SHORT_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function fmtShortDate(iso: string): string {
   if (!iso || !iso.includes('-')) return iso;
@@ -336,9 +379,10 @@ export default function ReportCardDetailClient({
           <tr key={`${setupId}-chart`} className="bg-black/20 border-b border-white/[0.04]">
             <td colSpan={9} className="p-3 md:p-4">
               <div className="bg-[#13161e] border border-emerald-500/25 rounded-xl p-4 m-1">
+                <SetupStatStrip s={s} />
                 {s.holding_days === 0 ? (
                   <div className="text-[12px] text-white/50 py-6 text-center">
-                    เข้า–ออกวันเดียว (D+1) — ไม่มีช่วงราคาให้แสดง · เข้า {s.entry_price.toFixed(2)} → {s.status === 'open' ? 'ล่าสุด' : 'ออก'} {s.exit_price.toFixed(2)} · {fmtPct(s.return_pct)}
+                    เข้า–ออกวันเดียว (D+1) — ไม่มีช่วงราคาให้แสดง
                   </div>
                 ) : (
                   <ReportCardChart
