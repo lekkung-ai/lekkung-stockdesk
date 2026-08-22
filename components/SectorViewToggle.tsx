@@ -233,7 +233,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
                     className="bg-white/5 border border-white/10 rounded-md px-2.5 py-1 text-label text-white outline-none focus:border-white/20 cursor-pointer"
                   >
                     <option value="rs_desc" className="bg-[#13161e]">RS Rating (มาก→น้อย)</option>
-                    <option value="growth_desc" className="bg-[#13161e]">Profit Growth (มาก→น้อย)</option>
+                    <option value="growth_desc" className="bg-[#13161e]">Revenue Growth (มาก→น้อย)</option>
                     <option value="chg_desc" className="bg-[#13161e]">% เปลี่ยนแปลงวันนี้</option>
                     <option value="name_asc" className="bg-[#13161e]">ชื่อ (A-Z)</option>
                   </select>
@@ -303,7 +303,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
                 <span className="w-4 h-[5px] rounded bg-[#f87171]" />
                 <span>RS &lt; 40 อ่อนกว่าตลาด</span>
               </div>
-              <span>· Q_/4 = ควอร์ไทล์ RS ในกลุ่ม (Q4 = แข็งสุด) · Gr = Profit Growth ล่าสุด</span>
+              <span>· Gr = Revenue Growth (YoY) ล่าสุด</span>
             </div>
           </div>
 

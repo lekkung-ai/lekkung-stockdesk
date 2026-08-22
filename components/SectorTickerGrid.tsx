@@ -210,7 +210,7 @@ function renderGrowthChip(growth: number | null | undefined) {
   return (
     <span
       className={`text-[9px] px-[6px] py-[2px] rounded-md font-medium leading-none tabular-nums flex-shrink-0 ${cls}`}
-      title={`Profit Growth: ${growth.toFixed(1)}%`}
+      title={`Revenue Growth: ${growth.toFixed(1)}%`}
     >
       Gr {text}
     </span>
@@ -328,11 +328,6 @@ export default function SectorTickerGrid({
                           >
                             RS {rs}
                           </span>
-                          {scan?.combo_score != null && (
-                            <span className="text-[8.5px] text-white/35 font-medium flex-shrink-0">
-                              Q{scan.combo_score}/4
-                            </span>
-                          )}
                         </>
                       ) : (
                         <span className="text-[10px] text-white/25 flex-1">RS —</span>
