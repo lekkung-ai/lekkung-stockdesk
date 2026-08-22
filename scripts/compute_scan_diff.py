@@ -25,6 +25,8 @@ import json
 import os
 from datetime import datetime, timedelta, timezone
 
+from scan_calendar import previous_valid_date
+
 # page key -> history/scan filename (without .json) - same convention/list
 # as compute_scan_days.py.
 SCANNERS = {
@@ -76,16 +78,23 @@ def main():
         d for d in os.listdir(hist_dir)
         if os.path.isdir(os.path.join(hist_dir, d)) and d[0].isdigit()
     )
-    prior_dates = [d for d in dates if d < today]
-    if not prior_dates:
+    if not [d for d in dates if d < today]:
         print("  No prior history date to diff against - skipping (first run?)")
         return
-    previous_date = prior_dates[-1]
-    print(f"  Diffing today ({today}) against previous trading day ({previous_date})")
 
     generated_at = datetime.now(BANGKOK_TZ).strftime("%Y-%m-%dT%H:%M:%S+07:00")
 
     for key, fname in SCANNERS.items():
+        # เทียบกับ "วันล่าสุดที่สแกนตัวนี้ได้ผลออกมาจริง" ไม่ใช่ไดเรกทอรีล่าสุดเฉยๆ
+        # วันที่ pipeline ขาด (ไฟล์ไม่ถูกเขียน) จะอ่านได้เป็นลิสต์ว่าง ทำให้หุ้นทุกตัว
+        # กลายเป็น "เข้าใหม่" ในวันถัดมา - เกิดจริง 6 ครั้งกับ oneil ตั้งแต่ ก.ค. 2026
+        # (7/06, 7/08, 7/13, 7/16, 7/20, 7/27) ซึ่งวันก่อนหน้าไม่มีไฟล์ทั้งวัน
+        # หมายเหตุ: วันที่ไฟล์มีอยู่แต่เป็น [] ยังนับเป็นวันเทียบตามปกติ = หลุดจริง
+        previous_date = previous_valid_date(hist_dir, fname, dates, today)
+        if previous_date is None:
+            print(f"    {key}: no valid prior snapshot - skipped (คงไฟล์ diff เดิม)")
+            continue
+
         current_rows = rows_of(load_json(os.path.join(scans_dir, f"{fname}.json")))
         current_close = close_by_ticker(current_rows)
         current_tickers = set(current_close.keys())
@@ -111,7 +120,7 @@ def main():
         out_file = os.path.join(scans_dir, f"{fname}_diff.json")
         with open(out_file, "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
-        print(f"    {key}: +{len(new_tickers)} new, -{len(dropped_tickers)} dropped -> {out_file}")
+        print(f"    {key}: vs {previous_date} -> +{len(new_tickers)} new, -{len(dropped_tickers)} dropped -> {out_file}")
 
 
 if __name__ == "__main__":
