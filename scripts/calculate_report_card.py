@@ -241,11 +241,24 @@ def summarize_horizon(rows):
     }
 
 
-def compute_setups(hitDates, series):
+def compute_setups(hitDates, series, valid_scan_dates=None):
+    """valid_scan_dates = เซ็ตวันที่สแกนตัวนี้ได้ผลออกมาจริง (ไฟล์ snapshot มีอยู่)
+
+    ถ้าส่งมา ช่องว่างระหว่าง hit จะนับเฉพาะวันทำการที่สแกน "ได้รันจริง" เท่านั้น
+    วันที่ pipeline ขาด (ไฟล์หาย) ไม่ถือเป็นวันที่หุ้นหลุดจากลิสต์ จึงไม่ควรกิน
+    โควตา GAP - ไม่งั้น pipeline ล่มยาว 5 วันทำการจะแตก setup ที่ยังถืออยู่ทิ้ง
+    แล้วสร้าง exit ปลอมขึ้นมาโดยที่หุ้นไม่ได้หลุดไปไหน
+    วันที่ไฟล์มีอยู่แต่หุ้นไม่อยู่ในลิสต์ = หลุดจริง ยังนับเป็น gap ตามเดิม
+    """
     if not hitDates or not series:
         return []
     date_to_idx = {s[0]: i for i, s in enumerate(series)}
     GAP = 5  # gap >= 5 trading days = แตก setup
+
+    def gap_between(pi, ci):
+        if valid_scan_dates is None:
+            return ci - pi - 1
+        return sum(1 for k in range(pi + 1, ci) if series[k][0] in valid_scan_dates)
 
     # 1. แบ่ง setup
     setups_dates = []
@@ -253,7 +266,7 @@ def compute_setups(hitDates, series):
     for prev, curr in zip(hitDates, hitDates[1:]):
         pi = date_to_idx.get(prev)
         ci = date_to_idx.get(curr)
-        gap = 99 if (pi is None or ci is None) else (ci - pi - 1)
+        gap = 99 if (pi is None or ci is None) else gap_between(pi, ci)
         if gap >= GAP:
             setups_dates.append(cur)
             cur = [curr]
@@ -455,7 +468,7 @@ def main():
             series, _ = get_price_series(ticker)
             if not series:
                 continue
-            t_setups = compute_setups(hit_dates, series)
+            t_setups = compute_setups(hit_dates, series, valid_scan_dates=set(vdates))
             for st in t_setups:
                 scan_setups.append({"ticker": ticker, **st})
 
