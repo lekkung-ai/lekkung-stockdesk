@@ -33,9 +33,9 @@ function stageCls(stage: string | null): string {
 }
 
 function rsBarColor(score: number): string {
-  if (score >= 80) return '#1D9E75';
-  if (score >= 50) return '#BA7517';
-  return '#E24B4A';
+  if (score >= 70) return '#2dd4a0';
+  if (score >= 40) return '#fbbf24';
+  return '#f87171';
 }
 
 // ── Canvas drawing ──────────────────────────────────────────────────────────
@@ -191,17 +191,26 @@ function TickerCandleChart({ ticker }: { ticker: string }) {
 
 // ── Main grid ────────────────────────────────────────────────────────────────
 
-export default function SectorTickerGrid({ subsectors }: { subsectors: SubsectorData[] }) {
-  const [priceMap, setPriceMap] = useState<Record<string, LivePrice>>({});
+export default function SectorTickerGrid({
+  subsectors,
+  priceMap: initialPriceMap,
+}: {
+  subsectors: SubsectorData[];
+  priceMap?: Record<string, LivePrice>;
+}) {
+  const [internalPriceMap, setInternalPriceMap] = useState<Record<string, LivePrice>>({});
 
   useEffect(() => {
+    if (initialPriceMap && Object.keys(initialPriceMap).length > 0) return;
     const allTickers = subsectors.flatMap(s => s.tickers.map(t => t.ticker));
     if (allTickers.length === 0) return;
     fetch(`/api/prices?symbols=${allTickers.map(t => encodeURIComponent(t)).join(',')}`)
       .then(r => r.json())
-      .then(json => { if (json.prices) setPriceMap(json.prices); })
+      .then(json => { if (json.prices) setInternalPriceMap(json.prices); })
       .catch(() => {});
-  }, [subsectors]);
+  }, [subsectors, initialPriceMap]);
+
+  const priceMap = initialPriceMap && Object.keys(initialPriceMap).length > 0 ? initialPriceMap : internalPriceMap;
 
   return (
     <div className="space-y-5">
@@ -209,82 +218,29 @@ export default function SectorTickerGrid({ subsectors }: { subsectors: Subsector
         <div key={sub.subsector} className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
           <div className="px-4 py-3 border-b border-white/[0.06] flex items-center justify-between">
             <p className="text-[13px] font-semibold text-white">{sub.subsector}</p>
-            <span className="text-[11px] text-white/30">{sub.tickers.length} หุ้น</span>
+            <span className="text-[11px] text-white/40">{sub.tickers.length} หุ้น</span>
           </div>
           <div className="p-3 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-            {sub.tickers.map(({ ticker, scan }) => {
-              const live = priceMap[ticker];
-              return scan ? (
-                <Link
-                  key={ticker}
-                  href={`/stock/${ticker}`}
-                  className="bg-white/[0.04] hover:bg-white/[0.07] rounded-lg p-3 transition-colors block"
-                >
-                  {/* Header: ticker + price */}
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="text-[13px] font-bold text-white leading-tight">{ticker}</span>
-                    <div className="text-right flex-shrink-0">
-                      {live ? (
-                        <>
-                          <div className="text-[17px] font-medium text-white tabular-nums leading-tight">
-                            {live.price.toFixed(2)}
-                          </div>
-                          <div className={`text-[12px] font-medium tabular-nums leading-tight ${live.changePercent >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
-                            {live.changePercent >= 0 ? '+' : ''}{live.changePercent.toFixed(2)}%
-                          </div>
-                        </>
-                      ) : (
-                        <span className="text-[17px] font-medium text-white/40 tabular-nums">
-                          {scan.price.toFixed(2)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+            {sub.tickers.length === 0 ? (
+              <div className="p-8 text-center text-[13px] text-white/40 col-span-full">
+                ไม่มีหุ้นผ่านตัวกรอง — ลองปิด filter บางตัว
+              </div>
+            ) : (
+              sub.tickers.map(({ ticker, scan }) => {
+                const live = priceMap[ticker];
+                const rs = scan?.rs_score ?? rsMap.get(ticker) ?? null;
+                const stage = scan?.stage ?? stageAllMap.get(ticker) ?? null;
+                const isLeader = rs !== null && rs >= 80 && (stage === 'S.Bull' || stage === 'Bull');
 
-                  {/* Stage + signal badges */}
-                  <div className="flex flex-wrap gap-1 mb-1">
-                    <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(scan.stage || 'UNKNOWN')}`}>
-                      {scan.stage || 'UNKNOWN'}
-                    </span>
-                    {scan.sepa && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EAF3DE] text-[#27500A]">SEPA</span>
-                    )}
-                    {scan.kell && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#E6F1FB] text-[#0C447C]">Kell</span>
-                    )}
-                    {scan.breakout && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#E6F1FB] text-[#0C447C]">BO</span>
-                    )}
-                  </div>
-
-                  {/* Candlestick chart */}
-                  <TickerCandleChart ticker={ticker} />
-
-                  {/* RS bar + combo */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1 bg-white/[0.08] rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{ width: `${scan.rs_score}%`, backgroundColor: rsBarColor(scan.rs_score) }}
-                      />
-                    </div>
-                    <span
-                      className="text-[11px] font-semibold tabular-nums w-6 text-right flex-shrink-0"
-                      style={{ color: rsBarColor(scan.rs_score) }}
-                    >
-                      {scan.rs_score}
-                    </span>
-                    <span className="text-[10px] text-white/30 flex-shrink-0">{scan.combo_score}/4</span>
-                  </div>
-                </Link>
-              ) : (() => {
-                const rs = rsMap.get(ticker) ?? null;
-                const stage = stageAllMap.get(ticker) ?? null;
                 return (
                   <Link
                     key={ticker}
                     href={`/stock/${ticker}`}
-                    className="bg-white/[0.04] hover:bg-white/[0.07] rounded-lg p-3 transition-colors block"
+                    className={`bg-white/[0.04] hover:bg-white/[0.07] rounded-lg p-3 transition-colors block border ${
+                      isLeader
+                        ? 'border-emerald-500/35 ring-1 ring-emerald-500/10'
+                        : 'border-transparent'
+                    }`}
                   >
                     {/* Header: ticker + price */}
                     <div className="flex items-start justify-between gap-2 mb-2">
@@ -299,43 +255,65 @@ export default function SectorTickerGrid({ subsectors }: { subsectors: Subsector
                               {live.changePercent >= 0 ? '+' : ''}{live.changePercent.toFixed(2)}%
                             </div>
                           </>
+                        ) : scan ? (
+                          <span className="text-[17px] font-medium text-white/40 tabular-nums">
+                            {scan.price.toFixed(2)}
+                          </span>
                         ) : (
                           <span className="text-[17px] font-medium text-white/40 tabular-nums">—</span>
                         )}
                       </div>
                     </div>
 
-                    {/* Stage badge */}
+                    {/* Stage + signal badges */}
                     <div className="flex flex-wrap gap-1 mb-1">
                       <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold ${stageCls(stage || 'UNKNOWN')}`}>
                         {stage || 'UNKNOWN'}
                       </span>
+                      {scan?.sepa && (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EAF3DE] text-[#27500A]">SEPA</span>
+                      )}
+                      {scan?.kell && (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#E6F1FB] text-[#0C447C]">Kell</span>
+                      )}
+                      {scan?.breakout && (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#E6F1FB] text-[#0C447C]">BO</span>
+                      )}
                     </div>
 
                     {/* Candlestick chart */}
                     <TickerCandleChart ticker={ticker} />
 
-                    {/* RS bar */}
-                    {rs !== null && (
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 h-1 bg-white/[0.08] rounded-full overflow-hidden">
-                          <div
-                            className="h-full rounded-full"
-                            style={{ width: `${rs}%`, backgroundColor: rsBarColor(rs) }}
-                          />
-                        </div>
-                        <span
-                          className="text-[11px] font-semibold tabular-nums w-6 text-right flex-shrink-0"
-                          style={{ color: rsBarColor(rs) }}
-                        >
-                          {rs}
-                        </span>
-                      </div>
-                    )}
+                    {/* RS bar + metrics */}
+                    <div className="flex items-center gap-2 mt-auto pt-1">
+                      {rs !== null ? (
+                        <>
+                          <div className="flex-1 h-[5px] bg-white/[0.07] rounded-full overflow-hidden">
+                            <div
+                              className="h-full rounded-full"
+                              style={{ width: `${Math.min(100, Math.max(0, rs))}%`, backgroundColor: rsBarColor(rs) }}
+                            />
+                          </div>
+                          <span
+                            className="text-[11px] font-bold tabular-nums flex-shrink-0"
+                            style={{ color: rsBarColor(rs) }}
+                          >
+                            RS {rs}
+                          </span>
+                          {scan?.combo_score != null && (
+                            <span className="text-[8.5px] text-white/35 font-medium flex-shrink-0">
+                              Q{scan.combo_score}/4
+                            </span>
+                          )}
+                        </>
+                      ) : (
+                        <span className="text-[10px] text-white/25">RS —</span>
+                      )}
+                    </div>
                   </Link>
                 );
-              })();
-            })}
+              })
+            )}
           </div>
         </div>
       ))}

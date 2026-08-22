@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -102,7 +103,9 @@ export default async function SectorDetailPage({
         </div>
       </div>
 
-      <SectorViewToggle subsectors={subsectorData} />
+      <Suspense fallback={<div className="text-white/40 text-sm py-4">กำลังโหลดข้อมูล...</div>}>
+        <SectorViewToggle subsectors={subsectorData} />
+      </Suspense>
     </div>
   );
 }
