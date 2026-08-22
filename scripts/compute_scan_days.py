@@ -13,6 +13,8 @@ Usage:
 import json
 import os
 
+from scan_calendar import valid_dates
+
 # page key -> history/scan filename (without .json)
 SCANNERS = {
     "lekkung": "lekkung",
@@ -59,23 +61,29 @@ def main():
 
     result = {}
     for key, fname in SCANNERS.items():
-        # presence set per date (most-recent last)
+        # นับ streak เฉพาะ "วันที่สแกนตัวนี้ได้ผลออกมาจริง" (ไฟล์มีอยู่) - วันที่
+        # pipeline ขาดจะอ่านได้เป็นลิสต์ว่างแล้วตัด streak ทิ้งทั้งที่หุ้นไม่ได้หลุด
+        # ไปไหน ทำให้ DAYS ของทุก scan ชนเพดานเท่ากันหมดที่ "จำนวนวันตั้งแต่ pipeline
+        # ขาดครั้งล่าสุด" (ก่อนแก้: ทุก scan max = 26 = วันที่ขาดล่าสุดคือ 2026-07-26)
+        # วันที่ไฟล์มีอยู่แต่หุ้นไม่อยู่ในลิสต์ = หลุดจริง ยังตัด streak ตามเดิม
+        vdates = valid_dates(hist_dir, fname, dates)
         date_sets = {}
-        for d in dates:
+        for d in vdates:
             date_sets[d] = tickers_of(load_json(os.path.join(hist_dir, d, f"{fname}.json")))
 
         current = tickers_of(load_json(os.path.join(scans_dir, f"{fname}.json")))
         streaks = {}
         for ticker in current:
             streak = 0
-            for d in reversed(dates):
+            for d in reversed(vdates):
                 if ticker in date_sets.get(d, set()):
                     streak += 1
                 else:
                     break
             streaks[ticker] = max(streak, 1)  # present today => at least 1
         result[key] = streaks
-        print(f"    {key}: {len(streaks)} tickers, max streak = {max(streaks.values(), default=0)}")
+        print(f"    {key}: {len(streaks)} tickers, {len(vdates)}/{len(dates)} valid dates, "
+              f"max streak = {max(streaks.values(), default=0)}")
 
     out_file = os.path.join(scans_dir, "scan_days.json")
     with open(out_file, "w", encoding="utf-8") as f:
