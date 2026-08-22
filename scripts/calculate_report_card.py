@@ -40,6 +40,8 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
 
+from scan_calendar import valid_dates
+
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
@@ -406,11 +408,16 @@ def main():
     total_excluded_outliers = 0
 
     for scan_key, fname in SCANNERS.items():
+        # เดินเฉพาะ "วันที่สแกนตัวนี้ได้ผลออกมาจริง" (ไฟล์มีอยู่ ต่อให้ข้างในเป็น [])
+        # วันที่ pipeline ขาดจะอ่านได้เป็นลิสต์ว่าง ทำให้ first_appearances เห็นหุ้น
+        # ที่ถืออยู่แล้วเป็น "pick ใหม่" ในวันถัดมา -> total_picks บวมและสถิติ D+5/10/20
+        # นับ position เดิมซ้ำอีกรอบจากวันที่ผิด
+        vdates = valid_dates(HIST_DIR, fname, dates)
         date_sets = {}
-        for d in dates:
+        for d in vdates:
             date_sets[d] = tickers_of(load_json(os.path.join(HIST_DIR, d, f"{fname}.json")))
 
-        entries = first_appearances(dates, date_sets)
+        entries = first_appearances(vdates, date_sets)
         horizon_rows = {h: [] for h in HORIZONS}
 
         for ticker, entry_date in entries:
@@ -440,7 +447,7 @@ def main():
             ticker_hits = [(rec.get("ticker"), rec.get("hitDates", [])) for rec in hist_data["tickers"] if rec.get("ticker")]
         else:
             all_scan_tickers = sorted(set(t for d_set in date_sets.values() for t in d_set))
-            ticker_hits = [(t, sorted(d for d in dates if t in date_sets[d])) for t in all_scan_tickers]
+            ticker_hits = [(t, sorted(d for d in vdates if t in date_sets[d])) for t in all_scan_tickers]
 
         for ticker, hit_dates in ticker_hits:
             if not ticker or not hit_dates:
