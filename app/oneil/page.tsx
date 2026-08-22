@@ -5,6 +5,7 @@ import { oneilData } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
+import ScanWarningBanner from '@/components/ScanWarningBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
@@ -98,6 +99,7 @@ export default function OneilPage() {
         </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('oneil')} />
+      <ScanWarningBanner scanKey="oneil" label="CAN SLIM" />
       <ReportCardBar scanKey="oneil" />
 
       {mode === 'history' ? (

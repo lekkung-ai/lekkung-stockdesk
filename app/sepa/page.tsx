@@ -6,6 +6,7 @@ import { sepaData, SepaEntry } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
+import ScanWarningBanner from '@/components/ScanWarningBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
@@ -187,6 +188,7 @@ export default function SepaPage() {
         </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('sepa')} />
+      <ScanWarningBanner scanKey="sepa" label="SEPA" />
       <ReportCardBar scanKey="sepa" />
 
       {mode === 'history' ? (

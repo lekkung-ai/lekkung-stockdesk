@@ -17,6 +17,7 @@ import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
 import ModeToggle from '@/components/ModeToggle';
 import StaleDataBanner from '@/components/StaleDataBanner';
+import ScanWarningBanner from '@/components/ScanWarningBanner';
 import IncompletePopover from '@/components/IncompletePopover';
 import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
@@ -114,6 +115,7 @@ export default function LekkungPage() {
       </div>
 
       <StaleDataBanner generatedAt={getScanGeneratedAt('lekkung')} />
+      <ScanWarningBanner scanKey="lekkung" label="Lekkung Growth" />
       <ReportCardBar scanKey="lekkung_growth" />
 
       {mode === 'history' ? (
