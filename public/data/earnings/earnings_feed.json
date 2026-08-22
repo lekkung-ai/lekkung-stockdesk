@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-21T22:18:49.140663+07:00",
+  "generatedAt": "2026-08-22T18:13:55.269243+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 343,
+      "count": 342,
       "top3": [
         {
           "ticker": "BPS",
@@ -105,7 +105,7 @@
       "sector": "Agro",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-08-21T08:42:02+07:00",
+      "announceDate": "2026-08-21T08:42:00+07:00",
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
       "netProfit": -112005000.0,
@@ -156,11 +156,7 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
       "reason": "",
-      "reason_source": "none",
-      "gap_pct": 2.51,
-      "drift_d1_pct": null,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "reason_source": "none"
     },
     {
       "ticker": "SSPF",
@@ -189,7 +185,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.53,
-      "drift_d1_pct": -6.96,
+      "drift_d1_pct": -9.49,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8309,7 +8305,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.37
     },
     {
       "ticker": "HL",
@@ -8650,7 +8646,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "WICE",
@@ -11064,7 +11060,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "CPNCG",
@@ -11839,7 +11835,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 2.04,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "SKE",
@@ -12025,7 +12021,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "TVH",
@@ -13544,7 +13540,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -3.31,
       "drift_d2_pct": -3.31,
-      "drift_d5_pct": null
+      "drift_d5_pct": -3.31
     },
     {
       "ticker": "ROJNA",
@@ -14846,7 +14842,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "MNIT",
@@ -15094,7 +15090,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.61
     },
     {
       "ticker": "TIPCO",
@@ -16272,7 +16268,7 @@
       "gap_pct": 0.79,
       "drift_d1_pct": 6.35,
       "drift_d2_pct": 7.14,
-      "drift_d5_pct": 10.32
+      "drift_d5_pct": 11.11
     },
     {
       "ticker": "TMAN",
@@ -22121,7 +22117,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -1.36,
+      "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -29126,37 +29122,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "AEONTS",
-      "sector": "Financials",
-      "subsector": "Finance & Securities",
-      "market": "SET",
-      "announceDate": "2026-07-08T17:26:00+07:00",
-      "quarter": "ไตรมาส 1/2569",
-      "periodEnd": "31 พฤษภาคม 2569",
-      "netProfit": 793010000.0,
-      "netProfitPrior": 771839000.0,
-      "netProfitYoY": 2.742929548778955,
-      "netProfitPriorQ": 618263000.0,
-      "netProfitQoQ": 28.264185306253164,
-      "profitAcceleration": "accelerating",
-      "eps": 3.2,
-      "epsPrior": 3.09,
-      "epsYoY": 3.559870550161823,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105355001&symbol=AEONTS",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17834677624181&symbol=AEONTS",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105355201&symbol=AEONTS",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": -0.97,
-      "drift_d1_pct": 6.8,
-      "drift_d2_pct": 6.8,
-      "drift_d5_pct": 7.28
     }
   ],
   "calendar": [
@@ -32642,7 +32607,7 @@
       "ticker": "EMC",
       "date": "2026-08-13T19:05:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "ANAN",
@@ -34674,7 +34639,7 @@
     },
     {
       "ticker": "QDC",
-      "date": "2026-08-21T08:42:02+07:00",
+      "date": "2026-08-21T08:42:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
     },
