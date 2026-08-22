@@ -20,7 +20,7 @@ type TickerWithScan = {
 };
 type SubsectorData = { subsector: string; tickers: TickerWithScan[] };
 
-export type SortMode = 'rs_desc' | 'chg_desc' | 'name_asc';
+export type SortMode = 'rs_desc' | 'growth_desc' | 'chg_desc' | 'name_asc';
 
 const rsMap = new Map<string, number>(
   (rsRaw as { Ticker: string; RS_Rating: number }[]).map(r => [r.Ticker, r.RS_Rating])
@@ -40,7 +40,8 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
 
   // URL search params state
   const rawSort = searchParams.get('sort') as SortMode | null;
-  const sortMode: SortMode = rawSort === 'chg_desc' || rawSort === 'name_asc' ? rawSort : 'rs_desc';
+  const sortMode: SortMode =
+    rawSort === 'growth_desc' || rawSort === 'chg_desc' || rawSort === 'name_asc' ? rawSort : 'rs_desc';
   const filterStage2 = searchParams.get('stage2') === '1';
   const filterScan = searchParams.get('scan') === '1';
   const filterRS80 = searchParams.get('rs80') === '1';
@@ -118,6 +119,14 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
           if (rsA === null) return 1;
           if (rsB === null) return -1;
           return rsB - rsA;
+        }
+        if (sortMode === 'growth_desc') {
+          const gA = a.scan?.growth_qoq ?? a.scan?.growth_yoy ?? null;
+          const gB = b.scan?.growth_qoq ?? b.scan?.growth_yoy ?? null;
+          if (gA === null && gB === null) return 0;
+          if (gA === null) return 1;
+          if (gB === null) return -1;
+          return gB - gA;
         }
         if (sortMode === 'chg_desc') {
           const chgA = priceMap[a.ticker]?.changePercent ?? null;
@@ -224,6 +233,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
                     className="bg-white/5 border border-white/10 rounded-md px-2.5 py-1 text-label text-white outline-none focus:border-white/20 cursor-pointer"
                   >
                     <option value="rs_desc" className="bg-[#13161e]">RS Rating (มาก→น้อย)</option>
+                    <option value="growth_desc" className="bg-[#13161e]">Profit Growth (มาก→น้อย)</option>
                     <option value="chg_desc" className="bg-[#13161e]">% เปลี่ยนแปลงวันนี้</option>
                     <option value="name_asc" className="bg-[#13161e]">ชื่อ (A-Z)</option>
                   </select>
@@ -293,7 +303,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
                 <span className="w-4 h-[5px] rounded bg-[#f87171]" />
                 <span>RS &lt; 40 อ่อนกว่าตลาด</span>
               </div>
-              <span>· Q_/4 = ควอร์ไทล์ RS ในกลุ่ม (Q4 = แข็งสุด)</span>
+              <span>· Q_/4 = ควอร์ไทล์ RS ในกลุ่ม (Q4 = แข็งสุด) · Gr = Profit Growth ล่าสุด</span>
             </div>
           </div>
 

@@ -189,6 +189,34 @@ function TickerCandleChart({ ticker }: { ticker: string }) {
   );
 }
 
+function renderGrowthChip(growth: number | null | undefined) {
+  if (growth == null) {
+    return (
+      <span className="text-[9px] px-[6px] py-[2px] rounded-md font-medium leading-none tabular-nums bg-white/5 text-white/30 flex-shrink-0">
+        Gr —
+      </span>
+    );
+  }
+  const isHigh = growth >= 20;
+  const isPositive = growth >= 0;
+  const cls = isHigh
+    ? 'bg-emerald-500/12 text-emerald-400'
+    : isPositive
+    ? 'bg-white/5 text-white/40'
+    : 'bg-red-500/10 text-red-400';
+  const sign = growth > 0 ? '+' : '';
+  const text = `${sign}${growth.toFixed(0)}%`;
+
+  return (
+    <span
+      className={`text-[9px] px-[6px] py-[2px] rounded-md font-medium leading-none tabular-nums flex-shrink-0 ${cls}`}
+      title={`Profit Growth: ${growth.toFixed(1)}%`}
+    >
+      Gr {text}
+    </span>
+  );
+}
+
 // ── Main grid ────────────────────────────────────────────────────────────────
 
 export default function SectorTickerGrid({
@@ -285,7 +313,7 @@ export default function SectorTickerGrid({
                     <TickerCandleChart ticker={ticker} />
 
                     {/* RS bar + metrics */}
-                    <div className="flex items-center gap-2 mt-auto pt-1">
+                    <div className="flex items-center gap-1.5 mt-auto pt-1">
                       {rs !== null ? (
                         <>
                           <div className="flex-1 h-[5px] bg-white/[0.07] rounded-full overflow-hidden">
@@ -307,8 +335,9 @@ export default function SectorTickerGrid({
                           )}
                         </>
                       ) : (
-                        <span className="text-[10px] text-white/25">RS —</span>
+                        <span className="text-[10px] text-white/25 flex-1">RS —</span>
                       )}
+                      {renderGrowthChip(scan?.growth_qoq ?? scan?.growth_yoy ?? null)}
                     </div>
                   </Link>
                 );
