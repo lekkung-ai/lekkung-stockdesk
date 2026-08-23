@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { createChart, CandlestickSeries, LineSeries, HistogramSeries, ColorType, createSeriesMarkers } from 'lightweight-charts';
+import { createChart, CandlestickSeries, LineSeries, HistogramSeries, ColorType, LineStyle, createSeriesMarkers } from 'lightweight-charts';
 import type { IChartApi, ISeriesApi, Time } from 'lightweight-charts';
 
 type Timeframe = '1M' | '3M' | '6M' | '1Y';
@@ -183,7 +183,7 @@ function getPpbpTimes(data: OhlcvPoint[]): Set<string> {
   return times;
 }
 
-export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates, highlightColor = '#f59e0b', reentryDates, reentryColor = '#22c55e', stageMarker = false, stageMarkerColor = '#F472B6', defaultTimeframe = '6M', showRsLine = false, rsLineColor = '#a78bfa' }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[]; highlightColor?: string; reentryDates?: string[]; reentryColor?: string; stageMarker?: boolean; stageMarkerColor?: string; defaultTimeframe?: Timeframe; showRsLine?: boolean; rsLineColor?: string }) {
+export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates, highlightColor = '#f59e0b', reentryDates, reentryColor = '#22c55e', stageMarker = false, stageMarkerColor = '#F472B6', defaultTimeframe = '6M', showRsLine = false, rsLineColor = '#FB923C' }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[]; highlightColor?: string; reentryDates?: string[]; reentryColor?: string; stageMarker?: boolean; stageMarkerColor?: string; defaultTimeframe?: Timeframe; showRsLine?: boolean; rsLineColor?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const rsSeriesRef = useRef<ISeriesApi<'Line'> | null>(null);
@@ -416,12 +416,18 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
           priceScaleId: 'rs',
           color: rsLineColor,
           lineWidth: 2,
+          // เส้นประ + สีส้ม เพื่อไม่ให้อ่านสลับกับ EMA200 (#AA00FF ม่วง) ซึ่งเป็นเส้น
+          // ทึบสีใกล้กันกับสีเดิม (#a78bfa) จนดูเหมือนเส้นเดียวกัน - RS ไม่ได้อยู่
+          // หน่วยเดียวกับราคา จึงควรอ่านออกทันทีว่าเป็นคนละชนิด
+          lineStyle: LineStyle.Dashed,
           lastValueVisible: false,
           priceLineVisible: false,
         });
         rsSeries.setData(rsData);
         chart.priceScale('rs').applyOptions({
-          scaleMargins: { top: 0.06, bottom: 0.28 },
+          // ให้ ratio มีที่หายใจของตัวเองในโซนราคา (ไม่ล้ำ pane วอลุ่มที่กินล่าง 24%)
+          // และไม่แตะสเกล 'right' ที่ราคา/EMA ใช้ - เส้น RS จึงขยับสเกลราคาไม่ได้เลย
+          scaleMargins: { top: 0.1, bottom: 0.3 },
           visible: false,
         });
         rsSeriesRef.current = rsSeries;
