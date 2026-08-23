@@ -11,10 +11,16 @@
 // (COM7: fairPE 27.61 vs fairPBV 5.09 · SRICHA: 55.46 vs 3.77) ค่าเฉลี่ยจะถูกตัวสุดโต่ง
 // ลากไปทั้งก้อน — และเมื่อช่วงห่างกันมากจะขึ้นธงเตือนแทนที่จะรายงานเลขเดียวแบบมั่นใจเกินจริง
 
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { getStockValuation, getSectorMedians } from '@/lib/valuation';
 
 const DIVERGENCE_SPREAD_PCT = 30; // ช่วง upside ระหว่างวิธีสูงสุด-ต่ำสุด เกินเท่านี้ = ไม่น่าเชื่อถือพอจะสรุปเลขเดียว
+
+// สมมติฐานเริ่มต้น — ต้องตรงกับ default ของหน้า valuation เดิม ไม่งั้นตัวเลขสองหน้าจะขัดกัน
+//   DDM: app/valuation/ddm/page.tsx:25-26 (g 4%, r 10%)
+const DDM_GROWTH_PCT = 4;
+const DDM_REQUIRED_RETURN_PCT = 10;
 
 export interface FairValueMethod {
   key: string;
@@ -78,6 +84,44 @@ export function buildRelativeMethods(ticker: string): FairValueMethod[] {
       href,
     },
   ];
+}
+
+// ── DDM (Gordon Growth) — port จาก app/valuation/ddm/page.tsx:125-151 ────────
+// fair = dps × (1 + g) ÷ (r − g) โดย g/r เป็นสัดส่วน (4% -> 0.04) เหมือนหน้าเดิม
+// เงื่อนไขที่หน้าเดิมบล็อกไว้ ยกมาครบ: dps ต้อง > 0 และ r ต้องมากกว่า g (ไม่งั้นหารด้วย
+// เลขติดลบ/ศูนย์ แล้วได้มูลค่าติดลบหรืออนันต์)
+export interface DdmInputs { price: number | null; dps: number | null; dividendYield: number | null }
+
+export function buildDdmMethod(ticker: string, inputs: DdmInputs | null, loading: boolean): FairValueMethod {
+  const href = `/valuation/ddm?ticker=${encodeURIComponent(ticker)}`;
+  const base: Omit<FairValueMethod, 'fair' | 'ineligible' | 'sublabel'> = {
+    key: 'ddm',
+    label: 'DDM (ปันผล)',
+    href,
+  };
+  if (loading) return { ...base, sublabel: 'กำลังโหลดข้อมูลปันผล...', fair: null, ineligible: 'กำลังโหลด...' };
+  if (!inputs) return { ...base, sublabel: 'Gordon Growth', fair: null, ineligible: 'ดึงข้อมูลปันผลไม่ได้' };
+
+  const dps = inputs.dps;
+  const growth = DDM_GROWTH_PCT / 100;
+  const r = DDM_REQUIRED_RETURN_PCT / 100;
+
+  if (dps == null || !Number.isFinite(dps) || dps <= 0) {
+    return { ...base, sublabel: 'Gordon Growth', fair: null, ineligible: 'ไม่เข้าเกณฑ์ (ไม่จ่ายปันผล)' };
+  }
+  if (!(r > growth)) {
+    return { ...base, sublabel: 'Gordon Growth', fair: null, ineligible: 'r ต้องมากกว่า g' };
+  }
+  const fair = (dps * (1 + growth)) / (r - growth);
+  if (!Number.isFinite(fair)) {
+    return { ...base, sublabel: 'Gordon Growth', fair: null, ineligible: 'คำนวณไม่ได้' };
+  }
+  return {
+    ...base,
+    sublabel: `DPS ${dps.toFixed(2)} × (1+${DDM_GROWTH_PCT}%) ÷ (${DDM_REQUIRED_RETURN_PCT}%−${DDM_GROWTH_PCT}%)`,
+    fair,
+    ineligible: null,
+  };
 }
 
 // ── Track: ราคาจริง vs มูลค่าที่เหมาะสม บนแกนเดียวกัน ──────────────────────────
@@ -181,8 +225,27 @@ export default function FairValueCompare({
   ticker: string;
   currentPrice: number | null;
 }) {
-  const relative = buildRelativeMethods(ticker);
-  const methods = relative;
+  const [ddmInputs, setDdmInputs] = useState<DdmInputs | null>(null);
+  const [ddmLoading, setDdmLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setDdmLoading(true);
+    setDdmInputs(null);
+    fetch(`/api/ddm-inputs/${encodeURIComponent(ticker)}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        if (cancelled) return;
+        if (data && !data.error) setDdmInputs({ price: data.price ?? null, dps: data.dps ?? null, dividendYield: data.dividendYield ?? null });
+        setDdmLoading(false);
+      })
+      .catch(() => { if (!cancelled) setDdmLoading(false); });
+    return () => { cancelled = true; };
+  }, [ticker]);
+
+  const relative = useMemo(() => buildRelativeMethods(ticker), [ticker]);
+  const ddm = buildDdmMethod(ticker, ddmInputs, ddmLoading);
+  const methods = [...relative, ddm];
 
   const offlinePrice = getStockValuation(ticker)?.price ?? null;
   const price = currentPrice != null && Number.isFinite(currentPrice) && currentPrice > 0 ? currentPrice : offlinePrice;
@@ -236,6 +299,9 @@ export default function FairValueCompare({
       <div className="flex items-center gap-3 flex-wrap text-[10.5px] text-white/30">
         <Link href={`/valuation/pe-pbv?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
           ปรับสมมติฐาน P/E · P/BV เอง
+        </Link>
+        <Link href={`/valuation/ddm?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
+          ปรับสมมติฐาน DDM เอง
         </Link>
       </div>
     </div>
