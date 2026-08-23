@@ -21,6 +21,12 @@ const DIVERGENCE_SPREAD_PCT = 30; // ช่วง upside ระหว่าง�
 //   DDM: app/valuation/ddm/page.tsx:25-26 (g 4%, r 10%)
 const DDM_GROWTH_PCT = 4;
 const DDM_REQUIRED_RETURN_PCT = 10;
+//   DCF: app/valuation/dcf/page.tsx:25-28 (growth 6%, 10 ปี, terminal 2.5%, WACC 9%)
+const DCF_GROWTH_PCT = 6;
+const DCF_YEARS = 10;
+const DCF_TERMINAL_GROWTH_PCT = 2.5;
+const DCF_WACC_PCT = 9;
+const DCF_WACC_BAND_PCT = 1; // ช่วงมูลค่าที่แสดง = WACC ±1 จุด ตามขอบของ sensitivity matrix หน้า DCF
 
 export interface FairValueMethod {
   key: string;
@@ -30,6 +36,8 @@ export interface FairValueMethod {
   /** เหตุผลที่ใช้วิธีนี้กับหุ้นตัวนี้ไม่ได้ (null = ใช้ได้) */
   ineligible: string | null;
   href: string;
+  /** ช่วงมูลค่าเมื่อขยับสมมติฐาน (มีเฉพาะวิธีที่มี sensitivity เช่น DCF) */
+  band?: { lo: number; hi: number } | null;
 }
 
 function median(values: number[]): number | null {
@@ -124,6 +132,66 @@ export function buildDdmMethod(ticker: string, inputs: DdmInputs | null, loading
   };
 }
 
+// ── DCF 2-stage — port จาก app/valuation/dcf/page.tsx:136-201 ────────────────
+// เดินกระแสเงินสด n ปี คิดลดกลับด้วย WACC + Terminal Value แล้วสะพานเป็นมูลค่าต่อหุ้น
+//   EV = Σ FCF(1+g)^t / (1+wacc)^t  +  [FCF_n(1+tg)/(wacc−tg)] / (1+wacc)^n
+//   fair = (EV − netDebt) / shares
+export interface DcfInputs { price: number | null; fcf: number | null; netDebt: number | null; shares: number | null }
+
+function dcfFairValue(fcf: number, netDebt: number, shares: number, waccPct: number): number | null {
+  const growth = DCF_GROWTH_PCT / 100;
+  const wacc = waccPct / 100;
+  const terminalGrowth = DCF_TERMINAL_GROWTH_PCT / 100;
+  if (!(wacc > terminalGrowth) || !(shares > 0)) return null;
+
+  let currentCf = fcf;
+  let sumPV = 0;
+  for (let y = 1; y <= DCF_YEARS; y++) {
+    currentCf = currentCf * (1 + growth);
+    sumPV += currentCf / Math.pow(1 + wacc, y);
+  }
+  const tv = (currentCf * (1 + terminalGrowth)) / (wacc - terminalGrowth);
+  const pvTv = tv / Math.pow(1 + wacc, DCF_YEARS);
+  const fair = (sumPV + pvTv - netDebt) / shares;
+  return Number.isFinite(fair) ? fair : null;
+}
+
+export function buildDcfMethod(ticker: string, inputs: DcfInputs | null, loading: boolean): FairValueMethod {
+  const href = `/valuation/dcf?ticker=${encodeURIComponent(ticker)}`;
+  const base = { key: 'dcf', label: 'DCF (กระแสเงินสด)', href };
+  if (loading) return { ...base, sublabel: 'กำลังโหลดงบกระแสเงินสด...', fair: null, ineligible: 'กำลังโหลด...', band: null };
+  if (!inputs) return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'ดึงข้อมูล FCF ไม่ได้', band: null };
+
+  const { fcf, netDebt, shares } = inputs;
+  if (fcf == null || !Number.isFinite(fcf) || fcf <= 0) {
+    // หน้า DCF เดิมยอมให้คำนวณ FCF ติดลบ (ได้มูลค่าติดลบ) แต่บนแทร็กเทียบราคา
+    // มูลค่าติดลบอ่านไม่ได้ความ จึงตัดทิ้งแทนที่จะวางหมุดใต้ศูนย์
+    return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'ใช้ไม่ได้ (FCF ติดลบ)', band: null };
+  }
+  if (netDebt == null || !Number.isFinite(netDebt) || shares == null || !Number.isFinite(shares) || shares <= 0) {
+    return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'ข้อมูลหนี้สิน/จำนวนหุ้นไม่ครบ', band: null };
+  }
+
+  // ปัดทศนิยม 2 ตำแหน่งก่อนคำนวณ เหมือนที่หน้า DCF เติมค่าลงช่อง input (บรรทัด 81-100)
+  const f = parseFloat(fcf.toFixed(2));
+  const nd = parseFloat(netDebt.toFixed(2));
+  const sh = parseFloat(shares.toFixed(2));
+
+  const fair = dcfFairValue(f, nd, sh, DCF_WACC_PCT);
+  if (fair == null || fair <= 0) {
+    return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'คำนวณไม่ได้ (มูลค่าติดลบ)', band: null };
+  }
+  const hi = dcfFairValue(f, nd, sh, DCF_WACC_PCT - DCF_WACC_BAND_PCT); // WACC ต่ำ = มูลค่าสูง
+  const lo = dcfFairValue(f, nd, sh, DCF_WACC_PCT + DCF_WACC_BAND_PCT);
+  return {
+    ...base,
+    sublabel: `FCF ${Math.round(f).toLocaleString()} ลบ. · WACC ${DCF_WACC_PCT}% · g ${DCF_GROWTH_PCT}% · ${DCF_YEARS} ปี`,
+    fair,
+    ineligible: null,
+    band: lo != null && hi != null && lo > 0 ? { lo, hi } : null,
+  };
+}
+
 // ── Track: ราคาจริง vs มูลค่าที่เหมาะสม บนแกนเดียวกัน ──────────────────────────
 function ValueTrack({
   methods,
@@ -134,7 +202,9 @@ function ValueTrack({
   price: number;
   medianFair: number | null;
 }) {
-  const fairs = methods.map(m => m.fair).filter((f): f is number => f != null);
+  const fairs = methods.flatMap(m =>
+    m.fair == null ? [] : m.band ? [m.fair, m.band.lo, m.band.hi] : [m.fair]
+  );
   const lo = Math.min(price, ...fairs);
   const hi = Math.max(price, ...fairs);
   const span = hi - lo || 1;
@@ -153,6 +223,17 @@ function ValueTrack({
           <div className="relative h-6">
             {/* รางพื้นหลัง */}
             <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-[3px] rounded-full bg-white/[0.06]" />
+            {m.fair != null && m.band && (
+              /* ช่วงมูลค่าเมื่อขยับ WACC ±1 จุด — บอกว่าหมุดนี้ไม่ใช่ตัวเลขตายตัว */
+              <div
+                className="absolute top-1/2 -translate-y-1/2 h-[9px] rounded-sm bg-white/[0.10] border border-white/[0.12]"
+                style={{
+                  left: `${Math.min(pos(m.band.lo), pos(m.band.hi))}%`,
+                  width: `${Math.max(2, Math.abs(pos(m.band.hi) - pos(m.band.lo)))}%`,
+                }}
+                title={`ช่วงมูลค่าเมื่อ WACC ±1%: ${m.band.lo.toFixed(2)} – ${m.band.hi.toFixed(2)} บาท`}
+              />
+            )}
             {m.fair != null && (
               <>
                 {/* ระยะห่างจากราคาปัจจุบันถึงมูลค่าที่เหมาะสม */}
@@ -243,9 +324,30 @@ export default function FairValueCompare({
     return () => { cancelled = true; };
   }, [ticker]);
 
+  const [dcfInputs, setDcfInputs] = useState<DcfInputs | null>(null);
+  const [dcfLoading, setDcfLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setDcfLoading(true);
+    setDcfInputs(null);
+    fetch(`/api/dcf-inputs/${encodeURIComponent(ticker)}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        if (cancelled) return;
+        if (data && !data.error) {
+          setDcfInputs({ price: data.price ?? null, fcf: data.fcf ?? null, netDebt: data.netDebt ?? null, shares: data.shares ?? null });
+        }
+        setDcfLoading(false);
+      })
+      .catch(() => { if (!cancelled) setDcfLoading(false); });
+    return () => { cancelled = true; };
+  }, [ticker]);
+
   const relative = useMemo(() => buildRelativeMethods(ticker), [ticker]);
   const ddm = buildDdmMethod(ticker, ddmInputs, ddmLoading);
-  const methods = [...relative, ddm];
+  const dcf = buildDcfMethod(ticker, dcfInputs, dcfLoading);
+  const methods = [...relative, ddm, dcf];
 
   const offlinePrice = getStockValuation(ticker)?.price ?? null;
   const price = currentPrice != null && Number.isFinite(currentPrice) && currentPrice > 0 ? currentPrice : offlinePrice;
@@ -302,6 +404,9 @@ export default function FairValueCompare({
         </Link>
         <Link href={`/valuation/ddm?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
           ปรับสมมติฐาน DDM เอง
+        </Link>
+        <Link href={`/valuation/dcf?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
+          ปรับสมมติฐาน DCF เอง
         </Link>
       </div>
     </div>
