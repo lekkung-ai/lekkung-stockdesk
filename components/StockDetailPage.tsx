@@ -485,7 +485,7 @@ export default function StockDetailPage({
       )}
 
       {/* ── Chart ── */}
-      <StockChart ticker={ticker} height={chartHeight} isPpbp={isPpbp} showRsLine={true} />
+      <StockChart ticker={ticker} height={chartHeight} isPpbp={isPpbp} />
 
       {/* ── Fundamental Data ── */}
       {fundamental && (
