@@ -7,6 +7,7 @@ import { peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
 import PeerComparisonTable from './PeerComparisonTable';
+import FairValueCompare from './FairValueCompare';
 import MacroFactorCard from './MacroFactorCard';
 import NewsCard from './NewsCard';
 import ResearchCard from './ResearchCard';
@@ -486,6 +487,9 @@ export default function StockDetailPage({
 
       {/* ── Chart ── */}
       <StockChart ticker={ticker} height={chartHeight} isPpbp={isPpbp} />
+
+      {/* ── Fair Value เทียบราคาจริง ── */}
+      <FairValueCompare ticker={ticker} currentPrice={quote?.price ?? combinedEntry?.price ?? null} />
 
       {/* ── Fundamental Data ── */}
       {fundamental && (
