@@ -398,6 +398,13 @@ export default function FairValueCompare({
         </div>
       )}
 
+      <p className="text-[10.5px] text-white/25 leading-relaxed">
+        ใช้สมมติฐานมาตรฐานเดียวกับหน้า valuation · DCF: WACC {DCF_WACC_PCT}% · g {DCF_GROWTH_PCT}% · terminal {DCF_TERMINAL_GROWTH_PCT}% · {DCF_YEARS} ปี ·
+        DDM: r {DDM_REQUIRED_RETURN_PCT}% · g {DDM_GROWTH_PCT}% · P/E-P/BV: median ของกลุ่ม —
+        ตัวเลขพวกนี้ไม่ใช่ค่าตายตัว เปลี่ยน WACC 1 จุดมูลค่า DCF ขยับ 20-30% (แถบจางบนแทร็กคือช่วงนั้น)
+        กดลิงก์ด้านล่างเพื่อปรับสมมติฐานเอง
+      </p>
+
       <div className="flex items-center gap-3 flex-wrap text-[10.5px] text-white/30">
         <Link href={`/valuation/pe-pbv?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
           ปรับสมมติฐาน P/E · P/BV เอง
