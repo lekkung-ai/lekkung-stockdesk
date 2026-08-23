@@ -413,7 +413,11 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
       const rsData = computeRsSeries(chartData, setCloseByDate, startDate);
       if (rsData.length >= 2) {
         const rsSeries = chart.addSeries(LineSeries, {
-          priceScaleId: 'rs',
+          // แกนซ้ายจริง ไม่ใช่ overlay scale ('rs') แบบเดิม — overlay ไม่มีแกนให้เห็น
+          // เลยไม่มีอะไรยืนยันว่าเส้นถูกวาด และถ้ามันไม่ถูกวาดก็ดูไม่ออก การย้ายมา
+          // แกนซ้ายทำให้มีตัวเลข ratio โผล่ข้างซ้าย = เห็นได้ทันทีว่าเส้นนี้มีอยู่จริง
+          // และยังแยกสเกลจากราคา/EMA (แกนขวา) เหมือนเดิมทุกประการ
+          priceScaleId: 'left',
           color: rsLineColor,
           lineWidth: 2,
           // เส้นประ + สีส้ม เพื่อไม่ให้อ่านสลับกับ EMA200 (#AA00FF ม่วง) ซึ่งเป็นเส้น
@@ -424,11 +428,23 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
           priceLineVisible: false,
         });
         rsSeries.setData(rsData);
-        chart.priceScale('rs').applyOptions({
-          // ให้ ratio มีที่หายใจของตัวเองในโซนราคา (ไม่ล้ำ pane วอลุ่มที่กินล่าง 24%)
-          // และไม่แตะสเกล 'right' ที่ราคา/EMA ใช้ - เส้น RS จึงขยับสเกลราคาไม่ได้เลย
-          scaleMargins: { top: 0.1, bottom: 0.3 },
-          visible: false,
+        // เปิดแกนซ้ายเฉพาะตอนมีเส้น RS เท่านั้น (หน้าอื่นที่ไม่ส่ง showRsLine
+        // จะไม่มีแกนซ้ายโผล่มา layout เดิมไม่ขยับ)
+        chart.applyOptions({
+          leftPriceScale: {
+            visible: true,
+            borderColor: 'rgba(255,255,255,0.08)',
+            scaleMargins: { top: 0.1, bottom: 0.3 },
+          },
+        });
+        // เส้นอ้างอิงที่ 1.0 = เสมอกับ SET — เหนือเส้นนี้คือชนะตลาด
+        rsSeries.createPriceLine({
+          price: 1,
+          color: 'rgba(251,146,60,0.35)',
+          lineWidth: 1,
+          lineStyle: LineStyle.Dotted,
+          axisLabelVisible: false,
+          title: '',
         });
         rsSeriesRef.current = rsSeries;
       }
