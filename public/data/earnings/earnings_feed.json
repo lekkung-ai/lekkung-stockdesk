@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T19:50:56.028280+07:00",
+  "generatedAt": "2026-08-26T10:40:56.057121+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -105,7 +105,7 @@
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-08-25T17:03:49+07:00",
+      "announceDate": "2026-08-25T17:03:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 5512966000.0,
@@ -125,7 +125,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.69,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "LHFG",
@@ -154,7 +158,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -183,7 +187,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106498401&symbol=CIMBT",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "AFC",
@@ -274,8 +282,8 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.51,
-      "drift_d1_pct": 6.53,
-      "drift_d2_pct": null,
+      "drift_d1_pct": 4.52,
+      "drift_d2_pct": 5.53,
       "drift_d5_pct": null
     },
     {
@@ -4600,7 +4608,7 @@
       "netProfitYoY": 308.29456237278276,
       "netProfitPriorQ": -30544000.0,
       "netProfitQoQ": 193.80893137768464,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "double_turnaround",
       "eps": 0.13,
       "epsPrior": -0.07,
       "epsYoY": 285.7142857142857,
@@ -21880,9 +21888,9 @@
       "netProfit": 103762000.0,
       "netProfitPrior": 96986000.0,
       "netProfitYoY": 6.986575382013899,
-      "netProfitPriorQ": 48722000.0,
-      "netProfitQoQ": 112.96744797011617,
-      "profitAcceleration": "accelerating",
+      "netProfitPriorQ": 116573000.0,
+      "netProfitQoQ": -10.989680286172613,
+      "profitAcceleration": "decelerating",
       "eps": 0.3,
       "epsPrior": 0.28,
       "epsYoY": 7.142857142857128,
@@ -22237,7 +22245,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -2.04,
+      "drift_d1_pct": -0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -24236,8 +24244,8 @@
       "netProfit": 69887000.0,
       "netProfitPrior": 129810000.0,
       "netProfitYoY": -46.16208304444958,
-      "netProfitPriorQ": 129550000.0,
-      "netProfitQoQ": -46.05403319181784,
+      "netProfitPriorQ": 60298000.0,
+      "netProfitQoQ": 15.902683339414242,
       "profitAcceleration": "stable",
       "eps": 0.08,
       "epsPrior": 0.14,
@@ -33843,7 +33851,7 @@
       "ticker": "SMD100",
       "date": "2026-08-14T17:38:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ALUCON",
@@ -34728,7 +34736,7 @@
     },
     {
       "ticker": "TTB",
-      "date": "2026-08-25T17:03:49+07:00",
+      "date": "2026-08-25T17:03:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
