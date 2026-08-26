@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-26T10:40:56.057121+07:00",
+  "generatedAt": "2026-08-26T18:14:59.936602+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 345,
+      "count": 347,
       "top3": [
         {
           "ticker": "BPS",
@@ -101,6 +101,60 @@
   },
   "announcements": [
     {
+      "ticker": "CREDIT",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-08-26T17:35:14+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 989264000.0,
+      "netProfitPrior": 925154000.0,
+      "netProfitYoY": 6.929657116544921,
+      "netProfitPriorQ": 989264000.0,
+      "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
+      "eps": 0.8,
+      "epsPrior": 0.75,
+      "epsYoY": 6.666666666666672,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106543601&symbol=CREDIT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17877014101881&symbol=CREDIT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106546401&symbol=CREDIT",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "KTB",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-08-26T17:05:35+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 12125223000.0,
+      "netProfitPrior": 11122004000.0,
+      "netProfitYoY": 9.02012802728717,
+      "netProfitPriorQ": 12125223000.0,
+      "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
+      "eps": 0.87,
+      "epsPrior": 0.8,
+      "epsYoY": 8.749999999999995,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106533301&symbol=KTB",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17877014090271&symbol=KTB",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106533401&symbol=KTB",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "TTB",
       "sector": "Financials",
       "subsector": "Banking",
@@ -158,7 +212,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 1.61,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -220,7 +274,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -4.12,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.29,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -283,7 +337,7 @@
       "reason_source": "none",
       "gap_pct": 2.51,
       "drift_d1_pct": 4.52,
-      "drift_d2_pct": 5.53,
+      "drift_d2_pct": 6.53,
       "drift_d5_pct": null
     },
     {
@@ -29259,20 +29313,8 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "CREDIT",
-      "date": "2026-07-21T17:22:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "BBL",
       "date": "2026-07-21T18:20:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "KTB",
-      "date": "2026-07-21T19:23:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -30655,7 +30697,7 @@
       "ticker": "AMARC",
       "date": "2026-08-11T12:32:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "AIE",
@@ -33029,7 +33071,7 @@
       "ticker": "VIBE",
       "date": "2026-08-13T21:25:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "F&D",
@@ -34737,6 +34779,18 @@
     {
       "ticker": "TTB",
       "date": "2026-08-25T17:03:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "KTB",
+      "date": "2026-08-26T17:05:35+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "CREDIT",
+      "date": "2026-08-26T17:35:14+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
