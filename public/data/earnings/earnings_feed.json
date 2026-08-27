@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-27T18:12:58.268966+07:00",
+  "generatedAt": "2026-08-27T20:07:27.909666+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 349,
+      "count": 350,
       "top3": [
         {
           "ticker": "BPS",
@@ -100,6 +100,33 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "KBANK",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-08-27T19:32:16+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 13247491000.0,
+      "netProfitPrior": 12488192000.0,
+      "netProfitYoY": 6.080135539235783,
+      "netProfitPriorQ": 13247491000.0,
+      "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
+      "eps": 5.63,
+      "epsPrior": 5.27,
+      "epsYoY": 6.831119544592037,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106581701&symbol=KBANK",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17877878750181&symbol=KBANK",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106581801&symbol=KBANK",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "BBL",
       "sector": "Financials",
@@ -9864,8 +9891,8 @@
       "netProfit": 550642000.0,
       "netProfitPrior": 447167000.0,
       "netProfitYoY": 23.140124383060467,
-      "netProfitPriorQ": 621433000.0,
-      "netProfitQoQ": -11.391573991081904,
+      "netProfitPriorQ": 563386000.0,
+      "netProfitQoQ": -2.262037040324041,
       "profitAcceleration": "decelerating",
       "eps": 0.25,
       "epsPrior": 0.2,
@@ -29423,12 +29450,6 @@
       "quarter": "ไตรมาส 1/2569"
     },
     {
-      "ticker": "KBANK",
-      "date": "2026-07-21T08:21:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "BAREIT",
       "date": "2026-07-23T17:40:00+07:00",
       "status": "confirmed",
@@ -34918,6 +34939,12 @@
     {
       "ticker": "BBL",
       "date": "2026-08-27T17:16:29+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "KBANK",
+      "date": "2026-08-27T19:32:16+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
