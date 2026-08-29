@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T21:36:42.755524+07:00",
+  "generatedAt": "2026-08-29T18:10:58.171250+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -23,7 +23,7 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 89,
+      "count": 90,
       "top3": [
         {
           "ticker": "TWP",
@@ -101,11 +101,38 @@
   },
   "announcements": [
     {
+      "ticker": "TAPAC",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-08-28T21:46:00+07:00",
+      "quarter": "ไตรมาส 1/2568",
+      "periodEnd": "31 มกราคม 2568",
+      "netProfit": 11635000.0,
+      "netProfitPrior": -260448000.0,
+      "netProfitYoY": 104.46730249416389,
+      "netProfitPriorQ": -1357000.0,
+      "netProfitQoQ": 957.4060427413413,
+      "profitAcceleration": "double_turnaround",
+      "eps": 0.028,
+      "epsPrior": -0.632,
+      "epsYoY": 104.43037974683544,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "turnaround",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106602201&symbol=TAPAC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17878743435851&symbol=TAPAC",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "KKP",
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-08-28T08:50:21+07:00",
+      "announceDate": "2026-08-28T08:50:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 2122087000.0,
@@ -22493,7 +22520,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 2.04,
+      "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -25174,8 +25201,8 @@
       "netProfit": 16500000.0,
       "netProfitPrior": -47989000.0,
       "netProfitYoY": 134.38287940986476,
-      "netProfitPriorQ": -37535000.0,
-      "netProfitQoQ": 143.95897162648194,
+      "netProfitPriorQ": -22113000.0,
+      "netProfitQoQ": 174.61674128340795,
       "profitAcceleration": "double_turnaround",
       "eps": 0.0009,
       "epsPrior": -0.0039,
@@ -29439,12 +29466,6 @@
     }
   ],
   "calendar": [
-    {
-      "ticker": "TAPAC",
-      "date": "2026-06-15T17:32:00+07:00",
-      "status": "confirmed",
-      "quarter": "ประจำปี 2567"
-    },
     {
       "ticker": "SAM",
       "date": "2026-07-06T08:16:00+07:00",
@@ -34952,9 +34973,15 @@
     },
     {
       "ticker": "KKP",
-      "date": "2026-08-28T08:50:21+07:00",
+      "date": "2026-08-28T08:50:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TAPAC",
+      "date": "2026-08-28T21:46:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 1/2568"
     },
     {
       "ticker": "MC",
