@@ -250,29 +250,29 @@ function GroupCompareBar({ rel }: { rel: RelativeCompare }) {
   const stockColor = stockAbove ? '#E24B4A' : '#1D9E75';
 
   const Row = ({ label, sub, value, pct, color }: { label: string; sub?: string; value: number; pct: number; color: string }) => (
-    <div className="flex items-center gap-2">
-      <div className="w-[74px] shrink-0 text-[10px] text-white/45 leading-tight">
-        {label}{sub && <span className="text-white/25"> {sub}</span>}
+    <div className="flex items-center gap-2.5">
+      <div className="w-[92px] shrink-0 text-[12px] text-white/55 leading-tight">
+        {label}{sub && <span className="text-[10px] text-white/30"> {sub}</span>}
       </div>
-      <div className="relative flex-1 h-3 rounded-sm bg-white/[0.05] overflow-hidden">
+      <div className="relative flex-1 h-4 rounded-sm bg-white/[0.05] overflow-hidden">
         <div className="absolute inset-y-0 left-0 rounded-sm" style={{ width: `${Math.max(2, pct)}%`, background: color }} />
       </div>
-      <div className="w-[46px] shrink-0 text-right text-[11px] font-semibold tabular-nums text-white/80">
-        {value.toFixed(2)}<span className="text-white/30 text-[8.5px]">x</span>
+      <div className="w-[56px] shrink-0 text-right text-[14px] font-semibold tabular-nums text-white/90">
+        {value.toFixed(2)}<span className="text-white/30 text-[10px]">x</span>
       </div>
     </div>
   );
 
   return (
-    <div className="mt-2.5 space-y-1.5 rounded-md bg-black/20 px-2.5 py-2">
+    <div className="mt-2.5 max-w-[440px] space-y-2 rounded-md bg-black/20 px-3 py-2.5">
       <Row label={`หุ้นนี้ (${rel.unit})`} value={current} pct={(current / max) * 100} color={stockColor} />
       <Row label="กลุ่ม median" sub={`n=${rel.n}`} value={grp} pct={(grp / max) * 100} color="rgba(255,255,255,0.30)" />
       <div className="flex items-center justify-between pt-0.5">
-        <span className="text-[10px] font-medium" style={{ color: stockColor }}>
+        <span className="text-[12px] font-semibold" style={{ color: stockColor }}>
           เทรด{stockAbove ? 'สูง' : 'ต่ำ'}กว่ากลุ่ม {Math.abs(premium).toFixed(0)}%
         </span>
         {rel.n > 0 && rel.n < LOW_PEER_N && (
-          <span className="text-[9px] text-amber-400/70">⚠ peer น้อย ({rel.n} ตัว)</span>
+          <span className="text-[10px] text-amber-400/70">⚠ peer น้อย ({rel.n} ตัว)</span>
         )}
       </div>
     </div>
@@ -289,17 +289,17 @@ function MethodRow({ m, price }: { m: FairValueMethod; price: number }) {
     <div className="rounded-lg border border-white/[0.06] bg-white/[0.015] px-3.5 py-3">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-[12.5px] font-semibold text-white/85 leading-tight">{m.label}</div>
-          <div className="text-[10px] text-white/30 mt-1 leading-snug break-words" title={m.sublabel}>{m.sublabel}</div>
+          <div className="text-[14px] font-semibold text-white/90 leading-tight">{m.label}</div>
+          <div className="text-[10.5px] text-white/35 mt-1 leading-snug break-words" title={m.sublabel}>{m.sublabel}</div>
         </div>
         <div className="text-right shrink-0">
           {eligible ? (
             <>
-              <div className="text-[16px] font-bold text-white tabular-nums leading-none">{(m.fair as number).toFixed(2)}</div>
-              <div className={`text-[11px] font-bold tabular-nums mt-1 ${upsideCls(upside as number)}`}>{fmtSignedPct(upside as number)}</div>
+              <div className="text-[19px] font-bold text-white tabular-nums leading-none">{(m.fair as number).toFixed(2)}</div>
+              <div className={`text-[13px] font-bold tabular-nums mt-1 ${upsideCls(upside as number)}`}>{fmtSignedPct(upside as number)}</div>
             </>
           ) : (
-            <div className="flex items-start gap-1 text-[10.5px] text-white/40 max-w-[150px] justify-end text-right leading-snug">
+            <div className="flex items-start gap-1 text-[11px] text-white/45 max-w-[150px] justify-end text-right leading-snug">
               <span className="text-amber-400/50 mt-px">⚠</span>
               <span>{m.ineligible ?? 'ไม่มีข้อมูล'}</span>
             </div>
@@ -435,17 +435,17 @@ export default function FairValueCompare({
           <p className="text-[10.5px] text-white/30 mt-0.5">ประเมินหลายวิธีแล้วเทียบกับราคาตลาด</p>
         </div>
         <div className="text-right shrink-0">
-          <div className="text-[9px] text-white/30 uppercase tracking-wide">ราคาปัจจุบัน</div>
-          <div className="text-[15px] font-bold text-white tabular-nums leading-tight">{price.toFixed(2)}</div>
+          <div className="text-[9.5px] text-white/30 uppercase tracking-wide">ราคาปัจจุบัน</div>
+          <div className="text-[17px] font-bold text-white tabular-nums leading-tight">{price.toFixed(2)}</div>
         </div>
       </div>
 
       {/* 2 · แถบสรุปภาพรวม (ถูก/แพง/ใกล้เคียง) */}
       <div className={`flex items-start gap-2.5 rounded-xl border px-4 py-3 ${verdict.box}`}>
-        <span className={`text-[14px] leading-none mt-0.5 ${verdict.text}`}>{verdict.icon}</span>
+        <span className={`text-[16px] leading-none mt-0.5 ${verdict.text}`}>{verdict.icon}</span>
         <div className="min-w-0">
-          <div className={`text-[13.5px] font-bold leading-tight ${verdict.text}`}>{verdict.msg}</div>
-          <div className="text-[10.5px] text-white/40 mt-0.5">
+          <div className={`text-[15px] font-bold leading-tight ${verdict.text}`}>{verdict.msg}</div>
+          <div className="text-[11px] text-white/40 mt-1">
             อิงค่ากลาง (median) ของ {usable.length} วิธีที่ประเมินได้ เทียบราคา {price.toFixed(2)} บาท
           </div>
         </div>
@@ -462,13 +462,13 @@ export default function FairValueCompare({
           <div className="flex items-center gap-2.5">
             <span className="w-3 h-3 rotate-45 inline-block shrink-0" style={{ background: verdict.dot }} />
             <div>
-              <div className="text-[12px] font-bold text-white/85 leading-tight">ค่ากลางรวมทุกวิธี</div>
-              <div className="text-[9.5px] text-white/35 mt-0.5">median ของ {usable.length} วิธีที่ประเมินได้</div>
+              <div className="text-[13.5px] font-bold text-white/90 leading-tight">ค่ากลางรวมทุกวิธี</div>
+              <div className="text-[10px] text-white/35 mt-0.5">median ของ {usable.length} วิธีที่ประเมินได้</div>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-[19px] font-extrabold text-white tabular-nums leading-none">{medianFair.toFixed(2)}</div>
-            <div className={`text-[12px] font-bold tabular-nums mt-1 ${upsideCls(medianUpside)}`}>{fmtSignedPct(medianUpside)}</div>
+            <div className="text-[23px] font-extrabold text-white tabular-nums leading-none">{medianFair.toFixed(2)}</div>
+            <div className={`text-[14px] font-bold tabular-nums mt-1 ${upsideCls(medianUpside)}`}>{fmtSignedPct(medianUpside)}</div>
           </div>
         </div>
       )}
