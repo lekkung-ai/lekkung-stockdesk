@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T15:56:39.799559+07:00",
+  "generatedAt": "2026-08-31T18:11:03.566466+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 350,
+      "count": 349,
       "top3": [
         {
           "ticker": "BPS",
@@ -23,7 +23,7 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 90,
+      "count": 91,
       "top3": [
         {
           "ticker": "TWP",
@@ -101,6 +101,33 @@
   },
   "announcements": [
     {
+      "ticker": "BANPU",
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "announceDate": "2026-08-31T17:45:29+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 1778749000.0,
+      "netProfitPrior": -774884000.0,
+      "netProfitYoY": 329.55035850527304,
+      "netProfitPriorQ": 1091265000.0,
+      "netProfitQoQ": 62.998813303826296,
+      "profitAcceleration": "accelerating",
+      "eps": 0.439,
+      "epsPrior": -0.191,
+      "epsYoY": 329.8429319371728,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "turnaround",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106612001&symbol=BANPU",
+      "statementUrl": null,
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "MC",
       "sector": "Services",
       "subsector": "Commerce",
@@ -124,8 +151,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17881331352351&symbol=MC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106601701&symbol=MC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "68) รายได้จากการขาย 4,402 4,152 6.0% กำไรขั้นต้น 2,810 2,655 5.8% อัตรากำไรขั้นต้น 63.8% 63.9% -0.1% ค่าใช้จ่ายในการขายและบริหาร 1,944 1,760 10.4% %ค่าใช้จ่ายในการขายและบริหาร 44.2% 42.4% 1.8% รายได้อื่นๆ 49 70 -30.3%",
+      "reason_source": "mda_extract",
       "gap_pct": -0.84,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -155,8 +182,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17878743435851&symbol=TAPAC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106602701&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "KKP",
@@ -185,7 +212,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -0.85,
+      "drift_d1_pct": -1.28,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -216,7 +243,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.4,
-      "drift_d1_pct": -0.4,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -247,7 +274,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.26,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 0.26,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -279,7 +306,7 @@
       "reason_source": "none",
       "gap_pct": -0.42,
       "drift_d1_pct": 0.85,
-      "drift_d2_pct": -1.27,
+      "drift_d2_pct": -1.69,
       "drift_d5_pct": null
     },
     {
@@ -310,7 +337,7 @@
       "reason_source": "none",
       "gap_pct": 0.61,
       "drift_d1_pct": -1.23,
-      "drift_d2_pct": -1.23,
+      "drift_d2_pct": -0.61,
       "drift_d5_pct": null
     },
     {
@@ -372,7 +399,7 @@
       "reason_source": "none",
       "gap_pct": -0.42,
       "drift_d1_pct": -2.09,
-      "drift_d2_pct": -1.67,
+      "drift_d2_pct": -2.93,
       "drift_d5_pct": null
     },
     {
@@ -2680,8 +2707,8 @@
       "netProfit": 40176000.0,
       "netProfitPrior": 845424000.0,
       "netProfitYoY": -95.24782830863566,
-      "netProfitPriorQ": 53654000.0,
-      "netProfitQoQ": -25.120214709061766,
+      "netProfitPriorQ": 31617000.0,
+      "netProfitQoQ": 27.070879590093938,
       "profitAcceleration": "stable",
       "eps": 0.037,
       "epsPrior": 0.782,
@@ -15740,7 +15767,7 @@
       "reason_source": "none",
       "gap_pct": -2.27,
       "drift_d1_pct": -3.03,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -8.33,
       "drift_d5_pct": null
     },
     {
@@ -22551,7 +22578,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 0.68,
+      "drift_d1_pct": -1.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -29463,37 +29490,6 @@
       "drift_d1_pct": 2.08,
       "drift_d2_pct": -1.04,
       "drift_d5_pct": 3.13
-    },
-    {
-      "ticker": "KTC",
-      "sector": "Financials",
-      "subsector": "Finance & Securities",
-      "market": "SET",
-      "announceDate": "2026-07-17T17:29:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 2225308000.0,
-      "netProfitPrior": 1894792000.0,
-      "netProfitYoY": 17.44339220347141,
-      "netProfitPriorQ": 2171234000.0,
-      "netProfitQoQ": 2.490473159502845,
-      "profitAcceleration": "accelerating",
-      "eps": 0.86,
-      "epsPrior": 0.73,
-      "epsYoY": 17.808219178082194,
-      "auditorOpinion": null,
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105460301&symbol=KTC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17842454401491&symbol=KTC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105466701&symbol=KTC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (ก่อนสอบทาน)",
-      "reason": "เป็นผลจากการบริหารจัดการคุณภาพพอร์ต 2) ค่าใช้จ่ายทางการเงินที่ ลดลง 16.1% (YoY) จากต้นทุนเงินกู้ยืมใหม่ที่ต ่าลง และ 3) ค่าใช้จ่ายในการบริหารปรับตัวลดลงเล็กน้อยที่ 0.8% (YoY) เป็นผลให้ Cost to Income Ratio",
-      "reason_source": "mda_extract",
-      "gap_pct": 2.56,
-      "drift_d1_pct": 3.21,
-      "drift_d5_pct": -1.28,
-      "drift_d2_pct": 0.0
     }
   ],
   "calendar": [
@@ -30739,12 +30735,6 @@
       "date": "2026-08-10T21:17:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "BANPU",
-      "date": "2026-08-10T21:19:00+07:00",
-      "status": "confirmed",
-      "quarter": null
     },
     {
       "ticker": "AMATAV",
@@ -35019,6 +35009,12 @@
       "date": "2026-08-31T06:54:50+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2569"
+    },
+    {
+      "ticker": "BANPU",
+      "date": "2026-08-31T17:45:29+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BYD",
