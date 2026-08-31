@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T18:11:25.632980+07:00",
+  "generatedAt": "2026-08-31T15:56:39.799559+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 211,
+      "count": 212,
       "top3": [
         {
           "ticker": "SORKON",
@@ -101,6 +101,37 @@
   },
   "announcements": [
     {
+      "ticker": "MC",
+      "sector": "Services",
+      "subsector": "Commerce",
+      "market": "SET",
+      "announceDate": "2026-08-31T06:54:50+07:00",
+      "quarter": "ประจำปี 2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 701007000.0,
+      "netProfitPrior": 760415000.0,
+      "netProfitYoY": -7.812576027563896,
+      "netProfitPriorQ": 176306000.0,
+      "netProfitQoQ": 297.6081358547072,
+      "profitAcceleration": "stable",
+      "eps": 0.89,
+      "epsPrior": 0.96,
+      "epsYoY": -7.291666666666662,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106600701&symbol=MC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17881331352351&symbol=MC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106601701&symbol=MC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.84,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
       "ticker": "TAPAC",
       "sector": "Property",
       "subsector": "",
@@ -122,7 +153,7 @@
       "bucket": "turnaround",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106602201&symbol=TAPAC",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17878743435851&symbol=TAPAC",
-      "mdaUrl": null,
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106602701&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none"
@@ -154,7 +185,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.85,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -185,7 +216,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.4,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.4,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -216,7 +247,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.26,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -248,7 +279,7 @@
       "reason_source": "none",
       "gap_pct": -0.42,
       "drift_d1_pct": 0.85,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.27,
       "drift_d5_pct": null
     },
     {
@@ -279,7 +310,7 @@
       "reason_source": "none",
       "gap_pct": 0.61,
       "drift_d1_pct": -1.23,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.23,
       "drift_d5_pct": null
     },
     {
@@ -310,7 +341,7 @@
       "reason_source": "none",
       "gap_pct": 0.97,
       "drift_d1_pct": -1.94,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.3,
       "drift_d5_pct": null
     },
     {
@@ -341,7 +372,7 @@
       "reason_source": "none",
       "gap_pct": -0.42,
       "drift_d1_pct": -2.09,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.67,
       "drift_d5_pct": null
     },
     {
@@ -372,7 +403,7 @@
       "reason_source": "none",
       "gap_pct": 0.57,
       "drift_d1_pct": -2.27,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.7,
       "drift_d5_pct": null
     },
     {
@@ -559,7 +590,7 @@
       "gap_pct": 2.51,
       "drift_d1_pct": 4.52,
       "drift_d2_pct": 6.53,
-      "drift_d5_pct": null
+      "drift_d5_pct": 5.53
     },
     {
       "ticker": "SSPF",
@@ -2649,8 +2680,8 @@
       "netProfit": 40176000.0,
       "netProfitPrior": 845424000.0,
       "netProfitYoY": -95.24782830863566,
-      "netProfitPriorQ": 31617000.0,
-      "netProfitQoQ": 27.070879590093938,
+      "netProfitPriorQ": 53654000.0,
+      "netProfitQoQ": -25.120214709061766,
       "profitAcceleration": "stable",
       "eps": 0.037,
       "epsPrior": 0.782,
@@ -22520,7 +22551,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -32472,7 +32503,7 @@
       "ticker": "MEB",
       "date": "2026-08-13T17:51:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "PLANB",
@@ -34985,10 +35016,9 @@
     },
     {
       "ticker": "MC",
-      "date": "2026-08-29T07:01:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-29T07:01:00+07:00"
+      "date": "2026-08-31T06:54:50+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2569"
     },
     {
       "ticker": "BYD",
