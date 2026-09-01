@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T18:11:03.566466+07:00",
+  "generatedAt": "2026-09-01T15:01:26.241692+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 349,
+      "count": 348,
       "top3": [
         {
           "ticker": "BPS",
@@ -59,7 +59,7 @@
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 81,
+      "count": 82,
       "top3": [
         {
           "ticker": "TR",
@@ -77,7 +77,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 147,
+      "count": 148,
       "top3": [
         {
           "ticker": "TPL",
@@ -101,11 +101,69 @@
   },
   "announcements": [
     {
+      "ticker": "META",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-09-01T08:28:13+07:00",
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": -657399000.0,
+      "netProfitPrior": -96878000.0,
+      "netProfitYoY": -578.5844051280993,
+      "netProfitPriorQ": -14339000.0,
+      "netProfitQoQ": -4484.692098472697,
+      "profitAcceleration": "stable",
+      "eps": -0.21,
+      "epsPrior": -0.03,
+      "epsYoY": -600.0,
+      "auditorOpinion": "ไม่แสดงความเห็นและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": true,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106623601&symbol=META",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17882191604251&symbol=META",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "BYD",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-09-01T06:34:09+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -273209000.0,
+      "netProfitPrior": -2427555000.0,
+      "netProfitYoY": 88.74550731085392,
+      "netProfitPriorQ": 18612000.0,
+      "netProfitQoQ": -1567.9185471738663,
+      "profitAcceleration": "decelerating",
+      "eps": -0.052,
+      "epsPrior": -0.466,
+      "epsYoY": 88.84120171673821,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "loss_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106621801&symbol=BYD",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17882191603171&symbol=BYD",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106622001&symbol=BYD",
+      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
       "ticker": "BANPU",
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET",
-      "announceDate": "2026-08-31T17:45:29+07:00",
+      "announceDate": "2026-08-31T17:45:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 1778749000.0,
@@ -125,14 +183,18 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.68,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MC",
       "sector": "Services",
       "subsector": "Commerce",
       "market": "SET",
-      "announceDate": "2026-08-31T06:54:50+07:00",
+      "announceDate": "2026-08-31T06:54:00+07:00",
       "quarter": "ประจำปี 2569",
       "periodEnd": "30 มิถุนายน 2569",
       "netProfit": 701007000.0,
@@ -154,7 +216,7 @@
       "reason": "68) รายได้จากการขาย 4,402 4,152 6.0% กำไรขั้นต้น 2,810 2,655 5.8% อัตรากำไรขั้นต้น 63.8% 63.9% -0.1% ค่าใช้จ่ายในการขายและบริหาร 1,944 1,760 10.4% %ค่าใช้จ่ายในการขายและบริหาร 44.2% 42.4% 1.8% รายได้อื่นๆ 49 70 -30.3%",
       "reason_source": "mda_extract",
       "gap_pct": -0.84,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.2,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -183,7 +245,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106602701&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
       "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "KKP",
@@ -213,7 +279,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -1.28,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -0.43,
       "drift_d5_pct": null
     },
     {
@@ -244,7 +310,7 @@
       "reason_source": "none",
       "gap_pct": 0.4,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.4,
       "drift_d5_pct": null
     },
     {
@@ -275,7 +341,7 @@
       "reason_source": "none",
       "gap_pct": -0.26,
       "drift_d1_pct": 0.26,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.05,
       "drift_d5_pct": null
     },
     {
@@ -493,7 +559,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.61,
       "drift_d2_pct": 1.61,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "CIMBT",
@@ -555,7 +621,7 @@
       "gap_pct": -4.12,
       "drift_d1_pct": -3.29,
       "drift_d2_pct": -4.12,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.88
     },
     {
       "ticker": "QDC",
@@ -570,7 +636,7 @@
       "netProfitYoY": 55.01211003867983,
       "netProfitPriorQ": -14603000.0,
       "netProfitQoQ": -666.9999315209203,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": -5.92,
       "epsPrior": -19.55,
       "epsYoY": 69.71867007672634,
@@ -14076,8 +14142,8 @@
       "netProfit": 974626000.0,
       "netProfitPrior": 561249000.0,
       "netProfitYoY": 73.6530488250313,
-      "netProfitPriorQ": 832438000.0,
-      "netProfitQoQ": 17.080911731564395,
+      "netProfitPriorQ": 281035000.0,
+      "netProfitQoQ": 246.79879730282704,
       "profitAcceleration": "accelerating",
       "eps": 0.051,
       "epsPrior": 0.03,
@@ -22578,7 +22644,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -1.36,
+      "drift_d1_pct": -0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -29459,37 +29525,6 @@
       "drift_d1_pct": 8.09,
       "drift_d2_pct": 5.88,
       "drift_d5_pct": 13.24
-    },
-    {
-      "ticker": "TSTH",
-      "sector": "Industrials",
-      "subsector": "Steel",
-      "market": "SET",
-      "announceDate": "2026-07-17T18:32:00+07:00",
-      "quarter": "ไตรมาส 1/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 409710000.0,
-      "netProfitPrior": 373120000.0,
-      "netProfitYoY": 9.806496569468267,
-      "netProfitPriorQ": 496694000.0,
-      "netProfitQoQ": -17.512593266679282,
-      "profitAcceleration": "decelerating",
-      "eps": 0.04865,
-      "epsPrior": 0.04431,
-      "epsYoY": 9.794628751974715,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105465101&symbol=TSTH",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17842454404221&symbol=TSTH",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105459601&symbol=TSTH",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "ผลการดำเนินงานและผลประกอบการทางการเงินเปรียบเทียบกับไตรมาสก่อนและปีก่อน 1.1 รายได้จากการขายและบริการที่เกี่ยวข้อง ปริมาณการส่งมอบสินค้าของบริษัทในไตรมาสนี้อยู่ที่ 334,000 ตัน ลดลงเล็กน้อย ร้อยละ 2 เมื่อเทียบกับ ไตรมาสก่อน และลดลงร้อยละ 1 เมื่อเทียบกับไตรมาสเดียวกันของปีก่อน โดยมีสาเหตุหลักมาจากยอดขาย",
-      "reason_source": "mda_extract",
-      "gap_pct": 4.17,
-      "drift_d1_pct": 2.08,
-      "drift_d2_pct": -1.04,
-      "drift_d5_pct": 3.13
     }
   ],
   "calendar": [
@@ -32875,13 +32910,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "META",
-      "date": "2026-08-13T18:57:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-08-13T18:57:00+07:00"
-    },
-    {
       "ticker": "LH",
       "date": "2026-08-13T18:58:00+07:00",
       "status": "confirmed",
@@ -34755,7 +34783,7 @@
       "ticker": "SPTX",
       "date": "2026-08-17T06:35:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "FORTH",
@@ -34930,7 +34958,7 @@
       "ticker": "QDC",
       "date": "2026-08-21T08:42:00+07:00",
       "status": "confirmed",
-      "quarter": "ประจำปี 2568"
+      "quarter": null
     },
     {
       "ticker": "AFC",
@@ -35006,22 +35034,27 @@
     },
     {
       "ticker": "MC",
-      "date": "2026-08-31T06:54:50+07:00",
+      "date": "2026-08-31T06:54:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2569"
     },
     {
       "ticker": "BANPU",
-      "date": "2026-08-31T17:45:29+07:00",
+      "date": "2026-08-31T17:45:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BYD",
-      "date": "2026-09-01T06:41:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-09-01T06:41:00+07:00"
+      "date": "2026-09-01T06:34:09+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "META",
+      "date": "2026-09-01T08:28:13+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2568"
     },
     {
       "ticker": "INGRS",
