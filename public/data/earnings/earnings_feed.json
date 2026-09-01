@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T15:01:26.241692+07:00",
+  "generatedAt": "2026-09-01T18:11:34.499755+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -121,11 +121,11 @@
       "isCorrection": true,
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106623601&symbol=META",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17882191604251&symbol=META",
-      "mdaUrl": null,
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106634701&symbol=META",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106634201&symbol=META",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "รายได้จากการขาย 32,444 40% 101,485 70% (69,041) (68)% รายได้ดอกเบี้ยรับจากเงินให้สินเชื่อ 48,360 60% 44,279 30% 4,081 9% รวมรำยได้จำกกำรด ำเนินงำน 80,804 100% 145,764 100% (64,960) (45)% หัก ต้นทุนขาย 28,447 35% 96,867 66%",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "BYD",
@@ -151,8 +151,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17882191603171&symbol=BYD",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106622001&symbol=BYD",
       "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้ค่านายหน้าเพิ่มขึ้นจาก 37.28 ล้านบาท เป็น 80.25 ล้านบาท เพิ่มขึ้นเท่ากับ 42.97 ล้านบาทหรือร้อยละ 115.26 โดยเป็นการเพิ่มขึ้นจากรายได้ค่านายหน้าจากการซื้อขายหลักทรัพย์ ซึ่งคิดเป็นเพิ่มขึ้นร้อยละ 95.69 อันเป็นผลมาจาก มูลค่าการซื้อขายเฉลี่ยของตลาดหลักทรัพย์เพิ่มขึ้นจาก 38,529 ล้านบาท/วัน เป็น 61,977 ล้านบาท/วัน หรือเพิ่มขึ้นร้อย ละ 60.86",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -216,7 +216,7 @@
       "reason": "68) รายได้จากการขาย 4,402 4,152 6.0% กำไรขั้นต้น 2,810 2,655 5.8% อัตรากำไรขั้นต้น 63.8% 63.9% -0.1% ค่าใช้จ่ายในการขายและบริหาร 1,944 1,760 10.4% %ค่าใช้จ่ายในการขายและบริหาร 44.2% 42.4% 1.8% รายได้อื่นๆ 49 70 -30.3%",
       "reason_source": "mda_extract",
       "gap_pct": -0.84,
-      "drift_d1_pct": -4.2,
+      "drift_d1_pct": -5.04,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -279,7 +279,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -1.28,
-      "drift_d2_pct": -0.43,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -310,7 +310,7 @@
       "reason_source": "none",
       "gap_pct": 0.4,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.4,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -341,7 +341,7 @@
       "reason_source": "none",
       "gap_pct": -0.26,
       "drift_d1_pct": 0.26,
-      "drift_d2_pct": 1.05,
+      "drift_d2_pct": 0.79,
       "drift_d5_pct": null
     },
     {
@@ -559,7 +559,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.61,
       "drift_d2_pct": 1.61,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.81
     },
     {
       "ticker": "CIMBT",
@@ -621,7 +621,7 @@
       "gap_pct": -4.12,
       "drift_d1_pct": -3.29,
       "drift_d2_pct": -4.12,
-      "drift_d5_pct": -2.88
+      "drift_d5_pct": -2.06
     },
     {
       "ticker": "QDC",
@@ -636,7 +636,7 @@
       "netProfitYoY": 55.01211003867983,
       "netProfitPriorQ": -14603000.0,
       "netProfitQoQ": -666.9999315209203,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": -5.92,
       "epsPrior": -19.55,
       "epsYoY": 69.71867007672634,
@@ -10238,7 +10238,7 @@
       "netProfitYoY": 244.42694678012094,
       "netProfitPriorQ": 117733192000.0,
       "netProfitQoQ": -99.90000000169876,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.18,
       "epsPrior": 0.07,
       "epsYoY": 157.1428571428571,
@@ -14142,8 +14142,8 @@
       "netProfit": 974626000.0,
       "netProfitPrior": 561249000.0,
       "netProfitYoY": 73.6530488250313,
-      "netProfitPriorQ": 281035000.0,
-      "netProfitQoQ": 246.79879730282704,
+      "netProfitPriorQ": 832438000.0,
+      "netProfitQoQ": 17.080911731564395,
       "profitAcceleration": "accelerating",
       "eps": 0.051,
       "epsPrior": 0.03,
@@ -22644,7 +22644,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -0.68,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -33130,7 +33130,7 @@
       "ticker": "UNIX",
       "date": "2026-08-13T20:09:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "AURA",
@@ -34783,7 +34783,7 @@
       "ticker": "SPTX",
       "date": "2026-08-17T06:35:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "FORTH",
@@ -34958,7 +34958,7 @@
       "ticker": "QDC",
       "date": "2026-08-21T08:42:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ประจำปี 2568"
     },
     {
       "ticker": "AFC",
