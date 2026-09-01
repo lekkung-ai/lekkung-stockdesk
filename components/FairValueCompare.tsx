@@ -14,6 +14,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { getStockValuation, getSectorMedians } from '@/lib/valuation';
+import { getSectorForTicker } from '@/lib/sectorData';
 
 const DIVERGENCE_SPREAD_PCT = 30; // ช่วง upside ระหว่างวิธีสูงสุด-ต่ำสุด เกินเท่านี้ = ไม่น่าเชื่อถือพอจะสรุปเลขเดียว
 
@@ -197,6 +198,17 @@ function dcfFairValue(fcf: number, netDebt: number, shares: number, waccPct: num
 export function buildDcfMethod(ticker: string, inputs: DcfInputs | null, loading: boolean): FairValueMethod {
   const href = `/valuation/dcf?ticker=${encodeURIComponent(ticker)}`;
   const base = { key: 'dcf', label: 'DCF (กระแสเงินสด)', href };
+
+  // ── sector-guard: DCF (FCF-based) ใช้กับกลุ่มการเงินไม่ได้ทุก subsector ─────────
+  // แบงก์/เงินทุน-หลักทรัพย์/ประกัน เป็นธุรกิจ balance-sheet-driven — "FCF" ปนกระแส
+  // งบดุล (เงินฝาก/สินเชื่อ/reserves) ไม่ใช่เงินสดอิสระจริง ทำให้มูลค่า inflated
+  // (KBANK +167%, SAWAD +345%) · guard FCF≤0 ด้านล่างกันได้แค่ตัวที่ FCF ติดลบ ตัวที่
+  // FCF บวก-แต่-เพี้ยนหลุดหมด จึงตัดทั้ง sector ตั้งแต่ต้น ก่อนเสียเวลาโหลด/คำนวณ
+  // getSectorForTicker ไม่ normalize key ภายใน → ต้อง uppercase/trim เองกันพลาด
+  if (getSectorForTicker(ticker.toUpperCase().trim())?.sector === 'Financials') {
+    return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'DCF ไม่เหมาะกับกลุ่มการเงิน — FCF ปนกระแสงบดุล (ใช้ DDM/relative แทน)', band: null };
+  }
+
   if (loading) return { ...base, sublabel: 'กำลังโหลดงบกระแสเงินสด...', fair: null, ineligible: 'กำลังโหลด...', band: null };
   if (!inputs) return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'ดึงข้อมูล FCF ไม่ได้', band: null };
 
