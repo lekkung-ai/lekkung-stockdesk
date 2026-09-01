@@ -13,7 +13,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { getStockValuation, getSectorMedians } from '@/lib/valuation';
+import { getStockValuation, getSectorMedians, getSectorSpread, type SectorSpread } from '@/lib/valuation';
+import { getSectorForTicker } from '@/lib/sectorData';
 
 const DIVERGENCE_SPREAD_PCT = 30; // ช่วง upside ระหว่างวิธีสูงสุด-ต่ำสุด เกินเท่านี้ = ไม่น่าเชื่อถือพอจะสรุปเลขเดียว
 
@@ -28,6 +29,21 @@ const DCF_TERMINAL_GROWTH_PCT = 2.5;
 const DCF_WACC_PCT = 9;
 const DCF_WACC_BAND_PCT = 1; // ช่วงมูลค่าที่แสดง = WACC ±1 จุด ตามขอบของ sensitivity matrix หน้า DCF
 
+/** ข้อมูลเทียบ multiple ของหุ้น vs ค่ากลางกลุ่ม — presentation ล้วน ไม่เกี่ยวการคำนวณ fair
+ *  groupMedian == null คือสัญญาณว่า "ไม่มีค่ากลางกลุ่มจริง" (โค้ดคำนวณ fallback ไปใช้ค่าตัวเอง)
+ *  UI ต้องซ่อนแถบเทียบกลุ่มในกรณีนั้น ไม่งั้นจะโกหกว่าเทียบกลุ่มทั้งที่เทียบตัวเอง */
+export interface RelativeCompare {
+  /** multiple ปัจจุบันของหุ้น (P/E หรือ P/BV) */
+  current: number | null;
+  /** median ของกลุ่ม — null = ไม่มีค่ากลางจริง ให้ซ่อนแถบเทียบกลุ่ม */
+  groupMedian: number | null;
+  /** จำนวน peer ที่กลุ่มใช้ (med.n) */
+  n: number;
+  sector: string;
+  /** ป้ายหน่วย เช่น 'P/E' หรือ 'P/BV' */
+  unit: string;
+}
+
 export interface FairValueMethod {
   key: string;
   label: string;
@@ -38,6 +54,8 @@ export interface FairValueMethod {
   href: string;
   /** ช่วงมูลค่าเมื่อขยับสมมติฐาน (มีเฉพาะวิธีที่มี sensitivity เช่น DCF) */
   band?: { lo: number; hi: number } | null;
+  /** ข้อมูลเทียบกลุ่ม (มีเฉพาะ P/E, P/BV) */
+  relative?: RelativeCompare | null;
 }
 
 function median(values: number[]): number | null {
@@ -72,24 +90,45 @@ export function buildRelativeMethods(ticker: string): FairValueMethod[] {
   const fairPe = eps != null && eps > 0 && targetPe != null && targetPe > 0 ? eps * targetPe : null;
   const fairPb = bvps != null && bvps > 0 && targetPb != null && targetPb > 0 ? bvps * targetPb : null;
 
+  // targetPe/targetPb มาจาก median กลุ่มจริงไหม (ไม่งั้น fallback ไปใช้ค่าของหุ้นเอง)
+  // ใช้เงื่อนไขเดียวกับ relative.groupMedian เพื่อไม่ให้สูตรกับแถบเทียบกลุ่มขัดกัน
+  const peFromGroup = med?.secPe != null && Number.isFinite(med.secPe);
+  const pbFromGroup = med?.secPb != null && Number.isFinite(med.secPb);
+
   const href = `/valuation/pe-pbv?ticker=${encodeURIComponent(ticker)}`;
   return [
     {
       key: 'pe',
       label: 'P/E เทียบกลุ่ม',
       // สูตรกำกับจะโชว์เฉพาะตอนคำนวณได้จริง ไม่งั้นจะกลายเป็น "EPS undefined × P/E 12.7"
-      sublabel: fairPe != null ? `EPS ${eps?.toFixed(2)} × P/E ${targetPe} (median ${sector})` : `P/E กลาง ${sector} ${targetPe ?? '—'}`,
+      // "(median กลุ่ม)" ต่อท้ายเฉพาะเมื่อ targetPe เป็น median กลุ่มจริง — fallback ไม่ต่อ ไม่งั้นโกหก
+      sublabel: fairPe != null ? `EPS ${eps?.toFixed(2)} × P/E ${targetPe}${peFromGroup ? ` (median ${sector})` : ''}` : `P/E กลาง ${sector} ${targetPe ?? '—'}`,
       fair: fairPe,
       ineligible: fairPe == null ? (eps == null || eps <= 0 ? 'ไม่มี EPS (ขาดทุน/ไม่มีข้อมูล P/E)' : 'ไม่มี P/E กลาง ของกลุ่ม') : null,
       href,
+      // groupMedian ใช้ค่า median จริง (med.secPe) ไม่ใช่ fallback — null เมื่อกลุ่มไม่มีค่ากลาง
+      relative: {
+        current: val?.pe != null && Number.isFinite(val.pe) ? val.pe : null,
+        groupMedian: med?.secPe != null && Number.isFinite(med.secPe) ? med.secPe : null,
+        n: med?.n ?? 0,
+        sector,
+        unit: 'P/E',
+      },
     },
     {
       key: 'pbv',
       label: 'P/BV เทียบกลุ่ม',
-      sublabel: fairPb != null ? `BVPS ${bvps?.toFixed(2)} × P/BV ${targetPb} (median ${sector})` : `P/BV กลาง ${sector} ${targetPb ?? '—'}`,
+      sublabel: fairPb != null ? `BVPS ${bvps?.toFixed(2)} × P/BV ${targetPb}${pbFromGroup ? ` (median ${sector})` : ''}` : `P/BV กลาง ${sector} ${targetPb ?? '—'}`,
       fair: fairPb,
       ineligible: fairPb == null ? 'ไม่มี BVPS หรือ P/BV กลาง ของกลุ่ม' : null,
       href,
+      relative: {
+        current: val?.pbv != null && Number.isFinite(val.pbv) ? val.pbv : null,
+        groupMedian: med?.secPb != null && Number.isFinite(med.secPb) ? med.secPb : null,
+        n: med?.n ?? 0,
+        sector,
+        unit: 'P/BV',
+      },
     },
   ];
 }
@@ -159,6 +198,17 @@ function dcfFairValue(fcf: number, netDebt: number, shares: number, waccPct: num
 export function buildDcfMethod(ticker: string, inputs: DcfInputs | null, loading: boolean): FairValueMethod {
   const href = `/valuation/dcf?ticker=${encodeURIComponent(ticker)}`;
   const base = { key: 'dcf', label: 'DCF (กระแสเงินสด)', href };
+
+  // ── sector-guard: DCF (FCF-based) ใช้กับกลุ่มการเงินไม่ได้ทุก subsector ─────────
+  // แบงก์/เงินทุน-หลักทรัพย์/ประกัน เป็นธุรกิจ balance-sheet-driven — "FCF" ปนกระแส
+  // งบดุล (เงินฝาก/สินเชื่อ/reserves) ไม่ใช่เงินสดอิสระจริง ทำให้มูลค่า inflated
+  // (KBANK +167%, SAWAD +345%) · guard FCF≤0 ด้านล่างกันได้แค่ตัวที่ FCF ติดลบ ตัวที่
+  // FCF บวก-แต่-เพี้ยนหลุดหมด จึงตัดทั้ง sector ตั้งแต่ต้น ก่อนเสียเวลาโหลด/คำนวณ
+  // getSectorForTicker ไม่ normalize key ภายใน → ต้อง uppercase/trim เองกันพลาด
+  if (getSectorForTicker(ticker.toUpperCase().trim())?.sector === 'Financials') {
+    return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'DCF ไม่เหมาะกับกลุ่มการเงิน — FCF ปนกระแสงบดุล (ใช้ DDM/relative แทน)', band: null };
+  }
+
   if (loading) return { ...base, sublabel: 'กำลังโหลดงบกระแสเงินสด...', fair: null, ineligible: 'กำลังโหลด...', band: null };
   if (!inputs) return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'ดึงข้อมูล FCF ไม่ได้', band: null };
 
@@ -192,107 +242,187 @@ export function buildDcfMethod(ticker: string, inputs: DcfInputs | null, loading
   };
 }
 
-// ── Track: ราคาจริง vs มูลค่าที่เหมาะสม บนแกนเดียวกัน ──────────────────────────
-function ValueTrack({
-  methods,
-  price,
-  medianFair,
-}: {
-  methods: FairValueMethod[];
-  price: number;
-  medianFair: number | null;
-}) {
-  const fairs = methods.flatMap(m =>
-    m.fair == null ? [] : m.band ? [m.fair, m.band.lo, m.band.hi] : [m.fair]
+const FAIR_ZONE_PCT = 5; // |upside ของ median| ต่ำกว่านี้ = ถือว่าราคาใกล้เคียงมูลค่า (โซนกลาง)
+const LOW_PEER_N = 10;   // peer น้อยกว่านี้ = เตือนว่ากลุ่มตัวอย่างเล็ก เชื่อ median ได้น้อยลง
+
+function fmtSignedPct(u: number): string {
+  return `${u >= 0 ? '+' : ''}${u.toFixed(1)}%`;
+}
+
+// ── แถบเทียบ multiple ของหุ้น vs median กลุ่ม (เฉพาะ P/E, P/BV ที่มีค่ากลางจริง) ──
+// เทรดต่ำกว่ากลุ่ม = ตลาดให้ราคาถูกกว่าเพื่อน (โทนเขียว) · สูงกว่ากลุ่ม = แพงกว่า (โทนแดง)
+// n: จำนวน peer per-metric จาก sectorSpread (nPe/nPb) — แม่นกว่า rel.n ที่เป็นค่ารวม max
+// fallback เป็น rel.n เมื่อไม่มี (กันพลาด) แต่ปกติ groupMedian != null → มี spread เสมอ
+function GroupCompareBar({ rel, n }: { rel: RelativeCompare; n?: number }) {
+  const current = rel.current;
+  const grp = rel.groupMedian;
+  if (current == null || grp == null || grp <= 0) return null;
+
+  const peerN = n ?? rel.n;
+  const max = Math.max(current, grp) || 1;
+  const premium = ((current - grp) / grp) * 100; // >0 = หุ้นเทรดแพงกว่ากลุ่ม
+  const stockAbove = premium >= 0;
+  const stockColor = stockAbove ? '#E24B4A' : '#1D9E75';
+
+  const Row = ({ label, sub, value, pct, color }: { label: string; sub?: string; value: number; pct: number; color: string }) => (
+    <div className="flex items-center gap-2.5">
+      <div className="w-[96px] shrink-0 text-[13px] text-white/60 leading-tight">
+        {label}{sub && <span className="text-[10.5px] text-white/30"> {sub}</span>}
+      </div>
+      <div className="relative flex-1 h-4 rounded-sm bg-white/[0.05] overflow-hidden">
+        <div className="absolute inset-y-0 left-0 rounded-sm" style={{ width: `${Math.max(2, pct)}%`, background: color }} />
+      </div>
+      <div className="w-[60px] shrink-0 text-right text-[15px] font-semibold tabular-nums text-white/90">
+        {value.toFixed(2)}<span className="text-white/30 text-[10.5px]">x</span>
+      </div>
+    </div>
   );
-  const lo = Math.min(price, ...fairs);
-  const hi = Math.max(price, ...fairs);
-  const span = hi - lo || 1;
-  const pad = 8; // เว้นขอบซ้าย/ขวาไม่ให้ marker ตกขอบ
-  const pos = (v: number) => pad + ((v - lo) / span) * (100 - pad * 2);
 
   return (
-    <div className="space-y-3">
-      {methods.map(m => (
-        <div key={m.key} className="grid grid-cols-[104px_1fr_112px] items-center gap-3">
-          <div className="min-w-0">
-            <div className="text-[11px] font-semibold text-white/70 truncate">{m.label}</div>
-            <div className="text-[9.5px] text-white/25 truncate" title={m.sublabel}>{m.sublabel}</div>
-          </div>
+    <div className="mt-2.5 max-w-[440px] space-y-2 rounded-md bg-black/20 px-3 py-2.5">
+      <Row label={`หุ้นนี้ (${rel.unit})`} value={current} pct={(current / max) * 100} color={stockColor} />
+      <Row label="กลุ่ม median" sub={`n=${peerN}`} value={grp} pct={(grp / max) * 100} color="rgba(255,255,255,0.30)" />
+      <div className="flex items-center justify-between pt-0.5">
+        <span className="text-[13px] font-semibold" style={{ color: stockColor }}>
+          เทรด{stockAbove ? 'สูง' : 'ต่ำ'}กว่ากลุ่ม {Math.abs(premium).toFixed(0)}%
+        </span>
+        {peerN > 0 && peerN < LOW_PEER_N && (
+          <span className="text-[10.5px] text-amber-400/70">⚠ peer น้อย ({peerN} ตัว)</span>
+        )}
+      </div>
+    </div>
+  );
+}
 
-          <div className="relative h-6">
-            {/* รางพื้นหลัง */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-[3px] rounded-full bg-white/[0.06]" />
-            {m.fair != null && m.band && (
-              /* ช่วงมูลค่าเมื่อขยับ WACC ±1 จุด — บอกว่าหมุดนี้ไม่ใช่ตัวเลขตายตัว */
-              <div
-                className="absolute top-1/2 -translate-y-1/2 h-[9px] rounded-sm bg-white/[0.10] border border-white/[0.12]"
-                style={{
-                  left: `${Math.min(pos(m.band.lo), pos(m.band.hi))}%`,
-                  width: `${Math.max(2, Math.abs(pos(m.band.hi) - pos(m.band.lo)))}%`,
-                }}
-                title={`ช่วงมูลค่าเมื่อ WACC ±1%: ${m.band.lo.toFixed(2)} – ${m.band.hi.toFixed(2)} บาท`}
-              />
-            )}
-            {m.fair != null && (
-              <>
-                {/* ระยะห่างจากราคาปัจจุบันถึงมูลค่าที่เหมาะสม */}
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 h-[3px] rounded-full"
-                  style={{
-                    left: `${Math.min(pos(price), pos(m.fair))}%`,
-                    width: `${Math.abs(pos(m.fair) - pos(price))}%`,
-                    background: m.fair >= price ? 'rgba(29,158,117,0.45)' : 'rgba(226,75,74,0.45)',
-                  }}
-                />
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full border-2 border-[#13161e]"
-                  style={{ left: `calc(${pos(m.fair)}% - 5px)`, background: m.fair >= price ? '#1D9E75' : '#E24B4A' }}
-                  title={`มูลค่าที่เหมาะสม ${m.fair.toFixed(2)} บาท`}
-                />
-              </>
-            )}
-            {/* ราคาปัจจุบัน */}
-            <div
-              className="absolute top-0 bottom-0 w-[2px] bg-white/80"
-              style={{ left: `calc(${pos(price)}% - 1px)` }}
-              title={`ราคาปัจจุบัน ${price.toFixed(2)} บาท`}
-            />
-          </div>
+// ── แถบ "ช่วงของกลุ่ม" min–max + ตำแหน่งหุ้นนี้ + percentile (ใต้แถบเทียบ median) ──
+// min/max/percentile เป็นค่าหลังกรอง outlier (PE≤100, PBV≤20) ให้ตรงกับ median
+function GroupRangeBar({ min, max, median, current, pctile, n, unit }: {
+  min: number; max: number; median: number; current: number | null; pctile: number | null; n: number; unit: string;
+}) {
+  const span = (max - min) || 1;
+  const clamp = (p: number) => Math.max(0, Math.min(100, p));
+  const posOf = (v: number) => clamp(((v - min) / span) * 100);
+  const medPos = posOf(median);
+  const curPos = current != null ? posOf(current) : null;
+  const below = current != null && current < median; // ถูกกว่า median = โทนเขียว
+  const dotColor = below ? '#1D9E75' : '#E24B4A';
 
-          <div className="text-right">
-            {m.fair != null ? (
-              <>
-                <div className="text-[13px] font-bold text-white tabular-nums leading-tight">{m.fair.toFixed(2)}</div>
-                <div className={`text-[10.5px] font-semibold tabular-nums ${upsideCls(upsidePct(m.fair, price))}`}>
-                  {upsidePct(m.fair, price) >= 0 ? '+' : ''}{upsidePct(m.fair, price).toFixed(1)}%
-                </div>
-              </>
-            ) : (
-              <div className="text-[10px] text-white/30 leading-tight" title={m.ineligible ?? ''}>
-                {m.ineligible ?? 'ไม่มีข้อมูล'}
-              </div>
-            )}
+  // ป้ายมุมขวา: PE/PBV ต่ำ = ถูก → pctile ต่ำ = ถูกกว่าคนส่วนใหญ่
+  let rankLabel = '';
+  let rankColor = 'rgba(255,255,255,0.5)';
+  if (pctile != null) {
+    if (pctile >= 100) { rankLabel = 'สูงกว่าทั้งกลุ่ม'; rankColor = '#E24B4A'; }
+    else if (pctile <= 0) { rankLabel = 'ต่ำกว่าทั้งกลุ่ม'; rankColor = '#1D9E75'; }
+    else if (pctile < 50) { rankLabel = `ถูกกว่า ${Math.round(100 - pctile)}% ของกลุ่ม`; rankColor = '#1D9E75'; }
+    else { rankLabel = `แพงกว่า ${Math.round(pctile)}% ของกลุ่ม`; rankColor = '#E24B4A'; }
+  }
+
+  return (
+    <div className="mt-2 max-w-[440px] rounded-md bg-black/20 px-3 py-2.5">
+      <div className="flex items-center justify-between gap-2 mb-2.5">
+        <span className="text-[11px] text-white/45">
+          ช่วง {unit} ของกลุ่ม <span className="text-white/25">(ตัด outlier · n={n})</span>
+        </span>
+        {rankLabel && <span className="text-[11px] font-semibold shrink-0" style={{ color: rankColor }}>{rankLabel}</span>}
+      </div>
+      <div className="relative h-6">
+        {/* ค่าหุ้นนี้ลอยเหนือจุด */}
+        {curPos != null && current != null && (
+          <div className="absolute top-0 -translate-x-1/2 text-[10.5px] font-semibold tabular-nums whitespace-nowrap"
+            style={{ left: `${curPos}%`, color: dotColor }}>
+            {current.toFixed(2)}
           </div>
+        )}
+        {/* ราง */}
+        <div className="absolute left-0 right-0 bottom-1 h-[3px] rounded-full bg-white/[0.08]" />
+        {/* tick median */}
+        <div className="absolute bottom-1 -translate-y-0 w-[2px] h-3 bg-white/40" style={{ left: `calc(${medPos}% - 1px)`, bottom: '1px' }} title={`median ${median.toFixed(2)}`} />
+        {/* จุดหุ้นนี้ */}
+        {curPos != null && current != null && (
+          <div className="absolute w-3 h-3 rounded-full border-2 border-[#13161e]"
+            style={{ left: `calc(${curPos}% - 6px)`, bottom: '-1px', background: dotColor }}
+            title={`หุ้นนี้ ${current.toFixed(2)}`} />
+        )}
+      </div>
+      <div className="flex items-center justify-between mt-1 text-[10.5px] tabular-nums text-white/35">
+        <span>ต่ำสุด {min.toFixed(2)}</span>
+        <span className="text-white/28">median {median.toFixed(2)}</span>
+        <span>สูงสุด {max.toFixed(2)}</span>
+      </div>
+    </div>
+  );
+}
+
+// เลือกช่วง min/max/percentile ต่อ metric จาก SectorSpread ตาม key ของวิธี
+function rangeForMethod(m: FairValueMethod, spread: SectorSpread | null) {
+  if (!spread) return null;
+  const isPe = m.key === 'pe';
+  const min = isPe ? spread.peMin : spread.pbMin;
+  const max = isPe ? spread.peMax : spread.pbMax;
+  if (min == null || max == null || max <= min) return null; // ต้องมีช่วงจริง (>=2 ค่าไม่ซ้ำ)
+  return { min, max, pctile: isPe ? spread.pePctile : spread.pbPctile, n: isPe ? spread.nPe : spread.nPb };
+}
+
+// ── การ์ดต่อวิธี: label + สูตร + fair value + %upside + ส่วนขยายเฉพาะวิธี ──
+function MethodRow({ m, price, spread }: { m: FairValueMethod; price: number; spread: SectorSpread | null }) {
+  const eligible = m.fair != null;
+  const upside = eligible ? upsidePct(m.fair as number, price) : null;
+  const relFallback = m.relative != null && m.relative.groupMedian == null && eligible;
+  // แถบช่วงกลุ่ม: เฉพาะ P/E·P/BV ที่มี median กลุ่มจริง + มีช่วง min–max
+  const range = eligible && m.relative && m.relative.groupMedian != null ? rangeForMethod(m, spread) : null;
+
+  return (
+    <div className="rounded-lg border border-white/[0.06] bg-white/[0.015] px-3.5 py-3">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="text-[15px] font-semibold text-white/90 leading-tight">{m.label}</div>
+          <div className="text-[11px] text-white/35 mt-1 leading-snug break-words" title={m.sublabel}>{m.sublabel}</div>
         </div>
-      ))}
-
-      {medianFair != null && (
-        <div className="grid grid-cols-[104px_1fr_112px] items-center gap-3 pt-1 border-t border-white/[0.06]">
-          <div className="text-[11px] font-bold text-white/80">ค่ากลาง (median)</div>
-          <div className="relative h-4">
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rotate-45 border-2 border-[#13161e]"
-              style={{ left: `calc(${pos(medianFair)}% - 6px)`, background: medianFair >= price ? '#1D9E75' : '#E24B4A' }}
-            />
-            <div className="absolute top-0 bottom-0 w-[2px] bg-white/80" style={{ left: `calc(${pos(price)}% - 1px)` }} />
-          </div>
-          <div className="text-right">
-            <div className="text-[15px] font-extrabold text-white tabular-nums leading-tight">{medianFair.toFixed(2)}</div>
-            <div className={`text-[11px] font-bold tabular-nums ${upsideCls(upsidePct(medianFair, price))}`}>
-              {upsidePct(medianFair, price) >= 0 ? '+' : ''}{upsidePct(medianFair, price).toFixed(1)}%
+        <div className="text-right shrink-0">
+          {eligible ? (
+            <>
+              <div className="text-[20px] font-bold text-white tabular-nums leading-none">{(m.fair as number).toFixed(2)}</div>
+              <div className={`text-[13.5px] font-bold tabular-nums mt-1 ${upsideCls(upside as number)}`}>{fmtSignedPct(upside as number)}</div>
+            </>
+          ) : (
+            <div className="flex items-start gap-1 text-[11px] text-white/45 max-w-[150px] justify-end text-right leading-snug">
+              <span className="text-amber-400/50 mt-px">⚠</span>
+              <span>{m.ineligible ?? 'ไม่มีข้อมูล'}</span>
             </div>
-          </div>
+          )}
+        </div>
+      </div>
+
+      {/* P/E · P/BV: แถบเทียบกลุ่ม (โชว์เฉพาะเมื่อมี median กลุ่มจริง) · n = per-metric จาก spread */}
+      {eligible && m.relative && m.relative.groupMedian != null && (
+        <GroupCompareBar rel={m.relative} n={m.key === 'pe' ? spread?.nPe : spread?.nPb} />
+      )}
+
+      {/* P/E · P/BV: แถบช่วงของกลุ่ม min–max + ตำแหน่งหุ้นนี้ (เติมพื้นที่ว่าง) */}
+      {range && m.relative && (
+        <GroupRangeBar
+          min={range.min} max={range.max} median={m.relative.groupMedian as number}
+          current={m.relative.current} pctile={range.pctile} n={range.n} unit={m.relative.unit}
+        />
+      )}
+
+      {/* fallback trap: fair คำนวณจากค่าตัวเอง ไม่ใช่กลุ่ม — บอกตรงๆ อย่าโชว์แถบเทียบกลุ่ม */}
+      {relFallback && (
+        <div className="mt-2 text-[10px] text-amber-400/70 leading-snug">
+          ไม่มีค่ากลางของกลุ่ม — อิงค่าปัจจุบันของหุ้นเอง (ไม่ใช่การเทียบกลุ่ม)
+        </div>
+      )}
+
+      {/* DDM: ระบุว่าเป็นมูลค่าแท้จริงจากปันผล ไม่อิงกลุ่ม */}
+      {eligible && m.key === 'ddm' && (
+        <div className="mt-2 text-[10px] text-white/30 leading-snug">คำนวณจากปันผลคาดการณ์ · ไม่อิงกลุ่ม</div>
+      )}
+
+      {/* DCF: ช่วง sensitivity เมื่อขยับ WACC ±1 จุด */}
+      {eligible && m.band && (
+        <div className="mt-2 flex items-center gap-1.5 text-[10px] text-white/35 leading-snug">
+          <span className="inline-block w-6 h-[6px] rounded-sm bg-white/[0.14] border border-white/[0.12] shrink-0" />
+          ช่วงเมื่อ WACC ±1%: <span className="tabular-nums text-white/60 font-medium">{m.band.lo.toFixed(2)}–{m.band.hi.toFixed(2)}</span> บาท
         </div>
       )}
     </div>
@@ -345,6 +475,7 @@ export default function FairValueCompare({
   }, [ticker]);
 
   const relative = useMemo(() => buildRelativeMethods(ticker), [ticker]);
+  const sectorSpread = useMemo(() => getSectorSpread(ticker), [ticker]);
   const ddm = buildDdmMethod(ticker, ddmInputs, ddmLoading);
   const dcf = buildDcfMethod(ticker, dcfInputs, dcfLoading);
   const methods = [...relative, ddm, dcf];
@@ -370,24 +501,76 @@ export default function FairValueCompare({
   const spread = Math.max(...upsides) - Math.min(...upsides);
   const diverged = usable.length >= 2 && spread > DIVERGENCE_SPREAD_PCT;
 
+  // ── ภาพรวม: median fair vs ราคา → ถูก/แพง/ใกล้เคียง ──
+  const medianUpside = medianFair != null ? upsidePct(medianFair, price) : null;
+  const verdictTone: 'green' | 'red' | 'neutral' =
+    medianUpside == null ? 'neutral'
+      : medianUpside > FAIR_ZONE_PCT ? 'green'
+      : medianUpside < -FAIR_ZONE_PCT ? 'red'
+      : 'neutral';
+  const verdict = {
+    green: {
+      icon: '▲', box: 'bg-[#1D9E75]/10 border-[#1D9E75]/30', text: 'text-[#1D9E75]', dot: '#1D9E75',
+      msg: medianUpside != null ? `ราคาปัจจุบันถูกกว่ามูลค่าที่ประเมินได้ ${medianUpside.toFixed(0)}%` : '',
+    },
+    red: {
+      icon: '▼', box: 'bg-[#E24B4A]/10 border-[#E24B4A]/30', text: 'text-[#E24B4A]', dot: '#E24B4A',
+      msg: medianUpside != null ? `ราคาปัจจุบันแพงกว่ามูลค่าที่ประเมินได้ ${Math.abs(medianUpside).toFixed(0)}%` : '',
+    },
+    neutral: {
+      icon: '≈', box: 'bg-white/[0.04] border-white/[0.1]', text: 'text-white/70', dot: 'rgba(255,255,255,0.55)',
+      msg: 'ราคาปัจจุบันใกล้เคียงมูลค่าที่เหมาะสม',
+    },
+  }[verdictTone];
+
   return (
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-4">
-      <div className="flex items-start justify-between gap-3 flex-wrap">
+      {/* 1 · header + ราคาปัจจุบันมุมขวา */}
+      <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-section text-ink">มูลค่าที่เหมาะสม (Fair Value)</h2>
-          <p className="text-[11px] text-white/30 mt-0.5">
-            เทียบราคาปัจจุบัน <span className="text-white/60 tabular-nums font-semibold">{price.toFixed(2)}</span> บาท
-            กับมูลค่าที่ประเมินได้จากหลายวิธี
-          </p>
+          <p className="text-[10.5px] text-white/30 mt-0.5">ประเมินหลายวิธีแล้วเทียบกับราคาตลาด</p>
         </div>
-        <div className="flex items-center gap-1.5 text-[10px] text-white/30">
-          <span className="w-[2px] h-3 bg-white/80 inline-block" />
-          <span>ราคาปัจจุบัน</span>
+        <div className="text-right shrink-0">
+          <div className="text-[9.5px] text-white/30 uppercase tracking-wide">ราคาปัจจุบัน</div>
+          <div className="text-[17px] font-bold text-white tabular-nums leading-tight">{price.toFixed(2)}</div>
         </div>
       </div>
 
-      <ValueTrack methods={methods} price={price} medianFair={medianFair} />
+      {/* 2 · แถบสรุปภาพรวม (ถูก/แพง/ใกล้เคียง) */}
+      <div className={`flex items-start gap-2.5 rounded-xl border px-4 py-3 ${verdict.box}`}>
+        <span className={`text-[17px] leading-none mt-0.5 ${verdict.text}`}>{verdict.icon}</span>
+        <div className="min-w-0">
+          <div className={`text-[16px] font-bold leading-tight ${verdict.text}`}>{verdict.msg}</div>
+          <div className="text-[11.5px] text-white/40 mt-1">
+            อิงค่ากลาง (median) ของ {usable.length} วิธีที่ประเมินได้ เทียบราคา {price.toFixed(2)} บาท
+          </div>
+        </div>
+      </div>
 
+      {/* 3 · แต่ละวิธีเป็นการ์ด */}
+      <div className="space-y-2">
+        {methods.map(m => <MethodRow key={m.key} m={m} price={price} spread={sectorSpread} />)}
+      </div>
+
+      {/* 4 · ค่ากลางรวม (เด่น) */}
+      {medianFair != null && medianUpside != null && (
+        <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+          <div className="flex items-center gap-2.5">
+            <span className="w-3 h-3 rotate-45 inline-block shrink-0" style={{ background: verdict.dot }} />
+            <div>
+              <div className="text-[14px] font-bold text-white/90 leading-tight">ค่ากลางรวมทุกวิธี</div>
+              <div className="text-[10.5px] text-white/35 mt-0.5">median ของ {usable.length} วิธีที่ประเมินได้</div>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-[24px] font-extrabold text-white tabular-nums leading-none">{medianFair.toFixed(2)}</div>
+            <div className={`text-[14.5px] font-bold tabular-nums mt-1 ${upsideCls(medianUpside)}`}>{fmtSignedPct(medianUpside)}</div>
+          </div>
+        </div>
+      )}
+
+      {/* คงธงเตือน spread กว้าง */}
       {diverged && (
         <div className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-label px-3.5 py-2.5 rounded-xl">
           <span className="text-[13px] leading-none mt-0.5">⚠</span>
@@ -398,23 +581,29 @@ export default function FairValueCompare({
         </div>
       )}
 
-      <p className="text-[10.5px] text-white/25 leading-relaxed">
-        ใช้สมมติฐานมาตรฐานเดียวกับหน้า valuation · DCF: WACC {DCF_WACC_PCT}% · g {DCF_GROWTH_PCT}% · terminal {DCF_TERMINAL_GROWTH_PCT}% · {DCF_YEARS} ปี ·
-        DDM: r {DDM_REQUIRED_RETURN_PCT}% · g {DDM_GROWTH_PCT}% · P/E-P/BV: median ของกลุ่ม —
-        ตัวเลขพวกนี้ไม่ใช่ค่าตายตัว เปลี่ยน WACC 1 จุดมูลค่า DCF ขยับ 20-30% (แถบจางบนแทร็กคือช่วงนั้น)
-        กดลิงก์ด้านล่างเพื่อปรับสมมติฐานเอง
-      </p>
-
-      <div className="flex items-center gap-3 flex-wrap text-[10.5px] text-white/30">
-        <Link href={`/valuation/pe-pbv?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
-          ปรับสมมติฐาน P/E · P/BV เอง
-        </Link>
-        <Link href={`/valuation/ddm?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
-          ปรับสมมติฐาน DDM เอง
-        </Link>
-        <Link href={`/valuation/dcf?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
-          ปรับสมมติฐาน DCF เอง
-        </Link>
+      {/* 5 · footer: อธิบาย "อิงกลุ่ม" + สมมติฐาน + ลิงก์ปรับเอง */}
+      <div className="space-y-2 pt-0.5">
+        <p className="text-[10px] text-white/25 leading-relaxed">
+          <span className="text-white/45 font-medium">“อิงกลุ่ม”</span> = เอา EPS/BVPS ของหุ้นคูณกับค่า P/E · P/BV กลาง (median) ของหุ้นในกลุ่มเดียวกัน —
+          ถ้าหุ้นเทรด<span className="text-[#1D9E75]">ต่ำ</span>กว่าค่ากลางกลุ่ม มูลค่าที่ได้จะสูงกว่าราคา (ดูมี upside) และกลับกัน ·
+          ส่วน DDM/DCF เป็นการประเมินมูลค่าแท้จริง ไม่อิงกลุ่ม
+        </p>
+        <p className="text-[10px] text-white/25 leading-relaxed">
+          สมมติฐานมาตรฐานเดียวกับหน้า valuation · DCF: WACC {DCF_WACC_PCT}% · g {DCF_GROWTH_PCT}% · terminal {DCF_TERMINAL_GROWTH_PCT}% · {DCF_YEARS} ปี ·
+          DDM: r {DDM_REQUIRED_RETURN_PCT}% · g {DDM_GROWTH_PCT}% —
+          เปลี่ยน WACC 1 จุด มูลค่า DCF ขยับ 20-30% (แถบจางในการ์ด DCF คือช่วงนั้น)
+        </p>
+        <div className="flex items-center gap-3 flex-wrap text-[10.5px] text-white/30">
+          <Link href={`/valuation/pe-pbv?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
+            ปรับสมมติฐาน P/E · P/BV เอง
+          </Link>
+          <Link href={`/valuation/ddm?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
+            ปรับสมมติฐาน DDM เอง
+          </Link>
+          <Link href={`/valuation/dcf?ticker=${encodeURIComponent(ticker)}`} className="text-white/40 hover:text-white/70 underline decoration-dotted underline-offset-2 transition-colors">
+            ปรับสมมติฐาน DCF เอง
+          </Link>
+        </div>
       </div>
     </div>
   );

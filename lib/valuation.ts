@@ -94,3 +94,55 @@ export function getSectorMedians(ticker: string): { sector: string; secPe: numbe
   const { median: secPb, n: nPb } = medianPBV(allTickers);
   return { sector, secPe, secPb, n: Math.max(nPe, nPb) };
 }
+
+// เก็บค่าที่ผ่านการกรอง (เหมือน medianPE/medianPBV เป๊ะ) แล้ว sort จากน้อยไปมาก
+function collectSorted(tickers: string[], map: Map<string, number>, hi: number): number[] {
+  const out: number[] = [];
+  for (const ticker of tickers) {
+    const v = map.get(ticker);
+    if (typeof v === 'number' && !isNaN(v) && v > 0 && v <= hi) out.push(v);
+  }
+  return out.sort((a, b) => a - b);
+}
+
+// percentile = สัดส่วน peer ที่ค่า "ต่ำกว่า" หุ้นนี้ (PE/PBV ต่ำ = ถูก = percentile ต่ำ)
+// value > ทุกตัว → 100 (สูงกว่าทั้งกลุ่ม) · value ที่ถูกกรองออก (เช่น PE>100) ก็ยังคิดได้
+function pctileOf(sorted: number[], value: number | undefined): number | null {
+  if (sorted.length === 0 || value == null || !Number.isFinite(value)) return null;
+  const below = sorted.filter(x => x < value).length;
+  return (below / sorted.length) * 100;
+}
+
+export interface SectorSpread {
+  sector: string;
+  peMin: number | null; peMax: number | null; pePctile: number | null; nPe: number;
+  pbMin: number | null; pbMax: number | null; pbPctile: number | null; nPb: number;
+}
+
+// ช่วง min–max + percentile ของหุ้นในกลุ่ม — presentation ล้วน แยกจาก getSectorMedians
+// ใช้ peMap/pbMap + sector ticker list เดียวกัน · กรองเดียวกัน (PE≤100, PBV≤20)
+export function getSectorSpread(ticker: string): SectorSpread | null {
+  const t = ticker.toUpperCase().trim();
+  const info = tickerToSector[t];
+  if (!info) return null;
+  const { sector, market } = info;
+  const sectorEntries = allSectorEntries.filter(e => e.sector === sector && e.market === market);
+  const allTickers = sectorEntries.flatMap(e => e.tickers);
+
+  const pe = collectSorted(allTickers, peMap, 100);
+  const pb = collectSorted(allTickers, pbMap, 20);
+  const myPe = peMap.get(t);
+  const myPb = pbMap.get(t);
+
+  return {
+    sector,
+    peMin: pe.length ? pe[0] : null,
+    peMax: pe.length ? pe[pe.length - 1] : null,
+    pePctile: pctileOf(pe, myPe),
+    nPe: pe.length,
+    pbMin: pb.length ? pb[0] : null,
+    pbMax: pb.length ? pb[pb.length - 1] : null,
+    pbPctile: pctileOf(pb, myPb),
+    nPb: pb.length,
+  };
+}
