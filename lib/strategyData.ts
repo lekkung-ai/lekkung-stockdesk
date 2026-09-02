@@ -10,15 +10,16 @@ export interface LekkungEntry {
   Ticker: string;
   EMA_10?: number;
   Close: number;
-  PE_Ratio: number;
-  ROE: number;
-  Revenue_Growth_YoY: number;
-  Profit_Growth_YoY: number;
-  NetProfit_Growth_QoQY: number;
+  // fundamental จากงบ — เป็น null ได้เมื่องบยังไม่มา/คำนวณไม่ได้ (scan push null)
+  PE_Ratio: number | null;
+  ROE: number | null;
+  Revenue_Growth_YoY: number | null;
+  Profit_Growth_YoY: number | null;
+  NetProfit_Growth_QoQY: number | null;
   ADTV_MB: number;
-  Market_Cap: number;
-  '52W_High': number;
-  '52W_Low': number;
+  Market_Cap: number | null;
+  '52W_High': number | null;
+  '52W_Low': number | null;
 }
 
 export interface WeinsteinEntry {
@@ -31,24 +32,26 @@ export interface WeinsteinEntry {
   'Slope_4W_%': number;
   RS_Rating: number;
   'ADTV(MB)': number;
-  PE_Ratio: number;
-  ROE: number;
-  '52W_High': number;
-  '52W_Low': number;
+  // fundamental/52w — เป็น null ได้ (งบยังไม่มา / หุ้นใหม่ไม่มีประวัติ 52 สัปดาห์)
+  PE_Ratio: number | null;
+  ROE: number | null;
+  '52W_High': number | null;
+  '52W_Low': number | null;
 }
 
 export interface OneilEntry {
   Ticker: string;
   Price: number;
-  '52W_High': number;
-  '52W_Low': number;
+  '52W_High': number | null;
+  '52W_Low': number | null;
   '%_From_52W_High': number;
   'ADTV(MB)': number;
-  PE_Ratio: number;
-  ROE: number;
-  Profit_Growth_YoY: number;
+  // fundamental จากงบ — เป็น null ได้
+  PE_Ratio: number | null;
+  ROE: number | null;
+  Profit_Growth_YoY: number | null;
   RS_Rating: number;
-  Market_Cap: number;
+  Market_Cap: number | null;
 }
 
 export interface SepaEntry {

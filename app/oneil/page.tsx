@@ -178,12 +178,12 @@ export default function OneilPage() {
               </Td>
               <Td right mono>{formatPE(s.PE_Ratio)}</Td>
               <Td right mono>
-                <span className={s.ROE > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
+                <span className={(s.ROE ?? 0) > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
                   {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
                 </span>
               </Td>
               <Td right mono>
-                <span className={s.Profit_Growth_YoY > 20 ? 'text-[#1D9E75]' : 'text-white'}>
+                <span className={(s.Profit_Growth_YoY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white'}>
                   {s.Profit_Growth_YoY != null ? s.Profit_Growth_YoY.toFixed(1) + '%' : '-'}
                 </span>
               </Td>

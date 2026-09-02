@@ -76,7 +76,7 @@ export default function LekkungPage() {
         return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
       });
     } else {
-      result = result.sort((a, b) => b.NetProfit_Growth_QoQY - a.NetProfit_Growth_QoQY);
+      result = result.sort((a, b) => (b.NetProfit_Growth_QoQY ?? -Infinity) - (a.NetProfit_Growth_QoQY ?? -Infinity));
     }
     return result;
   }, [sortConfig, diffFilter, newSet]);
@@ -186,17 +186,17 @@ export default function LekkungPage() {
                 </Td>
                 <Td right mono>{formatPE(s.PE_Ratio)}</Td>
                 <Td right mono>
-                  <span className={s.ROE > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
+                  <span className={(s.ROE ?? 0) > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
                   </span>
                 </Td>
                 <Td right mono>
-                  <span className={s.Revenue_Growth_YoY > 20 ? 'text-[#1D9E75]' : 'text-white'}>
+                  <span className={(s.Revenue_Growth_YoY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.Revenue_Growth_YoY?.toFixed(1) || '-'}%
                   </span>
                 </Td>
                 <Td right mono>
-                  <span className={s.NetProfit_Growth_QoQY > 20 ? 'text-[#1D9E75]' : 'text-white'}>
+                  <span className={(s.NetProfit_Growth_QoQY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}
                   </span>
                 </Td>
