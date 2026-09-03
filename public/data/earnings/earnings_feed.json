@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T18:17:11.774774+07:00",
+  "generatedAt": "2026-09-03T14:24:58.327063+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 349,
+      "count": 348,
       "top3": [
         {
           "ticker": "BPS",
@@ -77,7 +77,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 148,
+      "count": 149,
       "top3": [
         {
           "ticker": "TPL",
@@ -100,6 +100,33 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "MVP",
+      "sector": "Services",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-09-02T18:30:00+07:00",
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": -122682000.0,
+      "netProfitPrior": -60236000.0,
+      "netProfitYoY": -103.66890231755097,
+      "netProfitPriorQ": -63996000.0,
+      "netProfitQoQ": -91.7026064129008,
+      "profitAcceleration": "stable",
+      "eps": -0.364,
+      "epsPrior": -0.179,
+      "epsYoY": -103.35195530726257,
+      "auditorOpinion": "ไม่แสดงความเห็นและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": true,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106650001&symbol=MVP",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106651301&symbol=MVP",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106651001&symbol=MVP",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "MVP",
       "sector": "Services",
@@ -132,7 +159,7 @@
       "sector": "Property",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-09-02T17:08:17+07:00",
+      "announceDate": "2026-09-02T17:08:00+07:00",
       "quarter": "ไตรมาส 2/2568",
       "periodEnd": "30 เมษายน 2568",
       "netProfit": 1134000.0,
@@ -181,7 +208,7 @@
       "reason": "รายได้จากการขาย 32,444 40% 101,485 70% (69,041) (68)% รายได้ดอกเบี้ยรับจากเงินให้สินเชื่อ 48,360 60% 44,279 30% 4,081 9% รวมรำยได้จำกกำรด ำเนินงำน 80,804 100% 145,764 100% (64,960) (45)% หัก ต้นทุนขาย 28,447 35% 96,867 66%",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -213,7 +240,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -4.76,
       "drift_d5_pct": null
     },
     {
@@ -242,7 +269,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 1.37,
+      "gap_pct": 3.42,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -306,7 +333,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -431,7 +458,7 @@
       "gap_pct": -0.42,
       "drift_d1_pct": 0.85,
       "drift_d2_pct": -1.69,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.42
     },
     {
       "ticker": "BAY",
@@ -462,7 +489,7 @@
       "gap_pct": 0.61,
       "drift_d1_pct": -1.23,
       "drift_d2_pct": -0.61,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.61
     },
     {
       "ticker": "KGI",
@@ -493,7 +520,7 @@
       "gap_pct": 0.97,
       "drift_d1_pct": -1.94,
       "drift_d2_pct": -3.3,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.63
     },
     {
       "ticker": "CREDIT",
@@ -524,7 +551,7 @@
       "gap_pct": -0.42,
       "drift_d1_pct": -2.09,
       "drift_d2_pct": -2.93,
-      "drift_d5_pct": null
+      "drift_d5_pct": -4.6
     },
     {
       "ticker": "KTB",
@@ -555,7 +582,7 @@
       "gap_pct": 0.57,
       "drift_d1_pct": -2.27,
       "drift_d2_pct": -1.7,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.57
     },
     {
       "ticker": "TTB",
@@ -1343,8 +1370,8 @@
       "netProfit": -247368000.0,
       "netProfitPrior": -52790000.0,
       "netProfitYoY": -368.5887478689146,
-      "netProfitPriorQ": -198546000.0,
-      "netProfitQoQ": -24.589767610528543,
+      "netProfitPriorQ": -98911000.0,
+      "netProfitQoQ": -150.09149639574972,
       "profitAcceleration": "stable",
       "eps": -0.22,
       "epsPrior": -0.05,
@@ -12776,7 +12803,7 @@
       "netProfitYoY": 18.2611103526419,
       "netProfitPriorQ": 1613744000.0,
       "netProfitQoQ": -4.989824904074005,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.53,
       "epsPrior": 0.45,
       "epsYoY": 17.777777777777782,
@@ -20952,7 +20979,7 @@
       "netProfitYoY": 73.74830852503383,
       "netProfitPriorQ": 19709000.0,
       "netProfitQoQ": -60.91125881576944,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.0065,
       "epsPrior": 0.0037,
       "epsYoY": 75.67567567567566,
@@ -22702,7 +22729,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 2.04,
+      "drift_d1_pct": 2.72,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -25569,9 +25596,9 @@
       "netProfit": 28207000.0,
       "netProfitPrior": 12524000.0,
       "netProfitYoY": 125.22357074417118,
-      "netProfitPriorQ": 63122000.0,
-      "netProfitQoQ": -55.31351985044834,
-      "profitAcceleration": "decelerating",
+      "netProfitPriorQ": 6142000.0,
+      "netProfitQoQ": 359.2478020188864,
+      "profitAcceleration": "accelerating",
       "eps": 0.007,
       "epsPrior": 0.003,
       "epsYoY": 133.33333333333331,
@@ -27797,8 +27824,8 @@
       "netProfit": -87425000.0,
       "netProfitPrior": -207190000.0,
       "netProfitYoY": 57.80443071576814,
-      "netProfitPriorQ": 587675000.0,
-      "netProfitQoQ": -114.87641978984983,
+      "netProfitPriorQ": -885000.0,
+      "netProfitQoQ": -9778.531073446327,
       "profitAcceleration": "decelerating",
       "eps": -0.08,
       "epsPrior": -0.19,
@@ -29552,37 +29579,6 @@
       "drift_d1_pct": -5.38,
       "drift_d2_pct": -4.62,
       "drift_d5_pct": -3.85
-    },
-    {
-      "ticker": "TTB",
-      "sector": "Financials",
-      "subsector": "Banking",
-      "market": "SET",
-      "announceDate": "2026-07-20T12:32:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 5512966000.0,
-      "netProfitPrior": 5004268000.0,
-      "netProfitYoY": 10.16528291450418,
-      "netProfitPriorQ": 5169791000.0,
-      "netProfitQoQ": 6.638082661368709,
-      "profitAcceleration": "accelerating",
-      "eps": 0.06,
-      "epsPrior": 0.05,
-      "epsYoY": 19.99999999999999,
-      "auditorOpinion": null,
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105471301&symbol=TTB",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17845038225161&symbol=TTB",
-      "mdaUrl": null,
-      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 8.82,
-      "drift_d1_pct": 8.09,
-      "drift_d2_pct": 5.88,
-      "drift_d5_pct": 13.24
     }
   ],
   "calendar": [
@@ -29591,12 +29587,6 @@
       "date": "2026-07-06T08:16:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
-    },
-    {
-      "ticker": "TSTH",
-      "date": "2026-07-17T18:32:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "BAREIT",
@@ -31157,7 +31147,7 @@
       "ticker": "VL",
       "date": "2026-08-11T17:12:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "PG",
@@ -32694,7 +32684,7 @@
       "ticker": "TIDLOR",
       "date": "2026-08-13T18:18:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "SECURE",
@@ -35103,13 +35093,13 @@
     },
     {
       "ticker": "TAPAC",
-      "date": "2026-09-02T17:08:17+07:00",
+      "date": "2026-09-02T17:08:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2568"
     },
     {
       "ticker": "MVP",
-      "date": "2026-09-02T18:12:50+07:00",
+      "date": "2026-09-02T18:30:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
     },
@@ -35154,6 +35144,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-08T17:06:00+07:00"
+    },
+    {
+      "ticker": "TSTH",
+      "date": "2026-10-17T18:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-17T18:37:00+07:00"
     }
   ]
 }
