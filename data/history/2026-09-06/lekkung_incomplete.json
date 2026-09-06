@@ -1,0 +1,30 @@
+[
+  {
+    "Ticker": "CWT",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "IVL",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "KSL",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "THREL",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "TRUBB",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "ZIGA",
+    "Reason": "missing: ROE"
+  },
+  {
+    "Ticker": "SET_INDEX",
+    "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
+  }
+]
