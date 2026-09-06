@@ -135,20 +135,21 @@ export default function LekkungPage() {
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           {/* # index รวมเข้าคอลัมน์ Symbol แล้ว เพื่อให้ Symbol เป็น first-child →
               sticky ตอนเลื่อนแนวนอน (TableWrap ปักหมุด first-child ให้อัตโนมัติ)
-              คอลัมน์รอง (Rev/Profit/MktCap/ADTV) hidden ต่ำกว่า xl (1280) — บน iPad
-              เหลือ 7 คอลัมน์หลักพอดีจอ, แตะแถวดูค่าเต็มใน panel */}
+              คอลัมน์รอง (Rev/Profit/MktCap/ADTV) hidden ที่ ≤1200px (ครอบ iPad Air
+              1180 landscape ทุก orientation) โผล่เฉพาะ desktop จริง ≥1201 — บน iPad
+              เหลือ 7 คอลัมน์หลักพอดีจอ, แตะแถวดูค่าเต็มใน strip เหนือ chart */}
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Close" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>
             <SortableTh right sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
-            <SortableTh right className="hidden xl:table-cell" sortKey="Revenue_Growth_YoY" currentSort={sortConfig} onSort={handleSort}>Rev Gr (YoY)</SortableTh>
-            <SortableTh right className="hidden xl:table-cell" sortKey="NetProfit_Growth_QoQY" currentSort={sortConfig} onSort={handleSort}>Profit Gr (QoQY)</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="Revenue_Growth_YoY" currentSort={sortConfig} onSort={handleSort}>Rev Gr (YoY)</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="NetProfit_Growth_QoQY" currentSort={sortConfig} onSort={handleSort}>Profit Gr (QoQY)</SortableTh>
             <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52w H/L</SortableTh>
             <SortableTh right sortKey="__ema10diff" currentSort={sortConfig} onSort={handleSort}>vs EMA10</SortableTh>
-            <SortableTh right className="hidden xl:table-cell" sortKey="Market_Cap" currentSort={sortConfig} onSort={handleSort}>Market Cap (MB)</SortableTh>
-            <SortableTh right className="hidden xl:table-cell" sortKey="ADTV_MB" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="Market_Cap" currentSort={sortConfig} onSort={handleSort}>Market Cap (MB)</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="ADTV_MB" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
           </tr>
         </thead>
         <tbody>
@@ -193,12 +194,12 @@ export default function LekkungPage() {
                     {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
                   </span>
                 </Td>
-                <Td right mono className="hidden xl:table-cell">
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   <span className={(s.Revenue_Growth_YoY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.Revenue_Growth_YoY?.toFixed(1) || '-'}%
                   </span>
                 </Td>
-                <Td right mono className="hidden xl:table-cell">
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   <span className={(s.NetProfit_Growth_QoQY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}
                   </span>
@@ -221,12 +222,12 @@ export default function LekkungPage() {
                     </div>
                   ) : <span className="text-white/30">—</span>}
                 </Td>
-                <Td right mono className="hidden xl:table-cell">
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   <span className="text-white/70">
                     {s.Market_Cap ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}
                   </span>
                 </Td>
-                <Td right mono className="hidden xl:table-cell">
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   <span className={isLowLiquidity ? 'text-amber-400 font-semibold' : 'text-white/70'} title={isLowLiquidity ? 'สภาพคล่องต่ำกว่า 5 ลบ./วัน' : undefined}>
                     {s.ADTV_MB?.toFixed(0) || '-'} {isLowLiquidity && '⚠️'}
                   </span>
@@ -260,8 +261,9 @@ export default function LekkungPage() {
                           ปิดกราฟ
                         </button>
                       </div>
-                      {/* ข้อมูลรองที่ซ่อนคอลัมน์บนจอ < xl — โชว์ตรงนี้แทน (desktop เห็นในแถวแล้ว จึง xl:hidden) */}
-                      <div className="xl:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3">
+                      {/* ข้อมูลรองที่ซ่อนคอลัมน์บนจอ ≤1200 (ครอบ iPad Air 1180) — โชว์ตรงนี้แทน
+                          (desktop ≥1201 เห็นในแถวแล้ว จึง min-[1201px]:hidden) ให้ตรงกับคอลัมน์ */}
+                      <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3">
                         <span className="text-white/40">Rev Gr (YoY): <span className={`tabular-nums font-semibold ${(s.Revenue_Growth_YoY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.Revenue_Growth_YoY != null ? s.Revenue_Growth_YoY.toFixed(1) + '%' : '-'}</span></span>
                         <span className="text-white/40">Profit Gr (QoQY): <span className={`tabular-nums font-semibold ${(s.NetProfit_Growth_QoQY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}</span></span>
                         <span className="text-white/40">Mkt Cap: <span className="tabular-nums font-semibold text-white/80">{s.Market_Cap != null ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' MB' : '-'}</span></span>
