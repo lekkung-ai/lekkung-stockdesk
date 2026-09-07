@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T18:11:20.086204+07:00",
+  "generatedAt": "2026-09-07T14:35:12.763172+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 208,
+      "count": 207,
       "top3": [
         {
           "ticker": "SORKON",
@@ -280,7 +280,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 4.79,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MC",
@@ -311,7 +315,7 @@
       "gap_pct": -0.84,
       "drift_d1_pct": -5.04,
       "drift_d2_pct": -7.56,
-      "drift_d5_pct": null
+      "drift_d5_pct": -5.04
     },
     {
       "ticker": "TAPAC",
@@ -4697,7 +4701,7 @@
       "netProfitYoY": 78.85579299634725,
       "netProfitPriorQ": 2788729000.0,
       "netProfitQoQ": -26.69502845202958,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.34,
       "epsPrior": 0.19,
       "epsYoY": 78.94736842105264,
@@ -22737,7 +22741,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.4,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -27497,7 +27501,7 @@
       "netProfitYoY": 183.63161802817544,
       "netProfitPriorQ": 229551260.0,
       "netProfitQoQ": 145.22622964474252,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 0.626,
       "epsPrior": 0.221,
       "epsYoY": 183.25791855203622,
@@ -29153,37 +29157,6 @@
       "drift_d1_pct": -7.17,
       "drift_d2_pct": -7.17,
       "drift_d5_pct": -11.4
-    },
-    {
-      "ticker": "STANLY",
-      "sector": "Industrials",
-      "subsector": "Automotive",
-      "market": "SET",
-      "announceDate": "2026-07-24T12:52:00+07:00",
-      "quarter": "ไตรมาส 1/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 361651000.0,
-      "netProfitPrior": 369624000.0,
-      "netProfitYoY": -2.15705690106703,
-      "netProfitPriorQ": 490497000.0,
-      "netProfitQoQ": -26.26845831880725,
-      "profitAcceleration": "stable",
-      "eps": 4.72,
-      "epsPrior": 4.82,
-      "epsYoY": -2.0746887966805088,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105525401&symbol=STANLY",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17848501698141&symbol=STANLY",
-      "mdaUrl": null,
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.42,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": -0.42
     }
   ],
   "calendar": [
@@ -29522,7 +29495,7 @@
       "ticker": "ASW",
       "date": "2026-08-06T17:31:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "SAFE",
@@ -33833,7 +33806,7 @@
       "ticker": "CRC",
       "date": "2026-08-14T17:55:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "LHHOTEL",
