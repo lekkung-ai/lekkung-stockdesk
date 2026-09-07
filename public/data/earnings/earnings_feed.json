@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T14:35:12.763172+07:00",
+  "generatedAt": "2026-09-07T18:13:46.440808+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -4701,7 +4701,7 @@
       "netProfitYoY": 78.85579299634725,
       "netProfitPriorQ": 2788729000.0,
       "netProfitQoQ": -26.69502845202958,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": 0.34,
       "epsPrior": 0.19,
       "epsYoY": 78.94736842105264,
@@ -6710,8 +6710,8 @@
       "netProfit": 3552000.0,
       "netProfitPrior": 7785000.0,
       "netProfitYoY": -54.373795761079,
-      "netProfitPriorQ": 4580000.0,
-      "netProfitQoQ": -22.445414847161572,
+      "netProfitPriorQ": 16695000.0,
+      "netProfitQoQ": -78.72416891284816,
       "profitAcceleration": "stable",
       "eps": 0.021,
       "epsPrior": 0.046,
@@ -17928,8 +17928,8 @@
       "netProfit": 13153910.0,
       "netProfitPrior": 32411650.0,
       "netProfitYoY": -59.41610501162391,
-      "netProfitPriorQ": 19167710.0,
-      "netProfitQoQ": -31.37463995438161,
+      "netProfitPriorQ": 36376120.0,
+      "netProfitQoQ": -63.83916151585161,
       "profitAcceleration": "stable",
       "eps": 0.03727,
       "epsPrior": 0.10804,
@@ -22741,7 +22741,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 3.4,
+      "drift_d1_pct": 4.08,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -27501,7 +27501,7 @@
       "netProfitYoY": 183.63161802817544,
       "netProfitPriorQ": 229551260.0,
       "netProfitQoQ": 145.22622964474252,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.626,
       "epsPrior": 0.221,
       "epsYoY": 183.25791855203622,
@@ -29167,12 +29167,6 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "BAREIT",
-      "date": "2026-07-23T17:40:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "STANLY",
       "date": "2026-07-24T12:52:00+07:00",
       "status": "confirmed",
@@ -29495,7 +29489,7 @@
       "ticker": "ASW",
       "date": "2026-08-06T17:31:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SAFE",
@@ -33806,7 +33800,7 @@
       "ticker": "CRC",
       "date": "2026-08-14T17:55:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "LHHOTEL",
@@ -34729,6 +34723,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-17T18:37:00+07:00"
+    },
+    {
+      "ticker": "BAREIT",
+      "date": "2026-10-22T17:10:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-22T17:10:00+07:00"
     }
   ]
 }
