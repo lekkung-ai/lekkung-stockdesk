@@ -190,16 +190,17 @@ export default function KellPage() {
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+          {/* responsive: # รวมเข้า Symbol (sticky) · EMA10/ADTV ซ่อน ≤1200 (ครอบ iPad Air)
+              เก็บ Signal + %Dist EMA10 + Status ที่เป็นหัวใจ Kell EMAC · strip ใน expand */}
           <tr>
-            <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh sortKey="Signal" currentSort={sortConfig} onSort={handleSort}>Signal</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
-            <SortableTh right sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>
             <SortableTh right sortKey="Dist_EMA10_%" currentSort={sortConfig} onSort={handleSort}>% Dist EMA10</SortableTh>
-            <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
             <Th>Status</Th>
           </tr>
         </thead>
@@ -215,9 +216,9 @@ export default function KellPage() {
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
                 }`}
               >
-                <Td><span className="text-white/30 tabular-nums">{globalIndex + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-2">
+                    <span className="text-white/25 tabular-nums text-[11px] shrink-0">{globalIndex + 1}</span>
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
                       {newSet.has(s.Ticker) && <NewBadge />}
@@ -245,13 +246,13 @@ export default function KellPage() {
                 <Td right mono>
                   <span className="text-white/60">{daysInScan('kell', s.Ticker) ?? 1}</span>
                 </Td>
-                <Td right mono>{s.EMA10.toFixed(2)}</Td>
+                <Td right mono className="hidden min-[1201px]:table-cell">{s.EMA10.toFixed(2)}</Td>
                 <Td right mono>
                   <span className="font-semibold" style={{ color: distColor(s['Dist_EMA10_%']) }}>
                     {s['Dist_EMA10_%'].toFixed(1)}%
                   </span>
                 </Td>
-                <Td right mono>{s['ADTV(MB)'].toFixed(0)}</Td>
+                <Td right mono className="hidden min-[1201px]:table-cell">{s['ADTV(MB)'].toFixed(0)}</Td>
                 <Td>
                   <span className={`text-label ${
                     s.Status === 'ชิด EMA' ? 'text-[#1D9E75]'
@@ -289,6 +290,11 @@ export default function KellPage() {
                         >
                           ปิดกราฟ
                         </button>
+                      </div>
+                      {/* คอลัมน์รองที่ซ่อน ≤1200 (iPad Air) — โชว์ตรงนี้แทน */}
+                      <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3">
+                        <span className="text-white/40">EMA10: <span className="tabular-nums font-semibold text-white/80">{s.EMA10 != null ? s.EMA10.toFixed(2) : '-'}</span></span>
+                        <span className="text-white/40">ADTV: <span className="tabular-nums font-semibold text-white/80">{s['ADTV(MB)'] != null ? s['ADTV(MB)'].toFixed(0) + ' ลบ.' : '-'}</span></span>
                       </div>
                       <StockChart
                         ticker={s.Ticker}

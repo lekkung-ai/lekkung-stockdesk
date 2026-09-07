@@ -117,19 +117,20 @@ export default function OneilPage() {
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+          {/* responsive: # รวมเข้า Symbol (first-child = sticky) · คอลัมน์รอง hidden ≤1200
+              (ครอบ iPad Air) โผล่ ≥1201 · แตะแถวดูค่าเต็มใน strip เหนือ chart */}
           <tr>
-            <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <Th right>Trend</Th>
-            <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
-            <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W H/L</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W H/L</SortableTh>
             <SortableTh right sortKey="%_From_52W_High" currentSort={sortConfig} onSort={handleSort}>% From 52W High</SortableTh>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>
-            <SortableTh right sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
             <SortableTh right sortKey="Profit_Growth_YoY" currentSort={sortConfig} onSort={handleSort}>Profit Gr (YoY)</SortableTh>
-            <SortableTh right sortKey="Market_Cap" currentSort={sortConfig} onSort={handleSort}>Market Cap (MB)</SortableTh>
-            <Th right>ADTV (MB)</Th>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="Market_Cap" currentSort={sortConfig} onSort={handleSort}>Market Cap (MB)</SortableTh>
+            <Th right className="hidden min-[1201px]:table-cell">ADTV (MB)</Th>
             <Th right>RS</Th>
           </tr>
         </thead>
@@ -144,9 +145,9 @@ export default function OneilPage() {
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
                 }`}
               >
-                <Td><span className="text-white/30 tabular-nums">{i + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-2">
+                    <span className="text-white/25 tabular-nums text-[11px] shrink-0">{i + 1}</span>
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
                       {newSet.has(s.Ticker) && <NewBadge />}
@@ -162,10 +163,10 @@ export default function OneilPage() {
               <Td right>
                 <div className="flex justify-end"><TrendSparkline data={sparklineMap[s.Ticker]} /></div>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className="text-white/60">{daysInScan('oneil', s.Ticker) ?? '—'}</span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <div className="flex flex-col items-end leading-tight text-label">
                   <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
                   <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
@@ -177,7 +178,7 @@ export default function OneilPage() {
                 </span>
               </Td>
               <Td right mono>{formatPE(s.PE_Ratio)}</Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className={(s.ROE ?? 0) > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
                   {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
                 </span>
@@ -187,12 +188,12 @@ export default function OneilPage() {
                   {s.Profit_Growth_YoY != null ? s.Profit_Growth_YoY.toFixed(1) + '%' : '-'}
                 </span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className="text-white/70">
                   {s.Market_Cap ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}
                 </span>
               </Td>
-              <Td right mono>{s['ADTV(MB)']?.toFixed(0) || '-'}</Td>
+              <Td right mono className="hidden min-[1201px]:table-cell">{s['ADTV(MB)']?.toFixed(0) || '-'}</Td>
               <Td right mono>
                 <span className="font-bold text-[14px]" style={{ color: rsColor(s.RS_Rating) }}>
                   {s.RS_Rating}
@@ -226,6 +227,14 @@ export default function OneilPage() {
                       >
                         ปิดกราฟ
                       </button>
+                    </div>
+                    {/* คอลัมน์รองที่ซ่อน ≤1200 (iPad Air) — โชว์ตรงนี้แทน */}
+                    <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3">
+                      <span className="text-white/40">Days: <span className="tabular-nums font-semibold text-white/80">{daysInScan('oneil', s.Ticker) ?? '—'}</span></span>
+                      <span className="text-white/40">52W H/L: <span className="tabular-nums font-semibold"><span className="text-[#E24B4A]">{s['52W_High'] != null ? s['52W_High'].toFixed(2) : '-'}</span> / <span className="text-[#1D9E75]">{s['52W_Low'] != null ? s['52W_Low'].toFixed(2) : '-'}</span></span></span>
+                      <span className="text-white/40">ROE: <span className={`tabular-nums font-semibold ${(s.ROE ?? 0) > 0.15 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.ROE != null ? (s.ROE * 100).toFixed(1) + '%' : '-'}</span></span>
+                      <span className="text-white/40">Mkt Cap: <span className="tabular-nums font-semibold text-white/80">{s.Market_Cap != null ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' MB' : '-'}</span></span>
+                      <span className="text-white/40">ADTV: <span className="tabular-nums font-semibold text-white/80">{s['ADTV(MB)'] != null ? s['ADTV(MB)'].toFixed(0) + ' ลบ.' : '-'}</span></span>
                     </div>
                     <StockChart
                       ticker={s.Ticker}

@@ -230,15 +230,16 @@ export default function SepaPage() {
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+          {/* responsive: # รวมเข้า Symbol (sticky) · SMA50/SMA200/52W High ซ่อน ≤1200
+              (ครอบ iPad Air) เก็บ Trend Template + RS ที่เป็นหัวใจ SEPA · strip ใน expand */}
           <tr>
-            <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
-            <SortableTh right sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>
-            <SortableTh right sortKey="SMA_200" currentSort={sortConfig} onSort={handleSort}>SMA 200</SortableTh>
-            <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="SMA_200" currentSort={sortConfig} onSort={handleSort}>SMA 200</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
             <SortableTh right sortKey="%_From_High" currentSort={sortConfig} onSort={handleSort}>% From High</SortableTh>
             <Th>Trend Template</Th>
             <SortableTh right sortKey="RS_Rating" currentSort={sortConfig} onSort={handleSort}>RS Rating</SortableTh>
@@ -256,9 +257,9 @@ export default function SepaPage() {
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.02]'
                 }`}
               >
-                <Td><span className="text-white/30 tabular-nums">{globalIndex + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-2">
+                    <span className="text-white/25 tabular-nums text-[11px] shrink-0">{globalIndex + 1}</span>
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
                       <FundamentalBadge pass={s.Fundamental_Pass} />
@@ -278,17 +279,17 @@ export default function SepaPage() {
               <Td right mono>
                 <span className="text-white/60">{daysInScan('sepa', s.Ticker) ?? 1}</span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className={s.Price > s.SMA_50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
                   {s.SMA_50.toFixed(2)}
                 </span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className={s.Price > s.SMA_200 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
                   {s.SMA_200.toFixed(2)}
                 </span>
               </Td>
-              <Td right mono>{s['52W_High'].toFixed(2)}</Td>
+              <Td right mono className="hidden min-[1201px]:table-cell">{s['52W_High'].toFixed(2)}</Td>
               <Td right mono>
                 <span className={s['%_From_High'] >= -5 ? 'text-[#1D9E75]' : s['%_From_High'] >= -10 ? 'text-[#EF9F27]' : 'text-white/50'}>
                   {s['%_From_High'].toFixed(1)}%
@@ -324,6 +325,12 @@ export default function SepaPage() {
                       >
                         ปิดกราฟ
                       </button>
+                    </div>
+                    {/* คอลัมน์รองที่ซ่อน ≤1200 (iPad Air) — โชว์ตรงนี้แทน */}
+                    <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3">
+                      <span className="text-white/40">SMA 50: <span className={`tabular-nums font-semibold ${s.SMA_50 != null && s.Price > s.SMA_50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.SMA_50 != null ? s.SMA_50.toFixed(2) : '-'}</span></span>
+                      <span className="text-white/40">SMA 200: <span className={`tabular-nums font-semibold ${s.SMA_200 != null && s.Price > s.SMA_200 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.SMA_200 != null ? s.SMA_200.toFixed(2) : '-'}</span></span>
+                      <span className="text-white/40">52W High: <span className="tabular-nums font-semibold text-white/80">{s['52W_High'] != null ? s['52W_High'].toFixed(2) : '-'}</span></span>
                     </div>
                     <StockChart
                       ticker={s.Ticker}

@@ -176,8 +176,9 @@ export default function BreakoutPage() {
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+          {/* responsive: # รวมเข้า Symbol (sticky) · ADTV/SMA150 Chg ซ่อน ≤1200 (ครอบ iPad Air)
+              เก็บ Break Price + %To Break + Box Width ที่เป็นหัวใจ Breakout · strip ใน expand */}
           <tr>
-            <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <Th right>Trend</Th>
@@ -185,8 +186,8 @@ export default function BreakoutPage() {
             <SortableTh right sortKey="Box_High(Break)" currentSort={sortConfig} onSort={handleSort}>Break Price</SortableTh>
             <SortableTh right sortKey="To_Break" currentSort={sortConfig} onSort={handleSort}>% To Break</SortableTh>
             <SortableTh right sortKey="Box_Width" currentSort={sortConfig} onSort={handleSort}>Box Width</SortableTh>
-            <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
-            <Th right>SMA150 Chg</Th>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
+            <Th right className="hidden min-[1201px]:table-cell">SMA150 Chg</Th>
           </tr>
         </thead>
         <tbody>
@@ -203,9 +204,9 @@ export default function BreakoutPage() {
                   isActive ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 font-medium' : 'hover:bg-white/[0.025]'
                 }`}
               >
-                <Td><span className="text-white/20 tabular-nums">{globalIndex + 1}</span></Td>
                 <Td>
                   <div className="flex items-center gap-1.5">
+                    <span className="text-white/25 tabular-nums text-[11px] shrink-0">{globalIndex + 1}</span>
                     <span className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>{s.Ticker}</span>
                     <AddMyStockButton ticker={s.Ticker} />
                     {broke && (
@@ -242,8 +243,8 @@ export default function BreakoutPage() {
                     {s['Box_Width'].toFixed(1)}%
                   </span>
                 </Td>
-                <Td right mono>{s['ADTV(MB)'].toFixed(0)}</Td>
-                <Td right mono>
+                <Td right mono className="hidden min-[1201px]:table-cell">{s['ADTV(MB)'].toFixed(0)}</Td>
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   <span className="text-[#1D9E75]">+{s.SMA150_Chg.toFixed(2)}%</span>
                 </Td>
               </tr>
@@ -274,6 +275,11 @@ export default function BreakoutPage() {
                         >
                           ปิดกราฟ
                         </button>
+                      </div>
+                      {/* คอลัมน์รองที่ซ่อน ≤1200 (iPad Air) — โชว์ตรงนี้แทน */}
+                      <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3">
+                        <span className="text-white/40">ADTV: <span className="tabular-nums font-semibold text-white/80">{s['ADTV(MB)'] != null ? s['ADTV(MB)'].toFixed(0) + ' ลบ.' : '-'}</span></span>
+                        <span className="text-white/40">SMA150 Chg: <span className="tabular-nums font-semibold text-[#1D9E75]">{s.SMA150_Chg != null ? '+' + s.SMA150_Chg.toFixed(2) + '%' : '-'}</span></span>
                       </div>
                       <StockChart
                         ticker={s.Ticker}

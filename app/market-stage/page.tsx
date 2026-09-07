@@ -161,15 +161,16 @@ export default function MarketStagePage() {
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+          {/* responsive: # รวมเข้า Symbol (sticky) · EMA50/EMA200 ซ่อน ≤1200 (ครอบ iPad Air)
+              เก็บ Stage + Days In Stage ที่เป็นหัวใจของหน้านี้ · strip ใน expand */}
           <tr>
-            <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh sortKey="Stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <SortableTh right sortKey="Bar_Count" currentSort={sortConfig} onSort={handleSort}>Days In Stage</SortableTh>
-            <SortableTh right sortKey="EMA50" currentSort={sortConfig} onSort={handleSort}>EMA50</SortableTh>
-            <SortableTh right sortKey="EMA200" currentSort={sortConfig} onSort={handleSort}>EMA200</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="EMA50" currentSort={sortConfig} onSort={handleSort}>EMA50</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="EMA200" currentSort={sortConfig} onSort={handleSort}>EMA200</SortableTh>
             <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
           </tr>
         </thead>
@@ -182,9 +183,9 @@ export default function MarketStagePage() {
                 selectedTicker === s.Ticker ? 'bg-white/[0.08]' : 'hover:bg-white/[0.025]'
               }`}
             >
-              <Td><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
                 <div className="flex items-center gap-2 font-bold text-white">
+                  <span className="text-white/25 tabular-nums text-[11px] font-normal shrink-0">{i + 1}</span>
                   {s.Ticker}
                   <AddMyStockButton ticker={s.Ticker} />
                   {newSet.has(s.Ticker) && <NewBadge />}
@@ -205,12 +206,12 @@ export default function MarketStagePage() {
               <Td right mono>
                 <span className="text-white/60">{s.Bar_Count != null ? s.Bar_Count : '-'} วัน</span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className={s.Price > (s.EMA50 || 0) ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
                   {s.EMA50 != null ? s.EMA50.toFixed(2) : '-'}
                 </span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className={s.Price > (s.EMA200 || 0) ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
                   {s.EMA200 != null ? s.EMA200.toFixed(2) : '-'}
                 </span>
@@ -232,6 +233,11 @@ export default function MarketStagePage() {
                       >
                         ปิดกราฟ
                       </button>
+                    </div>
+                    {/* คอลัมน์รองที่ซ่อน ≤1200 (iPad Air) — โชว์ตรงนี้แทน */}
+                    <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3 mb-3">
+                      <span className="text-white/40">EMA50: <span className={`tabular-nums font-semibold ${s.EMA50 != null && s.Price > s.EMA50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.EMA50 != null ? s.EMA50.toFixed(2) : '-'}</span></span>
+                      <span className="text-white/40">EMA200: <span className={`tabular-nums font-semibold ${s.EMA200 != null && s.Price > s.EMA200 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.EMA200 != null ? s.EMA200.toFixed(2) : '-'}</span></span>
                     </div>
                     <StockChart ticker={s.Ticker} height={350} showEma10={true} stageMarker={true} defaultTimeframe="1Y" />
                     <p className="text-[10px] text-white/25 mt-2 leading-relaxed">
