@@ -130,18 +130,19 @@ export default function StageAnalysisPage() {
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+          {/* responsive: # รวมเข้า Symbol (sticky) · 30-W MA/10-W Vol/ROE/52w H/L ซ่อน ≤1200
+              (ครอบ iPad Air) เก็บ Stage + Slope% + RS ที่เป็นหัวใจ Weinstein · strip ใน expand */}
           <tr>
-            <Th>#</Th>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Close" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right sortKey="Stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
-            <SortableTh right sortKey="MA30" currentSort={sortConfig} onSort={handleSort}>30-W MA</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="MA30" currentSort={sortConfig} onSort={handleSort}>30-W MA</SortableTh>
             <SortableTh right sortKey="Slope_4W_%" currentSort={sortConfig} onSort={handleSort}>Slope %</SortableTh>
-            <SortableTh right sortKey="Vol10" currentSort={sortConfig} onSort={handleSort}>10-W Vol Avg</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="Vol10" currentSort={sortConfig} onSort={handleSort}>10-W Vol Avg</SortableTh>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>
-            <SortableTh right sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
-            <SortableTh right sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52w H/L</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52w H/L</SortableTh>
             <SortableTh right sortKey="RS_Rating" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
           </tr>
         </thead>
@@ -154,9 +155,9 @@ export default function StageAnalysisPage() {
                 selectedTicker === s.Ticker ? 'bg-white/[0.08]' : 'hover:bg-white/[0.02]'
               }`}
             >
-              <Td className="text-white/40"><span className="text-white/20 tabular-nums">{i + 1}</span></Td>
               <Td>
                 <div className="flex items-center gap-2 font-bold text-white">
+                  <span className="text-white/25 tabular-nums text-[11px] font-normal shrink-0">{i + 1}</span>
                   {s.Ticker}
                   <AddMyStockButton ticker={s.Ticker} />
                   {newSet.has(s.Ticker) && <NewBadge />}
@@ -174,24 +175,24 @@ export default function StageAnalysisPage() {
                   {s.Stage}
                 </span>
               </Td>
-              <Td right mono>{s.MA30?.toFixed(2) || '-'}</Td>
+              <Td right mono className="hidden min-[1201px]:table-cell">{s.MA30?.toFixed(2) || '-'}</Td>
               <Td right mono>
                 <span className={s['Slope_4W_%'] > 1.0 ? 'text-[#1D9E75]' : s['Slope_4W_%'] < -1.0 ? 'text-[#E24B4A]' : 'text-white/60'}>
                   {s['Slope_4W_%'] > 0 ? '+' : ''}{s['Slope_4W_%']?.toFixed(1)}%
                 </span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className="text-white/70">
                   {s.Vol10 ? (s.Vol10).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}
                 </span>
               </Td>
               <Td right mono>{formatPE(s.PE_Ratio)}</Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className={(s.ROE ?? 0) > 0.15 ? 'text-[#1D9E75]' : 'text-white'}>
                   {s.ROE ? (s.ROE * 100).toFixed(1) + '%' : '-'}
                 </span>
               </Td>
-              <Td right mono>
+              <Td right mono className="hidden min-[1201px]:table-cell">
                 <div className="flex flex-col items-end leading-tight text-label">
                   <span className="text-[#E24B4A]">{s['52W_High']?.toFixed(2) || '-'}</span>
                   <span className="text-[#1D9E75]">{s['52W_Low']?.toFixed(2) || '-'}</span>
@@ -218,6 +219,13 @@ export default function StageAnalysisPage() {
                       >
                         ปิดกราฟ
                       </button>
+                    </div>
+                    {/* คอลัมน์รองที่ซ่อน ≤1200 (iPad Air) — โชว์ตรงนี้แทน */}
+                    <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3 mb-3">
+                      <span className="text-white/40">30-W MA: <span className="tabular-nums font-semibold text-white/80">{s.MA30 != null ? s.MA30.toFixed(2) : '-'}</span></span>
+                      <span className="text-white/40">10-W Vol: <span className="tabular-nums font-semibold text-white/80">{s.Vol10 != null ? s.Vol10.toLocaleString(undefined, { maximumFractionDigits: 0 }) : '-'}</span></span>
+                      <span className="text-white/40">ROE: <span className={`tabular-nums font-semibold ${(s.ROE ?? 0) > 0.15 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.ROE != null ? (s.ROE * 100).toFixed(1) + '%' : '-'}</span></span>
+                      <span className="text-white/40">52w H/L: <span className="tabular-nums font-semibold"><span className="text-[#E24B4A]">{s['52W_High'] != null ? s['52W_High'].toFixed(2) : '-'}</span> / <span className="text-[#1D9E75]">{s['52W_Low'] != null ? s['52W_Low'].toFixed(2) : '-'}</span></span></span>
                     </div>
                     <StockChart ticker={s.Ticker} height={350} showSma50={true} showSma150={true} />
                   </div>
