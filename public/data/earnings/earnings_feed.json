@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-07T18:13:46.440808+07:00",
+  "generatedAt": "2026-09-08T14:28:06.324818+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 341,
+      "count": 340,
       "top3": [
         {
           "ticker": "BPS",
@@ -23,7 +23,7 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 92,
+      "count": 93,
       "top3": [
         {
           "ticker": "TWP",
@@ -101,6 +101,33 @@
   },
   "announcements": [
     {
+      "ticker": "TAPAC",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-09-08T08:04:59+07:00",
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "31 กรกฎาคม 2568",
+      "netProfit": 34722000.0,
+      "netProfitPrior": -1357000.0,
+      "netProfitYoY": 2658.732498157701,
+      "netProfitPriorQ": 1134000.0,
+      "netProfitQoQ": 2961.904761904762,
+      "profitAcceleration": "accelerating",
+      "eps": 0.084,
+      "epsPrior": -0.003,
+      "epsYoY": 2900.0000000000005,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "turnaround",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106703501&symbol=TAPAC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17888238032091&symbol=TAPAC",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "MVP",
       "sector": "Services",
       "subsector": "",
@@ -128,7 +155,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -159,7 +186,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -190,7 +217,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -253,7 +280,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -2.38,
-      "drift_d5_pct": null
+      "drift_d5_pct": -2.38
     },
     {
       "ticker": "BANPU",
@@ -346,7 +373,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "KKP",
@@ -6710,8 +6737,8 @@
       "netProfit": 3552000.0,
       "netProfitPrior": 7785000.0,
       "netProfitYoY": -54.373795761079,
-      "netProfitPriorQ": 16695000.0,
-      "netProfitQoQ": -78.72416891284816,
+      "netProfitPriorQ": 4580000.0,
+      "netProfitQoQ": -22.445414847161572,
       "profitAcceleration": "stable",
       "eps": 0.021,
       "epsPrior": 0.046,
@@ -17928,8 +17955,8 @@
       "netProfit": 13153910.0,
       "netProfitPrior": 32411650.0,
       "netProfitYoY": -59.41610501162391,
-      "netProfitPriorQ": 36376120.0,
-      "netProfitQoQ": -63.83916151585161,
+      "netProfitPriorQ": 19167710.0,
+      "netProfitQoQ": -31.37463995438161,
       "profitAcceleration": "stable",
       "eps": 0.03727,
       "epsPrior": 0.10804,
@@ -22012,9 +22039,9 @@
       "netProfit": 5011000.0,
       "netProfitPrior": -8235000.0,
       "netProfitYoY": 160.85003035822706,
-      "netProfitPriorQ": 2790000.0,
-      "netProfitQoQ": 79.6057347670251,
-      "profitAcceleration": "accelerating",
+      "netProfitPriorQ": -68000.0,
+      "netProfitQoQ": 7469.117647058823,
+      "profitAcceleration": "double_turnaround",
       "eps": 0.67,
       "epsPrior": -1.1,
       "epsYoY": 160.90909090909088,
@@ -26476,9 +26503,9 @@
       "netProfit": 50736000.0,
       "netProfitPrior": 45325000.0,
       "netProfitYoY": 11.938223938223938,
-      "netProfitPriorQ": 98605000.0,
-      "netProfitQoQ": -48.54621976573196,
-      "profitAcceleration": "decelerating",
+      "netProfitPriorQ": 38877000.0,
+      "netProfitQoQ": 30.50389690562543,
+      "profitAcceleration": "accelerating",
       "eps": 0.065,
       "epsPrior": 0.058,
       "epsYoY": 12.068965517241377,
@@ -29126,37 +29153,6 @@
       "drift_d1_pct": 2.34,
       "drift_d2_pct": 2.34,
       "drift_d5_pct": 6.25
-    },
-    {
-      "ticker": "DELTA",
-      "sector": "Technology",
-      "subsector": "Electronic Components",
-      "market": "SET",
-      "announceDate": "2026-07-24T18:35:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 6074598000.0,
-      "netProfitPrior": 4629056000.0,
-      "netProfitYoY": 31.227576421628946,
-      "netProfitPriorQ": 9081176000.0,
-      "netProfitQoQ": -33.107804539852545,
-      "profitAcceleration": "decelerating",
-      "eps": 0.49,
-      "epsPrior": 0.37,
-      "epsYoY": 32.432432432432435,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105530201&symbol=DELTA",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17848501709541&symbol=DELTA",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105530601&symbol=DELTA",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการขาย 65,191 100.0 44,501 100.0 61,387 100.0 46.5 6.2 กำไรขั้นต้น 17,469 26.8 11,110 25.0 19,466 31.7 57.2 (10.3) กำไรสุทธิจากการดำเนินงาน 6,114 9.4 5,095 11.4 9,691 15.8 20.0 (36.9) กำไรสุทธิ 6,075 9.3 4,626 10.4",
-      "reason_source": "mda_extract",
-      "gap_pct": -4.23,
-      "drift_d1_pct": -7.17,
-      "drift_d2_pct": -7.17,
-      "drift_d5_pct": -11.4
     }
   ],
   "calendar": [
@@ -34131,7 +34127,7 @@
       "ticker": "APO",
       "date": "2026-08-14T19:40:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "WPH",
@@ -34664,16 +34660,16 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "TAPAC",
-      "date": "2026-09-02T17:08:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2568"
-    },
-    {
       "ticker": "MVP",
       "date": "2026-09-02T18:30:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
+    },
+    {
+      "ticker": "TAPAC",
+      "date": "2026-09-08T08:04:59+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2568"
     },
     {
       "ticker": "INGRS",
