@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T14:28:06.324818+07:00",
+  "generatedAt": "2026-09-08T18:11:28.390781+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -122,10 +122,10 @@
       "bucket": "turnaround",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106703501&symbol=TAPAC",
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17888238032091&symbol=TAPAC",
-      "mdaUrl": null,
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106717401&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "MVP",
@@ -280,7 +280,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -2.38,
-      "drift_d5_pct": -2.38
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "BANPU",
@@ -696,9 +696,9 @@
       "netProfit": 886317000.0,
       "netProfitPrior": 174503000.0,
       "netProfitYoY": 407.90931961055105,
-      "netProfitPriorQ": 886317000.0,
-      "netProfitQoQ": 0.0,
-      "profitAcceleration": "stable",
+      "netProfitPriorQ": 602185000.0,
+      "netProfitQoQ": 47.18350672965949,
+      "profitAcceleration": "accelerating",
       "eps": 0.03,
       "epsPrior": 0.01,
       "epsYoY": 199.99999999999994,
@@ -1719,8 +1719,8 @@
       "netProfit": -339881000.0,
       "netProfitPrior": -39325000.0,
       "netProfitYoY": -764.2873490146218,
-      "netProfitPriorQ": -155595000.0,
-      "netProfitQoQ": -118.43953854558309,
+      "netProfitPriorQ": -141769000.0,
+      "netProfitQoQ": -139.74282106807553,
       "profitAcceleration": "stable",
       "eps": -0.24,
       "epsPrior": -0.03,
@@ -11168,7 +11168,7 @@
       "netProfitYoY": 20.215599883184986,
       "netProfitPriorQ": 884973000.0,
       "netProfitQoQ": 6.98428087636572,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 2.43,
       "epsPrior": 2.02,
       "epsYoY": 20.297029702970303,
@@ -22039,9 +22039,9 @@
       "netProfit": 5011000.0,
       "netProfitPrior": -8235000.0,
       "netProfitYoY": 160.85003035822706,
-      "netProfitPriorQ": -68000.0,
-      "netProfitQoQ": 7469.117647058823,
-      "profitAcceleration": "double_turnaround",
+      "netProfitPriorQ": 2790000.0,
+      "netProfitQoQ": 79.6057347670251,
+      "profitAcceleration": "accelerating",
       "eps": 0.67,
       "epsPrior": -1.1,
       "epsYoY": 160.90909090909088,
@@ -26503,9 +26503,9 @@
       "netProfit": 50736000.0,
       "netProfitPrior": 45325000.0,
       "netProfitYoY": 11.938223938223938,
-      "netProfitPriorQ": 38877000.0,
-      "netProfitQoQ": 30.50389690562543,
-      "profitAcceleration": "accelerating",
+      "netProfitPriorQ": 98605000.0,
+      "netProfitQoQ": -48.54621976573196,
+      "profitAcceleration": "decelerating",
       "eps": 0.065,
       "epsPrior": 0.058,
       "epsYoY": 12.068965517241377,
@@ -32583,7 +32583,7 @@
       "ticker": "AYUD",
       "date": "2026-08-13T19:10:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "SRICHA",
@@ -34127,7 +34127,7 @@
       "ticker": "APO",
       "date": "2026-08-14T19:40:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "WPH",
