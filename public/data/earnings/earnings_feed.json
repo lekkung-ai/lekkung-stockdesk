@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T18:11:28.390781+07:00",
+  "generatedAt": "2026-09-09T14:36:30.614727+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -105,7 +105,7 @@
       "sector": "Property",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-09-08T08:04:59+07:00",
+      "announceDate": "2026-09-08T08:04:00+07:00",
       "quarter": "ไตรมาส 3/2568",
       "periodEnd": "31 กรกฎาคม 2568",
       "netProfit": 34722000.0,
@@ -125,7 +125,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106717401&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MVP",
@@ -249,7 +253,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "BYD",
@@ -308,7 +312,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 4.79,
+      "gap_pct": 5.48,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -696,9 +700,9 @@
       "netProfit": 886317000.0,
       "netProfitPrior": 174503000.0,
       "netProfitYoY": 407.90931961055105,
-      "netProfitPriorQ": 602185000.0,
-      "netProfitQoQ": 47.18350672965949,
-      "profitAcceleration": "accelerating",
+      "netProfitPriorQ": 886317000.0,
+      "netProfitQoQ": 0.0,
+      "profitAcceleration": "stable",
       "eps": 0.03,
       "epsPrior": 0.01,
       "epsYoY": 199.99999999999994,
@@ -1719,8 +1723,8 @@
       "netProfit": -339881000.0,
       "netProfitPrior": -39325000.0,
       "netProfitYoY": -764.2873490146218,
-      "netProfitPriorQ": -141769000.0,
-      "netProfitQoQ": -139.74282106807553,
+      "netProfitPriorQ": -155595000.0,
+      "netProfitQoQ": -118.43953854558309,
       "profitAcceleration": "stable",
       "eps": -0.24,
       "epsPrior": -0.03,
@@ -4974,9 +4978,9 @@
       "netProfit": 90946000.0,
       "netProfitPrior": 75992000.0,
       "netProfitYoY": 19.678387198652487,
-      "netProfitPriorQ": 106945000.0,
-      "netProfitQoQ": -14.960026181682174,
-      "profitAcceleration": "decelerating",
+      "netProfitPriorQ": 46647000.0,
+      "netProfitQoQ": 94.9664501468476,
+      "profitAcceleration": "accelerating",
       "eps": 0.022,
       "epsPrior": 0.018,
       "epsYoY": 22.222222222222225,
@@ -11168,7 +11172,7 @@
       "netProfitYoY": 20.215599883184986,
       "netProfitPriorQ": 884973000.0,
       "netProfitQoQ": 6.98428087636572,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 2.43,
       "epsPrior": 2.02,
       "epsYoY": 20.297029702970303,
@@ -22768,7 +22772,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 4.08,
+      "drift_d1_pct": 4.76,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -32499,7 +32503,7 @@
       "ticker": "TEGH",
       "date": "2026-08-13T18:50:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "SKIN",
@@ -32583,7 +32587,7 @@
       "ticker": "AYUD",
       "date": "2026-08-13T19:10:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SRICHA",
@@ -34667,7 +34671,7 @@
     },
     {
       "ticker": "TAPAC",
-      "date": "2026-09-08T08:04:59+07:00",
+      "date": "2026-09-08T08:04:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2568"
     },
