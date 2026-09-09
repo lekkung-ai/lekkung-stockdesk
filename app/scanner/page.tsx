@@ -363,18 +363,17 @@ function QuantScannerContent() {
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           <tr>
-            <Th>#</Th>
             <SortableTh sortKey="ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh sortKey="stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <Th>Signals</Th>
-            <SortableTh right className="hidden md:table-cell" sortKey="price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
-            <SortableTh right className="hidden md:table-cell" sortKey="chg1d" currentSort={sortConfig} onSort={handleSort}>1D%</SortableTh>
-            <SortableTh right className="hidden md:table-cell" sortKey="chg30d" currentSort={sortConfig} onSort={handleSort}>30D%</SortableTh>
-            <Th right className="hidden md:table-cell">52W H/L</Th>
+            <SortableTh right sortKey="price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="chg1d" currentSort={sortConfig} onSort={handleSort}>1D%</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="chg30d" currentSort={sortConfig} onSort={handleSort}>30D%</SortableTh>
+            <Th right className="hidden min-[1201px]:table-cell">52W H/L</Th>
             <SortableTh right sortKey="dist52wh" currentSort={sortConfig} onSort={handleSort}>52WH</SortableTh>
             <SortableTh right sortKey="rs_score" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
             <SortableTh sortKey="entry" currentSort={sortConfig} onSort={handleSort}>จุดเข้า</SortableTh>
-            <Th className="hidden lg:table-cell min-w-[90px]">Trend</Th>
+            <Th className="hidden min-[1201px]:table-cell min-w-[90px]">Trend</Th>
           </tr>
         </thead>
         <tbody>
@@ -391,11 +390,8 @@ function QuantScannerContent() {
                 className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors"
               >
                 <Td>
-                  <span className="text-white/20 tabular-nums">{rank}</span>
-                </Td>
-
-                <Td>
                   <div className="flex items-center gap-1.5">
+                    <span className="text-white/20 tabular-nums text-label w-6 shrink-0 text-right">{rank}</span>
                     <Link
                       href={`/stock/${row.ticker}`}
                       className="font-bold text-white hover:text-[#1D9E75] transition-colors"
@@ -471,13 +467,13 @@ function QuantScannerContent() {
                   </div>
                 </Td>
 
-                <Td right mono className="hidden md:table-cell">
+                <Td right mono>
                   <span className={isStale ? 'text-white/40' : 'text-white'}>
                     {displayPrice.toFixed(2)}
                   </span>
                 </Td>
 
-                <Td right mono className="hidden md:table-cell">
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   {fetchDone ? (
                     <ChangeBadge value={changePct} />
                   ) : (
@@ -485,7 +481,7 @@ function QuantScannerContent() {
                   )}
                 </Td>
 
-                <Td right mono className="hidden md:table-cell">
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   {row.chg30d != null ? (
                     <span className={row.chg30d >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
                       {row.chg30d >= 0 ? '+' : ''}
@@ -496,7 +492,7 @@ function QuantScannerContent() {
                   )}
                 </Td>
 
-                <Td right mono className="hidden md:table-cell">
+                <Td right mono className="hidden min-[1201px]:table-cell">
                   {w52Map.get(row.ticker) ? (
                     <div className="flex flex-col items-end leading-tight text-label">
                       <span className="text-[#E24B4A]">{w52Map.get(row.ticker)!.high.toFixed(2)}</span>
@@ -548,7 +544,7 @@ function QuantScannerContent() {
                   )}
                 </Td>
 
-                <Td className="hidden lg:table-cell min-w-[90px]">
+                <Td className="hidden min-[1201px]:table-cell min-w-[90px]">
                   <TrendSparkline data={sparklineMap[row.ticker]} width={72} height={20} />
                 </Td>
               </tr>
@@ -557,7 +553,7 @@ function QuantScannerContent() {
 
           {isMobile && visibleCount < totalCount && (
             <tr ref={sentinelRef}>
-              <td colSpan={12} className="py-3 text-center text-[11px] text-white/25">
+              <td colSpan={11} className="py-3 text-center text-[11px] text-white/25">
                 กำลังโหลดเพิ่ม…
               </td>
             </tr>
@@ -565,7 +561,7 @@ function QuantScannerContent() {
 
           {rows.length === 0 && (
             <tr>
-              <td colSpan={12} className="py-12 text-center text-[13px] text-white/25">
+              <td colSpan={11} className="py-12 text-center text-[13px] text-white/25">
                 ไม่พบหุ้นที่ตรงกับ filter
               </td>
             </tr>
