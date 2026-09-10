@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-09T18:11:39.453156+07:00",
+  "generatedAt": "2026-09-10T14:33:02.506341+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 340,
+      "count": 339,
       "top3": [
         {
           "ticker": "BPS",
@@ -127,7 +127,7 @@
       "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -312,7 +312,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 5.48,
+      "gap_pct": 4.11,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -9576,7 +9576,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106139301&symbol=F%26D",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -8.89,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "VIBE",
@@ -11544,7 +11548,7 @@
       "netProfitYoY": 34.2022194263845,
       "netProfitPriorQ": 158321000.0,
       "netProfitQoQ": 12.515711750178435,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 0.11,
       "epsPrior": 0.08,
       "epsYoY": 37.5,
@@ -15962,7 +15966,7 @@
       "gap_pct": -2.27,
       "drift_d1_pct": -3.03,
       "drift_d2_pct": -8.33,
-      "drift_d5_pct": null
+      "drift_d5_pct": -11.36
     },
     {
       "ticker": "UTP",
@@ -21516,8 +21520,8 @@
       "netProfit": -69467000.0,
       "netProfitPrior": 11881000.0,
       "netProfitYoY": -684.6898409224813,
-      "netProfitPriorQ": 1842000.0,
-      "netProfitQoQ": -3871.2812160694893,
+      "netProfitPriorQ": 77232000.0,
+      "netProfitQoQ": -189.94587735653613,
       "profitAcceleration": "stable",
       "eps": -0.22,
       "epsPrior": 0.04,
@@ -22772,7 +22776,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 4.08,
+      "drift_d1_pct": 4.76,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -29126,37 +29130,6 @@
       "drift_d1_pct": 0.0,
       "drift_d5_pct": -1.75,
       "drift_d2_pct": -2.34
-    },
-    {
-      "ticker": "HMPRO",
-      "sector": "Services",
-      "subsector": "Commerce",
-      "market": "SET",
-      "announceDate": "2026-07-27T07:30:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 1594181000.0,
-      "netProfitPrior": 1398554000.0,
-      "netProfitYoY": 13.987804546696086,
-      "netProfitPriorQ": 1403971000.0,
-      "netProfitQoQ": 13.54800063534076,
-      "profitAcceleration": "accelerating",
-      "eps": 0.12,
-      "epsPrior": 0.11,
-      "epsYoY": 9.090909090909086,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105535401&symbol=HMPRO",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17851086615551&symbol=HMPRO",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105537301&symbol=HMPRO",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 2.34,
-      "drift_d1_pct": 2.34,
-      "drift_d2_pct": 2.34,
-      "drift_d5_pct": 6.25
     }
   ],
   "calendar": [
@@ -29171,12 +29144,6 @@
       "date": "2026-07-24T12:52:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 1/2569"
-    },
-    {
-      "ticker": "DELTA",
-      "date": "2026-07-24T18:35:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "HMPRO",
@@ -31277,7 +31244,7 @@
       "ticker": "MEDEZE",
       "date": "2026-08-11T21:12:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "J",
@@ -32521,7 +32488,7 @@
       "ticker": "SYNTEC",
       "date": "2026-08-13T18:54:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "MGC",
@@ -34239,7 +34206,7 @@
       "ticker": "MOTHER",
       "date": "2026-08-14T20:22:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "NEP",
@@ -34730,6 +34697,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-22T17:10:00+07:00"
+    },
+    {
+      "ticker": "DELTA",
+      "date": "2026-10-24T18:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-24T18:56:00+07:00"
     }
   ]
 }
