@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-10T14:33:02.506341+07:00",
+  "generatedAt": "2026-09-10T18:11:08.615597+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 339,
+      "count": 338,
       "top3": [
         {
           "ticker": "BPS",
@@ -5939,8 +5939,8 @@
       "netProfit": 26644000.0,
       "netProfitPrior": 37209000.0,
       "netProfitYoY": -28.39366819855411,
-      "netProfitPriorQ": 28844000.0,
-      "netProfitQoQ": -7.627236166967133,
+      "netProfitPriorQ": 29749000.0,
+      "netProfitQoQ": -10.437325624390736,
       "profitAcceleration": "stable",
       "eps": 0.25,
       "epsPrior": 0.34,
@@ -11548,7 +11548,7 @@
       "netProfitYoY": 34.2022194263845,
       "netProfitPriorQ": 158321000.0,
       "netProfitQoQ": 12.515711750178435,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.11,
       "epsPrior": 0.08,
       "epsYoY": 37.5,
@@ -15966,7 +15966,7 @@
       "gap_pct": -2.27,
       "drift_d1_pct": -3.03,
       "drift_d2_pct": -8.33,
-      "drift_d5_pct": -11.36
+      "drift_d5_pct": -12.12
     },
     {
       "ticker": "UTP",
@@ -22776,7 +22776,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 4.76,
+      "drift_d1_pct": 4.08,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -27598,7 +27598,7 @@
       "netProfitYoY": 48.365768010818236,
       "netProfitPriorQ": 36718680.0,
       "netProfitQoQ": -18.63683552894603,
-      "profitAcceleration": "decelerating",
+      "profitAcceleration": "stable",
       "eps": 0.13,
       "epsPrior": 0.09,
       "epsYoY": 44.44444444444445,
@@ -29099,37 +29099,6 @@
       "drift_d1_pct": 2.94,
       "drift_d2_pct": 5.88,
       "drift_d5_pct": 2.94
-    },
-    {
-      "ticker": "MST",
-      "sector": "Financials",
-      "subsector": "Finance & Securities",
-      "market": "SET",
-      "announceDate": "2026-07-27T17:11:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 82968000.0,
-      "netProfitPrior": 2188000.0,
-      "netProfitYoY": 3691.956124314442,
-      "netProfitPriorQ": 175730000.0,
-      "netProfitQoQ": -52.786661355488526,
-      "profitAcceleration": "decelerating",
-      "eps": 0.145,
-      "epsPrior": 0.004,
-      "epsYoY": 3524.999999999999,
-      "auditorOpinion": null,
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105544501&symbol=MST",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17851086630981&symbol=MST",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105544801&symbol=MST",
-      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ก่อนตรวจสอบ)",
-      "reason": "รายได้ค่านายหน้าเพิѷมขึѸน 98.82 ล้านบาท จาก 204.67 ล้านบาท เป็น 303.49 ล้านบาท หรือเพิѷมขึѸนร้อยละ 48.28 เนืѷองจาก 1.1 รายได้ค่านายหน้าจากการซืѸอขายหลักทรัพย์เพิѷมขึѸน 109.88 ล้านบาท จาก 172.45 ล้านบาท เป็น 282.33 ล้านบาท หรือเพิѷมขึѸนร้อยละ 63.71 อันเป็นผลจากมูลค่าการซืѸอขายเฉลีѷยของตลาดหลักทรัพย์เพิѷมขึѸนจาก 40,799.84 ล้านบาท/วัน เป็น 66,810.68",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d5_pct": -1.75,
-      "drift_d2_pct": -2.34
     }
   ],
   "calendar": [
@@ -29450,7 +29419,7 @@
       "ticker": "TQR",
       "date": "2026-08-06T17:25:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "ASW",
@@ -32488,7 +32457,7 @@
       "ticker": "SYNTEC",
       "date": "2026-08-13T18:54:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "MGC",
