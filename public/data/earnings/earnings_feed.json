@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T14:30:38.949391+07:00",
+  "generatedAt": "2026-09-11T18:11:44.057682+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -77,7 +77,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 149,
+      "count": 150,
       "top3": [
         {
           "ticker": "TPL",
@@ -100,6 +100,33 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "KSL",
+      "sector": "Agro",
+      "subsector": "Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-09-11T17:22:38+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "31 กรกฎาคม 2569",
+      "netProfit": -74334000.0,
+      "netProfitPrior": 27967000.0,
+      "netProfitYoY": -365.791826080738,
+      "netProfitPriorQ": 313983000.0,
+      "netProfitQoQ": -123.67453014972148,
+      "profitAcceleration": "stable",
+      "eps": -0.017,
+      "epsPrior": 0.006,
+      "epsYoY": -383.3333333333333,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106773701&symbol=KSL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17890837900761&symbol=KSL",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106773801&symbol=KSL",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "PICO",
       "sector": "Services",
@@ -124,8 +151,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17889973989691&symbol=PICO",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106763301&symbol=PICO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "รายได้จากการให้บริการสำหรับไตรมาสสิ้นสุดวันที่ 31 กรกฎาคม 2569 จำนวน 175.5 ล้านบาท ลดลง 123.1 ล้าน บาท หรือ ร้อยละ 41 โดยรวมเป็นผลมาจากรายได้จาก ธุรกิจกิจกรรมทางการตลาด ลดลง 113.8 ล้านบาท เป็น 81.2 ล้าน บาท",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "TAPAC",
@@ -12716,8 +12743,8 @@
       "netProfit": 234998000.0,
       "netProfitPrior": 137775000.0,
       "netProfitYoY": 70.56650335692251,
-      "netProfitPriorQ": 172758000.0,
-      "netProfitQoQ": 36.02727514789474,
+      "netProfitPriorQ": 183780000.0,
+      "netProfitQoQ": 27.869191424529326,
       "profitAcceleration": "accelerating",
       "eps": 0.784,
       "epsPrior": 0.46,
@@ -17738,8 +17765,8 @@
       "netProfit": 20005000.0,
       "netProfitPrior": 6202000.0,
       "netProfitYoY": 222.557239600129,
-      "netProfitPriorQ": 10162000.0,
-      "netProfitQoQ": 96.86085416256643,
+      "netProfitPriorQ": 10940000.0,
+      "netProfitQoQ": 82.86106032906764,
       "profitAcceleration": "accelerating",
       "eps": 0.007,
       "epsPrior": -0.004,
@@ -22289,7 +22316,7 @@
       "netProfitYoY": 22.548453608247424,
       "netProfitPriorQ": 1933000.0,
       "netProfitQoQ": 668.7015002586653,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.06,
       "epsPrior": 0.05,
       "epsYoY": 19.99999999999999,
@@ -22799,7 +22826,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 1.36,
+      "drift_d1_pct": 0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -30444,7 +30471,7 @@
       "ticker": "ASIMAR",
       "date": "2026-08-11T08:37:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TRU",
@@ -34641,18 +34668,17 @@
       "quarter": "ไตรมาส 3/2569"
     },
     {
+      "ticker": "KSL",
+      "date": "2026-09-11T17:22:38+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
       "ticker": "INGRS",
       "date": "2026-09-11T20:08:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-09-11T20:08:00+07:00"
-    },
-    {
-      "ticker": "KSL",
-      "date": "2026-09-12T18:50:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-09-12T18:50:00+07:00"
     },
     {
       "ticker": "TNH",
