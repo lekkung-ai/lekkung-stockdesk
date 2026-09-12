@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T18:11:44.057682+07:00",
+  "generatedAt": "2026-09-12T18:11:11.849939+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -105,7 +105,7 @@
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-09-11T17:22:38+07:00",
+      "announceDate": "2026-09-11T17:22:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "31 กรกฎาคม 2569",
       "netProfit": -74334000.0,
@@ -152,7 +152,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106763301&symbol=PICO",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการให้บริการสำหรับไตรมาสสิ้นสุดวันที่ 31 กรกฎาคม 2569 จำนวน 175.5 ล้านบาท ลดลง 123.1 ล้าน บาท หรือ ร้อยละ 41 โดยรวมเป็นผลมาจากรายได้จาก ธุรกิจกิจกรรมทางการตลาด ลดลง 113.8 ล้านบาท เป็น 81.2 ล้าน บาท",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TAPAC",
@@ -365,11 +369,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none",
-      "gap_pct": 2.05,
-      "drift_d1_pct": null,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "reason_source": "none"
     },
     {
       "ticker": "MC",
@@ -12743,8 +12743,8 @@
       "netProfit": 234998000.0,
       "netProfitPrior": 137775000.0,
       "netProfitYoY": 70.56650335692251,
-      "netProfitPriorQ": 183780000.0,
-      "netProfitQoQ": 27.869191424529326,
+      "netProfitPriorQ": 172758000.0,
+      "netProfitQoQ": 36.02727514789474,
       "profitAcceleration": "accelerating",
       "eps": 0.784,
       "epsPrior": 0.46,
@@ -17765,8 +17765,8 @@
       "netProfit": 20005000.0,
       "netProfitPrior": 6202000.0,
       "netProfitYoY": 222.557239600129,
-      "netProfitPriorQ": 10940000.0,
-      "netProfitQoQ": 82.86106032906764,
+      "netProfitPriorQ": 10162000.0,
+      "netProfitQoQ": 96.86085416256643,
       "profitAcceleration": "accelerating",
       "eps": 0.007,
       "epsPrior": -0.004,
@@ -20983,7 +20983,7 @@
       "netProfitYoY": 21.043345626735874,
       "netProfitPriorQ": 185373000.0,
       "netProfitQoQ": 14.7297610763164,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 0.42,
       "epsPrior": 0.35,
       "epsYoY": 20.000000000000004,
@@ -22826,7 +22826,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 0.68,
+      "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -29159,12 +29159,6 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "STANLY",
-      "date": "2026-07-24T12:52:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 1/2569"
-    },
-    {
       "ticker": "HMPRO",
       "date": "2026-07-27T07:30:00+07:00",
       "status": "confirmed",
@@ -30723,7 +30717,7 @@
       "ticker": "ILM",
       "date": "2026-08-11T17:16:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "MATCH",
@@ -34669,7 +34663,7 @@
     },
     {
       "ticker": "KSL",
-      "date": "2026-09-11T17:22:38+07:00",
+      "date": "2026-09-11T17:22:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
@@ -34721,6 +34715,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-24T18:56:00+07:00"
+    },
+    {
+      "ticker": "STANLY",
+      "date": "2026-10-27T17:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-27T17:07:00+07:00"
     }
   ]
 }
