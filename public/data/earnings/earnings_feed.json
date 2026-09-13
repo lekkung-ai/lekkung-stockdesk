@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-12T18:11:11.849939+07:00",
+  "generatedAt": "2026-09-13T18:11:20.532050+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 338,
+      "count": 337,
       "top3": [
         {
           "ticker": "BPS",
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 207,
+      "count": 206,
       "top3": [
         {
           "ticker": "SORKON",
@@ -2211,8 +2211,8 @@
       "netProfit": 64303000.0,
       "netProfitPrior": 4651000.0,
       "netProfitYoY": 1282.5628897011395,
-      "netProfitPriorQ": 59218000.0,
-      "netProfitQoQ": 8.586916140362726,
+      "netProfitPriorQ": -15152000.0,
+      "netProfitQoQ": 524.3862196409715,
       "profitAcceleration": "accelerating",
       "eps": 0.039,
       "epsPrior": 0.003,
@@ -9184,7 +9184,7 @@
       "netProfitYoY": 37.59711014113534,
       "netProfitPriorQ": 101072000.0,
       "netProfitQoQ": 17.583504828241253,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 0.09,
       "epsPrior": 0.06,
       "epsYoY": 50.0,
@@ -20983,7 +20983,7 @@
       "netProfitYoY": 21.043345626735874,
       "netProfitPriorQ": 185373000.0,
       "netProfitQoQ": 14.7297610763164,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.42,
       "epsPrior": 0.35,
       "epsYoY": 20.000000000000004,
@@ -29087,68 +29087,6 @@
       "drift_d1_pct": 0.76,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "HPT",
-      "sector": "Consumer",
-      "subsector": "Products",
-      "market": "MAI",
-      "announceDate": "2026-07-30T17:47:00+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": 11401000.0,
-      "netProfitPrior": 29937000.0,
-      "netProfitYoY": -61.91669171927715,
-      "netProfitPriorQ": 3035000.0,
-      "netProfitQoQ": 275.65074135090606,
-      "profitAcceleration": "stable",
-      "eps": 0.02,
-      "epsPrior": 0.05,
-      "epsYoY": -60.0,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": true,
-      "bucket": "profit_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105561301&symbol=HPT",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17853685416711&symbol=HPT",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105557001&symbol=HPT",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "รายได้จากการขาย 311.56 300.44 277.71 254.87 22.84 8.96 กำไรจากอัตราแลกเปลี่ยน 0.81 0.00 0.60 0.47 0.13 27.66 รายได้อื่น 4.39 4.00 3.42 3.02 0.40 13.25 รวมรายได้ 316.76 304.44 281.73 258.36 23.37 9.05 ต้นทุนขาย 249.07 221.48",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "ITC",
-      "sector": "Agro",
-      "subsector": "Food & Beverage",
-      "market": "SET",
-      "announceDate": "2026-07-30T12:44:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 844094000.0,
-      "netProfitPrior": 695956000.0,
-      "netProfitYoY": 21.2855410399508,
-      "netProfitPriorQ": 871273000.0,
-      "netProfitQoQ": -3.1194585394015424,
-      "profitAcceleration": "decelerating",
-      "eps": 0.28133,
-      "epsPrior": 0.23202,
-      "epsYoY": 21.252478234634953,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105559401&symbol=ITC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17853685416061&symbol=ITC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105559001&symbol=ITC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "ซึ่งส่งผลกระทบต่อรายได้จากการขาย และอัตรากำไรขั้นต้นตามงบการเงิน (รายละเอียดเพิ่มเติมสามารถอ่านได้ในการวิเคราะห์ผลการดำเนินงาน) การวิเคราะห์ยอดขายในรายงานนี้จะ อ้างอิงรายได้จากการขายจากการดำเนินงานปกติ (Normalised Sales)",
-      "reason_source": "mda_extract",
-      "gap_pct": 1.76,
-      "drift_d1_pct": 2.94,
-      "drift_d2_pct": 5.88,
-      "drift_d5_pct": 2.94
     }
   ],
   "calendar": [
@@ -29157,12 +29095,6 @@
       "date": "2026-07-06T08:16:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
-    },
-    {
-      "ticker": "HMPRO",
-      "date": "2026-07-27T07:30:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "ITC",
@@ -30717,7 +30649,7 @@
       "ticker": "ILM",
       "date": "2026-08-11T17:16:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "MATCH",
@@ -32970,7 +32902,7 @@
       "ticker": "TKN",
       "date": "2026-08-14T07:19:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "CMC",
@@ -34722,6 +34654,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-27T17:07:00+07:00"
+    },
+    {
+      "ticker": "HMPRO",
+      "date": "2026-10-28T07:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-28T07:00:00+07:00"
     }
   ]
 }
