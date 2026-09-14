@@ -19,6 +19,11 @@ export interface MacroCommodity {
   pct_1d: number | null;
   pct_1m: number | null;
   series: MacroSeriesPoint[];
+  // สถานะความสด/ครบของ series (merge-guard) — optional เพราะ JSON เก่าไม่มี field
+  is_stale_fallback?: boolean;
+  series_empty?: boolean;
+  last_success_date?: string | null;
+  never_fetched?: boolean;
 }
 
 interface MacroCommoditiesJson {
@@ -59,6 +64,10 @@ export const macroCommodities: MacroCommodity[] = rawEntries.map(
     pct_1d: data.pct_1d ?? null,
     pct_1m: data.pct_1m ?? null,
     series: data.series || [],
+    is_stale_fallback: data.is_stale_fallback ?? false,
+    series_empty: data.series_empty ?? false,
+    last_success_date: data.last_success_date ?? null,
+    never_fetched: data.never_fetched ?? false,
   })
 );
 

@@ -37,7 +37,10 @@ function formatPrice(close: number | null | undefined): string {
 }
 
 function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
-  const sparkData = (commodity.series || []).map(s => s.close);
+  const sparkData = (commodity.series || []).slice(-30).map(s => s.close);
+  const isStale = commodity.is_stale_fallback === true;
+  const seriesEmpty = commodity.series_empty === true;
+  const hasSparkline = sparkData.length >= 2;
   const zoneStyle = ZONE_COLORS[commodity.zone] || ZONE_COLORS.financial;
   const latestClose = commodity.latest?.close;
   const isSynthetic = commodity.symbol.startsWith('PETRO_');
@@ -65,7 +68,18 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
           </p>
         </div>
         <div className="flex-shrink-0 pt-1">
-          <TrendSparkline data={sparkData} width={80} height={28} />
+          {hasSparkline ? (
+            <div
+              className={isStale ? 'opacity-40' : undefined}
+              title={isStale ? `ราคาค้างจาก ${commodity.last_success_date ?? '-'}` : undefined}
+            >
+              <TrendSparkline data={sparkData} width={80} height={28} />
+            </div>
+          ) : seriesEmpty ? (
+            <span className="text-[10px] text-white/25 italic">ไม่มีกราฟย้อนหลัง</span>
+          ) : (
+            <TrendSparkline data={sparkData} width={80} height={28} />
+          )}
         </div>
       </div>
 
@@ -80,6 +94,11 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
           <p className="text-[11.5px] text-white/40 mt-1.5 font-medium">
             {commodity.unit}{priceDateStr}
           </p>
+          {isStale && (
+            <p className="text-[10.5px] text-amber-400/90 mt-1 font-semibold">
+              ⚠ ราคาค้างจาก {commodity.last_success_date ?? '—'}
+            </p>
+          )}
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           <div className="text-center bg-white/[0.04] px-2.5 py-1 rounded-xl border border-white/[0.06]">
@@ -137,6 +156,10 @@ export default function MacroPage() {
           pct_1d: data.pct_1d ?? null,
           pct_1m: data.pct_1m ?? null,
           series: data.series || [],
+          is_stale_fallback: data.is_stale_fallback ?? false,
+          series_empty: data.series_empty ?? false,
+          last_success_date: data.last_success_date ?? null,
+          never_fetched: data.never_fetched ?? false,
         }));
         if (fetchedList.length > 0) {
           // Merge fetched items with default static items so missing symbols are never dropped
