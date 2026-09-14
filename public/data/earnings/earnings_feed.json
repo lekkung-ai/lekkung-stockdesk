@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T18:11:20.532050+07:00",
+  "generatedAt": "2026-09-14T15:08:58.925606+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 206,
+      "count": 205,
       "top3": [
         {
           "ticker": "SORKON",
@@ -125,7 +125,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106773801&symbol=KSL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -2.03,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "PICO",
@@ -369,7 +373,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 1.37,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MC",
@@ -2211,8 +2219,8 @@
       "netProfit": 64303000.0,
       "netProfitPrior": 4651000.0,
       "netProfitYoY": 1282.5628897011395,
-      "netProfitPriorQ": -15152000.0,
-      "netProfitQoQ": 524.3862196409715,
+      "netProfitPriorQ": 59218000.0,
+      "netProfitQoQ": 8.586916140362726,
       "profitAcceleration": "accelerating",
       "eps": 0.039,
       "epsPrior": 0.003,
@@ -3265,9 +3273,9 @@
       "netProfit": 107036000.0,
       "netProfitPrior": 60194000.0,
       "netProfitYoY": 77.81838721467255,
-      "netProfitPriorQ": 108515000.0,
-      "netProfitQoQ": -1.3629452149472423,
-      "profitAcceleration": "decelerating",
+      "netProfitPriorQ": 61957000.0,
+      "netProfitQoQ": 72.75852607453557,
+      "profitAcceleration": "accelerating",
       "eps": 0.1448,
       "epsPrior": 0.0815,
       "epsYoY": 77.66871165644173,
@@ -9184,7 +9192,7 @@
       "netProfitYoY": 37.59711014113534,
       "netProfitPriorQ": 101072000.0,
       "netProfitQoQ": 17.583504828241253,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.09,
       "epsPrior": 0.06,
       "epsYoY": 50.0,
@@ -9630,7 +9638,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106139301&symbol=F%26D",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -6.67,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "VIBE",
@@ -10635,9 +10647,9 @@
       "netProfit": 60177000.0,
       "netProfitPrior": 47062000.0,
       "netProfitYoY": 27.867493944158767,
-      "netProfitPriorQ": 56271000.0,
-      "netProfitQoQ": 6.94140854081143,
-      "profitAcceleration": "accelerating",
+      "netProfitPriorQ": 72912000.0,
+      "netProfitQoQ": -17.46626069782752,
+      "profitAcceleration": "decelerating",
       "eps": 0.0752,
       "epsPrior": 0.0574,
       "epsYoY": 31.01045296167248,
@@ -22826,7 +22838,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -29056,37 +29068,6 @@
       "drift_d1_pct": 0.0,
       "drift_d5_pct": 22.5,
       "drift_d2_pct": 25.83
-    },
-    {
-      "ticker": "TFM",
-      "sector": "Agro",
-      "subsector": "Agribusiness",
-      "market": "SET",
-      "announceDate": "2026-07-31T12:37:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 160798000.0,
-      "netProfitPrior": 193722000.0,
-      "netProfitYoY": -16.995488380256244,
-      "netProfitPriorQ": 147549000.0,
-      "netProfitQoQ": 8.979389897593341,
-      "profitAcceleration": "stable",
-      "eps": 0.16,
-      "epsPrior": 0.19,
-      "epsYoY": -15.789473684210526,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105580301&symbol=TFM",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17854544384611&symbol=TFM",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105580401&symbol=TFM",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการขาย อยู่ที่ 1,455 ล้านบาท เพิ่มขึ้น 9.8% QoQ จากการเข้าสู่ช่วงฤดูกาลที่เกษตรกรเลี้ยงสัตว์น้ำมากขึ้น แม้ในปีนี้จะมี การชะลอการปล่อยลูกกุ้งและลูกปลาเนื่องจากราคาผลผลิตปลายทางอยู่ในระดับต่ำ",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.76,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
@@ -32902,7 +32883,7 @@
       "ticker": "TKN",
       "date": "2026-08-14T07:19:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "CMC",
