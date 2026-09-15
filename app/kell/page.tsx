@@ -12,7 +12,7 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
   ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -29,9 +29,6 @@ import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 
-const SIGNALS = ['ทั้งหมด', 'EMAC Buy', 'Trend Riding'] as const;
-type SignalFilter = (typeof SIGNALS)[number];
-
 function distColor(dist: number): string {
   if (dist <= 2) return '#1D9E75';
   if (dist <= 5) return '#EF9F27';
@@ -39,9 +36,6 @@ function distColor(dist: number): string {
 }
 
 export default function KellPage() {
-  const [signalFilter, setSignalFilter] = useState<SignalFilter>('ทั้งหมด');
-  const [distMax, setDistMax] = useState(8);
-  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -58,21 +52,6 @@ export default function KellPage() {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
   };
 
-  const handleSignalChange = (sig: SignalFilter) => {
-    setCurrentPage(1);
-    setSignalFilter(sig);
-  };
-
-  const handleDistChange = (val: number) => {
-    setCurrentPage(1);
-    setDistMax(val);
-  };
-
-  const handleAdtvChange = (val: number) => {
-    setCurrentPage(1);
-    setAdtvMin(val);
-  };
-
   const handleDiffFilterChange = (val: DiffFilter) => {
     setCurrentPage(1);
     setDiffFilter(val);
@@ -80,9 +59,6 @@ export default function KellPage() {
 
   const filtered = useMemo(() => {
     let result = kellData
-      .filter(s => signalFilter === 'ทั้งหมด' || s.Signal === signalFilter)
-      .filter(s => s['Dist_EMA10_%'] <= distMax)
-      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -103,11 +79,11 @@ export default function KellPage() {
       result = result.sort((a, b) => Math.abs(a['Dist_EMA10_%']) - Math.abs(b['Dist_EMA10_%']));
     }
     return result;
-  }, [signalFilter, distMax, adtvMin, sortConfig, diffFilter, newSet]);
+  }, [sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [signalFilter, distMax, adtvMin, sortConfig, diffFilter, newSet]
+    [sortConfig, diffFilter, newSet]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -151,35 +127,6 @@ export default function KellPage() {
       ) : (
       <>
       <FilterBar>
-        <div className="flex items-center gap-1.5">
-          <span className="text-label text-white/40 mr-1">Signal</span>
-          {SIGNALS.map(sig => (
-            <button
-              key={sig}
-              onClick={() => handleSignalChange(sig)}
-              className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all border ${
-                signalFilter === sig
-                  ? 'bg-[#1D9E75]/10 text-[#1D9E75] border-[#1D9E75]/25'
-                  : 'bg-white/[0.04] text-white/35 border-white/[0.06] hover:text-white/60'
-              }`}
-            >
-              {sig}
-            </button>
-          ))}
-        </div>
-        <Divider />
-        <SliderField
-          label="Dist EMA10"
-          min={1}
-          max={15}
-          value={distMax}
-          onChange={handleDistChange}
-          unit="%"
-          dir="lte"
-        />
-        <Divider />
-        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={handleAdtvChange} step={5} />
-        <Divider />
         <ScanDiffChips scanName="kell" filter={diffFilter} onChange={handleDiffFilterChange} />
       </FilterBar>
 

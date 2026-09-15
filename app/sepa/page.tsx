@@ -13,7 +13,7 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
   ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -91,8 +91,6 @@ function FundamentalBadge({ pass }: { pass: boolean | null | undefined }) {
 }
 
 export default function SepaPage() {
-  const [rsMin, setRsMin] = useState(60);
-  const [fromHighMax, setFromHighMax] = useState(15);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -109,16 +107,6 @@ export default function SepaPage() {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
   };
 
-  const handleRsChange = (val: number) => {
-    setCurrentPage(1);
-    setRsMin(val);
-  };
-
-  const handleFromHighChange = (val: number) => {
-    setCurrentPage(1);
-    setFromHighMax(val);
-  };
-
   const handleDiffFilterChange = (val: DiffFilter) => {
     setCurrentPage(1);
     setDiffFilter(val);
@@ -126,8 +114,6 @@ export default function SepaPage() {
 
   const filtered = useMemo(() => {
     let result = sepaData
-      .filter(s => s.RS_Rating >= rsMin)
-      .filter(s => s['%_From_High'] >= -fromHighMax)
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -148,11 +134,11 @@ export default function SepaPage() {
       result = result.sort((a, b) => b.RS_Rating - a.RS_Rating);
     }
     return result;
-  }, [rsMin, fromHighMax, sortConfig, diffFilter, newSet]);
+  }, [sortConfig, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [rsMin, fromHighMax, sortConfig, diffFilter, newSet]
+    [sortConfig, diffFilter, newSet]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -196,30 +182,6 @@ export default function SepaPage() {
       ) : (
       <>
       <FilterBar>
-        <SliderField label="RS Rating" min={50} max={99} value={rsMin} onChange={handleRsChange} />
-        <button
-          onClick={() => handleRsChange(rsMin >= 80 ? 60 : 80)}
-          title="Minervini แนะนำ RS ≥ 80 สำหรับหุ้นเกรด A"
-          className={`px-2.5 py-1 rounded text-label font-semibold transition-all ${
-            rsMin >= 80 ? 'bg-[#1D9E75]/20 text-[#1D9E75]' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
-          }`}
-        >
-          RS ≥ 80 (A-grade)
-        </button>
-        <Divider />
-        <SliderField
-          label="% From 52W High"
-          min={1}
-          max={30}
-          value={fromHighMax}
-          onChange={handleFromHighChange}
-          unit="%"
-          dir="lte"
-        />
-        <span className="text-label text-[#ffffff]/25 ml-auto">
-          ยิ่งใกล้ High = momentum แข็ง
-        </span>
-        <Divider />
         <ScanDiffChips scanName="sepa" filter={diffFilter} onChange={handleDiffFilterChange} />
       </FilterBar>
 
