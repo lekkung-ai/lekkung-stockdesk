@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-14T18:11:40.833937+07:00",
+  "generatedAt": "2026-09-15T15:03:49.045624+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 336,
+      "count": 335,
       "top3": [
         {
           "ticker": "BPS",
@@ -127,7 +127,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -2.03,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -5.08,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -158,7 +158,7 @@
       "reason": "รายได้จากการให้บริการสำหรับไตรมาสสิ้นสุดวันที่ 31 กรกฎาคม 2569 จำนวน 175.5 ล้านบาท ลดลง 123.1 ล้าน บาท หรือ ร้อยละ 41 โดยรวมเป็นผลมาจากรายได้จาก ธุรกิจกิจกรรมทางการตลาด ลดลง 113.8 ล้านบาท เป็น 81.2 ล้าน บาท",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -374,7 +374,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 1.37,
+      "gap_pct": 0.68,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -9531,8 +9531,8 @@
       "netProfit": -56510000.0,
       "netProfitPrior": -1279000.0,
       "netProfitYoY": -4318.295543393277,
-      "netProfitPriorQ": -31582000.0,
-      "netProfitQoQ": -78.93103666645558,
+      "netProfitPriorQ": 167308000.0,
+      "netProfitQoQ": -133.7760298371865,
       "profitAcceleration": "stable",
       "eps": -0.035,
       "epsPrior": -0.001,
@@ -9638,11 +9638,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106139301&symbol=F%26D",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none",
-      "gap_pct": -6.67,
-      "drift_d1_pct": null,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "reason_source": "none"
     },
     {
       "ticker": "VIBE",
@@ -28944,68 +28940,6 @@
       "drift_d1_pct": 8.2,
       "drift_d2_pct": 8.2,
       "drift_d5_pct": 9.84
-    },
-    {
-      "ticker": "SSTRT",
-      "sector": "Property",
-      "subsector": "Property Fund & REITs",
-      "market": "SET",
-      "announceDate": "2026-07-31T20:18:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": null,
-      "netProfitPrior": null,
-      "netProfitYoY": null,
-      "netProfitPriorQ": null,
-      "netProfitQoQ": null,
-      "profitAcceleration": "stable",
-      "eps": null,
-      "epsPrior": null,
-      "epsYoY": null,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": null,
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105596001&symbol=SSTRT",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17854544404391&symbol=SSTRT",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105596801&symbol=SSTRT",
-      "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 2 (F45)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.43,
-      "drift_d1_pct": 1.72,
-      "drift_d2_pct": 1.72,
-      "drift_d5_pct": 1.72
-    },
-    {
-      "ticker": "MMM",
-      "sector": "Property",
-      "subsector": "Property Development",
-      "market": "SET",
-      "announceDate": "2026-07-31T18:26:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 37521000.0,
-      "netProfitPrior": 31373000.0,
-      "netProfitYoY": 19.596468300768176,
-      "netProfitPriorQ": 32539000.0,
-      "netProfitQoQ": 15.310857739942838,
-      "profitAcceleration": "accelerating",
-      "eps": 0.1,
-      "epsPrior": 0.1,
-      "epsYoY": 0.0,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105594601&symbol=MMM",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17854544402131&symbol=MMM",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105590401&symbol=MMM",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.72,
-      "drift_d1_pct": 2.88,
-      "drift_d2_pct": 4.32,
-      "drift_d5_pct": 4.32
     }
   ],
   "calendar": [
@@ -29016,12 +28950,6 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "ITC",
-      "date": "2026-07-30T12:44:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "HPT",
       "date": "2026-07-30T17:47:00+07:00",
       "status": "confirmed",
@@ -29030,12 +28958,6 @@
     {
       "ticker": "TFM",
       "date": "2026-07-31T12:37:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "PTTEP",
-      "date": "2026-07-31T18:04:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -34580,6 +34502,20 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-28T07:00:00+07:00"
+    },
+    {
+      "ticker": "PTTEP",
+      "date": "2026-10-30T12:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-30T12:51:00+07:00"
+    },
+    {
+      "ticker": "ITC",
+      "date": "2026-10-30T12:54:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-30T12:54:00+07:00"
     }
   ]
 }
