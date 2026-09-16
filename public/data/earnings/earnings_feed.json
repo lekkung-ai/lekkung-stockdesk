@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T18:11:22.083431+07:00",
+  "generatedAt": "2026-09-16T14:56:57.852641+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -23,7 +23,7 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 92,
+      "count": 93,
       "top3": [
         {
           "ticker": "TWP",
@@ -77,7 +77,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 151,
+      "count": 152,
       "top3": [
         {
           "ticker": "TPL",
@@ -101,11 +101,65 @@
   },
   "announcements": [
     {
+      "ticker": "META",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-09-16T08:45:43+07:00",
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": -19187000.0,
+      "netProfitPrior": -17161000.0,
+      "netProfitYoY": -11.805838820581553,
+      "netProfitPriorQ": 23131000.0,
+      "netProfitQoQ": -182.9492888331676,
+      "profitAcceleration": "stable",
+      "eps": -0.006,
+      "epsPrior": -0.006,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่แสดงความเชื่อมั่นและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": true,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106808501&symbol=META",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106808601&symbol=META",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว) (แก้ไข)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "TAPAC",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-09-15T20:19:00+07:00",
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ตุลาคม 2568",
+      "netProfit": 74231000.0,
+      "netProfitPrior": -278354000.0,
+      "netProfitYoY": 126.66784023222229,
+      "netProfitPriorQ": 34722000.0,
+      "netProfitQoQ": 113.7866482345487,
+      "profitAcceleration": "accelerating",
+      "eps": 0.18,
+      "epsPrior": -1.08,
+      "epsYoY": 116.66666666666666,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "turnaround",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106805301&symbol=TAPAC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17894286050381&symbol=TAPAC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106805401&symbol=TAPAC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "ECF",
       "sector": "Consumer",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-09-15T17:01:53+07:00",
+      "announceDate": "2026-09-15T17:01:00+07:00",
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
       "netProfit": -1534970000.0,
@@ -121,7 +175,7 @@
       "isCorrection": false,
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106797701&symbol=ECF",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17894286041471&symbol=ECF",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106809201&symbol=ECF",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106797901&symbol=ECF",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
       "reason": "และเนื่องจากบริษัทฯ มีรายได้หลักจาก การประกอบธุรกิจเฟอร์นิเจอร์ ดังนั้นข้อมูลจากงบการเงินรวม และงบการเงินเฉพาะกิจการจึงไม่มีรายละเอียดที่แตกต่างอย่าง มีนัยสำคัญ ภาพรวมการดำเนินธุรกิจ บริษัทฯ",
@@ -155,7 +209,7 @@
       "reason_source": "none",
       "gap_pct": -2.03,
       "drift_d1_pct": -6.6,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -11.17,
       "drift_d5_pct": null
     },
     {
@@ -186,7 +240,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -218,7 +272,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.0
     },
     {
       "ticker": "MVP",
@@ -22861,7 +22915,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": -0.68,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -24984,8 +25038,8 @@
       "netProfit": 120557000.0,
       "netProfitPrior": 168274000.0,
       "netProfitYoY": -28.35672771788868,
-      "netProfitPriorQ": 104810000.0,
-      "netProfitQoQ": 15.024329739528671,
+      "netProfitPriorQ": 103332000.0,
+      "netProfitQoQ": 16.669569929934582,
       "profitAcceleration": "stable",
       "eps": 0.1,
       "epsPrior": 0.14,
@@ -28983,12 +29037,6 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "TFM",
-      "date": "2026-07-31T12:37:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "MMM",
       "date": "2026-07-31T18:26:00+07:00",
       "status": "confirmed",
@@ -31262,7 +31310,7 @@
       "ticker": "BVG",
       "date": "2026-08-13T08:34:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "BEYOND",
@@ -34438,22 +34486,10 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "META",
-      "date": "2026-09-01T08:28:00+07:00",
-      "status": "confirmed",
-      "quarter": "ประจำปี 2568"
-    },
-    {
       "ticker": "MVP",
       "date": "2026-09-02T18:30:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
-    },
-    {
-      "ticker": "TAPAC",
-      "date": "2026-09-08T08:04:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 3/2568"
     },
     {
       "ticker": "PICO",
@@ -34476,9 +34512,21 @@
     },
     {
       "ticker": "ECF",
-      "date": "2026-09-15T17:01:53+07:00",
+      "date": "2026-09-15T17:01:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
+    },
+    {
+      "ticker": "TAPAC",
+      "date": "2026-09-15T20:19:00+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2568"
+    },
+    {
+      "ticker": "META",
+      "date": "2026-09-16T08:45:43+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "TNH",
@@ -34549,6 +34597,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-30T12:54:00+07:00"
+    },
+    {
+      "ticker": "TFM",
+      "date": "2026-10-31T12:31:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-10-31T12:31:00+07:00"
     }
   ]
 }
