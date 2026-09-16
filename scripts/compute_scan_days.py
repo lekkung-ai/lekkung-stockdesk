@@ -12,6 +12,7 @@ Usage:
 
 import json
 import os
+from datetime import datetime
 
 from scan_calendar import valid_dates
 
@@ -47,15 +48,25 @@ def tickers_of(data) -> set:
     return out
 
 
+def _is_weekday(dstr: str) -> bool:
+    try:
+        return datetime.fromisoformat(dstr).weekday() < 5
+    except ValueError:
+        return False
+
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     stockdesk_dir = os.path.dirname(script_dir)
     hist_dir = os.path.join(stockdesk_dir, "data", "history")
     scans_dir = os.path.join(stockdesk_dir, "data", "scans")
 
+    # เดินแค่วันจันทร์-ศุกร์ - บางโฟลเดอร์เสาร์-อาทิตย์มี <scan>.json ค้างอยู่
+    # (catch-up run ที่บันทึกผิดวันที่) ถ้านับด้วยจะเป็นสแกนของตัวเองปลอม ทำให้
+    # streak บวมเกินจริง (เคยพบ: AMATA sepa DAYS=72 ทั้งที่วันทำการจริงมีแค่ 57)
     dates = sorted(
         d for d in os.listdir(hist_dir)
-        if os.path.isdir(os.path.join(hist_dir, d)) and d[0].isdigit()
+        if os.path.isdir(os.path.join(hist_dir, d)) and d[0].isdigit() and _is_weekday(d)
     )
     print(f"  History dates: {len(dates)} ({dates[0]}..{dates[-1]})" if dates else "  No history dates")
 
