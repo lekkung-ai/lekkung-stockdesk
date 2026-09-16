@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T14:56:57.852641+07:00",
+  "generatedAt": "2026-09-16T18:11:38.751117+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -151,8 +151,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17894286050381&symbol=TAPAC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106805401&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "ECF",
@@ -209,7 +209,7 @@
       "reason_source": "none",
       "gap_pct": -2.03,
       "drift_d1_pct": -6.6,
-      "drift_d2_pct": -11.17,
+      "drift_d2_pct": -12.69,
       "drift_d5_pct": null
     },
     {
@@ -442,7 +442,7 @@
       "netProfitYoY": 329.55035850527304,
       "netProfitPriorQ": 1091265000.0,
       "netProfitQoQ": 62.998813303826296,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 0.439,
       "epsPrior": -0.191,
       "epsYoY": 329.8429319371728,
@@ -2145,8 +2145,8 @@
       "netProfit": -800146000.0,
       "netProfitPrior": -152775000.0,
       "netProfitYoY": -423.7414498445427,
-      "netProfitPriorQ": -800146000.0,
-      "netProfitQoQ": 0.0,
+      "netProfitPriorQ": -726009000.0,
+      "netProfitQoQ": -10.211581399128661,
       "profitAcceleration": "stable",
       "eps": -0.1,
       "epsPrior": -0.02,
@@ -25038,8 +25038,8 @@
       "netProfit": 120557000.0,
       "netProfitPrior": 168274000.0,
       "netProfitYoY": -28.35672771788868,
-      "netProfitPriorQ": 103332000.0,
-      "netProfitQoQ": 16.669569929934582,
+      "netProfitPriorQ": 104810000.0,
+      "netProfitQoQ": 15.024329739528671,
       "profitAcceleration": "stable",
       "eps": 0.1,
       "epsPrior": 0.14,
@@ -31310,7 +31310,7 @@
       "ticker": "BVG",
       "date": "2026-08-13T08:34:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BEYOND",
@@ -34477,7 +34477,7 @@
       "ticker": "BANPU",
       "date": "2026-08-31T17:45:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "BYD",
