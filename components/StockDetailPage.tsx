@@ -64,6 +64,10 @@ interface CombinedEntry {
   sepa: boolean;
   kell: boolean;
   breakout: boolean;
+  // ADTV ต่ำกว่า floor (10 ลบ./วัน) ในสแกนที่ผ่าน (sepa/kell) — combo_score
+  // นับรวมตามปกติ (confluence คนละแกนกับ liquidity) field นี้แค่ให้ badge
+  // "ADTV ต่ำ" ติด optional กัน JSON เก่า
+  Low_Liquidity?: boolean;
 }
 interface SectorInfo { sector: string; subsector: string; }
 interface NewsItem {
@@ -458,6 +462,14 @@ export default function StockDetailPage({
             {combo != null && (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-label bg-white/[0.05] text-meta">
                 Combo <span className="font-bold" style={{ color: combo >= 3 ? '#1D9E75' : combo === 2 ? '#BA7517' : '#6b7280' }}>{combo}/4</span>
+              </span>
+            )}
+            {combinedEntry?.Low_Liquidity && (
+              <span
+                title="ADTV ต่ำกว่า floor (10 ลบ./วัน) ในสแกนที่ผ่าน — ผ่านเกณฑ์เทรนด์/สัญญาณ แต่เข้า-ออกยาก"
+                className="inline-flex items-center px-2.5 py-1 rounded-lg text-label font-bold bg-amber-500/15 text-amber-400"
+              >
+                ADTV ต่ำ
               </span>
             )}
             {!hasAnyScan && (

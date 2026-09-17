@@ -20,6 +20,9 @@ export interface StockContext {
   stage: string | null;
   rsScore: number | null;
   comboScore: number | null;
+  // ADTV ต่ำกว่า floor (10 ลบ./วัน) ในสแกนที่ผ่าน (sepa/kell) — ผ่าน 8/8 ไม่ได้
+  // แปลว่าเทรดคล่อง AI ต้องรู้ก่อนแนะนำว่าเป็น setup เทรดได้จริงไหม
+  lowLiquidity: boolean | null;
   fundamental: FundamentalSnapshot | null;
   news: NewsSnapshot[];
 }
@@ -74,6 +77,7 @@ export async function buildStockContext(origin: string, ticker: string): Promise
     stage: scan?.stage ?? null,
     rsScore: scan?.rs_score ?? null,
     comboScore: scan?.combo_score ?? null,
+    lowLiquidity: scan?.Low_Liquidity ?? null,
     fundamental,
     news,
   };
@@ -89,6 +93,9 @@ export function formatStockContext(ctx: StockContext): string {
   lines.push(`Combo Score: ${ctx.comboScore != null ? `${ctx.comboScore}/4` : 'ไม่มีข้อมูล'}`);
   lines.push(`ผ่าน SEPA Trend Template: ${ctx.sepa == null ? 'ไม่มีข้อมูล' : ctx.sepa ? 'ผ่าน' : 'ไม่ผ่าน'}`);
   lines.push(`ผ่าน Oliver Kell EMAC: ${ctx.kell == null ? 'ไม่มีข้อมูล' : ctx.kell ? 'ผ่าน' : 'ไม่ผ่าน'}`);
+  if (ctx.lowLiquidity) {
+    lines.push('⚠️ ADTV ต่ำกว่า floor สภาพคล่อง (10 ลบ./วัน) — ผ่านเกณฑ์เทรนด์/สัญญาณ แต่เข้า-ออกยาก อย่าสรุปว่าเป็น setup เทรดได้โดยไม่เตือนเรื่องสภาพคล่อง');
+  }
 
   lines.push('');
   lines.push('ข้อมูลพื้นฐาน (Fundamental):');
