@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T18:11:38.751117+07:00",
+  "generatedAt": "2026-09-17T15:00:52.745871+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 205,
+      "count": 204,
       "top3": [
         {
           "ticker": "SORKON",
@@ -105,7 +105,7 @@
       "sector": "Property",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-09-16T08:45:43+07:00",
+      "announceDate": "2026-09-16T08:45:00+07:00",
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 มีนาคม 2569",
       "netProfit": -19187000.0,
@@ -121,11 +121,15 @@
       "isCorrection": true,
       "bucket": "loss_worse",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106808501&symbol=META",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106808601&symbol=META",
-      "mdaUrl": null,
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106821001&symbol=META",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106818401&symbol=META",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว) (แก้ไข)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TAPAC",
@@ -152,7 +156,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106805401&symbol=TAPAC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
       "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "ECF",
@@ -179,7 +187,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106797901&symbol=ECF",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
       "reason": "และเนื่องจากบริษัทฯ มีรายได้หลักจาก การประกอบธุรกิจเฟอร์นิเจอร์ ดังนั้นข้อมูลจากงบการเงินรวม และงบการเงินเฉพาะกิจการจึงไม่มีรายละเอียดที่แตกต่างอย่าง มีนัยสำคัญ ภาพรวมการดำเนินธุรกิจ บริษัทฯ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "KSL",
@@ -442,7 +454,7 @@
       "netProfitYoY": 329.55035850527304,
       "netProfitPriorQ": 1091265000.0,
       "netProfitQoQ": 62.998813303826296,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.439,
       "epsPrior": -0.191,
       "epsYoY": 329.8429319371728,
@@ -455,7 +467,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 0.68,
+      "gap_pct": 1.37,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -2145,8 +2157,8 @@
       "netProfit": -800146000.0,
       "netProfitPrior": -152775000.0,
       "netProfitYoY": -423.7414498445427,
-      "netProfitPriorQ": -726009000.0,
-      "netProfitQoQ": -10.211581399128661,
+      "netProfitPriorQ": -800146000.0,
+      "netProfitQoQ": 0.0,
       "profitAcceleration": "stable",
       "eps": -0.1,
       "epsPrior": -0.02,
@@ -16676,8 +16688,8 @@
       "netProfit": 11534556000.0,
       "netProfitPrior": 17337286000.0,
       "netProfitYoY": -33.46965609265487,
-      "netProfitPriorQ": 11534556000.0,
-      "netProfitQoQ": 0.0,
+      "netProfitPriorQ": 6222963000.0,
+      "netProfitQoQ": 85.35472571506531,
       "profitAcceleration": "stable",
       "eps": 9.61,
       "epsPrior": 14.45,
@@ -28990,37 +29002,6 @@
       "drift_d1_pct": 3.95,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": -1.32
-    },
-    {
-      "ticker": "TU",
-      "sector": "Agro",
-      "subsector": "Food & Beverage",
-      "market": "SET",
-      "announceDate": "2026-08-03T12:50:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 1264053000.0,
-      "netProfitPrior": 1272570000.0,
-      "netProfitYoY": -0.6692755604799736,
-      "netProfitPriorQ": 1113270000.0,
-      "netProfitQoQ": 13.544153709342746,
-      "profitAcceleration": "stable",
-      "eps": 0.33,
-      "epsPrior": 0.32,
-      "epsYoY": 3.1250000000000027,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105602101&symbol=TU",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17857134034781&symbol=TU",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=105602201&symbol=TU",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "โดยมีสาเหตุหลักมาจาการฟื้นตัวอย่างต่อเนื่องของยอดความต้องการซื้อ ส่งผลให้ยอดขายจากการดำเนินงานปกติเติบโต ขึ้น ขณะที่อัตรากำไรขั้นต้นทำสถิติสูงสุดใหม่ที่ 21.4% ซึ่งสูงกว่ากรอบเป้าหมายที่บริษัทฯ ตั้งไว้สำหรับปี 2569",
-      "reason_source": "mda_extract",
-      "gap_pct": 4.92,
-      "drift_d1_pct": 8.2,
-      "drift_d2_pct": 8.2,
-      "drift_d5_pct": 9.84
     }
   ],
   "calendar": [
@@ -34477,7 +34458,7 @@
       "ticker": "BANPU",
       "date": "2026-08-31T17:45:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BYD",
@@ -34524,7 +34505,7 @@
     },
     {
       "ticker": "META",
-      "date": "2026-09-16T08:45:43+07:00",
+      "date": "2026-09-16T08:45:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 1/2569"
     },
