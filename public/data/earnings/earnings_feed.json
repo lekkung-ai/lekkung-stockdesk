@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T15:00:52.745871+07:00",
+  "generatedAt": "2026-09-17T18:12:19.870212+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -124,8 +124,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106821001&symbol=META",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106818401&symbol=META",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้จากการขาย 2,700 21% 9,248 42% (6,548) (71)% รายได้ดอกเบี้ยรับจากเงินให้สินเชื่อ 9,984 79% 12,808 58% (2,824) (22)% รวมรำยได้จำกกำรด ำเนินงำน 12,684 100% 22,056 100% (9,372) (42)% หัก ต้นทุนขาย 2,234 18% 8,041 36%",
+      "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -7146,7 +7146,7 @@
       "netProfitYoY": 74.14270616960023,
       "netProfitPriorQ": 70025000.0,
       "netProfitQoQ": 36.48411281685112,
-      "profitAcceleration": "accelerating",
+      "profitAcceleration": "stable",
       "eps": 0.24,
       "epsPrior": 0.14,
       "epsYoY": 71.4285714285714,
@@ -16688,8 +16688,8 @@
       "netProfit": 11534556000.0,
       "netProfitPrior": 17337286000.0,
       "netProfitYoY": -33.46965609265487,
-      "netProfitPriorQ": 6222963000.0,
-      "netProfitQoQ": 85.35472571506531,
+      "netProfitPriorQ": 11534556000.0,
+      "netProfitQoQ": 0.0,
       "profitAcceleration": "stable",
       "eps": 9.61,
       "epsPrior": 14.45,
@@ -22927,7 +22927,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 0.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -28642,8 +28642,8 @@
       "netProfit": -23509000.0,
       "netProfitPrior": -3918000.0,
       "netProfitYoY": -500.02552322613576,
-      "netProfitPriorQ": 156786000.0,
-      "netProfitQoQ": -114.99432347275904,
+      "netProfitPriorQ": -20240000.0,
+      "netProfitQoQ": -16.15118577075099,
       "profitAcceleration": "stable",
       "eps": -0.037,
       "epsPrior": -0.006,
@@ -33201,7 +33201,7 @@
       "ticker": "CTW",
       "date": "2026-08-14T17:04:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "LPH",
