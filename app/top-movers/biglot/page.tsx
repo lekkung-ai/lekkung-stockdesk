@@ -470,7 +470,7 @@ export default function BigLotPage() {
               <thead>
                 <tr className="border-b border-white/[0.06]">
                   {['หลักทรัพย์', 'รายการ', 'จำนวนหุ้น', 'มูลค่า (ลบ.)', 'ราคาเฉลี่ย (บ.)', 'กราฟย้อนหลัง'].map((h, i) => (
-                    <th key={h} className={`px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i === 0 ? 'sticky left-0 z-10 bg-[#13161e]' : ''} ${i > 0 && i < 5 ? 'text-right' : 'text-left'}`}>
+                    <th key={h} className={`px-4 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${i === 0 ? 'sticky left-0 z-10 bg-[#13161e]' : ''} ${i > 0 && i < 5 ? 'text-right' : 'text-left'}`}>
                       {h}
                     </th>
                   ))}
@@ -487,9 +487,9 @@ export default function BigLotPage() {
                         isSelected ? 'bg-blue-500/15 border-l-2 border-blue-400' : 'hover:bg-white/[0.03]'
                       }`}
                     >
-                      <td className="sticky left-0 z-10 bg-[#13161e] px-4 py-3 text-[13px] font-bold text-white whitespace-nowrap">
+                      <td className="sticky left-0 z-10 bg-[#13161e] px-4 py-3 text-[14px] font-bold text-white whitespace-nowrap">
                         <div className="flex items-center gap-2">
-                          <span className={`text-[13px] font-bold ${isSelected ? 'text-blue-300' : 'text-white'}`}>
+                          <span className={`text-[14px] font-bold ${isSelected ? 'text-blue-300' : 'text-white'}`}>
                             {row.symbol}
                           </span>
                           <button
@@ -504,16 +504,16 @@ export default function BigLotPage() {
                           </button>
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-[13px] tabular-nums text-white/50 whitespace-nowrap text-right">
+                      <td className="px-4 py-3 text-[14px] tabular-nums text-white/50 whitespace-nowrap text-right">
                         {fmtNum(row.transactions)}
                       </td>
-                      <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right font-medium">
+                      <td className="px-4 py-3 text-[14px] tabular-nums text-white/65 whitespace-nowrap text-right font-medium">
                         {fmtNum(row.volume)}
                       </td>
-                      <td className="px-4 py-3 text-[13px] tabular-nums text-emerald-400 whitespace-nowrap text-right font-semibold">
+                      <td className="px-4 py-3 text-[14px] tabular-nums text-emerald-400 whitespace-nowrap text-right font-semibold">
                         {fmtNum(row.value, 2)}
                       </td>
-                      <td className="px-4 py-3 text-[13px] tabular-nums text-white/65 whitespace-nowrap text-right">
+                      <td className="px-4 py-3 text-[14px] tabular-nums text-white/65 whitespace-nowrap text-right">
                         {fmtNum(row.avgPrice, 2)}
                       </td>
                       <td className="px-4 py-3 text-[12px] whitespace-nowrap text-left">

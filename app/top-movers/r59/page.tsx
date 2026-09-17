@@ -308,7 +308,7 @@ export default function Report59Page() {
                 <tr className="border-b border-white/[0.06]">
                   <th
                     onClick={() => handleSort(COL_COMPANY)}
-                    className="sticky left-0 z-10 bg-[#13161e] px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                    className="sticky left-0 z-10 bg-[#13161e] px-3 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
                   >
                     <div className="flex items-center gap-1">
                       {COL_COMPANY}
@@ -323,7 +323,7 @@ export default function Report59Page() {
                   </th>
                   <th
                     onClick={() => handleSort(COL_METHOD)}
-                    className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                    className="px-3 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
                   >
                     <div className="flex items-center gap-1">
                       ซื้อ/ขาย
@@ -340,7 +340,7 @@ export default function Report59Page() {
                     <th
                       key={h}
                       onClick={() => handleSort(h)}
-                      className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                      className="px-3 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
                     >
                       <div className="flex items-center gap-1">
                         {h}
@@ -364,7 +364,7 @@ export default function Report59Page() {
                       <td
                         onClick={() => ticker && router.push(`/stock/${ticker}`)}
                         className={[
-                          'sticky left-0 z-10 bg-[#13161e] px-3 py-2.5 text-[13px] align-top whitespace-normal min-w-[150px] max-w-[250px] leading-relaxed',
+                          'sticky left-0 z-10 bg-[#13161e] px-3 py-2.5 text-[14px] align-top whitespace-normal min-w-[150px] max-w-[250px] leading-relaxed',
                           ticker ? 'text-blue-400 font-semibold cursor-pointer hover:text-blue-300' : 'text-white/65',
                         ].join(' ')}
                       >
@@ -373,13 +373,13 @@ export default function Report59Page() {
                       <td className="px-3 py-2.5 whitespace-nowrap">
                         <BuySellBadge action={row[COL_METHOD] ?? ''} />
                       </td>
-                      <td className="px-3 py-2.5 text-[13px] text-white/55 whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-[14px] text-white/55 whitespace-nowrap">
                         <span className="inline-flex items-center">
                           {row[COL_PUBLISH] ?? '—'}
                           {row['__retroactive'] === '1' && <RetroactiveBadge />}
                         </span>
                       </td>
-                      <td className="px-3 py-2.5 text-[13px] text-white/40 whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-[14px] text-white/40 whitespace-nowrap">
                         {row[COL_DATE] ?? '—'}
                       </td>
                       {displayHeaders.map(h => {
@@ -389,7 +389,7 @@ export default function Report59Page() {
                           <td
                             key={h}
                             className={[
-                              'px-3 py-2.5 text-[13px] align-top text-white/65',
+                              'px-3 py-2.5 text-[14px] align-top text-white/65',
                               shouldWrap ? 'whitespace-normal min-w-[150px] max-w-[250px] leading-relaxed' : 'whitespace-nowrap',
                             ].join(' ')}
                           >

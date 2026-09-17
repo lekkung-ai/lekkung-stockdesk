@@ -336,7 +336,7 @@ export default function Report246Page() {
                     <th
                       key={h}
                       onClick={() => handleSort(h)}
-                      className={`px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group ${h === COL_TICKER ? 'sticky left-0 z-10 bg-[#13161e]' : ''}`}
+                      className={`px-3 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group ${h === COL_TICKER ? 'sticky left-0 z-10 bg-[#13161e]' : ''}`}
                     >
                       <div className="flex items-center gap-1">
                         {h === COL_TICKER ? 'หลักทรัพย์' : h === COL_PERSON ? 'ผู้ถือหุ้น' : h === COL_METHOD ? 'วิธีการ' : h === COL_PUBLISH ? 'วันที่เผยแพร่' : 'วันที่ทำรายการ'}
@@ -351,15 +351,15 @@ export default function Report246Page() {
                     </th>
                   ))}
                   {hasBeforeAfter && (
-                    <th className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง</th>
+                    <th className="px-3 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง</th>
                   )}
                   {hasGroup && (
-                    <th className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง (กลุ่ม)</th>
+                    <th className="px-3 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap">% ก่อน → หลัง (กลุ่ม)</th>
                   )}
                   {headers.includes(COL_CHANGE) && (
                     <th 
                       onClick={() => handleSort(COL_CHANGE)}
-                      className="px-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
+                      className="px-3 py-3 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap cursor-pointer hover:text-white/40 select-none group"
                     >
                       <div className="flex items-center gap-1">
                         Δ%
@@ -380,23 +380,23 @@ export default function Report246Page() {
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                     <td
                       onClick={() => row[COL_TICKER] && router.push(`/stock/${row[COL_TICKER]}`)}
-                      className="sticky left-0 z-10 bg-[#13161e] px-3 py-2.5 text-[13px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                      className="sticky left-0 z-10 bg-[#13161e] px-3 py-2.5 text-[14px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
                     >
                       {row[COL_TICKER] ?? '—'}
                     </td>
-                    <td className="px-3 py-2.5 text-[13px] text-white/65 whitespace-normal max-w-[250px] leading-relaxed align-top">
+                    <td className="px-3 py-2.5 text-[14px] text-white/65 whitespace-normal max-w-[250px] leading-relaxed align-top">
                       {row[COL_PERSON] ?? '—'}
                     </td>
                     <td className="px-3 py-2.5 whitespace-nowrap">
                       <MethodBadge method={row[COL_METHOD] ?? ''} />
                     </td>
-                    <td className="px-3 py-2.5 text-[13px] text-white/55 whitespace-nowrap">
+                    <td className="px-3 py-2.5 text-[14px] text-white/55 whitespace-nowrap">
                       <span className="inline-flex items-center">
                         {row[COL_PUBLISH] ?? '—'}
                         {row['__retroactive'] === '1' && <RetroactiveBadge />}
                       </span>
                     </td>
-                    <td className="px-3 py-2.5 text-[13px] text-white/40 whitespace-nowrap">
+                    <td className="px-3 py-2.5 text-[14px] text-white/40 whitespace-nowrap">
                       {row[COL_DATE] ?? '—'}
                     </td>
                     {hasBeforeAfter && (
@@ -410,7 +410,7 @@ export default function Report246Page() {
                       </td>
                     )}
                     {headers.includes(COL_CHANGE) && (
-                      <td className="px-3 py-2.5 text-[13px] tabular-nums text-white/55 whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-[14px] tabular-nums text-white/55 whitespace-nowrap">
                         {fmtPct(row[COL_CHANGE] ?? '')}
                       </td>
                     )}
