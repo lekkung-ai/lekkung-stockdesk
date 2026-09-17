@@ -90,6 +90,22 @@ function FundamentalBadge({ pass }: { pass: boolean | null | undefined }) {
   );
 }
 
+// ADTV floor ไม่ใช่ส่วนหนึ่งของ Trend Template 8 ข้อ — หุ้นผ่าน 8/8 แต่สภาพคล่อง
+// ต่ำกว่า floor (10 ลบ./วัน) ยังโผล่ในลิสต์แทนที่จะถูกตัดทิ้งเงียบๆ badge นี้บอก
+// ว่าทำไมถึงเห็นหุ้นตัวเล็ก/เทรดไม่คล่องปนอยู่กับหุ้น SEPA ทั่วไป
+function LowLiquidityBadge({ low, adtvMb }: { low: boolean | undefined; adtvMb: number | undefined }) {
+  if (!low) return null;
+  const adtvLabel = adtvMb != null ? adtvMb.toFixed(1) : '?';
+  return (
+    <span
+      title={`ADTV ${adtvLabel} ลบ./วัน (< floor 10 ลบ./วัน) — สภาพคล่องต่ำ ผ่าน Trend Template 8/8 แต่ระวังเรื่องเข้า-ออกยาก`}
+      className="inline-flex items-center px-1 py-0 rounded text-[9px] font-bold bg-amber-500/20 text-amber-400 ml-1.5 align-middle"
+    >
+      ADTV ต่ำ
+    </span>
+  );
+}
+
 export default function SepaPage() {
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
@@ -225,6 +241,7 @@ export default function SepaPage() {
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
                       <FundamentalBadge pass={s.Fundamental_Pass} />
+                      <LowLiquidityBadge low={s.Low_Liquidity} adtvMb={s['ADTV(MB)']} />
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
                     <AddMyStockButton ticker={s.Ticker} />

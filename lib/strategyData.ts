@@ -73,6 +73,12 @@ export interface SepaEntry {
   T8_RS_At_Least_70?: boolean;
   // null = ไม่มีข้อมูลพอตัดสิน, true/false = ผ่าน/ไม่ผ่าน fundamental filter
   Fundamental_Pass?: boolean | null;
+  // ADTV(MB) ไม่ใช่ส่วนหนึ่งของ Trend Template 8 ข้อ — เป็น liquidity gate ที่
+  // เราใส่เอง (floor 10 ลบ./วัน) หุ้นที่ผ่าน 8/8 แต่ ADTV ต่ำกว่า floor ยังโผล่
+  // ในลิสต์พร้อม Low_Liquidity=true แทนที่จะถูกตัดทิ้งเงียบๆ — optional เพราะ
+  // JSON เก่าก่อน deploy ไม่มี field นี้
+  'ADTV(MB)'?: number;
+  Low_Liquidity?: boolean;
 }
 
 export interface KellEntry {
@@ -83,6 +89,7 @@ export interface KellEntry {
   'Dist_EMA10_%': number;
   'ADTV(MB)': number;
   Status: string;
+  Low_Liquidity?: boolean;
 }
 
 export interface StageEntry {

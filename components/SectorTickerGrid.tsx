@@ -307,6 +307,18 @@ export default function SectorTickerGrid({
                       {scan?.breakout && (
                         <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#E6F1FB] text-[#0C447C]">BO</span>
                       )}
+                      {/* ADTV floor ไม่ใช่ confluence axis เดียวกับ combo_score — หุ้นที่
+                          ผ่าน SEPA/Kell แต่สภาพคล่องต่ำกว่า floor ยังนับคะแนนปกติ
+                          (โผล่ + ติด flag เหมือนหน้า /sepa /kell) ค่า ADTV จริงไม่ได้
+                          ส่งมาถึง combined.json — ดูตัวเลขที่หน้าสแกนต้นทาง */}
+                      {scan?.Low_Liquidity && (scan?.sepa || scan?.kell) && (
+                        <span
+                          title="ADTV ต่ำกว่า floor (10 ลบ./วัน) ในอย่างน้อย 1 สแกนที่ผ่าน — ดูค่าจริงที่หน้า SEPA/Kell"
+                          className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-500/20 text-amber-500"
+                        >
+                          ADTV ต่ำ
+                        </span>
+                      )}
                     </div>
 
                     {/* Candlestick chart */}

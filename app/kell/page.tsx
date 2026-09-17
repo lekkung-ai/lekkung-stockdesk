@@ -35,6 +35,22 @@ function distColor(dist: number): string {
   return '#E24B4A';
 }
 
+// ADTV floor ไม่ใช่ส่วนหนึ่งของ Trend Template/Kell's Signal — หุ้นผ่านด่าน
+// เทรนด์+สัญญาณแต่สภาพคล่องต่ำกว่า floor (10 ลบ./วัน) ยังโผล่ในลิสต์แทนที่จะ
+// ถูกตัดทิ้งเงียบๆ badge นี้บอกว่าทำไมถึงเห็นหุ้นตัวเล็ก/เทรดไม่คล่องปนอยู่
+function LowLiquidityBadge({ low, adtvMb }: { low: boolean | undefined; adtvMb: number | undefined }) {
+  if (!low) return null;
+  const adtvLabel = adtvMb != null ? adtvMb.toFixed(1) : '?';
+  return (
+    <span
+      title={`ADTV ${adtvLabel} ลบ./วัน (< floor 10 ลบ./วัน) — สภาพคล่องต่ำ ผ่านด่านเทรนด์+สัญญาณ แต่ระวังเรื่องเข้า-ออกยาก`}
+      className="inline-flex items-center px-1 py-0 rounded text-[9px] font-bold bg-amber-500/20 text-amber-400 ml-1.5 align-middle"
+    >
+      ADTV ต่ำ
+    </span>
+  );
+}
+
 export default function KellPage() {
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
@@ -168,6 +184,7 @@ export default function KellPage() {
                     <span className="text-white/25 tabular-nums text-[11px] shrink-0">{globalIndex + 1}</span>
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
+                      <LowLiquidityBadge low={s.Low_Liquidity} adtvMb={s['ADTV(MB)']} />
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
                     <AddMyStockButton ticker={s.Ticker} />

@@ -14,6 +14,10 @@ export interface ScanEntry {
   weinstein?: boolean;
   growth_yoy?: number | null;
   growth_qoq?: number | null;
+  // true ถ้า ticker นี้ถูก flag ADTV ต่ำกว่า floor (10 ลบ./วัน) ใน sepa หรือ kell
+  // list ที่มันปรากฏ — combo_score ยังนับรวมตามปกติ (confluence คนละแกนกับ
+  // liquidity) field นี้แค่ให้ UI ติด marker ได้ — optional กัน JSON เก่า
+  Low_Liquidity?: boolean;
 }
 
 type CombinedJson =
