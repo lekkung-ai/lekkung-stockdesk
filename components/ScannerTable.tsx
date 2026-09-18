@@ -30,11 +30,17 @@ function rsColor(score: number): string {
   return '#E24B4A';
 }
 
-function PassIcon({ pass }: { pass: boolean }) {
-  return pass ? (
-    <span className="text-[#1D9E75] font-bold text-[13px]">✓</span>
-  ) : (
-    <span className="text-white/20 text-[13px]">—</span>
+// lowLiquidity/label เป็น optional และมีผลเฉพาะตอน pass=true — คอลัมน์ที่ไม่ส่งสอง
+// prop นี้ (Breakout ฯลฯ) พฤติกรรม/สีเดิมทุกกรณี ไม่กระทบกันข้ามคอลัมน์
+function PassIcon({ pass, lowLiquidity, label }: { pass: boolean; lowLiquidity?: boolean; label?: string }) {
+  if (!pass) return <span className="text-white/20 text-[13px]">—</span>;
+  return (
+    <span
+      className={`font-bold text-[13px] ${lowLiquidity ? 'text-amber-500' : 'text-[#1D9E75]'}`}
+      title={lowLiquidity ? `ผ่าน${label ? ` ${label}` : ''} · ADTV ต่ำกว่า floor` : undefined}
+    >
+      ✓
+    </span>
   );
 }
 
@@ -131,8 +137,8 @@ export default function ScannerTable({ data }: { data: ScanEntry[] }) {
                         <span className="text-white/20 text-[12px]">—</span>
                       )}
                     </td>
-                    <td className="px-3 py-3 text-center"><PassIcon pass={row.sepa} /></td>
-                    <td className="px-3 py-3 text-center"><PassIcon pass={row.kell} /></td>
+                    <td className="px-3 py-3 text-center"><PassIcon pass={row.sepa} lowLiquidity={row.sepa && row.Low_Liquidity} label="SEPA" /></td>
+                    <td className="px-3 py-3 text-center"><PassIcon pass={row.kell} lowLiquidity={row.kell && row.Low_Liquidity} label="Kell" /></td>
                     <td className="px-4 py-3 text-center">
                       {row.stage ? (
                         <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold whitespace-nowrap ${stageCls(row.stage)}`}>
