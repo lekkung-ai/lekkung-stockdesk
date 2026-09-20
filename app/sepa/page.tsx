@@ -13,7 +13,7 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
   ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -29,6 +29,7 @@ import { getScanHistory } from '@/lib/scanHistory';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
+import { sepaCompositeScore } from '@/lib/compositeScore';
 
 // Trend Template — 8 เงื่อนไขตาม Minervini (Trade Like a Stock Market Wizard, p.79)
 const TREND_TEMPLATE_CONDITIONS: { key: keyof SepaEntry; label: string }[] = [
@@ -106,11 +107,56 @@ function LowLiquidityBadge({ low, adtvMb }: { low: boolean | undefined; adtvMb: 
   );
 }
 
+// Composite score คำนวณครั้งเดียวต่อ row (sepaData คงที่ตลอด session) — ไม่ persist ลง JSON
+const SCORES = new Map(sepaData.map(s => [s.Ticker, sepaCompositeScore(s)]));
+
+// ค่าเริ่มต้น: ซ่อนหุ้นสภาพคล่องต่ำ (ADTV < 10 ลบ./วัน) — ลาก slider ลงเพื่อดูทั้งหมด
+// ตัวกรอง = "ซ่อน" ฝั่ง client เท่านั้น ไม่ลบ row · จำนวนที่ซ่อนแสดงใน FilterBar เสมอ
+const ADTV_DEFAULT_MIN = 10;
+const RS_FLOOR = 70; // scan ผ่าน RS ≥ 70 ทุกตัว (T8) — ต่ำกว่านี้ไม่มีแถวให้กรอง
+const FUND_PASS_COUNT = sepaData.filter(s => s.Fundamental_Pass === true).length;
+
+type SortMode = 'composite' | 'rs' | 'adtv' | 'proximity';
+const SORT_LABELS: Record<SortMode, string> = {
+  composite: 'Composite Score',
+  rs: 'RS Rating',
+  adtv: 'ADTV (สภาพคล่อง)',
+  proximity: 'ใกล้ 52W High',
+};
+
+function scoreColor(total: number): string {
+  if (total >= 80) return '#1D9E75';
+  if (total >= 60) return '#EF9F27';
+  return 'rgba(255,255,255,0.5)';
+}
+
+function ScoreCell({ ticker }: { ticker: string }) {
+  const sc = SCORES.get(ticker);
+  if (!sc) return <span className="text-white/20">—</span>;
+  return (
+    <span
+      className="font-bold text-[14px] tabular-nums"
+      style={{ color: scoreColor(sc.total) }}
+      title={
+        sc.renormalized
+          ? `ไม่มีข้อมูลงบ → ตัด Fundamental ออก · RS ${sc.rs.toFixed(0)} ×62.5% · ใกล้ 52W High ${sc.proximity.toFixed(0)} ×37.5%`
+          : `RS ${sc.rs.toFixed(0)} ×50% · Fundamental ${(sc.fundamental as number).toFixed(0)} ×20% · ใกล้ 52W High ${sc.proximity.toFixed(0)} ×30%`
+      }
+    >
+      {Math.round(sc.total)}
+    </span>
+  );
+}
+
 export default function SepaPage() {
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
+  const [rsMin, setRsMin] = useState(RS_FLOOR);
+  const [adtvMin, setAdtvMin] = useState(ADTV_DEFAULT_MIN);
+  const [fundOnly, setFundOnly] = useState(false);
+  const [sortMode, setSortMode] = useState<SortMode>('composite');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
   const { priceMap, fetchDone } = useLivePrices(sepaData.map(s => s.Ticker));
@@ -128,8 +174,54 @@ export default function SepaPage() {
     setDiffFilter(val);
   };
 
+  const handleRsMinChange = (val: number) => {
+    setCurrentPage(1);
+    setRsMin(val);
+  };
+
+  const handleAdtvMinChange = (val: number) => {
+    setCurrentPage(1);
+    setAdtvMin(val);
+  };
+
+  const handleFundOnlyToggle = () => {
+    setCurrentPage(1);
+    setFundOnly(v => !v);
+  };
+
+  const handleSortModeChange = (val: SortMode) => {
+    setCurrentPage(1);
+    setSortConfig(null); // เลือกโหมดจาก dropdown = ยกเลิกการเรียงตามหัวคอลัมน์
+    setSortMode(val);
+  };
+
+  const handleShowAll = () => {
+    setCurrentPage(1);
+    setRsMin(RS_FLOOR);
+    setAdtvMin(0);
+    setFundOnly(false);
+  };
+
+  // slider/toggle = "ซ่อน" ฝั่ง client เท่านั้น (ไม่ลบ row) · ADTV ที่ไม่มีข้อมูล (undefined)
+  // ไม่ถูกซ่อนด้วย ADTV slider — "ไม่ทราบ" ไม่ใช่ "สภาพคล่องต่ำ"
+  const controlled = useMemo(
+    () =>
+      sepaData.filter(
+        s =>
+          s.RS_Rating >= rsMin &&
+          (s['ADTV(MB)'] == null || s['ADTV(MB)'] >= adtvMin) &&
+          (!fundOnly || s.Fundamental_Pass === true)
+      ),
+    [rsMin, adtvMin, fundOnly]
+  );
+  const hiddenByControls = sepaData.length - controlled.length;
+  const hiddenByAdtv = useMemo(
+    () => sepaData.filter(s => s['ADTV(MB)'] != null && s['ADTV(MB)'] < adtvMin).length,
+    [adtvMin]
+  );
+
   const filtered = useMemo(() => {
-    let result = sepaData
+    let result = controlled
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -137,6 +229,11 @@ export default function SepaPage() {
         if (sortConfig.key === '__days') {
           const aVal = daysInScan('sepa', a.Ticker) ?? -1;
           const bVal = daysInScan('sepa', b.Ticker) ?? -1;
+          return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        if (sortConfig.key === '__score') {
+          const aVal = SCORES.get(a.Ticker)?.total ?? 0;
+          const bVal = SCORES.get(b.Ticker)?.total ?? 0;
           return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
         }
         const aVal = (a as any)[sortConfig.key];
@@ -147,14 +244,26 @@ export default function SepaPage() {
         return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
       });
     } else {
-      result = result.sort((a, b) => b.RS_Rating - a.RS_Rating);
+      const total = (t: string) => SCORES.get(t)?.total ?? 0;
+      result = result.sort((a, b) => {
+        switch (sortMode) {
+          case 'rs':
+            return b.RS_Rating - a.RS_Rating || total(b.Ticker) - total(a.Ticker);
+          case 'adtv':
+            return (b['ADTV(MB)'] ?? -1) - (a['ADTV(MB)'] ?? -1) || total(b.Ticker) - total(a.Ticker);
+          case 'proximity': // %_From_High ≤ 0 — ยิ่งใกล้ 0 ยิ่งใกล้ High
+            return b['%_From_High'] - a['%_From_High'] || total(b.Ticker) - total(a.Ticker);
+          default:
+            return total(b.Ticker) - total(a.Ticker) || b.RS_Rating - a.RS_Rating;
+        }
+      });
     }
     return result;
-  }, [sortConfig, diffFilter, newSet]);
+  }, [controlled, sortConfig, sortMode, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [sortConfig, diffFilter, newSet]
+    [sortConfig, sortMode, diffFilter, newSet, rsMin, adtvMin, fundOnly]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -198,7 +307,54 @@ export default function SepaPage() {
       ) : (
       <>
       <FilterBar>
+        <SliderField label="RS Rating" min={RS_FLOOR} max={90} step={10} value={rsMin} onChange={handleRsMinChange} />
+        <SliderField label="ADTV (MB)" min={0} max={10} step={1} value={adtvMin} onChange={handleAdtvMinChange} />
+        <button
+          onClick={handleFundOnlyToggle}
+          title="เฉพาะ Fundamental_Pass = true · หุ้นที่ไม่มีข้อมูลงบ (null) จะถูกซ่อนเมื่อเปิด"
+          className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all border ${
+            fundOnly
+              ? 'bg-[#7F77DD]/15 text-[#7F77DD] border-[#7F77DD]/30'
+              : 'bg-white/[0.04] text-white/35 border-white/[0.06] hover:text-white/60'
+          }`}
+        >
+          F+ เท่านั้น ({FUND_PASS_COUNT})
+        </button>
+        <Divider />
+        <label className="flex items-center gap-2">
+          <span className="text-[10px] text-white/30 uppercase tracking-wider">เรียงตาม</span>
+          <select
+            value={sortConfig ? 'column' : sortMode}
+            onChange={e => handleSortModeChange(e.target.value as SortMode)}
+            className="bg-[#13161e] border border-white/[0.09] rounded-lg px-2 py-1 text-[12px] text-white/70 outline-none focus:border-white/25 [color-scheme:dark] cursor-pointer"
+          >
+            {sortConfig && <option value="column" disabled>เรียงตามหัวคอลัมน์</option>}
+            {(Object.keys(SORT_LABELS) as SortMode[]).map(m => (
+              <option key={m} value={m}>{SORT_LABELS[m]}</option>
+            ))}
+          </select>
+        </label>
+        <Divider />
         <ScanDiffChips scanName="sepa" filter={diffFilter} onChange={handleDiffFilterChange} />
+        <div className="basis-full flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/35">
+          {hiddenByControls > 0 && (
+            <>
+              <span className="text-amber-400/90">
+                ซ่อนด้วยตัวกรอง {hiddenByControls} ตัว
+                {adtvMin > 0 && hiddenByAdtv > 0 && ` (ADTV ต่ำกว่า ${adtvMin} MB: ${hiddenByAdtv})`}
+              </span>
+              <button
+                onClick={handleShowAll}
+                className="px-2.5 py-0.5 rounded-md border border-amber-500/50 bg-amber-500/10 text-amber-300 text-[11px] font-semibold hover:bg-amber-500/20 hover:border-amber-400/70 transition-colors"
+              >
+                แสดงทั้งหมด
+              </button>
+            </>
+          )}
+          <span className="text-white/25">
+            Score เฟส 1 = RS 50% + Fundamental 20% + ใกล้ 52W High 30% (ไม่มีข้อมูลงบ → ตัด Fundamental แล้วเกลี่ยเป็น 62.5/37.5) · ไม่รวมสภาพคล่อง · คำนวณในเบราว์เซอร์
+          </span>
+        </div>
       </FilterBar>
 
       {diffFilter === 'dropped' ? (
@@ -212,6 +368,7 @@ export default function SepaPage() {
               (ครอบ iPad Air) เก็บ Trend Template + RS ที่เป็นหัวใจ SEPA · strip ใน expand */}
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
+            <SortableTh right sortKey="__score" currentSort={sortConfig} onSort={handleSort}>Score</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
@@ -249,6 +406,7 @@ export default function SepaPage() {
                   </div>
                   <SectorChip ticker={s.Ticker} />
                 </Td>
+              <Td right mono><ScoreCell ticker={s.Ticker} /></Td>
               <Td right mono>
                 <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />
               </Td>

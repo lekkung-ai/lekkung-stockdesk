@@ -12,7 +12,7 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
   ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -28,6 +28,7 @@ import { getScanHistory } from '@/lib/scanHistory';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
+import { scanData } from '@/lib/scanData';
 
 function distColor(dist: number): string {
   if (dist <= 2) return '#1D9E75';
@@ -51,11 +52,32 @@ function LowLiquidityBadge({ low, adtvMb }: { low: boolean | undefined; adtvMb: 
   );
 }
 
+// oliver_kell.json ไม่มี RS_Rating — ดึง rs_score จาก combined.json (ตัวเดียวกับที่ SEPA ใช้;
+// ตรวจแล้ว rs_score ครบทุก ticker ใน Kell และตรงกับ RS_Rating ของ SEPA 100%)
+const RS_BY_TICKER = new Map(scanData.map(s => [s.ticker, s.rs_score]));
+const rsOf = (ticker: string): number | null => RS_BY_TICKER.get(ticker) ?? null;
+
+// ค่าเริ่มต้น: ซ่อนหุ้นสภาพคล่องต่ำ (ADTV < 10 ลบ./วัน) — ลาก slider ลงเพื่อดูทั้งหมด
+// ตัวกรอง = "ซ่อน" ฝั่ง client เท่านั้น ไม่ลบ row · จำนวนที่ซ่อนแสดงใน FilterBar เสมอ
+const ADTV_DEFAULT_MIN = 10;
+// Kell ไม่มีเกณฑ์ RS ในสแกน (RS ต่ำสุดที่พบ ~45) — ค่าต่ำสุดของ slider = ไม่กรอง RS
+const RS_FLOOR = 40;
+
+type SortMode = 'tight' | 'rs' | 'adtv';
+const SORT_LABELS: Record<SortMode, string> = {
+  tight: 'แนบ EMA10 (ค่าเริ่มต้น)',
+  rs: 'RS Rating',
+  adtv: 'ADTV (สภาพคล่อง)',
+};
+
 export default function KellPage() {
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
+  const [rsMin, setRsMin] = useState(RS_FLOOR);
+  const [adtvMin, setAdtvMin] = useState(ADTV_DEFAULT_MIN);
+  const [sortMode, setSortMode] = useState<SortMode>('tight');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
   const { priceMap, fetchDone } = useLivePrices(kellData.map(s => s.Ticker));
@@ -73,8 +95,49 @@ export default function KellPage() {
     setDiffFilter(val);
   };
 
+  const handleRsMinChange = (val: number) => {
+    setCurrentPage(1);
+    setRsMin(val);
+  };
+
+  const handleAdtvMinChange = (val: number) => {
+    setCurrentPage(1);
+    setAdtvMin(val);
+  };
+
+  const handleSortModeChange = (val: SortMode) => {
+    setCurrentPage(1);
+    setSortConfig(null); // เลือกโหมดจาก dropdown = ยกเลิกการเรียงตามหัวคอลัมน์
+    setSortMode(val);
+  };
+
+  const handleShowAll = () => {
+    setCurrentPage(1);
+    setRsMin(RS_FLOOR);
+    setAdtvMin(0);
+  };
+
+  // slider = "ซ่อน" ฝั่ง client เท่านั้น (ไม่ลบ row) · RS/ADTV ที่ไม่มีข้อมูลไม่ถูกซ่อนโดยอัตโนมัติ
+  // ("ไม่ทราบ" ≠ "ต่ำ") — RS ที่ไม่มีข้อมูลผ่านเฉพาะตอน slider อยู่ค่าต่ำสุด
+  const controlled = useMemo(
+    () =>
+      kellData.filter(s => {
+        const rs = rsOf(s.Ticker);
+        return (
+          (rs == null ? rsMin <= RS_FLOOR : rs >= rsMin) &&
+          (s['ADTV(MB)'] == null || s['ADTV(MB)'] >= adtvMin)
+        );
+      }),
+    [rsMin, adtvMin]
+  );
+  const hiddenByControls = kellData.length - controlled.length;
+  const hiddenByAdtv = useMemo(
+    () => kellData.filter(s => s['ADTV(MB)'] != null && s['ADTV(MB)'] < adtvMin).length,
+    [adtvMin]
+  );
+
   const filtered = useMemo(() => {
-    let result = kellData
+    let result = controlled
       .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
 
     if (sortConfig) {
@@ -82,6 +145,11 @@ export default function KellPage() {
         if (sortConfig.key === '__days') {
           const aVal = daysInScan('kell', a.Ticker) ?? -1;
           const bVal = daysInScan('kell', b.Ticker) ?? -1;
+          return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        if (sortConfig.key === '__rs') {
+          const aVal = rsOf(a.Ticker) ?? -1;
+          const bVal = rsOf(b.Ticker) ?? -1;
           return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
         }
         const aVal = (a as any)[sortConfig.key];
@@ -92,14 +160,25 @@ export default function KellPage() {
         return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
       });
     } else {
-      result = result.sort((a, b) => Math.abs(a['Dist_EMA10_%']) - Math.abs(b['Dist_EMA10_%']));
+      const tight = (a: (typeof result)[number], b: (typeof result)[number]) =>
+        Math.abs(a['Dist_EMA10_%']) - Math.abs(b['Dist_EMA10_%']);
+      result = result.sort((a, b) => {
+        switch (sortMode) {
+          case 'rs':
+            return (rsOf(b.Ticker) ?? -1) - (rsOf(a.Ticker) ?? -1) || tight(a, b);
+          case 'adtv':
+            return (b['ADTV(MB)'] ?? -1) - (a['ADTV(MB)'] ?? -1) || tight(a, b);
+          default:
+            return tight(a, b);
+        }
+      });
     }
     return result;
-  }, [sortConfig, diffFilter, newSet]);
+  }, [controlled, sortConfig, sortMode, diffFilter, newSet]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [sortConfig, diffFilter, newSet]
+    [sortConfig, sortMode, diffFilter, newSet, rsMin, adtvMin]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -143,7 +222,43 @@ export default function KellPage() {
       ) : (
       <>
       <FilterBar>
+        <SliderField label="RS Rating" min={RS_FLOOR} max={90} step={10} value={rsMin} onChange={handleRsMinChange} />
+        <SliderField label="ADTV (MB)" min={0} max={10} step={1} value={adtvMin} onChange={handleAdtvMinChange} />
+        <Divider />
+        <label className="flex items-center gap-2">
+          <span className="text-[10px] text-white/30 uppercase tracking-wider">เรียงตาม</span>
+          <select
+            value={sortConfig ? 'column' : sortMode}
+            onChange={e => handleSortModeChange(e.target.value as SortMode)}
+            className="bg-[#13161e] border border-white/[0.09] rounded-lg px-2 py-1 text-[12px] text-white/70 outline-none focus:border-white/25 [color-scheme:dark] cursor-pointer"
+          >
+            {sortConfig && <option value="column" disabled>เรียงตามหัวคอลัมน์</option>}
+            {(Object.keys(SORT_LABELS) as SortMode[]).map(m => (
+              <option key={m} value={m}>{SORT_LABELS[m]}</option>
+            ))}
+          </select>
+        </label>
+        <Divider />
         <ScanDiffChips scanName="kell" filter={diffFilter} onChange={handleDiffFilterChange} />
+        <div className="basis-full flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/35">
+          {hiddenByControls > 0 && (
+            <>
+              <span className="text-amber-400/90">
+                ซ่อนด้วยตัวกรอง {hiddenByControls} ตัว
+                {adtvMin > 0 && hiddenByAdtv > 0 && ` (ADTV ต่ำกว่า ${adtvMin} MB: ${hiddenByAdtv})`}
+              </span>
+              <button
+                onClick={handleShowAll}
+                className="px-2.5 py-0.5 rounded-md border border-amber-500/50 bg-amber-500/10 text-amber-300 text-[11px] font-semibold hover:bg-amber-500/20 hover:border-amber-400/70 transition-colors"
+              >
+                แสดงทั้งหมด
+              </button>
+            </>
+          )}
+          <span className="text-white/25">
+            Composite Score มีเฉพาะ /sepa (เฟส 1) — Kell ยังไม่มี Fundamental / 52W High ใน JSON · RS ดึงจาก combined.json
+          </span>
+        </div>
       </FilterBar>
 
       {diffFilter === 'dropped' ? (
@@ -164,6 +279,7 @@ export default function KellPage() {
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>
             <SortableTh right sortKey="Dist_EMA10_%" currentSort={sortConfig} onSort={handleSort}>% Dist EMA10</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
+            <SortableTh right sortKey="__rs" currentSort={sortConfig} onSort={handleSort}>RS</SortableTh>
             <Th>Status</Th>
           </tr>
         </thead>
@@ -217,6 +333,13 @@ export default function KellPage() {
                   </span>
                 </Td>
                 <Td right mono className="hidden min-[1201px]:table-cell">{s['ADTV(MB)'].toFixed(0)}</Td>
+                <Td right mono>
+                  {rsOf(s.Ticker) != null ? (
+                    <span className="font-semibold" style={{ color: rsColor(rsOf(s.Ticker) as number) }}>{rsOf(s.Ticker)}</span>
+                  ) : (
+                    <span className="text-white/20">—</span>
+                  )}
+                </Td>
                 <Td>
                   <span className={`text-label ${
                     s.Status === 'ชิด EMA' ? 'text-[#1D9E75]'
