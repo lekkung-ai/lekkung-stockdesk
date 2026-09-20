@@ -376,8 +376,8 @@ export default function SepaPage() {
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="SMA_200" currentSort={sortConfig} onSort={handleSort}>SMA 200</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
             <SortableTh right sortKey="%_From_High" currentSort={sortConfig} onSort={handleSort}>% From High</SortableTh>
-            <Th>Trend Template</Th>
-            <SortableTh right sortKey="RS_Rating" currentSort={sortConfig} onSort={handleSort}>RS Rating</SortableTh>
+            <Th className="hidden min-[1367px]:table-cell">Trend Template</Th>
+            <SortableTh right className="hidden min-[1367px]:table-cell" sortKey="RS_Rating" currentSort={sortConfig} onSort={handleSort}>RS Rating</SortableTh>
           </tr>
         </thead>
         <tbody>
@@ -432,8 +432,8 @@ export default function SepaPage() {
                   {s['%_From_High'].toFixed(1)}%
                 </span>
               </Td>
-              <Td><TrendTemplateChecks entry={s} /></Td>
-              <Td right mono><RSBar score={s.RS_Rating} /></Td>
+              <Td className="hidden min-[1367px]:table-cell"><TrendTemplateChecks entry={s} /></Td>
+              <Td right mono className="hidden min-[1367px]:table-cell"><RSBar score={s.RS_Rating} /></Td>
             </tr>
             {activeTicker === s.Ticker && (
               <tr key={`${s.Ticker}-chart`} className="bg-black/20 border-b border-white/[0.04]">
@@ -468,6 +468,8 @@ export default function SepaPage() {
                       <span className="text-white/40">SMA 50: <span className={`tabular-nums font-semibold ${s.SMA_50 != null && s.Price > s.SMA_50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.SMA_50 != null ? s.SMA_50.toFixed(2) : '-'}</span></span>
                       <span className="text-white/40">SMA 200: <span className={`tabular-nums font-semibold ${s.SMA_200 != null && s.Price > s.SMA_200 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.SMA_200 != null ? s.SMA_200.toFixed(2) : '-'}</span></span>
                       <span className="text-white/40">52W High: <span className="tabular-nums font-semibold text-white/80">{s['52W_High'] != null ? s['52W_High'].toFixed(2) : '-'}</span></span>
+                      <span className="text-white/40">RS: <span className="tabular-nums font-semibold" style={{ color: rsColor(s.RS_Rating) }}>{s.RS_Rating}</span></span>
+                      <span className="text-white/40 flex items-center gap-1.5">Trend Template: <TrendTemplateChecks entry={s} /></span>
                     </div>
                     <StockChart
                       ticker={s.Ticker}
