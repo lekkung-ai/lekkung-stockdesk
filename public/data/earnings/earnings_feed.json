@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T14:59:03.486606+07:00",
+  "generatedAt": "2026-09-22T18:16:46.736928+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -154,7 +154,7 @@
       "reason": "รายได้จากการขาย 2,700 12% 18,012 41% (15,312) (85)% รายได้ดอกเบี้ยรับจากเงินให้สินเชื่อ 19,719 88% 25,478 59% (5,759) (23)% รวมรำยได้จำกกำรด ำเนินงำน 22,419 100% 43,490 100% (21,071) (48)% หัก ต้นทุนขาย 2,234 10% 16,050 37%",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": 50.0,
+      "drift_d1_pct": 100.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -8909,7 +8909,7 @@
       "netProfitYoY": 82.22522940147248,
       "netProfitPriorQ": 10037000.0,
       "netProfitQoQ": 16.319318521470557,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "accelerating",
       "eps": 0.02,
       "epsPrior": 0.01,
       "epsYoY": 100.0,
@@ -15165,8 +15165,8 @@
       "netProfit": 221362000.0,
       "netProfitPrior": 275588000.0,
       "netProfitYoY": -19.676473576498253,
-      "netProfitPriorQ": 163314000.0,
-      "netProfitQoQ": 35.54379906192978,
+      "netProfitPriorQ": 226185000.0,
+      "netProfitQoQ": -2.132325308928532,
       "profitAcceleration": "stable",
       "eps": 0.24,
       "epsPrior": 0.3,
@@ -19658,7 +19658,7 @@
       "netProfitYoY": 91.94471501413031,
       "netProfitPriorQ": 7804080.0,
       "netProfitQoQ": -152.6346475177087,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": -0.009,
       "epsPrior": -0.116,
       "epsYoY": 92.24137931034483,
@@ -21948,7 +21948,7 @@
       "netProfitYoY": 103.82513661202186,
       "netProfitPriorQ": 69441000.0,
       "netProfitQoQ": -99.7883095001512,
-      "profitAcceleration": "stable",
+      "profitAcceleration": "decelerating",
       "eps": 0.0059,
       "epsPrior": -0.1537,
       "epsYoY": 103.83864671437865,
@@ -23620,8 +23620,8 @@
       "netProfit": 72900000.0,
       "netProfitPrior": 86082000.0,
       "netProfitYoY": -15.313305917613437,
-      "netProfitPriorQ": 205566000.0,
-      "netProfitQoQ": -64.53693704211786,
+      "netProfitPriorQ": 53720000.0,
+      "netProfitQoQ": 35.703648548026806,
       "profitAcceleration": "stable",
       "eps": 0.03061,
       "epsPrior": 0.03615,
@@ -25599,12 +25599,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "PDG",
-      "date": "2026-08-06T17:01:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "TYCN",
       "date": "2026-08-06T17:03:00+07:00",
       "status": "confirmed",
@@ -25660,12 +25654,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "TURTLE",
-      "date": "2026-08-06T17:24:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 1/2569"
-    },
-    {
       "ticker": "TQR",
       "date": "2026-08-06T17:25:00+07:00",
       "status": "confirmed",
@@ -25690,28 +25678,10 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "IFS",
-      "date": "2026-08-06T17:43:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "GULF",
-      "date": "2026-08-06T17:44:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "FPT",
       "date": "2026-08-06T17:44:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
-    },
-    {
-      "ticker": "OR",
-      "date": "2026-08-06T17:46:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "PRECHA",
@@ -25728,18 +25698,6 @@
     {
       "ticker": "SINO",
       "date": "2026-08-06T18:04:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "AIT",
-      "date": "2026-08-06T18:13:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "TPLAS",
-      "date": "2026-08-06T18:35:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -25894,20 +25852,8 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "SMART",
-      "date": "2026-08-07T17:28:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "ADB",
       "date": "2026-08-07T17:40:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "TPIPP",
-      "date": "2026-08-07T17:44:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -26191,7 +26137,7 @@
       "ticker": "BRR",
       "date": "2026-08-10T17:03:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "DMT",
@@ -26725,7 +26671,7 @@
       "ticker": "UP",
       "date": "2026-08-11T12:46:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BLESS",
@@ -27163,7 +27109,7 @@
       "ticker": "CPL",
       "date": "2026-08-11T18:35:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TERA",
@@ -29212,7 +29158,7 @@
       "ticker": "ACG",
       "date": "2026-08-14T08:05:00+07:00",
       "status": "confirmed",
-      "quarter": null
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "SPCG",
@@ -31109,6 +31055,69 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-06T12:33:00+07:00"
+    },
+    {
+      "ticker": "PDG",
+      "date": "2026-11-06T17:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:01:00+07:00"
+    },
+    {
+      "ticker": "SMART",
+      "date": "2026-11-06T17:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:08:00+07:00"
+    },
+    {
+      "ticker": "GULF",
+      "date": "2026-11-06T17:22:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:22:00+07:00"
+    },
+    {
+      "ticker": "TPLAS",
+      "date": "2026-11-06T17:28:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:28:00+07:00"
+    },
+    {
+      "ticker": "OR",
+      "date": "2026-11-06T17:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:35:00+07:00"
+    },
+    {
+      "ticker": "TPIPP",
+      "date": "2026-11-06T17:42:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:42:00+07:00"
+    },
+    {
+      "ticker": "IFS",
+      "date": "2026-11-06T17:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:43:00+07:00"
+    },
+    {
+      "ticker": "AIT",
+      "date": "2026-11-06T17:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T17:43:00+07:00"
+    },
+    {
+      "ticker": "TURTLE",
+      "date": "2026-11-06T18:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T18:04:00+07:00"
     }
   ]
 }
