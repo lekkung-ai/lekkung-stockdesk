@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T18:16:46.736928+07:00",
+  "generatedAt": "2026-09-23T15:00:12.399141+07:00",
   "windowDays": 45,
   "universeSize": 934,
   "buckets": {
@@ -125,7 +125,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106861301&symbol=TSR",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไขหน้ารายงานผู้สอบบัญชีรับอนุญาตและหมายเหตุประกอบงบการเงิน)",
       "reason": "รายได้จากการขายสำหรับไตรมาส 2/2569 เท่ากับ 151.89 ล้านบาท เพิ่มขึ้น 4.87 ล้านบาท คิดเป็น ร้อยละ 3.31 จากช่วงเดียวกันของปีก่อน เนื่องจากในปีก่อนเป็นช่วงเริ่มต้นของการปรับโครงสร้าง",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "META",
@@ -155,7 +159,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 100.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 150.0,
       "drift_d5_pct": null
     },
     {
@@ -187,7 +191,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 150.0
     },
     {
       "ticker": "TAPAC",
@@ -525,7 +529,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 1.37,
+      "gap_pct": 0.68,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -2122,8 +2126,8 @@
       "netProfit": -1459000.0,
       "netProfitPrior": -4040000.0,
       "netProfitYoY": 63.88613861386139,
-      "netProfitPriorQ": -4488000.0,
-      "netProfitQoQ": 67.49108734402853,
+      "netProfitPriorQ": -4571000.0,
+      "netProfitQoQ": 68.08138262962153,
       "profitAcceleration": "accelerating",
       "eps": -0.0024,
       "epsPrior": -0.0067,
@@ -15165,8 +15169,8 @@
       "netProfit": 221362000.0,
       "netProfitPrior": 275588000.0,
       "netProfitYoY": -19.676473576498253,
-      "netProfitPriorQ": 226185000.0,
-      "netProfitQoQ": -2.132325308928532,
+      "netProfitPriorQ": 163314000.0,
+      "netProfitQoQ": 35.54379906192978,
       "profitAcceleration": "stable",
       "eps": 0.24,
       "epsPrior": 0.3,
@@ -22985,7 +22989,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.68,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": 1.36,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -25587,18 +25591,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "PANEL",
-      "date": "2026-08-06T08:18:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "BRRGIF",
-      "date": "2026-08-06T12:33:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "TYCN",
       "date": "2026-08-06T17:03:00+07:00",
       "status": "confirmed",
@@ -25660,28 +25652,10 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "ASW",
-      "date": "2026-08-06T17:31:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "SAFE",
-      "date": "2026-08-06T17:34:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "TACC",
       "date": "2026-08-06T17:40:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "FPT",
-      "date": "2026-08-06T17:44:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "PRECHA",
@@ -25708,56 +25682,14 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "NYT",
-      "date": "2026-08-06T18:51:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "AKR",
-      "date": "2026-08-06T19:00:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "SPVI",
-      "date": "2026-08-06T19:07:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "SMT",
-      "date": "2026-08-06T19:42:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "NVD",
       "date": "2026-08-06T20:02:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "I2",
-      "date": "2026-08-06T20:56:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "GLAND",
-      "date": "2026-08-06T21:14:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "TKS",
       "date": "2026-08-06T21:17:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "CMAN",
-      "date": "2026-08-07T07:58:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -25770,12 +25702,6 @@
     {
       "ticker": "2S",
       "date": "2026-08-07T08:43:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "RCL",
-      "date": "2026-08-07T12:35:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -25824,12 +25750,6 @@
     {
       "ticker": "SPACK",
       "date": "2026-08-07T17:14:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "LST",
-      "date": "2026-08-07T17:16:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -25908,12 +25828,6 @@
     {
       "ticker": "SFT",
       "date": "2026-08-07T18:50:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "GREEN",
-      "date": "2026-08-07T19:01:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -31118,6 +31032,111 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-06T18:04:00+07:00"
+    },
+    {
+      "ticker": "SPVI",
+      "date": "2026-11-06T18:33:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T18:33:00+07:00"
+    },
+    {
+      "ticker": "GLAND",
+      "date": "2026-11-06T18:36:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T18:36:00+07:00"
+    },
+    {
+      "ticker": "I2",
+      "date": "2026-11-06T18:42:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T18:42:00+07:00"
+    },
+    {
+      "ticker": "FPT",
+      "date": "2026-11-06T19:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T19:35:00+07:00"
+    },
+    {
+      "ticker": "SAFE",
+      "date": "2026-11-06T19:42:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T19:42:00+07:00"
+    },
+    {
+      "ticker": "NYT",
+      "date": "2026-11-06T19:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T19:43:00+07:00"
+    },
+    {
+      "ticker": "ASW",
+      "date": "2026-11-06T19:55:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T19:55:00+07:00"
+    },
+    {
+      "ticker": "SMT",
+      "date": "2026-11-06T20:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-06T20:13:00+07:00"
+    },
+    {
+      "ticker": "GREEN",
+      "date": "2026-11-07T08:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-07T08:05:00+07:00"
+    },
+    {
+      "ticker": "PANEL",
+      "date": "2026-11-07T08:29:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-07T08:29:00+07:00"
+    },
+    {
+      "ticker": "AKR",
+      "date": "2026-11-07T08:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-07T08:35:00+07:00"
+    },
+    {
+      "ticker": "CMAN",
+      "date": "2026-11-07T08:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-07T08:47:00+07:00"
+    },
+    {
+      "ticker": "RCL",
+      "date": "2026-11-07T12:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-07T12:32:00+07:00"
+    },
+    {
+      "ticker": "BRRGIF",
+      "date": "2026-11-07T12:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-07T12:37:00+07:00"
+    },
+    {
+      "ticker": "LST",
+      "date": "2026-11-07T12:56:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-07T12:56:00+07:00"
     }
   ]
 }
