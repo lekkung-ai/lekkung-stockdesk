@@ -116,15 +116,24 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
       {commodity.tickers.length > 0 ? (
         <div className="pt-2.5 border-t border-white/[0.06] flex items-center gap-1.5 flex-wrap">
           <span className="text-[11px] text-white/40 font-semibold mr-0.5">กระทบหุ้น:</span>
-          {commodity.tickers.map(t => (
-            <Link
-              key={t}
-              href={`/stock/${t}`}
-              className="text-[12px] font-bold px-2.5 py-1 rounded-lg bg-white/[0.06] text-white/90 hover:bg-emerald-500/20 hover:text-emerald-300 border border-white/[0.09] hover:border-emerald-500/30 transition-all shadow-sm"
-            >
-              {t}
-            </Link>
-          ))}
+          {commodity.tickers.map(t => {
+            const impactType = commodity.ticker_impacts?.[t.toUpperCase()] || 'revenue';
+            const impactChipStyle =
+              impactType === 'cost'
+                ? 'bg-rose-500/10 text-rose-400 border-rose-500/20 hover:bg-rose-500/20 hover:text-rose-300 hover:border-rose-500/30'
+                : impactType === 'margin'
+                ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20 hover:text-amber-300 hover:border-amber-500/30'
+                : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20 hover:text-emerald-300 hover:border-emerald-500/30';
+            return (
+              <Link
+                key={t}
+                href={`/stock/${t}`}
+                className={`text-[12px] font-bold px-2.5 py-1 rounded-lg border transition-all shadow-sm ${impactChipStyle}`}
+              >
+                {t}
+              </Link>
+            );
+          })}
         </div>
       ) : (
         <div className="pt-2 border-t border-white/[0.04]">
@@ -160,6 +169,7 @@ export default function MacroPage() {
           series_empty: data.series_empty ?? false,
           last_success_date: data.last_success_date ?? null,
           never_fetched: data.never_fetched ?? false,
+          ticker_impacts: data.ticker_impacts || {},
         }));
         if (fetchedList.length > 0) {
           // Merge fetched items with default static items so missing symbols are never dropped
@@ -223,6 +233,12 @@ export default function MacroPage() {
           <p className="text-[13px] text-white/40 mt-1">
             ดัชนีโภคภัณฑ์และอัตราแลกเปลี่ยนที่มีผลต่อบริษัทจดทะเบียนในไทย · ข้อมูลล่าสุด ณ {formatShortThaiDate(macroGeneratedAt)}
           </p>
+          <div className="flex items-center gap-3 mt-2 text-[11px] text-white/35">
+            <span className="font-semibold text-white/40">สีชิปหุ้น:</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-400" />ได้ประโยชน์ (Revenue)</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-rose-400" />ต้นทุนเพิ่ม (Cost)</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400" />กระทบมาร์จิน (Margin)</span>
+          </div>
         </div>
       </div>
 
