@@ -6,7 +6,7 @@ import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings, RotateCw,
-  Scale, Coins, CircleDollarSign,
+  Scale, Coins, CircleDollarSign, ListOrdered,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 
@@ -28,6 +28,8 @@ interface NavItem {
   indent?: boolean;
   count?: number;
   exact?: boolean;
+  // Highlight for any path under this prefix (e.g. both /set-index/set50 and /set-index/set100)
+  activePrefix?: string;
 }
 
 interface NavGroup {
@@ -43,6 +45,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Market Breadth', href: '/breadth', icon: BarChart2 },
       { label: 'Sector Map', href: '/sector', icon: Map },
       { label: 'Sector Rotation', href: '/sector-rotation', icon: RotateCw },
+      { label: 'SET50 / SET100', href: '/set-index/set100', icon: ListOrdered, activePrefix: '/set-index/' },
       { label: 'Macro & Commodities', href: '/macro', icon: Fuel },
       { label: 'Top Movers', href: '/top-movers', icon: Activity, exact: true },
       { label: 'Big Lot', href: '/top-movers/biglot', icon: Package, indent: true },
@@ -92,6 +95,7 @@ export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
   const searchParams = useSearchParams();
 
   function isActive(item: NavItem): boolean {
+    if (item.activePrefix) return pathname.startsWith(item.activePrefix);
     const [hrefPath, hrefQs] = item.href.split('?');
     const matchesPath = item.exact
       ? pathname === hrefPath

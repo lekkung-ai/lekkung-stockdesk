@@ -16,5 +16,6 @@ export default async function SetIndexPage({
   params: Promise<{ index: string }>;
 }) {
   const { index } = await params;
-  return <IndexConstituents index={index} />;
+  // key → remount on SET50/SET100 switch so filters/sort start fresh (full list visible)
+  return <IndexConstituents key={index} index={index} />;
 }

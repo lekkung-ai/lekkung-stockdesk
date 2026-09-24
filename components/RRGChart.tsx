@@ -41,7 +41,7 @@ function sectorColor(sector: string): string {
 }
 
 export interface TrailPoint {
-  offset: number; // days ago (0 = last, 5, 10, 15)
+  offset: number; // days ago (0 = last, 5, 10, 15, 20)
   date: string;
   rs: number;
   mom: number;
@@ -62,8 +62,10 @@ export function computeSectorRRGTrails(
   selectedSector?: string | null
 ): {
   sectorsData: SectorRRGData[];
-  dates: string[];
-  maxAbsMom: number;
+  /** Earliest → latest date actually plotted on any trail (not the full lookback window) */
+  trailRange: { from: string; to: string } | null;
+  /** Largest |mom| across every plotted point, heads and trails (unpadded) */
+  rawMaxAbsMom: number;
 } {
   const isSubsectorMode = market === 'SET' && Boolean(selectedSector);
   let marketSectorsMap: Record<string, SectorHistoryItem> = {};
@@ -81,18 +83,24 @@ export function computeSectorRRGTrails(
   const dates = historyData.dates ?? [];
 
   const sectorsData: SectorRRGData[] = [];
-  let globalMaxAbsMom = 10;
+  let globalMaxAbsMom = 0;
+  let rangeFrom: string | null = null;
+  let rangeTo: string | null = null;
 
   for (const [sector, item] of Object.entries(marketSectorsMap)) {
     const rawSeries = Array.isArray(item?.rs_series) ? item.rs_series : [];
     const series = rawSeries.filter((v): v is number => typeof v === 'number');
     if (series.length === 0) continue;
+    // Original positions of the kept values, so dates[] stays aligned if the series has nulls
+    const dateIdx = rawSeries.flatMap((v, i) => (typeof v === 'number' ? [i] : []));
 
     const count = typeof item.count === 'number' ? item.count : 0;
     const lastIdx = series.length - 1;
 
-    // Trail points: 15, 10, 5, 0 days ago (oldest to newest)
-    const offsets = [15, 10, 5, 0];
+    // Trail points: 20, 15, 10, 5, 0 days ago (oldest to newest) — spans the same
+    // 20-day window as the momentum. Offsets past the start of a short series are
+    // dropped, never clamped onto index 0 (which would plot the same point twice).
+    const offsets = [20, 15, 10, 5, 0];
     const trail: TrailPoint[] = [];
 
     for (const off of offsets) {
@@ -125,8 +133,12 @@ export function computeSectorRRGTrails(
             ? 'Improving'
             : 'Lagging';
 
-        const dateStr = dates[idx] ?? `Day ${idx}`;
+        const dateStr = dates[dateIdx[idx]] ?? `Day ${idx}`;
         trail.push({ offset: off, date: dateStr, rs, mom, quadrant });
+        if (dates[dateIdx[idx]]) {
+          if (rangeFrom === null || dateStr < rangeFrom) rangeFrom = dateStr;
+          if (rangeTo === null || dateStr > rangeTo) rangeTo = dateStr;
+        }
 
         if (Math.abs(mom) > globalMaxAbsMom) {
           globalMaxAbsMom = Math.abs(mom);
@@ -150,14 +162,19 @@ export function computeSectorRRGTrails(
     }
   }
 
-  // Ceiling for symmetrical Y-axis scale with padding
-  const maxAbsMom = Math.max(10, Math.ceil(globalMaxAbsMom * 1.15));
-
   return {
     sectorsData,
-    dates,
-    maxAbsMom,
+    trailRange: rangeFrom && rangeTo ? { from: rangeFrom, to: rangeTo } : null,
+    rawMaxAbsMom: globalMaxAbsMom,
   };
+}
+
+// Symmetric Y domain for the current view: ±max|mom| × 1.25, floor ±5, rounded
+// up to a multiple of 5. Each view (sector / one sector's subsectors) scales to
+// its own points, trails included.
+export function computeMomDomain(rawMaxAbsMom: number): number {
+  const padded = Math.max(5, rawMaxAbsMom * 1.25);
+  return Math.ceil(padded / 5) * 5;
 }
 
 interface RRGChartProps {
@@ -185,10 +202,11 @@ export default function RRGChart({
 
   const selectedSector = propSelectedSector ?? null;
 
-  const { sectorsData, dates, maxAbsMom } = useMemo(
+  const { sectorsData, trailRange, rawMaxAbsMom } = useMemo(
     () => computeSectorRRGTrails(market, selectedSector),
     [market, selectedSector]
   );
+  const maxAbsMom = computeMomDomain(rawMaxAbsMom);
 
   const quadrantCounts = useMemo(() => {
     const counts: Record<Quadrant, number> = {
@@ -277,7 +295,7 @@ export default function RRGChart({
           )}
           <p className="text-[12px] text-white/40 mt-0.5">
             แกน X: RS Score (0–100) · แกน Y: 20-Day RS Momentum (▲/▼) · หาง (Trail): 4 สัปดาห์ย้อนหลัง
-            {dates.length > 0 && ` (${dates[0]} ถึง ${dates[dates.length - 1]})`}
+            {trailRange && ` (${trailRange.from} ถึง ${trailRange.to})`}
           </p>
         </div>
 
@@ -446,7 +464,7 @@ export default function RRGChart({
           })}
 
           {/* Y Axis Grid Ticks & Labels */}
-          {[-maxAbsMom, -Math.round(maxAbsMom / 2), 0, Math.round(maxAbsMom / 2), maxAbsMom].map(
+          {[-maxAbsMom, -maxAbsMom / 2, 0, maxAbsMom / 2, maxAbsMom].map(
             val => {
               const y = toY(val);
               return (
@@ -677,6 +695,7 @@ export default function RRGChart({
             <b>วิธีอ่าน RRG Chart:</b> ลากเมาส์เพื่อดูหาง 4w {!selectedSector && market === 'SET' && '· กดที่จุดเพื่อดู Subsector RRG'}
           </span>
         </div>
+        <span className="text-amber-300/70">⚠ = subsector แตกแถว (RS ต่างกัน &gt;25)</span>
       </div>
     </div>
   );

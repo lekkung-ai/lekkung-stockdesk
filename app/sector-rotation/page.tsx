@@ -27,9 +27,6 @@ export default function SectorRotationPage() {
             <h1 className="text-[18px] md:text-[20px] font-bold text-white tracking-tight">
               Relative Rotation Graph (RRG)
             </h1>
-            <span className="px-2 py-0.5 text-[10px] md:text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">
-              Phase 4
-            </span>
           </div>
           <p className="text-[12px] text-white/40 mt-0.5">
             วิเคราะห์ทิศทางและโมเมนตัมการหมุนเวียนเงินของ Sector & Subsector ย้อนหลัง 4 สัปดาห์

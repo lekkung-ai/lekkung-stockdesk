@@ -10,16 +10,30 @@ export function formatShortThaiDate(iso: string | null | undefined): string {
   return `${d.getDate()} ${MONTHS_TH[d.getMonth()]}`;
 }
 
+// Pinned to Asia/Bangkok so the label is identical on Vercel (UTC) and in the browser —
+// d.getHours()/getDate() use the runtime's local zone and shift pipeline times by 7h on UTC.
+const BANGKOK_PARTS = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Bangkok',
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+});
+
 export function formatThaiDate(iso: string | null | undefined): string {
   if (!iso) return 'ไม่ทราบวันที่อัปเดต';
   try {
     const d = new Date(iso);
     if (isNaN(d.getTime())) return 'ไม่ทราบวันที่อัปเดต';
-    const day = d.getDate();
-    const month = MONTHS_TH[d.getMonth()];
-    const year = d.getFullYear() + 543;
-    const hh = String(d.getHours()).padStart(2, '0');
-    const mm = String(d.getMinutes()).padStart(2, '0');
+    const p: Record<string, string> = {};
+    for (const { type, value } of BANGKOK_PARTS.formatToParts(d)) p[type] = value;
+    const day = Number(p.day);
+    const month = MONTHS_TH[Number(p.month) - 1];
+    const year = Number(p.year) + 543;
+    const hh = p.hour.padStart(2, '0');
+    const mm = p.minute.padStart(2, '0');
     return `${day} ${month} ${year} เวลา ${hh}:${mm} น.`;
   } catch {
     return 'ไม่ทราบวันที่อัปเดต';
