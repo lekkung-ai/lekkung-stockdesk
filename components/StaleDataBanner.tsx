@@ -25,7 +25,7 @@ const FRESH_HOUR_ICT = 17; // pipeline's evening run is ~17:30 ICT - data dated
 // timezone - a Friday-evening/weekend generate correctly counts as covering
 // Friday, and Monday morning (before 17:00) still expects Friday's data,
 // only Monday evening onward expects a newer run.
-function freshnessCutoffMs(nowUtcMs: number): number {
+export function freshnessCutoffMs(nowUtcMs: number): number {
   const bkkNow = new Date(nowUtcMs + BANGKOK_OFFSET_MS);
   const weekday = bkkNow.getUTCDay(); // 0=Sun .. 6=Sat, in Bangkok terms
   const todayAt17Bkk = Date.UTC(bkkNow.getUTCFullYear(), bkkNow.getUTCMonth(), bkkNow.getUTCDate(), FRESH_HOUR_ICT, 0, 0) - BANGKOK_OFFSET_MS;

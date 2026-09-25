@@ -33,7 +33,8 @@ export function getSectorsGrouped(market?: 'SET' | 'MAI'): { sector: string; sub
   return Array.from(map.entries()).map(([sector, subsectors]) => ({
     sector,
     subsectors,
-    totalCount: subsectors.reduce((s, e) => s + e.count, 0),
+    // Count the actual ticker lists — the hand-edited `count` field can drift from them
+    totalCount: subsectors.reduce((s, e) => s + e.tickers.length, 0),
   }));
 }
 

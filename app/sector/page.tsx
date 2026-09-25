@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { getSectorsGrouped, sectorToSlug } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
+import DataUpdatedBadge from '@/components/DataUpdatedBadge';
 import rawSectorRS from '@/data/scans/sector_rs.json';
 import { medianPE, medianPBV } from '@/lib/valuation';
 
@@ -105,7 +106,7 @@ export default function SectorPage() {
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
               Sector Relative Strength Ranking ({market} - Median RS หุ้นในกลุ่ม)
             </span>
-            <span className="text-[11.5px] text-white/40 font-medium">อัปเดตล่าสุดวันนี้</span>
+            <DataUpdatedBadge generatedAt={sectorRSData.generated_at} />
           </div>
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
             {rankedSectors.map((item) => {
