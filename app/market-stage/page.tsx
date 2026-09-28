@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { stageData } from '@/lib/strategyData';
+import { useState, useMemo, useEffect, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { stageData, weinsteinData } from '@/lib/strategyData';
 import { getScanGeneratedAt, hasScanKey } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
@@ -10,9 +11,11 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  stageCls, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  stageCls, SectorChip, Th, Td, TableWrap, FilterBar, PageHeader, LivePriceCell, SortableTh, SortConfig,
   ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
+import StageSelect, { STAGE_ALL } from '@/components/StageSelect';
+import Pagination from '@/components/Pagination';
 import StockChart from '@/components/StockChart';
 import ScanHistoryView from '@/components/ScanHistoryView';
 import ModeToggle from '@/components/ModeToggle';
@@ -38,35 +41,131 @@ const STAGE_ORDER: Record<string, number> = {
   'UNKNOWN': 7,
 };
 
+const PAGE_SIZE = 20;
+const SORT_KEYS = ['Ticker', 'Price', 'Stage', 'Bar_Count', 'EMA50', 'EMA200', '52W_FromHigh', 'ADTV(MB)'];
+
+// 52W H/L comes from the same weinstein.json the /stage-analysis page reads
+// (engine: rolling 252-day max High / min Low). A 0.0 there is the engine's
+// fallback for "no value", so it's treated as missing just like null.
+const WEEK52_SORT_KEY = '52W_FromHigh';
+const week52Map = new Map<string, { high: number; low: number }>();
+for (const w of weinsteinData) {
+  const high = w['52W_High'];
+  const low = w['52W_Low'];
+  if (high != null && high > 0 && low != null && low > 0) week52Map.set(w.Ticker, { high, low });
+}
+const pctFromHigh = (ticker: string, price: number): number | null => {
+  const w = week52Map.get(ticker);
+  return w && price > 0 ? ((price - w.high) / w.high) * 100 : null;
+};
+
 export default function MarketStagePage() {
-  const [stages, setStages] = useState<Set<string>>(new Set(ALL_STAGES));
-  const [adtvMin, setAdtvMin] = useState(0);
-  const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+  return (
+    <Suspense fallback={null}>
+      <MarketStageContent />
+    </Suspense>
+  );
+}
+
+// Same layout/colors as the 52w H/L cell on /stage-analysis: High (red) over Low (green).
+function Week52Cell({ ticker, price }: { ticker: string; price: number }) {
+  const w = week52Map.get(ticker);
+  if (!w) return <span className="text-white/40">—</span>;
+  const pct = pctFromHigh(ticker, price);
+  return (
+    <div
+      className="flex flex-col items-end leading-tight text-label"
+      title={pct != null ? `ห่างจาก 52W High ${pct.toFixed(1)}%` : undefined}
+    >
+      <span className="text-[#E24B4A]">{w.high.toFixed(2)}</span>
+      <span className="text-[#1D9E75]">{w.low.toFixed(2)}</span>
+    </div>
+  );
+}
+
+function MarketStageContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const rawStage = searchParams.get('stage');
+  const stage = rawStage && ALL_STAGES.includes(rawStage) ? rawStage : STAGE_ALL;
+  const requestedPage = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10) || 1);
+  // ?sort=<column>&dir=asc|desc - anything invalid/missing = default sort.
+  const rawSort = searchParams.get('sort');
+  const rawDir = searchParams.get('dir');
+  const sortKey = rawSort && SORT_KEYS.includes(rawSort) && (rawDir === 'asc' || rawDir === 'desc') ? rawSort : null;
+  const sortDir = rawDir === 'asc' ? 'asc' : 'desc';
+  // Memoized on the strings so it stays referentially stable for useInfiniteRows' resetDeps.
+  const sortConfig = useMemo<SortConfig>(() => (sortKey ? { key: sortKey, dir: sortDir } : null), [sortKey, sortDir]);
+
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone } = useLivePrices(stageData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('market-stage')?.newTickers ?? []), []);
+  const tableTopRef = useRef<HTMLDivElement>(null);
 
-  const allStagesSelected = stages.size === ALL_STAGES.length;
-
-  const handleSort = (key: string) => {
-    setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
-  };
-
-  function toggleStage(s: string) {
-    const next = new Set(stages);
-    if (next.has(s)) next.delete(s);
-    else next.add(s);
-    setStages(next);
+  // stage + page live in the URL (?stage=&page=) so a refresh / shared link
+  // lands on the same view; defaults are dropped to keep the URL clean.
+  function setParams(next: { stage?: string; page?: number; sort?: SortConfig }) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (next.sort !== undefined) {
+      if (next.sort) {
+        params.set('sort', next.sort.key);
+        params.set('dir', next.sort.dir);
+      } else {
+        params.delete('sort');
+        params.delete('dir');
+      }
+    }
+    if (next.stage !== undefined) {
+      if (next.stage === STAGE_ALL) params.delete('stage');
+      else params.set('stage', next.stage);
+    }
+    if (next.page !== undefined) {
+      if (next.page <= 1) params.delete('page');
+      else params.set('page', String(next.page));
+    }
+    const qs = params.toString();
+    router.replace(qs ? `/market-stage?${qs}` : '/market-stage', { scroll: false });
   }
 
+  // Any change to what's listed or its order goes back to page 1.
+  const handleSort = (key: string) => {
+    const prev = sortConfig;
+    const next: SortConfig = prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' };
+    setParams({ sort: next, page: 1 });
+  };
+  const handleDiffFilter = (f: DiffFilter) => {
+    setDiffFilter(f);
+    setParams({ page: 1 });
+  };
+  const handleStage = (s: string) => setParams({ stage: s, page: 1 });
+
+  // Per-stage counts for the dropdown - taken after the new/dropped filter so
+  // each count matches the row total that choosing it would show.
+  const diffRows = useMemo(
+    () => stageData.filter(s => diffFilter !== 'new' || newSet.has(s.Ticker)),
+    [diffFilter, newSet]
+  );
+  const stageCounts = useMemo(() => {
+    const c: Record<string, number> = {};
+    for (const s of diffRows) c[s.Stage] = (c[s.Stage] ?? 0) + 1;
+    return c;
+  }, [diffRows]);
+
   const filtered = useMemo(() => {
-    let result = stageData
-      .filter(s => allStagesSelected || stages.has(s.Stage))
-      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
-      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
-    if (sortConfig) {
+    let result = diffRows.filter(s => stage === STAGE_ALL || s.Stage === stage);
+    if (sortConfig?.key === WEEK52_SORT_KEY) {
+      // % from 52W High - tickers without 52W data stay last in both directions.
+      result = result.sort((a, b) => {
+        const aVal = pctFromHigh(a.Ticker, a.Price);
+        const bVal = pctFromHigh(b.Ticker, b.Price);
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return 1;
+        if (bVal == null) return -1;
+        return sortConfig.dir === 'asc' ? aVal - bVal : bVal - aVal;
+      });
+    } else if (sortConfig) {
       result = result.sort((a, b) => {
         const aVal = (a as any)[sortConfig.key] || 0;
         const bVal = (b as any)[sortConfig.key] || 0;
@@ -88,13 +187,31 @@ export default function MarketStagePage() {
       });
     }
     return result;
-  }, [stages, allStagesSelected, adtvMin, sortConfig, diffFilter, newSet]);
+  }, [diffRows, stage, sortConfig]);
+
+  // Desktop: pages of 20 over the full filtered+sorted list (an out-of-range
+  // ?page= shows the last page). Mobile keeps its infinite-scroll batches.
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const page = Math.min(requestedPage, totalPages);
+  const pageStart = (page - 1) * PAGE_SIZE;
+  const pageRows = filtered.slice(pageStart, pageStart + PAGE_SIZE);
+
+  useEffect(() => {
+    if (requestedPage !== page) setParams({ page });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requestedPage, page]);
+
+  const goToPage = (p: number) => {
+    setParams({ page: p });
+    tableTopRef.current?.scrollIntoView({ block: 'start' });
+  };
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [stages, allStagesSelected, adtvMin, sortConfig, diffFilter, newSet]
+    [stage, sortConfig, diffFilter, newSet]
   );
-  const displayRows = isMobile ? visibleRows : filtered;
+  const displayRows = isMobile ? visibleRows : pageRows;
+  const rowOffset = isMobile ? 0 : pageStart;
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -120,37 +237,23 @@ export default function MarketStagePage() {
       <>
       <FilterBar>
         <span className="text-[10px] text-white/20 uppercase tracking-wider flex-shrink-0">Stage</span>
-        {ALL_STAGES.map(s => (
+        <StageSelect
+          stages={ALL_STAGES}
+          counts={stageCounts}
+          totalCount={diffRows.length}
+          value={stage}
+          onChange={handleStage}
+        />
+        {stage !== STAGE_ALL && (
           <button
-            key={s}
-            onClick={() => toggleStage(s)}
-            className={`px-2 py-0.5 rounded text-[10px] font-semibold transition-all ${
-              stages.has(s) ? stageCls(s) : 'bg-white/[0.04] text-white/20 hover:text-white/40'
-            }`}
-          >
-            {s}
-          </button>
-        ))}
-        {!allStagesSelected && (
-          <button
-            onClick={() => setStages(new Set(ALL_STAGES))}
-            className="text-label text-white/25 hover:text-white/60 transition-colors"
-          >
-            Reset
-          </button>
-        )}
-        {stages.size > 0 && (
-          <button
-            onClick={() => setStages(new Set())}
+            onClick={() => handleStage(STAGE_ALL)}
             className="text-label text-white/25 hover:text-white/60 transition-colors"
           >
             ล้างทั้งหมด
           </button>
         )}
-        <Divider />
-        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={setAdtvMin} step={5} />
         <div className="ml-auto">
-          <ScanDiffChips scanName="market-stage" filter={diffFilter} onChange={setDiffFilter} />
+          <ScanDiffChips scanName="market-stage" filter={diffFilter} onChange={handleDiffFilter} />
         </div>
       </FilterBar>
 
@@ -159,6 +262,7 @@ export default function MarketStagePage() {
       ) : (
       <>
       <MobileScanProgress shown={visibleCount} total={totalCount} />
+      <div ref={tableTopRef} className="scroll-mt-4" />
       <TableWrap>
         <thead className="border-b border-white/[0.06] bg-white/[0.015]">
           {/* responsive: # รวมเข้า Symbol (sticky) · EMA50/EMA200 ซ่อน ≤1200 (ครอบ iPad Air)
@@ -171,6 +275,7 @@ export default function MarketStagePage() {
             <SortableTh right sortKey="Bar_Count" currentSort={sortConfig} onSort={handleSort}>Days In Stage</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="EMA50" currentSort={sortConfig} onSort={handleSort}>EMA50</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="EMA200" currentSort={sortConfig} onSort={handleSort}>EMA200</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey={WEEK52_SORT_KEY} currentSort={sortConfig} onSort={handleSort}>52w H/L</SortableTh>
             <SortableTh right sortKey="ADTV(MB)" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
           </tr>
         </thead>
@@ -185,7 +290,7 @@ export default function MarketStagePage() {
             >
               <Td>
                 <div className="flex items-center gap-2 font-bold text-white">
-                  <span className="text-white/25 tabular-nums text-[11px] font-normal shrink-0">{i + 1}</span>
+                  <span className="text-white/25 tabular-nums text-[11px] font-normal shrink-0">{rowOffset + i + 1}</span>
                   {s.Ticker}
                   <AddMyStockButton ticker={s.Ticker} />
                   {newSet.has(s.Ticker) && <NewBadge />}
@@ -216,6 +321,9 @@ export default function MarketStagePage() {
                   {s.EMA200 != null ? s.EMA200.toFixed(2) : '-'}
                 </span>
               </Td>
+              <Td right mono className="hidden min-[1201px]:table-cell">
+                <Week52Cell ticker={s.Ticker} price={s.Price} />
+              </Td>
               <Td right mono>{s['ADTV(MB)'] != null ? s['ADTV(MB)'].toFixed(0) : '-'}</Td>
             </tr>
             {selectedTicker === s.Ticker && (
@@ -238,6 +346,7 @@ export default function MarketStagePage() {
                     <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3 mb-3">
                       <span className="text-white/40">EMA50: <span className={`tabular-nums font-semibold ${s.EMA50 != null && s.Price > s.EMA50 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.EMA50 != null ? s.EMA50.toFixed(2) : '-'}</span></span>
                       <span className="text-white/40">EMA200: <span className={`tabular-nums font-semibold ${s.EMA200 != null && s.Price > s.EMA200 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>{s.EMA200 != null ? s.EMA200.toFixed(2) : '-'}</span></span>
+                      <span className="text-white/40">52w H/L: <span className="tabular-nums font-semibold">{week52Map.has(s.Ticker) ? <><span className="text-[#E24B4A]">{week52Map.get(s.Ticker)!.high.toFixed(2)}</span> / <span className="text-[#1D9E75]">{week52Map.get(s.Ticker)!.low.toFixed(2)}</span></> : <span className="text-white/40">—</span>}</span></span>
                     </div>
                     <StockChart ticker={s.Ticker} height={350} showEma10={true} stageMarker={true} defaultTimeframe="1Y" />
                     <p className="text-[10px] text-white/25 mt-2 leading-relaxed">
@@ -268,6 +377,14 @@ export default function MarketStagePage() {
           )}
         </tbody>
       </TableWrap>
+      {!isMobile && totalPages > 1 && (
+        <div className="flex flex-col items-center gap-1">
+          <Pagination page={page} totalPages={totalPages} onChange={goToPage} />
+          <span className="text-[11px] text-white/35 tabular-nums">
+            แสดง {pageStart + 1}–{pageStart + pageRows.length} จาก {filtered.length}
+          </span>
+        </div>
+      )}
       </>
       )}
       </>
