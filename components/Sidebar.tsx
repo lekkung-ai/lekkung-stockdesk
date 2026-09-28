@@ -6,7 +6,7 @@ import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings, RotateCw,
-  Scale, Coins, CircleDollarSign, ListOrdered,
+  Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 
@@ -68,6 +68,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Lekkung Growth', href: '/lekkung', icon: Activity, indent: true, count: COUNTS.lekkung },
       { label: 'CAN SLIM (O\'Neil)', href: '/oneil', icon: TrendingUp, indent: true, count: COUNTS.oneil },
       { label: 'SEPA Trend Template', href: '/sepa', icon: TrendingUp, indent: true, count: COUNTS.sepa },
+      { label: 'VCP Review', href: '/vcp-review', icon: ClipboardCheck, indent: true },
       { label: 'Oliver Kell EMAC', href: '/kell', icon: BarChart2, indent: true, count: COUNTS.kell },
       { label: 'Stage Analysis', href: '/stage-analysis', icon: Layers, indent: true, count: COUNTS.weinstein },
       { label: 'Market Stage', href: '/market-stage', icon: Layers, indent: true, count: COUNTS.uptrend },
