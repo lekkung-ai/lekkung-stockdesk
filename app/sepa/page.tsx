@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Check, X } from 'lucide-react';
 import { sepaData, SepaEntry } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
@@ -13,7 +14,7 @@ import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, SliderField, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
+  rsColor, SectorChip, Th, Td, TableWrap, FilterBar, Divider, PageHeader, LivePriceCell, SortableTh, SortConfig,
   ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -91,29 +92,42 @@ function FundamentalBadge({ pass }: { pass: boolean | null | undefined }) {
   );
 }
 
-// ADTV floor ไม่ใช่ส่วนหนึ่งของ Trend Template 8 ข้อ — หุ้นผ่าน 8/8 แต่สภาพคล่อง
-// ต่ำกว่า floor (10 ลบ./วัน) ยังโผล่ในลิสต์แทนที่จะถูกตัดทิ้งเงียบๆ badge นี้บอก
-// ว่าทำไมถึงเห็นหุ้นตัวเล็ก/เทรดไม่คล่องปนอยู่กับหุ้น SEPA ทั่วไป
-function LowLiquidityBadge({ low, adtvMb }: { low: boolean | undefined; adtvMb: number | undefined }) {
-  if (!low) return null;
-  const adtvLabel = adtvMb != null ? adtvMb.toFixed(1) : '?';
+// ADTV ของหุ้นเป็นตัวเลขจางใต้ชื่อ แทนป้าย "ADTV ต่ำ" (floor 10 ลบ./วัน ของ pipeline) — ป้ายนั้น
+// ขัดกับชุดสภาพคล่องของหน้านี้ (หุ้น 6–10 MB อยู่ชุด "สูง" แต่ติดป้าย "ต่ำ") · ไม่มีค่า → ไม่แสดง
+function AdtvCaption({ adtvMb }: { adtvMb: number | null | undefined }) {
+  if (adtvMb == null) return null;
   return (
-    <span
-      title={`ADTV ${adtvLabel} ลบ./วัน (< floor 10 ลบ./วัน) — สภาพคล่องต่ำ ผ่าน Trend Template 8/8 แต่ระวังเรื่องเข้า-ออกยาก`}
-      className="inline-flex items-center px-1 py-0 rounded text-[9px] font-bold bg-amber-500/20 text-amber-400 ml-1.5 align-middle"
-    >
-      ADTV ต่ำ
-    </span>
+    <div className="text-[10px] text-white/30 tabular-nums" title="ADTV เฉลี่ย 50 วัน (ล้านบาท/วัน)">
+      ADTV {adtvMb.toFixed(1)} MB
+    </div>
   );
 }
 
 // Composite score คำนวณครั้งเดียวต่อ row (sepaData คงที่ตลอด session) — ไม่ persist ลง JSON
 const SCORES = new Map(sepaData.map(s => [s.Ticker, sepaCompositeScore(s)]));
 
-// ค่าเริ่มต้น: ซ่อนหุ้นสภาพคล่องต่ำ (ADTV < 10 ลบ./วัน) — ลาก slider ลงเพื่อดูทั้งหมด
-// ตัวกรอง = "ซ่อน" ฝั่ง client เท่านั้น ไม่ลบ row · จำนวนที่ซ่อนแสดงใน FilterBar เสมอ
-const ADTV_DEFAULT_MIN = 10;
-const RS_FLOOR = 70; // scan ผ่าน RS ≥ 70 ทุกตัว (T8) — ต่ำกว่านี้ไม่มีแถวให้กรอง
+// ชุดสภาพคล่องตาม ADTV(MB) (ลบ./วัน) — เลือกได้ทีละชุด ผูกกับ ?liq= ใน URL
+// ขอบเขต: สูง ≥ LIQ_HIGH_MB · กลาง LIQ_MID_MB ถึง < LIQ_HIGH_MB · ต่ำ < LIQ_MID_MB
+// หุ้นที่ไม่มีค่า ADTV อยู่ในชุด "ทั้งหมด" เท่านั้น · ADTV ของแต่ละตัวแสดงเป็นตัวเลขใต้ชื่อ (AdtvCaption)
+const LIQ_HIGH_MB = 6;
+const LIQ_MID_MB = 3;
+type LiqSet = 'all' | 'high' | 'mid' | 'low';
+const LIQ_SETS: LiqSet[] = ['all', 'high', 'mid', 'low'];
+const LIQ_DEFAULT: LiqSet = 'high';
+const LIQ_LABELS: Record<LiqSet, string> = {
+  all: 'ทั้งหมด',
+  high: `สูง ≥${LIQ_HIGH_MB} MB`,
+  mid: `กลาง ${LIQ_MID_MB}–${LIQ_HIGH_MB} MB`,
+  low: `ต่ำ <${LIQ_MID_MB} MB`,
+};
+
+function inLiqSet(adtv: number | null | undefined, set: LiqSet): boolean {
+  if (set === 'all') return true;
+  if (adtv == null) return false;
+  if (set === 'high') return adtv >= LIQ_HIGH_MB;
+  if (set === 'mid') return adtv >= LIQ_MID_MB && adtv < LIQ_HIGH_MB;
+  return adtv < LIQ_MID_MB;
+}
 const FUND_PASS_COUNT = sepaData.filter(s => s.Fundamental_Pass === true).length;
 
 type SortMode = 'composite' | 'rs' | 'adtv' | 'proximity';
@@ -149,12 +163,22 @@ function ScoreCell({ ticker }: { ticker: string }) {
 }
 
 export default function SepaPage() {
+  return (
+    <Suspense fallback={null}>
+      <SepaContent />
+    </Suspense>
+  );
+}
+
+function SepaContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const rawLiq = searchParams.get('liq');
+  const liq: LiqSet = rawLiq && (LIQ_SETS as string[]).includes(rawLiq) ? (rawLiq as LiqSet) : LIQ_DEFAULT;
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
-  const [rsMin, setRsMin] = useState(RS_FLOOR);
-  const [adtvMin, setAdtvMin] = useState(ADTV_DEFAULT_MIN);
   const [fundOnly, setFundOnly] = useState(false);
   const [sortMode, setSortMode] = useState<SortMode>('composite');
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -174,14 +198,14 @@ export default function SepaPage() {
     setDiffFilter(val);
   };
 
-  const handleRsMinChange = (val: number) => {
+  // ?liq= ใน URL ให้ refresh / แชร์ลิงก์แล้วได้ชุดเดิม · ค่าเริ่มต้น (high) ไม่ใส่ใน URL
+  const handleLiqChange = (val: LiqSet) => {
     setCurrentPage(1);
-    setRsMin(val);
-  };
-
-  const handleAdtvMinChange = (val: number) => {
-    setCurrentPage(1);
-    setAdtvMin(val);
+    const params = new URLSearchParams(searchParams.toString());
+    if (val === LIQ_DEFAULT) params.delete('liq');
+    else params.set('liq', val);
+    const qs = params.toString();
+    router.replace(qs ? `/sepa?${qs}` : '/sepa', { scroll: false });
   };
 
   const handleFundOnlyToggle = () => {
@@ -195,34 +219,22 @@ export default function SepaPage() {
     setSortMode(val);
   };
 
-  const handleShowAll = () => {
-    setCurrentPage(1);
-    setRsMin(RS_FLOOR);
-    setAdtvMin(0);
-    setFundOnly(false);
-  };
-
-  // slider/toggle = "ซ่อน" ฝั่ง client เท่านั้น (ไม่ลบ row) · ADTV ที่ไม่มีข้อมูล (undefined)
-  // ไม่ถูกซ่อนด้วย ADTV slider — "ไม่ทราบ" ไม่ใช่ "สภาพคล่องต่ำ"
-  const controlled = useMemo(
+  // ตัวกรองอื่น (F+ / เข้าใหม่) ก่อน → นับ n ของแต่ละชุดสภาพคล่องจากตรงนี้ → แล้วค่อยกรองชุดที่เลือก
+  const preLiq = useMemo(
     () =>
       sepaData.filter(
-        s =>
-          s.RS_Rating >= rsMin &&
-          (s['ADTV(MB)'] == null || s['ADTV(MB)'] >= adtvMin) &&
-          (!fundOnly || s.Fundamental_Pass === true)
+        s => (!fundOnly || s.Fundamental_Pass === true) && (diffFilter !== 'new' || newSet.has(s.Ticker))
       ),
-    [rsMin, adtvMin, fundOnly]
+    [fundOnly, diffFilter, newSet]
   );
-  const hiddenByControls = sepaData.length - controlled.length;
-  const hiddenByAdtv = useMemo(
-    () => sepaData.filter(s => s['ADTV(MB)'] != null && s['ADTV(MB)'] < adtvMin).length,
-    [adtvMin]
-  );
+  const liqCounts = useMemo(() => {
+    const c: Record<LiqSet, number> = { all: 0, high: 0, mid: 0, low: 0 };
+    for (const s of preLiq) for (const k of LIQ_SETS) if (inLiqSet(s['ADTV(MB)'], k)) c[k]++;
+    return c;
+  }, [preLiq]);
 
   const filtered = useMemo(() => {
-    let result = controlled
-      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+    let result = preLiq.filter(s => inLiqSet(s['ADTV(MB)'], liq));
 
     if (sortConfig) {
       result = result.sort((a, b) => {
@@ -259,11 +271,11 @@ export default function SepaPage() {
       });
     }
     return result;
-  }, [controlled, sortConfig, sortMode, diffFilter, newSet]);
+  }, [preLiq, liq, sortConfig, sortMode]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [sortConfig, sortMode, diffFilter, newSet, rsMin, adtvMin, fundOnly]
+    [sortConfig, sortMode, diffFilter, newSet, liq, fundOnly]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -307,8 +319,6 @@ export default function SepaPage() {
       ) : (
       <>
       <FilterBar>
-        <SliderField label="RS Rating" min={RS_FLOOR} max={90} step={10} value={rsMin} onChange={handleRsMinChange} />
-        <SliderField label="ADTV (MB)" min={0} max={10} step={1} value={adtvMin} onChange={handleAdtvMinChange} />
         <button
           onClick={handleFundOnlyToggle}
           title="เฉพาะ Fundamental_Pass = true · หุ้นที่ไม่มีข้อมูลงบ (null) จะถูกซ่อนเมื่อเปิด"
@@ -336,21 +346,23 @@ export default function SepaPage() {
         </label>
         <Divider />
         <ScanDiffChips scanName="sepa" filter={diffFilter} onChange={handleDiffFilterChange} />
+        <Divider />
+        <div className="flex items-center gap-1.5 flex-wrap" title="ชุดสภาพคล่องตาม ADTV (ลบ./วัน เฉลี่ย 50 วัน) · หุ้นที่ไม่มีค่า ADTV อยู่ในชุด ทั้งหมด เท่านั้น">
+          {LIQ_SETS.map(k => (
+            <button
+              key={k}
+              onClick={() => handleLiqChange(k)}
+              className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all border ${
+                liq === k
+                  ? 'bg-[#7F77DD]/15 text-[#7F77DD] border-[#7F77DD]/30'
+                  : 'bg-white/[0.04] text-white/35 border-white/[0.06] hover:text-white/60'
+              }`}
+            >
+              {LIQ_LABELS[k]} ({liqCounts[k]})
+            </button>
+          ))}
+        </div>
         <div className="basis-full flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/35">
-          {hiddenByControls > 0 && (
-            <>
-              <span className="text-amber-400/90">
-                ซ่อนด้วยตัวกรอง {hiddenByControls} ตัว
-                {adtvMin > 0 && hiddenByAdtv > 0 && ` (ADTV ต่ำกว่า ${adtvMin} MB: ${hiddenByAdtv})`}
-              </span>
-              <button
-                onClick={handleShowAll}
-                className="px-2.5 py-0.5 rounded-md border border-amber-500/50 bg-amber-500/10 text-amber-300 text-[11px] font-semibold hover:bg-amber-500/20 hover:border-amber-400/70 transition-colors"
-              >
-                แสดงทั้งหมด
-              </button>
-            </>
-          )}
           <span className="text-white/25">
             Score เฟส 1 = RS 50% + Fundamental 20% + ใกล้ 52W High 30% (ไม่มีข้อมูลงบ → ตัด Fundamental แล้วเกลี่ยเป็น 62.5/37.5) · ไม่รวมสภาพคล่อง · คำนวณในเบราว์เซอร์
           </span>
@@ -398,12 +410,12 @@ export default function SepaPage() {
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
                       <FundamentalBadge pass={s.Fundamental_Pass} />
-                      <LowLiquidityBadge low={s.Low_Liquidity} adtvMb={s['ADTV(MB)']} />
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
                     <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
+                  <AdtvCaption adtvMb={s['ADTV(MB)']} />
                   <SectorChip ticker={s.Ticker} />
                 </Td>
               <Td right mono><ScoreCell ticker={s.Ticker} /></Td>
