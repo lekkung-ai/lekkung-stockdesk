@@ -7,6 +7,7 @@ import { formatThaiDay, type FlowRow } from '@/lib/sectorFlow';
 interface SectorFlowFile {
   generated_at?: string;
   as_of?: string;
+  benchmark?: 'SET_INDEX' | 'universe_capweighted';
   subsectors: FlowRow[];
   sectors: FlowRow[];
 }
@@ -41,7 +42,7 @@ export default function SectorFlowPage() {
       </div>
 
       <Suspense fallback={<div className="text-white/40 text-sm py-4">กำลังโหลดข้อมูล...</div>}>
-        <SectorFlowView subsectors={flow.subsectors} sectors={flow.sectors} />
+        <SectorFlowView subsectors={flow.subsectors} sectors={flow.sectors} marketBenchmark={flow.benchmark === 'universe_capweighted'} />
       </Suspense>
     </div>
   );

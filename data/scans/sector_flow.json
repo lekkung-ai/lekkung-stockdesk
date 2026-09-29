@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-09-29T16:32:17.057145+07:00",
+  "generated_at": "2026-09-29T16:56:01.190828+07:00",
   "as_of": "2026-09-28",
-  "method": "Daily closes, SET market. flow_1d = group share of total traded value (Close x Volume) today / avg share of the previous 20 trading days; flow_5d = avg share of last 5 days / avg share of the 20 days before. value_* / base_value_* = traded value in million baht behind flow_* (today / 5-day daily avg vs the 20-day base). chg_* and ret_* = market-cap-weighted group return (constant-share basket, shares ESTIMATED as market_cap_now / Close_now - historical share counts unavailable); excess_* = group ret - SET index ret over 5 / 21 / 63 trading days. status: level = excess_3m, direction = excess_1m. avg_value_20d in million baht.",
+  "method": "Daily closes, SET market. flow_1d = group share of total traded value (Close x Volume) today / avg share of the previous 20 trading days; flow_5d = avg share of last 5 days / avg share of the 20 days before. value_* / base_value_* = traded value in million baht behind flow_* (today / 5-day daily avg vs the 20-day base). chg_* and ret_* = market-cap-weighted group return (constant-share basket, shares ESTIMATED as market_cap_now / Close_now - historical share counts unavailable); excess_* = group ret - benchmark ret (benchmark = SET index, or the whole-universe market-cap-weighted return when SET_INDEX.csv is stale) over 5 / 21 / 63 trading days. status: level = excess_3m, direction = excess_1m. avg_value_20d in million baht.",
+  "benchmark": "SET_INDEX",
   "n_stocks": 677,
   "n_without_market_cap": 8,
   "subsectors": [

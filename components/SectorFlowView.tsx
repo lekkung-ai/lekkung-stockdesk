@@ -34,7 +34,7 @@ function PctText({ pct }: { pct: number | null }) {
 // Excess-return cell colour: the ±3% heat scale stretched to ±5%
 const excessColor = (v: number | null) => heatColor(v == null ? null : (v * 3) / 5);
 
-export default function SectorFlowView({ subsectors, sectors }: { subsectors: FlowRow[]; sectors: FlowRow[] }) {
+export default function SectorFlowView({ subsectors, sectors, marketBenchmark = false }: { subsectors: FlowRow[]; sectors: FlowRow[]; marketBenchmark?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const sp = useSearchParams();
@@ -147,6 +147,9 @@ export default function SectorFlowView({ subsectors, sectors }: { subsectors: Fl
           <div>
             <h2 className="text-[15px] font-extrabold text-white">กลุ่มไหนกำลังแข็งขึ้น / หมดแรง</h2>
             <p className="text-[11.5px] text-white/40 mt-0.5">ผลตอบแทนส่วนเกินเทียบ SET (จุด %) · เรียงค่าเริ่มต้นตามสถานะ · คลิกหัวคอลัมน์เพื่อเรียง · คลิกแถวเพื่อดู sector</p>
+            {marketBenchmark && (
+              <p className="text-[11px] text-amber-400/80 mt-0.5" data-testid="benchmark-note">เทียบกับค่าเฉลี่ยทั้งตลาด (ข้อมูลดัชนี SET ไม่อัปเดต)</p>
+            )}
           </div>
           <div className="flex gap-1 bg-white/[0.04] p-1 rounded-xl border border-white/[0.08]">
             <button className={seg(tab === 'subsector')} onClick={() => setParams({ tab: null })}>Subsector</button>
