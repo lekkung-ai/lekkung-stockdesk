@@ -6,6 +6,7 @@ import { allSectorEntries, slugToSector, sectorToSlug } from '@/lib/sectorData';
 import { scanData } from '@/lib/scanData';
 import { ChevronLeft } from 'lucide-react';
 import SectorViewToggle from '@/components/SectorViewToggle';
+import SectorTodayChange from '@/components/SectorTodayChange';
 
 import marketStageData from '@/data/scans/market_stage.json';
 
@@ -100,6 +101,7 @@ export default async function SectorDetailPage({
         <div>
           <h1 className="text-[20px] font-bold text-white">{sectorName}</h1>
           <p className="text-[12px] text-white/35 mt-0.5">{totalCount} หุ้น · {subsectors.length} subsectors</p>
+          <SectorTodayChange tickers={subsectors.flatMap(e => e.tickers)} />
         </div>
       </div>
 

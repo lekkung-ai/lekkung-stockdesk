@@ -9,6 +9,8 @@ import SectorTickerGrid from './SectorTickerGrid';
 import SectorTickerTable from './SectorTickerTable';
 import SectorValuationScatter from './SectorValuationScatter';
 import SectorPEDistribution from './SectorPEDistribution';
+import MarketHeatmap, { HeatmapLegend, type HeatGroup } from './MarketHeatmap';
+import { useMarketQuotes } from '@/lib/useMarketQuotes';
 
 type LivePrice = { price: number; changePercent: number };
 type TickerWithScan = {
@@ -34,8 +36,14 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [view, setView] = useState<'list' | 'scatter' | 'pe'>('list');
-  const [listLayout, setListLayout] = useState<'grid' | 'table'>('grid');
+  // View lives in the URL: ?view=heatmap|grid|list (+ scatter|pe); no param = heatmap
+  const rawView = searchParams.get('view');
+  const urlView: 'heatmap' | 'grid' | 'list' | 'scatter' | 'pe' =
+    rawView === 'grid' || rawView === 'list' || rawView === 'scatter' || rawView === 'pe' ? rawView : 'heatmap';
+  const view: 'list' | 'scatter' | 'pe' = urlView === 'scatter' || urlView === 'pe' ? urlView : 'list';
+  const isHeatmap = urlView === 'heatmap';
+  const listLayout: 'grid' | 'table' = urlView === 'list' ? 'table' : 'grid';
+  const { status: quotesStatus, quotes, fetchedAt } = useMarketQuotes();
   const [priceMap, setPriceMap] = useState<Record<string, LivePrice>>({});
 
   // URL search params state
@@ -59,8 +67,13 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
   }, [subsectors]);
 
   // Update URL params
-  const updateUrl = (newParams: { sort?: SortMode; stage2?: boolean; scan?: boolean; rs80?: boolean }) => {
+  const updateUrl = (newParams: { sort?: SortMode; stage2?: boolean; scan?: boolean; rs80?: boolean; view?: typeof urlView }) => {
     const params = new URLSearchParams(searchParams.toString());
+
+    if (newParams.view !== undefined) {
+      if (newParams.view === 'heatmap') params.delete('view');
+      else params.set('view', newParams.view);
+    }
 
     if (newParams.sort !== undefined) {
       if (newParams.sort === 'rs_desc') params.delete('sort');
@@ -149,6 +162,25 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
     });
   }, [subsectors, filterStage2, filterScan, filterRS80, sortMode, priceMap]);
 
+  const heatGroups: HeatGroup[] = useMemo(
+    () =>
+      filteredSubsectors.map(sub => ({
+        key: sub.subsector,
+        label: sub.subsector,
+        stocks: sub.tickers
+          .filter(t => (quotes[t.ticker]?.mcap ?? 0) > 0)
+          .map(t => ({
+            ticker: t.ticker,
+            mcap: quotes[t.ticker].mcap as number,
+            chg: quotes[t.ticker].chg,
+            price: quotes[t.ticker].price,
+            rs: t.scan?.rs_score ?? rsMap.get(t.ticker) ?? null,
+            stage: t.scan?.stage ?? stageAllMap.get(t.ticker) ?? null,
+          })),
+      })),
+    [filteredSubsectors, quotes],
+  );
+
   const totalFilteredCount = useMemo(
     () => filteredSubsectors.reduce((sum, s) => sum + s.tickers.length, 0),
     [filteredSubsectors]
@@ -169,7 +201,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden p-0.5 bg-black/20 self-start">
           <button
-            onClick={() => setView('list')}
+            onClick={() => updateUrl({ view: 'heatmap' })}
             className={`px-3 py-1.5 text-[12px] font-semibold rounded-md transition-colors ${
               view === 'list' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
             }`}
@@ -177,7 +209,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
             รายชื่อหุ้น
           </button>
           <button
-            onClick={() => setView('scatter')}
+            onClick={() => updateUrl({ view: 'scatter' })}
             className={`px-3 py-1.5 text-[12px] font-semibold rounded-md transition-colors ${
               view === 'scatter' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
             }`}
@@ -185,7 +217,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
             Scatter Valuation
           </button>
           <button
-            onClick={() => setView('pe')}
+            onClick={() => updateUrl({ view: 'pe' })}
             className={`px-3 py-1.5 text-[12px] font-semibold rounded-md transition-colors ${
               view === 'pe' ? 'bg-white/10 text-white font-bold border border-white/10' : 'text-white/35 hover:text-white/60'
             }`}
@@ -197,19 +229,28 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
         {view === 'list' && (
           <div className="inline-flex rounded-lg border border-white/[0.07] overflow-hidden p-0.5 bg-black/20 self-end sm:self-auto">
             <button
-              onClick={() => setListLayout('grid')}
+              onClick={() => updateUrl({ view: 'heatmap' })}
+              title="Heatmap"
+              className={`px-2.5 py-1 text-[12px] font-semibold rounded-md transition-colors ${
+                isHeatmap ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+              }`}
+            >
+              ▦
+            </button>
+            <button
+              onClick={() => updateUrl({ view: 'grid' })}
               title="การ์ด"
               className={`px-2.5 py-1 text-[12px] font-semibold rounded-md transition-colors ${
-                listLayout === 'grid' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+                !isHeatmap && listLayout === 'grid' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
               }`}
             >
               ⊞
             </button>
             <button
-              onClick={() => setListLayout('table')}
+              onClick={() => updateUrl({ view: 'list' })}
               title="ตาราง"
               className={`px-2.5 py-1 text-[12px] font-semibold rounded-md transition-colors ${
-                listLayout === 'table' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
+                !isHeatmap && listLayout === 'table' ? 'bg-white/10 text-white' : 'text-white/35 hover:text-white/60'
               }`}
             >
               ☰
@@ -225,6 +266,7 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
               {/* Left: Sort dropdown + Filter Chips */}
               <div className="flex items-center gap-2.5 flex-wrap">
+                {!isHeatmap && (
                 <div className="flex items-center gap-1.5">
                   <span className="text-label text-white/40 font-medium">เรียงตาม:</span>
                   <select
@@ -238,8 +280,9 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
                     <option value="name_asc" className="bg-[#13161e]">ชื่อ (A-Z)</option>
                   </select>
                 </div>
+                )}
 
-                <div className="h-4 w-px bg-white/10 hidden sm:block" />
+                {!isHeatmap && <div className="h-4 w-px bg-white/10 hidden sm:block" />}
 
                 {/* Quick Filter Chips */}
                 <div className="flex items-center gap-1.5 flex-wrap">
@@ -290,6 +333,11 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
             </div>
 
             {/* Legend row with color swatches */}
+            {isHeatmap ? (
+              quotesStatus === 'error' ? null : (
+                <div className="pt-2.5 border-t border-white/[0.05]"><HeatmapLegend fetchedAt={fetchedAt} /></div>
+              )
+            ) : (
             <div className="flex items-center gap-3 text-[10.5px] text-white/45 flex-wrap pt-2.5 border-t border-white/[0.05]">
               <div className="flex items-center gap-1.5">
                 <span className="w-4 h-[5px] rounded bg-[#2dd4a0]" />
@@ -305,9 +353,20 @@ export default function SectorViewToggle({ subsectors }: { subsectors: Subsector
               </div>
               <span>· Gr = Revenue Growth (YoY) ล่าสุด</span>
             </div>
+            )}
           </div>
 
-          {listLayout === 'grid' ? (
+          {isHeatmap ? (
+            quotesStatus === 'loading' ? (
+              <div className="h-[600px] flex items-center justify-center text-[13px] text-white/40">กำลังโหลดข้อมูลราคา...</div>
+            ) : quotesStatus === 'error' ? (
+              <div className="h-24 flex items-center justify-center rounded-xl bg-white/[0.03] text-[13px] text-amber-300/80">
+                ไม่มีข้อมูลราคาสด
+              </div>
+            ) : (
+              <MarketHeatmap groups={heatGroups} height={600} />
+            )
+          ) : listLayout === 'grid' ? (
             <SectorTickerGrid subsectors={filteredSubsectors} priceMap={priceMap} />
           ) : (
             <SectorTickerTable subsectors={filteredSubsectors} />

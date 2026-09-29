@@ -1,12 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { getSectorsGrouped, sectorToSlug } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
 import DataUpdatedBadge from '@/components/DataUpdatedBadge';
 import rawSectorRS from '@/data/scans/sector_rs.json';
 import { medianPE, medianPBV } from '@/lib/valuation';
+import MarketHeatmap, { HeatmapLegend, type HeatGroup } from '@/components/MarketHeatmap';
+import { useMarketQuotes } from '@/lib/useMarketQuotes';
+import { weightedChange, formatPct } from '@/lib/sectorChange';
+import { topNWithOther } from '@/lib/heatmapGroups';
+import { getRS, getStage } from '@/lib/tickerMeta';
 
 type Market = 'SET' | 'MAI' | 'WARRANT';
 
@@ -34,11 +39,65 @@ function sectorColor(sector: string): string {
   return SECTOR_COLORS[sector] ?? '#6b7280';
 }
 
+function TodayChange({ change }: { change?: { pct: number | null; n: number; total: number } }) {
+  if (!change || change.pct == null) return null;
+  const up = change.pct > 0;
+  const down = change.pct < 0;
+  return (
+    <p className="mt-1 text-[11px] font-bold tabular-nums">
+      <span className="text-white/35 font-medium">วันนี้ </span>
+      <span className={up ? 'text-emerald-400' : down ? 'text-rose-400' : 'text-white/50'}>{formatPct(change.pct)}</span>
+      <span className="text-white/25 font-medium"> · n={change.n}/{change.total}</span>
+    </p>
+  );
+}
+
 export default function SectorPage() {
   const [market, setMarket] = useState<Market>('SET');
   const isWarrantTab = market === 'WARRANT';
   const sectors = isWarrantTab ? [] : getSectorsGrouped(market);
   const totalTickers = sectors.reduce((s, g) => s + g.totalCount, 0);
+
+  const { status: quotesStatus, quotes, fetchedAt } = useMarketQuotes();
+  const quotesOk = quotesStatus === 'ok';
+
+  // Today's market-cap-weighted % per sector + heatmap groups (SET / MAI only)
+  const sectorToday = useMemo(() => {
+    const out: Record<string, ReturnType<typeof weightedChange>> = {};
+    for (const { sector, subsectors } of sectors) {
+      const tickers = subsectors.flatMap(s => s.tickers);
+      out[sector] = weightedChange(tickers.map(t => ({ mcap: quotes[t]?.mcap, chg: quotes[t]?.chg })));
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [market, quotes]);
+
+  const heatGroups: HeatGroup[] = useMemo(
+    () =>
+      sectors.map(({ sector, subsectors }) => ({
+        key: sector,
+        label: sector,
+        href: `/sector/${sectorToSlug(sector)}?market=${market}`,
+        // Home page: 15 biggest by market cap + one aggregated "อื่นๆ" box linking to the sector page
+        stocks: topNWithOther(
+          subsectors
+            .flatMap(s => s.tickers)
+            .filter(t => (quotes[t]?.mcap ?? 0) > 0)
+            .map(t => ({
+              ticker: t,
+              mcap: quotes[t].mcap as number,
+              chg: quotes[t].chg,
+              price: quotes[t].price,
+              rs: getRS(t),
+              stage: getStage(t),
+            })),
+          15,
+          `/sector/${sectorToSlug(sector)}?market=${market}`,
+        ),
+      })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [market, quotes],
+  );
 
   // Read Sector RS data based on active market (WARRANT falls back to SET)
   const rsMarketKey = market === 'WARRANT' ? 'SET' : market;
@@ -123,10 +182,32 @@ export default function SectorPage() {
                       {status === 'Outperforming' ? `+RS ${item.rsScore}` : status === 'Neutral' ? `RS ${item.rsScore}` : `-RS ${item.rsScore}`}
                     </span>
                   </div>
+                  <TodayChange change={quotesOk ? sectorToday[item.sector] : undefined} />
                 </div>
               );
             })}
           </div>
+        </div>
+      )}
+
+      {/* Whole-market heatmap: sector → stock, size = market cap, colour = today's % */}
+      {!isWarrantTab && (
+        <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 space-y-3">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <span className="text-[13px] font-extrabold text-white">Market Heatmap ({market}) · % เปลี่ยนแปลงวันนี้</span>
+          </div>
+          {quotesStatus === 'loading' ? (
+            <div className="h-[600px] flex items-center justify-center text-[13px] text-white/40">กำลังโหลดข้อมูลราคา...</div>
+          ) : quotesOk ? (
+            <>
+              <MarketHeatmap groups={heatGroups} height={600} />
+              <HeatmapLegend fetchedAt={fetchedAt} />
+            </>
+          ) : (
+            <div className="h-24 flex items-center justify-center rounded-xl bg-white/[0.03] text-[13px] text-amber-300/80">
+              ไม่มีข้อมูลราคาสด
+            </div>
+          )}
         </div>
       )}
 
