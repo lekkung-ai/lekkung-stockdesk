@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T18:06:29+07:00",
+  "generated_at": "2026-09-29T21:20:34+07:00",
   "data": [
     {
       "ticker": "SAT",
@@ -754,6 +754,22 @@
       "Low_Liquidity": true
     },
     {
+      "ticker": "UMI",
+      "price": 0.95,
+      "sepa": true,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 81,
+      "combo_score": 4,
+      "growth_yoy": -4.50327973736179,
+      "growth_qoq": 2475.86,
+      "Low_Liquidity": true
+    },
+    {
       "ticker": "AYUD",
       "price": 43.5,
       "sepa": true,
@@ -815,22 +831,6 @@
       "combo_score": 4,
       "growth_yoy": 3.00206800792005,
       "growth_qoq": 1.38,
-      "Low_Liquidity": true
-    },
-    {
-      "ticker": "UMI",
-      "price": 0.95,
-      "sepa": true,
-      "kell": true,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 80,
-      "combo_score": 4,
-      "growth_yoy": -4.50327973736179,
-      "growth_qoq": 2475.86,
       "Low_Liquidity": true
     },
     {
@@ -1154,6 +1154,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "IRPC",
+      "price": 2.96,
+      "sepa": true,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 99,
+      "combo_score": 3,
+      "growth_yoy": -11.199837638356222,
+      "growth_qoq": 342.23,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "KCE",
       "price": 75.25,
       "sepa": true,
@@ -1215,22 +1231,6 @@
       "combo_score": 3,
       "growth_yoy": -17.087515206747614,
       "growth_qoq": 838.35,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "IRPC",
-      "price": 2.96,
-      "sepa": true,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 98,
-      "combo_score": 3,
-      "growth_yoy": -11.199837638356222,
-      "growth_qoq": 342.23,
       "Low_Liquidity": false
     },
     {
@@ -1538,6 +1538,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "SYMC",
+      "price": 6.2,
+      "sepa": true,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 93,
+      "combo_score": 3,
+      "growth_yoy": 3.20289469433566,
+      "growth_qoq": -15.51,
+      "Low_Liquidity": true
+    },
+    {
       "ticker": "TC",
       "price": 8.2,
       "sepa": true,
@@ -1616,22 +1632,6 @@
       "growth_yoy": -12.312819696205056,
       "growth_qoq": 471.87,
       "Low_Liquidity": false
-    },
-    {
-      "ticker": "SYMC",
-      "price": 6.2,
-      "sepa": true,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 92,
-      "combo_score": 3,
-      "growth_yoy": 3.20289469433566,
-      "growth_qoq": -15.51,
-      "Low_Liquidity": true
     },
     {
       "ticker": "TCAP",
@@ -1890,6 +1890,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "PPM",
+      "price": 2.06,
+      "sepa": true,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 87,
+      "combo_score": 3,
+      "growth_yoy": -2.8251715037473524,
+      "growth_qoq": 372.2,
+      "Low_Liquidity": true
+    },
+    {
       "ticker": "TM",
       "price": 1.28,
       "sepa": true,
@@ -1935,22 +1951,6 @@
       "combo_score": 3,
       "growth_yoy": -2.3713899589978946,
       "growth_qoq": 111.22,
-      "Low_Liquidity": true
-    },
-    {
-      "ticker": "PPM",
-      "price": 2.06,
-      "sepa": true,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 86,
-      "combo_score": 3,
-      "growth_yoy": -2.8251715037473524,
-      "growth_qoq": 372.2,
       "Low_Liquidity": true
     },
     {
@@ -2125,8 +2125,8 @@
       "stage": "Bull",
       "rs_score": 82,
       "combo_score": 3,
-      "growth_yoy": -13.859068557263289,
-      "growth_qoq": 143.93,
+      "growth_yoy": -13.85906855726328,
+      "growth_qoq": 10.39,
       "Low_Liquidity": false
     },
     {
@@ -2754,6 +2754,22 @@
       "Low_Liquidity": true
     },
     {
+      "ticker": "EGCO",
+      "price": 128.0,
+      "sepa": false,
+      "kell": false,
+      "breakout": true,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 65,
+      "combo_score": 3,
+      "growth_yoy": -20.416463867433283,
+      "growth_qoq": -69.29,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "SCB",
       "price": 153.0,
       "sepa": false,
@@ -2802,22 +2818,6 @@
       "Low_Liquidity": true
     },
     {
-      "ticker": "EGCO",
-      "price": 128.0,
-      "sepa": false,
-      "kell": false,
-      "breakout": true,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 64,
-      "combo_score": 3,
-      "growth_yoy": -20.416463867433283,
-      "growth_qoq": -69.29,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "CFARM",
       "price": 0.89,
       "sepa": false,
@@ -2831,6 +2831,22 @@
       "combo_score": 3,
       "growth_yoy": -4.295250086576116,
       "growth_qoq": 279.48,
+      "Low_Liquidity": true
+    },
+    {
+      "ticker": "CSR",
+      "price": 79.75,
+      "sepa": false,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 63,
+      "combo_score": 3,
+      "growth_yoy": 3.130992925962716,
+      "growth_qoq": 28.58,
       "Low_Liquidity": true
     },
     {
@@ -2863,22 +2879,6 @@
       "combo_score": 3,
       "growth_yoy": -12.64629782996429,
       "growth_qoq": 294.37,
-      "Low_Liquidity": true
-    },
-    {
-      "ticker": "CSR",
-      "price": 79.75,
-      "sepa": false,
-      "kell": true,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 62,
-      "combo_score": 3,
-      "growth_yoy": 3.130992925962716,
-      "growth_qoq": 28.58,
       "Low_Liquidity": true
     },
     {
@@ -2978,6 +2978,22 @@
       "Low_Liquidity": true
     },
     {
+      "ticker": "UEC",
+      "price": 0.78,
+      "sepa": false,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 59,
+      "combo_score": 3,
+      "growth_yoy": -20.26688422655316,
+      "growth_qoq": -272.7,
+      "Low_Liquidity": true
+    },
+    {
       "ticker": "TLI",
       "price": 11.3,
       "sepa": false,
@@ -2992,22 +3008,6 @@
       "growth_yoy": 2.4531682386328,
       "growth_qoq": 21.78,
       "Low_Liquidity": false
-    },
-    {
-      "ticker": "UEC",
-      "price": 0.78,
-      "sepa": false,
-      "kell": true,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 58,
-      "combo_score": 3,
-      "growth_yoy": -20.26688422655316,
-      "growth_qoq": -272.7,
-      "Low_Liquidity": true
     },
     {
       "ticker": "CHOTI",
@@ -3565,8 +3565,8 @@
       "stage": "S.Bull",
       "rs_score": 91,
       "combo_score": 2,
-      "growth_yoy": -11.67296795768707,
-      "growth_qoq": 208.31,
+      "growth_yoy": -11.67296795768708,
+      "growth_qoq": 47.0,
       "Low_Liquidity": false
     },
     {
@@ -3629,8 +3629,8 @@
       "stage": "S.Bull",
       "rs_score": 89,
       "combo_score": 2,
-      "growth_yoy": 7.834555860512453,
-      "growth_qoq": 923.25,
+      "growth_yoy": 2.5183521396553448,
+      "growth_qoq": 183.83,
       "Low_Liquidity": false
     },
     {
@@ -3773,8 +3773,8 @@
       "stage": "S.Bull",
       "rs_score": 86,
       "combo_score": 2,
-      "growth_yoy": -8.796693569522592,
-      "growth_qoq": 240.08,
+      "growth_yoy": -8.79669356952259,
+      "growth_qoq": 133.57,
       "Low_Liquidity": false
     },
     {
@@ -4626,6 +4626,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "MENA",
+      "price": 0.81,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 57,
+      "combo_score": 2,
+      "growth_yoy": -1.424867552954078,
+      "growth_qoq": 64.65,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "ROCK",
       "price": 10.8,
       "sepa": false,
@@ -4658,22 +4674,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "MENA",
-      "price": 0.81,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 56,
-      "combo_score": 2,
-      "growth_yoy": -1.424867552954078,
-      "growth_qoq": 64.65,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "PTG",
       "price": 8.3,
       "sepa": false,
@@ -4685,8 +4685,8 @@
       "stage": "S.Bull",
       "rs_score": 56,
       "combo_score": 2,
-      "growth_yoy": -0.651714364482942,
-      "growth_qoq": -76.31,
+      "growth_yoy": -0.6517143644829401,
+      "growth_qoq": -208.07,
       "Low_Liquidity": false
     },
     {
@@ -4850,6 +4850,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "PRAPAT",
+      "price": 0.84,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "S.Bull",
+      "rs_score": 53,
+      "combo_score": 2,
+      "growth_yoy": -0.3399855611541951,
+      "growth_qoq": 171.13,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "SIRI",
       "price": 1.45,
       "sepa": false,
@@ -4914,8 +4930,8 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "PRAPAT",
-      "price": 0.84,
+      "ticker": "AIT",
+      "price": 4.8,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -4923,10 +4939,10 @@
       "oneil": false,
       "weinstein": true,
       "stage": "S.Bull",
-      "rs_score": 52,
+      "rs_score": 51,
       "combo_score": 2,
-      "growth_yoy": -0.3399855611541951,
-      "growth_qoq": 171.13,
+      "growth_yoy": -5.396993423140325,
+      "growth_qoq": 0.97,
       "Low_Liquidity": false
     },
     {
@@ -4943,22 +4959,6 @@
       "combo_score": 2,
       "growth_yoy": -23.47558414541248,
       "growth_qoq": -93.62,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "AIT",
-      "price": 4.8,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "S.Bull",
-      "rs_score": 50,
-      "combo_score": 2,
-      "growth_yoy": -5.396993423140325,
-      "growth_qoq": 0.97,
       "Low_Liquidity": false
     },
     {
@@ -5042,6 +5042,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "NEP",
+      "price": 0.21,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bull",
+      "rs_score": 47,
+      "combo_score": 2,
+      "growth_yoy": 202.6220948993458,
+      "growth_qoq": 1846.9,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "SAMCO",
       "price": 0.83,
       "sepa": false,
@@ -5055,22 +5071,6 @@
       "combo_score": 2,
       "growth_yoy": -2.0321989152072,
       "growth_qoq": 2257.51,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "NEP",
-      "price": 0.21,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bull",
-      "rs_score": 46,
-      "combo_score": 2,
-      "growth_yoy": 202.6220948993458,
-      "growth_qoq": 1846.9,
       "Low_Liquidity": false
     },
     {
@@ -5099,11 +5099,27 @@
       "oneil": false,
       "weinstein": true,
       "stage": "Bull",
-      "rs_score": 44,
+      "rs_score": 45,
       "combo_score": 2,
       "growth_yoy": -27.09737346532391,
       "growth_qoq": 125.36,
       "Low_Liquidity": false
+    },
+    {
+      "ticker": "LPN",
+      "price": 1.58,
+      "sepa": false,
+      "kell": true,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Accumulation",
+      "rs_score": 44,
+      "combo_score": 2,
+      "growth_yoy": -15.95006367312181,
+      "growth_qoq": -272.31,
+      "Low_Liquidity": true
     },
     {
       "ticker": "BOL",
@@ -5120,22 +5136,6 @@
       "growth_yoy": 11.22879113901725,
       "growth_qoq": 7.8,
       "Low_Liquidity": false
-    },
-    {
-      "ticker": "LPN",
-      "price": 1.58,
-      "sepa": false,
-      "kell": true,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Accumulation",
-      "rs_score": 43,
-      "combo_score": 2,
-      "growth_yoy": -15.95006367312181,
-      "growth_qoq": -272.31,
-      "Low_Liquidity": true
     },
     {
       "ticker": "TRU",
@@ -5261,8 +5261,8 @@
       "stage": "Accumulation",
       "rs_score": 99,
       "combo_score": 1,
-      "growth_yoy": null,
-      "growth_qoq": null,
+      "growth_yoy": -68.03114174201687,
+      "growth_qoq": 166.76,
       "Low_Liquidity": false
     },
     {
@@ -5858,6 +5858,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "KTC",
+      "price": 35.75,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 75,
+      "combo_score": 1,
+      "growth_yoy": 1.9673498521195751,
+      "growth_qoq": 17.44,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "MPJ",
       "price": 4.2,
       "sepa": false,
@@ -5903,22 +5919,6 @@
       "combo_score": 1,
       "growth_yoy": 16.690884087163006,
       "growth_qoq": 82.51,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "KTC",
-      "price": 35.75,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 74,
-      "combo_score": 1,
-      "growth_yoy": 1.9673498521195751,
-      "growth_qoq": 17.44,
       "Low_Liquidity": false
     },
     {
@@ -6146,6 +6146,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "J",
+      "price": 0.82,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 69,
+      "combo_score": 1,
+      "growth_yoy": 8.821147014518658,
+      "growth_qoq": 44.65,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "MBK",
       "price": 20.5,
       "sepa": false,
@@ -6207,22 +6223,6 @@
       "combo_score": 1,
       "growth_yoy": 20.28781502803815,
       "growth_qoq": 10.69,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "J",
-      "price": 0.82,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 68,
-      "combo_score": 1,
-      "growth_yoy": 8.821147014518658,
-      "growth_qoq": 44.65,
       "Low_Liquidity": false
     },
     {
@@ -6594,6 +6594,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "FM",
+      "price": 4.18,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 62,
+      "combo_score": 1,
+      "growth_yoy": -2.6537440890734656,
+      "growth_qoq": -9.35,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "MOONG",
       "price": 2.32,
       "sepa": false,
@@ -6703,22 +6719,6 @@
       "combo_score": 1,
       "growth_yoy": 22.87939970297226,
       "growth_qoq": 125.01,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "FM",
-      "price": 4.18,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 61,
-      "combo_score": 1,
-      "growth_yoy": -2.6537440890734656,
-      "growth_qoq": -9.35,
       "Low_Liquidity": false
     },
     {
@@ -7042,6 +7042,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "MTW",
+      "price": 0.94,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 56,
+      "combo_score": 1,
+      "growth_yoy": 2.483187789590897,
+      "growth_qoq": 620.21,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "FLOYD",
       "price": 1.11,
       "sepa": false,
@@ -7055,22 +7071,6 @@
       "combo_score": 1,
       "growth_yoy": 28.3667756570192,
       "growth_qoq": -84.67,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "MTW",
-      "price": 0.94,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 55,
-      "combo_score": 1,
-      "growth_yoy": 2.483187789590897,
-      "growth_qoq": 620.21,
       "Low_Liquidity": false
     },
     {
@@ -7394,6 +7394,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "ILINK",
+      "price": 4.84,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 50,
+      "combo_score": 1,
+      "growth_yoy": -19.453584784517638,
+      "growth_qoq": 1.4,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "LHK",
       "price": 3.52,
       "sepa": false,
@@ -7487,22 +7503,6 @@
       "combo_score": 1,
       "growth_yoy": -1.6552360773124626,
       "growth_qoq": -60.72,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "ILINK",
-      "price": 4.84,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 49,
-      "combo_score": 1,
-      "growth_yoy": -19.453584784517638,
-      "growth_qoq": 1.4,
       "Low_Liquidity": false
     },
     {
@@ -8306,6 +8306,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "BLC",
+      "price": 3.98,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Warning",
+      "rs_score": 41,
+      "combo_score": 1,
+      "growth_yoy": 7.093529002512872,
+      "growth_qoq": -25.66,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "F&D",
       "price": 45.0,
       "sepa": false,
@@ -8351,22 +8367,6 @@
       "combo_score": 1,
       "growth_yoy": 0.03148134843398,
       "growth_qoq": 22.89,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "BLC",
-      "price": 3.98,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Warning",
-      "rs_score": 40,
-      "combo_score": 1,
-      "growth_yoy": 7.093529002512872,
-      "growth_qoq": -25.66,
       "Low_Liquidity": false
     },
     {
@@ -8578,6 +8578,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "SUC",
+      "price": 27.25,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 39,
+      "combo_score": 1,
+      "growth_yoy": -13.570843357941731,
+      "growth_qoq": -13.47,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "CI",
       "price": 0.34,
       "sepa": false,
@@ -8658,6 +8674,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "PIN",
+      "price": 4.2,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 38,
+      "combo_score": 1,
+      "growth_yoy": -69.03661274243251,
+      "growth_qoq": -73.6,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "SPTX",
       "price": 0.01,
       "sepa": false,
@@ -8671,22 +8703,6 @@
       "combo_score": 1,
       "growth_yoy": 196.5861032592844,
       "growth_qoq": 35.5,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "SUC",
-      "price": 27.25,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
-      "rs_score": 38,
-      "combo_score": 1,
-      "growth_yoy": -13.570843357941731,
-      "growth_qoq": -13.47,
       "Low_Liquidity": false
     },
     {
@@ -8751,22 +8767,6 @@
       "combo_score": 1,
       "growth_yoy": -29.4072194933885,
       "growth_qoq": 738.08,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "PIN",
-      "price": 4.2,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 37,
-      "combo_score": 1,
-      "growth_yoy": -69.03661274243251,
-      "growth_qoq": -73.6,
       "Low_Liquidity": false
     },
     {
@@ -8978,6 +8978,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "AMANAH",
+      "price": 0.74,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 35,
+      "combo_score": 1,
+      "growth_yoy": -14.054350551489286,
+      "growth_qoq": 91.55,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "AMR",
       "price": 0.4,
       "sepa": false,
@@ -9122,22 +9138,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "AMANAH",
-      "price": 0.74,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
-      "rs_score": 34,
-      "combo_score": 1,
-      "growth_yoy": -14.054350551489286,
-      "growth_qoq": 91.55,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "CKP",
       "price": 2.38,
       "sepa": false,
@@ -9199,6 +9199,22 @@
       "combo_score": 1,
       "growth_yoy": -41.46319773413437,
       "growth_qoq": -25.03,
+      "Low_Liquidity": false
+    },
+    {
+      "ticker": "MCS",
+      "price": 7.75,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 34,
+      "combo_score": 1,
+      "growth_yoy": -7.521120231088012,
+      "growth_qoq": -36.09,
       "Low_Liquidity": false
     },
     {
@@ -9314,22 +9330,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "MCS",
-      "price": 7.75,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 33,
-      "combo_score": 1,
-      "growth_yoy": -7.521120231088012,
-      "growth_qoq": -36.09,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "NPK",
       "price": 12.9,
       "sepa": false,
@@ -9375,6 +9375,22 @@
       "combo_score": 1,
       "growth_yoy": -33.19392089282283,
       "growth_qoq": 26.08,
+      "Low_Liquidity": false
+    },
+    {
+      "ticker": "VNG",
+      "price": 1.92,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 33,
+      "combo_score": 1,
+      "growth_yoy": -16.542983561159822,
+      "growth_qoq": -645.45,
       "Low_Liquidity": false
     },
     {
@@ -9506,19 +9522,19 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "VNG",
-      "price": 1.92,
+      "ticker": "TMAN",
+      "price": 10.6,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Bear",
+      "stage": "Recovery",
       "rs_score": 32,
       "combo_score": 1,
-      "growth_yoy": -16.542983561159822,
-      "growth_qoq": -645.45,
+      "growth_yoy": 13.26314215255807,
+      "growth_qoq": -5.97,
       "Low_Liquidity": false
     },
     {
@@ -9618,19 +9634,19 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "TMAN",
-      "price": 10.6,
+      "ticker": "TWPC",
+      "price": 2.66,
       "sepa": false,
       "kell": false,
       "breakout": false,
       "lekkung": false,
       "oneil": false,
       "weinstein": true,
-      "stage": "Recovery",
+      "stage": "Bear",
       "rs_score": 31,
       "combo_score": 1,
-      "growth_yoy": 13.26314215255807,
-      "growth_qoq": -5.97,
+      "growth_yoy": -8.27979789292556,
+      "growth_qoq": 71.35,
       "Low_Liquidity": false
     },
     {
@@ -9762,22 +9778,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "TWPC",
-      "price": 2.66,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 30,
-      "combo_score": 1,
-      "growth_yoy": -8.27979789292556,
-      "growth_qoq": 71.35,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "WINDOW",
       "price": 0.72,
       "sepa": false,
@@ -9807,6 +9807,22 @@
       "combo_score": 1,
       "growth_yoy": -2.89977899840483,
       "growth_qoq": 22.76,
+      "Low_Liquidity": false
+    },
+    {
+      "ticker": "BCPG",
+      "price": 6.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 29,
+      "combo_score": 1,
+      "growth_yoy": -17.769430974126273,
+      "growth_qoq": 1.36,
       "Low_Liquidity": false
     },
     {
@@ -9938,22 +9954,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "BCPG",
-      "price": 6.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
-      "rs_score": 28,
-      "combo_score": 1,
-      "growth_yoy": -17.769430974126273,
-      "growth_qoq": 1.36,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "COCOCO",
       "price": 5.65,
       "sepa": false,
@@ -10034,6 +10034,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "M-CHAI",
+      "price": 18.9,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 28,
+      "combo_score": 1,
+      "growth_yoy": -1.55679354770156,
+      "growth_qoq": 15.75,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "TIDLOR",
       "price": 16.9,
       "sepa": false,
@@ -10066,6 +10082,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "CPALL",
+      "price": 43.75,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 27,
+      "combo_score": 1,
+      "growth_yoy": 3.3018624647242527,
+      "growth_qoq": 10.98,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "KASET",
       "price": 0.64,
       "sepa": false,
@@ -10079,22 +10111,6 @@
       "combo_score": 1,
       "growth_yoy": -19.70628590676359,
       "growth_qoq": 63.37,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "M-CHAI",
-      "price": 18.9,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 27,
-      "combo_score": 1,
-      "growth_yoy": -1.55679354770156,
-      "growth_qoq": 15.75,
       "Low_Liquidity": false
     },
     {
@@ -10194,8 +10210,8 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "CPALL",
-      "price": 43.75,
+      "ticker": "BEC",
+      "price": 1.86,
       "sepa": false,
       "kell": false,
       "breakout": false,
@@ -10205,8 +10221,8 @@
       "stage": "Bear",
       "rs_score": 26,
       "combo_score": 1,
-      "growth_yoy": 3.3018624647242527,
-      "growth_qoq": 10.98,
+      "growth_yoy": -6.3932280491800455,
+      "growth_qoq": -170.3,
       "Low_Liquidity": false
     },
     {
@@ -10338,22 +10354,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "BEC",
-      "price": 1.86,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 25,
-      "combo_score": 1,
-      "growth_yoy": -6.3932280491800455,
-      "growth_qoq": -170.3,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "BTNC",
       "price": 13.0,
       "sepa": false,
@@ -10383,6 +10383,22 @@
       "combo_score": 1,
       "growth_yoy": -16.397876512499717,
       "growth_qoq": -42.0,
+      "Low_Liquidity": false
+    },
+    {
+      "ticker": "MMM",
+      "price": 2.6,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Distribution",
+      "rs_score": 25,
+      "combo_score": 1,
+      "growth_yoy": 115.25811728916118,
+      "growth_qoq": -7.36,
       "Low_Liquidity": false
     },
     {
@@ -10546,22 +10562,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "MMM",
-      "price": 2.6,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Distribution",
-      "rs_score": 24,
-      "combo_score": 1,
-      "growth_yoy": 115.25811728916118,
-      "growth_qoq": -7.36,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "PLT",
       "price": 0.53,
       "sepa": false,
@@ -10706,6 +10706,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "PATO",
+      "price": 6.15,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 23,
+      "combo_score": 1,
+      "growth_yoy": -22.888783794583485,
+      "growth_qoq": -12.25,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "SAAM",
       "price": 4.66,
       "sepa": false,
@@ -10818,6 +10834,22 @@
       "Low_Liquidity": false
     },
     {
+      "ticker": "GST",
+      "price": 9.8,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 22,
+      "combo_score": 1,
+      "growth_yoy": 2.562712799611609,
+      "growth_qoq": -173.27,
+      "Low_Liquidity": false
+    },
+    {
       "ticker": "HENG",
       "price": 0.88,
       "sepa": false,
@@ -10847,22 +10879,6 @@
       "combo_score": 1,
       "growth_yoy": 13.576112717121244,
       "growth_qoq": 186.87,
-      "Low_Liquidity": false
-    },
-    {
-      "ticker": "PATO",
-      "price": 6.15,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 22,
-      "combo_score": 1,
-      "growth_yoy": -22.888783794583485,
-      "growth_qoq": -12.25,
       "Low_Liquidity": false
     },
     {
@@ -11362,22 +11378,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "PPS",
-      "price": 0.17,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Recovery",
-      "rs_score": 18,
-      "combo_score": 1,
-      "growth_yoy": -3.593346122287315,
-      "growth_qoq": 48.18,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "PRI",
       "price": 3.48,
       "sepa": false,
@@ -11551,6 +11551,22 @@
       "combo_score": 1,
       "growth_yoy": -4.51395092273386,
       "growth_qoq": -32.37,
+      "Low_Liquidity": false
+    },
+    {
+      "ticker": "PPS",
+      "price": 0.17,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Recovery",
+      "rs_score": 17,
+      "combo_score": 1,
+      "growth_yoy": -3.593346122287315,
+      "growth_qoq": 48.18,
       "Low_Liquidity": false
     },
     {
@@ -12274,22 +12290,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "ZAA",
-      "price": 1.55,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 12,
-      "combo_score": 1,
-      "growth_yoy": -4.94962624447438,
-      "growth_qoq": 16.21,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "BRI",
       "price": 1.21,
       "sepa": false,
@@ -12415,6 +12415,22 @@
       "combo_score": 1,
       "growth_yoy": null,
       "growth_qoq": null,
+      "Low_Liquidity": false
+    },
+    {
+      "ticker": "ZAA",
+      "price": 1.55,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 11,
+      "combo_score": 1,
+      "growth_yoy": -4.94962624447438,
+      "growth_qoq": 16.21,
       "Low_Liquidity": false
     },
     {
@@ -12994,22 +13010,6 @@
       "Low_Liquidity": false
     },
     {
-      "ticker": "BEAUTY",
-      "price": 0.31,
-      "sepa": false,
-      "kell": false,
-      "breakout": false,
-      "lekkung": false,
-      "oneil": false,
-      "weinstein": true,
-      "stage": "Bear",
-      "rs_score": 6,
-      "combo_score": 1,
-      "growth_yoy": -37.183200846402265,
-      "growth_qoq": 40.56,
-      "Low_Liquidity": false
-    },
-    {
       "ticker": "EFORL",
       "price": 0.11,
       "sepa": false,
@@ -13135,6 +13135,22 @@
       "combo_score": 1,
       "growth_yoy": -7.575038642676116,
       "growth_qoq": -1185.66,
+      "Low_Liquidity": false
+    },
+    {
+      "ticker": "BEAUTY",
+      "price": 0.31,
+      "sepa": false,
+      "kell": false,
+      "breakout": false,
+      "lekkung": false,
+      "oneil": false,
+      "weinstein": true,
+      "stage": "Bear",
+      "rs_score": 5,
+      "combo_score": 1,
+      "growth_yoy": -37.183200846402265,
+      "growth_qoq": 40.56,
       "Low_Liquidity": false
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T18:07:42+07:00",
+  "generated_at": "2026-09-29T21:21:38+07:00",
   "series_days": 180,
   "zones": {
     "energy": "พลังงาน",
@@ -34,16 +34,12 @@
         "BA": "cost"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 100.95
+        "date": "2026-09-29",
+        "close": 96.73
       },
-      "pct_1d": -3.23,
-      "pct_1m": 12.54,
+      "pct_1d": -8.12,
+      "pct_1m": 8.31,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 63.34
-        },
         {
           "date": "2026-01-12",
           "close": 63.87
@@ -758,12 +754,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 100.95
+          "close": 105.28
+        },
+        {
+          "date": "2026-09-29",
+          "close": 96.73
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "CL=F": {
       "name_th": "น้ำมันดิบ WTI",
@@ -773,16 +773,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-09-28",
-        "close": 96.17
+        "date": "2026-09-29",
+        "close": 91.34
       },
-      "pct_1d": 4.07,
-      "pct_1m": 15.13,
+      "pct_1d": -1.36,
+      "pct_1m": 9.52,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 59.12
-        },
         {
           "date": "2026-01-12",
           "close": 59.5
@@ -1497,12 +1493,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 96.17
+          "close": 92.6
+        },
+        {
+          "date": "2026-09-29",
+          "close": 91.34
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "NG=F": {
       "name_th": "ก๊าซธรรมชาติ",
@@ -1522,16 +1522,12 @@
         "GPSC": "cost"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 3.103
+        "date": "2026-09-29",
+        "close": 3.049
       },
-      "pct_1d": -2.91,
-      "pct_1m": 6.74,
+      "pct_1d": 1.63,
+      "pct_1m": 5.57,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 3.169
-        },
         {
           "date": "2026-01-12",
           "close": 3.409
@@ -2246,12 +2242,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 3.103
+          "close": 3.0
+        },
+        {
+          "date": "2026-09-29",
+          "close": 3.049
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "HO=F": {
       "name_th": "น้ำมันดีเซล (Heating Oil)",
@@ -2277,16 +2277,12 @@
         "III": "cost"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 4.6525
+        "date": "2026-09-29",
+        "close": 4.425
       },
-      "pct_1d": -0.69,
-      "pct_1m": 8.74,
+      "pct_1d": -6.95,
+      "pct_1m": 1.57,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 2.135
-        },
         {
           "date": "2026-01-12",
           "close": 2.1544
@@ -3001,12 +2997,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 4.6525
+          "close": 4.7553
+        },
+        {
+          "date": "2026-09-29",
+          "close": 4.425
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "RB=F": {
       "name_th": "น้ำมันเบนซิน (RBOB Gasoline)",
@@ -3028,16 +3028,12 @@
         "PTG": "margin"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 3.2543
+        "date": "2026-09-29",
+        "close": 3.1394
       },
-      "pct_1d": -4.1,
-      "pct_1m": -3.84,
+      "pct_1d": -5.94,
+      "pct_1m": -10.04,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 1.7806
-        },
         {
           "date": "2026-01-12",
           "close": 1.7938
@@ -3752,12 +3748,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 3.2543
+          "close": 3.3377
+        },
+        {
+          "date": "2026-09-29",
+          "close": 3.1394
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "HRC=F": {
       "name_th": "เหล็กแผ่นม้วนร้อน",
@@ -3779,16 +3779,12 @@
         "MILL": "revenue"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 1328.0
+        "date": "2026-09-29",
+        "close": 1318.0
       },
-      "pct_1d": 7.36,
-      "pct_1m": 10.39,
+      "pct_1d": 6.72,
+      "pct_1m": 9.38,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 940.0
-        },
         {
           "date": "2026-01-12",
           "close": 943.0
@@ -4503,12 +4499,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 1328.0
+          "close": 1235.0
+        },
+        {
+          "date": "2026-09-29",
+          "close": 1318.0
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "HG=F": {
       "name_th": "ทองแดง",
@@ -4528,16 +4528,12 @@
         "SVI": "cost"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 6.6325
+        "date": "2026-09-29",
+        "close": 6.6265
       },
-      "pct_1d": -0.94,
-      "pct_1m": 0.69,
+      "pct_1d": 0.92,
+      "pct_1m": 0.98,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 5.8555
-        },
         {
           "date": "2026-01-12",
           "close": 5.985
@@ -5252,12 +5248,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 6.6325
+          "close": 6.566
+        },
+        {
+          "date": "2026-09-29",
+          "close": 6.6265
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "ALI=F": {
       "name_th": "อลูมิเนียม",
@@ -5273,16 +5273,12 @@
         "OSP": "cost"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 3435.5
+        "date": "2026-09-29",
+        "close": 3326.0
       },
-      "pct_1d": 0.01,
-      "pct_1m": 2.32,
+      "pct_1d": -1.76,
+      "pct_1m": -1.55,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 3037.0
-        },
         {
           "date": "2026-01-12",
           "close": 3086.25
@@ -5997,12 +5993,16 @@
         },
         {
           "date": "2026-09-28",
-          "close": 3435.5
+          "close": 3385.75
+        },
+        {
+          "date": "2026-09-29",
+          "close": 3326.0
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "SICOM_RSS3": {
       "name_th": "ยางพารา RSS3 (SICOM)",
@@ -6051,9 +6051,9 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 250.0
+        "close": 245.3
       },
-      "pct_1d": -0.95,
+      "pct_1d": -1.88,
       "pct_1m": null,
       "series": [],
       "last_success_date": "2026-09-29",
@@ -6079,9 +6079,9 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 19040.0
+        "close": 19565.0
       },
-      "pct_1d": -2.13,
+      "pct_1d": 2.76,
       "pct_1m": null,
       "series": [],
       "last_success_date": "2026-09-29",
@@ -6117,10 +6117,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 18.47
+        "close": 18.94
       },
-      "pct_1d": 5.78,
-      "pct_1m": 5.18,
+      "pct_1d": 8.48,
+      "pct_1m": 7.86,
       "series": [
         {
           "date": "2026-01-12",
@@ -6840,7 +6840,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 18.47
+          "close": 18.94
         }
       ],
       "last_success_date": "2026-09-29",
@@ -6866,10 +6866,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 522.5
+        "close": 524.75
       },
-      "pct_1d": -0.1,
-      "pct_1m": 2.05,
+      "pct_1d": 0.33,
+      "pct_1m": 2.49,
       "series": [
         {
           "date": "2026-01-12",
@@ -7589,7 +7589,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 522.5
+          "close": 524.75
         }
       ],
       "last_success_date": "2026-09-29",
@@ -7617,10 +7617,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 1288.75
+        "close": 1296.25
       },
-      "pct_1d": 0.04,
-      "pct_1m": 0.98,
+      "pct_1d": 0.62,
+      "pct_1m": 1.57,
       "series": [
         {
           "date": "2026-01-12",
@@ -8340,7 +8340,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 1288.75
+          "close": 1296.25
         }
       ],
       "last_success_date": "2026-09-29",
@@ -8368,10 +8368,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 357.3
+        "close": 358.6
       },
-      "pct_1d": -1.22,
-      "pct_1m": 5.65,
+      "pct_1d": -0.86,
+      "pct_1m": 6.03,
       "series": [
         {
           "date": "2026-01-12",
@@ -9091,7 +9091,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 357.3
+          "close": 358.6
         }
       ],
       "last_success_date": "2026-09-29",
@@ -9117,10 +9117,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 683.75
+        "close": 689.75
       },
-      "pct_1d": -0.73,
-      "pct_1m": -10.85,
+      "pct_1d": 0.15,
+      "pct_1m": -10.07,
       "series": [
         {
           "date": "2026-01-12",
@@ -9840,7 +9840,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 683.75
+          "close": 689.75
         }
       ],
       "last_success_date": "2026-09-29",
@@ -10610,16 +10610,12 @@
         "BTG": "revenue"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 78.25
+        "date": "2026-09-29",
+        "close": 69.5
       },
-      "pct_1d": 0.03,
-      "pct_1m": -2.95,
+      "pct_1d": -11.18,
+      "pct_1m": -15.14,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 85.3
-        },
         {
           "date": "2026-01-12",
           "close": 84.425
@@ -11335,9 +11331,13 @@
         {
           "date": "2026-09-28",
           "close": 78.25
+        },
+        {
+          "date": "2026-09-29",
+          "close": 69.5
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
       "series_empty": false
     },
@@ -11358,10 +11358,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 287.3
+        "close": 286.05
       },
-      "pct_1d": -0.5,
-      "pct_1m": -16.93,
+      "pct_1d": -0.94,
+      "pct_1m": -17.29,
       "series": [
         {
           "date": "2026-01-12",
@@ -12081,7 +12081,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 287.3
+          "close": 286.05
         }
       ],
       "last_success_date": "2026-09-29",
@@ -12097,10 +12097,10 @@
       "ticker_impacts": {},
       "latest": {
         "date": "2026-09-29",
-        "close": 67.96
+        "close": 68.68
       },
-      "pct_1d": 1.27,
-      "pct_1m": -3.73,
+      "pct_1d": 2.34,
+      "pct_1m": -2.71,
       "series": [
         {
           "date": "2026-01-12",
@@ -12820,7 +12820,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 67.96
+          "close": 68.68
         }
       ],
       "last_success_date": "2026-09-29",
@@ -12836,10 +12836,10 @@
       "ticker_impacts": {},
       "latest": {
         "date": "2026-09-29",
-        "close": 4185.7002
+        "close": 4198.3999
       },
-      "pct_1d": 0.42,
-      "pct_1m": -7.6,
+      "pct_1d": 0.72,
+      "pct_1m": -7.32,
       "series": [
         {
           "date": "2026-01-12",
@@ -13559,7 +13559,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 4185.7002
+          "close": 4198.3999
         }
       ],
       "last_success_date": "2026-09-29",
@@ -13589,10 +13589,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 33.5
+        "close": 33.53
       },
-      "pct_1d": 0.21,
-      "pct_1m": 1.3,
+      "pct_1d": 0.3,
+      "pct_1m": 1.39,
       "series": [
         {
           "date": "2026-01-21",
@@ -14312,7 +14312,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 33.5
+          "close": 33.53
         }
       ],
       "last_success_date": "2026-09-29",
@@ -14336,10 +14336,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 101.338
+        "close": 101.392
       },
-      "pct_1d": 0.14,
-      "pct_1m": 1.64,
+      "pct_1d": 0.19,
+      "pct_1m": 1.7,
       "series": [
         {
           "date": "2026-01-12",
@@ -15059,7 +15059,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 101.338
+          "close": 101.392
         }
       ],
       "last_success_date": "2026-09-29",
@@ -15092,16 +15092,12 @@
         "TIDLOR": "cost"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 5.24
+        "date": "2026-09-29",
+        "close": 5.251
       },
-      "pct_1d": 1.08,
-      "pct_1m": 12.16,
+      "pct_1d": 0.21,
+      "pct_1m": 11.25,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 4.171
-        },
         {
           "date": "2026-01-12",
           "close": 4.187
@@ -15817,9 +15813,13 @@
         {
           "date": "2026-09-28",
           "close": 5.24
+        },
+        {
+          "date": "2026-09-29",
+          "close": 5.251
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
       "series_empty": false
     },
@@ -15837,16 +15837,12 @@
         "TTA": "revenue"
       },
       "latest": {
-        "date": "2026-09-28",
-        "close": 14.9
+        "date": "2026-09-29",
+        "close": 14.4116
       },
-      "pct_1d": -2.74,
-      "pct_1m": 0.54,
+      "pct_1d": -3.28,
+      "pct_1m": -7.14,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 8.85
-        },
         {
           "date": "2026-01-12",
           "close": 8.73
@@ -16562,9 +16558,13 @@
         {
           "date": "2026-09-28",
           "close": 14.9
+        },
+        {
+          "date": "2026-09-29",
+          "close": 14.4116
         }
       ],
-      "last_success_date": "2026-09-28",
+      "last_success_date": "2026-09-29",
       "never_fetched": false,
       "series_empty": false
     }

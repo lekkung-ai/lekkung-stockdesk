@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-29T18:06:33.167763+07:00",
+  "generated_at": "2026-09-29T21:20:38.280913+07:00",
   "as_of": "2026-09-29",
   "method": "Daily closes, SET market. flow_1d = group share of total traded value (Close x Volume) today / avg share of the previous 20 trading days; flow_5d = avg share of last 5 days / avg share of the 20 days before. value_* / base_value_* = traded value in million baht behind flow_* (today / 5-day daily avg vs the 20-day base). chg_* and ret_* = market-cap-weighted group return (constant-share basket, shares ESTIMATED as market_cap_now / Close_now - historical share counts unavailable); excess_* = group ret - benchmark ret (benchmark = SET index, or the whole-universe market-cap-weighted return when SET_INDEX.csv is stale) over 5 / 21 / 63 trading days. status: level = excess_3m, direction = excess_1m. avg_value_20d in million baht.",
-  "benchmark": "universe_capweighted",
+  "benchmark": "SET_INDEX",
   "n_stocks": 639,
   "n_without_market_cap": 6,
   "subsectors": [
@@ -20,11 +20,11 @@
       "chg_1d": -0.16,
       "chg_5d": -0.54,
       "ret_1w": -0.54,
-      "excess_1w": 0.13,
+      "excess_1w": 0.09,
       "ret_1m": -2.11,
-      "excess_1m": -2.38,
+      "excess_1m": -2.06,
       "ret_3m": 12.38,
-      "excess_3m": 10.4,
+      "excess_3m": 11.33,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -41,11 +41,11 @@
       "chg_1d": -1.14,
       "chg_5d": -2.12,
       "ret_1w": -2.12,
-      "excess_1w": -1.45,
+      "excess_1w": -1.49,
       "ret_1m": -3.35,
-      "excess_1m": -3.62,
+      "excess_1m": -3.3,
       "ret_3m": 4.81,
-      "excess_3m": 2.83,
+      "excess_3m": 3.76,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -62,11 +62,11 @@
       "chg_1d": -0.6,
       "chg_5d": -1.21,
       "ret_1w": -1.21,
-      "excess_1w": -0.54,
+      "excess_1w": -0.58,
       "ret_1m": -2.6,
-      "excess_1m": -2.87,
+      "excess_1m": -2.55,
       "ret_3m": 0.93,
-      "excess_3m": -1.05,
+      "excess_3m": -0.12,
       "status": "อ่อนต่อเนื่อง"
     },
     {
@@ -83,11 +83,11 @@
       "chg_1d": 0.16,
       "chg_5d": -0.14,
       "ret_1w": -0.14,
-      "excess_1w": 0.53,
+      "excess_1w": 0.49,
       "ret_1m": 1.05,
-      "excess_1m": 0.78,
+      "excess_1m": 1.1,
       "ret_3m": -1.16,
-      "excess_3m": -3.14,
+      "excess_3m": -2.21,
       "status": "เพิ่งเริ่มแข็ง"
     },
     {
@@ -104,11 +104,11 @@
       "chg_1d": 0.23,
       "chg_5d": 0.75,
       "ret_1w": 0.75,
-      "excess_1w": 1.42,
+      "excess_1w": 1.38,
       "ret_1m": -1.3,
-      "excess_1m": -1.57,
+      "excess_1m": -1.25,
       "ret_3m": 5.91,
-      "excess_3m": 3.93,
+      "excess_3m": 4.86,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -125,12 +125,12 @@
       "chg_1d": -1.88,
       "chg_5d": -3.89,
       "ret_1w": -3.89,
-      "excess_1w": -3.22,
+      "excess_1w": -3.26,
       "ret_1m": 0.13,
-      "excess_1m": -0.14,
+      "excess_1m": 0.18,
       "ret_3m": 11.44,
-      "excess_3m": 9.46,
-      "status": "เริ่มหมดแรง"
+      "excess_3m": 10.39,
+      "status": "แข็งต่อเนื่อง"
     },
     {
       "sector": "Financials",
@@ -146,11 +146,11 @@
       "chg_1d": -1.01,
       "chg_5d": -3.18,
       "ret_1w": -3.18,
-      "excess_1w": -2.51,
+      "excess_1w": -2.55,
       "ret_1m": -5.55,
-      "excess_1m": -5.82,
+      "excess_1m": -5.5,
       "ret_3m": -0.08,
-      "excess_3m": -2.06,
+      "excess_3m": -1.13,
       "status": "อ่อนต่อเนื่อง"
     },
     {
@@ -167,11 +167,11 @@
       "chg_1d": -0.55,
       "chg_5d": -2.09,
       "ret_1w": -2.09,
-      "excess_1w": -1.42,
+      "excess_1w": -1.46,
       "ret_1m": -0.47,
-      "excess_1m": -0.74,
+      "excess_1m": -0.42,
       "ret_3m": 3.87,
-      "excess_3m": 1.89,
+      "excess_3m": 2.82,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -188,12 +188,12 @@
       "chg_1d": 0.07,
       "chg_5d": -1.1,
       "ret_1w": -1.1,
-      "excess_1w": -0.43,
+      "excess_1w": -0.47,
       "ret_1m": -2.47,
-      "excess_1m": -2.74,
+      "excess_1m": -2.42,
       "ret_3m": 1.87,
-      "excess_3m": -0.11,
-      "status": "อ่อนต่อเนื่อง"
+      "excess_3m": 0.82,
+      "status": "เริ่มหมดแรง"
     },
     {
       "sector": "Industrials",
@@ -209,11 +209,11 @@
       "chg_1d": 0.58,
       "chg_5d": 0.22,
       "ret_1w": 0.22,
-      "excess_1w": 0.89,
+      "excess_1w": 0.85,
       "ret_1m": -0.1,
-      "excess_1m": -0.37,
+      "excess_1m": -0.05,
       "ret_3m": 9.4,
-      "excess_3m": 7.42,
+      "excess_3m": 8.35,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -230,11 +230,11 @@
       "chg_1d": -1.16,
       "chg_5d": -2.34,
       "ret_1w": -2.34,
-      "excess_1w": -1.67,
+      "excess_1w": -1.71,
       "ret_1m": -1.54,
-      "excess_1m": -1.81,
+      "excess_1m": -1.49,
       "ret_3m": 5.38,
-      "excess_3m": 3.4,
+      "excess_3m": 4.33,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -251,11 +251,11 @@
       "chg_1d": -1.21,
       "chg_5d": -1.34,
       "ret_1w": -1.34,
-      "excess_1w": -0.67,
+      "excess_1w": -0.71,
       "ret_1m": 0.45,
-      "excess_1m": 0.18,
+      "excess_1m": 0.5,
       "ret_3m": 18.62,
-      "excess_3m": 16.64,
+      "excess_3m": 17.57,
       "status": "แข็งต่อเนื่อง"
     },
     {
@@ -272,11 +272,11 @@
       "chg_1d": -0.48,
       "chg_5d": -2.53,
       "ret_1w": -2.53,
-      "excess_1w": -1.86,
+      "excess_1w": -1.9,
       "ret_1m": 11.82,
-      "excess_1m": 11.55,
+      "excess_1m": 11.87,
       "ret_3m": 36.53,
-      "excess_3m": 34.55,
+      "excess_3m": 35.48,
       "status": "แข็งต่อเนื่อง"
     },
     {
@@ -293,11 +293,11 @@
       "chg_1d": -1.05,
       "chg_5d": -1.5,
       "ret_1w": -1.5,
-      "excess_1w": -0.83,
+      "excess_1w": -0.87,
       "ret_1m": -4.14,
-      "excess_1m": -4.41,
+      "excess_1m": -4.09,
       "ret_3m": 6.63,
-      "excess_3m": 4.65,
+      "excess_3m": 5.58,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -314,11 +314,11 @@
       "chg_1d": 0.24,
       "chg_5d": -0.54,
       "ret_1w": -0.54,
-      "excess_1w": 0.13,
+      "excess_1w": 0.09,
       "ret_1m": 0.94,
-      "excess_1m": 0.67,
+      "excess_1m": 0.99,
       "ret_3m": 9.64,
-      "excess_3m": 7.66,
+      "excess_3m": 8.59,
       "status": "แข็งต่อเนื่อง"
     },
     {
@@ -335,11 +335,11 @@
       "chg_1d": 0.56,
       "chg_5d": 1.55,
       "ret_1w": 1.55,
-      "excess_1w": 2.22,
+      "excess_1w": 2.18,
       "ret_1m": 0.43,
-      "excess_1m": 0.16,
+      "excess_1m": 0.48,
       "ret_3m": 2.18,
-      "excess_3m": 0.2,
+      "excess_3m": 1.13,
       "status": "แข็งต่อเนื่อง"
     },
     {
@@ -356,11 +356,11 @@
       "chg_1d": -1.06,
       "chg_5d": -0.28,
       "ret_1w": -0.28,
-      "excess_1w": 0.39,
+      "excess_1w": 0.35,
       "ret_1m": -2.87,
-      "excess_1m": -3.14,
+      "excess_1m": -2.82,
       "ret_3m": 0.96,
-      "excess_3m": -1.02,
+      "excess_3m": -0.09,
       "status": "อ่อนต่อเนื่อง"
     },
     {
@@ -377,11 +377,11 @@
       "chg_1d": 0.04,
       "chg_5d": 0.06,
       "ret_1w": 0.06,
-      "excess_1w": 0.73,
+      "excess_1w": 0.69,
       "ret_1m": -1.02,
-      "excess_1m": -1.29,
+      "excess_1m": -0.97,
       "ret_3m": 5.44,
-      "excess_3m": 3.46,
+      "excess_3m": 4.39,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -398,11 +398,11 @@
       "chg_1d": -1.2,
       "chg_5d": -1.24,
       "ret_1w": -1.24,
-      "excess_1w": -0.57,
+      "excess_1w": -0.61,
       "ret_1m": -0.26,
-      "excess_1m": -0.53,
+      "excess_1m": -0.21,
       "ret_3m": 13.89,
-      "excess_3m": 11.91,
+      "excess_3m": 12.84,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -419,11 +419,11 @@
       "chg_1d": -0.54,
       "chg_5d": -0.62,
       "ret_1w": -0.62,
-      "excess_1w": 0.05,
+      "excess_1w": 0.01,
       "ret_1m": -1.48,
-      "excess_1m": -1.75,
+      "excess_1m": -1.43,
       "ret_3m": 2.61,
-      "excess_3m": 0.63,
+      "excess_3m": 1.56,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -440,11 +440,11 @@
       "chg_1d": 0.47,
       "chg_5d": -0.09,
       "ret_1w": -0.09,
-      "excess_1w": 0.58,
+      "excess_1w": 0.54,
       "ret_1m": 2.35,
-      "excess_1m": 2.08,
+      "excess_1m": 2.4,
       "ret_3m": 4.0,
-      "excess_3m": 2.02,
+      "excess_3m": 2.95,
       "status": "แข็งต่อเนื่อง"
     },
     {
@@ -461,11 +461,11 @@
       "chg_1d": 2.49,
       "chg_5d": 1.83,
       "ret_1w": 1.83,
-      "excess_1w": 2.5,
+      "excess_1w": 2.46,
       "ret_1m": -1.2,
-      "excess_1m": -1.47,
+      "excess_1m": -1.15,
       "ret_3m": 12.73,
-      "excess_3m": 10.75,
+      "excess_3m": 11.68,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -482,11 +482,11 @@
       "chg_1d": 0.36,
       "chg_5d": -0.2,
       "ret_1w": -0.2,
-      "excess_1w": 0.47,
+      "excess_1w": 0.43,
       "ret_1m": -1.37,
-      "excess_1m": -1.64,
+      "excess_1m": -1.32,
       "ret_3m": -3.83,
-      "excess_3m": -5.81,
+      "excess_3m": -4.88,
       "status": "อ่อนต่อเนื่อง"
     },
     {
@@ -503,11 +503,11 @@
       "chg_1d": -0.38,
       "chg_5d": -1.35,
       "ret_1w": -1.35,
-      "excess_1w": -0.68,
+      "excess_1w": -0.72,
       "ret_1m": -1.34,
-      "excess_1m": -1.61,
+      "excess_1m": -1.29,
       "ret_3m": -1.96,
-      "excess_3m": -3.94,
+      "excess_3m": -3.01,
       "status": "อ่อนต่อเนื่อง"
     },
     {
@@ -524,11 +524,11 @@
       "chg_1d": -1.9,
       "chg_5d": -2.1,
       "ret_1w": -2.1,
-      "excess_1w": -1.43,
+      "excess_1w": -1.47,
       "ret_1m": -2.73,
-      "excess_1m": -3.0,
+      "excess_1m": -2.68,
       "ret_3m": -0.45,
-      "excess_3m": -2.43,
+      "excess_3m": -1.5,
       "status": "อ่อนต่อเนื่อง"
     },
     {
@@ -545,11 +545,11 @@
       "chg_1d": 1.47,
       "chg_5d": 4.18,
       "ret_1w": 4.18,
-      "excess_1w": 4.85,
+      "excess_1w": 4.81,
       "ret_1m": 5.49,
-      "excess_1m": 5.22,
+      "excess_1m": 5.54,
       "ret_3m": -17.13,
-      "excess_3m": -19.11,
+      "excess_3m": -18.18,
       "status": "เพิ่งเริ่มแข็ง"
     },
     {
@@ -566,11 +566,11 @@
       "chg_1d": 0.23,
       "chg_5d": -0.25,
       "ret_1w": -0.25,
-      "excess_1w": 0.42,
+      "excess_1w": 0.38,
       "ret_1m": -2.0,
-      "excess_1m": -2.27,
+      "excess_1m": -1.95,
       "ret_3m": 0.2,
-      "excess_3m": -1.78,
+      "excess_3m": -0.85,
       "status": "อ่อนต่อเนื่อง"
     }
   ],
@@ -588,11 +588,11 @@
       "chg_1d": -1.04,
       "chg_5d": -1.95,
       "ret_1w": -1.95,
-      "excess_1w": -1.28,
+      "excess_1w": -1.32,
       "ret_1m": -3.22,
-      "excess_1m": -3.49,
+      "excess_1m": -3.17,
       "ret_3m": 5.57,
-      "excess_3m": 3.59,
+      "excess_3m": 4.52,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -608,11 +608,11 @@
       "chg_1d": -0.06,
       "chg_5d": -0.01,
       "ret_1w": -0.01,
-      "excess_1w": 0.66,
+      "excess_1w": 0.62,
       "ret_1m": -1.55,
-      "excess_1m": -1.82,
+      "excess_1m": -1.5,
       "ret_3m": 3.53,
-      "excess_3m": 1.55,
+      "excess_3m": 2.48,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -628,11 +628,11 @@
       "chg_1d": -1.69,
       "chg_5d": -3.68,
       "ret_1w": -3.68,
-      "excess_1w": -3.01,
+      "excess_1w": -3.05,
       "ret_1m": -0.59,
-      "excess_1m": -0.86,
+      "excess_1m": -0.54,
       "ret_3m": 9.41,
-      "excess_3m": 7.43,
+      "excess_3m": 8.36,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -648,11 +648,11 @@
       "chg_1d": -0.58,
       "chg_5d": -2.16,
       "ret_1w": -2.16,
-      "excess_1w": -1.49,
+      "excess_1w": -1.53,
       "ret_1m": 5.22,
-      "excess_1m": 4.95,
+      "excess_1m": 5.27,
       "ret_3m": 20.47,
-      "excess_3m": 18.49,
+      "excess_3m": 19.42,
       "status": "แข็งต่อเนื่อง"
     },
     {
@@ -668,11 +668,11 @@
       "chg_1d": -0.43,
       "chg_5d": -0.21,
       "ret_1w": -0.21,
-      "excess_1w": 0.46,
+      "excess_1w": 0.42,
       "ret_1m": -1.28,
-      "excess_1m": -1.55,
+      "excess_1m": -1.23,
       "ret_3m": 4.12,
-      "excess_3m": 2.14,
+      "excess_3m": 3.07,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -688,11 +688,11 @@
       "chg_1d": -1.2,
       "chg_5d": -1.24,
       "ret_1w": -1.24,
-      "excess_1w": -0.57,
+      "excess_1w": -0.61,
       "ret_1m": -0.26,
-      "excess_1m": -0.53,
+      "excess_1m": -0.21,
       "ret_3m": 13.89,
-      "excess_3m": 11.91,
+      "excess_3m": 12.84,
       "status": "เริ่มหมดแรง"
     },
     {
@@ -708,12 +708,12 @@
       "chg_1d": -0.8,
       "chg_5d": -1.09,
       "ret_1w": -1.09,
-      "excess_1w": -0.42,
+      "excess_1w": -0.46,
       "ret_1m": -1.28,
-      "excess_1m": -1.55,
+      "excess_1m": -1.23,
       "ret_3m": 1.54,
-      "excess_3m": -0.44,
-      "status": "อ่อนต่อเนื่อง"
+      "excess_3m": 0.49,
+      "status": "เริ่มหมดแรง"
     },
     {
       "sector": "Technology",
@@ -728,11 +728,11 @@
       "chg_1d": 1.07,
       "chg_5d": 2.72,
       "ret_1w": 2.72,
-      "excess_1w": 3.39,
+      "excess_1w": 3.35,
       "ret_1m": 2.96,
-      "excess_1m": 2.69,
+      "excess_1m": 3.01,
       "ret_3m": -12.26,
-      "excess_3m": -14.24,
+      "excess_3m": -13.31,
       "status": "เพิ่งเริ่มแข็ง"
     }
   ]
