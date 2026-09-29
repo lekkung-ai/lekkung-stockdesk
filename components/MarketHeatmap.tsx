@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { squarify } from '@/lib/treemap';
 import { weightedChange, formatPct } from '@/lib/sectorChange';
 import { formatThaiDate } from '@/lib/utils';
-import { heatColor, NO_DATA_COLOR } from '@/lib/heatColor';
+import { heatColor, heatTextColor, NO_DATA_COLOR } from '@/lib/heatColor';
 
 export { heatColor };
 
@@ -116,9 +116,11 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
               ) : (
                 <span className="truncate">{group.label}</span>
               )}
-              <span className="font-mono font-extrabold flex-shrink-0" style={{ color: chg.pct == null ? 'rgba(255,255,255,0.3)' : heatColor(chg.pct) }}>
-                {formatPct(chg.pct)}
-              </span>
+              {chg.pct != null && (
+                <span className="font-mono font-extrabold flex-shrink-0" style={{ color: heatTextColor(chg.pct) ?? undefined }}>
+                  {formatPct(chg.pct)}
+                </span>
+              )}
             </div>
           )}
           {inner.map(({ item: s, x, y, w, h }) => {

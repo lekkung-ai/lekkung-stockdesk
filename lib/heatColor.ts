@@ -40,3 +40,11 @@ export function heatColor(pct: number | null | undefined): string {
   }
   return ANCHORS[4][1];
 }
+
+/** Text colour for a % on a dark background (sector headers / cards). null → no colour (caller hides the %). */
+export function heatTextColor(pct: number | null | undefined): string | null {
+  if (pct == null || !Number.isFinite(pct)) return null;
+  if (pct >= 0.1) return '#2ECC71';
+  if (pct <= -0.1) return '#F23645';
+  return '#9AA0AC';
+}

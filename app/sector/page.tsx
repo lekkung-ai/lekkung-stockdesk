@@ -12,6 +12,7 @@ import { useMarketQuotes } from '@/lib/useMarketQuotes';
 import { weightedChange, formatPct } from '@/lib/sectorChange';
 import { topNWithOther } from '@/lib/heatmapGroups';
 import { getRS, getStage } from '@/lib/tickerMeta';
+import { heatTextColor } from '@/lib/heatColor';
 
 type Market = 'SET' | 'MAI' | 'WARRANT';
 
@@ -41,12 +42,10 @@ function sectorColor(sector: string): string {
 
 function TodayChange({ change }: { change?: { pct: number | null; n: number; total: number } }) {
   if (!change || change.pct == null) return null;
-  const up = change.pct > 0;
-  const down = change.pct < 0;
   return (
     <p className="mt-1 text-[11px] font-bold tabular-nums">
       <span className="text-white/35 font-medium">วันนี้ </span>
-      <span className={up ? 'text-emerald-400' : down ? 'text-rose-400' : 'text-white/50'}>{formatPct(change.pct)}</span>
+      <span style={{ color: heatTextColor(change.pct) ?? undefined }}>{formatPct(change.pct)}</span>
       <span className="text-white/25 font-medium"> · n={change.n}/{change.total}</span>
     </p>
   );

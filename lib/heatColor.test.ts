@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { heatColor, NO_DATA_COLOR } from './heatColor';
+import { heatColor, heatTextColor, NO_DATA_COLOR } from './heatColor';
 
 describe('heatColor', () => {
   it('hits the anchors exactly', () => {
@@ -31,5 +31,21 @@ describe('heatColor', () => {
     expect(heatColor(undefined)).toBe(NO_DATA_COLOR);
     expect(heatColor(NaN)).toBe(NO_DATA_COLOR);
     expect(heatColor(0)).not.toBe(NO_DATA_COLOR);
+  });
+});
+
+describe('heatTextColor', () => {
+  it('splits by sign with a neutral band', () => {
+    expect(heatTextColor(0.1)).toBe('#2ECC71');
+    expect(heatTextColor(2)).toBe('#2ECC71');
+    expect(heatTextColor(-0.1)).toBe('#F23645');
+    expect(heatTextColor(-5)).toBe('#F23645');
+    expect(heatTextColor(0.09)).toBe('#9AA0AC');
+    expect(heatTextColor(0)).toBe('#9AA0AC');
+    expect(heatTextColor(-0.09)).toBe('#9AA0AC');
+  });
+  it('returns null for missing values', () => {
+    expect(heatTextColor(null)).toBeNull();
+    expect(heatTextColor(NaN)).toBeNull();
   });
 });

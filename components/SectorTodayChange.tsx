@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { useMarketQuotes } from '@/lib/useMarketQuotes';
 import { weightedChange, formatPct } from '@/lib/sectorChange';
+import { heatTextColor } from '@/lib/heatColor';
 
 // Today's market-cap-weighted % for a whole sector (all subsectors, unfiltered)
 export default function SectorTodayChange({ tickers }: { tickers: string[] }) {
@@ -16,11 +17,10 @@ export default function SectorTodayChange({ tickers }: { tickers: string[] }) {
   if (status === 'error' || change.pct == null) {
     return <p className="text-[12px] text-amber-300/70 mt-1">ไม่มีข้อมูลราคาสด</p>;
   }
-  const cls = change.pct > 0 ? 'text-emerald-400' : change.pct < 0 ? 'text-rose-400' : 'text-white/50';
   return (
     <p className="text-[13px] mt-1 font-bold tabular-nums">
       <span className="text-white/35 font-medium">วันนี้ </span>
-      <span className={cls}>{formatPct(change.pct)}</span>
+      <span style={{ color: heatTextColor(change.pct) ?? undefined }}>{formatPct(change.pct)}</span>
       <span className="text-white/25 font-medium text-[11px]"> · n={change.n}/{change.total}</span>
     </p>
   );
