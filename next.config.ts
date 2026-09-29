@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    // /sector-rotation (RRG) was replaced by /sector-flow
+    return [{ source: '/sector-rotation', destination: '/sector-flow', permanent: false }];
+  },
   outputFileTracingIncludes: {
     // Every path a Route Handler reads via fs.readFileSync at request time
     // must be listed here, or Vercel's serverless bundle excludes it (only

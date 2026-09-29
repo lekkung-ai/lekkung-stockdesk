@@ -44,7 +44,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Overview', href: '/', icon: Globe },
       { label: 'Market Breadth', href: '/breadth', icon: BarChart2 },
       { label: 'Sector Map', href: '/sector', icon: Map },
-      { label: 'Sector Rotation', href: '/sector-rotation', icon: RotateCw },
+      { label: 'Sector Flow', href: '/sector-flow', icon: RotateCw },
       { label: 'SET50 / SET100', href: '/set-index/set100', icon: ListOrdered, activePrefix: '/set-index/' },
       { label: 'Macro & Commodities', href: '/macro', icon: Fuel },
       { label: 'Top Movers', href: '/top-movers', icon: Activity, exact: true },
