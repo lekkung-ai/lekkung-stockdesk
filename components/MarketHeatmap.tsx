@@ -5,6 +5,12 @@ import Link from 'next/link';
 import { squarify } from '@/lib/treemap';
 import { weightedChange, formatPct } from '@/lib/sectorChange';
 import { formatThaiDate } from '@/lib/utils';
+import { heatColor, NO_DATA_COLOR } from '@/lib/heatColor';
+
+export { heatColor };
+
+const PAGE_BG = '#0b0d12';
+const TEXT_SHADOW = '0 1px 2px rgba(0,0,0,0.55)';
 
 export interface HeatStock {
   ticker: string;
@@ -25,21 +31,8 @@ export interface HeatGroup {
 }
 
 const HEADER_H = 18;
-const GAP = 2;
-
-// −3% → deep red, 0 → grey, +3% → deep green (linear between)
-const RED: [number, number, number] = [176, 32, 44];
-const GREY: [number, number, number] = [58, 63, 75];
-const GREEN: [number, number, number] = [24, 138, 78];
-
-export function heatColor(chg: number | null): string {
-  if (chg == null || !Number.isFinite(chg)) return '#2a2e39';
-  const t = Math.max(-1, Math.min(1, chg / 3));
-  const target = t < 0 ? RED : GREEN;
-  const k = Math.abs(t);
-  const c = GREY.map((v, i) => Math.round(v + (target[i] - v) * k));
-  return `rgb(${c[0]},${c[1]},${c[2]})`;
-}
+const GROUP_GAP = 3; // between sector/subsector groups
+const BOX_GAP = 1; // between stock boxes
 
 const fmtMcap = (v: number) =>
   v >= 1e12 ? `${(v / 1e12).toFixed(2)} ล้านล้าน` : v >= 1e9 ? `${(v / 1e9).toFixed(1)} พันล้าน` : `${(v / 1e6).toFixed(0)} ล้าน`;
@@ -51,12 +44,13 @@ export function HeatmapLegend({ fetchedAt }: { fetchedAt?: string | null }) {
       <span>% วันนี้</span>
       <div className="flex">
         {stops.map(s => (
-          <div key={s} className="w-11 h-4 text-[9.5px] text-white/90 text-center leading-4 font-mono" style={{ background: heatColor(s) }}>
+          <div key={s} className="w-11 h-4 text-[9.5px] text-white text-center leading-4 font-mono font-bold" style={{ background: heatColor(s), textShadow: TEXT_SHADOW }}>
             {s > 0 ? `+${s}%` : s < 0 ? `−${Math.abs(s)}%` : '0%'}
           </div>
         ))}
       </div>
-      <span>· ขนาดกล่อง = market cap · ≤ −3% แดงเข้มสุด / ≥ +3% เขียวเข้มสุด</span>
+      <div className="h-4 px-2 text-[9.5px] leading-4 text-white/50 text-center" style={{ background: NO_DATA_COLOR }}>ไม่มีการซื้อขาย</div>
+      <span>· ขนาดกล่อง = market cap</span>
       {fetchedAt && <span className="text-white/40">· ข้อมูลล่าช้า 15 นาที · อัปเดต {formatThaiDate(fetchedAt)}</span>}
     </div>
   );
@@ -95,7 +89,7 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
       const hh = showHeader ? HEADER_H : 0;
       const inner = squarify(
         stocks.map(s => ({ item: s, value: s.mcap })),
-        GAP, hh + (showHeader ? 0 : GAP), Math.max(0, r.w - GAP * 2), Math.max(0, r.h - hh - GAP * (showHeader ? 1 : 2)),
+        0, hh, r.w, Math.max(0, r.h - hh),
       );
       return { rect: r, group: g, chg, showHeader, inner };
     });
@@ -112,8 +106,8 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
       {layout.map(({ rect, group, chg, showHeader, inner }) => (
         <div
           key={group.key}
-          className="absolute overflow-hidden bg-[#13161e]"
-          style={{ left: rect.x, top: rect.y, width: rect.w, height: rect.h, outline: '1px solid #0b0d12', outlineOffset: -1 }}
+          className="absolute overflow-hidden"
+          style={{ left: rect.x + GROUP_GAP / 2, top: rect.y + GROUP_GAP / 2, width: Math.max(0, rect.w - GROUP_GAP), height: Math.max(0, rect.h - GROUP_GAP), background: PAGE_BG }}
         >
           {showHeader && (
             <div className="flex items-center justify-between gap-2 px-1.5 text-[11px] font-bold text-white/90 whitespace-nowrap overflow-hidden" style={{ height: HEADER_H }}>
@@ -122,7 +116,7 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
               ) : (
                 <span className="truncate">{group.label}</span>
               )}
-              <span className={`font-mono flex-shrink-0 ${chg.pct == null ? 'text-white/30' : chg.pct > 0 ? 'text-emerald-400' : chg.pct < 0 ? 'text-rose-400' : 'text-white/50'}`}>
+              <span className="font-mono font-extrabold flex-shrink-0" style={{ color: chg.pct == null ? 'rgba(255,255,255,0.3)' : heatColor(chg.pct) }}>
                 {formatPct(chg.pct)}
               </span>
             </div>
@@ -130,21 +124,21 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
           {inner.map(({ item: s, x, y, w, h }) => {
             const showTicker = w >= 34 && h >= 18;
             const showPct = w >= 34 && h >= 32;
-            const fs = Math.max(9, Math.min(18, Math.min(w / 5.2, h / 2.6)));
+            const fs = Math.max(9, Math.min(24, Math.min(w / 5.2, h / 2.6)));
             return (
               <Link
                 key={s.ticker}
                 href={s.other ? s.other.href : `/stock/${s.ticker}`}
                 aria-label={`${s.ticker} ${formatPct(s.chg)}`}
-                className="absolute flex flex-col items-center justify-center overflow-hidden text-white leading-tight hover:brightness-125 hover:z-10"
-                style={{ left: x, top: y, width: w, height: h, background: heatColor(s.chg), outline: '1px solid #0b0d12', outlineOffset: -0.5 }}
+                className="absolute flex flex-col items-center justify-center overflow-hidden text-white leading-tight hover:brightness-125 hover:z-10 font-bold"
+                style={{ left: x + BOX_GAP / 2, top: y + BOX_GAP / 2, width: Math.max(0, w - BOX_GAP), height: Math.max(0, h - BOX_GAP), background: heatColor(s.chg), textShadow: TEXT_SHADOW }}
                 onMouseMove={e => {
                   const box = wrapRef.current?.getBoundingClientRect();
                   if (box) setTip({ stock: s, x: e.clientX - box.left, y: e.clientY - box.top });
                 }}
               >
-                {showTicker && <span className="font-bold" style={{ fontSize: fs }}>{s.ticker}</span>}
-                {showPct && <span className="font-mono opacity-90" style={{ fontSize: Math.max(9, fs * 0.72) }}>{formatPct(s.chg)}</span>}
+                {showTicker && <span className="font-bold" style={{ fontSize: fs, opacity: s.chg == null ? 0.5 : 1 }}>{s.ticker}</span>}
+                {showPct && <span className="font-mono font-bold" style={{ fontSize: Math.max(9, fs * 0.72), opacity: s.chg == null ? 0.5 : 0.92 }}>{formatPct(s.chg)}</span>}
               </Link>
             );
           })}
