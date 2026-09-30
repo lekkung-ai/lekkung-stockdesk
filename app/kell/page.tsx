@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { kellData } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
@@ -36,19 +37,15 @@ function distColor(dist: number): string {
   return '#E24B4A';
 }
 
-// ADTV floor ไม่ใช่ส่วนหนึ่งของ Trend Template/Kell's Signal — หุ้นผ่านด่าน
-// เทรนด์+สัญญาณแต่สภาพคล่องต่ำกว่า floor (10 ลบ./วัน) ยังโผล่ในลิสต์แทนที่จะ
-// ถูกตัดทิ้งเงียบๆ badge นี้บอกว่าทำไมถึงเห็นหุ้นตัวเล็ก/เทรดไม่คล่องปนอยู่
-function LowLiquidityBadge({ low, adtvMb }: { low: boolean | undefined; adtvMb: number | undefined }) {
-  if (!low) return null;
-  const adtvLabel = adtvMb != null ? adtvMb.toFixed(1) : '?';
+// ADTV ของหุ้นเป็นตัวเลขจางใต้ชื่อ แทนป้าย "ADTV ต่ำ" (floor 10 ลบ./วัน ของ pipeline) — ป้ายนั้น
+// ขัดกับชุดสภาพคล่องของหน้านี้ (หุ้น 6–10 MB อยู่ชุด "สูง" แต่ติดป้าย "ต่ำ") · ไม่มีค่า → ไม่แสดง
+// Kell คำนวณ ADTV เฉลี่ย 5 วัน (scan_oliver_kell.py) ต่างจาก SEPA ที่ใช้ 50 วัน
+function AdtvCaption({ adtvMb }: { adtvMb: number | null | undefined }) {
+  if (adtvMb == null) return null;
   return (
-    <span
-      title={`ADTV ${adtvLabel} ลบ./วัน (< floor 10 ลบ./วัน) — สภาพคล่องต่ำ ผ่านด่านเทรนด์+สัญญาณ แต่ระวังเรื่องเข้า-ออกยาก`}
-      className="inline-flex items-center px-1 py-0 rounded text-[9px] font-bold bg-amber-500/20 text-amber-400 ml-1.5 align-middle"
-    >
-      ADTV ต่ำ
-    </span>
+    <div className="text-[10px] text-white/30 tabular-nums" title="ADTV เฉลี่ย 5 วัน (ล้านบาท/วัน)">
+      ADTV {adtvMb.toFixed(1)} MB
+    </div>
   );
 }
 
@@ -57,11 +54,33 @@ function LowLiquidityBadge({ low, adtvMb }: { low: boolean | undefined; adtvMb: 
 const RS_BY_TICKER = new Map(scanData.map(s => [s.ticker, s.rs_score]));
 const rsOf = (ticker: string): number | null => RS_BY_TICKER.get(ticker) ?? null;
 
-// ค่าเริ่มต้น: ซ่อนหุ้นสภาพคล่องต่ำ (ADTV < 10 ลบ./วัน) — ลาก slider ลงเพื่อดูทั้งหมด
-// ตัวกรอง = "ซ่อน" ฝั่ง client เท่านั้น ไม่ลบ row · จำนวนที่ซ่อนแสดงใน FilterBar เสมอ
-const ADTV_DEFAULT_MIN = 10;
-// Kell ไม่มีเกณฑ์ RS ในสแกน (RS ต่ำสุดที่พบ ~45) — ค่าต่ำสุดของ slider = ไม่กรอง RS
-const RS_FLOOR = 40;
+// ชุดสภาพคล่องตาม ADTV(MB) (ลบ./วัน) — เลือกได้ทีละชุด ผูกกับ ?liq= ใน URL (ค่าเดียวกับ /sepa)
+// ขอบเขต: สูง ≥ LIQ_HIGH_MB · กลาง LIQ_MID_MB ถึง < LIQ_HIGH_MB · ต่ำ < LIQ_MID_MB
+// หุ้นที่ไม่มีค่า ADTV อยู่ในชุด "ทั้งหมด" เท่านั้น · ADTV ของแต่ละตัวแสดงเป็นตัวเลขใต้ชื่อ (AdtvCaption)
+const LIQ_HIGH_MB = 6;
+const LIQ_MID_MB = 3;
+type LiqSet = 'all' | 'high' | 'mid' | 'low';
+const LIQ_SETS: LiqSet[] = ['all', 'high', 'mid', 'low'];
+const LIQ_DEFAULT: LiqSet = 'high';
+const LIQ_LABELS: Record<LiqSet, string> = {
+  all: 'ทั้งหมด',
+  high: `สูง ≥${LIQ_HIGH_MB} MB`,
+  mid: `กลาง ${LIQ_MID_MB}–${LIQ_HIGH_MB} MB`,
+  low: `ต่ำ <${LIQ_MID_MB} MB`,
+};
+
+function inLiqSet(adtv: number | null | undefined, set: LiqSet): boolean {
+  if (set === 'all') return true;
+  if (adtv == null) return false;
+  if (set === 'high') return adtv >= LIQ_HIGH_MB;
+  if (set === 'mid') return adtv >= LIQ_MID_MB && adtv < LIQ_HIGH_MB;
+  return adtv < LIQ_MID_MB;
+}
+
+// Kell ไม่มีเกณฑ์ RS ในสแกน (RS ของหุ้นใน Kell มีตั้งแต่ 30 กว่าถึง 99 และเปลี่ยนทุกวัน) — ค่าต่ำสุด
+// ของ slider = ค่าเริ่มต้น = RS ต่ำสุดในข้อมูลวันนี้ (ปัดลง) → เปิดหน้ามาไม่ซ่อนหุ้นตัวไหน · ไม่มี RS เลย → 0
+const RS_VALUES = kellData.map(s => rsOf(s.Ticker)).filter((v): v is number => v != null && Number.isFinite(v));
+const RS_FLOOR = RS_VALUES.length ? Math.floor(Math.min(...RS_VALUES)) : 0;
 
 type SortMode = 'tight' | 'rs' | 'adtv';
 const SORT_LABELS: Record<SortMode, string> = {
@@ -71,12 +90,23 @@ const SORT_LABELS: Record<SortMode, string> = {
 };
 
 export default function KellPage() {
+  return (
+    <Suspense fallback={null}>
+      <KellContent />
+    </Suspense>
+  );
+}
+
+function KellContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const rawLiq = searchParams.get('liq');
+  const liq: LiqSet = rawLiq && (LIQ_SETS as string[]).includes(rawLiq) ? (rawLiq as LiqSet) : LIQ_DEFAULT;
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const [rsMin, setRsMin] = useState(RS_FLOOR);
-  const [adtvMin, setAdtvMin] = useState(ADTV_DEFAULT_MIN);
   const [sortMode, setSortMode] = useState<SortMode>('tight');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
@@ -100,9 +130,14 @@ export default function KellPage() {
     setRsMin(val);
   };
 
-  const handleAdtvMinChange = (val: number) => {
+  // ?liq= ใน URL ให้ refresh / แชร์ลิงก์แล้วได้ชุดเดิม · ค่าเริ่มต้น (high) ไม่ใส่ใน URL
+  const handleLiqChange = (val: LiqSet) => {
     setCurrentPage(1);
-    setAdtvMin(val);
+    const params = new URLSearchParams(searchParams.toString());
+    if (val === LIQ_DEFAULT) params.delete('liq');
+    else params.set('liq', val);
+    const qs = params.toString();
+    router.replace(qs ? `/kell?${qs}` : '/kell', { scroll: false });
   };
 
   const handleSortModeChange = (val: SortMode) => {
@@ -114,31 +149,33 @@ export default function KellPage() {
   const handleShowAll = () => {
     setCurrentPage(1);
     setRsMin(RS_FLOOR);
-    setAdtvMin(0);
   };
 
-  // slider = "ซ่อน" ฝั่ง client เท่านั้น (ไม่ลบ row) · RS/ADTV ที่ไม่มีข้อมูลไม่ถูกซ่อนโดยอัตโนมัติ
+  // RS slider = "ซ่อน" ฝั่ง client เท่านั้น (ไม่ลบ row) · RS ที่ไม่มีข้อมูลไม่ถูกซ่อนโดยอัตโนมัติ
   // ("ไม่ทราบ" ≠ "ต่ำ") — RS ที่ไม่มีข้อมูลผ่านเฉพาะตอน slider อยู่ค่าต่ำสุด
   const controlled = useMemo(
     () =>
       kellData.filter(s => {
         const rs = rsOf(s.Ticker);
-        return (
-          (rs == null ? rsMin <= RS_FLOOR : rs >= rsMin) &&
-          (s['ADTV(MB)'] == null || s['ADTV(MB)'] >= adtvMin)
-        );
+        return rs == null ? rsMin <= RS_FLOOR : rs >= rsMin;
       }),
-    [rsMin, adtvMin]
+    [rsMin]
   );
-  const hiddenByControls = kellData.length - controlled.length;
-  const hiddenByAdtv = useMemo(
-    () => kellData.filter(s => s['ADTV(MB)'] != null && s['ADTV(MB)'] < adtvMin).length,
-    [adtvMin]
+  const hiddenByRs = kellData.length - controlled.length;
+
+  // ตัวกรองอื่น (RS / เข้าใหม่) ก่อน → นับ n ของแต่ละชุดสภาพคล่องจากตรงนี้ → แล้วค่อยกรองชุดที่เลือก
+  const preLiq = useMemo(
+    () => controlled.filter(s => diffFilter !== 'new' || newSet.has(s.Ticker)),
+    [controlled, diffFilter, newSet]
   );
+  const liqCounts = useMemo(() => {
+    const c: Record<LiqSet, number> = { all: 0, high: 0, mid: 0, low: 0 };
+    for (const s of preLiq) for (const k of LIQ_SETS) if (inLiqSet(s['ADTV(MB)'], k)) c[k]++;
+    return c;
+  }, [preLiq]);
 
   const filtered = useMemo(() => {
-    let result = controlled
-      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+    let result = preLiq.filter(s => inLiqSet(s['ADTV(MB)'], liq));
 
     if (sortConfig) {
       result = result.sort((a, b) => {
@@ -174,11 +211,11 @@ export default function KellPage() {
       });
     }
     return result;
-  }, [controlled, sortConfig, sortMode, diffFilter, newSet]);
+  }, [preLiq, liq, sortConfig, sortMode]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [sortConfig, sortMode, diffFilter, newSet, rsMin, adtvMin]
+    [sortConfig, sortMode, diffFilter, newSet, rsMin, liq]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -223,7 +260,6 @@ export default function KellPage() {
       <>
       <FilterBar>
         <SliderField label="RS Rating" min={RS_FLOOR} max={90} step={10} value={rsMin} onChange={handleRsMinChange} />
-        <SliderField label="ADTV (MB)" min={0} max={10} step={1} value={adtvMin} onChange={handleAdtvMinChange} />
         <Divider />
         <label className="flex items-center gap-2">
           <span className="text-[10px] text-white/30 uppercase tracking-wider">เรียงตาม</span>
@@ -240,12 +276,27 @@ export default function KellPage() {
         </label>
         <Divider />
         <ScanDiffChips scanName="kell" filter={diffFilter} onChange={handleDiffFilterChange} />
+        <Divider />
+        <div className="flex items-center gap-1.5 flex-wrap" title="ชุดสภาพคล่องตาม ADTV (ลบ./วัน เฉลี่ย 5 วัน) · หุ้นที่ไม่มีค่า ADTV อยู่ในชุด ทั้งหมด เท่านั้น">
+          {LIQ_SETS.map(k => (
+            <button
+              key={k}
+              onClick={() => handleLiqChange(k)}
+              className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all border ${
+                liq === k
+                  ? 'bg-[#7F77DD]/15 text-[#7F77DD] border-[#7F77DD]/30'
+                  : 'bg-white/[0.04] text-white/35 border-white/[0.06] hover:text-white/60'
+              }`}
+            >
+              {LIQ_LABELS[k]} ({liqCounts[k]})
+            </button>
+          ))}
+        </div>
         <div className="basis-full flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/35">
-          {hiddenByControls > 0 && (
+          {hiddenByRs > 0 && (
             <>
               <span className="text-amber-400/90">
-                ซ่อนด้วยตัวกรอง {hiddenByControls} ตัว
-                {adtvMin > 0 && hiddenByAdtv > 0 && ` (ADTV ต่ำกว่า ${adtvMin} MB: ${hiddenByAdtv})`}
+                ซ่อนด้วยตัวกรอง RS {hiddenByRs} ตัว
               </span>
               <button
                 onClick={handleShowAll}
@@ -300,12 +351,12 @@ export default function KellPage() {
                     <span className="text-white/25 tabular-nums text-[11px] shrink-0">{globalIndex + 1}</span>
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
-                      <LowLiquidityBadge low={s.Low_Liquidity} adtvMb={s['ADTV(MB)']} />
                       {newSet.has(s.Ticker) && <NewBadge />}
                     </div>
                     <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
+                  <AdtvCaption adtvMb={s['ADTV(MB)']} />
                   <SectorChip ticker={s.Ticker} />
                 </Td>
                 <Td>
