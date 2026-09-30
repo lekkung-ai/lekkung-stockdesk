@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { flowLabel, flowRows, strengthRows, compareNullLast, formatThaiDay, parseSortKey, parseFlowWindow, type FlowRow } from './sectorFlow';
+import { flowLabel, flowRows, strengthRows, compareNullLast, formatThaiDay, parseSortKey, parseFlowWindow, sanitizeFlowQuery, sectorLinkFromFlow, type FlowRow } from './sectorFlow';
 
 const mk = (o: Partial<FlowRow> & { subsector: string }): FlowRow => ({
   sector: 'S', n: 5, flow_1d: 1, flow_5d: 1, chg_1d: 0, chg_5d: 0, avg_value_20d: 100,
@@ -77,5 +77,48 @@ describe('helpers', () => {
     expect(parseSortKey('excess_1m')).toBe('excess_1m');
     expect(parseFlowWindow('5d')).toBe('5d');
     expect(parseFlowWindow('x')).toBe('1d');
+  });
+});
+
+describe('sanitizeFlowQuery', () => {
+  it('keeps only /sector-flow params with valid values', () => {
+    expect(sanitizeFlowQuery('flow=5d&sort=excess_1m&dir=desc')).toBe('flow=5d&sort=excess_1m&dir=desc');
+    expect(sanitizeFlowQuery('flow=5d&all=1&tab=sector&sort=name&dir=asc')).toBe('flow=5d&all=1&tab=sector&sort=name&dir=asc');
+  });
+
+  it('drops unknown params and invalid values', () => {
+    expect(sanitizeFlowQuery('flow=9d&all=yes&tab=x&sort=evil&dir=up&next=https://evil.example')).toBe('');
+    expect(sanitizeFlowQuery('flow=5d&redirect=/admin')).toBe('flow=5d');
+  });
+
+  it('handles empty / missing input', () => {
+    expect(sanitizeFlowQuery('')).toBe('');
+    expect(sanitizeFlowQuery(null)).toBe('');
+    expect(sanitizeFlowQuery(undefined)).toBe('');
+  });
+});
+
+describe('sectorLinkFromFlow', () => {
+  it('adds from=flow, the sanitized back query and the subsector', () => {
+    const href = sectorLinkFromFlow('financials', 'Banking', 'flow=5d&junk=1');
+    const u = new URL(href, 'http://x');
+    expect(u.pathname).toBe('/sector/financials');
+    expect(u.searchParams.get('market')).toBe('SET');
+    expect(u.searchParams.get('from')).toBe('flow');
+    expect(u.searchParams.get('back')).toBe('flow=5d');
+    expect(u.searchParams.get('sub')).toBe('Banking');
+  });
+
+  it('omits sub for sector rows and back when the flow page has no params', () => {
+    const u = new URL(sectorLinkFromFlow('financials', null, ''), 'http://x');
+    expect(u.searchParams.get('from')).toBe('flow');
+    expect(u.searchParams.has('back')).toBe(false);
+    expect(u.searchParams.has('sub')).toBe(false);
+  });
+
+  it('round-trips subsector names with spaces / symbols', () => {
+    const u = new URL(sectorLinkFromFlow('services', 'Media & Publishing', 'tab=sector'), 'http://x');
+    expect(u.searchParams.get('sub')).toBe('Media & Publishing');
+    expect(u.searchParams.get('back')).toBe('tab=sector');
   });
 });
