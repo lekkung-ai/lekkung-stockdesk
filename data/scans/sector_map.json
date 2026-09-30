@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-11",
+  "updated": "2026-09-30",
   "note": "SET + MAI sector list — อัปเดตจาก TradingView 23 มิ.ย. 2569 + patched 10 tickers missing after universe update to 875 (2026-07-11, verified via web search against SET/Settrade company classification pages)",
   "sectors": [
     {
@@ -108,14 +108,13 @@
         "SABINA",
         "SAWANG",
         "SUC",
-        "TR",
         "TTI",
         "TTT",
         "UPF",
         "WACOAL",
         "WFX"
       ],
-      "count": 20
+      "count": 19
     },
     {
       "sector": "Consump",
@@ -132,10 +131,9 @@
         "OGC",
         "ROCK",
         "SIAM",
-        "TCMC",
-        "TSR"
+        "TCMC"
       ],
-      "count": 12
+      "count": 11
     },
     {
       "sector": "Consump",
@@ -241,7 +239,6 @@
         "BUI",
         "CHARAN",
         "INSURE",
-        "KWI",
         "MTI",
         "NKI",
         "TGH",
@@ -253,7 +250,7 @@
         "TSI",
         "TVH"
       ],
-      "count": 17
+      "count": 16
     },
     {
       "sector": "Industrials",
@@ -297,7 +294,6 @@
         "FMT",
         "FTE",
         "HTECH",
-        "KKC",
         "MASTEC",
         "PCC",
         "PK",
@@ -305,6 +301,7 @@
         "QTC",
         "SCI",
         "SE",
+        "SELIC",
         "SNC",
         "TCJ",
         "TPCS",
@@ -317,10 +314,9 @@
       "subsector": "Paper & Printing Materials",
       "market": "SET",
       "tickers": [
-        "TBSP",
         "UTP"
       ],
-      "count": 2
+      "count": 1
     },
     {
       "sector": "Industrials",
@@ -332,7 +328,6 @@
         "GC",
         "GGC",
         "IVL",
-        "NFC",
         "PATO",
         "PMTA",
         "PTTGC",
@@ -341,7 +336,7 @@
         "UAC",
         "UP"
       ],
-      "count": 13
+      "count": 12
     },
     {
       "sector": "Industrials",
@@ -384,14 +379,11 @@
         "CITY",
         "CSP",
         "GJS",
-        "GSTEEL",
         "INOX",
         "LHK",
         "MCS",
-        "MILL",
         "PAP",
         "PERM",
-        "SAM",
         "SMIT",
         "SSSC",
         "TGPRO",
@@ -401,7 +393,7 @@
         "TWP",
         "TYCN"
       ],
-      "count": 23
+      "count": 20
     },
     {
       "sector": "Property",
@@ -439,7 +431,6 @@
       "tickers": [
         "A",
         "A5",
-        "AKS",
         "AMATA",
         "AMATAV",
         "ANAN",
@@ -467,7 +458,6 @@
         "MBK",
         "MJD",
         "MK",
-        "MMM",
         "NCH",
         "NNCL",
         "NOBLE",
@@ -500,7 +490,7 @@
         "WHA",
         "WIN"
       ],
-      "count": 62
+      "count": 60
     },
     {
       "sector": "Property",
@@ -581,7 +571,6 @@
         "ITD",
         "JR",
         "NL",
-        "NWR",
         "PLE",
         "PREB",
         "PYLON",
@@ -599,11 +588,10 @@
         "TPOLY",
         "TRC",
         "TRITN",
-        "TTCL",
         "UNIQ",
         "WGE"
       ],
-      "count": 32
+      "count": 30
     },
     {
       "sector": "Resources",
@@ -626,7 +614,6 @@
         "BIOTEC",
         "BRRGIF",
         "CKP",
-        "CV",
         "EA",
         "EASTW",
         "EGATIF",
@@ -671,16 +658,7 @@
         "WHAUP",
         "WP"
       ],
-      "count": 60
-    },
-    {
-      "sector": "Resources",
-      "subsector": "Mining",
-      "market": "SET",
-      "tickers": [
-        "THL"
-      ],
-      "count": 1
+      "count": 59
     },
     {
       "sector": "Services",
@@ -719,10 +697,9 @@
         "SPC",
         "SPI",
         "SVT",
-        "TAN",
-        "WSOL"
+        "TAN"
       ],
-      "count": 34
+      "count": 33
     },
     {
       "sector": "Services",
@@ -737,7 +714,6 @@
         "CHG",
         "CMR",
         "EKH",
-        "HEALTH",
         "KDH",
         "KLINIQ",
         "LPH",
@@ -760,7 +736,7 @@
         "VIH",
         "WPH"
       ],
-      "count": 30
+      "count": 29
     },
     {
       "sector": "Services",
@@ -770,7 +746,6 @@
         "AMARIN",
         "AS",
         "BEC",
-        "DV8",
         "FE",
         "GPI",
         "GRAMMY",
@@ -784,6 +759,7 @@
         "PLANB",
         "PRAKIT",
         "SE-ED",
+        "TBSP",
         "TKS",
         "VGI",
         "WORK",
@@ -822,13 +798,12 @@
         "MINT",
         "OHTL",
         "ONSENS",
-        "ROH",
         "SHANG",
         "SHR",
         "SPA",
         "VRANDA"
       ],
-      "count": 17
+      "count": 16
     },
     {
       "sector": "Services",
@@ -876,12 +851,10 @@
         "HANA",
         "KCE",
         "METCO",
-        "PTECH",
         "SMT",
-        "SVI",
         "TEAM"
       ],
-      "count": 9
+      "count": 7
     },
     {
       "sector": "Technology",
@@ -894,7 +867,6 @@
         "ALT",
         "AMR",
         "BBIK",
-        "BLISS",
         "DIF",
         "DITTO",
         "DTCENT",
@@ -922,14 +894,14 @@
         "SVOA",
         "SYMC",
         "SYNEX",
-        "THCOM",
+        "GST",
         "TKC",
         "XYZ",
         "TL",
         "TRUE",
         "TWZ"
       ],
-      "count": 40
+      "count": 39
     },
     {
       "sector": "Agro",
@@ -960,10 +932,8 @@
         "88TH",
         "BGT",
         "DOD",
-        "ECF",
         "EFORL",
         "EURO",
-        "HPT",
         "ITTHI",
         "JSP",
         "JUBILE",
@@ -979,14 +949,13 @@
         "WARRIX",
         "WINMED"
       ],
-      "count": 21
+      "count": 19
     },
     {
       "sector": "Financials",
       "subsector": "",
       "market": "MAI",
       "tickers": [
-        "ACAP",
         "AF",
         "AIRA",
         "ASN",
@@ -998,7 +967,7 @@
         "SGF",
         "TQR"
       ],
-      "count": 11
+      "count": 10
     },
     {
       "sector": "Industrials",
@@ -1008,10 +977,9 @@
         "ADB",
         "BM",
         "BPS",
-        "CHO",
         "CHOW",
         "CIG",
-        "COLOR",
+        "COLOUR",
         "CPR",
         "FPI",
         "GTB",
@@ -1036,7 +1004,6 @@
         "SALEE",
         "SANKO",
         "SCL",
-        "SELIC",
         "SFT",
         "STP",
         "SWC",
@@ -1054,7 +1021,7 @@
         "YUASA",
         "ZIGA"
       ],
-      "count": 48
+      "count": 46
     },
     {
       "sector": "Property",
@@ -1081,6 +1048,7 @@
         "IND",
         "JAK",
         "META",
+        "MMM",
         "PANEL",
         "PPS",
         "PRI",
@@ -1093,13 +1061,11 @@
         "STC",
         "STX",
         "SVR",
-        "TAPAC",
         "THANA",
         "TIGER",
-        "WELL",
         "YONG"
       ],
-      "count": 37
+      "count": 36
     },
     {
       "sector": "Resources",
@@ -1164,11 +1130,9 @@
         "MORE",
         "MOTHER",
         "MPJ",
-        "MVP",
         "NCL",
         "NCP",
         "PEER",
-        "PICO",
         "PLT",
         "QLT",
         "RP",
@@ -1190,7 +1154,7 @@
         "WASH",
         "YGG"
       ],
-      "count": 64
+      "count": 62
     },
     {
       "sector": "Technology",
@@ -1651,11 +1615,6 @@
       "subsector": "Fashion",
       "market": "SET"
     },
-    "TR": {
-      "sector": "Consump",
-      "subsector": "Fashion",
-      "market": "SET"
-    },
     "TTI": {
       "sector": "Consump",
       "subsector": "Fashion",
@@ -1732,11 +1691,6 @@
       "market": "SET"
     },
     "TCMC": {
-      "sector": "Consump",
-      "subsector": "Home & Office Products",
-      "market": "SET"
-    },
-    "TSR": {
       "sector": "Consump",
       "subsector": "Home & Office Products",
       "market": "SET"
@@ -2111,11 +2065,6 @@
       "subsector": "Insurance",
       "market": "SET"
     },
-    "KWI": {
-      "sector": "Financials",
-      "subsector": "Insurance",
-      "market": "SET"
-    },
     "MTI": {
       "sector": "Financials",
       "subsector": "Insurance",
@@ -2306,11 +2255,6 @@
       "subsector": "Industrial Materials & Machinery",
       "market": "SET"
     },
-    "KKC": {
-      "sector": "Industrials",
-      "subsector": "Industrial Materials & Machinery",
-      "market": "SET"
-    },
     "MASTEC": {
       "sector": "Industrials",
       "subsector": "Industrial Materials & Machinery",
@@ -2392,11 +2336,6 @@
       "market": "SET"
     },
     "IVL": {
-      "sector": "Industrials",
-      "subsector": "Petrochemicals & Chemicals",
-      "market": "SET"
-    },
-    "NFC": {
       "sector": "Industrials",
       "subsector": "Petrochemicals & Chemicals",
       "market": "SET"
@@ -2576,11 +2515,6 @@
       "subsector": "Steel",
       "market": "SET"
     },
-    "GSTEEL": {
-      "sector": "Industrials",
-      "subsector": "Steel",
-      "market": "SET"
-    },
     "INOX": {
       "sector": "Industrials",
       "subsector": "Steel",
@@ -2596,22 +2530,12 @@
       "subsector": "Steel",
       "market": "SET"
     },
-    "MILL": {
-      "sector": "Industrials",
-      "subsector": "Steel",
-      "market": "SET"
-    },
     "PAP": {
       "sector": "Industrials",
       "subsector": "Steel",
       "market": "SET"
     },
     "PERM": {
-      "sector": "Industrials",
-      "subsector": "Steel",
-      "market": "SET"
-    },
-    "SAM": {
       "sector": "Industrials",
       "subsector": "Steel",
       "market": "SET"
@@ -2767,11 +2691,6 @@
       "market": "SET"
     },
     "A5": {
-      "sector": "Property",
-      "subsector": "Property Development",
-      "market": "SET"
-    },
-    "AKS": {
       "sector": "Property",
       "subsector": "Property Development",
       "market": "SET"
@@ -3386,11 +3305,6 @@
       "subsector": "Construction Services",
       "market": "SET"
     },
-    "NWR": {
-      "sector": "Property",
-      "subsector": "Construction Services",
-      "market": "SET"
-    },
     "PLE": {
       "sector": "Property",
       "subsector": "Construction Services",
@@ -3472,11 +3386,6 @@
       "market": "SET"
     },
     "TRITN": {
-      "sector": "Property",
-      "subsector": "Construction Services",
-      "market": "SET"
-    },
-    "TTCL": {
       "sector": "Property",
       "subsector": "Construction Services",
       "market": "SET"
@@ -3567,11 +3476,6 @@
       "market": "SET"
     },
     "CKP": {
-      "sector": "Resources",
-      "subsector": "Energy & Utilities",
-      "market": "SET"
-    },
-    "CV": {
       "sector": "Resources",
       "subsector": "Energy & Utilities",
       "market": "SET"
@@ -3791,11 +3695,6 @@
       "subsector": "Energy & Utilities",
       "market": "SET"
     },
-    "THL": {
-      "sector": "Resources",
-      "subsector": "Mining",
-      "market": "SET"
-    },
     "ADVICE": {
       "sector": "Services",
       "subsector": "Commerce",
@@ -3957,11 +3856,6 @@
       "market": "SET"
     },
     "TAN": {
-      "sector": "Services",
-      "subsector": "Commerce",
-      "market": "SET"
-    },
-    "WSOL": {
       "sector": "Services",
       "subsector": "Commerce",
       "market": "SET"
@@ -4296,11 +4190,6 @@
       "subsector": "Tourism & Leisure",
       "market": "SET"
     },
-    "ROH": {
-      "sector": "Services",
-      "subsector": "Tourism & Leisure",
-      "market": "SET"
-    },
     "SHANG": {
       "sector": "Services",
       "subsector": "Tourism & Leisure",
@@ -4526,11 +4415,6 @@
       "subsector": "Information & Communication Technology",
       "market": "SET"
     },
-    "BLISS": {
-      "sector": "Technology",
-      "subsector": "Information & Communication Technology",
-      "market": "SET"
-    },
     "DIF": {
       "sector": "Technology",
       "subsector": "Information & Communication Technology",
@@ -4666,7 +4550,7 @@
       "subsector": "Information & Communication Technology",
       "market": "SET"
     },
-    "THCOM": {
+    "GST": {
       "sector": "Technology",
       "subsector": "Information & Communication Technology",
       "market": "SET"
@@ -4776,22 +4660,12 @@
       "subsector": "",
       "market": "MAI"
     },
-    "ECF": {
-      "sector": "Consumer",
-      "subsector": "",
-      "market": "MAI"
-    },
     "EFORL": {
       "sector": "Consumer",
       "subsector": "",
       "market": "MAI"
     },
     "EURO": {
-      "sector": "Consumer",
-      "subsector": "",
-      "market": "MAI"
-    },
-    "HPT": {
       "sector": "Consumer",
       "subsector": "",
       "market": "MAI"
@@ -4866,11 +4740,6 @@
       "subsector": "",
       "market": "MAI"
     },
-    "ACAP": {
-      "sector": "Financials",
-      "subsector": "",
-      "market": "MAI"
-    },
     "AF": {
       "sector": "Financials",
       "subsector": "",
@@ -4936,11 +4805,6 @@
       "subsector": "",
       "market": "MAI"
     },
-    "CHO": {
-      "sector": "Industrials",
-      "subsector": "",
-      "market": "MAI"
-    },
     "CHOW": {
       "sector": "Industrials",
       "subsector": "",
@@ -4951,7 +4815,7 @@
       "subsector": "",
       "market": "MAI"
     },
-    "COLOR": {
+    "COLOUR": {
       "sector": "Industrials",
       "subsector": "",
       "market": "MAI"
@@ -5078,8 +4942,8 @@
     },
     "SELIC": {
       "sector": "Industrials",
-      "subsector": "",
-      "market": "MAI"
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET"
     },
     "SFT": {
       "sector": "Industrials",
@@ -5321,22 +5185,12 @@
       "subsector": "",
       "market": "MAI"
     },
-    "TAPAC": {
-      "sector": "Property",
-      "subsector": "",
-      "market": "MAI"
-    },
     "THANA": {
       "sector": "Property",
       "subsector": "",
       "market": "MAI"
     },
     "TIGER": {
-      "sector": "Property",
-      "subsector": "",
-      "market": "MAI"
-    },
-    "WELL": {
       "sector": "Property",
       "subsector": "",
       "market": "MAI"
@@ -5591,11 +5445,6 @@
       "subsector": "",
       "market": "MAI"
     },
-    "MVP": {
-      "sector": "Services",
-      "subsector": "",
-      "market": "MAI"
-    },
     "NCL": {
       "sector": "Services",
       "subsector": "",
@@ -5607,11 +5456,6 @@
       "market": "MAI"
     },
     "PEER": {
-      "sector": "Services",
-      "subsector": "",
-      "market": "MAI"
-    },
-    "PICO": {
       "sector": "Services",
       "subsector": "",
       "market": "MAI"
@@ -5836,19 +5680,9 @@
       "subsector": "",
       "market": "MAI"
     },
-    "SVI": {
-      "sector": "Technology",
-      "subsector": "Electronic Components",
-      "market": "SET"
-    },
     "HTECH": {
       "sector": "Industrials",
       "subsector": "Industrial Materials & Machinery",
-      "market": "SET"
-    },
-    "DV8": {
-      "sector": "Services",
-      "subsector": "Media & Publishing",
       "market": "SET"
     },
     "EAST": {
@@ -5866,25 +5700,15 @@
       "subsector": "Media & Publishing",
       "market": "SET"
     },
-    "HEALTH": {
-      "sector": "Services",
-      "subsector": "Health Care Services",
-      "market": "SET"
-    },
-    "PTECH": {
-      "sector": "Technology",
-      "subsector": "Electronic Components",
-      "market": "SET"
-    },
     "TBSP": {
-      "sector": "Industrials",
-      "subsector": "Paper & Printing Materials",
+      "sector": "Services",
+      "subsector": "Media & Publishing",
       "market": "SET"
     },
     "MMM": {
       "sector": "Property",
-      "subsector": "Property Development",
-      "market": "SET"
+      "subsector": "",
+      "market": "MAI"
     },
     "LHRREIT": {
       "sector": "Property",
