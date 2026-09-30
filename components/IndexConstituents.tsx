@@ -8,6 +8,8 @@ import MiniCandleChart from '@/components/MiniCandleChart';
 import { scanData, type ScanEntry } from '@/lib/scanData';
 import { getSectorForTicker } from '@/lib/sectorData';
 import { peColor } from '@/lib/utils';
+import { heatTextColor } from '@/lib/heatColor';
+import { fmtSignedPct, vsFutures, type S50FuturesQuote } from '@/lib/s50Futures';
 import marketStageRaw from '@/data/scans/market_stage.json';
 
 interface Item {
@@ -61,6 +63,7 @@ interface Row {
   sector: string;
   stage: string | null;
   adtv: number | null;
+  vsS50f: number | null; // TradingView %chg of the stock − %chg of SET50 futures (null until both load)
 }
 
 type SortValue = number | string | null;
@@ -162,6 +165,16 @@ const COLUMNS: Column[] = [
     },
   },
   {
+    key: 'vsS50f', label: 'เทียบ S50F', align: 'right', minWidth: 84,
+    title: 'ผลต่าง %วันนี้ของหุ้น เทียบกับ SET50 Futures (ข้อมูล TradingView ล่าช้า 15 นาที)',
+    sortValue: r => r.vsS50f,
+    render: r => r.vsS50f == null ? DASH : (
+      <span className="text-[14px] font-semibold tabular-nums" style={{ color: heatTextColor(r.vsS50f) ?? undefined }}>
+        {fmtSignedPct(r.vsS50f)}
+      </span>
+    ),
+  },
+  {
     key: 'stage', label: 'Stage', align: 'left', minWidth: 96,
     sortValue: r => stageRank(r.stage),
     render: r => {
@@ -244,6 +257,9 @@ export default function IndexConstituents({ index }: { index: string }) {
   const [filterScan, setFilterScan]     = useState<Set<string>>(new Set());
   const [filterStage, setFilterStage]   = useState('');
   const [filterSector, setFilterSector] = useState('');
+  // TradingView quotes for the "เทียบ S50F" column - loaded independently, the table never waits on them.
+  const [tvChg, setTvChg] = useState<Record<string, number | null> | null>(null);
+  const [s50f, setS50f] = useState<S50FuturesQuote | null | undefined>(undefined); // undefined = loading
 
   useEffect(() => {
     let active = true;
@@ -260,6 +276,24 @@ export default function IndexConstituents({ index }: { index: string }) {
     return () => { active = false; };
   }, [indexKey]);
 
+  useEffect(() => {
+    let active = true;
+    fetch('/api/market-quotes')
+      .then(r => r.json())
+      .then(d => {
+        if (!active || !d?.quotes) return;
+        const m: Record<string, number | null> = {};
+        for (const [sym, q] of Object.entries(d.quotes as Record<string, { chg: number | null }>)) m[sym] = q.chg;
+        setTvChg(m);
+      })
+      .catch(() => {});
+    fetch('/api/s50-futures')
+      .then(r => r.json())
+      .then(d => { if (active) setS50f(d?.quote ?? null); })
+      .catch(() => { if (active) setS50f(null); });
+    return () => { active = false; };
+  }, []);
+
   const baseRows = useMemo<Row[]>(() => {
     if (!items) return [];
     return [...items]
@@ -275,9 +309,10 @@ export default function IndexConstituents({ index }: { index: string }) {
           sector: getSectorForTicker(key)?.sector ?? item.sectorCode ?? '',
           stage: scan?.stage || ms?.Stage || null,
           adtv: typeof ms?.['ADTV(MB)'] === 'number' ? ms['ADTV(MB)'] : null,
+          vsS50f: vsFutures(tvChg?.[key], s50f?.chg),
         };
       });
-  }, [items]);
+  }, [items, tvChg, s50f]);
 
   const unmatched = useMemo(() => baseRows.filter(r => !r.scan).map(r => r.item.symbol), [baseRows]);
 
@@ -441,6 +476,29 @@ export default function IndexConstituents({ index }: { index: string }) {
             >
               ล้างตัวกรอง
             </button>
+          )}
+        </div>
+      )}
+
+      {/* SET50 futures reference for the "เทียบ S50F" column */}
+      {s50f !== undefined && (
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[12px] text-white/40">
+          {s50f ? (
+            <>
+              <span className="text-white/60">S50 Futures ({s50f.contract})</span>
+              <span className="text-white/80 tabular-nums">{fmtPrice(s50f.price)}</span>
+              {s50f.chg != null && (
+                <span className="font-semibold tabular-nums" style={{ color: heatTextColor(s50f.chg) ?? undefined }}>
+                  {fmtSignedPct(s50f.chg)}
+                </span>
+              )}
+              {s50f.delayMinutes != null && <span>· ล่าช้า {s50f.delayMinutes} นาที</span>}
+              <span>
+                · อัปเดต {new Date(s50f.fetchedAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Bangkok' })}
+              </span>
+            </>
+          ) : (
+            <span>S50 Futures: โหลดข้อมูลไม่สำเร็จ</span>
           )}
         </div>
       )}
