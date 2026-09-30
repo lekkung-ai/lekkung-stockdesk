@@ -8,7 +8,7 @@ import { sectorToSlug } from '@/lib/sectorData';
 import { heatColor, heatTextColor } from '@/lib/heatColor';
 import { formatPct } from '@/lib/sectorChange';
 import {
-  flowChg, flowLabel, flowRows, flowValue, parseFlowWindow, parseSortDir, parseSortKey, rowName, strengthRows,
+  flowChg, flowLabel, flowRows, flowValue, parseFlowWindow, parseSortDir, parseSortKey, rowName, sectorLinkFromFlow, strengthRows,
   MIN_AVG_VALUE_MB, type FlowRow, type FlowWindow, type SortKey,
 } from '@/lib/sectorFlow';
 
@@ -44,6 +44,9 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
   const tab = sp.get('tab') === 'sector' ? 'sector' : 'subsector';
   const sortKey = parseSortKey(sp.get('sort'));
   const sortDir = parseSortDir(sp.get('dir'));
+  // Row links carry from=flow + back=<this page's query> (+ sub=<subsector>) so /sector/[slug] can link back here
+  const rowHref = (sector: string, subsector?: string | null) =>
+    sectorLinkFromFlow(sectorToSlug(sector), subsector, sp.toString());
 
   const setParams = (upd: Record<string, string | null>) => {
     const p = new URLSearchParams(sp.toString());
@@ -111,7 +114,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
             const refPct = (1 / BAR_MAX) * 100;
             return (
               <div key={`${r.sector}/${r.subsector}`} className={`grid grid-cols-2 ${FLOW_COLS} gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]`}>
-                <Link href={`/sector/${sectorToSlug(r.sector)}?market=SET`} className="min-w-0 col-span-2 md:col-span-1">
+                <Link href={rowHref(r.sector, r.subsector)} className="min-w-0 col-span-2 md:col-span-1">
                   <p className="text-[13px] font-bold text-white truncate">{r.subsector}</p>
                   <p className="text-[10.5px] text-white/35 truncate">{r.sector}</p>
                 </Link>
@@ -173,11 +176,11 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
               {strengthList.map(r => (
                 <tr
                   key={`${r.sector}/${r.subsector ?? ''}`}
-                  onClick={() => router.push(`/sector/${sectorToSlug(r.sector)}?market=SET`)}
+                  onClick={() => router.push(rowHref(r.sector, r.subsector))}
                   className="border-b border-white/[0.04] hover:bg-white/[0.04] cursor-pointer"
                 >
                   <td className="px-3 py-2">
-                    <Link href={`/sector/${sectorToSlug(r.sector)}?market=SET`} onClick={e => e.stopPropagation()} className="font-bold text-white hover:underline">{rowName(r)}</Link>
+                    <Link href={rowHref(r.sector, r.subsector)} onClick={e => e.stopPropagation()} className="font-bold text-white hover:underline">{rowName(r)}</Link>
                     {r.subsector && <span className="ml-2 text-[10.5px] text-white/35">{r.sector}</span>}
                   </td>
                   <td className="px-3 py-2 text-right font-mono text-white/50">{r.n}</td>
