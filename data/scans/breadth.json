@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T10:39:03+07:00",
+  "generated_at": "2026-09-30T18:06:14+07:00",
   "universe": {
     "count": 877,
     "min_history_days": 252,
@@ -21,27 +21,18 @@
   "ftd_dd_rule": "DD (Distribution Day): SET index ปิดลบ >= 0.2% ด้วย volume มากกว่าวันก่อนหน้า (นับทุกครั้งที่เข้าเงื่อนไข ไม่ขึ้นกับสถานะ rally attempt). FTD (Follow-Through Day): เกิดได้เฉพาะวันที่ 4-10 ของ 'rally attempt' (วันที่ 1 = วันแรกที่ index ปิดบวกหลังวันก่อนหน้าปิดลบ) โดยวันนั้นต้องปิดบวก >= 1.5% ด้วย volume มากกว่าวันก่อนหน้า. rally attempt ถือว่าล้มเหลวและเริ่มนับวันที่ 1 ใหม่ ถ้า close หลุดต่ำกว่า low ของวันที่ 1 ก่อนเกิด FTD. หลัง FTD ยืนยันแล้ว จะกลับไปเฝ้าหา rally attempt ใหม่ อีกครั้งเมื่อ index ปิดลบเป็นวันแรก (pullback ครั้งถัดไป). หมายเหตุ: เป็นการตีความเกณฑ์ O'Neil แบบย่อของทีมเรา ไม่ใช่สูตรทางการของ IBD ปรับ threshold ได้ที่ config.py (DD_MIN_DECLINE_PCT / FTD_MIN_GAIN_PCT / FTD_WINDOW_START_DAY / FTD_WINDOW_END_DAY)",
   "market_stage": {
     "stage": "Correction",
-    "dd_count_25d": 7,
-    "pct_above_ma50_today": 42.59,
+    "dd_count_25d": 8,
+    "pct_above_ma50_today": 32.3,
     "rule": "stage = 'Correction' ถ้า dd_count_25d >= 6; 'Under Pressure' ถ้า dd_count_25d >= 4 หรือ pct_above_ma50 วันล่าสุด < 35%; มิฉะนั้น 'Uptrend'. เกณฑ์นี้เป็นการตีความของทีมเรา ปรับได้ที่ config.py (MARKET_STAGE_DD_CORRECTION / MARKET_STAGE_DD_PRESSURE / MARKET_STAGE_MA50_PRESSURE_PCT)"
   },
   "set_index": [
-    {
-      "date": "2026-03-31",
-      "open": 1454.16,
-      "high": 1454.16,
-      "low": 1439.46,
-      "close": 1448.14,
-      "volume": 66140804866,
-      "marker": null
-    },
     {
       "date": "2026-04-01",
       "open": 1471.72,
       "high": 1477.96,
       "low": 1464.28,
       "close": 1470.99,
-      "volume": 76008480629,
+      "volume": 76008481071,
       "marker": null
     },
     {
@@ -50,7 +41,7 @@
       "high": 1472.39,
       "low": 1459.5,
       "close": 1465.72,
-      "volume": 50569570625,
+      "volume": 50569570623,
       "marker": null
     },
     {
@@ -59,7 +50,7 @@
       "high": 1473.26,
       "low": 1453.77,
       "close": 1454.0,
-      "volume": 39272226840,
+      "volume": 39272227149,
       "marker": null
     },
     {
@@ -68,7 +59,7 @@
       "high": 1466.48,
       "low": 1449.43,
       "close": 1464.43,
-      "volume": 41833082389,
+      "volume": 41833082292,
       "marker": null
     },
     {
@@ -77,7 +68,7 @@
       "high": 1491.26,
       "low": 1479.98,
       "close": 1485.03,
-      "volume": 61035010374,
+      "volume": 61035010192,
       "marker": null
     },
     {
@@ -86,7 +77,7 @@
       "high": 1495.42,
       "low": 1482.12,
       "close": 1489.66,
-      "volume": 58853120700,
+      "volume": 58853120625,
       "marker": null
     },
     {
@@ -95,7 +86,7 @@
       "high": 1510.02,
       "low": 1494.6,
       "close": 1506.84,
-      "volume": 40264874349,
+      "volume": 40264874511,
       "marker": null
     },
     {
@@ -104,7 +95,7 @@
       "high": 1510.08,
       "low": 1486.61,
       "close": 1489.73,
-      "volume": 74643196318,
+      "volume": 74643196832,
       "marker": "DD"
     },
     {
@@ -113,7 +104,7 @@
       "high": 1489.14,
       "low": 1472.58,
       "close": 1482.45,
-      "volume": 51683757806,
+      "volume": 51683757885,
       "marker": null
     },
     {
@@ -122,7 +113,7 @@
       "high": 1484.97,
       "low": 1472.24,
       "close": 1481.85,
-      "volume": 49120334060,
+      "volume": 49120334024,
       "marker": null
     },
     {
@@ -131,7 +122,7 @@
       "high": 1487.28,
       "low": 1476.57,
       "close": 1483.5,
-      "volume": 53831972491,
+      "volume": 53831972269,
       "marker": null
     },
     {
@@ -140,7 +131,7 @@
       "high": 1488.68,
       "low": 1477.05,
       "close": 1479.74,
-      "volume": 55342266877,
+      "volume": 55342266949,
       "marker": "DD"
     },
     {
@@ -149,7 +140,7 @@
       "high": 1476.84,
       "low": 1452.36,
       "close": 1461.35,
-      "volume": 62083282686,
+      "volume": 62083282877,
       "marker": "DD"
     },
     {
@@ -158,7 +149,7 @@
       "high": 1458.47,
       "low": 1438.33,
       "close": 1456.1,
-      "volume": 44451696527,
+      "volume": 44451696407,
       "marker": null
     },
     {
@@ -167,7 +158,7 @@
       "high": 1484.13,
       "low": 1463.0,
       "close": 1479.13,
-      "volume": 43132630732,
+      "volume": 43132631122,
       "marker": null
     },
     {
@@ -176,7 +167,7 @@
       "high": 1489.78,
       "low": 1467.67,
       "close": 1480.2,
-      "volume": 55637411231,
+      "volume": 55637411263,
       "marker": null
     },
     {
@@ -185,7 +176,7 @@
       "high": 1492.72,
       "low": 1475.3,
       "close": 1491.74,
-      "volume": 52973382985,
+      "volume": 52973382765,
       "marker": null
     },
     {
@@ -194,7 +185,7 @@
       "high": 1493.69,
       "low": 1481.05,
       "close": 1493.69,
-      "volume": 56532292435,
+      "volume": 56532292418,
       "marker": null
     },
     {
@@ -203,7 +194,7 @@
       "high": 1503.9,
       "low": 1482.17,
       "close": 1490.1,
-      "volume": 67786005591,
+      "volume": 67786005830,
       "marker": "DD"
     },
     {
@@ -212,7 +203,7 @@
       "high": 1517.94,
       "low": 1494.23,
       "close": 1516.91,
-      "volume": 76328629610,
+      "volume": 76328629975,
       "marker": null
     },
     {
@@ -221,7 +212,7 @@
       "high": 1527.17,
       "low": 1507.53,
       "close": 1507.53,
-      "volume": 74833477597,
+      "volume": 74833477425,
       "marker": null
     },
     {
@@ -230,7 +221,7 @@
       "high": 1512.66,
       "low": 1498.13,
       "close": 1500.36,
-      "volume": 59350464821,
+      "volume": 59350465275,
       "marker": null
     },
     {
@@ -239,7 +230,7 @@
       "high": 1509.86,
       "low": 1483.95,
       "close": 1489.29,
-      "volume": 56306627524,
+      "volume": 56306628084,
       "marker": null
     },
     {
@@ -248,7 +239,7 @@
       "high": 1501.35,
       "low": 1481.95,
       "close": 1483.56,
-      "volume": 50184795826,
+      "volume": 50184796112,
       "marker": null
     },
     {
@@ -257,7 +248,7 @@
       "high": 1521.02,
       "low": 1493.28,
       "close": 1517.26,
-      "volume": 62295389912,
+      "volume": 62295389837,
       "marker": null
     },
     {
@@ -266,7 +257,7 @@
       "high": 1540.07,
       "low": 1514.56,
       "close": 1539.12,
-      "volume": 69254305554,
+      "volume": 69254305399,
       "marker": null
     },
     {
@@ -275,7 +266,7 @@
       "high": 1536.79,
       "low": 1512.91,
       "close": 1517.95,
-      "volume": 62547744381,
+      "volume": 62547743959,
       "marker": null
     },
     {
@@ -284,7 +275,7 @@
       "high": 1523.19,
       "low": 1510.42,
       "close": 1517.74,
-      "volume": 51785449037,
+      "volume": 51785448482,
       "marker": null
     },
     {
@@ -293,7 +284,7 @@
       "high": 1524.01,
       "low": 1509.26,
       "close": 1516.69,
-      "volume": 46207004339,
+      "volume": 46207004298,
       "marker": null
     },
     {
@@ -302,7 +293,7 @@
       "high": 1532.03,
       "low": 1516.78,
       "close": 1528.43,
-      "volume": 54384396298,
+      "volume": 54384396221,
       "marker": null
     },
     {
@@ -311,7 +302,7 @@
       "high": 1541.96,
       "low": 1530.93,
       "close": 1532.67,
-      "volume": 49469325057,
+      "volume": 49469326207,
       "marker": null
     },
     {
@@ -320,7 +311,7 @@
       "high": 1542.25,
       "low": 1533.03,
       "close": 1538.67,
-      "volume": 55159207466,
+      "volume": 55159207436,
       "marker": null
     },
     {
@@ -329,7 +320,7 @@
       "high": 1558.95,
       "low": 1545.63,
       "close": 1550.33,
-      "volume": 58743760015,
+      "volume": 58743760206,
       "marker": null
     },
     {
@@ -338,7 +329,7 @@
       "high": 1563.42,
       "low": 1547.86,
       "close": 1553.36,
-      "volume": 37483552603,
+      "volume": 37483552517,
       "marker": null
     },
     {
@@ -347,7 +338,7 @@
       "high": 1581.74,
       "low": 1559.58,
       "close": 1570.95,
-      "volume": 63740633334,
+      "volume": 63740633302,
       "marker": null
     },
     {
@@ -356,7 +347,7 @@
       "high": 1571.56,
       "low": 1552.85,
       "close": 1568.97,
-      "volume": 56614954862,
+      "volume": 56614954789,
       "marker": null
     },
     {
@@ -365,7 +356,7 @@
       "high": 1581.61,
       "low": 1566.34,
       "close": 1568.37,
-      "volume": 82848008659,
+      "volume": 82848008631,
       "marker": null
     },
     {
@@ -374,7 +365,7 @@
       "high": 1598.57,
       "low": 1567.0,
       "close": 1588.06,
-      "volume": 85414688088,
+      "volume": 85414688068,
       "marker": null
     },
     {
@@ -383,7 +374,7 @@
       "high": 1607.25,
       "low": 1586.2,
       "close": 1594.79,
-      "volume": 82307721368,
+      "volume": 82307721495,
       "marker": null
     },
     {
@@ -392,7 +383,7 @@
       "high": 1598.53,
       "low": 1580.36,
       "close": 1582.6,
-      "volume": 61678587726,
+      "volume": 61678587881,
       "marker": null
     },
     {
@@ -401,7 +392,7 @@
       "high": 1576.58,
       "low": 1558.97,
       "close": 1561.68,
-      "volume": 59151495140,
+      "volume": 59151495119,
       "marker": null
     },
     {
@@ -410,7 +401,7 @@
       "high": 1587.42,
       "low": 1570.48,
       "close": 1584.14,
-      "volume": 64948494705,
+      "volume": 64948494859,
       "marker": null
     },
     {
@@ -419,7 +410,7 @@
       "high": 1591.59,
       "low": 1563.59,
       "close": 1563.59,
-      "volume": 45216634188,
+      "volume": 45216634199,
       "marker": null
     },
     {
@@ -428,7 +419,7 @@
       "high": 1581.92,
       "low": 1559.45,
       "close": 1572.32,
-      "volume": 47247871637,
+      "volume": 47247871802,
       "marker": null
     },
     {
@@ -437,7 +428,7 @@
       "high": 1595.84,
       "low": 1582.26,
       "close": 1592.41,
-      "volume": 60565821155,
+      "volume": 60565821900,
       "marker": null
     },
     {
@@ -446,7 +437,7 @@
       "high": 1609.71,
       "low": 1585.61,
       "close": 1591.72,
-      "volume": 72055099646,
+      "volume": 72055099533,
       "marker": null
     },
     {
@@ -455,7 +446,7 @@
       "high": 1596.23,
       "low": 1583.96,
       "close": 1588.05,
-      "volume": 61025545161,
+      "volume": 61025545128,
       "marker": null
     },
     {
@@ -464,7 +455,7 @@
       "high": 1590.04,
       "low": 1574.14,
       "close": 1587.07,
-      "volume": 57412228774,
+      "volume": 57412228707,
       "marker": null
     },
     {
@@ -473,7 +464,7 @@
       "high": 1596.44,
       "low": 1583.24,
       "close": 1585.06,
-      "volume": 62491652661,
+      "volume": 62491652603,
       "marker": null
     },
     {
@@ -482,7 +473,7 @@
       "high": 1592.34,
       "low": 1570.1,
       "close": 1572.5,
-      "volume": 63981719275,
+      "volume": 63981718694,
       "marker": "DD"
     },
     {
@@ -491,7 +482,7 @@
       "high": 1580.86,
       "low": 1568.05,
       "close": 1574.13,
-      "volume": 62634175930,
+      "volume": 62634175533,
       "marker": null
     },
     {
@@ -500,7 +491,7 @@
       "high": 1569.78,
       "low": 1538.69,
       "close": 1540.9,
-      "volume": 107187871280,
+      "volume": 107187871072,
       "marker": "DD"
     },
     {
@@ -509,7 +500,7 @@
       "high": 1553.35,
       "low": 1536.37,
       "close": 1548.22,
-      "volume": 52882715774,
+      "volume": 52882715416,
       "marker": null
     },
     {
@@ -518,7 +509,7 @@
       "high": 1567.47,
       "low": 1554.51,
       "close": 1558.55,
-      "volume": 77746305904,
+      "volume": 77746305753,
       "marker": null
     },
     {
@@ -527,7 +518,7 @@
       "high": 1549.82,
       "low": 1537.96,
       "close": 1542.34,
-      "volume": 60657006444,
+      "volume": 60657006359,
       "marker": null
     },
     {
@@ -536,7 +527,7 @@
       "high": 1577.81,
       "low": 1550.14,
       "close": 1577.81,
-      "volume": 65572300864,
+      "volume": 65572300979,
       "marker": null
     },
     {
@@ -545,7 +536,7 @@
       "high": 1595.23,
       "low": 1576.0,
       "close": 1591.24,
-      "volume": 86196271066,
+      "volume": 86196271000,
       "marker": null
     },
     {
@@ -554,7 +545,7 @@
       "high": 1600.98,
       "low": 1587.88,
       "close": 1588.23,
-      "volume": 59545379597,
+      "volume": 59545379634,
       "marker": null
     },
     {
@@ -563,7 +554,7 @@
       "high": 1596.33,
       "low": 1583.28,
       "close": 1593.56,
-      "volume": 83361988043,
+      "volume": 83361988479,
       "marker": null
     },
     {
@@ -572,7 +563,7 @@
       "high": 1621.19,
       "low": 1598.3,
       "close": 1611.28,
-      "volume": 68503814367,
+      "volume": 68503814412,
       "marker": null
     },
     {
@@ -581,7 +572,7 @@
       "high": 1620.47,
       "low": 1605.09,
       "close": 1616.88,
-      "volume": 58433035595,
+      "volume": 58433036735,
       "marker": null
     },
     {
@@ -590,7 +581,7 @@
       "high": 1613.72,
       "low": 1594.69,
       "close": 1604.13,
-      "volume": 74757969132,
+      "volume": 74757969563,
       "marker": "DD"
     },
     {
@@ -599,7 +590,7 @@
       "high": 1608.18,
       "low": 1574.13,
       "close": 1576.25,
-      "volume": 88528564268,
+      "volume": 88528564283,
       "marker": "DD"
     },
     {
@@ -608,7 +599,7 @@
       "high": 1609.96,
       "low": 1586.03,
       "close": 1608.3,
-      "volume": 72042370597,
+      "volume": 72042370520,
       "marker": null
     },
     {
@@ -617,7 +608,7 @@
       "high": 1621.55,
       "low": 1612.12,
       "close": 1621.55,
-      "volume": 66958484671,
+      "volume": 66958484808,
       "marker": null
     },
     {
@@ -626,7 +617,7 @@
       "high": 1630.66,
       "low": 1613.6,
       "close": 1627.9,
-      "volume": 64910853507,
+      "volume": 64910853755,
       "marker": null
     },
     {
@@ -635,7 +626,7 @@
       "high": 1629.68,
       "low": 1606.27,
       "close": 1626.03,
-      "volume": 73155721100,
+      "volume": 73155721522,
       "marker": null
     },
     {
@@ -644,7 +635,7 @@
       "high": 1642.14,
       "low": 1627.19,
       "close": 1630.21,
-      "volume": 75737164114,
+      "volume": 75737164250,
       "marker": null
     },
     {
@@ -653,7 +644,7 @@
       "high": 1639.65,
       "low": 1629.34,
       "close": 1635.29,
-      "volume": 66642944900,
+      "volume": 66642945207,
       "marker": null
     },
     {
@@ -662,7 +653,7 @@
       "high": 1639.87,
       "low": 1628.6,
       "close": 1639.04,
-      "volume": 80560768319,
+      "volume": 80560768238,
       "marker": null
     },
     {
@@ -671,7 +662,7 @@
       "high": 1646.0,
       "low": 1630.65,
       "close": 1646.0,
-      "volume": 85118521529,
+      "volume": 85118521404,
       "marker": null
     },
     {
@@ -680,7 +671,7 @@
       "high": 1657.55,
       "low": 1642.28,
       "close": 1652.97,
-      "volume": 84504904531,
+      "volume": 84504904459,
       "marker": null
     },
     {
@@ -689,7 +680,7 @@
       "high": 1655.74,
       "low": 1632.0,
       "close": 1639.34,
-      "volume": 102337814953,
+      "volume": 102337814979,
       "marker": "DD"
     },
     {
@@ -698,7 +689,7 @@
       "high": 1648.63,
       "low": 1634.71,
       "close": 1641.03,
-      "volume": 79047974219,
+      "volume": 79047974149,
       "marker": null
     },
     {
@@ -707,7 +698,7 @@
       "high": 1645.74,
       "low": 1622.59,
       "close": 1644.39,
-      "volume": 78489448345,
+      "volume": 78489448249,
       "marker": null
     },
     {
@@ -716,7 +707,7 @@
       "high": 1635.87,
       "low": 1622.64,
       "close": 1624.47,
-      "volume": 77032538955,
+      "volume": 77032538926,
       "marker": null
     },
     {
@@ -725,7 +716,7 @@
       "high": 1616.06,
       "low": 1587.29,
       "close": 1598.11,
-      "volume": 94559176598,
+      "volume": 94559176500,
       "marker": "DD"
     },
     {
@@ -734,7 +725,7 @@
       "high": 1628.96,
       "low": 1610.59,
       "close": 1623.64,
-      "volume": 80273161327,
+      "volume": 80273162352,
       "marker": null
     },
     {
@@ -743,7 +734,7 @@
       "high": 1628.49,
       "low": 1610.63,
       "close": 1621.9,
-      "volume": 66078454994,
+      "volume": 66078454920,
       "marker": null
     },
     {
@@ -752,7 +743,7 @@
       "high": 1631.58,
       "low": 1616.56,
       "close": 1617.13,
-      "volume": 69702503426,
+      "volume": 69702503417,
       "marker": "DD"
     },
     {
@@ -761,7 +752,7 @@
       "high": 1629.69,
       "low": 1606.44,
       "close": 1609.78,
-      "volume": 77614823192,
+      "volume": 77614823409,
       "marker": "DD"
     },
     {
@@ -770,7 +761,7 @@
       "high": 1627.61,
       "low": 1607.51,
       "close": 1614.64,
-      "volume": 76751587868,
+      "volume": 76751588027,
       "marker": null
     },
     {
@@ -779,7 +770,7 @@
       "high": 1617.77,
       "low": 1607.45,
       "close": 1612.0,
-      "volume": 58335239571,
+      "volume": 58335239517,
       "marker": null
     },
     {
@@ -788,7 +779,7 @@
       "high": 1630.73,
       "low": 1621.18,
       "close": 1624.36,
-      "volume": 56036037800,
+      "volume": 56036037700,
       "marker": null
     },
     {
@@ -797,7 +788,7 @@
       "high": 1628.67,
       "low": 1610.41,
       "close": 1612.62,
-      "volume": 61297470252,
+      "volume": 61297470347,
       "marker": "DD"
     },
     {
@@ -806,7 +797,7 @@
       "high": 1623.63,
       "low": 1611.15,
       "close": 1614.36,
-      "volume": 70214743619,
+      "volume": 70214744370,
       "marker": null
     },
     {
@@ -815,7 +806,7 @@
       "high": 1623.82,
       "low": 1605.13,
       "close": 1609.06,
-      "volume": 71080322042,
+      "volume": 71080322319,
       "marker": "DD"
     },
     {
@@ -824,7 +815,7 @@
       "high": 1632.08,
       "low": 1613.3,
       "close": 1626.44,
-      "volume": 68454223268,
+      "volume": 68454223853,
       "marker": null
     },
     {
@@ -833,7 +824,7 @@
       "high": 1630.87,
       "low": 1617.37,
       "close": 1621.62,
-      "volume": 73349410688,
+      "volume": 73349410818,
       "marker": "DD"
     },
     {
@@ -842,7 +833,7 @@
       "high": 1618.08,
       "low": 1609.04,
       "close": 1609.76,
-      "volume": 63657825218,
+      "volume": 63657825251,
       "marker": null
     },
     {
@@ -851,7 +842,7 @@
       "high": 1622.4,
       "low": 1609.36,
       "close": 1609.99,
-      "volume": 76736927652,
+      "volume": 76736927695,
       "marker": null
     },
     {
@@ -860,7 +851,7 @@
       "high": 1624.36,
       "low": 1613.67,
       "close": 1613.78,
-      "volume": 63924134111,
+      "volume": 63924134198,
       "marker": null
     },
     {
@@ -869,7 +860,7 @@
       "high": 1613.1,
       "low": 1594.03,
       "close": 1601.05,
-      "volume": 54258411883,
+      "volume": 54258412248,
       "marker": null
     },
     {
@@ -878,7 +869,7 @@
       "high": 1602.81,
       "low": 1592.6,
       "close": 1596.01,
-      "volume": 55465838084,
+      "volume": 55465838518,
       "marker": "DD"
     },
     {
@@ -887,7 +878,7 @@
       "high": 1611.06,
       "low": 1599.58,
       "close": 1601.92,
-      "volume": 67508489799,
+      "volume": 67508490107,
       "marker": null
     },
     {
@@ -896,7 +887,7 @@
       "high": 1618.09,
       "low": 1599.48,
       "close": 1600.7,
-      "volume": 57598595771,
+      "volume": 57598595806,
       "marker": null
     },
     {
@@ -905,7 +896,7 @@
       "high": 1600.5,
       "low": 1582.38,
       "close": 1588.22,
-      "volume": 61614038294,
+      "volume": 61614038559,
       "marker": "DD"
     },
     {
@@ -914,7 +905,7 @@
       "high": 1595.66,
       "low": 1582.12,
       "close": 1595.16,
-      "volume": 70959331995,
+      "volume": 70959332407,
       "marker": null
     },
     {
@@ -923,7 +914,7 @@
       "high": 1603.59,
       "low": 1585.23,
       "close": 1588.68,
-      "volume": 65232961990,
+      "volume": 65232963559,
       "marker": null
     },
     {
@@ -932,7 +923,7 @@
       "high": 1589.88,
       "low": 1572.44,
       "close": 1575.07,
-      "volume": 58088578665,
+      "volume": 58088579437,
       "marker": null
     },
     {
@@ -941,7 +932,7 @@
       "high": 1589.77,
       "low": 1574.83,
       "close": 1576.92,
-      "volume": 59746636814,
+      "volume": 59746637586,
       "marker": null
     },
     {
@@ -950,7 +941,7 @@
       "high": 1599.1,
       "low": 1579.36,
       "close": 1595.58,
-      "volume": 58265775137,
+      "volume": 58265775192,
       "marker": null
     },
     {
@@ -959,7 +950,7 @@
       "high": 1620.95,
       "low": 1598.1,
       "close": 1618.82,
-      "volume": 55789776233,
+      "volume": 55789776327,
       "marker": null
     },
     {
@@ -968,7 +959,7 @@
       "high": 1625.94,
       "low": 1614.49,
       "close": 1621.89,
-      "volume": 61970466981,
+      "volume": 61970467078,
       "marker": null
     },
     {
@@ -977,7 +968,7 @@
       "high": 1629.21,
       "low": 1614.5,
       "close": 1617.89,
-      "volume": 76283131194,
+      "volume": 76283131296,
       "marker": "DD"
     },
     {
@@ -986,7 +977,7 @@
       "high": 1621.28,
       "low": 1609.66,
       "close": 1615.07,
-      "volume": 63445475537,
+      "volume": 63445475780,
       "marker": null
     },
     {
@@ -995,7 +986,7 @@
       "high": 1610.43,
       "low": 1600.19,
       "close": 1604.52,
-      "volume": 63822034568,
+      "volume": 63822035026,
       "marker": "DD"
     },
     {
@@ -1004,7 +995,7 @@
       "high": 1604.24,
       "low": 1589.02,
       "close": 1591.07,
-      "volume": 57495520113,
+      "volume": 57495520693,
       "marker": null
     },
     {
@@ -1013,7 +1004,7 @@
       "high": 1592.28,
       "low": 1577.2,
       "close": 1578.66,
-      "volume": 67186308133,
+      "volume": 67186308899,
       "marker": "DD"
     },
     {
@@ -1022,7 +1013,7 @@
       "high": 1584.14,
       "low": 1561.78,
       "close": 1562.73,
-      "volume": 70362576574,
+      "volume": 70362576879,
       "marker": "DD"
     },
     {
@@ -1031,7 +1022,7 @@
       "high": 1585.08,
       "low": 1571.37,
       "close": 1583.34,
-      "volume": 57193592266,
+      "volume": 57193592764,
       "marker": null
     },
     {
@@ -1040,7 +1031,7 @@
       "high": 1592.31,
       "low": 1580.49,
       "close": 1584.15,
-      "volume": 65737682409,
+      "volume": 65737682707,
       "marker": null
     },
     {
@@ -1049,7 +1040,7 @@
       "high": 1603.14,
       "low": 1589.69,
       "close": 1598.03,
-      "volume": 63024636816,
+      "volume": 63024637209,
       "marker": null
     },
     {
@@ -1058,7 +1049,7 @@
       "high": 1612.36,
       "low": 1601.55,
       "close": 1604.44,
-      "volume": 61648439801,
+      "volume": 61648440005,
       "marker": null
     },
     {
@@ -1067,7 +1058,7 @@
       "high": 1612.7,
       "low": 1602.86,
       "close": 1610.7,
-      "volume": 59716272947,
+      "volume": 59716273529,
       "marker": null
     },
     {
@@ -1076,7 +1067,7 @@
       "high": 1609.18,
       "low": 1599.81,
       "close": 1602.58,
-      "volume": 63400892063,
+      "volume": 63400662887,
       "marker": "DD"
     },
     {
@@ -1103,25 +1094,20 @@
       "high": 1602.71,
       "low": 1591.47,
       "close": 1594.3,
-      "volume": 74371799573,
+      "volume": 74371799574,
+      "marker": "DD"
+    },
+    {
+      "date": "2026-09-30",
+      "open": 1598.64,
+      "high": 1599.87,
+      "low": 1556.75,
+      "close": 1559.01,
+      "volume": 115062516576,
       "marker": "DD"
     }
   ],
   "breadth": [
-    {
-      "date": "2026-03-31",
-      "pct_above_ma10": 58.92,
-      "denom_ma10": 874,
-      "pct_above_ma20": 53.43,
-      "denom_ma20": 874,
-      "pct_above_ma50": 45.54,
-      "denom_ma50": 874,
-      "pct_above_ma200": 44.25,
-      "denom_ma200": 870,
-      "pct_new_52wh": 3.7,
-      "pct_new_52wl": 4.62,
-      "denom_52w": 866
-    },
     {
       "date": "2026-04-01",
       "pct_above_ma10": 69.68,
@@ -1194,7 +1180,7 @@
     },
     {
       "date": "2026-04-09",
-      "pct_above_ma10": 46.22,
+      "pct_above_ma10": 46.11,
       "denom_ma10": 874,
       "pct_above_ma20": 50.34,
       "denom_ma20": 874,
@@ -1208,7 +1194,7 @@
     },
     {
       "date": "2026-04-10",
-      "pct_above_ma10": 46.8,
+      "pct_above_ma10": 47.03,
       "denom_ma10": 874,
       "pct_above_ma20": 53.66,
       "denom_ma20": 874,
@@ -1250,7 +1236,7 @@
     },
     {
       "date": "2026-04-20",
-      "pct_above_ma10": 40.78,
+      "pct_above_ma10": 40.89,
       "denom_ma10": 873,
       "pct_above_ma20": 49.71,
       "denom_ma20": 873,
@@ -1308,7 +1294,7 @@
       "date": "2026-04-24",
       "pct_above_ma10": 39.29,
       "denom_ma10": 873,
-      "pct_above_ma20": 44.79,
+      "pct_above_ma20": 44.67,
       "denom_ma20": 873,
       "pct_above_ma50": 42.27,
       "denom_ma50": 873,
@@ -1322,7 +1308,7 @@
       "date": "2026-04-27",
       "pct_above_ma10": 42.27,
       "denom_ma10": 873,
-      "pct_above_ma20": 43.87,
+      "pct_above_ma20": 43.99,
       "denom_ma20": 873,
       "pct_above_ma50": 39.29,
       "denom_ma50": 873,
@@ -1460,7 +1446,7 @@
     },
     {
       "date": "2026-05-13",
-      "pct_above_ma10": 44.51,
+      "pct_above_ma10": 44.62,
       "denom_ma10": 874,
       "pct_above_ma20": 51.32,
       "denom_ma20": 873,
@@ -1728,7 +1714,7 @@
       "date": "2026-06-11",
       "pct_above_ma10": 29.71,
       "denom_ma10": 875,
-      "pct_above_ma20": 43.59,
+      "pct_above_ma20": 43.48,
       "denom_ma20": 874,
       "pct_above_ma50": 52.69,
       "denom_ma50": 873,
@@ -1796,7 +1782,7 @@
     },
     {
       "date": "2026-06-18",
-      "pct_above_ma10": 59.84,
+      "pct_above_ma10": 59.95,
       "denom_ma10": 874,
       "pct_above_ma20": 57.44,
       "denom_ma20": 874,
@@ -1854,7 +1840,7 @@
       "date": "2026-06-24",
       "pct_above_ma10": 51.14,
       "denom_ma10": 874,
-      "pct_above_ma20": 51.03,
+      "pct_above_ma20": 50.92,
       "denom_ma20": 874,
       "pct_above_ma50": 59.22,
       "denom_ma50": 873,
@@ -1868,7 +1854,7 @@
       "date": "2026-06-25",
       "pct_above_ma10": 48.17,
       "denom_ma10": 874,
-      "pct_above_ma20": 51.6,
+      "pct_above_ma20": 51.49,
       "denom_ma20": 874,
       "pct_above_ma50": 58.65,
       "denom_ma50": 873,
@@ -1908,7 +1894,7 @@
     },
     {
       "date": "2026-06-30",
-      "pct_above_ma10": 55.84,
+      "pct_above_ma10": 55.95,
       "denom_ma10": 874,
       "pct_above_ma20": 58.58,
       "denom_ma20": 874,
@@ -2146,7 +2132,7 @@
     },
     {
       "date": "2026-07-23",
-      "pct_above_ma10": 43.43,
+      "pct_above_ma10": 43.31,
       "denom_ma10": 875,
       "pct_above_ma20": 62.06,
       "denom_ma20": 875,
@@ -2160,7 +2146,7 @@
     },
     {
       "date": "2026-07-24",
-      "pct_above_ma10": 40.89,
+      "pct_above_ma10": 40.78,
       "denom_ma10": 873,
       "pct_above_ma20": 59.45,
       "denom_ma20": 873,
@@ -2230,7 +2216,7 @@
     },
     {
       "date": "2026-08-04",
-      "pct_above_ma10": 50.23,
+      "pct_above_ma10": 50.34,
       "denom_ma10": 872,
       "pct_above_ma20": 57.45,
       "denom_ma20": 872,
@@ -2288,7 +2274,7 @@
       "date": "2026-08-10",
       "pct_above_ma10": 49.77,
       "denom_ma10": 872,
-      "pct_above_ma20": 49.31,
+      "pct_above_ma20": 49.2,
       "denom_ma20": 872,
       "pct_above_ma50": 66.13,
       "denom_ma50": 871,
@@ -2456,7 +2442,7 @@
       "date": "2026-08-27",
       "pct_above_ma10": 54.99,
       "denom_ma10": 871,
-      "pct_above_ma20": 53.04,
+      "pct_above_ma20": 53.16,
       "denom_ma20": 871,
       "pct_above_ma50": 58.8,
       "denom_ma50": 869,
@@ -2482,7 +2468,7 @@
     },
     {
       "date": "2026-08-31",
-      "pct_above_ma10": 44.43,
+      "pct_above_ma10": 44.55,
       "denom_ma10": 871,
       "pct_above_ma20": 48.34,
       "denom_ma20": 871,
@@ -2554,7 +2540,7 @@
       "date": "2026-09-07",
       "pct_above_ma10": 39.04,
       "denom_ma10": 871,
-      "pct_above_ma20": 41.56,
+      "pct_above_ma20": 41.68,
       "denom_ma20": 871,
       "pct_above_ma50": 50.69,
       "denom_ma50": 870,
@@ -2608,7 +2594,7 @@
     },
     {
       "date": "2026-09-11",
-      "pct_above_ma10": 45.75,
+      "pct_above_ma10": 45.86,
       "denom_ma10": 870,
       "pct_above_ma20": 41.49,
       "denom_ma20": 870,
@@ -2734,59 +2720,73 @@
     },
     {
       "date": "2026-09-24",
-      "pct_above_ma10": 44.64,
-      "denom_ma10": 867,
-      "pct_above_ma20": 45.38,
-      "denom_ma20": 866,
-      "pct_above_ma50": 45.27,
-      "denom_ma50": 866,
-      "pct_above_ma200": 66.4,
-      "denom_ma200": 866,
+      "pct_above_ma10": 44.57,
+      "denom_ma10": 866,
+      "pct_above_ma20": 45.32,
+      "denom_ma20": 865,
+      "pct_above_ma50": 45.2,
+      "denom_ma50": 865,
+      "pct_above_ma200": 66.36,
+      "denom_ma200": 865,
       "pct_new_52wh": 4.05,
-      "pct_new_52wl": 4.39,
-      "denom_52w": 865
+      "pct_new_52wl": 4.4,
+      "denom_52w": 864
     },
     {
       "date": "2026-09-25",
-      "pct_above_ma10": 48.21,
-      "denom_ma10": 867,
-      "pct_above_ma20": 48.73,
-      "denom_ma20": 866,
-      "pct_above_ma50": 45.73,
-      "denom_ma50": 866,
-      "pct_above_ma200": 66.4,
-      "denom_ma200": 866,
-      "pct_new_52wh": 4.16,
-      "pct_new_52wl": 3.93,
-      "denom_52w": 865
+      "pct_above_ma10": 48.15,
+      "denom_ma10": 866,
+      "pct_above_ma20": 48.67,
+      "denom_ma20": 865,
+      "pct_above_ma50": 45.66,
+      "denom_ma50": 865,
+      "pct_above_ma200": 66.36,
+      "denom_ma200": 865,
+      "pct_new_52wh": 4.17,
+      "pct_new_52wl": 3.94,
+      "denom_52w": 864
     },
     {
       "date": "2026-09-28",
-      "pct_above_ma10": 41.87,
-      "denom_ma10": 867,
-      "pct_above_ma20": 44.34,
-      "denom_ma20": 866,
-      "pct_above_ma50": 44.11,
-      "denom_ma50": 866,
-      "pct_above_ma200": 65.47,
-      "denom_ma200": 866,
+      "pct_above_ma10": 41.8,
+      "denom_ma10": 866,
+      "pct_above_ma20": 44.28,
+      "denom_ma20": 865,
+      "pct_above_ma50": 44.05,
+      "denom_ma50": 865,
+      "pct_above_ma200": 65.43,
+      "denom_ma200": 865,
       "pct_new_52wh": 3.7,
-      "pct_new_52wl": 4.97,
-      "denom_52w": 865
+      "pct_new_52wl": 4.98,
+      "denom_52w": 864
     },
     {
       "date": "2026-09-29",
-      "pct_above_ma10": 37.34,
-      "denom_ma10": 865,
-      "pct_above_ma20": 40.51,
-      "denom_ma20": 864,
-      "pct_above_ma50": 42.59,
-      "denom_ma50": 864,
-      "pct_above_ma200": 64.81,
-      "denom_ma200": 864,
+      "pct_above_ma10": 37.27,
+      "denom_ma10": 864,
+      "pct_above_ma20": 40.44,
+      "denom_ma20": 863,
+      "pct_above_ma50": 42.53,
+      "denom_ma50": 863,
+      "pct_above_ma200": 64.77,
+      "denom_ma200": 863,
       "pct_new_52wh": 3.48,
       "pct_new_52wl": 5.45,
-      "denom_52w": 863
+      "denom_52w": 862
+    },
+    {
+      "date": "2026-09-30",
+      "pct_above_ma10": 18.79,
+      "denom_ma10": 809,
+      "pct_above_ma20": 24.5,
+      "denom_ma20": 808,
+      "pct_above_ma50": 32.3,
+      "denom_ma50": 808,
+      "pct_above_ma200": 63.0,
+      "denom_ma200": 808,
+      "pct_new_52wh": 1.36,
+      "pct_new_52wl": 5.2,
+      "denom_52w": 807
     }
   ]
 }

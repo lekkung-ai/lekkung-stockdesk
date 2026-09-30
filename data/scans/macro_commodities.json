@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T10:39:51+07:00",
+  "generated_at": "2026-09-30T18:07:19+07:00",
   "series_days": 180,
   "zones": {
     "energy": "พลังงาน",
@@ -763,7 +763,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "CL=F": {
       "name_th": "น้ำมันดิบ WTI",
@@ -1502,7 +1502,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "NG=F": {
       "name_th": "ก๊าซธรรมชาติ",
@@ -2251,7 +2251,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "HO=F": {
       "name_th": "น้ำมันดีเซล (Heating Oil)",
@@ -3006,7 +3006,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "RB=F": {
       "name_th": "น้ำมันเบนซิน (RBOB Gasoline)",
@@ -3757,7 +3757,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "HRC=F": {
       "name_th": "เหล็กแผ่นม้วนร้อน",
@@ -4508,7 +4508,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "HG=F": {
       "name_th": "ทองแดง",
@@ -5257,7 +5257,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "ALI=F": {
       "name_th": "อลูมิเนียม",
@@ -6002,7 +6002,7 @@
       ],
       "last_success_date": "2026-09-29",
       "never_fetched": false,
-      "series_empty": false
+      "is_stale_fallback": true
     },
     "SICOM_RSS3": {
       "name_th": "ยางพารา RSS3 (SICOM)",
@@ -6051,9 +6051,9 @@
       },
       "latest": {
         "date": "2026-09-30",
-        "close": 245.3
+        "close": 258.7
       },
-      "pct_1d": -1.88,
+      "pct_1d": 3.48,
       "pct_1m": null,
       "series": [],
       "last_success_date": "2026-09-30",
@@ -6079,9 +6079,9 @@
       },
       "latest": {
         "date": "2026-09-30",
-        "close": 19860.0
+        "close": 19710.0
       },
-      "pct_1d": 4.31,
+      "pct_1d": 3.52,
       "pct_1m": null,
       "series": [],
       "last_success_date": "2026-09-30",
@@ -6116,16 +6116,12 @@
         "SNNP": "cost"
       },
       "latest": {
-        "date": "2026-09-29",
-        "close": 18.84
+        "date": "2026-09-30",
+        "close": 18.69
       },
-      "pct_1d": 7.9,
-      "pct_1m": 7.29,
+      "pct_1d": 4.88,
+      "pct_1m": 4.94,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 14.84
-        },
         {
           "date": "2026-01-13",
           "close": 14.89
@@ -6840,10 +6836,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 18.84
+          "close": 17.82
+        },
+        {
+          "date": "2026-09-30",
+          "close": 18.69
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -6865,16 +6865,12 @@
         "GFPT": "cost"
       },
       "latest": {
-        "date": "2026-09-29",
-        "close": 521.75
+        "date": "2026-09-30",
+        "close": 525.0
       },
-      "pct_1d": -0.24,
-      "pct_1m": 1.9,
+      "pct_1d": 0.57,
+      "pct_1m": 1.94,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 421.5
-        },
         {
           "date": "2026-01-13",
           "close": 419.75
@@ -7589,10 +7585,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 521.75
+          "close": 522.0
+        },
+        {
+          "date": "2026-09-30",
+          "close": 525.0
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -7616,16 +7616,12 @@
         "GFPT": "cost"
       },
       "latest": {
-        "date": "2026-09-29",
-        "close": 1300.0
+        "date": "2026-09-30",
+        "close": 1303.25
       },
-      "pct_1d": 0.91,
-      "pct_1m": 1.86,
+      "pct_1d": 0.42,
+      "pct_1m": 2.2,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 1033.0
-        },
         {
           "date": "2026-01-13",
           "close": 1023.25
@@ -8340,10 +8336,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 1300.0
+          "close": 1297.75
+        },
+        {
+          "date": "2026-09-30",
+          "close": 1303.25
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -8367,16 +8367,12 @@
         "GFPT": "cost"
       },
       "latest": {
-        "date": "2026-09-29",
-        "close": 359.7
+        "date": "2026-09-30",
+        "close": 361.4
       },
-      "pct_1d": -0.55,
-      "pct_1m": 6.36,
+      "pct_1d": 0.36,
+      "pct_1m": 8.01,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 294.6
-        },
         {
           "date": "2026-01-13",
           "close": 286.4
@@ -9091,10 +9087,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 359.7
+          "close": 360.1
+        },
+        {
+          "date": "2026-09-30",
+          "close": 361.4
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -9116,16 +9116,12 @@
         "TFM": "cost"
       },
       "latest": {
-        "date": "2026-09-29",
-        "close": 693.75
+        "date": "2026-09-30",
+        "close": 698.25
       },
-      "pct_1d": 0.73,
-      "pct_1m": -9.55,
+      "pct_1d": 0.79,
+      "pct_1m": -7.7,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 511.25
-        },
         {
           "date": "2026-01-13",
           "close": 510.5
@@ -9840,10 +9836,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 693.75
+          "close": 692.75
+        },
+        {
+          "date": "2026-09-30",
+          "close": 698.25
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -9867,12 +9867,8 @@
         "close": 1191.0
       },
       "pct_1d": -0.08,
-      "pct_1m": 1.19,
+      "pct_1m": 1.1,
       "series": [
-        {
-          "date": "2026-01-09",
-          "close": 993.5
-        },
         {
           "date": "2026-01-12",
           "close": 1002.5
@@ -10574,6 +10570,10 @@
           "close": 1200.25
         },
         {
+          "date": "2026-09-23",
+          "close": 1197.5
+        },
+        {
           "date": "2026-09-24",
           "close": 1196.75
         },
@@ -10611,10 +10611,10 @@
       },
       "latest": {
         "date": "2026-09-29",
-        "close": 69.675
+        "close": 79.375
       },
-      "pct_1d": -10.96,
-      "pct_1m": -14.93,
+      "pct_1d": 1.44,
+      "pct_1m": -3.08,
       "series": [
         {
           "date": "2026-01-12",
@@ -11334,7 +11334,7 @@
         },
         {
           "date": "2026-09-29",
-          "close": 69.675
+          "close": 79.375
         }
       ],
       "last_success_date": "2026-09-29",
@@ -11357,16 +11357,12 @@
         "TACC": "revenue"
       },
       "latest": {
-        "date": "2026-09-29",
-        "close": 292.7
+        "date": "2026-09-30",
+        "close": 297.9
       },
-      "pct_1d": 1.37,
-      "pct_1m": -15.37,
+      "pct_1d": 2.92,
+      "pct_1m": -13.38,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 356.05
-        },
         {
           "date": "2026-01-13",
           "close": 360.25
@@ -12081,10 +12077,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 292.7
+          "close": 289.45
+        },
+        {
+          "date": "2026-09-30",
+          "close": 297.9
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -12096,16 +12096,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-09-29",
-        "close": 68.31
+        "date": "2026-09-30",
+        "close": 68.43
       },
-      "pct_1d": 1.79,
-      "pct_1m": -3.23,
+      "pct_1d": 0.85,
+      "pct_1m": -2.94,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 49.82
-        },
         {
           "date": "2026-01-13",
           "close": 50.78
@@ -12820,10 +12816,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 68.31
+          "close": 67.85
+        },
+        {
+          "date": "2026-09-30",
+          "close": 68.43
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -12835,16 +12835,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-09-29",
-        "close": 4212.2002
+        "date": "2026-09-30",
+        "close": 4216.1001
       },
-      "pct_1d": 1.05,
-      "pct_1m": -7.01,
+      "pct_1d": 0.87,
+      "pct_1m": -5.92,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 4614.7002
-        },
         {
           "date": "2026-01-13",
           "close": 4599.1001
@@ -13559,10 +13555,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 4212.2002
+          "close": 4179.7002
+        },
+        {
+          "date": "2026-09-30",
+          "close": 4216.1001
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
@@ -13589,10 +13589,10 @@
       },
       "latest": {
         "date": "2026-09-30",
-        "close": 33.54
+        "close": 33.55
       },
-      "pct_1d": -0.18,
-      "pct_1m": 1.25,
+      "pct_1d": -0.15,
+      "pct_1m": 1.28,
       "series": [
         {
           "date": "2026-01-22",
@@ -14312,7 +14312,7 @@
         },
         {
           "date": "2026-09-30",
-          "close": 33.54
+          "close": 33.55
         }
       ],
       "last_success_date": "2026-09-30",
@@ -14335,16 +14335,12 @@
         "HANA": "revenue"
       },
       "latest": {
-        "date": "2026-09-29",
-        "close": 101.329
+        "date": "2026-09-30",
+        "close": 101.22
       },
-      "pct_1d": 0.13,
-      "pct_1m": 1.63,
+      "pct_1d": -0.15,
+      "pct_1m": 1.8,
       "series": [
-        {
-          "date": "2026-01-12",
-          "close": 98.86
-        },
         {
           "date": "2026-01-13",
           "close": 99.13
@@ -15059,10 +15055,14 @@
         },
         {
           "date": "2026-09-29",
-          "close": 101.329
+          "close": 101.37
+        },
+        {
+          "date": "2026-09-30",
+          "close": 101.22
         }
       ],
-      "last_success_date": "2026-09-29",
+      "last_success_date": "2026-09-30",
       "never_fetched": false,
       "series_empty": false
     },
