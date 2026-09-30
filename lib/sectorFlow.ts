@@ -118,6 +118,34 @@ export function parseSortDir(v: string | null): SortDir {
   return v === 'asc' ? 'asc' : 'desc';
 }
 
+/**
+ * Keep only the /sector-flow params that page understands, with valid values
+ * (flow=5d, all=1, tab=sector, sort=<SortKey>, dir=asc|desc) - used both when
+ * building the ?back= of a row link and when /sector/[slug] turns it back into
+ * a /sector-flow URL, so a hand-edited ?back= can't inject anything else.
+ */
+export function sanitizeFlowQuery(raw: string | null | undefined): string {
+  const src = new URLSearchParams(raw ?? '');
+  const out = new URLSearchParams();
+  if (src.get('flow') === '5d') out.set('flow', '5d');
+  if (src.get('all') === '1') out.set('all', '1');
+  if (src.get('tab') === 'sector') out.set('tab', 'sector');
+  const sort = parseSortKey(src.get('sort'));
+  if (sort) out.set('sort', sort);
+  const dir = src.get('dir');
+  if (dir === 'asc' || dir === 'desc') out.set('dir', dir);
+  return out.toString();
+}
+
+/** Row link from /sector-flow to /sector/[slug]: from=flow, back=<current flow query>, sub=<subsector> (subsector rows only). */
+export function sectorLinkFromFlow(sectorSlug: string, subsector: string | null | undefined, currentQuery: string): string {
+  const p = new URLSearchParams({ market: 'SET', from: 'flow' });
+  const back = sanitizeFlowQuery(currentQuery);
+  if (back) p.set('back', back);
+  if (subsector) p.set('sub', subsector);
+  return `/sector/${sectorSlug}?${p.toString()}`;
+}
+
 const MONTHS_TH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 /** '2026-09-28' → '28 ก.ย. 2569' */
 export function formatThaiDay(isoDate: string | null | undefined): string {
