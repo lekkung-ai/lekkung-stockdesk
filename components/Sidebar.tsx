@@ -6,9 +6,10 @@ import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings, RotateCw,
-  Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck,
+  Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck, Building2,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
+import { FUND_TICKERS } from '@/lib/fundFilter';
 
 const COUNTS = {
   all: scanData.length,
@@ -46,6 +47,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Sector Map', href: '/sector', icon: Map },
       { label: 'Sector Flow', href: '/sector-flow', icon: RotateCw },
       { label: 'SET50 / SET100', href: '/set-index/set100', icon: ListOrdered, activePrefix: '/set-index/' },
+      { label: 'กองทุน & REIT', href: '/funds', icon: Building2, count: FUND_TICKERS.size },
       { label: 'Macro & Commodities', href: '/macro', icon: Fuel },
       { label: 'Top Movers', href: '/top-movers', icon: Activity, exact: true },
       { label: 'Big Lot', href: '/top-movers/biglot', icon: Package, indent: true },
