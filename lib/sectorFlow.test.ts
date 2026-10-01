@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { flowLabel, flowRows, strengthRows, compareNullLast, formatThaiDay, parseSortKey, parseFlowWindow, sanitizeFlowQuery, sectorLinkFromFlow, type FlowRow } from './sectorFlow';
+import { flowLabel, flowRows, strengthRows, compareNullLast, formatThaiDay, parseSortKey, parseFlowWindow, sanitizeFlowQuery, sectorLinkFromFlow, parseFlowLayout, type FlowRow } from './sectorFlow';
 
 const mk = (o: Partial<FlowRow> & { subsector: string }): FlowRow => ({
   sector: 'S', n: 5, flow_1d: 1, flow_5d: 1, chg_1d: 0, chg_5d: 0, avg_value_20d: 100,
@@ -120,5 +120,29 @@ describe('sectorLinkFromFlow', () => {
     const u = new URL(sectorLinkFromFlow('services', 'Media & Publishing', 'tab=sector'), 'http://x');
     expect(u.searchParams.get('sub')).toBe('Media & Publishing');
     expect(u.searchParams.get('back')).toBe('tab=sector');
+  });
+});
+
+describe('sanitizeFlowQuery layout', () => {
+  it('keeps layout=classic|new and drops anything else', () => {
+    expect(sanitizeFlowQuery('flow=5d&layout=new')).toBe('flow=5d&layout=new');
+    expect(sanitizeFlowQuery('layout=classic')).toBe('layout=classic');
+    expect(sanitizeFlowQuery('layout=xyz&flow=5d')).toBe('flow=5d');
+    expect(sanitizeFlowQuery('layout=NEW')).toBe('');
+  });
+
+  it('round-trips through the row link so the back link returns to the same layout', () => {
+    const u = new URL(sectorLinkFromFlow('financials', 'Banking', 'flow=5d&layout=new&view=table'), 'http://x');
+    expect(u.searchParams.get('back')).toBe('flow=5d&layout=new');
+  });
+});
+
+describe('parseFlowLayout', () => {
+  it('only "new" selects the new layout', () => {
+    expect(parseFlowLayout('new')).toBe('new');
+    expect(parseFlowLayout('classic')).toBe('classic');
+    expect(parseFlowLayout('xyz')).toBe('classic');
+    expect(parseFlowLayout(null)).toBe('classic');
+    expect(parseFlowLayout(undefined)).toBe('classic');
   });
 });
