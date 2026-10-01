@@ -26,6 +26,8 @@ import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import ReportCardBar from '@/components/ReportCardBar';
+import AssetTypeToggle from '@/components/AssetTypeToggle';
+import { parseAssetType, matchesAssetType, countByAssetType, DEFAULT_ASSET_TYPE, type AssetType } from '@/lib/fundFilter';
 import React from 'react';
 
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear', 'UNKNOWN'];
@@ -89,6 +91,8 @@ function MarketStageContent() {
   const rawStage = searchParams.get('stage');
   const stage = rawStage && ALL_STAGES.includes(rawStage) ? rawStage : STAGE_ALL;
   const requestedPage = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10) || 1);
+  // ?type=stock|fund|all - default stock (กองทุน/REIT ซ่อน) is dropped from the URL like the other defaults.
+  const assetType = parseAssetType(searchParams.get('type'));
   // ?sort=<column>&dir=asc|desc - anything invalid/missing = default sort.
   const rawSort = searchParams.get('sort');
   const rawDir = searchParams.get('dir');
@@ -106,7 +110,7 @@ function MarketStageContent() {
 
   // stage + page live in the URL (?stage=&page=) so a refresh / shared link
   // lands on the same view; defaults are dropped to keep the URL clean.
-  function setParams(next: { stage?: string; page?: number; sort?: SortConfig }) {
+  function setParams(next: { stage?: string; page?: number; sort?: SortConfig; type?: AssetType }) {
     const params = new URLSearchParams(searchParams.toString());
     if (next.sort !== undefined) {
       if (next.sort) {
@@ -120,6 +124,10 @@ function MarketStageContent() {
     if (next.stage !== undefined) {
       if (next.stage === STAGE_ALL) params.delete('stage');
       else params.set('stage', next.stage);
+    }
+    if (next.type !== undefined) {
+      if (next.type === DEFAULT_ASSET_TYPE) params.delete('type');
+      else params.set('type', next.type);
     }
     if (next.page !== undefined) {
       if (next.page <= 1) params.delete('page');
@@ -140,6 +148,7 @@ function MarketStageContent() {
     setParams({ page: 1 });
   };
   const handleStage = (s: string) => setParams({ stage: s, page: 1 });
+  const handleAssetType = (t: AssetType) => setParams({ type: t, page: 1 });
 
   // Per-stage counts for the dropdown - taken after the new/dropped filter so
   // each count matches the row total that choosing it would show.
@@ -147,14 +156,21 @@ function MarketStageContent() {
     () => stageData.filter(s => diffFilter !== 'new' || newSet.has(s.Ticker)),
     [diffFilter, newSet]
   );
+  // หุ้น / กองทุน & REIT / ทั้งหมด: counts after the new/dropped + stage filters;
+  // stage counts after new/dropped + type, so both dropdowns match what they'd show.
+  const typeRows = useMemo(() => diffRows.filter(s => matchesAssetType(s.Ticker, assetType)), [diffRows, assetType]);
+  const typeCounts = useMemo(
+    () => countByAssetType(diffRows.filter(s => stage === STAGE_ALL || s.Stage === stage).map(s => s.Ticker)),
+    [diffRows, stage]
+  );
   const stageCounts = useMemo(() => {
     const c: Record<string, number> = {};
-    for (const s of diffRows) c[s.Stage] = (c[s.Stage] ?? 0) + 1;
+    for (const s of typeRows) c[s.Stage] = (c[s.Stage] ?? 0) + 1;
     return c;
-  }, [diffRows]);
+  }, [typeRows]);
 
   const filtered = useMemo(() => {
-    let result = diffRows.filter(s => stage === STAGE_ALL || s.Stage === stage);
+    let result = typeRows.filter(s => stage === STAGE_ALL || s.Stage === stage);
     if (sortConfig?.key === WEEK52_SORT_KEY) {
       // % from 52W High - tickers without 52W data stay last in both directions.
       result = result.sort((a, b) => {
@@ -187,7 +203,7 @@ function MarketStageContent() {
       });
     }
     return result;
-  }, [diffRows, stage, sortConfig]);
+  }, [typeRows, stage, sortConfig]);
 
   // Desktop: pages of 20 over the full filtered+sorted list (an out-of-range
   // ?page= shows the last page). Mobile keeps its infinite-scroll batches.
@@ -208,7 +224,7 @@ function MarketStageContent() {
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [stage, sortConfig, diffFilter, newSet]
+    [stage, sortConfig, diffFilter, newSet, assetType]
   );
   const displayRows = isMobile ? visibleRows : pageRows;
   const rowOffset = isMobile ? 0 : pageStart;
@@ -236,11 +252,12 @@ function MarketStageContent() {
       ) : (
       <>
       <FilterBar>
+        <AssetTypeToggle value={assetType} counts={typeCounts} onChange={handleAssetType} />
         <span className="text-[10px] text-white/20 uppercase tracking-wider flex-shrink-0">Stage</span>
         <StageSelect
           stages={ALL_STAGES}
           counts={stageCounts}
-          totalCount={diffRows.length}
+          totalCount={typeRows.length}
           value={stage}
           onChange={handleStage}
         />
