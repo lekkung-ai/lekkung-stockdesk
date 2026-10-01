@@ -7,6 +7,7 @@ export interface TopRSRowData {
   ticker: string;
   sector: string | null;
   rsScore: number;
+  rsRaw: number | null;
   stage: string | null;
   signals: RSSignals;
 }
@@ -42,6 +43,7 @@ export default function TopRSTable({ rows }: TopRSTableProps) {
               ticker={row.ticker}
               sector={row.sector}
               rsScore={row.rsScore}
+              rsRaw={row.rsRaw}
               stage={row.stage}
               signals={row.signals}
               change1d={quotes[row.ticker]?.chg ?? null}
