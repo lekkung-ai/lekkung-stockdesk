@@ -80,16 +80,6 @@
     "SMA150_Chg": 0.173
   },
   {
-    "Ticker": "WHART",
-    "Price": 10.9,
-    "Box_Low": 9.75,
-    "Box_High(Break)": 11.31,
-    "To_Break": "3.59%",
-    "ADTV(MB)": 22.5,
-    "Box_Width": "15.96%",
-    "SMA150_Chg": 0.061
-  },
-  {
     "Ticker": "SPALI",
     "Price": 15.9,
     "Box_Low": 14.41,
@@ -140,16 +130,6 @@
     "SMA150_Chg": 0.069
   },
   {
-    "Ticker": "TISCO",
-    "Price": 124.5,
-    "Box_Low": 103.79,
-    "Box_High(Break)": 130.91,
-    "To_Break": "4.89%",
-    "ADTV(MB)": 404.3,
-    "Box_Width": "26.13%",
-    "SMA150_Chg": 2.565
-  },
-  {
     "Ticker": "EGCO",
     "Price": 126.5,
     "Box_Low": 104.74,
@@ -158,5 +138,15 @@
     "ADTV(MB)": 148.1,
     "Box_Width": "26.98%",
     "SMA150_Chg": 1.711
+  },
+  {
+    "Ticker": "TISCO",
+    "Price": 124.5,
+    "Box_Low": 103.79,
+    "Box_High(Break)": 130.91,
+    "To_Break": "4.89%",
+    "ADTV(MB)": 404.3,
+    "Box_Width": "26.13%",
+    "SMA150_Chg": 2.565
   }
 ]

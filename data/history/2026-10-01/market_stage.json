@@ -3211,9 +3211,9 @@
     "EMA200": 4.66,
     "Bar_Count": 13,
     "ADTV(MB)": 11.8,
-    "PE_Ratio": 11.4,
+    "PE_Ratio": 11.32,
     "ROE": 0.0958,
-    "PBV": 1.09
+    "PBV": null
   },
   {
     "Ticker": "MAJOR",
@@ -7260,18 +7260,6 @@
     "PBV": 0.88
   },
   {
-    "Ticker": "GST",
-    "Stage": "Bear",
-    "Price": 9.4,
-    "EMA50": 10.44,
-    "EMA200": 10.7,
-    "Bar_Count": 13,
-    "ADTV(MB)": 52.5,
-    "PE_Ratio": 16.4,
-    "ROE": 0.0613,
-    "PBV": 0.98
-  },
-  {
     "Ticker": "THCOM",
     "Stage": "Bear",
     "Price": 9.8,
@@ -7282,6 +7270,18 @@
     "PE_Ratio": null,
     "ROE": null,
     "PBV": null
+  },
+  {
+    "Ticker": "GST",
+    "Stage": "Bear",
+    "Price": 9.3,
+    "EMA50": 10.39,
+    "EMA200": 10.68,
+    "Bar_Count": 14,
+    "ADTV(MB)": 52.0,
+    "PE_Ratio": 16.4,
+    "ROE": 0.0613,
+    "PBV": 0.98
   },
   {
     "Ticker": "AAV",
