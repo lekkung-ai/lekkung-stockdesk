@@ -2,7 +2,7 @@
 
 import { Menu, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import SearchBox from './SearchBox';
-import { useStock } from '@/context/stock';
+import { useStock, SHOW_MARKET_SWITCH } from '@/context/stock';
 import type { Market } from '@/context/stock';
 
 const MARKETS: { code: Market; flag: string }[] = [
@@ -40,7 +40,8 @@ export default function TopBar({ onMenuClick, sidebarDesktopOpen }: { onMenuClic
 
       {/* Right controls */}
       <div className="flex items-center gap-1.5 flex-shrink-0">
-        {/* Market switcher — always visible */}
+        {/* Market switcher — hidden while SHOW_MARKET_SWITCH is false (market fixed to SET) */}
+        {SHOW_MARKET_SWITCH && (
         <div className="flex items-center gap-0.5 bg-white/[0.05] rounded-xl p-1">
           {MARKETS.map(m => (
             <button
@@ -57,6 +58,7 @@ export default function TopBar({ onMenuClick, sidebarDesktopOpen }: { onMenuClic
             </button>
           ))}
         </div>
+        )}
       </div>
     </header>
   );
