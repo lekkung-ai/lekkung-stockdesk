@@ -10,6 +10,7 @@ import {
   businessDaysBetween,
   todayISOBangkok,
 } from '@/lib/secScrape';
+import { findLatestSecDay } from '@/lib/secLatest';
 
 export const maxDuration = 60;
 
@@ -70,6 +71,13 @@ function reportKeyFromHref(href: string | undefined): string | null {
 }
 
 export async function GET(req: NextRequest) {
+  // ?latest=1 → the day the page should open on: newest snapshot with real filings (+ today, and whether
+  // today's snapshot exists yet - it lands after ~18:00). Snapshot-only, never scrapes SEC.
+  if (req.nextUrl.searchParams.get('latest') === '1') {
+    const today = todayISOBangkok();
+    const r = findLatestSecDay(path.join(process.cwd(), 'data', 'history'), 'r59.json', 'ชื่อบริษัท', today);
+    return Response.json({ ...r, today }, { headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60, stale-while-revalidate=300' } });
+  }
   const fromParam = req.nextUrl.searchParams.get('from');
   const toParam = req.nextUrl.searchParams.get('to');
   const dateParam = req.nextUrl.searchParams.get('date');
