@@ -66,7 +66,8 @@ export default function Report59Page() {
   const [refreshing, setRefreshing] = useState(false);
   const [errorKind, setErrorKind] = useState<'' | 'load' | 'timeout'>('');
   const [query, setQuery] = useState('');
-  const [selectedDate, setSelectedDate] = useState(todayISO());
+  const [selectedDate, setSelectedDate] = useState(''); // '' until the opening day is resolved (see below)
+  const [openedOn, setOpenedOn] = useState<{ date: string; todaySnapshot: boolean } | null>(null);
   const [page, setPage] = useState(1);
   const [sortCol, setSortCol] = useState(COL_PUBLISH);
   const [sortDesc, setSortDesc] = useState(true);
@@ -76,10 +77,12 @@ export default function Report59Page() {
   const isRange = rangeDays > 0;
 
   const prevDay = () => {
+    if (!selectedDate) return;
     setSelectedDate(shiftDay(selectedDate, -1));
     setPage(1);
   };
   const nextDay = () => {
+    if (!selectedDate) return;
     const nx = shiftDay(selectedDate, 1);
     if (nx <= todayISO()) {
       setSelectedDate(nx);
@@ -94,6 +97,7 @@ export default function Report59Page() {
   };
 
   const loadData = useCallback(async (date: string, days: number, background = false) => {
+    if (!date) return;
     if (background) setRefreshing(true);
     else { setLoading(true); setPage(1); }
     setErrorKind('');
@@ -118,6 +122,27 @@ export default function Report59Page() {
       setLoading(false);
       setRefreshing(false);
     }
+  }, []);
+
+  // Open on the newest day that has a snapshot with real filings instead of today: today's snapshot
+  // only lands after ~18:00, so before that "today" is usually empty. Any other day stays selectable.
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/sec/r59?latest=1')
+      .then(res => (res.ok ? res.json() : null))
+      .then(j => {
+        if (cancelled) return;
+        const latest = typeof j?.latest === 'string' ? j.latest : null;
+        const today = typeof j?.today === 'string' ? j.today : todayISO();
+        if (latest && latest < today) {
+          setOpenedOn({ date: latest, todaySnapshot: j?.todaySnapshot === true });
+          setSelectedDate(latest);
+        } else {
+          setSelectedDate(latest ?? todayISO());
+        }
+      })
+      .catch(() => { if (!cancelled) setSelectedDate(todayISO()); });
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
@@ -187,6 +212,12 @@ export default function Report59Page() {
           <RefreshCw size={13} className={loading || refreshing ? 'animate-spin' : ''} />
         </button>
       </div>
+
+      {openedOn && selectedDate === openedOn.date && (
+        <p className="text-[12px] text-amber-400/80" data-testid="sec-opened-on">
+          {openedOn.todaySnapshot ? 'วันนี้ยังไม่มีรายงาน' : 'ข้อมูลของวันนี้จะมาหลัง 18:00'} · กำลังแสดงข้อมูลวันที่ {isoToThaiLabel(openedOn.date)}
+        </p>
+      )}
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2 items-center">
