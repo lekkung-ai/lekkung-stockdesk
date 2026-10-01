@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { weinsteinData } from '@/lib/strategyData';
 import { getScanGeneratedAt, hasScanKey } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
@@ -23,9 +24,31 @@ import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import ReportCardBar from '@/components/ReportCardBar';
+import AssetTypeToggle from '@/components/AssetTypeToggle';
+import { parseAssetType, matchesAssetType, countByAssetType, DEFAULT_ASSET_TYPE, type AssetType } from '@/lib/fundFilter';
+import { compareNullLast } from '@/lib/sepaTier';
 import React from 'react';
 
 export default function StageAnalysisPage() {
+  return (
+    <Suspense fallback={null}>
+      <StageAnalysisContent />
+    </Suspense>
+  );
+}
+
+function StageAnalysisContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  // ?type=stock|fund|all (default stock = ไม่แสดงกองทุน/REIT) — อยู่ใน URL ให้ refresh / แชร์ลิงก์แล้วยังอยู่
+  const assetType = parseAssetType(searchParams.get('type'));
+  const setAssetType = (t: AssetType) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (t === DEFAULT_ASSET_TYPE) params.delete('type');
+    else params.set('type', t);
+    const qs = params.toString();
+    router.replace(qs ? `/stage-analysis?${qs}` : '/stage-analysis', { scroll: false });
+  };
   const [stageFilter, setStageFilter] = useState<string>('All');
   const [rsMin, setRsMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
@@ -39,13 +62,22 @@ export default function StageAnalysisPage() {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
   };
 
-  const filtered = useMemo(() => {
-    let result = weinsteinData
-      .filter(s => stageFilter === 'All' || s.Stage.includes(stageFilter))
-      .filter(s => s.RS_Rating >= rsMin)
-      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+  // ตัวกรองอื่นของหน้า (stage / RS / เข้าใหม่) ก่อน → นับ หุ้น/กองทุน/ทั้งหมด → แล้วค่อยกรองประเภท
+  // RS: ค่าเริ่มต้น (0) แสดงทุกแถว · ตั้งค่ามากกว่า 0 แล้ว RS null (กองทุน) ไม่ผ่าน
+  const preFiltered = useMemo(() => weinsteinData
+    .filter(s => stageFilter === 'All' || s.Stage.includes(stageFilter))
+    .filter(s => rsMin === 0 || (s.RS_Rating != null && s.RS_Rating >= rsMin))
+    .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker)),
+  [stageFilter, rsMin, diffFilter, newSet]);
+  const typeCounts = useMemo(() => countByAssetType(preFiltered.map(s => s.Ticker)), [preFiltered]);
 
-    if (sortConfig) {
+  const filtered = useMemo(() => {
+    let result = preFiltered.filter(s => matchesAssetType(s.Ticker, assetType));
+
+    if (sortConfig?.key === 'RS_Rating') {
+      // RS null (กองทุน/REIT) อยู่ท้ายเสมอทั้ง asc/desc
+      result = result.sort((a, b) => compareNullLast(a.RS_Rating, b.RS_Rating, sortConfig.dir));
+    } else if (sortConfig) {
       result = result.sort((a, b) => {
         const aVal = (a as any)[sortConfig.key];
         const bVal = (b as any)[sortConfig.key];
@@ -67,15 +99,15 @@ export default function StageAnalysisPage() {
         const rankA = getRank(a.Stage);
         const rankB = getRank(b.Stage);
         if (rankA !== rankB) return rankA - rankB;
-        return b.RS_Rating - a.RS_Rating;
+        return compareNullLast(a.RS_Rating, b.RS_Rating, 'desc');
       });
     }
     return result;
-  }, [stageFilter, rsMin, sortConfig, diffFilter, newSet]);
+  }, [preFiltered, assetType, sortConfig]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [stageFilter, rsMin, sortConfig, diffFilter, newSet]
+    [stageFilter, rsMin, sortConfig, diffFilter, newSet, assetType]
   );
   const displayRows = isMobile ? visibleRows : filtered;
 
@@ -102,6 +134,8 @@ export default function StageAnalysisPage() {
       ) : (
       <>
       <FilterBar>
+        <AssetTypeToggle value={assetType} counts={typeCounts} onChange={setAssetType} />
+        <Divider />
         <div className="flex flex-col gap-1.5 min-w-[120px]">
           <span className="text-label text-white/40 font-medium tracking-wide uppercase">Stage</span>
           <select
@@ -199,9 +233,13 @@ export default function StageAnalysisPage() {
                 </div>
               </Td>
               <Td right mono>
+                {s.RS_Rating == null ? (
+                  <span className="text-white/25" title="กองทุน/REIT ไม่จัดอันดับ RS">—</span>
+                ) : (
                 <span className={s.RS_Rating >= 80 ? 'text-[#00BFFF] font-bold' : s.RS_Rating >= 70 ? 'text-[#1D9E75]' : 'text-white/70'}>
                   {s.RS_Rating}
                 </span>
+                )}
               </Td>
             </tr>
             {selectedTicker === s.Ticker && (
