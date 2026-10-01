@@ -1,16 +1,12 @@
 {
-  "generatedAt": "2026-10-01T18:12:21.582578+07:00",
+  "generatedAt": "2026-10-01T21:37:59.780572+07:00",
   "windowDays": 45,
   "universeSize": 906,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 11,
+      "count": 10,
       "top3": [
-        {
-          "ticker": "TRV",
-          "netProfitYoY": 3278.6069651741295
-        },
         {
           "ticker": "CIMBT",
           "netProfitYoY": 407.90931961055105
@@ -18,6 +14,10 @@
         {
           "ticker": "KGI",
           "netProfitYoY": 167.47784933514393
+        },
+        {
+          "ticker": "MVP",
+          "netProfitYoY": 103.66927246877829
         }
       ]
     },
@@ -1145,37 +1145,6 @@
       "drift_d1_pct": -9.49,
       "drift_d2_pct": -6.96,
       "drift_d5_pct": -6.33
-    },
-    {
-      "ticker": "TRV",
-      "sector": "Industrials",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-08-17T20:19:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 13582000.0,
-      "netProfitPrior": 402000.0,
-      "netProfitYoY": 3278.6069651741295,
-      "netProfitPriorQ": 13582000.0,
-      "netProfitQoQ": 0.0,
-      "profitAcceleration": "stable",
-      "eps": 0.057,
-      "epsPrior": 0.002,
-      "epsYoY": 2750.0,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": true,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106394201&symbol=TRV",
-      "statementUrl": null,
-      "mdaUrl": null,
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 3.23,
-      "drift_d1_pct": -0.65,
-      "drift_d2_pct": -0.65,
-      "drift_d5_pct": -0.65
     }
   ],
   "calendar": [
@@ -1502,12 +1471,6 @@
     {
       "ticker": "XBIO",
       "date": "2026-08-17T08:28:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "TRV",
-      "date": "2026-08-17T20:19:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -4934,6 +4897,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-13T08:46:00+07:00"
+    },
+    {
+      "ticker": "TRV",
+      "date": "2026-11-13T08:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-13T08:50:00+07:00"
     },
     {
       "ticker": "GTV",
