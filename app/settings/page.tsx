@@ -754,6 +754,10 @@ function PendingUniverseChanges() {
 }
 
 // ─── 3. Universe Browser (ค้นหา + นับต่อ Sector + Filter Market) ─────────────
+// sector_map เก็บ market เป็น "MAI" (ตัวใหญ่) แต่ปุ่ม/ตัวนับใช้ 'mai' → เทียบแบบไม่สนตัวพิมพ์
+// (เดิมเทียบ === 'mai' ตรงๆ ทำให้ mai = 0 และปุ่มกรอง mai ว่าง) · ค่าอื่นทั้งหมดนับเป็น SET
+const marketKey = (m: string | undefined): 'SET' | 'mai' => (m?.trim().toLowerCase() === 'mai' ? 'mai' : 'SET');
+
 function UniverseBrowser() {
   const [query, setQuery] = useState('');
   const [marketFilter, setMarketFilter] = useState<'ALL' | 'SET' | 'mai'>('ALL');
@@ -763,7 +767,7 @@ function UniverseBrowser() {
       ticker,
       sector: info.sector,
       subsector: info.subsector,
-      market: info.market || 'SET',
+      market: marketKey(info.market),
     }));
   }, []);
 
@@ -804,6 +808,9 @@ function UniverseBrowser() {
           <h2 className="text-[14px] font-bold text-white">Universe ปัจจุบัน (Current Universe)</h2>
           <p className="text-[11px] text-white/35 mt-0.5">
             {totalCount} หุ้น (SET: {setCount} · mai: {maiCount}) · {sectorCounts.length} Sectors
+          </p>
+          <p className="text-[10px] text-white/25 mt-0.5">
+            นับจาก sector_map (รวมกองทุน/REIT และหุ้นที่ไม่อยู่ใน universe ของ scanner)
           </p>
         </div>
 
