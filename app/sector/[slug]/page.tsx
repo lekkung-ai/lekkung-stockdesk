@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { allSectorEntries, slugToSector, sectorToSlug } from '@/lib/sectorData';
 import { scanData } from '@/lib/scanData';
 import { sanitizeFlowQuery } from '@/lib/sectorFlow';
+import { compareNullLast } from '@/lib/sepaTier';
 import { ChevronLeft } from 'lucide-react';
 import SectorViewToggle from '@/components/SectorViewToggle';
 import SectorTodayChange from '@/components/SectorTodayChange';
@@ -96,7 +97,8 @@ export default async function SectorDetailPage({
         roe: peMap.get(t)?.roe ?? null,
       }))
       .sort((a, b) => {
-        if (a.scan && b.scan) return b.scan.rs_score - a.scan.rs_score;
+        // RS null (กองทุน/REIT) อยู่ท้ายในกลุ่มที่มี scan · ไม่ถือเป็น 0
+        if (a.scan && b.scan) return compareNullLast(a.scan.rs_score, b.scan.rs_score, 'desc');
         if (a.scan) return -1;
         if (b.scan) return 1;
         return 0;
