@@ -120,7 +120,7 @@ export function parseSortDir(v: string | null): SortDir {
 
 /**
  * Keep only the /sector-flow params that page understands, with valid values
- * (flow=5d, all=1, tab=sector, sort=<SortKey>, dir=asc|desc) - used both when
+ * (flow=5d, all=1, tab=sector, sort=<SortKey>, dir=asc|desc, layout=classic|new) - used both when
  * building the ?back= of a row link and when /sector/[slug] turns it back into
  * a /sector-flow URL, so a hand-edited ?back= can't inject anything else.
  */
@@ -134,7 +134,15 @@ export function sanitizeFlowQuery(raw: string | null | undefined): string {
   if (sort) out.set('sort', sort);
   const dir = src.get('dir');
   if (dir === 'asc' || dir === 'desc') out.set('dir', dir);
+  const layout = parseFlowLayout(src.get('layout'));
+  if (src.get('layout') === layout) out.set('layout', layout);
   return out.toString();
+}
+
+/** /sector-flow page layout: ?layout=new = the new view; missing / anything else = classic (default). */
+export type FlowLayout = 'classic' | 'new';
+export function parseFlowLayout(v: string | null | undefined): FlowLayout {
+  return v === 'new' ? 'new' : 'classic';
 }
 
 /** Row link from /sector-flow to /sector/[slug]: from=flow, back=<current flow query>, sub=<subsector> (subsector rows only). */
