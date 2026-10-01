@@ -30,7 +30,7 @@ export interface WeinsteinEntry {
   MA10: number;
   Vol10: number;
   'Slope_4W_%': number;
-  RS_Rating: number;
+  RS_Rating: number | null; // null = กองทุน/REIT (ไม่จัดอันดับ RS)
   'ADTV(MB)': number;
   // fundamental/52w — เป็น null ได้ (งบยังไม่มา / หุ้นใหม่ไม่มีประวัติ 52 สัปดาห์)
   PE_Ratio: number | null;
