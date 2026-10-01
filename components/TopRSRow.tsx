@@ -17,6 +17,7 @@ interface TopRSRowProps {
   ticker: string;
   sector: string | null;
   rsScore: number;
+  rsRaw: number | null;
   stage: string | null;
   signals: RSSignals;
   change1d: number | null;
@@ -47,7 +48,7 @@ function comboColor(score: number): string {
   return '#6b7280';
 }
 
-export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals, change1d }: TopRSRowProps) {
+export default function TopRSRow({ rank, ticker, sector, rsScore, rsRaw, stage, signals, change1d }: TopRSRowProps) {
   return (
     <tr className="border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors">
       {/* # */}
@@ -112,7 +113,13 @@ export default function TopRSRow({ rank, ticker, sector, rsScore, stage, signals
 
       {/* RS */}
       <td className="px-4 py-3.5 text-right tabular-nums">
-        <span className="text-[20px] font-bold" style={{ color: rsColor(rsScore) }}>{rsScore}</span>
+        <span
+          className="text-[20px] font-bold"
+          style={{ color: rsColor(rsScore) }}
+          title={rsRaw != null ? `RS ดิบ (ผลตอบแทนถ่วงน้ำหนัก 3/6/9/12 เดือน): ${(rsRaw * 100).toFixed(2)}%` : undefined}
+        >
+          {rsScore}
+        </span>
       </td>
 
       {/* Trend */}
