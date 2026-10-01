@@ -13,6 +13,8 @@ import {
 // refresh serves the last good quote if any, else { quote: null }.
 
 const TTL_MS = 60_000;
+// every 200 response (fresh or from the in-process cache): CDN serves it 60s, revalidates in the background
+const CACHE_HEADERS = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' };
 let cache: { at: number; quote: S50FuturesQuote } | null = null;
 
 async function fetchQuote(now: number): Promise<S50FuturesQuote> {
@@ -53,17 +55,17 @@ async function fetchQuote(now: number): Promise<S50FuturesQuote> {
 export async function GET() {
   const now = Date.now();
   if (cache && now - cache.at < TTL_MS) {
-    return Response.json({ quote: cache.quote });
+    return Response.json({ quote: cache.quote }, { headers: CACHE_HEADERS });
   }
   try {
     const quote = await fetchQuote(now);
     cache = { at: now, quote };
     return Response.json(
       { quote },
-      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=30' } },
+      { headers: CACHE_HEADERS },
     );
   } catch {
-    if (cache) return Response.json({ quote: cache.quote, stale: true });
+    if (cache) return Response.json({ quote: cache.quote, stale: true }, { headers: CACHE_HEADERS });
     return Response.json({ quote: null, error: 'upstream_unavailable' }, { status: 503 });
   }
 }
