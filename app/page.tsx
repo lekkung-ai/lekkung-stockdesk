@@ -13,6 +13,7 @@ import SectorOverview from '@/components/SectorOverview';
 import type { SectorBreadthInfo } from '@/components/SectorOverview';
 import IndexImpactSection from '@/components/IndexImpactSection';
 import { getNewSepaTickers } from '@/lib/newSepaTickers';
+import { rankTopRS } from '@/lib/fundFilter';
 
 interface StageEntry {
   Ticker: string;
@@ -27,7 +28,9 @@ interface ScanEntry {
   ticker: string;
   price: number;
   stage: string | null;
-  rs_score: number;
+  rs_score: number | null; // null = กองทุน/REIT (ไม่จัดอันดับ RS)
+  RS_Raw?: number | null;
+  Is_Fund?: boolean;
   combo_score: number;
   sepa: boolean;
   kell: boolean;
@@ -157,9 +160,8 @@ export default function OverviewPage() {
   // ── Top RS ────────────────────────────────────────────────────────────
   const stageMap = new Map(stageData.map(s => [s.Ticker, s.Stage]));
   const combinedMap = new Map(combinedData.map(s => [s.ticker, s]));
-  const topRS = [...combinedData]
-    .sort((a, b) => b.rs_score - a.rs_score)
-    .slice(0, 10);
+  // rs_score มาก→น้อย · เท่ากันใช้ RS_Raw · กองทุนไม่ติดอันดับ (lib/fundFilter.rankTopRS)
+  const topRS = rankTopRS(combinedData, 10);
 
   const topRSMissingSector: string[] = [];
   const topRSRows = topRS.map(entry => {
@@ -168,7 +170,8 @@ export default function OverviewPage() {
     return {
       ticker: entry.ticker,
       sector,
-      rsScore: entry.rs_score,
+      rsScore: entry.rs_score as number, // rankTopRS กรอง null ออกแล้ว
+      rsRaw: entry.RS_Raw ?? null,
       stage: stageMap.get(entry.ticker) ?? entry.stage,
       signals: {
         sepa: combinedMap.get(entry.ticker)?.sepa ?? false,
