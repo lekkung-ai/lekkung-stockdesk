@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import TopRSRow, { type RSSignals } from './TopRSRow';
-import { formatSymbolsQuery } from '@/lib/utils';
+import { useMarketQuotes } from '@/lib/useMarketQuotes';
 
 export interface TopRSRowData {
   ticker: string;
@@ -17,32 +16,9 @@ interface TopRSTableProps {
 }
 
 export default function TopRSTable({ rows }: TopRSTableProps) {
-  const [quotes, setQuotes] = useState<Record<string, number | null>>({});
-
-  const tickerKey = rows.map(r => r.ticker).join(',');
-
-  useEffect(() => {
-    if (rows.length === 0) return;
-    let cancelled = false;
-
-    // Batch fetch (same pattern as ScannerTable/MyStocks) using shared helper formatSymbolsQuery
-    // to build symbol list with unencoded commas (e.g. TICKER1,TICKER2).
-    fetch(`/api/prices?symbols=${formatSymbolsQuery(rows.map(r => r.ticker))}`)
-      .then(res => res.ok ? res.json() : { prices: {} })
-      .then((data: { prices?: Record<string, { changePercent?: number }> }) => {
-        if (cancelled) return;
-        const prices = data.prices ?? {};
-        const map: Record<string, number | null> = {};
-        for (const row of rows) {
-          map[row.ticker] = prices[row.ticker]?.changePercent ?? null;
-        }
-        setQuotes(map);
-      })
-      .catch(() => { if (!cancelled) setQuotes({}); });
-
-    return () => { cancelled = true; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tickerKey]);
+  // 1D% from /api/market-quotes (one TradingView call for all of sector_map, server-cached 60s) —
+  // /api/prices is unreliable for this table. No quote / fetch failed → ChangeBadge shows "—".
+  const { quotes } = useMarketQuotes();
 
   return (
     <div className="overflow-x-auto">
@@ -68,7 +44,7 @@ export default function TopRSTable({ rows }: TopRSTableProps) {
               rsScore={row.rsScore}
               stage={row.stage}
               signals={row.signals}
-              change1d={quotes[row.ticker] ?? null}
+              change1d={quotes[row.ticker]?.chg ?? null}
             />
           ))}
         </tbody>
