@@ -4,6 +4,8 @@ import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 // Price, today's %change and market cap for every ticker in sector_map, in ONE
 // TradingView scanner call (same "thailand" scanner /api/prices uses). Cached
 // in-process for 60s; a failed refresh serves the last good payload if any.
+// Every 200 response (fresh or from the in-process cache) carries CACHE_HEADERS
+// so the CDN can serve it for 60s and revalidate in the background.
 
 export interface MarketQuote {
   price: number | null;
@@ -12,6 +14,7 @@ export interface MarketQuote {
 }
 
 const TTL_MS = 60_000;
+const CACHE_HEADERS = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' };
 const TICKERS = Object.keys(tickerToSector);
 let cache: { at: number; quotes: Record<string, MarketQuote> } | null = null;
 
@@ -44,17 +47,14 @@ async function fetchQuotes(): Promise<Record<string, MarketQuote>> {
 export async function GET() {
   const now = Date.now();
   if (cache && now - cache.at < TTL_MS) {
-    return Response.json({ quotes: cache.quotes, fetchedAt: cache.at });
+    return Response.json({ quotes: cache.quotes, fetchedAt: cache.at }, { headers: CACHE_HEADERS });
   }
   try {
     const quotes = await fetchQuotes();
     cache = { at: now, quotes };
-    return Response.json(
-      { quotes, fetchedAt: now },
-      { headers: { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=30' } },
-    );
+    return Response.json({ quotes, fetchedAt: now }, { headers: CACHE_HEADERS });
   } catch {
-    if (cache) return Response.json({ quotes: cache.quotes, fetchedAt: cache.at, stale: true });
+    if (cache) return Response.json({ quotes: cache.quotes, fetchedAt: cache.at, stale: true }, { headers: CACHE_HEADERS });
     return Response.json({ error: 'upstream_unavailable', quotes: {} }, { status: 503 });
   }
 }
