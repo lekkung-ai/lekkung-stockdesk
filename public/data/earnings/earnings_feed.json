@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T16:03:58.764802+07:00",
+  "generatedAt": "2026-10-02T18:12:48.699593+07:00",
   "windowDays": 45,
   "universeSize": 906,
   "buckets": {
@@ -138,8 +138,8 @@
       "netProfit": 316357640.0,
       "netProfitPrior": 394776810.0,
       "netProfitYoY": -19.864178445537366,
-      "netProfitPriorQ": 78705000.0,
-      "netProfitQoQ": 301.95367511593923,
+      "netProfitPriorQ": 59889000.0,
+      "netProfitQoQ": 428.2399772913223,
       "profitAcceleration": "stable",
       "eps": 1.7575,
       "epsPrior": 2.1932,
@@ -1118,37 +1118,6 @@
       "drift_d1_pct": 4.52,
       "drift_d2_pct": 6.53,
       "drift_d5_pct": 5.53
-    },
-    {
-      "ticker": "SSPF",
-      "sector": "Property",
-      "subsector": "Property Fund & REITs",
-      "market": "SET",
-      "announceDate": "2026-08-18T17:34:00+07:00",
-      "quarter": "ประจำปี 2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": null,
-      "netProfitPrior": null,
-      "netProfitYoY": null,
-      "netProfitPriorQ": null,
-      "netProfitQoQ": null,
-      "profitAcceleration": "stable",
-      "eps": null,
-      "epsPrior": null,
-      "epsYoY": null,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": null,
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106427101&symbol=SSPF",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17870035881891&symbol=SSPF",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106427201&symbol=SSPF",
-      "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 2.53,
-      "drift_d1_pct": -9.49,
-      "drift_d2_pct": -6.96,
-      "drift_d5_pct": -6.33
     }
   ],
   "calendar": [
@@ -1477,12 +1446,6 @@
       "date": "2026-08-17T08:28:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "SSPF",
-      "date": "2026-08-18T17:34:00+07:00",
-      "status": "confirmed",
-      "quarter": "ประจำปี 2569"
     },
     {
       "ticker": "MILL",
@@ -4243,6 +4206,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-12T17:37:00+07:00"
+    },
+    {
+      "ticker": "SSPF",
+      "date": "2026-11-12T17:42:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-12T17:42:00+07:00"
     },
     {
       "ticker": "LRH",
