@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T21:37:59.780572+07:00",
+  "generatedAt": "2026-10-02T16:03:58.764802+07:00",
   "windowDays": 45,
   "universeSize": 906,
   "buckets": {
@@ -101,7 +101,7 @@
       "sector": "Industrials",
       "subsector": "Automotive",
       "market": "SET",
-      "announceDate": "2026-10-01T07:47:56+07:00",
+      "announceDate": "2026-10-01T07:47:00+07:00",
       "quarter": "ประจำปี 2569",
       "periodEnd": "31 มกราคม 2569",
       "netProfit": -269683000.0,
@@ -121,7 +121,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106960201&symbol=INGRS",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
       "reason": "รายได้จากการขายสำหรับปีสิ้นสุดวันที่ 31 มกราคม 2569 (“ปี 2568/69”) บริษัทมีรายได้จากการขายสำหรับปี 2568/69 เป็นจำนวน 1,755.1 ล้านบาท ลดลง 32.8 ล้านบาท หรือร้อยละ 1.8 เมื่อเทียบกับรายได้จากการขายจำนวน 1,787.9",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TNH",
@@ -134,8 +138,8 @@
       "netProfit": 316357640.0,
       "netProfitPrior": 394776810.0,
       "netProfitYoY": -19.864178445537366,
-      "netProfitPriorQ": 59889000.0,
-      "netProfitQoQ": 428.2399772913223,
+      "netProfitPriorQ": 78705000.0,
+      "netProfitQoQ": 301.95367511593923,
       "profitAcceleration": "stable",
       "eps": 1.7575,
       "epsPrior": 2.1932,
@@ -182,7 +186,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -614,7 +618,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 0.0,
+      "gap_pct": -1.37,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -1639,7 +1643,7 @@
     },
     {
       "ticker": "INGRS",
-      "date": "2026-10-01T07:47:56+07:00",
+      "date": "2026-10-01T07:47:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2569"
     },
