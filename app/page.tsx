@@ -5,6 +5,7 @@ import rawCombinedDefault from '@/data/scans/combined.json';
 import rawSepaDefault from '@/data/scans/sepa.json';
 import rawKellDefault from '@/data/scans/oliver_kell.json';
 import rawBreakoutDefault from '@/data/scans/breakout.json';
+import rawBreadth from '@/data/scans/breadth.json';
 import TopRSTable from '@/components/TopRSTable';
 import SetIndexCard from '@/components/SetIndexCard';
 import VolumeCard from '@/components/VolumeCard';
@@ -14,6 +15,7 @@ import type { SectorBreadthInfo } from '@/components/SectorOverview';
 import IndexImpactSection from '@/components/IndexImpactSection';
 import { getNewSepaTickers } from '@/lib/newSepaTickers';
 import { rankTopRS } from '@/lib/fundFilter';
+import { readMarketStage } from '@/lib/sepaTier';
 
 interface StageEntry {
   Ticker: string;
@@ -42,6 +44,20 @@ interface SectorMap {
 }
 
 const sectorMap = rawSectorMap as SectorMap;
+
+// สภาพตลาด: ค่าเดียวกับหน้า /breadth และแถบใน /sepa (breadth.json → market_stage)
+const MARKET = readMarketStage(rawBreadth);
+
+// % หุ้นเหนือ SMA 50/200: แถวล่าสุดของ breadth.json (สูตรและตัวหารเดียวกับหน้า /breadth)
+interface BreadthMaRow {
+  date?: string;
+  pct_above_ma50?: number | null;
+  denom_ma50?: number | null;
+  pct_above_ma200?: number | null;
+  denom_ma200?: number | null;
+}
+const breadthRowsRaw = (rawBreadth as { breadth?: BreadthMaRow[] }).breadth ?? [];
+const LATEST_BREADTH: BreadthMaRow | null = breadthRowsRaw[breadthRowsRaw.length - 1] ?? null;
 
 const STAGE_ORDER = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 const STAGE_COLORS: Record<string, string> = {
@@ -89,11 +105,11 @@ export default function OverviewPage() {
   );
   const newSepaCount = newSepaTickers.size;
 
-  // ── Market Breadth ────────────────────────────────────────────────────
-  const aboveEMA50 = stageData.filter(s => s.Price > s.EMA50).length;
-  const aboveEMA200 = stageData.filter(s => s.Price > s.EMA200).length;
-  const pctEMA50 = (aboveEMA50 / total) * 100;
-  const pctEMA200 = (aboveEMA200 / total) * 100;
+  // ── Market Breadth (breadth.json) ─────────────────────────────────────
+  const maBreadth = [
+    { period: 50, pct: LATEST_BREADTH?.pct_above_ma50 ?? null, denom: LATEST_BREADTH?.denom_ma50 ?? null, color: '#EF9F27' },
+    { period: 200, pct: LATEST_BREADTH?.pct_above_ma200 ?? null, denom: LATEST_BREADTH?.denom_ma200 ?? null, color: '#7F77DD' },
+  ];
 
   // ── Stage Distribution ────────────────────────────────────────────────
   const stageCounts: Record<string, number> = {};
@@ -188,15 +204,8 @@ export default function OverviewPage() {
     );
   }
 
-  // ── Market Health (Phase 4) ─────────────────────────────────────────────
-  // % of the whole scanned universe passing the full 8-point Trend Template
-  // (sepa.json), calibrated for the Thai SET+MAI universe (~900 tickers)
-  // instead of arbitrary fixed counts that don't scale with universe size.
+  // % of the scanned universe passing the full 8-point Trend Template (sepa.json) — supporting figure only.
   const sepaPassPct = total > 0 ? (sepaCount / total) * 100 : 0;
-  const marketHealth: 'Bullish' | 'Neutral' | 'Bearish' =
-    sepaPassPct > 15 ? 'Bullish' : sepaPassPct >= 5 ? 'Neutral' : 'Bearish';
-  const marketHealthColor =
-    marketHealth === 'Bullish' ? '#1D9E75' : marketHealth === 'Neutral' ? '#EF9F27' : '#E24B4A';
 
   const signals = [
     { label: 'SEPA Pass',      count: sepaCount,     href: '/sepa',         color: '#1D9E75', bg: 'bg-[#1D9E75]/[0.08] border-[#1D9E75]/20 hover:border-[#1D9E75]/40', newCount: newSepaCount },
@@ -213,26 +222,39 @@ export default function OverviewPage() {
         <p className="text-[12px] text-white/35 mt-0.5">SET · Universe: {total} stocks</p>
       </div>
 
-      {/* ── 1. Top row: SET Index / Volume / Market Health (primary), SET50/SET100 (secondary) ── */}
+      {/* ── 1. Top row: SET Index / Volume / สภาพตลาด (primary), SET50/SET100 (secondary) ── */}
       <div className="space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <SetIndexCard large />
           <VolumeCard large />
-          <div className="relative bg-[#13161e] border border-white/[0.07] rounded-xl p-6">
+          <Link
+            href="/breadth"
+            data-testid="home-market-stage"
+            aria-label={MARKET ? `สภาพตลาด: ${MARKET.stage}${MARKET.ddCount != null ? ` · DD 25 วัน: ${MARKET.ddCount}` : ''}` : 'สภาพตลาด: —'}
+            className="relative block bg-[#13161e] border border-white/[0.07] hover:border-white/20 rounded-xl p-6 transition-colors"
+          >
             <span
               className="absolute top-2.5 right-3 text-[9.5px] text-white/20 tabular-nums"
               title="ข้อมูล scan (SEPA/Stage/RS ฯลฯ) อัปเดตล่าสุดวันนี้"
             >
               scan ณ {scanDateLabel}
             </span>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-white/35 mb-1.5">Market Health</p>
-            <p className="text-[36px] font-bold leading-none tabular-nums" style={{ color: marketHealthColor }}>
-              {marketHealth}
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-white/35 mb-1.5">สภาพตลาด</p>
+            <p
+              className={`text-[36px] font-bold leading-none ${MARKET?.caution ? 'text-[#EF9F27]' : 'text-white/85'}`}
+              data-testid="home-market-stage-label"
+            >
+              {MARKET?.stage ?? '—'}
             </p>
-            <p className="text-[14px] mt-1.5 text-white/40">
-              {sepaPassPct.toFixed(1)}% ผ่าน SEPA ({sepaCount}/{total})
+            {MARKET?.ddCount != null && (
+              <p className={`text-[14px] mt-1.5 ${MARKET.caution ? 'text-[#EF9F27]/80' : 'text-white/50'}`}>
+                DD 25 วัน: <span className="tabular-nums font-semibold" data-testid="home-market-stage-dd">{MARKET.ddCount}</span>
+              </p>
+            )}
+            <p className="text-[12px] mt-1 text-white/35 tabular-nums">
+              หุ้นผ่าน SEPA {sepaPassPct.toFixed(1)}% ({sepaCount}/{total})
             </p>
-          </div>
+          </Link>
         </div>
         <div className="grid grid-cols-2 gap-3 max-w-md">
           <SetIndexCard label="SET50" symbol="^SET50.BK" href="/set-index/set50" />
@@ -251,45 +273,37 @@ export default function OverviewPage() {
       {/* ── 4. Sector (Flow + Breadth merged) ── */}
       <SectorOverview breadthBySector={breadthBySector} scanDateLabel={scanDateLabel} />
 
-      {/* ── 5. Market Structure (EMA Breadth + Stage Distribution + Sector Breadth) ── */}
+      {/* ── 5. Market Structure (SMA Breadth + Stage Distribution + Sector Breadth) ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-6">
         <h2 className="text-[13px] font-semibold text-white">Market Structure</h2>
 
         <div className="space-y-4">
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#EF9F27' }} />
-                <span className="text-[12px] text-white/60">% หุ้นเหนือ EMA 50</span>
+          {maBreadth.map(m => (
+            <div key={m.period} data-testid={`home-pct-above-sma${m.period}`}>
+              <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: m.color }} />
+                  <span className="text-[12px] text-white/60">% หุ้นเหนือ SMA {m.period}</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[20px] font-bold tabular-nums" style={{ color: m.color }}>
+                    {m.pct != null ? `${m.pct.toFixed(1)}%` : '—'}
+                  </span>
+                  {m.denom != null && (
+                    <span
+                      className="text-[11px] text-white/30 ml-2 tabular-nums"
+                      title={`ตัวหาร = หุ้นที่มีราคาย้อนหลังพอคำนวณ SMA ${m.period} (breadth.json · ค่าเดียวกับหน้า Breadth)`}
+                    >
+                      จาก {m.denom} ตัว
+                    </span>
+                  )}
+                </div>
               </div>
-              <div className="text-right">
-                <span className="text-[20px] font-bold" style={{ color: '#EF9F27' }}>
-                  {pctEMA50.toFixed(1)}%
-                </span>
-                <span className="text-[11px] text-white/30 ml-2">{aboveEMA50}/{total}</span>
-              </div>
-            </div>
-            <div className="h-3 bg-white/[0.06] rounded-full overflow-hidden">
-              <div className="h-full rounded-full" style={{ width: `${pctEMA50}%`, background: '#EF9F27' }} />
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#7F77DD' }} />
-                <span className="text-[12px] text-white/60">% หุ้นเหนือ EMA 200</span>
-              </div>
-              <div className="text-right">
-                <span className="text-[20px] font-bold" style={{ color: '#7F77DD' }}>
-                  {pctEMA200.toFixed(1)}%
-                </span>
-                <span className="text-[11px] text-white/30 ml-2">{aboveEMA200}/{total}</span>
+              <div className="h-3 bg-white/[0.06] rounded-full overflow-hidden">
+                <div className="h-full rounded-full" style={{ width: `${m.pct ?? 0}%`, background: m.color }} />
               </div>
             </div>
-            <div className="h-3 bg-white/[0.06] rounded-full overflow-hidden">
-              <div className="h-full rounded-full" style={{ width: `${pctEMA200}%`, background: '#7F77DD' }} />
-            </div>
-          </div>
+          ))}
         </div>
 
         <div>
