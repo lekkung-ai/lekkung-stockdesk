@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import rawReportCard from '@/data/scans/report_card.json';
 import { formatThaiDate } from '@/lib/utils';
+import { winFlatLoss } from '@/lib/winFlatLoss';
+import { WinFlatLossBar, WinFlatLossText } from '@/components/WinFlatLossBar';
 
 interface HorizonMetric {
   n: number;
@@ -9,6 +11,10 @@ interface HorizonMetric {
   win_rate_pct: number | null;
   avg_set_return_pct: number | null;
   excess_return_pct: number | null;
+  n_win?: number;
+  n_flat?: number;
+  n_loss?: number;
+  flat_pct?: number | null;
 }
 interface ScanCard {
   total_picks: number;
@@ -70,6 +76,7 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
   const avgReturn = headline?.avg_return_pct;
   const color = winRateColor(winRate);
   const isSmallSample = headline?.n > 0 && headline.n < 30;
+  const wfl = winFlatLoss(headline);
 
   return (
     <Link
@@ -100,12 +107,19 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
         <span className="text-[12px] font-medium text-white/35">win rate</span>
       </div>
 
-      <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden mb-3">
-        <div
-          className="h-full rounded-full transition-all duration-300"
-          style={{ width: `${Math.min(100, Math.max(0, winRate ?? 0))}%`, backgroundColor: color }}
-        />
-      </div>
+      {wfl ? (
+        <div className="mb-3 space-y-1.5">
+          <WinFlatLossBar p={wfl} />
+          <WinFlatLossText p={wfl} className="block text-[11px]" />
+        </div>
+      ) : (
+        <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden mb-3">
+          <div
+            className="h-full rounded-full transition-all duration-300"
+            style={{ width: `${Math.min(100, Math.max(0, winRate ?? 0))}%`, backgroundColor: color }}
+          />
+        </div>
+      )}
 
       <div className="flex items-center justify-between text-[11.5px] pt-2 border-t border-white/[0.05]">
         <span className="text-white/35">D+5 avg return</span>
@@ -120,15 +134,16 @@ function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard })
 function ComparisonTable({ horizon }: { horizon: string }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-left min-w-[560px] table-fixed">
+      <table className="w-full text-left min-w-[620px] table-fixed">
         <colgroup>
-          <col style={{ width: '22%' }} />
+          <col style={{ width: '21%' }} />
+          <col style={{ width: '8%' }} />
+          <col style={{ width: '13%' }} />
+          <col style={{ width: '11%' }} />
+          <col style={{ width: '11%' }} />
           <col style={{ width: '9%' }} />
           <col style={{ width: '14%' }} />
           <col style={{ width: '13%' }} />
-          <col style={{ width: '13%' }} />
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '14%' }} />
         </colgroup>
         <thead>
           <tr className="border-b border-white/[0.06]">
@@ -137,6 +152,12 @@ function ComparisonTable({ horizon }: { horizon: string }) {
             <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">Avg Return</th>
             <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">Median</th>
             <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white/25 text-right">Win Rate</th>
+            <th
+              className="px-3 py-2 text-label font-semibold text-white/25 text-right"
+              title="สัดส่วนรายการที่ราคาออกเท่ากับราคาเข้า (ผลตอบแทน 0%)"
+            >
+              เสมอ
+            </th>
             <th
               className="px-3 py-2 text-label font-semibold text-white/25 text-right"
               title="ผลตอบแทนของดัชนี SET ในช่วง D+1 ถึง D+N เดียวกันกับที่ scan ถืออยู่"
@@ -180,6 +201,9 @@ function ComparisonTable({ horizon }: { horizon: string }) {
                 <td className="px-3 py-2.5 text-[12px] text-white/60 text-right tabular-nums">
                   {m.win_rate_pct != null ? `${m.win_rate_pct.toFixed(0)}%` : '—'}
                 </td>
+                <td className="px-3 py-2.5 text-[12px] text-white/40 text-right tabular-nums">
+                  {m.flat_pct != null ? `${m.flat_pct.toFixed(0)}%` : '—'}
+                </td>
                 <td className="px-3 py-2.5 text-[12px] text-white/40 text-right tabular-nums">{fmtPct(m.avg_set_return_pct)}</td>
                 <td className="px-3 py-2.5 text-[12px] text-right tabular-nums font-medium" style={{ color: returnColor(m.excess_return_pct) }}>
                   {fmtPct(m.excess_return_pct)}
@@ -214,6 +238,9 @@ export default function ReportCardPage() {
           วิธีอ่าน: เทียบ &ldquo;ส่วนต่าง&rdquo; (ไม่ใช่แค่ผลตอบแทนเฉลี่ยเฉยๆ) ว่า scan ไหนเอาชนะตลาดได้จริง — ถ้า Win Rate สูง
           แต่ส่วนต่างติดลบ แปลว่า scan นั้นให้กำไรบ่อยก็จริง แต่กำไรน้อยกว่าที่ถือดัชนี SET เฉยๆ เสียอีก (ตลาดโดยรวมช่วงนั้นวิ่งดีกว่า)
           ควรดูทั้งสองตัวเลขคู่กันเสมอ
+        </p>
+        <p className="text-label text-white/35 leading-relaxed">
+          หุ้นไทยขยับทีละช่องราคา จึงมีกรณีราคาเท่าเดิมบ่อย · ค่ากลาง (median) จึงมักเป็น 0
         </p>
       </div>
 
