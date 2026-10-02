@@ -1,10 +1,14 @@
 ﻿import Link from 'next/link';
 import rawReportCard from '@/data/scans/report_card.json';
+import { winFlatLoss } from '@/lib/winFlatLoss';
 
 interface HorizonMetric {
   n: number;
   avg_return_pct: number | null;
   win_rate_pct: number | null;
+  n_win?: number;
+  n_flat?: number;
+  n_loss?: number;
 }
 
 interface ReportCardFile {
@@ -28,6 +32,7 @@ export default function ReportCardBar({ scanKey }: { scanKey: string }) {
   }
 
   const avg = horizon10.avg_return_pct;
+  const wfl = winFlatLoss(horizon10);
   const href = DETAIL_PAGE_KEYS.includes(scanKey) ? `/report-card/${scanKey}` : '/report-card';
 
   return (
@@ -36,7 +41,13 @@ export default function ReportCardBar({ scanKey }: { scanKey: string }) {
       className="flex items-center gap-1.5 text-label text-white/40 hover:text-white/70 transition-colors"
     >
       <span>10 วันที่ผ่านมา:</span>
-      <span className="text-white/60">win rate {horizon10.win_rate_pct.toFixed(0)}%</span>
+      {wfl ? (
+        <span className="text-white/60 tabular-nums">
+          ชนะ {wfl.win.toFixed(0)}% <span className="text-white/20">·</span> เสมอ {wfl.flat.toFixed(0)}%
+        </span>
+      ) : (
+        <span className="text-white/60">win rate {horizon10.win_rate_pct.toFixed(0)}%</span>
+      )}
       <span className="text-white/20">·</span>
       <span className={avg >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>
         avg {avg >= 0 ? '+' : ''}{avg.toFixed(1)}%
