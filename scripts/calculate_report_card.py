@@ -20,6 +20,17 @@ Data sources:
                     calculate_breadth.py, reused here instead of a second
                     yfinance call)
 
+Price window: Yahoo period1/period2 from PRICE_LOOKBACK_BUFFER_DAYS before the
+earliest signal date of any scan up to today, so every signal has a D row
+(a fixed range=3mo silently dropped every signal older than ~3 months).
+
+Trading calendar: Yahoo returns rows for Thai holidays (e.g. 2026-07-28/29,
+2026-08-12) with Volume 0 and the previous Close. Counting them as trading days
+shifts D+N and produces fake 0% returns. A date is a trading day only when at
+least TRADING_DAY_MIN_ACTIVE_SHARE of tickers with a row that day have
+Volume > 0; other dates are removed from every series (and the SET series)
+before any D+N lookup.
+
 Output: data/scans/report_card.json
 
 Run AFTER the daily snapshot step (so today's picks are included) and after
@@ -38,7 +49,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 
 from scan_calendar import valid_dates
 
@@ -60,6 +71,17 @@ DATA_ENGINE_HISTORY_DIR = os.environ.get(
 )
 
 HORIZONS = [5, 10, 20]
+
+# Price window starts this many calendar days before the earliest signal, so
+# the signal day D itself is always inside the fetched series.
+PRICE_LOOKBACK_BUFFER_DAYS = 14
+
+# A date is a trading day when >= this share of tickers with a row that day
+# traded (Volume > 0). Holiday rows from Yahoo have Volume 0 for everyone.
+TRADING_DAY_MIN_ACTIVE_SHARE = 0.5
+
+# |return| below this counts as flat (r == 0), guarding float noise.
+FLAT_EPS = 1e-9
 
 # report-card key -> history/scan filename (without .json)
 SCANNERS = {
@@ -92,11 +114,14 @@ def tickers_of(data) -> set:
     return out
 
 
-def load_ticker_prices(ticker: str):
+def load_ticker_prices(ticker: str, start_date: str):
     """Returns a sorted list of (date_str, close_float, volume_float, high_float, low_float)
-    for one ticker from Yahoo Finance Chart API, or [] if missing."""
+    for one ticker from Yahoo Finance Chart API, from start_date (YYYY-MM-DD) to now, or [] if missing."""
     sym = f"{ticker}.BK"
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(sym)}?interval=1d&range=3mo"
+    period1 = int(datetime.strptime(start_date, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
+    period2 = int(time.time()) + 86400
+    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(sym)}"
+           f"?interval=1d&period1={period1}&period2={period2}")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Accept": "application/json",
@@ -140,6 +165,8 @@ def load_ticker_prices(ticker: str):
                     float(l) if l is not None else None,
                 ))
 
+            # One row per date (Yahoo can append a live duplicate of the last day); keep the latest.
+            out = list({row[0]: row for row in out}.values())
             out.sort(key=lambda x: x[0])
             time.sleep(0.05)
             return out
@@ -163,6 +190,30 @@ def load_set_index_series():
     ]
     out.sort(key=lambda x: x[0])
     return out
+
+
+def non_trading_dates(price_map) -> set:
+    """Dates that are not SET trading days, inferred from the fetched prices.
+
+    price_map: ticker -> series of (date_str, close, volume, ...).
+    A date is a trading day when at least TRADING_DAY_MIN_ACTIVE_SHARE of the
+    tickers that have a row on that date have Volume > 0. Returns the other dates.
+    """
+    rows = {}
+    active = {}
+    for series in price_map.values():
+        for row in series:
+            d = row[0]
+            rows[d] = rows.get(d, 0) + 1
+            vol = row[2]
+            if vol is not None and vol > 0:
+                active[d] = active.get(d, 0) + 1
+    return {d for d, n in rows.items() if active.get(d, 0) < TRADING_DAY_MIN_ACTIVE_SHARE * n}
+
+
+def drop_dates(series, dates: set):
+    """series without the rows whose date is in `dates`."""
+    return [row for row in series if row[0] not in dates]
 
 
 def build_date_index(series):
@@ -211,19 +262,27 @@ def first_appearances(dates, date_sets):
     return entries
 
 
+def win_flat_loss(returns):
+    """(n_win, n_flat, n_loss) — flat means |r| < FLAT_EPS."""
+    n_flat = sum(1 for r in returns if abs(r) < FLAT_EPS)
+    n_win = sum(1 for r in returns if r >= FLAT_EPS)
+    return n_win, n_flat, len(returns) - n_win - n_flat
+
+
 def summarize_horizon(rows):
     n = len(rows)
     if n == 0:
         return {
             "n": 0, "avg_return_pct": None, "median_return_pct": None,
             "win_rate_pct": None, "avg_set_return_pct": None, "excess_return_pct": None,
+            "n_win": 0, "n_flat": 0, "n_loss": 0, "flat_pct": None,
             "best5": [], "worst5": [],
         }
     returns = sorted(r["return_pct"] for r in rows)
     mid = n // 2
     median = returns[mid] if n % 2 == 1 else (returns[mid - 1] + returns[mid]) / 2
     avg = sum(returns) / n
-    wins = sum(1 for r in returns if r > 0)
+    wins, flats, losses = win_flat_loss(returns)
     set_returns = [r["set_return_pct"] for r in rows if r["set_return_pct"] is not None]
     avg_set = sum(set_returns) / len(set_returns) if set_returns else None
     ranked = sorted(rows, key=lambda r: r["return_pct"])
@@ -236,6 +295,10 @@ def summarize_horizon(rows):
         "win_rate_pct": round(wins / n * 100, 2),
         "avg_set_return_pct": round(avg_set, 2) if avg_set is not None else None,
         "excess_return_pct": round(avg - avg_set, 2) if avg_set is not None else None,
+        "n_win": wins,
+        "n_flat": flats,
+        "n_loss": losses,
+        "flat_pct": round(flats / n * 100, 2),
         "best5": best5,
         "worst5": worst5,
     }
@@ -396,30 +459,9 @@ def main():
 
     print(f"[report-card] History dates available: {len(dates)} ({dates[0]}..{dates[-1]})")
 
-    set_series = load_set_index_series()
-    set_index = build_date_index(set_series)
-    if not set_series:
-        print("[report-card] WARNING: no SET Index series found in breadth.json - excess return will be null.")
-
-    price_cache = {}  # ticker -> (series, date_index), loaded lazily
-    fetched_ok = 0
-    fetched_fail = 0
-
-    def get_price_series(ticker):
-        nonlocal fetched_ok, fetched_fail
-        if ticker not in price_cache:
-            series = load_ticker_prices(ticker)
-            if series:
-                fetched_ok += 1
-            else:
-                fetched_fail += 1
-            price_cache[ticker] = (series, build_date_index(series))
-        return price_cache[ticker]
-
-    result_scans = {}
-    total_missing_price_file = 0
-    total_excluded_outliers = 0
-
+    # Pass 1: signals per scan (no prices yet) — the price window and the
+    # trading calendar both need the whole ticker set up front.
+    scan_inputs = {}
     for scan_key, fname in SCANNERS.items():
         # เดินเฉพาะ "วันที่สแกนตัวนี้ได้ผลออกมาจริง" (ไฟล์มีอยู่ ต่อให้ข้างในเป็น [])
         # วันที่ pipeline ขาดจะอ่านได้เป็นลิสต์ว่าง ทำให้ first_appearances เห็นหุ้น
@@ -430,6 +472,56 @@ def main():
         for d in vdates:
             date_sets[d] = tickers_of(load_json(os.path.join(HIST_DIR, d, f"{fname}.json")))
 
+        hist_file = os.path.join(SCANS_DIR, f"{fname}_history.json")
+        hist_data = load_json(hist_file)
+        if hist_data and "tickers" in hist_data and isinstance(hist_data["tickers"], list):
+            ticker_hits = [(rec.get("ticker"), rec.get("hitDates", [])) for rec in hist_data["tickers"] if rec.get("ticker")]
+        else:
+            all_scan_tickers = sorted(set(t for d_set in date_sets.values() for t in d_set))
+            ticker_hits = [(t, sorted(d for d in vdates if t in date_sets[d])) for t in all_scan_tickers]
+
+        scan_inputs[scan_key] = (vdates, date_sets, ticker_hits)
+
+    signal_dates = [d for vdates, _, _ in scan_inputs.values() for d in vdates]
+    signal_dates += [d for _, _, hits in scan_inputs.values() for _, hd in hits for d in hd]
+    first_signal = min(signal_dates) if signal_dates else dates[0]
+    price_start = (date.fromisoformat(first_signal) - timedelta(days=PRICE_LOOKBACK_BUFFER_DAYS)).isoformat()
+    tickers = sorted(
+        {t for _, date_sets, _ in scan_inputs.values() for d_set in date_sets.values() for t in d_set}
+        | {t for _, _, hits in scan_inputs.values() for t, hd in hits if t and hd}
+    )
+    print(f"[report-card] First signal {first_signal} - fetching prices from {price_start} for {len(tickers)} tickers")
+
+    raw_prices = {t: load_ticker_prices(t, price_start) for t in tickers}
+    fetched_ok = sum(1 for s in raw_prices.values() if s)
+    fetched_fail = len(raw_prices) - fetched_ok
+
+    holidays = non_trading_dates({t: s for t, s in raw_prices.items() if s})
+    print(f"[report-card] Non-trading dates removed ({len(holidays)}): {', '.join(sorted(holidays)) or '-'}")
+
+    price_cache = {}
+    for t, series in raw_prices.items():
+        series = drop_dates(series, holidays)
+        price_cache[t] = (series, build_date_index(series))
+
+    def get_price_series(ticker):
+        return price_cache.get(ticker, ([], {}))
+
+    set_series = drop_dates(load_set_index_series(), holidays)
+    set_index = build_date_index(set_series)
+    if not set_series:
+        print("[report-card] WARNING: no SET Index series found in breadth.json - excess return will be null.")
+
+    result_scans = {}
+    total_missing_price_file = 0
+    total_excluded_outliers = 0
+
+    for scan_key, (vdates, date_sets, ticker_hits) in scan_inputs.items():
+        # Snapshots written on a non-trading day were scanned off Yahoo's
+        # holiday bar — not a scan day: a pick that is still listed on the next
+        # trading day gets that day as D (entry = its D+1 close).
+        vdates = [d for d in vdates if d not in holidays]
+        ticker_hits = [(t, [d for d in hd if d not in holidays]) for t, hd in ticker_hits]
         entries = first_appearances(vdates, date_sets)
         horizon_rows = {h: [] for h in HORIZONS}
 
@@ -453,15 +545,6 @@ def main():
 
         # Compute setup-based history for this scan
         scan_setups = []
-        hist_file = os.path.join(SCANS_DIR, f"{fname}_history.json")
-        hist_data = load_json(hist_file)
-
-        if hist_data and "tickers" in hist_data and isinstance(hist_data["tickers"], list):
-            ticker_hits = [(rec.get("ticker"), rec.get("hitDates", [])) for rec in hist_data["tickers"] if rec.get("ticker")]
-        else:
-            all_scan_tickers = sorted(set(t for d_set in date_sets.values() for t in d_set))
-            ticker_hits = [(t, sorted(d for d in vdates if t in date_sets[d])) for t in all_scan_tickers]
-
         for ticker, hit_dates in ticker_hits:
             if not ticker or not hit_dates:
                 continue
@@ -485,7 +568,7 @@ def main():
         n_open = result_scans[scan_key]["setup_summary"]["n_open"]
         print(f"  {scan_key}: {len(entries)} unique entries, D+5 computable for {n5}, setups: {n_closed} closed, {n_open} open")
 
-    print(f"[report-card] Price fetch summary: {fetched_ok} succeeded, {fetched_fail} failed out of {len(price_cache)} unique tickers")
+    print(f"[report-card] Price fetch summary: {fetched_ok} succeeded, {fetched_fail} failed out of {len(raw_prices)} unique tickers")
     if total_missing_price_file:
         print(f"[report-card] {total_missing_price_file} (ticker, entry) pairs skipped - no price data fetched")
     if total_excluded_outliers:
@@ -501,6 +584,11 @@ def main():
             "dedup": "หุ้นที่ติด scan ต่อเนื่องหลายวัน นับเป็น 1 ครั้งจากวันแรกที่ติดเท่านั้น ไม่นับซ้ำทุกวันที่ยังอยู่ในลิสต์",
             "excess_return": "ผลตอบแทนเฉลี่ยของ scan ลบผลตอบแทนดัชนี SET ในช่วงเวลาเดียวกัน (D+1 ถึง D+N)",
             "horizons_excluded_if_incomplete": "คู่ (หุ้น, ช่วงเวลา) จะถูกตัดออกจากสถิติของช่วงนั้น ถ้ายังไม่มีข้อมูลราคาย้อนหลังพอจะไปถึง D+N",
+            "trading_days": (
+                "นับ D+N เฉพาะวันทำการ: วันที่หุ้นมีปริมาณซื้อขายไม่ถึงครึ่งของหุ้นที่มีข้อมูลวันนั้น (วันหยุดที่ Yahoo ใส่แถวราคาเดิมมาให้) "
+                f"ถูกตัดออกก่อนคำนวณ — ตัด {len(holidays)} วัน"
+            ),
+            "win_flat_loss": "ชนะ = ผลตอบแทน > 0 · เสมอ = ราคาออกเท่าราคาเข้า · แพ้ = ผลตอบแทน < 0 · win rate = ชนะ ÷ ทั้งหมด (นับเสมอในตัวหาร)",
             "outlier_guard": (
                 f"รายการที่ผลตอบแทนเกิน ±{OUTLIER_RETURN_THRESHOLD_PCT:.0f}% และในช่วงเวลานั้นหุ้นมีวันที่ไม่มีการซื้อขายเลย "
                 "(หยุดพักการซื้อขาย/ขึ้นเครื่องหมายห้ามซื้อขาย) ถูกตัดออกจากสถิติ เพราะราคาที่ใช้คำนวณไม่ใช่ราคาที่ซื้อขายได้จริง — "
@@ -508,6 +596,8 @@ def main():
             ),
         },
         "history_range": {"first_date": dates[0], "last_date": dates[-1], "n_dates": len(dates)},
+        "price_range": {"first_date": price_start, "first_signal_date": first_signal},
+        "non_trading_dates": sorted(holidays),
         "scans": result_scans,
     }
 
