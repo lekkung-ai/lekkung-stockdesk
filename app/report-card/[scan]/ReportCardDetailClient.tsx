@@ -11,6 +11,8 @@ import {
   Td,
 } from '@/components/StrategyTable';
 import ReportCardChart from '@/components/ReportCardChart';
+import { winFlatLoss } from '@/lib/winFlatLoss';
+import { WinFlatLossBar, WinFlatLossText } from '@/components/WinFlatLossBar';
 
 interface BestWorstEntry {
   ticker: string;
@@ -25,6 +27,10 @@ interface HorizonMetric {
   win_rate_pct: number | null;
   avg_set_return_pct: number | null;
   excess_return_pct: number | null;
+  n_win?: number;
+  n_flat?: number;
+  n_loss?: number;
+  flat_pct?: number | null;
   best5?: BestWorstEntry[];
   worst5?: BestWorstEntry[];
 }
@@ -649,7 +655,10 @@ export default function ReportCardDetailClient({
           </div>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-3">
+          <p className="text-label text-white/35 leading-relaxed">
+            หุ้นไทยขยับทีละช่องราคา จึงมีกรณีราคาเท่าเดิมบ่อย · ค่ากลาง (median) จึงมักเป็น 0
+          </p>
           {/* Fixed Horizons View */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {['5', '10', '20'].map(h => {
@@ -659,6 +668,7 @@ export default function ReportCardDetailClient({
               const worst5 = m.worst5 ?? [];
               const bestCounts = countOccurrences(best5);
               const worstCounts = countOccurrences(worst5);
+              const wfl = winFlatLoss(m);
 
               return (
                 <div key={h} className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-4">
@@ -681,6 +691,13 @@ export default function ReportCardDetailClient({
                       </span>
                     </div>
                   </div>
+
+                  {wfl && (
+                    <div className="space-y-1.5">
+                      <WinFlatLossBar p={wfl} />
+                      <WinFlatLossText p={wfl} className="block text-[11px]" />
+                    </div>
+                  )}
 
                   <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between text-[11px]">
                     <span className="text-white/30">ส่วนต่าง vs SET</span>
