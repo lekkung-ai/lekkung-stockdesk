@@ -1,0 +1,46 @@
+[
+  {
+    "Ticker": "BTC",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "ITEL",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "KGEN",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "KSL",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "MASTEC",
+    "Reason": "missing: Revenue_Growth_YoY, NetProfit_Growth_QoQY"
+  },
+  {
+    "Ticker": "RWI",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "SCL",
+    "Reason": "missing: ROE"
+  },
+  {
+    "Ticker": "SMT",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "STPI",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "UBE",
+    "Reason": "missing: PE_Ratio"
+  },
+  {
+    "Ticker": "CIMBT",
+    "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
+  }
+]
