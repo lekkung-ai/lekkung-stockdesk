@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T18:12:48.699593+07:00",
+  "generatedAt": "2026-10-03T18:11:40.979738+07:00",
   "windowDays": 45,
   "universeSize": 906,
   "buckets": {
@@ -123,7 +123,7 @@
       "reason": "รายได้จากการขายสำหรับปีสิ้นสุดวันที่ 31 มกราคม 2569 (“ปี 2568/69”) บริษัทมีรายได้จากการขายสำหรับปี 2568/69 เป็นจำนวน 1,755.1 ล้านบาท ลดลง 32.8 ล้านบาท หรือร้อยละ 1.8 เมื่อเทียบกับรายได้จากการขายจำนวน 1,787.9",
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -617,11 +617,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none",
-      "gap_pct": -1.37,
-      "drift_d1_pct": null,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "reason_source": "none"
     },
     {
       "ticker": "MC",
@@ -1146,18 +1142,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "APP",
-      "date": "2026-08-10T20:34:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "MADAME",
-      "date": "2026-08-11T06:59:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "TRU",
       "date": "2026-08-11T08:38:00+07:00",
       "status": "confirmed",
@@ -1207,12 +1191,6 @@
       "quarter": "ไตรมาส 3/2569"
     },
     {
-      "ticker": "TRC",
-      "date": "2026-08-13T08:49:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "LPN",
       "date": "2026-08-13T13:08:00+07:00",
       "status": "confirmed",
@@ -1227,12 +1205,6 @@
     {
       "ticker": "SKR",
       "date": "2026-08-13T17:01:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "BJCHI",
-      "date": "2026-08-13T17:06:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1274,12 +1246,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "HUMAN",
-      "date": "2026-08-13T22:09:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "CHO",
       "date": "2026-08-14T06:37:00+07:00",
       "status": "confirmed",
@@ -1288,12 +1254,6 @@
     {
       "ticker": "HL",
       "date": "2026-08-14T07:37:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "CGD",
-      "date": "2026-08-14T07:39:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1322,12 +1282,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "TNPC",
-      "date": "2026-08-14T17:58:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "IRC",
       "date": "2026-08-14T18:01:00+07:00",
       "status": "confirmed",
@@ -1340,32 +1294,8 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "WAVE",
-      "date": "2026-08-14T19:07:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "SONIC",
-      "date": "2026-08-14T19:27:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "AJ",
-      "date": "2026-08-14T19:42:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "TTCL",
       "date": "2026-08-14T19:58:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "CEN",
-      "date": "2026-08-14T20:00:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1388,38 +1318,8 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "FORTH",
-      "date": "2026-08-17T06:38:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "SUPER",
-      "date": "2026-08-17T06:43:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "HYDRO",
-      "date": "2026-08-17T06:52:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "SCI",
-      "date": "2026-08-17T07:08:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
       "ticker": "IMH",
       "date": "2026-08-17T07:09:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "LALIN",
-      "date": "2026-08-17T07:21:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -1428,18 +1328,6 @@
       "date": "2026-08-17T07:51:00+07:00",
       "status": "confirmed",
       "quarter": null
-    },
-    {
-      "ticker": "RAM",
-      "date": "2026-08-17T08:01:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "BTW",
-      "date": "2026-08-17T08:14:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "XBIO",
@@ -1693,13 +1581,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-03T12:37:00+07:00"
-    },
-    {
-      "ticker": "CHARAN",
-      "date": "2026-11-03T17:00:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-03T17:00:00+07:00"
     },
     {
       "ticker": "GGC",
@@ -6966,13 +6847,6 @@
       "basedOnLastYear": "2025-11-14T17:47:00+07:00"
     },
     {
-      "ticker": "SOLAR",
-      "date": "2026-11-14T17:48:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-14T17:48:00+07:00"
-    },
-    {
       "ticker": "PK",
       "date": "2026-11-14T17:49:00+07:00",
       "status": "predicted",
@@ -7463,13 +7337,6 @@
       "basedOnLastYear": "2025-11-14T21:05:00+07:00"
     },
     {
-      "ticker": "KUMWEL",
-      "date": "2026-11-14T21:07:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-14T21:07:00+07:00"
-    },
-    {
       "ticker": "TMILL",
       "date": "2026-11-14T21:14:00+07:00",
       "status": "predicted",
@@ -7541,10 +7408,157 @@
     },
     {
       "ticker": "MJD",
-      "date": "2026-11-14T22:31:00+07:00",
+      "date": "2026-11-17T06:31:00+07:00",
       "status": "predicted",
       "quarter": null,
-      "basedOnLastYear": "2025-11-14T22:31:00+07:00"
+      "basedOnLastYear": "2025-11-17T06:31:00+07:00"
+    },
+    {
+      "ticker": "APP",
+      "date": "2026-11-17T06:34:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T06:34:00+07:00"
+    },
+    {
+      "ticker": "SUPER",
+      "date": "2026-11-17T06:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T06:35:00+07:00"
+    },
+    {
+      "ticker": "MADAME",
+      "date": "2026-11-17T06:37:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T06:37:00+07:00"
+    },
+    {
+      "ticker": "HUMAN",
+      "date": "2026-11-17T06:41:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T06:41:00+07:00"
+    },
+    {
+      "ticker": "FORTH",
+      "date": "2026-11-17T06:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T06:43:00+07:00"
+    },
+    {
+      "ticker": "TNPC",
+      "date": "2026-11-17T07:01:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:01:00+07:00"
+    },
+    {
+      "ticker": "SONIC",
+      "date": "2026-11-17T07:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:07:00+07:00"
+    },
+    {
+      "ticker": "BTW",
+      "date": "2026-11-17T07:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:11:00+07:00"
+    },
+    {
+      "ticker": "AJ",
+      "date": "2026-11-17T07:25:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:25:00+07:00"
+    },
+    {
+      "ticker": "CGD",
+      "date": "2026-11-17T07:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:26:00+07:00"
+    },
+    {
+      "ticker": "HYDRO",
+      "date": "2026-11-17T07:40:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:40:00+07:00"
+    },
+    {
+      "ticker": "RAM",
+      "date": "2026-11-17T07:47:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:47:00+07:00"
+    },
+    {
+      "ticker": "SCI",
+      "date": "2026-11-17T07:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T07:50:00+07:00"
+    },
+    {
+      "ticker": "WAVE",
+      "date": "2026-11-17T08:02:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T08:02:00+07:00"
+    },
+    {
+      "ticker": "TRC",
+      "date": "2026-11-17T08:11:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T08:11:00+07:00"
+    },
+    {
+      "ticker": "CEN",
+      "date": "2026-11-17T08:20:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T08:20:00+07:00"
+    },
+    {
+      "ticker": "LALIN",
+      "date": "2026-11-17T08:26:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T08:26:00+07:00"
+    },
+    {
+      "ticker": "BJCHI",
+      "date": "2026-11-17T08:43:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T08:43:00+07:00"
+    },
+    {
+      "ticker": "KUMWEL",
+      "date": "2026-11-17T08:49:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T08:49:00+07:00"
+    },
+    {
+      "ticker": "SOLAR",
+      "date": "2026-11-17T08:51:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T08:51:00+07:00"
+    },
+    {
+      "ticker": "CHARAN",
+      "date": "2026-11-17T09:05:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T09:05:00+07:00"
     }
   ]
 }
