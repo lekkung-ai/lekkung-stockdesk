@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T18:11:40.979738+07:00",
+  "generatedAt": "2026-10-04T18:11:53.263613+07:00",
   "windowDays": 45,
   "universeSize": 906,
   "buckets": {
@@ -1083,37 +1083,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "LUXF",
-      "sector": "Property",
-      "subsector": "Property Fund & REITs",
-      "market": "SET",
-      "announceDate": "2026-08-20T18:07:00+07:00",
-      "quarter": "ประจำปี 2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": null,
-      "netProfitPrior": null,
-      "netProfitYoY": null,
-      "netProfitPriorQ": null,
-      "netProfitQoQ": null,
-      "profitAcceleration": "stable",
-      "eps": null,
-      "epsPrior": null,
-      "epsYoY": null,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": null,
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106455901&symbol=LUXF",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17871826827171&symbol=LUXF",
-      "mdaUrl": null,
-      "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 2.51,
-      "drift_d1_pct": 4.52,
-      "drift_d2_pct": 6.53,
-      "drift_d5_pct": 5.53
     }
   ],
   "calendar": [
@@ -1341,12 +1310,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-18T21:56:00+07:00"
-    },
-    {
-      "ticker": "LUXF",
-      "date": "2026-08-20T18:07:00+07:00",
-      "status": "confirmed",
-      "quarter": "ประจำปี 2569"
     },
     {
       "ticker": "QDC",
@@ -4066,6 +4029,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-12T17:34:00+07:00"
+    },
+    {
+      "ticker": "LUXF",
+      "date": "2026-11-12T17:35:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-12T17:35:00+07:00"
     },
     {
       "ticker": "JDF",
@@ -7372,13 +7342,6 @@
       "basedOnLastYear": "2025-11-14T22:00:00+07:00"
     },
     {
-      "ticker": "VIBE",
-      "date": "2026-11-14T22:07:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-14T22:07:00+07:00"
-    },
-    {
       "ticker": "MOTHER",
       "date": "2026-11-14T22:09:00+07:00",
       "status": "predicted",
@@ -7559,6 +7522,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-17T09:05:00+07:00"
+    },
+    {
+      "ticker": "VIBE",
+      "date": "2026-11-17T21:07:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T21:07:00+07:00"
     }
   ]
 }
