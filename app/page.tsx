@@ -10,8 +10,7 @@ import TopRSTable from '@/components/TopRSTable';
 import SetIndexCard from '@/components/SetIndexCard';
 import VolumeCard from '@/components/VolumeCard';
 import InvestorTypeSection from '@/components/InvestorTypeSection';
-import SectorOverview from '@/components/SectorOverview';
-import type { SectorBreadthInfo } from '@/components/SectorOverview';
+import SectorTodayTable from '@/components/SectorTodayTable';
 import IndexImpactSection from '@/components/IndexImpactSection';
 import { getNewSepaTickers } from '@/lib/newSepaTickers';
 import { rankTopRS } from '@/lib/fundFilter';
@@ -123,56 +122,6 @@ export default function OverviewPage() {
     color: STAGE_COLORS[st] ?? '#6b7280',
   }));
 
-  // ── Sector Breadth (with stage breakdown) ─────────────────────────────
-  const sectorStats: Record<string, {
-    aboveEMA50: number;
-    total: number;
-    bullish: number;
-    accum: number;
-    warn: number;
-  }> = {};
-  const missingSectorTickers: string[] = [];
-  for (const s of stageData) {
-    const sec = sectorMap.ticker_to_sector[s.Ticker]?.sector;
-    if (!sec) {
-      missingSectorTickers.push(s.Ticker);
-      continue;
-    }
-    if (!sectorStats[sec]) sectorStats[sec] = { aboveEMA50: 0, total: 0, bullish: 0, accum: 0, warn: 0 };
-    sectorStats[sec].total += 1;
-    if (s.Price > s.EMA50) sectorStats[sec].aboveEMA50 += 1;
-    if (s.Stage === 'S.Bull' || s.Stage === 'Bull') sectorStats[sec].bullish += 1;
-    else if (s.Stage === 'Accumulation' || s.Stage === 'Recovery') sectorStats[sec].accum += 1;
-    else sectorStats[sec].warn += 1;
-  }
-  if (missingSectorTickers.length > 0) {
-    console.warn(
-      `[Overview] ${missingSectorTickers.length} ticker(s) have no sector_map.json mapping, excluded from Sector breadth/stage: ${missingSectorTickers.join(', ')}`
-    );
-  }
-  const sectorBreadth = Object.entries(sectorStats)
-    .map(([sector, d]) => ({
-      sector,
-      pct: (d.aboveEMA50 / d.total) * 100,
-      above: d.aboveEMA50,
-      total: d.total,
-      bullishPct: (d.bullish / d.total) * 100,
-      accumPct: (d.accum / d.total) * 100,
-      warnPct: (d.warn / d.total) * 100,
-    }))
-    .sort((a, b) => b.pct - a.pct);
-  const breadthBySector: Record<string, SectorBreadthInfo> = {};
-  for (const s of sectorBreadth) {
-    breadthBySector[s.sector] = {
-      total: s.total,
-      above: s.above,
-      pct: s.pct,
-      bullishPct: s.bullishPct,
-      accumPct: s.accumPct,
-      warnPct: s.warnPct,
-    };
-  }
-
   // ── Top RS ────────────────────────────────────────────────────────────
   const stageMap = new Map(stageData.map(s => [s.Ticker, s.Stage]));
   const combinedMap = new Map(combinedData.map(s => [s.ticker, s]));
@@ -270,8 +219,8 @@ export default function OverviewPage() {
         <InvestorTypeSection />
       </div>
 
-      {/* ── 4. Sector (Flow + Breadth merged) ── */}
-      <SectorOverview breadthBySector={breadthBySector} scanDateLabel={scanDateLabel} />
+      {/* ── 4. Sector วันนี้ (market-cap weighted, per market) ── */}
+      <SectorTodayTable scanDateLabel={scanDateLabel} />
 
       {/* ── 5. Market Structure (SMA Breadth + Stage Distribution + Sector Breadth) ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-5 space-y-6">
