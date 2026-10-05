@@ -13,6 +13,8 @@ import { weightedChange, formatPct } from '@/lib/sectorChange';
 import { topNWithOther } from '@/lib/heatmapGroups';
 import { getRS, getStage } from '@/lib/tickerMeta';
 import { heatTextColor } from '@/lib/heatColor';
+import { sectorSummary } from '@/lib/sectorSummaryData';
+import SectorChipBreadth from '@/components/SectorChipBreadth';
 
 type Market = 'SET' | 'MAI' | 'WARRANT';
 
@@ -96,6 +98,12 @@ export default function SectorPage() {
       })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [market, quotes],
+  );
+
+  // EMA50 + stage split per sector for the sector cards (scan data only, no live prices needed)
+  const breadthBySector = useMemo(
+    () => (isWarrantTab ? {} : Object.fromEntries(sectorSummary(market as 'SET' | 'MAI', null).map(r => [r.name, r]))),
+    [market, isWarrantTab],
   );
 
   // Read Sector RS data based on active market (WARRANT falls back to SET)
@@ -222,6 +230,7 @@ export default function SectorPage() {
           const allTickers = subsectors.flatMap(s => s.tickers);
           const { median, n } = medianPE(allTickers);
           const { median: medianPb, n: nPb } = medianPBV(allTickers);
+          const today = quotesOk ? sectorToday[sector] : undefined;
           return (
             <Link
               key={sector}
@@ -262,6 +271,15 @@ export default function SectorPage() {
                     RS {rsScore}
                   </span>
                 </div>
+              </div>
+
+              <div data-testid="sector-card-stats">
+                <p className="text-[12px] font-bold tabular-nums" data-testid="card-today" title={today ? `คำนวณจาก ${today.n}/${today.total} หุ้นที่มีราคาและ market cap` : undefined}>
+                  <span className="text-white/35 font-medium">วันนี้ </span>
+                  <span style={{ color: heatTextColor(today?.pct) ?? 'rgba(255,255,255,0.3)' }}>{formatPct(today?.pct)}</span>
+                  {today && <span className="text-white/25 font-medium"> · {today.n} หุ้น</span>}
+                </p>
+                <SectorChipBreadth row={breadthBySector[sector]} />
               </div>
 
               <div className="space-y-1.5 pt-1 border-t border-white/[0.05]">
