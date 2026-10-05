@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T18:11:53.263613+07:00",
+  "generatedAt": "2026-10-05T16:39:12.115701+07:00",
   "windowDays": 45,
   "universeSize": 906,
   "buckets": {
@@ -59,15 +59,11 @@
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 2,
+      "count": 1,
       "top3": [
         {
           "ticker": "BYD",
           "netProfitYoY": 88.74550731085392
-        },
-        {
-          "ticker": "QDC",
-          "netProfitYoY": 55.01211003867983
         }
       ]
     },
@@ -169,8 +165,8 @@
       "netProfit": 7518440.0,
       "netProfitPrior": -30901210.0,
       "netProfitYoY": 124.33056828519014,
-      "netProfitPriorQ": -2519000.0,
-      "netProfitQoQ": 398.4692338229456,
+      "netProfitPriorQ": -4534000.0,
+      "netProfitQoQ": 265.823555359506,
       "profitAcceleration": "double_turnaround",
       "eps": 0.0251,
       "epsPrior": -0.103,
@@ -617,7 +613,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -1.37,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "MC",
@@ -1052,46 +1052,9 @@
       "drift_d1_pct": -3.29,
       "drift_d2_pct": -4.12,
       "drift_d5_pct": -2.06
-    },
-    {
-      "ticker": "QDC",
-      "sector": "Agro",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-08-21T08:42:00+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": -112005000.0,
-      "netProfitPrior": -248967000.0,
-      "netProfitYoY": 55.01211003867983,
-      "netProfitPriorQ": -14603000.0,
-      "netProfitQoQ": -666.9999315209203,
-      "profitAcceleration": "decelerating",
-      "eps": -5.92,
-      "epsPrior": -19.55,
-      "epsYoY": 69.71867007672634,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": true,
-      "bucket": "loss_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106470901&symbol=QDC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106454801&symbol=QDC",
-      "mdaUrl": null,
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
-    {
-      "ticker": "TSC",
-      "date": "2026-08-04T17:20:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 3/2569"
-    },
     {
       "ticker": "NTF",
       "date": "2026-08-04T20:41:00+07:00",
@@ -1381,7 +1344,7 @@
       "ticker": "KKP",
       "date": "2026-08-28T08:50:00+07:00",
       "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
+      "quarter": null
     },
     {
       "ticker": "TAPAC",
@@ -7529,6 +7492,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-17T21:07:00+07:00"
+    },
+    {
+      "ticker": "TSC",
+      "date": "2026-11-18T19:30:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-18T19:30:00+07:00"
     }
   ]
 }
