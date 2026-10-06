@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import NewListingBadge from '@/components/NewListingBadge';
 import type { ScanEntry } from '@/lib/scanData';
 import rsRaw from '@/data/scans/rs_ranking.json';
 import stageRaw from '@/data/scans/stage_all.json';
@@ -28,6 +29,7 @@ function stageCls(stage: string | null): string {
   if (stage === 'Warning') return 'bg-[#FFEB3B] text-black font-bold';
   if (stage === 'Distribution') return 'bg-[#ff9800] text-black font-bold';
   if (stage === 'UNKNOWN' || stage === 'Unknown') return 'bg-[#424242] text-white font-bold';
+  if (stage === 'IPO') return 'bg-white/[0.08] text-white/60 border border-white/20 font-bold'; // ข้อมูลยังไม่พอคำนวณ stage
   if (stage === 'Bear') return 'bg-[#ef5350] text-white font-bold';
   return 'bg-[#FCEBEB] text-[#791F1F]';
 }
@@ -272,7 +274,10 @@ export default function SectorTickerGrid({
                   >
                     {/* Header: ticker + price */}
                     <div className="flex items-start justify-between gap-2 mb-2">
-                      <span className="text-[13px] font-bold text-white leading-tight">{ticker}</span>
+                      <span className="text-[13px] font-bold text-white leading-tight">
+                        {ticker}
+                        <NewListingBadge ticker={ticker} className="ml-1.5" />
+                      </span>
                       <div className="text-right flex-shrink-0">
                         {live ? (
                           <>
