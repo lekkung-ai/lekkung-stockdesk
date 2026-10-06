@@ -27,6 +27,7 @@ import ReportCardBar from '@/components/ReportCardBar';
 import AssetTypeToggle from '@/components/AssetTypeToggle';
 import { parseAssetType, matchesAssetType, countByAssetType, DEFAULT_ASSET_TYPE, type AssetType } from '@/lib/fundFilter';
 import { compareNullLast } from '@/lib/sepaTier';
+import NewListingBadge from '@/components/NewListingBadge';
 import React from 'react';
 
 export default function StageAnalysisPage() {
@@ -84,7 +85,8 @@ function StageAnalysisContent() {
         if (typeof aVal === 'string' && typeof bVal === 'string') {
           return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
         }
-        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+        // null (MA30 / Slope ของหุ้น IPO) อยู่ท้ายเสมอ ทั้ง asc / desc
+        return compareNullLast(aVal, bVal, sortConfig.dir);
       });
     } else {
       // Default sort by Stage Rank (Breakout first, then 2), then RS
@@ -195,6 +197,7 @@ function StageAnalysisContent() {
                   {s.Ticker}
                   <AddMyStockButton ticker={s.Ticker} />
                   {newSet.has(s.Ticker) && <NewBadge />}
+                  <NewListingBadge ticker={s.Ticker} />
                 </div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
@@ -211,9 +214,13 @@ function StageAnalysisContent() {
               </Td>
               <Td right mono className="hidden min-[1201px]:table-cell">{s.MA30?.toFixed(2) || '-'}</Td>
               <Td right mono>
-                <span className={s['Slope_4W_%'] > 1.0 ? 'text-[#1D9E75]' : s['Slope_4W_%'] < -1.0 ? 'text-[#E24B4A]' : 'text-white/60'}>
-                  {s['Slope_4W_%'] > 0 ? '+' : ''}{s['Slope_4W_%']?.toFixed(1)}%
-                </span>
+                {s['Slope_4W_%'] == null ? (
+                  <span className="text-white/30">—</span>
+                ) : (
+                  <span className={s['Slope_4W_%'] > 1.0 ? 'text-[#1D9E75]' : s['Slope_4W_%'] < -1.0 ? 'text-[#E24B4A]' : 'text-white/60'}>
+                    {s['Slope_4W_%'] > 0 ? '+' : ''}{s['Slope_4W_%'].toFixed(1)}%
+                  </span>
+                )}
               </Td>
               <Td right mono className="hidden min-[1201px]:table-cell">
                 <span className="text-white/70">
