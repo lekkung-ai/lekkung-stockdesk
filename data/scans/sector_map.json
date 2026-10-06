@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30",
+  "updated": "2026-10-06",
   "note": "SET + MAI sector list — อัปเดตจาก TradingView 23 มิ.ย. 2569 + patched 10 tickers missing after universe update to 875 (2026-07-11, verified via web search against SET/Settrade company classification pages)",
   "sectors": [
     {
@@ -916,13 +916,14 @@
         "MUD",
         "NTF",
         "NTSC",
+        "PHAT",
         "QDC",
         "TACC",
         "TMILL",
         "WINNER",
         "XO"
       ],
-      "count": 13
+      "count": 14
     },
     {
       "sector": "Consumer",
@@ -981,6 +982,7 @@
         "CIG",
         "COLOUR",
         "CPR",
+        "FLE",
         "FPI",
         "GTB",
         "HARN",
@@ -1021,7 +1023,7 @@
         "YUASA",
         "ZIGA"
       ],
-      "count": 46
+      "count": 47
     },
     {
       "sector": "Property",
@@ -5717,6 +5719,16 @@
     },
     "POWER": {
       "sector": "Resources",
+      "subsector": "",
+      "market": "MAI"
+    },
+    "FLE": {
+      "sector": "Industrials",
+      "subsector": "",
+      "market": "MAI"
+    },
+    "PHAT": {
+      "sector": "Agro",
       "subsector": "",
       "market": "MAI"
     }
