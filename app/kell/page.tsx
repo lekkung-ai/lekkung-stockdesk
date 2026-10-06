@@ -30,6 +30,7 @@ import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 import { scanData } from '@/lib/scanData';
+import NewsFlagBadges from '@/components/NewsFlagBadges';
 
 function distColor(dist: number): string {
   if (dist <= 2) return '#1D9E75';
@@ -352,6 +353,7 @@ function KellContent() {
                     <div className={`font-bold ${isActive ? 'text-emerald-400' : 'text-white'}`}>
                       {s.Ticker}
                       {newSet.has(s.Ticker) && <NewBadge />}
+                      <NewsFlagBadges ticker={s.Ticker} className="ml-1.5" />
                     </div>
                     <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
