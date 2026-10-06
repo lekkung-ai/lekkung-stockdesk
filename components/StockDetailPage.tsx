@@ -16,6 +16,7 @@ import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/route';
 import type { F45Data } from '@/app/api/f45/[ticker]/route';
 import type { ShareholderData } from '@/app/api/shareholder/[ticker]/route';
+import NewsFlagBadges from '@/components/NewsFlagBadges';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -398,6 +399,7 @@ export default function StockDetailPage({
                 <span className="text-body text-meta truncate">{quote.shortName}</span>
               )}
             </div>
+            <NewsFlagBadges ticker={ticker} className="mt-2" />
           </div>
           {/* Live price */}
           <div className="flex items-baseline gap-2">
