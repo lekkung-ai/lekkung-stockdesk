@@ -32,6 +32,7 @@ import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 import { sepaCompositeScore } from '@/lib/compositeScore';
 import rawBreadth from '@/data/scans/breadth.json';
+import NewsFlagBadges from '@/components/NewsFlagBadges';
 import {
   tierOf, inTier, parseTierFilter, vcpFootprint, vcpTooltip, isVolumeDry, toNum, compareNullLast, readMarketStage,
   TIER_FILTERS, READY_MIN_T, READY_MAX_TO_PIVOT, WATCH_MIN_RS, WATCH_MAX_FROM_HIGH,
@@ -523,6 +524,7 @@ function SepaContent() {
                       <TierBadge tier={TIERS.get(s.Ticker)} />
                       <FundamentalBadge pass={s.Fundamental_Pass} />
                       {newSet.has(s.Ticker) && <NewBadge />}
+                      <NewsFlagBadges ticker={s.Ticker} className="ml-1.5" />
                     </div>
                     <AddMyStockButton ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
@@ -627,6 +629,9 @@ function SepaContent() {
           )}
         </tbody>
       </TableWrap>
+      <p className="text-[10.5px] text-white/30 px-1 -mt-2">
+        ป้ายจากข่าวแจ้งตลาด (SET) · งบออก ~X วัน เป็นค่าทำนายจากรอบเดียวกันของปีก่อน
+      </p>
 
       {/* Pagination Controls for Desktop */}
       {!isMobile && filtered.length > 0 && (
