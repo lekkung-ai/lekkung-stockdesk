@@ -20,8 +20,8 @@ interface StageEntry {
   Ticker: string;
   Stage: string;
   Price: number;
-  EMA50: number;
-  EMA200: number;
+  EMA50: number | null;
+  EMA200: number | null;
   Bar_Count: number;
   'ADTV(MB)': number;
 }
@@ -58,7 +58,7 @@ interface BreadthMaRow {
 const breadthRowsRaw = (rawBreadth as { breadth?: BreadthMaRow[] }).breadth ?? [];
 const LATEST_BREADTH: BreadthMaRow | null = breadthRowsRaw[breadthRowsRaw.length - 1] ?? null;
 
-const STAGE_ORDER = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
+const STAGE_ORDER = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear', 'IPO'];
 const STAGE_COLORS: Record<string, string> = {
   'S.Bull': '#1b5e20',
   'Bull': '#4caf50',
@@ -67,6 +67,7 @@ const STAGE_COLORS: Record<string, string> = {
   'Warning': '#FFEB3B',
   'Distribution': '#ff9800',
   'Bear': '#ef5350',
+  'IPO': '#6b7280', // หุ้นจดทะเบียนใหม่ ข้อมูลยังไม่พอคำนวณ stage
 };
 const THAI_MONTHS_SHORT = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function formatThaiDateShort(iso: string | undefined): string {
