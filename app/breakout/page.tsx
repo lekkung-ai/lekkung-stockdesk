@@ -28,6 +28,7 @@ import { computeScanMarkers } from '@/lib/scanMarkers';
 import StockChart from '@/components/StockChart';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
+import NewsFlagBadges from '@/components/NewsFlagBadges';
 
 export default function BreakoutPage() {
   const [toBreakMax, setToBreakMax] = useState(10);
@@ -215,6 +216,7 @@ export default function BreakoutPage() {
                       </span>
                     )}
                     {newSet.has(s.Ticker) && <NewBadge />}
+                    <NewsFlagBadges ticker={s.Ticker} />
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
                   <SectorChip ticker={s.Ticker} />
