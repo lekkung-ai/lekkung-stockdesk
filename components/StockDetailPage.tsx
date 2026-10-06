@@ -17,6 +17,7 @@ import type { YearlyFinancials } from '@/app/api/financial-history/[ticker]/rout
 import type { F45Data } from '@/app/api/f45/[ticker]/route';
 import type { ShareholderData } from '@/app/api/shareholder/[ticker]/route';
 import NewsFlagBadges from '@/components/NewsFlagBadges';
+import NewListingBadge from '@/components/NewListingBadge';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -129,6 +130,7 @@ function stageCls(stage: string): string {
   if (stage === 'Warning') return 'bg-[#FFEB3B] text-black font-bold';
   if (stage === 'Distribution') return 'bg-[#ff9800] text-black font-bold';
   if (stage === 'UNKNOWN' || stage === 'Unknown') return 'bg-[#424242] text-white font-bold';
+  if (stage === 'IPO') return 'bg-white/[0.08] text-white/60 border border-white/20 font-bold'; // ข้อมูลยังไม่พอคำนวณ stage
   if (stage === 'Bear') return 'bg-[#ef5350] text-white font-bold';
   return 'bg-[#FCEBEB] text-[#791F1F]';
 }
@@ -399,6 +401,7 @@ export default function StockDetailPage({
                 <span className="text-body text-meta truncate">{quote.shortName}</span>
               )}
             </div>
+            <NewListingBadge ticker={ticker} className="mt-2 mr-1.5" />
             <NewsFlagBadges ticker={ticker} className="mt-2" />
           </div>
           {/* Live price */}
@@ -696,7 +699,11 @@ export default function StockDetailPage({
                       {stageEntry.Stage}
                     </span>
                     <span className="text-label text-meta">
-                      อยู่ใน {stageEntry.Stage} มา <span className="text-white/65 font-medium">{stageEntry.Bar_Count}</span> วัน
+                      {stageEntry.Stage === 'IPO' ? (
+                        <>หุ้นจดทะเบียนใหม่ — ข้อมูลราคายังไม่พอคำนวณ stage (ต้องมี EMA200)</>
+                      ) : (
+                        <>อยู่ใน {stageEntry.Stage} มา <span className="text-white/65 font-medium">{stageEntry.Bar_Count}</span> วัน</>
+                      )}
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-2">
