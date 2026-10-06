@@ -23,8 +23,13 @@ jobs:
       - name: Fetch feeds and write daily snapshots
         run: python scripts/save_news.py
 
+      - name: Build news flags (scan-page badges)
+        # Rule-based flags from the SET news just saved + earnings_feed + XD/XR calendar.
+        # Non-fatal: a failure keeps the previous news_flags.json and the news commit still goes out.
+        run: python scripts/build_news_flags.py || echo "build_news_flags failed"
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          python scripts/safe_push.py --repo . --message "Automated news snapshot update" --add public/data/history
+          python scripts/safe_push.py --repo . --message "Automated news snapshot update" --add public/data/history public/data/news_flags.json
