@@ -52,6 +52,7 @@ const STAGE: Record<string, { color: string; bg: string }> = {
   'Bear':         { color: '#E24B4A', bg: 'rgba(226,75,74,.15)' },
   'UNKNOWN':      { color: '#9CA3AF', bg: 'rgba(156,163,175,.15)' },
   'Unknown':      { color: '#9CA3AF', bg: 'rgba(156,163,175,.15)' },
+  'IPO':          { color: '#9CA3AF', bg: 'rgba(156,163,175,.10)' },
 };
 
 // One row = composition item (always present) + whatever joins from the scan data.
