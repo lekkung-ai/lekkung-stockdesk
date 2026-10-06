@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import NewListingBadge from '@/components/NewListingBadge';
 import type { ScanEntry } from '@/lib/scanData';
 import rsRaw from '@/data/scans/rs_ranking.json';
 import stageRaw from '@/data/scans/stage_all.json';
@@ -165,6 +166,7 @@ export default function SectorTickerTable({ subsectors }: { subsectors: Subsecto
                         >
                           {t.ticker}
                         </Link>
+                        <NewListingBadge ticker={t.ticker} className="ml-1.5" />
                       </Td>
                       <Td right mono>
                         {price != null ? (
