@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { stageData, weinsteinData } from '@/lib/strategyData';
+import { stageData, weinsteinData, type StageEntry } from '@/lib/strategyData';
 import { getScanGeneratedAt, hasScanKey } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
@@ -24,13 +24,16 @@ import { sparklineMap } from '@/lib/sparklineData';
 import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
+import NewListingBadge from '@/components/NewListingBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import ReportCardBar from '@/components/ReportCardBar';
 import AssetTypeToggle from '@/components/AssetTypeToggle';
+import { compareNullLast } from '@/lib/sepaTier';
 import { parseAssetType, matchesAssetType, countByAssetType, DEFAULT_ASSET_TYPE, type AssetType } from '@/lib/fundFilter';
 import React from 'react';
 
-const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear', 'UNKNOWN'];
+// IPO = ข้อมูลยังไม่พอคำนวณ stage (หุ้นจดทะเบียนใหม่) · ท้ายสุด
+const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear', 'UNKNOWN', 'IPO'];
 
 const STAGE_ORDER: Record<string, number> = {
   'S.Bull': 0,
@@ -41,6 +44,7 @@ const STAGE_ORDER: Record<string, number> = {
   'Bear': 5,
   'Distribution': 6,
   'UNKNOWN': 7,
+  'IPO': 8,
 };
 
 const PAGE_SIZE = 20;
@@ -193,7 +197,12 @@ function MarketStageContent() {
         if (typeof aVal === 'string' && typeof bVal === 'string') {
           return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
         }
-        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+        // null (เช่น EMA200 ของหุ้น IPO) อยู่ท้ายเสมอ ทั้ง asc / desc
+        const num = (r: StageEntry) => {
+          const v = (r as unknown as Record<string, unknown>)[sortConfig.key];
+          return typeof v === 'number' ? v : null;
+        };
+        return compareNullLast(num(a), num(b), sortConfig.dir);
       });
     } else {
       result = result.sort((a, b) => {
@@ -311,6 +320,7 @@ function MarketStageContent() {
                   {s.Ticker}
                   <AddMyStockButton ticker={s.Ticker} />
                   {newSet.has(s.Ticker) && <NewBadge />}
+                  <NewListingBadge ticker={s.Ticker} />
                 </div>
                 <SectorChip ticker={s.Ticker} />
               </Td>
