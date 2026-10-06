@@ -26,10 +26,11 @@ export interface WeinsteinEntry {
   Ticker: string;
   Stage: string;
   Price: number;
-  MA30: number;
-  MA10: number;
-  Vol10: number;
-  'Slope_4W_%': number;
+  // null = หุ้น IPO / ประวัติสั้น (stage "IPO" — ยังไม่มี 30-week MA)
+  MA30: number | null;
+  MA10: number | null;
+  Vol10: number | null;
+  'Slope_4W_%': number | null;
   RS_Rating: number | null; // null = กองทุน/REIT (ไม่จัดอันดับ RS)
   'ADTV(MB)': number;
   // fundamental/52w — เป็น null ได้ (งบยังไม่มา / หุ้นใหม่ไม่มีประวัติ 52 สัปดาห์)
@@ -96,8 +97,8 @@ export interface StageEntry {
   Ticker: string;
   Stage: string;
   Price: number;
-  EMA50: number;
-  EMA200: number;
+  EMA50: number | null;  // null = ข้อมูลไม่ถึง 50 / 200 วัน (หุ้น IPO, stage "IPO")
+  EMA200: number | null;
   Bar_Count: number;
   'ADTV(MB)': number;
 }
