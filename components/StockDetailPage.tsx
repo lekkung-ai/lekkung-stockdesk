@@ -23,10 +23,10 @@ interface StageEntry {
   Ticker: string;
   Stage: string;
   Price: number;
-  EMA50: number;
-  EMA200: number;
+  EMA50: number | null;  // null = ข้อมูลไม่ถึง 50 / 200 วัน (เช่นหุ้นจดทะเบียนใหม่)
+  EMA200: number | null;
   Bar_Count: number;
-  'ADTV(MB)': number;
+  'ADTV(MB)': number | null;
 }
 interface SepaEntry {
   Ticker: string;
@@ -701,8 +701,8 @@ export default function StockDetailPage({
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { label: 'EMA 50', val: stageEntry.EMA50.toFixed(2) },
-                      { label: 'EMA 200', val: stageEntry.EMA200.toFixed(2) },
+                      { label: 'EMA 50', val: stageEntry.EMA50 != null ? stageEntry.EMA50.toFixed(2) : '—' },
+                      { label: 'EMA 200', val: stageEntry.EMA200 != null ? stageEntry.EMA200.toFixed(2) : '—' },
                       // ADTV lives here only - Kell's own scan computes a
                       // separate 5-day figure for its own liquidity gate,
                       // which is a different metric despite the same field
@@ -710,7 +710,7 @@ export default function StockDetailPage({
                       // scan_pine_stages.py window=50 vs scan_oliver_kell.py
                       // window=5). Price is dropped - it's already in the
                       // page header, right next to %change.
-                      { label: 'ADTV 50D (MB)', val: stageEntry['ADTV(MB)'].toFixed(1) },
+                      { label: 'ADTV 50D (MB)', val: stageEntry['ADTV(MB)'] != null ? stageEntry['ADTV(MB)'].toFixed(1) : '—' },
                     ].map(r => (
                       <div key={r.label} className="bg-white/[0.03] rounded-lg px-3 py-2">
                         <div className="text-label text-meta mb-0.5">{r.label}</div>

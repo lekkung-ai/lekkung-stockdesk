@@ -33,7 +33,7 @@ export default async function StockPage({
   const t = ticker.toUpperCase();
 
   const stageEntry =
-    (rawStage as { Ticker: string; Stage: string; Price: number; EMA50: number; EMA200: number; Bar_Count: number; 'ADTV(MB)': number }[])
+    (rawStage as { Ticker: string; Stage: string; Price: number; EMA50: number | null; EMA200: number | null; Bar_Count: number; 'ADTV(MB)': number | null }[])
       .find(s => s.Ticker === t) ?? null;
 
   const sepaEntry = (() => {
