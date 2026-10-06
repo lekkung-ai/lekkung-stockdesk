@@ -8,6 +8,7 @@ import { formatSymbolsQuery } from '@/lib/utils';
 import PriceChart from './PriceChart';
 
 import { ExportCSVButton, AddMyStockButton } from './StrategyTable';
+import NewListingBadge from '@/components/NewListingBadge';
 
 type LivePrice = { price: number; changePercent: number };
 
@@ -20,6 +21,7 @@ function stageCls(stage: string): string {
   if (stage === 'Warning') return 'bg-[#FFEB3B] text-black font-bold';
   if (stage === 'Distribution') return 'bg-[#ff9800] text-black font-bold';
   if (stage === 'UNKNOWN' || stage === 'Unknown') return 'bg-[#424242] text-white font-bold';
+  if (stage === 'IPO') return 'bg-white/[0.08] text-white/60 border border-white/20 font-bold'; // ข้อมูลยังไม่พอคำนวณ stage
   if (stage === 'Bear') return 'bg-[#ef5350] text-white font-bold';
   return 'bg-[#FCEBEB] text-[#791F1F]';
 }
@@ -112,6 +114,7 @@ export default function ScannerTable({ data }: { data: ScanEntry[] }) {
                         <div className={`w-0.5 h-5 rounded-full transition-colors ${isSelected ? 'bg-[#1D9E75]' : 'bg-transparent'}`} />
                         <span className="font-semibold text-white">{row.ticker}</span>
                         <AddMyStockButton ticker={row.ticker} />
+                        <NewListingBadge ticker={row.ticker} />
                       </div>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
