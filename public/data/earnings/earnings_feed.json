@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T16:22:17.733469+07:00",
+  "generatedAt": "2026-10-07T18:16:08.485657+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -643,8 +643,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17881331359301&symbol=FLE",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106607401&symbol=FLE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "คําอธิบายและวิเคราะห์ของฝ่ายจัดการ (MD&A) สำหรับปีสิ้นสุดวันที่ 31 ธันวาคม 2568 ปี 2568 บริษัทฯ มีรายได้จากการขายและให้บริการ 574.71 ล้านบาท เพิ่มขึ้นร้อยละ 14.90 และมี กำไรสุทธิ 37.10 ล้านบาท เพิ่มขึ้นร้อยละ 22.75 แม้อัตรากำไรขั้นต้นลดลงจากร้อยละ 23.48 เป็นร้อยละ 21.72 จากต้นทุนงานและโครงสร้างรายได้ของโครงการ บริษัทฯ",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "MC",
@@ -1148,12 +1148,6 @@
       "date": "2026-08-13T13:08:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "AOT",
-      "date": "2026-08-13T17:01:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "SKR",
@@ -7534,6 +7528,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-20T18:41:00+07:00"
+    },
+    {
+      "ticker": "AOT",
+      "date": "2026-11-21T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-21T17:00:00+07:00"
     }
   ]
 }
