@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T18:16:08.485657+07:00",
+  "generatedAt": "2026-10-08T16:32:53.255698+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 4,
+      "count": 5,
       "top3": [
         {
           "ticker": "TNH",
@@ -52,8 +52,8 @@
           "netProfitYoY": -19.7802001965394
         },
         {
-          "ticker": "MC",
-          "netProfitYoY": -7.812576027563896
+          "ticker": "AEONTS",
+          "netProfitYoY": -18.846781152208163
         }
       ]
     },
@@ -92,6 +92,37 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "AEONTS",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-10-07T18:21:00+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "31 สิงหาคม 2569",
+      "netProfit": 642361000.0,
+      "netProfitPrior": 791541000.0,
+      "netProfitYoY": -18.846781152208163,
+      "netProfitPriorQ": 793010000.0,
+      "netProfitQoQ": -18.997112268445544,
+      "profitAcceleration": "stable",
+      "eps": 2.59,
+      "epsPrior": 3.18,
+      "epsYoY": -18.553459119496864,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107043301&symbol=AEONTS",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17913302847321&symbol=AEONTS",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107043501&symbol=AEONTS",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 2.22,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
     {
       "ticker": "INGRS",
       "sector": "Industrials",
@@ -614,7 +645,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": -2.74,
+      "gap_pct": -2.05,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -1441,10 +1472,9 @@
     },
     {
       "ticker": "AEONTS",
-      "date": "2026-10-08T17:06:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-10-08T17:06:00+07:00"
+      "date": "2026-10-07T18:21:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TSTH",
