@@ -1,16 +1,12 @@
 {
-  "generatedAt": "2026-10-08T16:32:53.255698+07:00",
+  "generatedAt": "2026-10-08T18:12:16.398931+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 11,
+      "count": 9,
       "top3": [
-        {
-          "ticker": "CIMBT",
-          "netProfitYoY": 407.90931961055105
-        },
         {
           "ticker": "KGI",
           "netProfitYoY": 167.47784933514393
@@ -18,12 +14,16 @@
         {
           "ticker": "MVP",
           "netProfitYoY": 103.66927246877829
+        },
+        {
+          "ticker": "KKP",
+          "netProfitYoY": 65.01603992843444
         }
       ]
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 8,
+      "count": 7,
       "top3": [
         {
           "ticker": "TAPAC",
@@ -34,8 +34,8 @@
           "netProfitYoY": 329.55035850527304
         },
         {
-          "ticker": "AFC",
-          "netProfitYoY": 202.5765189584285
+          "ticker": "META",
+          "netProfitYoY": 166.76516600034765
         }
       ]
     },
@@ -1017,99 +1017,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.69,
       "drift_d5_pct": 3.45
-    },
-    {
-      "ticker": "LHFG",
-      "sector": "Financials",
-      "subsector": "Banking",
-      "market": "SET",
-      "announceDate": "2026-08-24T17:59:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 696084000.0,
-      "netProfitPrior": 550955000.0,
-      "netProfitYoY": 26.341352742056973,
-      "netProfitPriorQ": 696084000.0,
-      "netProfitQoQ": 0.0,
-      "profitAcceleration": "stable",
-      "eps": 0.033,
-      "epsPrior": 0.026,
-      "epsYoY": 26.923076923076934,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106503801&symbol=LHFG",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17875277141141&symbol=LHFG",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106503901&symbol=LHFG",
-      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 1.61,
-      "drift_d2_pct": 1.61,
-      "drift_d5_pct": 0.81
-    },
-    {
-      "ticker": "CIMBT",
-      "sector": "Financials",
-      "subsector": "Banking",
-      "market": "SET",
-      "announceDate": "2026-08-24T17:02:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 886317000.0,
-      "netProfitPrior": 174503000.0,
-      "netProfitYoY": 407.90931961055105,
-      "netProfitPriorQ": 886317000.0,
-      "netProfitQoQ": 0.0,
-      "profitAcceleration": "stable",
-      "eps": 0.03,
-      "epsPrior": 0.01,
-      "epsYoY": 199.99999999999994,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106497601&symbol=CIMBT",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106498101&symbol=CIMBT",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106498401&symbol=CIMBT",
-      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "AFC",
-      "sector": "Consump",
-      "subsector": "Fashion",
-      "market": "SET",
-      "announceDate": "2026-08-24T17:00:00+07:00",
-      "quarter": "ประจำปี 2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 11227000.0,
-      "netProfitPrior": -10945000.0,
-      "netProfitYoY": 202.5765189584285,
-      "netProfitPriorQ": 14149000.0,
-      "netProfitQoQ": -20.651636158032368,
-      "profitAcceleration": "decelerating",
-      "eps": 0.25,
-      "epsPrior": -0.24,
-      "epsYoY": 204.16666666666666,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "turnaround",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106493501&symbol=AFC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17877878736591&symbol=AFC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106493901&symbol=AFC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": -4.12,
-      "drift_d1_pct": -3.29,
-      "drift_d2_pct": -4.12,
-      "drift_d5_pct": -2.06
     }
   ],
   "calendar": [
@@ -1319,24 +1226,6 @@
       "date": "2026-08-21T08:42:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
-    },
-    {
-      "ticker": "AFC",
-      "date": "2026-08-24T17:00:00+07:00",
-      "status": "confirmed",
-      "quarter": "ประจำปี 2569"
-    },
-    {
-      "ticker": "CIMBT",
-      "date": "2026-08-24T17:02:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "LHFG",
-      "date": "2026-08-24T17:59:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "TTB",
@@ -2534,6 +2423,13 @@
       "basedOnLastYear": "2025-11-10T17:19:00+07:00"
     },
     {
+      "ticker": "LHFG",
+      "date": "2026-11-10T17:21:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-10T17:21:00+07:00"
+    },
+    {
       "ticker": "VS",
       "date": "2026-11-10T17:21:00+07:00",
       "status": "predicted",
@@ -2945,6 +2841,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-11T13:16:00+07:00"
+    },
+    {
+      "ticker": "AFC",
+      "date": "2026-11-11T17:00:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-11T17:00:00+07:00"
     },
     {
       "ticker": "ARROW",
@@ -4940,6 +4843,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-13T17:03:00+07:00"
+    },
+    {
+      "ticker": "CIMBT",
+      "date": "2026-11-13T17:04:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-13T17:04:00+07:00"
     },
     {
       "ticker": "FE",
