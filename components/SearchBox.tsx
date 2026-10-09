@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Clock, X } from 'lucide-react';
+import { Search, Clock, X, CandlestickChart } from 'lucide-react';
 import { newsBySymbol } from '@/lib/mockData';
 import { stockNames } from '@/lib/stockNames';
 import { ALL_SET_TICKERS, SECTOR_INFO } from '@/lib/setTickers';
@@ -70,6 +70,12 @@ export default function SearchBox() {
   const topTicker = results[0];
   const topNews = topTicker ? (newsBySymbol[topTicker] ?? []).slice(0, 3) : [];
 
+  const q = query.trim();
+  const isSurvivor = q.length >= 3 && (
+    'SURVIVOR'.startsWith(q.toUpperCase()) ||
+    'ตัวช่วยตัดสินใจ'.startsWith(q)
+  );
+
   // Reset keyboard selection whenever the candidate list changes, so an old
   // highlight doesn't point at a since-shifted row.
   useEffect(() => {
@@ -90,40 +96,76 @@ export default function SearchBox() {
     [recent, router]
   );
 
+  const handleSelectSurvivor = useCallback(() => {
+    setQuery('');
+    setOpen(false);
+    window.location.href = '/survivor.html';
+  }, []);
+
   const handleInputKeyDown = useCallback(
     (e: ReactKeyboardEvent<HTMLInputElement>) => {
-      const list = query.trim() ? results : recent;
+      const hasQuery = Boolean(query.trim());
+      const totalCount = hasQuery
+        ? results.length + (isSurvivor ? 1 : 0)
+        : recent.length + 1;
+
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        if (list.length === 0) return;
+        if (totalCount === 0) return;
         setOpen(true);
-        setActiveIndex(prev => (prev + 1) % list.length);
+        setActiveIndex(prev => (prev + 1) % totalCount);
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        if (list.length === 0) return;
+        if (totalCount === 0) return;
         setOpen(true);
-        setActiveIndex(prev => (prev - 1 + list.length) % list.length);
+        setActiveIndex(prev => (prev - 1 + totalCount) % totalCount);
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        if (list.length === 0) return;
-        // Highlighted row wins; otherwise an exact ticker match; otherwise
-        // just go to the top result — matches how the dropdown is displayed.
-        if (activeIndex >= 0 && activeIndex < list.length) {
-          handleSelect(list[activeIndex]);
-          return;
+        if (totalCount === 0) return;
+        if (hasQuery) {
+          const survivorIdx = results.length;
+          if (activeIndex === survivorIdx && isSurvivor) {
+            handleSelectSurvivor();
+            return;
+          }
+          if (activeIndex >= 0 && activeIndex < results.length) {
+            handleSelect(results[activeIndex]);
+            return;
+          }
+          const exact = query.trim().toUpperCase();
+          if (exact === 'SURVIVOR') {
+            handleSelectSurvivor();
+            return;
+          }
+          if (results.includes(exact)) {
+            handleSelect(exact);
+            return;
+          }
+          if (results.length > 0) {
+            handleSelect(results[0]);
+          } else if (isSurvivor) {
+            handleSelectSurvivor();
+          }
+        } else {
+          const survivorIdx = recent.length;
+          if (activeIndex === survivorIdx) {
+            handleSelectSurvivor();
+            return;
+          }
+          if (activeIndex >= 0 && activeIndex < recent.length) {
+            handleSelect(recent[activeIndex]);
+            return;
+          }
+          if (recent.length > 0) {
+            handleSelect(recent[0]);
+          }
         }
-        const exact = query.trim().toUpperCase();
-        if (query.trim() && list.includes(exact)) {
-          handleSelect(exact);
-          return;
-        }
-        handleSelect(list[0]);
       } else if (e.key === 'Escape') {
         setOpen(false);
         inputRef.current?.blur();
       }
     },
-    [query, results, recent, activeIndex, handleSelect]
+    [query, results, recent, activeIndex, isSurvivor, handleSelect, handleSelectSurvivor]
   );
 
   return (
@@ -162,7 +204,7 @@ export default function SearchBox() {
       {open && (
         <div id="search-listbox" role="listbox" className="absolute top-full mt-2 left-0 right-0 z-50 bg-[#13161e] border border-white/[0.1] rounded-xl shadow-2xl overflow-hidden max-h-[70vh] overflow-y-auto">
 
-          {/* Recent searches */}
+          {/* Recent searches & Tools */}
           {!query.trim() && (
             <div className="p-2">
               {recent.length > 0 ? (
@@ -197,15 +239,36 @@ export default function SearchBox() {
                   })}
                 </>
               ) : (
-                <p className="px-3 py-5 text-center text-[12px] text-white/25">
+                <p className="px-3 py-3 text-center text-[12px] text-white/25">
                   พิมพ์ ticker เพื่อค้นหา หรือกด ⌘K
                 </p>
               )}
+
+              <div className={recent.length > 0 ? 'mt-1 pt-2 border-t border-white/[0.06]' : ''}>
+                <p className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-white/25">
+                  เครื่องมือ
+                </p>
+                <button
+                  id={`search-option-${recent.length}`}
+                  role="option"
+                  aria-selected={activeIndex === recent.length}
+                  onClick={handleSelectSurvivor}
+                  onMouseEnter={() => setActiveIndex(recent.length)}
+                  className={`w-full flex items-center gap-3 px-2 py-2 rounded-lg text-left transition-colors ${
+                    activeIndex === recent.length ? 'bg-white/[0.08]' : 'hover:bg-white/[0.05]'
+                  }`}
+                >
+                  <CandlestickChart size={14} className="text-white/40 flex-shrink-0" />
+                  <span className="text-[13px] font-semibold text-white">Survivor</span>
+                  <span className="text-[12px] text-white/35 truncate">ตัวช่วยตัดสินใจ วิถี Survivor</span>
+                  <span className="text-[11px] text-white/20 ml-auto flex-shrink-0">/survivor.html</span>
+                </button>
+              </div>
             </div>
           )}
 
           {/* Search results */}
-          {query.trim() && results.length > 0 && (
+          {query.trim() && (results.length > 0 || isSurvivor) && (
             <div className="p-2">
               {results.map((ticker, i) => {
                 const sec = SECTOR_INFO[ticker];
@@ -241,6 +304,33 @@ export default function SearchBox() {
                 );
               })}
 
+              {isSurvivor && (
+                <button
+                  key="survivor"
+                  id={`search-option-${results.length}`}
+                  role="option"
+                  aria-selected={activeIndex === results.length}
+                  onClick={handleSelectSurvivor}
+                  onMouseEnter={() => setActiveIndex(results.length)}
+                  className={`w-full flex items-center gap-3 px-2 py-2.5 rounded-lg text-left transition-colors ${
+                    activeIndex === results.length ? 'bg-white/[0.08]' : 'hover:bg-white/[0.05]'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-white/[0.07] flex items-center justify-center flex-shrink-0 text-white/45">
+                    <CandlestickChart size={16} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-[13px] font-semibold text-white">Survivor</span>
+                      <span className="text-[11px] text-white/40 truncate">ตัวช่วยตัดสินใจ วิถี Survivor</span>
+                    </div>
+                    <div className="text-[11px] text-white/25 mt-0.5">
+                      /survivor.html
+                    </div>
+                  </div>
+                </button>
+              )}
+
               {topNews.length > 0 && (
                 <div className="mt-1 pt-2 border-t border-white/[0.06]">
                   <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/25">
@@ -270,7 +360,7 @@ export default function SearchBox() {
           )}
 
           {/* No results */}
-          {query.trim() && results.length === 0 && (
+          {query.trim() && results.length === 0 && !isSurvivor && (
             <p className="px-3 py-6 text-center text-[12px] text-white/25">
               ไม่พบหุ้น &ldquo;{query}&rdquo; ในระบบ
             </p>

@@ -6,7 +6,7 @@ import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings, RotateCw,
-  Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck, Building2,
+  Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck, Building2, CandlestickChart,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 import { FUND_TICKERS } from '@/lib/fundFilter';
@@ -31,6 +31,7 @@ interface NavItem {
   exact?: boolean;
   // Highlight for any path under this prefix (e.g. both /set-index/set50 and /set-index/set100)
   activePrefix?: string;
+  external?: boolean;
 }
 
 interface NavGroup {
@@ -61,6 +62,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'My Stocks', href: '/my-stocks', icon: LayoutDashboard },
       { label: 'Knowledge Base', href: '/knowledge', icon: BookOpen },
       { label: 'Report Card', href: '/report-card', icon: Award },
+      { label: 'Survivor', href: '/survivor.html', icon: CandlestickChart, external: true },
     ],
   },
   {
@@ -159,29 +161,51 @@ export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
                 const Icon = item.icon;
                 const active = isActive(item);
                 const label = item.count !== undefined ? `${item.label} (${item.count})` : item.label;
+                const itemCls = [
+                  'flex items-center gap-2 rounded-lg transition-colors',
+                  'py-2.5 md:py-[6px]',
+                  open ? 'justify-start' : 'justify-center',
+                  'md:justify-start',
+                  item.indent
+                    ? `${open ? 'pl-7 pr-2' : 'px-2'} md:pl-7 md:pr-2`
+                    : 'px-2',
+                  active
+                    ? 'bg-white/10 text-white font-medium'
+                    : 'text-white/45 hover:text-white/75 hover:bg-white/[0.05]',
+                ].join(' ');
+
+                const content = (
+                  <>
+                    <Icon size={14} className="flex-shrink-0" />
+                    <span className={`truncate text-[12.5px] whitespace-nowrap ${labelCls}`}>
+                      {label}
+                    </span>
+                  </>
+                );
+
+                if (item.external) {
+                  return (
+                    <a
+                      key={item.href + item.label}
+                      href={item.href}
+                      onClick={onClose}
+                      title={label}
+                      className={itemCls}
+                    >
+                      {content}
+                    </a>
+                  );
+                }
+
                 return (
                   <Link
                     key={item.href + item.label}
                     href={item.href}
                     onClick={onClose}
                     title={label}
-                    className={[
-                      'flex items-center gap-2 rounded-lg transition-colors',
-                      'py-2.5 md:py-[6px]',
-                      open ? 'justify-start' : 'justify-center',
-                      'md:justify-start',
-                      item.indent
-                        ? `${open ? 'pl-7 pr-2' : 'px-2'} md:pl-7 md:pr-2`
-                        : 'px-2',
-                      active
-                        ? 'bg-white/10 text-white font-medium'
-                        : 'text-white/45 hover:text-white/75 hover:bg-white/[0.05]',
-                    ].join(' ')}
+                    className={itemCls}
                   >
-                    <Icon size={14} className="flex-shrink-0" />
-                    <span className={`truncate text-[12.5px] whitespace-nowrap ${labelCls}`}>
-                      {label}
-                    </span>
+                    {content}
                   </Link>
                 );
               })}
