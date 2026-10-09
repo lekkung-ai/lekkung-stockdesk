@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-09T16:41:41.392580+07:00",
+  "generatedAt": "2026-10-09T18:17:20.891858+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 9,
+      "count": 8,
       "top3": [
         {
           "ticker": "KGI",
@@ -119,7 +119,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.22,
-      "drift_d1_pct": 0.55,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -986,37 +986,6 @@
       "drift_d1_pct": -2.27,
       "drift_d2_pct": -1.7,
       "drift_d5_pct": -0.57
-    },
-    {
-      "ticker": "TTB",
-      "sector": "Financials",
-      "subsector": "Banking",
-      "market": "SET",
-      "announceDate": "2026-08-25T17:03:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 5512966000.0,
-      "netProfitPrior": 5004268000.0,
-      "netProfitYoY": 10.16528291450418,
-      "netProfitPriorQ": 5512966000.0,
-      "netProfitQoQ": 0.0,
-      "profitAcceleration": "stable",
-      "eps": 0.06,
-      "epsPrior": 0.05,
-      "epsYoY": 19.99999999999999,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106514501&symbol=TTB",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17876150424001&symbol=TTB",
-      "mdaUrl": null,
-      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.69,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.69,
-      "drift_d5_pct": 3.45
     }
   ],
   "calendar": [
@@ -1226,12 +1195,6 @@
       "date": "2026-08-21T08:42:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
-    },
-    {
-      "ticker": "TTB",
-      "date": "2026-08-25T17:03:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "KTB",
@@ -3583,6 +3546,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-12T08:47:00+07:00"
+    },
+    {
+      "ticker": "TTB",
+      "date": "2026-11-12T12:32:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-12T12:32:00+07:00"
     },
     {
       "ticker": "PRAKIT",
