@@ -11,6 +11,7 @@ import rawWeinstein from '@/data/scans/weinstein.json';
 import { scanGeneratedAt } from '@/lib/scanData';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
+import { compareNullLast } from '@/lib/sepaTier';
 import { useLivePrices } from '@/lib/useLivePrices';
 import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
@@ -78,10 +79,16 @@ const chg30dMap = new Map<string, number | null>(
   (rawStageAll as unknown as StageAllEntry[]).map(r => [r.Ticker, r.Chg30D ?? null])
 );
 
-// 52W High/Low map — weinstein.json covers ~all SET tickers
+// 52W High/Low map — weinstein.json covers ~all SET tickers · new listings (< 1 year of bars) have
+// 52W_High / 52W_Low = null → left out of the map so the cells show "—" (was a null .toFixed crash)
+const finiteNum = (v: unknown): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null);
 const w52Map = new Map<string, { high: number; low: number }>(
-  (rawWeinstein as unknown as { Ticker: string; '52W_High': number; '52W_Low': number }[])
-    .map(w => [w.Ticker, { high: w['52W_High'], low: w['52W_Low'] }])
+  (rawWeinstein as unknown as { Ticker: string; '52W_High': number | null; '52W_Low': number | null }[])
+    .flatMap(w => {
+      const high = finiteNum(w['52W_High']);
+      const low = finiteNum(w['52W_Low']);
+      return high != null && low != null ? [[w.Ticker, { high, low }] as const] : [];
+    })
 );
 
 // ─── Row type & helpers ────────────────────────────────────────────────────────
@@ -104,8 +111,8 @@ function getEntry(ppbp: boolean, sepa: boolean, kell: boolean, breakout: boolean
 
 // ── 52WH distance: (Close - 52W_High) / 52W_High, as a % (0 = ที่ high พอดี) ──
 
-function pctFromHigh(price: number, high: number | undefined): number | null {
-  if (high == null || high <= 0) return null;
+function pctFromHigh(price: number | null | undefined, high: number | null | undefined): number | null {
+  if (price == null || !Number.isFinite(price) || high == null || high <= 0) return null;
   return ((price - high) / high) * 100;
 }
 
@@ -186,28 +193,25 @@ function QuantScannerContent() {
       filtered = filtered.filter(r => r.stage !== null && stages.has(r.stage));
     }
 
+    // every numeric column: missing values (null / NaN) sort last in both directions (compareNullLast)
     return [...filtered].sort((a, b) => {
       if (sortConfig) {
         if (sortConfig.key === 'price') {
-          const aPrice = priceMap[a.ticker] ?? a.price;
-          const bPrice = priceMap[b.ticker] ?? b.price;
-          return sortConfig.dir === 'asc' ? aPrice - bPrice : bPrice - aPrice;
+          return compareNullLast(priceMap[a.ticker] ?? a.price, priceMap[b.ticker] ?? b.price, sortConfig.dir);
         }
         if (sortConfig.key === 'chg1d') {
-          const aChg = changePctMap[a.ticker] ?? -999;
-          const bChg = changePctMap[b.ticker] ?? -999;
-          return sortConfig.dir === 'asc' ? aChg - bChg : bChg - aChg;
+          return compareNullLast(changePctMap[a.ticker], changePctMap[b.ticker], sortConfig.dir);
         }
         if (sortConfig.key === 'dist52wh') {
-          const aPrice = priceMap[a.ticker] ?? a.price;
-          const bPrice = priceMap[b.ticker] ?? b.price;
-          const aDist = pctFromHigh(aPrice, w52Map.get(a.ticker)?.high) ?? -999;
-          const bDist = pctFromHigh(bPrice, w52Map.get(b.ticker)?.high) ?? -999;
-          return sortConfig.dir === 'asc' ? aDist - bDist : bDist - aDist;
+          const aDist = pctFromHigh(priceMap[a.ticker] ?? a.price, w52Map.get(a.ticker)?.high);
+          const bDist = pctFromHigh(priceMap[b.ticker] ?? b.price, w52Map.get(b.ticker)?.high);
+          return compareNullLast(aDist, bDist, sortConfig.dir);
         }
         if (sortConfig.key === 'stage') {
-           const aStage = a.stage ? ALL_STAGES.indexOf(a.stage) : 99;
-           const bStage = b.stage ? ALL_STAGES.indexOf(b.stage) : 99;
+           // unknown labels (e.g. IPO) after known stages, null last — indexOf -1 used to sort them first
+           const stageIdx = (st: string | null) => (st ? (ALL_STAGES.includes(st) ? ALL_STAGES.indexOf(st) : 98) : 99);
+           const aStage = stageIdx(a.stage);
+           const bStage = stageIdx(b.stage);
            return sortConfig.dir === 'asc' ? aStage - bStage : bStage - aStage;
         }
         const aVal = (a as any)[sortConfig.key];
@@ -215,7 +219,7 @@ function QuantScannerContent() {
         if (typeof aVal === 'string' && typeof bVal === 'string') {
           return sortConfig.dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
         }
-        return sortConfig.dir === 'asc' ? (aVal || 0) - (bVal || 0) : (bVal || 0) - (aVal || 0);
+        return compareNullLast(aVal, bVal, sortConfig.dir);
       }
       
       const ed = ENTRY_ORDER[a.entry] - ENTRY_ORDER[b.entry];
@@ -470,7 +474,7 @@ function QuantScannerContent() {
 
                 <Td right mono>
                   <span className={isStale ? 'text-white/40' : 'text-white'}>
-                    {displayPrice.toFixed(2)}
+                    {displayPrice != null && Number.isFinite(displayPrice) ? displayPrice.toFixed(2) : '—'}
                   </span>
                 </Td>
 
