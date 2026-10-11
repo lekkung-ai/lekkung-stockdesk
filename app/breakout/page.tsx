@@ -302,7 +302,8 @@ function BreakoutContent() {
                 </Td>
                 <Td right mono className="hidden min-[1201px]:table-cell">{s['ADTV(MB)'].toFixed(0)}</Td>
                 <Td right mono className="hidden min-[1201px]:table-cell">
-                  <span className="text-[#1D9E75]">+{s.SMA150_Chg.toFixed(2)}%</span>
+                  {/* sign + colour from the value: a negative slope used to render as a green "+-0.02%" */}
+                  <span className={s.SMA150_Chg >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}>{s.SMA150_Chg >= 0 ? '+' : ''}{s.SMA150_Chg.toFixed(2)}%</span>
                 </Td>
               </tr>
               {activeTicker === s.Ticker && (

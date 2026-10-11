@@ -258,7 +258,11 @@ function MoverPanel({ title, accentColor, items, loading, volMode, onSymbol, cha
                           <span className="text-[#1D9E75]">{w52.low.toFixed(2)}</span>
                         </div>
                       ) : (
-                        <span className="text-white/20 text-[12px]">—</span>
+                        // two lines like the high/low pair, so rows without 52W data (e.g. QHOP) keep the same height
+                        <div className="flex flex-col items-end leading-tight text-[11px] tabular-nums">
+                          <span className="text-white/20">—</span>
+                          <span className="invisible" aria-hidden>0</span>
+                        </div>
                       )}
                     </td>
                     <td className="px-2 text-[13px] text-white/50 text-right tabular-nums hidden md:table-cell" style={{ paddingTop: 12, paddingBottom: 12 }}>
