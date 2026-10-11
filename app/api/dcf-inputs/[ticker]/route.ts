@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server';
 import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ ticker: string }> }
 ) {
   const { ticker } = await context.params;
@@ -41,6 +41,9 @@ export async function GET(
     const row = json.data?.[0]?.d;
 
     if (!row) {
+      // ?soft=1 (stock page): "no data" is a normal answer, not a 404 that the browser logs as a console error.
+      // The /valuation pages keep the 404 (they show their own message from it).
+      if (req.nextUrl.searchParams.get('soft') === '1') return Response.json({ ticker: symbol, noData: true });
       return Response.json({ error: 'no_data' }, { status: 404 });
     }
 

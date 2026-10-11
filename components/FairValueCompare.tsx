@@ -139,7 +139,7 @@ export function buildRelativeMethods(ticker: string): FairValueMethod[] {
 // เลขติดลบ/ศูนย์ แล้วได้มูลค่าติดลบหรืออนันต์)
 export interface DdmInputs { price: number | null; dps: number | null; dividendYield: number | null }
 
-export function buildDdmMethod(ticker: string, inputs: DdmInputs | null, loading: boolean): FairValueMethod {
+export function buildDdmMethod(ticker: string, inputs: DdmInputs | null, loading: boolean, noData = false): FairValueMethod {
   const href = `/valuation/ddm?ticker=${encodeURIComponent(ticker)}`;
   const base: Omit<FairValueMethod, 'fair' | 'ineligible' | 'sublabel'> = {
     key: 'ddm',
@@ -147,6 +147,7 @@ export function buildDdmMethod(ticker: string, inputs: DdmInputs | null, loading
     href,
   };
   if (loading) return { ...base, sublabel: 'กำลังโหลดข้อมูลปันผล...', fair: null, ineligible: 'กำลังโหลด...' };
+  if (noData) return { ...base, sublabel: 'Gordon Growth', fair: null, ineligible: 'ไม่มีข้อมูล' };
   if (!inputs) return { ...base, sublabel: 'Gordon Growth', fair: null, ineligible: 'ดึงข้อมูลปันผลไม่ได้' };
 
   const dps = inputs.dps;
@@ -195,7 +196,7 @@ function dcfFairValue(fcf: number, netDebt: number, shares: number, waccPct: num
   return Number.isFinite(fair) ? fair : null;
 }
 
-export function buildDcfMethod(ticker: string, inputs: DcfInputs | null, loading: boolean): FairValueMethod {
+export function buildDcfMethod(ticker: string, inputs: DcfInputs | null, loading: boolean, noData = false): FairValueMethod {
   const href = `/valuation/dcf?ticker=${encodeURIComponent(ticker)}`;
   const base = { key: 'dcf', label: 'DCF (กระแสเงินสด)', href };
 
@@ -210,6 +211,7 @@ export function buildDcfMethod(ticker: string, inputs: DcfInputs | null, loading
   }
 
   if (loading) return { ...base, sublabel: 'กำลังโหลดงบกระแสเงินสด...', fair: null, ineligible: 'กำลังโหลด...', band: null };
+  if (noData) return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'ไม่มีข้อมูล', band: null };
   if (!inputs) return { ...base, sublabel: '2-Stage DCF', fair: null, ineligible: 'ดึงข้อมูล FCF ไม่ได้', band: null };
 
   const { fcf, netDebt, shares } = inputs;
@@ -380,16 +382,20 @@ export default function FairValueCompare({
 }) {
   const [ddmInputs, setDdmInputs] = useState<DdmInputs | null>(null);
   const [ddmLoading, setDdmLoading] = useState(true);
+  const [ddmNoData, setDdmNoData] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     setDdmLoading(true);
     setDdmInputs(null);
-    fetch(`/api/ddm-inputs/${encodeURIComponent(ticker)}`)
+    setDdmNoData(false);
+    // soft=1: a ticker TradingView doesn't have comes back 200 { noData } — no 404 in the console
+    fetch(`/api/ddm-inputs/${encodeURIComponent(ticker)}?soft=1`)
       .then(r => (r.ok ? r.json() : null))
       .then(data => {
         if (cancelled) return;
-        if (data && !data.error) setDdmInputs({ price: data.price ?? null, dps: data.dps ?? null, dividendYield: data.dividendYield ?? null });
+        if (data?.noData) setDdmNoData(true);
+        else if (data && !data.error) setDdmInputs({ price: data.price ?? null, dps: data.dps ?? null, dividendYield: data.dividendYield ?? null });
         setDdmLoading(false);
       })
       .catch(() => { if (!cancelled) setDdmLoading(false); });
@@ -398,16 +404,19 @@ export default function FairValueCompare({
 
   const [dcfInputs, setDcfInputs] = useState<DcfInputs | null>(null);
   const [dcfLoading, setDcfLoading] = useState(true);
+  const [dcfNoData, setDcfNoData] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     setDcfLoading(true);
     setDcfInputs(null);
-    fetch(`/api/dcf-inputs/${encodeURIComponent(ticker)}`)
+    setDcfNoData(false);
+    fetch(`/api/dcf-inputs/${encodeURIComponent(ticker)}?soft=1`)
       .then(r => (r.ok ? r.json() : null))
       .then(data => {
         if (cancelled) return;
-        if (data && !data.error) {
+        if (data?.noData) setDcfNoData(true);
+        else if (data && !data.error) {
           setDcfInputs({ price: data.price ?? null, fcf: data.fcf ?? null, netDebt: data.netDebt ?? null, shares: data.shares ?? null });
         }
         setDcfLoading(false);
@@ -418,8 +427,8 @@ export default function FairValueCompare({
 
   const relative = useMemo(() => buildRelativeMethods(ticker), [ticker]);
   const sectorSpread = useMemo(() => getSectorSpread(ticker), [ticker]);
-  const ddm = buildDdmMethod(ticker, ddmInputs, ddmLoading);
-  const dcf = buildDcfMethod(ticker, dcfInputs, dcfLoading);
+  const ddm = buildDdmMethod(ticker, ddmInputs, ddmLoading, ddmNoData);
+  const dcf = buildDcfMethod(ticker, dcfInputs, dcfLoading, dcfNoData);
   const methods = [...relative, ddm, dcf];
 
   const offlinePrice = getStockValuation(ticker)?.price ?? null;
