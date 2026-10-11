@@ -8,6 +8,7 @@ import StaleDataBanner from '@/components/StaleDataBanner';
 import ScanWarningBanner from '@/components/ScanWarningBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -34,7 +35,7 @@ export default function OneilPage() {
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
-  const { priceMap, fetchDone } = useLivePrices(oneilData.map(s => s.Ticker));
+  const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(oneilData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('oneil')?.newTickers ?? []), []);
 
   const oneilHistory = useMemo(() => getScanHistory('oneil'), []);
@@ -121,7 +122,7 @@ export default function OneilPage() {
               (ครอบ iPad Air) โผล่ ≥1201 · แตะแถวดูค่าเต็มใน strip เหนือ chart */}
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
-            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W H/L</SortableTh>

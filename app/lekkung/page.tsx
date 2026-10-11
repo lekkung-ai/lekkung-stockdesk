@@ -6,6 +6,7 @@ import { daysInScan } from '@/lib/scanDays';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -38,7 +39,7 @@ export default function LekkungPage() {
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [historyInitialTicker, setHistoryInitialTicker] = useState<string | null>(null);
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
-  const { priceMap, fetchDone } = useLivePrices(lekkungData.map(s => s.Ticker));
+  const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(lekkungData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('lekkung')?.newTickers ?? []), []);
 
   const lekkungHistory = useMemo(() => getScanHistory('lekkung'), []);
@@ -140,7 +141,7 @@ export default function LekkungPage() {
               เหลือ 7 คอลัมน์หลักพอดีจอ, แตะแถวดูค่าเต็มใน strip เหนือ chart */}
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
-            <SortableTh right sortKey="Close" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="Close" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>
             <SortableTh right sortKey="ROE" currentSort={sortConfig} onSort={handleSort}>ROE</SortableTh>

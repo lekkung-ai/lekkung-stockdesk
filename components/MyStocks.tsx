@@ -7,6 +7,7 @@ import { stockNames } from '@/lib/stockNames';
 import { peColor, roeColor } from '@/lib/utils';
 import { loadMyStockSymbols as loadSymbols, saveMyStockSymbols } from '@/lib/myStocks';
 import PriceChart from './PriceChart';
+import { tvPriceNote } from '@/lib/priceSource';
 
 type LivePrice = { price: number; changePercent: number };
 
@@ -241,7 +242,7 @@ function WatchRow({
         <div className="text-right flex-shrink-0 self-start pt-0.5">
           {live ? (
             <>
-              <p className="text-[16px] font-semibold text-white">{live.price.toFixed(2)}</p>
+              <p className="text-[16px] font-semibold text-white" title={tvPriceNote()}>{live.price.toFixed(2)}</p>
               <p className={`text-[12.5px] font-medium ${isPos ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
                 {isPos ? '+' : ''}{change.toFixed(2)}%
               </p>
@@ -316,7 +317,7 @@ function StockDetail({ symbol, market }: { symbol: string; market: string }) {
           <div className="text-right flex-shrink-0">
             {quote ? (
               <>
-                <p className="text-[19px] font-bold text-white leading-none">{quote.price.toFixed(2)}</p>
+                <p className="text-[19px] font-bold text-white leading-none" title="ราคา Yahoo Finance · ล่าช้าราว 15 นาที">{quote.price.toFixed(2)}</p>
                 <p className={`text-[11.5px] font-medium mt-1 ${isPos ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
                   {isPos ? '+' : ''}{changeAmt.toFixed(2)} ({isPos ? '+' : ''}{quote.change1d.toFixed(2)}%)
                 </p>

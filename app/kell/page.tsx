@@ -9,6 +9,7 @@ import StaleDataBanner from '@/components/StaleDataBanner';
 import ScanWarningBanner from '@/components/ScanWarningBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -111,7 +112,7 @@ function KellContent() {
   const [sortMode, setSortMode] = useState<SortMode>('tight');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
-  const { priceMap, fetchDone } = useLivePrices(kellData.map(s => s.Ticker));
+  const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(kellData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('kell')?.newTickers ?? []), []);
 
   const kellHistory = useMemo(() => getScanHistory('kell'), []);
@@ -325,7 +326,7 @@ function KellContent() {
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh sortKey="Signal" currentSort={sortConfig} onSort={handleSort}>Signal</SortableTh>
-            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="EMA10" currentSort={sortConfig} onSort={handleSort}>EMA10</SortableTh>

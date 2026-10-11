@@ -5,10 +5,12 @@ export function useLivePrices(tickers: string[]): {
   priceMap: Record<string, number>;
   changePctMap: Record<string, number>;
   fetchDone: boolean;
+  fetchedAt: string | null; // ISO time the prices arrived (null = not loaded / failed)
 } {
   const [priceMap, setPriceMap] = useState<Record<string, number>>({});
   const [changePctMap, setChangePctMap] = useState<Record<string, number>>({});
   const [fetchDone, setFetchDone] = useState(false);
+  const [fetchedAt, setFetchedAt] = useState<string | null>(null);
   const symbols = useRef(formatSymbolsQuery(tickers));
 
   useEffect(() => {
@@ -30,11 +32,12 @@ export function useLivePrices(tickers: string[]): {
           }
           setPriceMap(pm);
           setChangePctMap(cm);
+          setFetchedAt(new Date().toISOString());
         }
       })
       .catch(() => {})
       .finally(() => setFetchDone(true));
   }, []);
 
-  return { priceMap, changePctMap, fetchDone };
+  return { priceMap, changePctMap, fetchDone, fetchedAt };
 }

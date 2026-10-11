@@ -6,6 +6,7 @@ import rawSectorMap from '@/data/scans/sector_map.json';
 import rawCombined from '@/data/scans/combined.json';
 import rawWeinstein from '@/data/scans/weinstein.json';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 
 // All columns come from data already loaded elsewhere in the app (sector_map,
 // combined, weinstein scan JSONs) plus the same live-price hook used on the
@@ -114,7 +115,7 @@ export default function PeerComparisonTable({
   // (see StockDetailPage) — useLivePrices captures its symbol list once via
   // useRef, so without a remount it would keep showing the previous ticker's
   // peer-group prices after navigating between stock pages.
-  const { priceMap, changePctMap } = useLivePrices(peers);
+  const { priceMap, changePctMap, fetchedAt: pricesAt } = useLivePrices(peers);
 
   const rows: Row[] = useMemo(() => {
     return peers.map(t => {
@@ -190,11 +191,12 @@ export default function PeerComparisonTable({
     }
   }
 
-  function SortTh({ label, k, className = '' }: { label: string; k: SortKey; className?: string }) {
+  function SortTh({ label, k, className = '', title }: { label: string; k: SortKey; className?: string; title?: string }) {
     const active = sortKey === k;
     return (
       <th
         onClick={() => handleSort(k)}
+        title={title}
         className={`px-3 py-2 text-label font-semibold cursor-pointer select-none whitespace-nowrap transition-colors ${
           active ? 'text-white/70' : 'text-meta hover:text-white/70'
         } ${className}`}
@@ -293,7 +295,7 @@ export default function PeerComparisonTable({
           <thead>
             <tr className="border-b border-white/[0.06]">
               <SortTh label="Ticker" k="ticker" />
-              <SortTh label="Close / 1D%" k="price" />
+              <SortTh label="Close / 1D%" k="price" title={livePriceTitle(pricesAt)} />
               <SortTh label="RS" k="rs" />
               <SortTh label="Stage" k="stage" />
               <SortTh label="%52WH" k="dist52wh" />

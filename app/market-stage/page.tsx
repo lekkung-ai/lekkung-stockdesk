@@ -7,6 +7,7 @@ import { getScanGeneratedAt, hasScanKey } from '@/lib/scanGeneratedAt';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -108,7 +109,7 @@ function MarketStageContent() {
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
-  const { priceMap, fetchDone } = useLivePrices(stageData.map(s => s.Ticker));
+  const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(stageData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('market-stage')?.newTickers ?? []), []);
   const tableTopRef = useRef<HTMLDivElement>(null);
 
@@ -295,7 +296,7 @@ function MarketStageContent() {
               เก็บ Stage + Days In Stage ที่เป็นหัวใจของหน้านี้ · strip ใน expand */}
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
-            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh sortKey="Stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <SortableTh right sortKey="Bar_Count" currentSort={sortConfig} onSort={handleSort}>Days In Stage</SortableTh>

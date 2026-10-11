@@ -10,6 +10,7 @@ import StaleDataBanner from '@/components/StaleDataBanner';
 import ScanWarningBanner from '@/components/ScanWarningBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -251,7 +252,7 @@ function SepaContent() {
   const [sortMode, setSortMode] = useState<SortMode>('composite');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
-  const { priceMap, fetchDone } = useLivePrices(sepaData.map(s => s.Ticker));
+  const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(sepaData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('sepa')?.newTickers ?? []), []);
 
   const sepaHistory = useMemo(() => getScanHistory('sepa'), []);
@@ -491,7 +492,7 @@ function SepaContent() {
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="__score" currentSort={sortConfig} onSort={handleSort}>Score</SortableTh>
-            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>

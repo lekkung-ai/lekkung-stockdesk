@@ -6,6 +6,7 @@ import NewListingBadge from '@/components/NewListingBadge';
 import type { ScanEntry } from '@/lib/scanData';
 import rsRaw from '@/data/scans/rs_ranking.json';
 import stageRaw from '@/data/scans/stage_all.json';
+import { livePriceTitle } from '@/lib/priceSource';
 import {
   TableWrap,
   Th,
@@ -41,6 +42,7 @@ const STAGE_ORDER: Record<string, number> = {
 
 export default function SectorTickerTable({ subsectors }: { subsectors: SubsectorData[] }) {
   const [priceMap, setPriceMap] = useState<Record<string, LivePrice>>({});
+  const [pricesAt, setPricesAt] = useState<string | null>(null);
   const [sortBySub, setSortBySub] = useState<Record<string, SortConfig>>({});
 
   useEffect(() => {
@@ -49,7 +51,10 @@ export default function SectorTickerTable({ subsectors }: { subsectors: Subsecto
     fetch(`/api/prices?symbols=${allTickers.map(t => encodeURIComponent(t)).join(',')}`)
       .then(r => r.json())
       .then(json => {
-        if (json.prices) setPriceMap(json.prices);
+        if (json.prices) {
+          setPriceMap(json.prices);
+          setPricesAt(new Date().toISOString());
+        }
       })
       .catch(() => {});
   }, [subsectors]);
@@ -123,7 +128,7 @@ export default function SectorTickerTable({ subsectors }: { subsectors: Subsecto
                   <SortableTh sortKey="ticker" currentSort={currentSort} onSort={k => handleSort(sub.subsector, k)}>
                     Symbol
                   </SortableTh>
-                  <SortableTh right sortKey="price" currentSort={currentSort} onSort={k => handleSort(sub.subsector, k)}>
+                  <SortableTh right sortKey="price" currentSort={currentSort} onSort={k => handleSort(sub.subsector, k)} title={livePriceTitle(pricesAt)}>
                     ราคา
                   </SortableTh>
                   <SortableTh right sortKey="chg" currentSort={currentSort} onSort={k => handleSort(sub.subsector, k)}>

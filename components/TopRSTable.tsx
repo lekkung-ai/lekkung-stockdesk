@@ -2,6 +2,7 @@
 
 import TopRSRow, { type RSSignals } from './TopRSRow';
 import { useMarketQuotes } from '@/lib/useMarketQuotes';
+import { tvPriceNote } from '@/lib/priceSource';
 
 export interface TopRSRowData {
   ticker: string;
@@ -19,7 +20,7 @@ interface TopRSTableProps {
 export default function TopRSTable({ rows }: TopRSTableProps) {
   // 1D% from /api/market-quotes (one TradingView call for all of sector_map, server-cached 60s) —
   // /api/prices is unreliable for this table. No quote / fetch failed → ChangeBadge shows "—".
-  const { quotes } = useMarketQuotes();
+  const { quotes, fetchedAt } = useMarketQuotes();
 
   return (
     <div className="overflow-x-auto">
@@ -30,7 +31,7 @@ export default function TopRSTable({ rows }: TopRSTableProps) {
             <th className="text-left px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider">Ticker</th>
             <th className="text-left px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider">Stage</th>
             <th className="text-left px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider">Signals</th>
-            <th className="text-right px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider whitespace-nowrap">1D%</th>
+            <th className="text-right px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider whitespace-nowrap" title={tvPriceNote(fetchedAt)}>1D%</th>
             <th className="text-right px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider">RS</th>
             <th className="text-left px-4 py-2.5 text-[10px] font-semibold text-white/25 uppercase tracking-wider hidden sm:table-cell">Trend</th>
           </tr>

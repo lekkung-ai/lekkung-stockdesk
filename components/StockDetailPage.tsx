@@ -406,7 +406,7 @@ export default function StockDetailPage({
           </div>
           {/* Live price */}
           <div className="flex items-baseline gap-2">
-            <span className="text-stat-lg text-ink font-semibold tabular-nums">
+            <span className="text-stat-lg text-ink font-semibold tabular-nums" title={quote ? 'ราคา Yahoo Finance · ล่าช้าราว 15 นาที' : 'ราคาปิด ณ วันสแกน (ดึงราคาสดไม่ได้)'}>
               {quote ? quote.price.toFixed(2) : (combinedEntry?.price.toFixed(2) ?? '—')}
             </span>
             {quote && (

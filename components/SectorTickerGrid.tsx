@@ -6,6 +6,7 @@ import NewListingBadge from '@/components/NewListingBadge';
 import type { ScanEntry } from '@/lib/scanData';
 import rsRaw from '@/data/scans/rs_ranking.json';
 import stageRaw from '@/data/scans/stage_all.json';
+import { tvPriceNote } from '@/lib/priceSource';
 
 type LivePrice = { price: number; changePercent: number };
 type TickerWithScan = { ticker: string; scan: ScanEntry | null };
@@ -281,7 +282,7 @@ export default function SectorTickerGrid({
                       <div className="text-right flex-shrink-0">
                         {live ? (
                           <>
-                            <div className="text-[17px] font-medium text-white tabular-nums leading-tight">
+                            <div className="text-[17px] font-medium text-white tabular-nums leading-tight" title={tvPriceNote()}>
                               {live.price.toFixed(2)}
                             </div>
                             <div className={`text-[12px] font-medium tabular-nums leading-tight ${live.changePercent >= 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
@@ -289,7 +290,7 @@ export default function SectorTickerGrid({
                             </div>
                           </>
                         ) : scan ? (
-                          <span className="text-[17px] font-medium text-white/40 tabular-nums">
+                          <span className="text-[17px] font-medium text-white/40 tabular-nums" title="ราคาปิด ณ วันสแกน (ดึงราคาสดไม่ได้)">
                             {scan.price.toFixed(2)}
                           </span>
                         ) : (

@@ -12,6 +12,7 @@ import { scanGeneratedAt } from '@/lib/scanData';
 import StaleDataBanner from '@/components/StaleDataBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -158,7 +159,7 @@ function QuantScannerContent() {
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<'table' | 'scatter'>('table');
-  const { priceMap, changePctMap, fetchDone } = useLivePrices(allRows.map(r => r.ticker));
+  const { priceMap, changePctMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(allRows.map(r => r.ticker));
 
   const allStagesSelected = stages.size === ALL_STAGES.length;
 
@@ -366,7 +367,7 @@ function QuantScannerContent() {
             <SortableTh sortKey="ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh sortKey="stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <Th>Signals</Th>
-            <SortableTh right sortKey="price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="chg1d" currentSort={sortConfig} onSort={handleSort}>1D%</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="chg30d" currentSort={sortConfig} onSort={handleSort}>30D%</SortableTh>
             <Th right className="hidden min-[1201px]:table-cell">52W H/L</Th>

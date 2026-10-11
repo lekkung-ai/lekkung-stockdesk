@@ -22,6 +22,16 @@ const BANGKOK_PARTS = new Intl.DateTimeFormat('en-US', {
   hourCycle: 'h23',
 });
 
+/** "HH:MM" in Asia/Bangkok (same on a UTC server and in the browser), '' when the time is unknown. */
+export function formatBangkokHHMM(iso: string | null | undefined): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  const p: Record<string, string> = {};
+  for (const { type, value } of BANGKOK_PARTS.formatToParts(d)) p[type] = value;
+  return `${p.hour.padStart(2, '0')}:${p.minute.padStart(2, '0')}`;
+}
+
 export function formatThaiDate(iso: string | null | undefined): string {
   if (!iso) return 'ไม่ทราบวันที่อัปเดต';
   try {

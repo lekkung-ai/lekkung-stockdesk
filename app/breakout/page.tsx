@@ -8,6 +8,7 @@ import StaleDataBanner from '@/components/StaleDataBanner';
 import ScanWarningBanner from '@/components/ScanWarningBanner';
 import { formatThaiDate } from '@/lib/utils';
 import { useLivePrices } from '@/lib/useLivePrices';
+import { livePriceTitle } from '@/lib/priceSource';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -40,7 +41,7 @@ export default function BreakoutPage() {
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
-  const { priceMap, fetchDone } = useLivePrices(breakoutData.map(s => s.Ticker));
+  const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(breakoutData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('breakout')?.newTickers ?? []), []);
   const breakoutHistory = useMemo(() => getScanHistory('breakout'), []);
 
@@ -181,7 +182,7 @@ export default function BreakoutPage() {
               เก็บ Break Price + %To Break + Box Width ที่เป็นหัวใจ Breakout · strip ใน expand */}
           <tr>
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
-            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort}>Price</SortableTh>
+            <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <Th right>Trend</Th>
             <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
             <SortableTh right sortKey="Box_High(Break)" currentSort={sortConfig} onSort={handleSort}>Break Price</SortableTh>

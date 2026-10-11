@@ -98,10 +98,12 @@ export function SortableTh({
   sortKey,
   currentSort,
   onSort,
+  title,
 }: {
   children: ReactNode;
   right?: boolean;
   className?: string;
+  title?: string; // tooltip, e.g. where a price column comes from
   sortKey: string;
   currentSort: SortConfig;
   onSort: (key: string) => void;
@@ -112,6 +114,7 @@ export function SortableTh({
   return (
     <th
       onClick={() => onSort(sortKey)}
+      title={title}
       className={`px-3 py-2.5 text-label font-semibold uppercase tracking-wider whitespace-nowrap cursor-pointer hover:text-white/60 transition-colors select-none ${
         right ? 'text-right' : 'text-left'
       } ${isSorted ? 'text-white/80' : 'text-white/35'} ${className ?? ''}`}
