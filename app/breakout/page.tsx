@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { LIQ_DEFAULT, LIQ_LABELS, LIQ_SETS, inLiqSet, parseLiq, type LiqSet } from '@/lib/liquidity';
 import { breakoutData } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
@@ -31,10 +33,32 @@ import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 import NewsFlagBadges from '@/components/NewsFlagBadges';
 
+// ADTV ของหุ้นเป็นตัวเลขจางใต้ชื่อ (แบบ /kell /sepa) — คอลัมน์ ADTV ซ่อนที่จอ ≤1200px
+// Breakout คำนวณ ADTV เฉลี่ย 50 วัน (scan_weinstein_breakout.py)
+function AdtvCaption({ adtvMb }: { adtvMb: number | null | undefined }) {
+  if (adtvMb == null) return null;
+  return (
+    <div className="text-[10px] text-white/30 tabular-nums" title="ADTV เฉลี่ย 50 วัน (ล้านบาท/วัน)">
+      ADTV {adtvMb.toFixed(1)} MB
+    </div>
+  );
+}
+
+// useSearchParams (?liq=) ต้องอยู่ใน Suspense ตอน prerender — แบบเดียวกับ /kell
 export default function BreakoutPage() {
+  return (
+    <Suspense fallback={null}>
+      <BreakoutContent />
+    </Suspense>
+  );
+}
+
+function BreakoutContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const liq: LiqSet = parseLiq(searchParams.get('liq'));
   const [toBreakMax, setToBreakMax] = useState(10);
   const [boxWidthMax, setBoxWidthMax] = useState(20);
-  const [adtvMin, setAdtvMin] = useState(0);
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>(null);
   const [mode, setMode] = useState<'today' | 'history'>('today');
@@ -60,9 +84,14 @@ export default function BreakoutPage() {
     setBoxWidthMax(val);
   };
 
-  const handleAdtvChange = (val: number) => {
+  // ?liq= ใน URL ให้ refresh / แชร์ลิงก์แล้วได้ชุดเดิม · ค่าเริ่มต้น (high) ไม่ใส่ใน URL
+  const handleLiqChange = (val: LiqSet) => {
     setCurrentPage(1);
-    setAdtvMin(val);
+    const params = new URLSearchParams(searchParams.toString());
+    if (val === LIQ_DEFAULT) params.delete('liq');
+    else params.set('liq', val);
+    const qs = params.toString();
+    router.replace(qs ? `/breakout?${qs}` : '/breakout', { scroll: false });
   };
 
   const handleDiffFilterChange = (val: DiffFilter) => {
@@ -70,12 +99,22 @@ export default function BreakoutPage() {
     setDiffFilter(val);
   };
 
-  const filtered = useMemo(() => {
-    let result = breakoutData
+  // ตัวกรองอื่นก่อนชุดสภาพคล่อง — จำนวนบนปุ่มแต่ละชุดนับจากตรงนี้
+  const preLiq = useMemo(
+    () => breakoutData
       .filter(s => s['To_Break'] <= toBreakMax)
       .filter(s => s['Box_Width'] <= boxWidthMax)
-      .filter(s => adtvMin === 0 || (s['ADTV(MB)'] || 0) >= adtvMin)
-      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker));
+      .filter(s => diffFilter !== 'new' || newSet.has(s.Ticker)),
+    [toBreakMax, boxWidthMax, diffFilter, newSet],
+  );
+  const liqCounts = useMemo(() => {
+    const c: Record<LiqSet, number> = { all: 0, high: 0, mid: 0, low: 0 };
+    for (const s of preLiq) for (const k of LIQ_SETS) if (inLiqSet(s['ADTV(MB)'], k)) c[k]++;
+    return c;
+  }, [preLiq]);
+
+  const filtered = useMemo(() => {
+    let result = preLiq.filter(s => inLiqSet(s['ADTV(MB)'], liq));
 
     if (sortConfig) {
       result = result.sort((a, b) => {
@@ -95,11 +134,11 @@ export default function BreakoutPage() {
       result = result.sort((a, b) => a['To_Break'] - b['To_Break']);
     }
     return result;
-  }, [toBreakMax, boxWidthMax, adtvMin, sortConfig, diffFilter, newSet]);
+  }, [preLiq, liq, sortConfig]);
 
   const { isMobile, visibleRows, visibleCount, totalCount, sentinelRef } = useInfiniteRows(
     filtered,
-    [toBreakMax, boxWidthMax, adtvMin, sortConfig, diffFilter, newSet]
+    [toBreakMax, boxWidthMax, liq, sortConfig, diffFilter, newSet]
   );
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
@@ -163,7 +202,21 @@ export default function BreakoutPage() {
           dir="lte"
         />
         <Divider />
-        <SliderField label="สภาพคล่องขั้นต่ำ ADTV (MB)" min={0} max={50} value={adtvMin} onChange={handleAdtvChange} step={5} />
+        <div className="flex items-center gap-1.5 flex-wrap" title="ชุดสภาพคล่องตาม ADTV (ลบ./วัน เฉลี่ย 50 วัน) · หุ้นที่ไม่มีค่า ADTV อยู่ในชุด ทั้งหมด เท่านั้น">
+          {LIQ_SETS.map(k => (
+            <button
+              key={k}
+              onClick={() => handleLiqChange(k)}
+              className={`px-2.5 py-1 rounded-lg text-label font-medium transition-all border ${
+                liq === k
+                  ? 'bg-[#7F77DD]/15 text-[#7F77DD] border-[#7F77DD]/30'
+                  : 'bg-white/[0.04] text-white/35 border-white/[0.06] hover:text-white/60'
+              }`}
+            >
+              {LIQ_LABELS[k]} ({liqCounts[k]})
+            </button>
+          ))}
+        </div>
         <span className="text-label text-white/25 ml-auto">
           ค่าติดลบ = broke แล้ว
         </span>
@@ -221,6 +274,7 @@ export default function BreakoutPage() {
                     {isActive && <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300">กำลังดูอยู่</span>}
                   </div>
                   <SectorChip ticker={s.Ticker} />
+                  <AdtvCaption adtvMb={s['ADTV(MB)']} />
                 </Td>
                 <Td right mono>
                   <LivePriceCell jsonPrice={s.Price} livePrice={priceMap[s.Ticker]} fetchDone={fetchDone} />

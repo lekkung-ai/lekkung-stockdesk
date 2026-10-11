@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, Suspense } from 'react';
+import { LIQ_DEFAULT, LIQ_LABELS, LIQ_SETS, inLiqSet, type LiqSet } from '@/lib/liquidity';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Check, X } from 'lucide-react';
 import { sepaData, SepaEntry } from '@/lib/strategyData';
@@ -114,28 +115,7 @@ function AdtvCaption({ adtvMb }: { adtvMb: number | null | undefined }) {
 // Composite score คำนวณครั้งเดียวต่อ row (sepaData คงที่ตลอด session) — ไม่ persist ลง JSON
 const SCORES = new Map(sepaData.map(s => [s.Ticker, sepaCompositeScore(s)]));
 
-// ชุดสภาพคล่องตาม ADTV(MB) (ลบ./วัน) — เลือกได้ทีละชุด ผูกกับ ?liq= ใน URL
-// ขอบเขต: สูง ≥ LIQ_HIGH_MB · กลาง LIQ_MID_MB ถึง < LIQ_HIGH_MB · ต่ำ < LIQ_MID_MB
-// หุ้นที่ไม่มีค่า ADTV อยู่ในชุด "ทั้งหมด" เท่านั้น · ADTV ของแต่ละตัวแสดงเป็นตัวเลขใต้ชื่อ (AdtvCaption)
-const LIQ_HIGH_MB = 6;
-const LIQ_MID_MB = 3;
-type LiqSet = 'all' | 'high' | 'mid' | 'low';
-const LIQ_SETS: LiqSet[] = ['all', 'high', 'mid', 'low'];
-const LIQ_DEFAULT: LiqSet = 'high';
-const LIQ_LABELS: Record<LiqSet, string> = {
-  all: 'ทั้งหมด',
-  high: `สูง ≥${LIQ_HIGH_MB} MB`,
-  mid: `กลาง ${LIQ_MID_MB}–${LIQ_HIGH_MB} MB`,
-  low: `ต่ำ <${LIQ_MID_MB} MB`,
-};
-
-function inLiqSet(adtv: number | null | undefined, set: LiqSet): boolean {
-  if (set === 'all') return true;
-  if (adtv == null) return false;
-  if (set === 'high') return adtv >= LIQ_HIGH_MB;
-  if (set === 'mid') return adtv >= LIQ_MID_MB && adtv < LIQ_HIGH_MB;
-  return adtv < LIQ_MID_MB;
-}
+// ชุดสภาพคล่อง (สูง / กลาง / ต่ำ ตาม ADTV) — ค่าคงที่ร่วมกับ /kell /sepa /breakout ใน lib/liquidity
 const FUND_PASS_COUNT = sepaData.filter(s => s.Fundamental_Pass === true).length;
 
 // ชั้น Shortlist (lib/sepaTier) — ผูกกับ ?tier= · ค่าเริ่มต้น all ไม่ใส่ใน URL · เกณฑ์อยู่ใน lib/sepaTier

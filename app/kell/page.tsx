@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, Suspense } from 'react';
+import { LIQ_DEFAULT, LIQ_LABELS, LIQ_SETS, inLiqSet, type LiqSet } from '@/lib/liquidity';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { kellData } from '@/lib/strategyData';
 import { daysInScan } from '@/lib/scanDays';
@@ -56,28 +57,7 @@ function AdtvCaption({ adtvMb }: { adtvMb: number | null | undefined }) {
 const RS_BY_TICKER = new Map(scanData.map(s => [s.ticker, s.rs_score]));
 const rsOf = (ticker: string): number | null => RS_BY_TICKER.get(ticker) ?? null;
 
-// ชุดสภาพคล่องตาม ADTV(MB) (ลบ./วัน) — เลือกได้ทีละชุด ผูกกับ ?liq= ใน URL (ค่าเดียวกับ /sepa)
-// ขอบเขต: สูง ≥ LIQ_HIGH_MB · กลาง LIQ_MID_MB ถึง < LIQ_HIGH_MB · ต่ำ < LIQ_MID_MB
-// หุ้นที่ไม่มีค่า ADTV อยู่ในชุด "ทั้งหมด" เท่านั้น · ADTV ของแต่ละตัวแสดงเป็นตัวเลขใต้ชื่อ (AdtvCaption)
-const LIQ_HIGH_MB = 6;
-const LIQ_MID_MB = 3;
-type LiqSet = 'all' | 'high' | 'mid' | 'low';
-const LIQ_SETS: LiqSet[] = ['all', 'high', 'mid', 'low'];
-const LIQ_DEFAULT: LiqSet = 'high';
-const LIQ_LABELS: Record<LiqSet, string> = {
-  all: 'ทั้งหมด',
-  high: `สูง ≥${LIQ_HIGH_MB} MB`,
-  mid: `กลาง ${LIQ_MID_MB}–${LIQ_HIGH_MB} MB`,
-  low: `ต่ำ <${LIQ_MID_MB} MB`,
-};
-
-function inLiqSet(adtv: number | null | undefined, set: LiqSet): boolean {
-  if (set === 'all') return true;
-  if (adtv == null) return false;
-  if (set === 'high') return adtv >= LIQ_HIGH_MB;
-  if (set === 'mid') return adtv >= LIQ_MID_MB && adtv < LIQ_HIGH_MB;
-  return adtv < LIQ_MID_MB;
-}
+// ชุดสภาพคล่อง (สูง / กลาง / ต่ำ ตาม ADTV) — ค่าคงที่ร่วมกับ /kell /sepa /breakout ใน lib/liquidity
 
 // Kell ไม่มีเกณฑ์ RS ในสแกน (RS ของหุ้นใน Kell มีตั้งแต่ 30 กว่าถึง 99 และเปลี่ยนทุกวัน) — ค่าต่ำสุด
 // ของ slider = ค่าเริ่มต้น = RS ต่ำสุดในข้อมูลวันนี้ (ปัดลง) → เปิดหน้ามาไม่ซ่อนหุ้นตัวไหน · ไม่มี RS เลย → 0
