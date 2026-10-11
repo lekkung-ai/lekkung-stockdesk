@@ -25,6 +25,10 @@ function DdmValuationContent() {
   const [growthStr, setGrowthStr] = useState<string>('4');
   const [rStr, setRStr] = useState<string>('10');
   const [priceStr, setPriceStr] = useState<string>('');
+  // Exact auto-filled values (e.g. 2.0999999046325684): the inputs show 2 decimals, the formula keeps
+  // the exact number until the user edits that field (then the typed value is used)
+  const [dpsExact, setDpsExact] = useState<number | null>(null);
+  const [priceExact, setPriceExact] = useState<number | null>(null);
 
   // Reference data from TradingView
   const [refYield, setRefYield] = useState<number | null>(null);
@@ -77,14 +81,16 @@ function DdmValuationContent() {
         const newAutoFilled: typeof autoFilledFields = {};
 
         if (data.dps != null && Number.isFinite(data.dps)) {
-          setDpsStr(data.dps.toString());
+          setDpsStr(data.dps.toFixed(2));
+          setDpsExact(data.dps);
           newAutoFilled.dps = true;
         } else {
           setDpsStr('');
         }
 
         if (data.price != null && Number.isFinite(data.price)) {
-          setPriceStr(data.price.toString());
+          setPriceStr(data.price.toFixed(2));
+          setPriceExact(data.price);
           newAutoFilled.price = true;
         } else {
           setPriceStr('');
@@ -122,10 +128,10 @@ function DdmValuationContent() {
   };
 
   // Parsed numerical parameters
-  const dps = parseFloat(dpsStr);
+  const dps = autoFilledFields.dps && dpsExact != null ? dpsExact : parseFloat(dpsStr);
   const growth = parseFloat(growthStr) / 100;
   const r = parseFloat(rStr) / 100;
-  const price = parseFloat(priceStr);
+  const price = autoFilledFields.price && priceExact != null ? priceExact : parseFloat(priceStr);
 
   // Guards
   const isRFinite = Number.isFinite(r);
