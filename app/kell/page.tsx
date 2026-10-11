@@ -274,24 +274,19 @@ function KellContent() {
             </button>
           ))}
         </div>
-        <div className="basis-full flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/35">
-          {hiddenByRs > 0 && (
-            <>
-              <span className="text-amber-400/90">
-                ซ่อนด้วยตัวกรอง RS {hiddenByRs} ตัว
-              </span>
-              <button
-                onClick={handleShowAll}
-                className="px-2.5 py-0.5 rounded-md border border-amber-500/50 bg-amber-500/10 text-amber-300 text-[11px] font-semibold hover:bg-amber-500/20 hover:border-amber-400/70 transition-colors"
-              >
-                แสดงทั้งหมด
-              </button>
-            </>
-          )}
-          <span className="text-white/25">
-            Composite Score มีเฉพาะ /sepa (เฟส 1) — Kell ยังไม่มี Fundamental / 52W High ใน JSON · RS ดึงจาก combined.json
-          </span>
-        </div>
+        {hiddenByRs > 0 && (
+          <div className="basis-full flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/35">
+            <span className="text-amber-400/90">
+              ซ่อนด้วยตัวกรอง RS {hiddenByRs} ตัว
+            </span>
+            <button
+              onClick={handleShowAll}
+              className="px-2.5 py-0.5 rounded-md border border-amber-500/50 bg-amber-500/10 text-amber-300 text-[11px] font-semibold hover:bg-amber-500/20 hover:border-amber-400/70 transition-colors"
+            >
+              แสดงทั้งหมด
+            </button>
+          </div>
+        )}
       </FilterBar>
 
       {diffFilter === 'dropped' ? (
