@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import { sectorToSlug, isFundSubsector, displayGroup } from '@/lib/sectorData';
+import ThinGroupBadge from '@/components/ThinGroupBadge';
 import { heatColor, heatTextColor } from '@/lib/heatColor';
 import { formatPct } from '@/lib/sectorChange';
 import {
-  flowChg, flowRows, flowValue, parseFlowWindow, parseSortDir, parseSortKey, rowName, sectorLinkFromFlow, strengthRows,
+  flowChg, flowRows, flowValue, isThinGroup, parseFlowWindow, parseSortDir, parseSortKey, rowName, sectorLinkFromFlow, strengthRows,
   MIN_AVG_VALUE_MB, STATUSES, type FlowRow, type FlowWindow, type SortKey,
 } from '@/lib/sectorFlow';
 import {
@@ -194,11 +195,11 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
               <div
                 key={`${r.sector}/${r.subsector}`}
                 title={tip}
-                className="grid grid-cols-2 md:grid-cols-[minmax(180px,1.1fr)_2fr_130px_84px_90px] gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]"
+                className={`grid grid-cols-2 md:grid-cols-[minmax(180px,1.1fr)_2fr_130px_84px_90px] gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]${isThinGroup(r.n) ? ' opacity-50' : ''}`}
                 data-testid="net-row"
               >
                 <Link href={rowHref(r.sector, r.subsector)} className="min-w-0 col-span-2 md:col-span-1">
-                  <p className="text-[15px] font-bold text-white truncate">{r.subsector}</p>
+                  <p className="text-[15px] font-bold text-white truncate">{r.subsector}<ThinGroupBadge n={r.n} /></p>
                   <p className="text-[12px] text-white/35 truncate">{displayGroup(r.sector, r.subsector)}</p>
                 </Link>
                 <div className="relative h-5 bg-white/[0.04] rounded col-span-2 md:col-span-1" aria-hidden>
@@ -276,8 +277,9 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
                 ) : (
                   <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
                     {boxes[k].map(r => (
-                      <li key={`${r.sector}/${r.subsector ?? ''}`} className="text-[15px]">
+                      <li key={`${r.sector}/${r.subsector ?? ''}`} className={`text-[15px]${isThinGroup(r.n) ? ' opacity-50' : ''}`}>
                         <Link href={rowHref(r.sector, r.subsector)} className="font-bold text-white hover:underline">{rowName(r)}</Link>
+                        <ThinGroupBadge n={r.n} />
                         <span className="ml-1.5 text-[12px] font-mono" style={{ color: heatTextColor(r.excess_1m) ?? 'rgba(255,255,255,0.35)' }}>
                           {r.excess_1m == null ? '—' : formatPct(r.excess_1m)}
                         </span>
@@ -306,10 +308,11 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
                   <tr
                     key={`${r.sector}/${r.subsector ?? ''}`}
                     onClick={() => router.push(rowHref(r.sector, r.subsector))}
-                    className="border-b border-white/[0.04] hover:bg-white/[0.04] cursor-pointer"
+                    className={`border-b border-white/[0.04] hover:bg-white/[0.04] cursor-pointer${isThinGroup(r.n) ? ' opacity-50' : ''}`}
                   >
                     <td className="px-3 py-2">
                       <Link href={rowHref(r.sector, r.subsector)} onClick={e => e.stopPropagation()} className="font-bold text-white hover:underline">{rowName(r)}</Link>
+                      <ThinGroupBadge n={r.n} />
                       {r.subsector && <span className="ml-2 text-[12px] text-white/35">{displayGroup(r.sector, r.subsector)}</span>}
                     </td>
                     <td className="px-3 py-2 text-right font-mono text-white/50">{r.n}</td>

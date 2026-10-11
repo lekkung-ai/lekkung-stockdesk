@@ -27,6 +27,12 @@ export interface FlowRow {
 
 export type FlowWindow = '1d' | '5d';
 
+/** Groups with fewer stocks than this are shown faded with a "หุ้นน้อย" tag (display only — no effect on numbers or order). */
+export const MIN_GROUP_N = 3;
+export function isThinGroup(n: number | null | undefined): boolean {
+  return n != null && n < MIN_GROUP_N;
+}
+
 export const MIN_AVG_VALUE_MB = 20; // groups trading less than this (million baht/day) are hidden by default
 
 export type FlowLabel = 'เงินเข้า ราคาขึ้น' | 'เงินเข้า แต่ราคาลง (แรงขาย)' | 'เงียบ' | null;

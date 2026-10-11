@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { flowLabel, flowRows, strengthRows, compareNullLast, formatThaiDay, parseSortKey, parseFlowWindow, sanitizeFlowQuery, sectorLinkFromFlow, parseFlowLayout, type FlowRow } from './sectorFlow';
+import { flowLabel, flowRows, strengthRows, compareNullLast, formatThaiDay, parseSortKey, parseFlowWindow, sanitizeFlowQuery, sectorLinkFromFlow, parseFlowLayout, isThinGroup, MIN_GROUP_N, type FlowRow } from './sectorFlow';
 
 const mk = (o: Partial<FlowRow> & { subsector: string }): FlowRow => ({
   sector: 'S', n: 5, flow_1d: 1, flow_5d: 1, chg_1d: 0, chg_5d: 0, avg_value_20d: 100,
@@ -144,5 +144,14 @@ describe('parseFlowLayout', () => {
     expect(parseFlowLayout('xyz')).toBe('classic');
     expect(parseFlowLayout(null)).toBe('classic');
     expect(parseFlowLayout(undefined)).toBe('classic');
+  });
+});
+
+describe('isThinGroup (หุ้นน้อย)', () => {
+  it('flags n < MIN_GROUP_N only', () => {
+    expect(MIN_GROUP_N).toBe(3);
+    expect([0, 1, 2].every(n => isThinGroup(n))).toBe(true);
+    expect([3, 10].some(n => isThinGroup(n))).toBe(false);
+    expect(isThinGroup(null)).toBe(false);
   });
 });
