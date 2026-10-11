@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
-import { sectorToSlug } from '@/lib/sectorData';
+import { sectorToSlug, isFundSubsector, displayGroup } from '@/lib/sectorData';
 import { heatColor, heatTextColor } from '@/lib/heatColor';
 import { formatPct } from '@/lib/sectorChange';
 import {
@@ -70,8 +70,9 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
   const sortKey = parseSortKey(sp.get('sort'));
   const sortDir = parseSortDir(sp.get('dir'));
   // Same row links as the classic view: from=flow + back=<this page's query incl. layout> (+ sub=<subsector>)
+  // Fund / REIT subsector row → /funds (it is not part of the Property sector page)
   const rowHref = (sector: string, subsector?: string | null) =>
-    sectorLinkFromFlow(sectorToSlug(sector), subsector, sp.toString());
+    isFundSubsector(subsector) ? '/funds' : sectorLinkFromFlow(sectorToSlug(sector), subsector, sp.toString());
 
   const setParams = (upd: Record<string, string | null>) => {
     const p = new URLSearchParams(sp.toString());
@@ -198,7 +199,7 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
               >
                 <Link href={rowHref(r.sector, r.subsector)} className="min-w-0 col-span-2 md:col-span-1">
                   <p className="text-[15px] font-bold text-white truncate">{r.subsector}</p>
-                  <p className="text-[12px] text-white/35 truncate">{r.sector}</p>
+                  <p className="text-[12px] text-white/35 truncate">{displayGroup(r.sector, r.subsector)}</p>
                 </Link>
                 <div className="relative h-5 bg-white/[0.04] rounded col-span-2 md:col-span-1" aria-hidden>
                   <div className="absolute inset-y-[-2px] left-1/2 w-px bg-white/60" />
@@ -309,7 +310,7 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
                   >
                     <td className="px-3 py-2">
                       <Link href={rowHref(r.sector, r.subsector)} onClick={e => e.stopPropagation()} className="font-bold text-white hover:underline">{rowName(r)}</Link>
-                      {r.subsector && <span className="ml-2 text-[12px] text-white/35">{r.sector}</span>}
+                      {r.subsector && <span className="ml-2 text-[12px] text-white/35">{displayGroup(r.sector, r.subsector)}</span>}
                     </td>
                     <td className="px-3 py-2 text-right font-mono text-white/50">{r.n}</td>
                     {([r.excess_1w, r.excess_1m, r.excess_3m] as (number | null)[]).map((v, i) => (

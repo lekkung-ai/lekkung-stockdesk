@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { getSectorsGrouped, sectorToSlug } from '@/lib/sectorData';
+import { getSectorsGrouped, sectorToSlug, fundTickers, FUND_GROUP_LABEL } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
 import DataUpdatedBadge from '@/components/DataUpdatedBadge';
 import rawSectorRS from '@/data/scans/sector_rs.json';
@@ -73,32 +73,37 @@ export default function SectorPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [market, quotes]);
 
-  const heatGroups: HeatGroup[] = useMemo(
-    () =>
-      sectors.map(({ sector, subsectors }) => ({
-        key: sector,
-        label: sector,
-        href: `/sector/${sectorToSlug(sector)}?market=${market}`,
-        // Home page: 15 biggest by market cap + one aggregated "อื่นๆ" box linking to the sector page
-        stocks: topNWithOther(
-          subsectors
-            .flatMap(s => s.tickers)
-            .filter(t => (quotes[t]?.mcap ?? 0) > 0)
-            .map(t => ({
-              ticker: t,
-              mcap: quotes[t].mcap as number,
-              chg: quotes[t].chg,
-              price: quotes[t].price,
-              rs: getRS(t),
-              stage: getStage(t),
-            })),
-          15,
-          `/sector/${sectorToSlug(sector)}?market=${market}`,
-        ),
-      })),
+  const heatGroups: HeatGroup[] = useMemo(() => {
+    // 15 biggest by market cap + one aggregated "อื่นๆ" box linking to the group page
+    const heatStocks = (tickers: string[], href: string) =>
+      topNWithOther(
+        tickers
+          .filter(t => (quotes[t]?.mcap ?? 0) > 0)
+          .map(t => ({
+            ticker: t,
+            mcap: quotes[t].mcap as number,
+            chg: quotes[t].chg,
+            price: quotes[t].price,
+            rs: getRS(t),
+            stage: getStage(t),
+          })),
+        15,
+        href,
+      );
+    const groups: HeatGroup[] = sectors.map(({ sector, subsectors }) => ({
+      key: sector,
+      label: sector,
+      href: `/sector/${sectorToSlug(sector)}?market=${market}`,
+      stocks: heatStocks(subsectors.flatMap(s => s.tickers), `/sector/${sectorToSlug(sector)}?market=${market}`),
+    }));
+    // Funds / REITs: own group, never under Property (sectors above are stocks only)
+    if (!isWarrantTab) {
+      const funds = heatStocks(fundTickers(market), '/funds');
+      if (funds.length > 0) groups.push({ key: 'funds', label: FUND_GROUP_LABEL, href: '/funds', stocks: funds });
+    }
+    return groups;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [market, quotes],
-  );
+  }, [market, quotes]);
 
   // EMA50 + stage split per sector for the sector cards (scan data only, no live prices needed)
   const breadthBySector = useMemo(
@@ -141,7 +146,7 @@ export default function SectorPage() {
         <div>
           <h1 className="text-[20px] font-bold text-white tracking-tight">Sector Map & Relative Strength</h1>
           <p className="text-[13px] text-white/40 mt-1">
-            {isWarrantTab ? 'Warrant ที่ยัง trade อยู่ทั้งหมด' : `${sectors.length} sectors · ${totalTickers} tickers · เปรียบเทียบความแข็งแกร่งกับ SET Index`}
+            {isWarrantTab ? 'Warrant ที่ยัง trade อยู่ทั้งหมด' : `${sectors.length} sectors · ${totalTickers} tickers (ไม่รวม${FUND_GROUP_LABEL}) · เปรียบเทียบความแข็งแกร่งกับ SET Index`}
           </p>
         </div>
 

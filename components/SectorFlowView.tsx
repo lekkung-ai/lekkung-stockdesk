@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
-import { sectorToSlug } from '@/lib/sectorData';
+import { sectorToSlug, isFundSubsector, displayGroup } from '@/lib/sectorData';
 import { heatColor, heatTextColor } from '@/lib/heatColor';
 import { formatPct } from '@/lib/sectorChange';
 import {
@@ -45,8 +45,9 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
   const sortKey = parseSortKey(sp.get('sort'));
   const sortDir = parseSortDir(sp.get('dir'));
   // Row links carry from=flow + back=<this page's query> (+ sub=<subsector>) so /sector/[slug] can link back here
+  // Fund / REIT subsector row → /funds (it is not part of the Property sector page)
   const rowHref = (sector: string, subsector?: string | null) =>
-    sectorLinkFromFlow(sectorToSlug(sector), subsector, sp.toString());
+    isFundSubsector(subsector) ? '/funds' : sectorLinkFromFlow(sectorToSlug(sector), subsector, sp.toString());
 
   const setParams = (upd: Record<string, string | null>) => {
     const p = new URLSearchParams(sp.toString());
@@ -116,7 +117,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
               <div key={`${r.sector}/${r.subsector}`} className={`grid grid-cols-2 ${FLOW_COLS} gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]`}>
                 <Link href={rowHref(r.sector, r.subsector)} className="min-w-0 col-span-2 md:col-span-1">
                   <p className="text-[13px] font-bold text-white truncate">{r.subsector}</p>
-                  <p className="text-[10.5px] text-white/35 truncate">{r.sector}</p>
+                  <p className="text-[10.5px] text-white/35 truncate">{displayGroup(r.sector, r.subsector)}</p>
                 </Link>
                 <div className="relative h-4 bg-white/[0.04] rounded col-span-2 md:col-span-1">
                   <div className="absolute inset-y-0 left-0 rounded" style={{ width: `${pctBar}%`, background: f != null && f >= 1.3 ? '#3B82F6' : f != null && f <= 0.7 ? '#4B5060' : '#6B7280' }} />
@@ -181,7 +182,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
                 >
                   <td className="px-3 py-2">
                     <Link href={rowHref(r.sector, r.subsector)} onClick={e => e.stopPropagation()} className="font-bold text-white hover:underline">{rowName(r)}</Link>
-                    {r.subsector && <span className="ml-2 text-[10.5px] text-white/35">{r.sector}</span>}
+                    {r.subsector && <span className="ml-2 text-[10.5px] text-white/35">{displayGroup(r.sector, r.subsector)}</span>}
                   </td>
                   <td className="px-3 py-2 text-right font-mono text-white/50">{r.n}</td>
                   {([r.excess_1w, r.excess_1m, r.excess_3m] as (number | null)[]).map((v, i) => (

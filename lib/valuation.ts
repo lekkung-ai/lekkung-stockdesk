@@ -1,5 +1,5 @@
 ﻿import rawMarketStage from '@/data/scans/market_stage.json';
-import { allSectorEntries, tickerToSector } from '@/lib/sectorData';
+import { stockSectorEntries, tickerToSector, isFundTicker, fundTickers, FUND_GROUP_LABEL } from '@/lib/sectorData';
 
 export interface MarketStageItem {
   Ticker: string;
@@ -83,13 +83,24 @@ export function getStockValuation(ticker: string): StockValuation | null {
   return { ticker: t, price, pe, pbv, eps, bvps };
 }
 
-export function getSectorMedians(ticker: string): { sector: string; secPe: number | null; secPb: number | null; n: number } | null {
-  const t = ticker.toUpperCase().trim();
-  const info = tickerToSector[t];
+// Peer group for sector medians / spread: a fund is compared with the other funds of its market
+// ("กองทุน & REIT"), a stock with the stocks of its sector (funds excluded, sectorData.isFundTicker)
+function peerGroup(ticker: string): { sector: string; tickers: string[] } | null {
+  const info = tickerToSector[ticker];
   if (!info) return null;
   const { sector, market } = info;
-  const sectorEntries = allSectorEntries.filter(e => e.sector === sector && e.market === market);
-  const allTickers = sectorEntries.flatMap(e => e.tickers);
+  if (isFundTicker(ticker)) return { sector: FUND_GROUP_LABEL, tickers: fundTickers(market) };
+  return {
+    sector,
+    tickers: stockSectorEntries.filter(e => e.sector === sector && e.market === market).flatMap(e => e.tickers),
+  };
+}
+
+export function getSectorMedians(ticker: string): { sector: string; secPe: number | null; secPb: number | null; n: number } | null {
+  const t = ticker.toUpperCase().trim();
+  const peers = peerGroup(t);
+  if (!peers) return null;
+  const { sector, tickers: allTickers } = peers;
   const { median: secPe, n: nPe } = medianPE(allTickers);
   const { median: secPb, n: nPb } = medianPBV(allTickers);
   return { sector, secPe, secPb, n: Math.max(nPe, nPb) };
@@ -123,11 +134,9 @@ export interface SectorSpread {
 // ใช้ peMap/pbMap + sector ticker list เดียวกัน · กรองเดียวกัน (PE≤100, PBV≤20)
 export function getSectorSpread(ticker: string): SectorSpread | null {
   const t = ticker.toUpperCase().trim();
-  const info = tickerToSector[t];
-  if (!info) return null;
-  const { sector, market } = info;
-  const sectorEntries = allSectorEntries.filter(e => e.sector === sector && e.market === market);
-  const allTickers = sectorEntries.flatMap(e => e.tickers);
+  const peers = peerGroup(t);
+  if (!peers) return null;
+  const { sector, tickers: allTickers } = peers;
 
   const pe = collectSorted(allTickers, peMap, 100);
   const pb = collectSorted(allTickers, pbMap, 20);

@@ -9,7 +9,7 @@ import { sectorSummary } from '@/lib/sectorSummaryData';
 import { divergingWidth, parseSecMarket, sortByChg, type SectorMarket } from '@/lib/sectorSummary';
 import { formatPct } from '@/lib/sectorChange';
 import { heatTextColor } from '@/lib/heatColor';
-import { sectorToSlug } from '@/lib/sectorData';
+import { sectorToSlug, FUND_GROUP_LABEL } from '@/lib/sectorData';
 
 // Same pill colours as the Sector Flow status column (components/SectorFlowView.tsx).
 const STATUS_STYLE: Record<string, string> = {
@@ -179,7 +179,7 @@ function SectorTodayView({
 
       <p className="text-[10.5px] text-white/30 mt-3" data-testid="sector-footer">
         % วันนี้ = TradingView ล่าช้า 15 นาที{updated ? ` · อัปเดต ${updated}` : ''} · RS และ Stage 2 ณ สแกน {scanDateLabel} ·{' '}
-        {market === 'SET' ? 'แนวโน้มจาก Sector Flow' : 'ตลาด mai · แนวโน้มยังไม่มีสำหรับ mai'}
+        {market === 'SET' ? 'แนวโน้มจาก Sector Flow' : 'ตลาด mai · แนวโน้มยังไม่มีสำหรับ mai'} · ไม่รวม{FUND_GROUP_LABEL}
       </p>
     </div>
   );

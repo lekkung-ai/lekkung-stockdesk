@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { allSectorEntries, slugToSector, sectorToSlug } from '@/lib/sectorData';
+import { stockSectorEntries, slugToSector, sectorToSlug, isFundTicker, tickerToSector, FUND_GROUP_LABEL } from '@/lib/sectorData';
 import { scanData } from '@/lib/scanData';
 import { sanitizeFlowQuery } from '@/lib/sectorFlow';
 import { compareNullLast } from '@/lib/sepaTier';
@@ -25,7 +25,7 @@ const SECTOR_COLORS: Record<string, string> = {
 };
 
 export async function generateStaticParams() {
-  const slugs = new Set(allSectorEntries.map(e => sectorToSlug(e.sector)));
+  const slugs = new Set(stockSectorEntries.map(e => sectorToSlug(e.sector)));
   return Array.from(slugs).map(slug => ({ slug }));
 }
 
@@ -54,7 +54,8 @@ export default async function SectorDetailPage({
   const sectorName = slugToSector(slug);
   if (!sectorName) notFound();
 
-  const subsectors = allSectorEntries.filter(e => e.sector === sectorName && e.market === market);
+  // Stocks only: funds / REITs (sectorData.isFundTicker) are not part of the sector — linked to /funds instead
+  const subsectors = stockSectorEntries.filter(e => e.sector === sectorName && e.market === market);
   if (subsectors.length === 0) notFound();
 
   // Opened from /sector-flow (?from=flow&back=<flow query>&sub=<subsector>): back link returns there with
@@ -75,6 +76,11 @@ export default async function SectorDetailPage({
   const color = SECTOR_COLORS[sectorName] ?? '#6b7280';
 
   const scanMap = new Map(scanData.map(s => [s.ticker, s]));
+  // Same set /funds lists (fund tickers that have scan data), limited to this sector + market
+  const fundCount = scanData.filter(s => {
+    const info = tickerToSector[s.ticker];
+    return isFundTicker(s.ticker) && info?.sector === sectorName && info.market === market;
+  }).length;
   const peMap = new Map(
     (marketStageData as Array<{ Ticker: string; PE_Ratio?: number | null; PBV?: number | null; ROE?: number | null }>).map(i => [
       i.Ticker,
@@ -121,6 +127,11 @@ export default async function SectorDetailPage({
           <h1 className="text-[20px] font-bold text-white">{sectorName}</h1>
           <p className="text-[12px] text-white/35 mt-0.5">{totalCount} หุ้น · {subsectors.length} subsectors</p>
           <SectorTodayChange tickers={subsectors.flatMap(e => e.tickers)} />
+          {fundCount > 0 && (
+            <Link href="/funds" data-testid="sector-funds-link" className="inline-block mt-1 text-[12px] font-semibold text-sky-400/80 hover:text-sky-300 transition-colors">
+              {FUND_GROUP_LABEL} ({fundCount}) →
+            </Link>
+          )}
         </div>
       </div>
 
