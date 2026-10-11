@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { bangkokDateKey } from '@/lib/utils';
 import { Calendar, ArrowDown, ArrowUp } from 'lucide-react';
 import { getScanHistory } from '@/lib/scanHistory';
 import { Th, Td, TableWrap, SortableTh, SortConfig } from '@/components/StrategyTable';
@@ -8,12 +9,10 @@ import StockChart from './StockChart';
 import ThaiDateInput from './ThaiDateInput';
 
 function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
+  return bangkokDateKey(); // today in Asia/Bangkok
 }
 function daysAgoISO(days: number): string {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  return d.toISOString().slice(0, 10);
+  return bangkokDateKey(Date.now() - days * 86400000);
 }
 function isoToThaiLabel(iso: string): string {
   const [y, m, d] = iso.split('-');

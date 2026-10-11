@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { bangkokParts, bangkokHHMM } from '@/lib/utils';
 import {
   Check, X, Copy, CheckCircle2, XCircle, AlertTriangle, RefreshCw,
   Search, ShieldAlert, Layers, ArrowRight, CheckSquare, Square,
@@ -112,7 +113,8 @@ function fmtThaiDateTime(iso: string | null | undefined): string {
   if (!iso) return '—';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return `${d.getDate()} ${THAI_MONTHS[d.getMonth()]} ${d.getFullYear() + 543} เวลา ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')} น.`;
+  const p = bangkokParts(d);
+  return `${p.day} ${THAI_MONTHS[p.month - 1]} ${p.year + 543} เวลา ${bangkokHHMM(d)} น.`;
 }
 
 // ─── 1. ศูนย์สุขภาพระบบ (System Health Center) ───────────────────────────────

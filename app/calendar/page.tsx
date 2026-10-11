@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { bangkokDateKey, bangkokParts } from '@/lib/utils';
 import Link from 'next/link';
 import { AlertTriangle, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import TableSkeleton from '@/components/TableSkeleton';
@@ -21,7 +22,7 @@ const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.'
 const WEEKDAYS_TH = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
 
 function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
+  return bangkokDateKey(); // today in Asia/Bangkok (toISOString is UTC: wrong day before 07:00)
 }
 function addDaysISO(iso: string, n: number): string {
   const d = new Date(iso + 'T00:00:00Z');
@@ -329,8 +330,8 @@ export default function CalendarPage() {
   const [fromDate, setFromDate] = useState(todayISO());
   const [toDate, setToDate] = useState(addDaysISO(todayISO(), 14));
   const [monthCursor, setMonthCursor] = useState(() => {
-    const d = new Date();
-    return { year: d.getFullYear(), month: d.getMonth() };
+    const p = bangkokParts(new Date());
+    return { year: p.year, month: p.month - 1 };
   });
   const [selectedDate, setSelectedDate] = useState(todayISO());
 

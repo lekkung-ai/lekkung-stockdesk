@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { bangkokDateKey } from '@/lib/utils';
 import TableSkeleton from '@/components/TableSkeleton';
 import ResearchCard from '@/components/ResearchCard';
 import { classifyRating } from '@/lib/researchRating';
@@ -22,7 +23,7 @@ interface ResearchItem {
 const PAGE_SIZE = 20;
 
 function localDate(ts: number): string {
-  return new Date(ts).toLocaleDateString('en-CA');
+  return bangkokDateKey(ts); // YYYY-MM-DD in Asia/Bangkok
 }
 
 function pageList(cur: number, total: number): (number | '…')[] {
@@ -49,8 +50,8 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
   const [tickerInput, setTickerInput] = useState(initialTicker);
   const [tickerFilter, setTickerFilter] = useState(initialTicker);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const today = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
-  const minDate = useMemo(() => new Date(Date.now() - 6 * 86400000).toLocaleDateString('en-CA'), []);
+  const today = useMemo(() => bangkokDateKey(), []);
+  const minDate = useMemo(() => bangkokDateKey(Date.now() - 6 * 86400000), []);
   const [selectedDate, setSelectedDate] = useState(today);
   const [page, setPage] = useState(0);
 

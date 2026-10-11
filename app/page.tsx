@@ -1,5 +1,6 @@
 import Link from 'next/link'; // Trigger Vercel Build
 import rawSectorMap from '@/data/scans/sector_map.json';
+import { bangkokParts } from '@/lib/utils';
 import rawStageDefault from '@/data/scans/market_stage.json';
 import rawCombinedDefault from '@/data/scans/combined.json';
 import rawSepaDefault from '@/data/scans/sepa.json';
@@ -74,7 +75,8 @@ function formatThaiDateShort(iso: string | undefined): string {
   if (!iso) return '—';
   const d = new Date(iso);
   if (isNaN(d.getTime())) return '—';
-  return `${d.getDate()} ${THAI_MONTHS_SHORT[d.getMonth()]}`;
+  const p = bangkokParts(d);
+  return `${p.day} ${THAI_MONTHS_SHORT[p.month - 1]}`;
 }
 
 export default function OverviewPage() {

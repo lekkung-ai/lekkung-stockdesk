@@ -26,7 +26,7 @@ export function formatNewsTime(ts: number): string {
   if (mins < 60) return `เมื่อ ${mins} นาที`;
   if (hrs < 24) return `เมื่อ ${hrs} ชม.`;
   return (
-    new Date(ts).toLocaleString('th-TH', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' น.'
+    new Date(ts).toLocaleString('th-TH', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Bangkok' }) + ' น.'
   );
 }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { bangkokDateKey } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, Calendar, ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from 'lucide-react';
 import Pagination from '@/components/Pagination';
@@ -9,7 +10,7 @@ import TableSkeleton from '@/components/TableSkeleton';
 const PER_PAGE = 20;
 const MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
-function todayISO() { return new Date().toISOString().slice(0, 10); }
+function todayISO() { return bangkokDateKey(); } // today in Asia/Bangkok
 
 function shiftDay(d: string, n: number): string {
   const [y, m, day] = d.split('-').map(Number);

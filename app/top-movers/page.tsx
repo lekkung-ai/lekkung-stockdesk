@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { bangkokDateKey } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import MiniCandlestick from '@/components/MiniCandlestick';
 import TrendSparkline from '@/components/TrendSparkline';
@@ -53,7 +54,7 @@ interface MoverItem {
 type MarketRanking = Record<RankingType, MoverItem[]>;
 
 function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
+  return bangkokDateKey(); // today in Asia/Bangkok
 }
 
 // Rough SET trading-hours window (continuous trading 10:00-16:30 ICT,

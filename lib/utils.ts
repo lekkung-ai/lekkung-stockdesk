@@ -7,7 +7,8 @@ export function formatShortThaiDate(iso: string | null | undefined): string {
   if (!iso) return '-';
   const d = new Date(iso);
   if (isNaN(d.getTime())) return '-';
-  return `${d.getDate()} ${MONTHS_TH[d.getMonth()]}`;
+  const p = bangkokParts(d);
+  return `${p.day} ${MONTHS_TH[p.month - 1]}`;
 }
 
 // Pinned to Asia/Bangkok so the label is identical on Vercel (UTC) and in the browser —
@@ -22,14 +23,30 @@ const BANGKOK_PARTS = new Intl.DateTimeFormat('en-US', {
   hourCycle: 'h23',
 });
 
+/** Calendar fields of an instant in Asia/Bangkok (month 1–12) — never the machine's own zone. */
+export function bangkokParts(d: Date): { year: number; month: number; day: number; hour: number; minute: number } {
+  const p: Record<string, string> = {};
+  for (const { type, value } of BANGKOK_PARTS.formatToParts(d)) p[type] = value;
+  return { year: Number(p.year), month: Number(p.month), day: Number(p.day), hour: Number(p.hour), minute: Number(p.minute) };
+}
+
+/** 'YYYY-MM-DD' of an instant (default: now) in Asia/Bangkok. */
+export function bangkokDateKey(t: number | Date = Date.now()): string {
+  const p = bangkokParts(typeof t === 'number' ? new Date(t) : t);
+  return `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.day).padStart(2, '0')}`;
+}
+
+/** "HH:MM" of a Date in Asia/Bangkok. */
+export function bangkokHHMM(d: Date): string {
+  const p = bangkokParts(d);
+  return `${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')}`;
+}
+
 /** "HH:MM" in Asia/Bangkok (same on a UTC server and in the browser), '' when the time is unknown. */
 export function formatBangkokHHMM(iso: string | null | undefined): string {
   if (!iso) return '';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '';
-  const p: Record<string, string> = {};
-  for (const { type, value } of BANGKOK_PARTS.formatToParts(d)) p[type] = value;
-  return `${p.hour.padStart(2, '0')}:${p.minute.padStart(2, '0')}`;
+  return isNaN(d.getTime()) ? '' : bangkokHHMM(d);
 }
 
 export function formatThaiDate(iso: string | null | undefined): string {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, AlertTriangle, ChevronLeft, ChevronRight, Users, Calendar, Newspaper } from 'lucide-react';
-import { peColor, roeColor } from '@/lib/utils';
+import { bangkokDateKey, peColor, roeColor } from '@/lib/utils';
 import StockChart from './StockChart';
 import AiAssistant from './AiAssistant';
 import PeerComparisonTable from './PeerComparisonTable';
@@ -307,10 +307,8 @@ export default function StockDetailPage({
   }, [ticker]);
 
   useEffect(() => {
-    const from = new Date().toISOString().slice(0, 10);
-    const toDate = new Date();
-    toDate.setDate(toDate.getDate() + 7);
-    const to = toDate.toISOString().slice(0, 10);
+    const from = bangkokDateKey(); // today .. +7 days, Asia/Bangkok
+    const to = bangkokDateKey(Date.now() + 7 * 86400000);
     fetch(`/api/corporate-action?symbol=${encodeURIComponent(ticker)}&from=${from}&to=${to}`)
       .then(r => r.ok ? r.json() : null)
       .then(data => setUpcomingCA(data?.rows ?? []))
@@ -494,7 +492,7 @@ export default function StockDetailPage({
             >
               <AlertTriangle size={14} className="flex-shrink-0" />
               <span>
-                <span className="font-bold">⚠️ {ca.caType}</span> วันที่ {new Date(ca.xDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
+                <span className="font-bold">⚠️ {ca.caType}</span> วันที่ {new Date(ca.xDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' })}
                 {ca.detail ? ` · ${ca.detail}` : ''}
               </span>
             </div>
@@ -946,7 +944,7 @@ export default function StockDetailPage({
                   return (
                     <tr key={`${ca.caType}-${ca.xDate}-${i}`} className="hover:bg-white/[0.02] transition-colors">
                       <td className="px-4 py-3 text-label font-semibold text-white tabular-nums whitespace-nowrap">
-                        {new Date(ca.xDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        {new Date(ca.xDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' })}
                       </td>
                       <td className="px-4 py-3 text-label whitespace-nowrap">
                         <span className={`inline-flex items-center px-2 py-0.5 rounded text-label font-bold ${badgeCls}`}>
@@ -957,7 +955,7 @@ export default function StockDetailPage({
                         {ca.detail || '—'}
                       </td>
                       <td className="px-4 py-3 text-label text-meta tabular-nums whitespace-nowrap text-right">
-                        {ca.payDate ? new Date(ca.payDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
+                        {ca.payDate ? new Date(ca.payDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' }) : '—'}
                       </td>
                     </tr>
                   );
@@ -979,7 +977,7 @@ export default function StockDetailPage({
             <span className="text-label text-meta">
               ข้อมูล ณ วันปิดสมุดทะเบียน:{' '}
               <span className="text-white font-medium">
-                {new Date(shareholders.bookCloseDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
+                {new Date(shareholders.bookCloseDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' })}
               </span>
             </span>
           )}
@@ -992,7 +990,7 @@ export default function StockDetailPage({
               <div className="text-label text-meta mb-1">วันปิดสมุดทะเบียนล่าสุด</div>
               <div className="text-body font-semibold text-white">
                 {shareholders.bookCloseDate
-                  ? new Date(shareholders.bookCloseDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })
+                  ? new Date(shareholders.bookCloseDate).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' })
                   : '—'}
               </div>
               {shareholders.caType && <div className="text-label text-meta mt-0.5">ประเภท: {shareholders.caType}</div>}

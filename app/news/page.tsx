@@ -1,6 +1,7 @@
 'use client';
 
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { bangkokDateKey } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TableSkeleton from '@/components/TableSkeleton';
 import ResearchTab from '@/components/ResearchTab';
@@ -22,8 +23,8 @@ const PAGE_SIZE = 20;
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function localDate(ts: number): string {
-  // YYYY-MM-DD in the viewer's local timezone
-  return new Date(ts).toLocaleDateString('en-CA');
+  // YYYY-MM-DD in Asia/Bangkok (not the viewer's machine zone)
+  return bangkokDateKey(ts);
 }
 
 function pageList(cur: number, total: number): (number | '…')[] {
@@ -73,11 +74,8 @@ function NewsPageContent() {
   const [tickerInput, setTickerInput] = useState('');
   const [tickerFilter, setTickerFilter] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const today = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
-  const minDate = useMemo(
-    () => new Date(Date.now() - 6 * 86400000).toLocaleDateString('en-CA'),
-    []
-  );
+  const today = useMemo(() => bangkokDateKey(), []);
+  const minDate = useMemo(() => bangkokDateKey(Date.now() - 6 * 86400000), []);
   const [selectedDate, setSelectedDate] = useState(today);
   const [page, setPage] = useState(0);
 

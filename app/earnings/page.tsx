@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { bangkokParts, bangkokHHMM, bangkokDateKey } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronLeft, ChevronRight, ExternalLink, FileBarChart, X } from 'lucide-react';
@@ -56,16 +57,11 @@ function isoToThaiDate(iso: string): string {
 function isoDateTimeToThai(iso: string | null): string {
   if (!iso) return '—';
   const d = new Date(iso);
-  const day = d.getDate();
-  const month = MONTHS[d.getMonth()];
-  const year = d.getFullYear() + 543;
-  const hh = String(d.getHours()).padStart(2, '0');
-  const mm = String(d.getMinutes()).padStart(2, '0');
-  return `${day} ${month} ${year} ${hh}:${mm} น.`;
+  const p = bangkokParts(d);
+  return `${p.day} ${MONTHS[p.month - 1]} ${p.year + 543} ${bangkokHHMM(d)} น.`;
 }
 function timeOnly(iso: string): string {
-  const d = new Date(iso);
-  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  return bangkokHHMM(new Date(iso));
 }
 
 function fmtMoney(n: number | null): string {
@@ -140,7 +136,7 @@ function WeekCalendarStrip({ feed }: { feed: EarningsFeed }) {
   const router = useRouter();
   const [weekOffset, setWeekOffset] = useState(0);
 
-  const todayAnchor = new Date().toISOString().slice(0, 10);
+  const todayAnchor = bangkokDateKey();
   const weekMonday = addDaysISO(mondayOf(todayAnchor), weekOffset * 7);
   const weekDates = [0, 1, 2, 3, 4].map(i => addDaysISO(weekMonday, i));
 
@@ -842,7 +838,7 @@ function AnnouncementsTable({
     return ['ทั้งหมด', ...sorted];
   }, [announcements]);
 
-  const todayIso = new Date().toISOString().slice(0, 10);
+  const todayIso = bangkokDateKey();
 
   const handleSort = (key: string) => {
     setCurrentPage(1);
