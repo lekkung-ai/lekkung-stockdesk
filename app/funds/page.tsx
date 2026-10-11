@@ -4,14 +4,17 @@ import { useEffect, useMemo, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { scanData } from '@/lib/scanData';
 import { stageData, weinsteinData } from '@/lib/strategyData';
-import { tickerToSector } from '@/lib/sectorData';
+import { fundTickers, listedFundTickers, tickerToSector } from '@/lib/sectorData';
 import { useMarketQuotes } from '@/lib/useMarketQuotes';
 import { heatTextColor } from '@/lib/heatColor';
-import { FUND_TICKERS, compareValuesNullLast } from '@/lib/fundFilter';
+import { compareValuesNullLast } from '@/lib/fundFilter';
+import { tvPriceNote } from '@/lib/priceSource';
 import { stageCls, Td, TableWrap, SortableTh, type SortConfig } from '@/components/StrategyTable';
 
-// กองทุน & REIT — แถวใน combined.json ที่ Is_Fund = true · data-engine แยกออกจาก scanner หุ้น
-// และไม่จัดอันดับ RS จึงไม่มีคอลัมน์ RS · ราคา / 1D% สดจาก /api/market-quotes (fallback ราคาใน JSON)
+// กองทุน & REIT — ทุกตัวใน sector_map subsector "Property Fund & REITs" ที่ TradingView ยังมีราคา
+// (sectorData.listedFundTickers — รายการเดียวกับกลุ่มบน heatmap /sector และลิงก์บน /sector/property)
+// · ราคา / 1D% / market cap / ปันผล จาก TradingView ทุกตัว · stage / ADTV / 52W มีเฉพาะตัวที่อยู่ใน
+// universe ของสแกน (combined.json / market_stage / weinstein) — นอกนั้น "—" · ไม่จัดอันดับ RS จึงไม่มีคอลัมน์ RS
 
 const STAGE_ORDER = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear'];
 const stageRank = (stage: string | null) => {
@@ -20,14 +23,15 @@ const stageRank = (stage: string | null) => {
   return i === -1 ? STAGE_ORDER.length : i; // unrecognised labels sort after known stages
 };
 
-type SortKey = 'ticker' | 'subsector' | 'price' | 'chg' | 'stage' | 'adtv' | 'dy' | 'fromHigh';
-const SORT_KEYS: readonly SortKey[] = ['ticker', 'subsector', 'price', 'chg', 'stage', 'adtv', 'dy', 'fromHigh'];
+type SortKey = 'ticker' | 'subsector' | 'price' | 'chg' | 'mcap' | 'stage' | 'adtv' | 'dy' | 'fromHigh';
+const SORT_KEYS: readonly SortKey[] = ['ticker', 'subsector', 'price', 'chg', 'mcap', 'stage', 'adtv', 'dy', 'fromHigh'];
 
 interface FundRow {
   ticker: string;
   subsector: string | null;
   price: number | null;
   chg: number | null;
+  mcap: number | null; // ล้านบาท
   stage: string | null;
   adtv: number | null;
   dy: number | null;
@@ -36,7 +40,8 @@ interface FundRow {
 
 const adtvMap = new Map(stageData.map(s => [s.Ticker, s['ADTV(MB)']]));
 const high52Map = new Map(weinsteinData.map(w => [w.Ticker, w['52W_High']]));
-const fundEntries = scanData.filter(s => FUND_TICKERS.has(s.ticker));
+const scanByTicker = new Map(scanData.map(s => [s.ticker, s]));
+const ALL_FUNDS = fundTickers('SET');
 
 const num = (v: unknown): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null);
 
@@ -63,7 +68,7 @@ function FundsContent() {
   const sortDir = rawDir === 'asc' ? 'asc' : 'desc';
   const sortConfig = useMemo<SortConfig>(() => (sortKey ? { key: sortKey, dir: sortDir } : null), [sortKey, sortDir]);
 
-  const { quotes } = useMarketQuotes();
+  const { status: quotesStatus, quotes, fetchedAt } = useMarketQuotes();
   const [yields, setYields] = useState<Record<string, number | null>>({});
   useEffect(() => {
     let cancelled = false;
@@ -74,20 +79,26 @@ function FundsContent() {
     return () => { cancelled = true; };
   }, []);
 
-  const rows = useMemo<FundRow[]>(() => fundEntries.map(s => {
-    const price = num(quotes[s.ticker]?.price) ?? num(s.price);
-    const high = num(high52Map.get(s.ticker));
+  // quotes ok → only funds TradingView still prices (delisted ones drop out) · loading / error → every
+  // sector_map fund, prices "—" (or the scan close for funds in the universe)
+  const tickers = useMemo(() => (quotesStatus === 'ok' ? listedFundTickers(quotes) : ALL_FUNDS), [quotesStatus, quotes]);
+  const rows = useMemo<FundRow[]>(() => tickers.map(t => {
+    const scan = scanByTicker.get(t);
+    const price = num(quotes[t]?.price) ?? num(scan?.price);
+    const mcap = num(quotes[t]?.mcap);
+    const high = num(high52Map.get(t));
     return {
-      ticker: s.ticker,
-      subsector: tickerToSector[s.ticker]?.subsector || null,
+      ticker: t,
+      subsector: tickerToSector[t]?.subsector || null,
       price,
-      chg: num(quotes[s.ticker]?.chg),
-      stage: s.stage ?? null,
-      adtv: num(adtvMap.get(s.ticker)),
-      dy: num(yields[s.ticker]),
+      chg: num(quotes[t]?.chg),
+      mcap: mcap != null ? mcap / 1e6 : null,
+      stage: scan?.stage ?? null,
+      adtv: num(adtvMap.get(t)),
+      dy: num(yields[t]),
       fromHigh: price != null && high != null && high > 0 ? ((price - high) / high) * 100 : null,
     };
-  }), [quotes, yields]);
+  }), [tickers, quotes, yields]);
 
   const sorted = useMemo(() => {
     const out = [...rows];
@@ -114,7 +125,7 @@ function FundsContent() {
     <div className="p-4 md:p-6 space-y-4">
       <div>
         <h1 className="text-[18px] font-bold text-white">
-          กองทุน &amp; REIT <span className="text-white/35 font-medium">· {rows.length} ตัว</span>
+          กองทุน &amp; REIT <span className="text-white/35 font-medium" data-testid="funds-count">· {quotesStatus === 'loading' ? '…' : rows.length} ตัว</span>
         </h1>
         <p className="text-[12px] text-white/35 mt-0.5">
           แยกออกจาก scanner หุ้น (SEPA, Kell, Breakout ฯลฯ) · ไม่มีค่า RS เพราะ RS จัดอันดับเฉพาะหุ้น
@@ -128,6 +139,7 @@ function FundsContent() {
             <SortableTh sortKey="subsector" currentSort={sortConfig} onSort={handleSort}>Subsector</SortableTh>
             <SortableTh right sortKey="price" currentSort={sortConfig} onSort={handleSort}>ราคา</SortableTh>
             <SortableTh right sortKey="chg" currentSort={sortConfig} onSort={handleSort}>1D%</SortableTh>
+            <SortableTh right sortKey="mcap" currentSort={sortConfig} onSort={handleSort}>Market cap (ลบ.)</SortableTh>
             <SortableTh right sortKey="stage" currentSort={sortConfig} onSort={handleSort}>Stage</SortableTh>
             <SortableTh right sortKey="adtv" currentSort={sortConfig} onSort={handleSort}>ADTV (MB)</SortableTh>
             <SortableTh right sortKey="dy" currentSort={sortConfig} onSort={handleSort}>ปันผล %</SortableTh>
@@ -154,6 +166,7 @@ function FundsContent() {
                   {r.chg == null ? '—' : `${r.chg > 0 ? '+' : ''}${r.chg.toFixed(2)}%`}
                 </span>
               </Td>
+              <Td right mono>{r.mcap == null ? '—' : Math.round(r.mcap).toLocaleString('en-US')}</Td>
               <Td right>
                 {r.stage
                   ? <span className={`inline-block px-2 py-0.5 rounded text-[11px] ${stageCls(r.stage)}`}>{r.stage}</span>
@@ -166,6 +179,10 @@ function FundsContent() {
           ))}
         </tbody>
       </TableWrap>
+      <p className="text-[11px] text-white/30" data-testid="funds-source">
+        {quotesStatus === 'error' ? 'ไม่มีข้อมูลราคาสด' : tvPriceNote(fetchedAt)} · ราคา / 1D% / market cap / ปันผล จาก TradingView
+        · Stage / ADTV / % From 52W High มีเฉพาะตัวที่อยู่ในสแกน (ตัวอื่นแสดง —)
+      </p>
     </div>
   );
 }

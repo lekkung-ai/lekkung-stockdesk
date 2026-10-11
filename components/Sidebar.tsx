@@ -9,7 +9,7 @@ import {
   Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck, Building2, CandlestickChart,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
-import { FUND_TICKERS } from '@/lib/fundFilter';
+import { fundTickers } from '@/lib/sectorData';
 
 const COUNTS = {
   all: scanData.length,
@@ -48,7 +48,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Sector Map', href: '/sector', icon: Map },
       { label: 'Sector Flow', href: '/sector-flow', icon: RotateCw },
       { label: 'SET50 / SET100', href: '/set-index/set100', icon: ListOrdered, activePrefix: '/set-index/' },
-      { label: 'กองทุน & REIT', href: '/funds', icon: Building2, count: FUND_TICKERS.size },
+      { label: 'กองทุน & REIT', href: '/funds', icon: Building2, count: fundTickers('SET').length },
       { label: 'Macro & Commodities', href: '/macro', icon: Fuel },
       { label: 'Top Movers', href: '/top-movers', icon: Activity, exact: true },
       { label: 'Big Lot', href: '/top-movers/biglot', icon: Package, indent: true },

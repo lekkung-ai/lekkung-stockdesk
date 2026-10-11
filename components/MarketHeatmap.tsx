@@ -26,9 +26,13 @@ export interface HeatStock {
 export interface HeatGroup {
   key: string;
   label: string;
+  shortLabel?: string; // used when the group box is too narrow for label (e.g. "กองทุน/REIT (55)")
   href?: string;
   stocks: HeatStock[];
 }
+
+// Rough header width needed: ~7px per character + room for the % on the right
+const fitsLabel = (label: string, w: number) => label.length * 7 + 64 <= w;
 
 const HEADER_H = 18;
 const GROUP_GAP = 3; // between sector/subsector groups
@@ -91,7 +95,8 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
         stocks.map(s => ({ item: s, value: s.mcap })),
         0, hh, r.w, Math.max(0, r.h - hh),
       );
-      return { rect: r, group: g, chg, showHeader, inner };
+      const label = g.shortLabel && !fitsLabel(g.label, r.w) ? g.shortLabel : g.label;
+      return { rect: r, group: g, chg, showHeader, inner, label };
     });
   }, [groups, width, height]);
 
@@ -103,7 +108,7 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
       style={{ height }}
       onMouseLeave={() => setTip(null)}
     >
-      {layout.map(({ rect, group, chg, showHeader, inner }) => (
+      {layout.map(({ rect, group, chg, showHeader, inner, label }) => (
         <div
           key={group.key}
           className="absolute overflow-hidden"
@@ -112,9 +117,9 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
           {showHeader && (
             <div className="flex items-center justify-between gap-2 px-1.5 text-[11px] font-bold text-white/90 whitespace-nowrap overflow-hidden" style={{ height: HEADER_H }}>
               {group.href ? (
-                <Link href={group.href} className="truncate hover:underline">{group.label}</Link>
+                <Link href={group.href} className="truncate hover:underline" title={group.label}>{label}</Link>
               ) : (
-                <span className="truncate">{group.label}</span>
+                <span className="truncate" title={group.label}>{label}</span>
               )}
               {chg.pct != null && (
                 <span className="font-mono font-extrabold flex-shrink-0" style={{ color: heatTextColor(chg.pct) ?? undefined }}>

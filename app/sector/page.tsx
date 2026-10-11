@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { getSectorsGrouped, sectorToSlug, fundTickers, FUND_GROUP_LABEL } from '@/lib/sectorData';
+import { getSectorsGrouped, sectorToSlug, listedFundTickers, FUND_GROUP_LABEL, FUND_GROUP_SHORT_LABEL } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
 import DataUpdatedBadge from '@/components/DataUpdatedBadge';
 import rawSectorRS from '@/data/scans/sector_rs.json';
@@ -96,10 +96,19 @@ export default function SectorPage() {
       href: `/sector/${sectorToSlug(sector)}?market=${market}`,
       stocks: heatStocks(subsectors.flatMap(s => s.tickers), `/sector/${sectorToSlug(sector)}?market=${market}`),
     }));
-    // Funds / REITs: own group, never under Property (sectors above are stocks only)
+    // Funds / REITs: own group, never under Property (sectors above are stocks only) · count = /funds header
     if (!isWarrantTab) {
-      const funds = heatStocks(fundTickers(market), '/funds');
-      if (funds.length > 0) groups.push({ key: 'funds', label: FUND_GROUP_LABEL, href: '/funds', stocks: funds });
+      const listed = listedFundTickers(quotes, market);
+      const funds = heatStocks(listed, '/funds');
+      if (funds.length > 0) {
+        groups.push({
+          key: 'funds',
+          label: `${FUND_GROUP_LABEL} (${listed.length})`,
+          shortLabel: `${FUND_GROUP_SHORT_LABEL} (${listed.length})`,
+          href: '/funds',
+          stocks: funds,
+        });
+      }
     }
     return groups;
     // eslint-disable-next-line react-hooks/exhaustive-deps

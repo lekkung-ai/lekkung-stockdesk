@@ -25,6 +25,7 @@ export const tickerToSector: Record<string, { sector: string; subsector: string;
 // sector_map.json เป็นการจัดหมวดทางการ — ห้ามแก้ไฟล์เพื่อย้ายกองทุน ใช้ helper นี้แทน
 export const FUND_SUBSECTOR = 'Property Fund & REITs';
 export const FUND_GROUP_LABEL = 'กองทุน & REIT';
+export const FUND_GROUP_SHORT_LABEL = 'กองทุน/REIT'; // narrow heatmap box
 
 export function isFundSubsector(subsector: string | null | undefined): boolean {
   return subsector === FUND_SUBSECTOR;
@@ -47,6 +48,15 @@ export function fundTickers(market?: string): string[] {
   return Object.entries(tickerToSector)
     .filter(([t, info]) => isFundTicker(t) && (!market || info.market === market))
     .map(([t]) => t);
+}
+
+/**
+ * Funds / REITs listed today: sector_map funds that have a TradingView price (a delisted one has none).
+ * The one list behind /funds, the heatmap group on /sector and the link on /sector/property, so all three
+ * show the same count. quotes = /api/market-quotes (useMarketQuotes).
+ */
+export function listedFundTickers(quotes: Record<string, { price: number | null } | undefined>, market = 'SET'): string[] {
+  return fundTickers(market).filter(t => quotes[t]?.price != null);
 }
 
 /** Group a sector_map row is shown under: "กองทุน & REIT" for the fund subsector, otherwise its sector. */

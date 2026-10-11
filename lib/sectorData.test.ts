@@ -75,3 +75,14 @@ describe('sector summary before → after (same data)', () => {
     }
   });
 });
+
+describe('listedFundTickers (/funds = heatmap group = /sector/property link)', () => {
+  it('keeps sector_map funds that have a TradingView price only', async () => {
+    const { listedFundTickers } = await import('./sectorData');
+    const all = fundTickers('SET');
+    const quotes = Object.fromEntries(all.map((t, i) => [t, { price: i === 0 ? null : 10 }]));
+    quotes['PTT'] = { price: 30 }; // a stock never counts
+    expect(listedFundTickers(quotes)).toEqual(all.slice(1));
+    expect(listedFundTickers({})).toEqual([]);
+  });
+});

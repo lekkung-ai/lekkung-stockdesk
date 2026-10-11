@@ -1,7 +1,8 @@
-import { FUND_TICKERS } from '@/lib/fundFilter';
+import { fundTickers, isFundTicker } from '@/lib/sectorData';
 import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 
-// Trailing dividend yield (%) for every fund / REIT in combined.json (Is_Fund),
+// Trailing dividend yield (%) for every fund / REIT in sector_map (subsector "Property Fund & REITs" —
+// incl. the ones outside the scan universe; same list as /funds),
 // in ONE TradingView scanner call — same pattern as /api/market-quotes.
 // TradingView "dividends_yield" = dividends paid over the last 12 months / price
 // (checked 2026-10-01: WHART 6.35%, CPNREIT 7.04%). Cached in-process for 60s;
@@ -9,7 +10,7 @@ import { TRADINGVIEW_HEADERS } from '@/lib/tradingview';
 
 const TTL_MS = 60_000;
 const CACHE_HEADERS = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' };
-const TICKERS = [...FUND_TICKERS];
+const TICKERS = fundTickers();
 let cache: { at: number; yields: Record<string, number | null> } | null = null;
 
 async function fetchYields(): Promise<Record<string, number | null>> {
@@ -30,7 +31,7 @@ async function fetchYields(): Promise<Record<string, number | null>> {
   const yields: Record<string, number | null> = {};
   for (const row of json.data ?? []) {
     const [name, y] = row.d as [string, unknown];
-    if (!name || !FUND_TICKERS.has(name)) continue;
+    if (!name || !isFundTicker(name)) continue;
     yields[name] = typeof y === 'number' && Number.isFinite(y) ? y : null;
   }
   if (Object.keys(yields).length === 0) throw new Error('empty');
