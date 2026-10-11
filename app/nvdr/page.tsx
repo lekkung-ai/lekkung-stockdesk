@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { formatThaiDay } from '@/lib/sectorFlow';
 import { useRouter } from 'next/navigation';
 import nvdrRaw from '@/data/scans/nvdr.json';
 import { getSectorForTicker } from '@/lib/sectorData';
@@ -171,7 +172,10 @@ export default function NVDRPage() {
             <h1 className="text-[20px] font-bold text-white tracking-tight">NVDR Fund Flow</h1>
           </div>
           <p className="text-[12px] text-white/40 mt-1">
-            สรุปปริมาณการซื้อขายสุทธิของนักลงทุนต่างชาติผ่าน NVDR · ข้อมูลล่าสุด ณ {raw.latest_date || '-'}
+            สรุปปริมาณการซื้อขายสุทธิของนักลงทุนต่างชาติผ่าน NVDR
+          </p>
+          <p className="text-[11px] text-white/30 mt-0.5" data-testid="nvdr-asof">
+            ข้อมูล ณ {raw.latest_date ? formatThaiDay(raw.latest_date) : '-'} · ตลาดเผยแพร่ข้อมูล NVDR ในวันทำการถัดไป
           </p>
         </div>
 
