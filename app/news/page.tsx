@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { bangkokDateKey } from '@/lib/utils';
+import ThaiDateInput from '@/components/ThaiDateInput';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TableSkeleton from '@/components/TableSkeleton';
 import ResearchTab from '@/components/ResearchTab';
@@ -412,13 +413,11 @@ function NewsPageContent() {
           {/* [3] date */}
           <div className="sm:w-44 flex-shrink-0">
             <label className="text-[10px] uppercase tracking-wider text-white/25 block mb-1">วันที่</label>
-            <input
-              type="date"
+            <ThaiDateInput
               value={selectedDate}
               min={minDate}
               max={today}
-              onChange={e => setSelectedDate(e.target.value || today)}
-              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-[12px] text-white focus:outline-none focus:border-white/20 [color-scheme:dark]"
+              onChange={v => setSelectedDate(v || today)}
             />
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { bangkokDateKey } from '@/lib/utils';
+import ThaiDateInput from '@/components/ThaiDateInput';
 import TableSkeleton from '@/components/TableSkeleton';
 import ResearchCard from '@/components/ResearchCard';
 import { classifyRating } from '@/lib/researchRating';
@@ -302,13 +303,11 @@ export default function ResearchTab({ initialTicker = '' }: { initialTicker?: st
 
           <div className="sm:w-44 flex-shrink-0">
             <label className="text-label uppercase tracking-wider text-meta block mb-1">วันที่</label>
-            <input
-              type="date"
+            <ThaiDateInput
               value={selectedDate}
               min={minDate}
               max={today}
-              onChange={e => setSelectedDate(e.target.value || today)}
-              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 text-label text-white focus:outline-none focus:border-white/20 [color-scheme:dark]"
+              onChange={v => setSelectedDate(v || today)}
             />
           </div>
         </div>
