@@ -1,14 +1,6 @@
 [
   {
-    "Ticker": "ITD",
-    "Reason": "missing: PE_Ratio"
-  },
-  {
-    "Ticker": "ITEL",
-    "Reason": "missing: PE_Ratio"
-  },
-  {
-    "Ticker": "IVL",
+    "Ticker": "JMART",
     "Reason": "missing: PE_Ratio"
   },
   {
@@ -26,9 +18,5 @@
   {
     "Ticker": "TRUBB",
     "Reason": "missing: PE_Ratio"
-  },
-  {
-    "Ticker": "CIMBT",
-    "Reason": "missing: not in daily_prices.csv (price/fundamentals fetch failed entirely)"
   }
 ]
