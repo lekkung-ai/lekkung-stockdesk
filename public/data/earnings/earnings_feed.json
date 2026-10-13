@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T18:14:42.596212+07:00",
+  "generatedAt": "2026-10-13T16:45:52.516472+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -19,7 +19,7 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 7,
+      "count": 6,
       "top3": [
         {
           "ticker": "TAPAC",
@@ -116,7 +116,7 @@
       "reason_source": "none",
       "gap_pct": 2.22,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": 1.39,
+      "drift_d2_pct": null,
       "drift_d5_pct": null
     },
     {
@@ -640,11 +640,7 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none",
-      "gap_pct": 2.74,
-      "drift_d1_pct": null,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "reason_source": "none"
     },
     {
       "ticker": "FLE",
@@ -703,37 +699,6 @@
       "drift_d1_pct": -5.04,
       "drift_d2_pct": -7.56,
       "drift_d5_pct": -5.04
-    },
-    {
-      "ticker": "TAPAC",
-      "sector": "Property",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-08-28T21:46:00+07:00",
-      "quarter": "ไตรมาส 1/2568",
-      "periodEnd": "31 มกราคม 2568",
-      "netProfit": 11635000.0,
-      "netProfitPrior": -260448000.0,
-      "netProfitYoY": 104.46730249416389,
-      "netProfitPriorQ": -1357000.0,
-      "netProfitQoQ": 957.4060427413413,
-      "profitAcceleration": "double_turnaround",
-      "eps": 0.028,
-      "epsPrior": -0.632,
-      "epsYoY": 104.43037974683544,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "turnaround",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106602201&symbol=TAPAC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17878743435851&symbol=TAPAC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106602701&symbol=TAPAC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)",
-      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
@@ -860,12 +825,6 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "IRC",
-      "date": "2026-08-14T18:01:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 3/2569"
-    },
-    {
       "ticker": "COLOR",
       "date": "2026-08-14T18:10:00+07:00",
       "status": "confirmed",
@@ -927,12 +886,6 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "TAPAC",
-      "date": "2026-08-28T21:46:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 1/2568"
-    },
-    {
       "ticker": "MC",
       "date": "2026-08-31T06:54:00+07:00",
       "status": "confirmed",
@@ -955,6 +908,12 @@
       "date": "2026-09-01T06:34:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "TAPAC",
+      "date": "2026-09-02T17:08:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2568"
     },
     {
       "ticker": "MVP",
@@ -7203,6 +7162,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-26T17:12:00+07:00"
+    },
+    {
+      "ticker": "IRC",
+      "date": "2026-11-27T08:13:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-27T08:13:00+07:00"
     }
   ]
 }
