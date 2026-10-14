@@ -6,8 +6,32 @@ import { Search, Clock, X, CandlestickChart } from 'lucide-react';
 import { newsBySymbol } from '@/lib/mockData';
 import { stockNames } from '@/lib/stockNames';
 import { ALL_SET_TICKERS, SECTOR_INFO } from '@/lib/setTickers';
+import type { ListingStatus } from '@/lib/listingStatus';
 
 const RECENT_KEY = 'sd_recent';
+
+// Delisted / renamed tickers (badges only — never changes which results show or their order).
+// One fetch per page load, on first open; failure → no badges.
+let statusPromise: Promise<Record<string, ListingStatus>> | null = null;
+function loadListingStatuses(): Promise<Record<string, ListingStatus>> {
+  if (!statusPromise) {
+    statusPromise = fetch('/api/listing-status')
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => (d?.statuses ?? {}) as Record<string, ListingStatus>)
+      .catch(() => ({}));
+  }
+  return statusPromise;
+}
+
+function ListingStatusTag({ status }: { status: ListingStatus | undefined }) {
+  if (status?.status === 'delisted') {
+    return <span className="shrink-0 px-1.5 py-px rounded border border-rose-500/40 bg-rose-500/15 text-[10px] font-semibold text-rose-300" data-testid="search-status-tag">{status.stillTrading ? 'ประกาศเพิกถอน' : 'เพิกถอน'}</span>;
+  }
+  if (status?.status === 'renamed' && status.newTicker) {
+    return <span className="shrink-0 px-1.5 py-px rounded border border-sky-500/40 bg-sky-500/15 text-[10px] font-semibold text-sky-300" data-testid="search-status-tag">→ {status.newTicker}</span>;
+  }
+  return null;
+}
 
 function fuzzySearch(query: string, limit = 8): string[] {
   const q = query.toUpperCase();
@@ -33,6 +57,7 @@ export default function SearchBox() {
   const [open, setOpen] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [listingStatuses, setListingStatuses] = useState<Record<string, ListingStatus>>({});
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -65,6 +90,13 @@ export default function SearchBox() {
     document.addEventListener('mousedown', onClickOut);
     return () => document.removeEventListener('mousedown', onClickOut);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    loadListingStatuses().then(s => { if (!cancelled) setListingStatuses(s); });
+    return () => { cancelled = true; };
+  }, [open]);
 
   const results = query.trim() ? fuzzySearch(query) : [];
   const topTicker = results[0];
@@ -291,6 +323,7 @@ export default function SearchBox() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-baseline gap-2">
                         <span className="text-[13px] font-semibold text-white">{ticker}</span>
+                        <ListingStatusTag status={listingStatuses[ticker]} />
                         {name && <span className="text-[11px] text-white/40 truncate">{name}</span>}
                       </div>
                       {sec && (
