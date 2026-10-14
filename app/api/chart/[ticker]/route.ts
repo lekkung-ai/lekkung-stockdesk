@@ -7,6 +7,11 @@ export async function GET(
 ) {
   const { ticker } = await context.params;
   const symbol = toYahooSymbol(ticker.toUpperCase());
+  // ?soft=1 (stock page): "no data" is a normal answer (delisted / renamed tickers), not a 404 the browser
+  // logs as a console error — same as dcf-inputs / ddm-inputs. Every other caller keeps the 404.
+  const soft = req.nextUrl.searchParams.get('soft') === '1';
+  const noData = (status: number, body: object) =>
+    soft && status === 404 ? Response.json({ ticker: ticker.toUpperCase(), noData: true }) : Response.json(body, { status });
 
   const interval = req.nextUrl.searchParams.get('interval') ?? '1d';
   const range = req.nextUrl.searchParams.get('range') ?? '2y';
@@ -24,14 +29,14 @@ export async function GET(
 
     if (!res.ok) {
       console.error(`[chart] ${symbol} upstream ${res.status}`);
-      return Response.json({ error: 'upstream error' }, { status: res.status });
+      return noData(res.status, { error: 'upstream error' });
     }
 
     const json = await res.json();
     const result = json?.chart?.result?.[0];
 
     if (!result) {
-      return Response.json({ error: 'no data' }, { status: 404 });
+      return noData(404, { error: 'no data' });
     }
 
     const timestamps: number[] = result.timestamp ?? [];
