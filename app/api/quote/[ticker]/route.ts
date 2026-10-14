@@ -2,11 +2,16 @@ import type { NextRequest } from 'next/server';
 import { toYahooSymbol } from '@/lib/setTickers';
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ ticker: string }> }
 ) {
   const { ticker } = await context.params;
   const symbol = toYahooSymbol(ticker.toUpperCase());
+  // ?soft=1 (stock page): "no data" is a normal answer (delisted / renamed tickers), not a 404 the browser
+  // logs as a console error — same as dcf-inputs / ddm-inputs. Every other caller keeps the 404.
+  const soft = req.nextUrl.searchParams.get('soft') === '1';
+  const noData = (status: number, body: object) =>
+    soft && status === 404 ? Response.json({ ticker: ticker.toUpperCase(), noData: true }) : Response.json(body, { status });
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=5d`;
 
   try {
@@ -19,11 +24,11 @@ export async function GET(
       },
     });
 
-    if (!res.ok) return Response.json({ error: 'upstream' }, { status: res.status });
+    if (!res.ok) return noData(res.status, { error: 'upstream' });
 
     const json = await res.json();
     const result = json?.chart?.result?.[0];
-    if (!result) return Response.json({ error: 'no data' }, { status: 404 });
+    if (!result) return noData(404, { error: 'no data' });
 
     const meta = result.meta ?? {};
     const shortName: string = meta.shortName ?? meta.longName ?? ticker;
@@ -31,7 +36,7 @@ export async function GET(
     const closes: (number | null)[] = result.indicators?.quote?.[0]?.close ?? [];
     const valid = closes.filter((c): c is number => c != null);
 
-    if (valid.length < 1) return Response.json({ error: 'insufficient data' }, { status: 404 });
+    if (valid.length < 1) return noData(404, { error: 'insufficient data' });
 
     const last = valid[valid.length - 1] ?? meta.regularMarketPrice;
     const prev = valid.length >= 2
