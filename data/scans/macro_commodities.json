@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T18:08:47+07:00",
+  "generated_at": "2026-10-14T18:06:45+07:00",
   "series_days": 180,
   "zones": {
     "energy": "พลังงาน",
@@ -6024,13 +6024,13 @@
         "TRUBB": "revenue"
       },
       "latest": {
-        "date": "2026-10-12",
-        "close": 292.0
+        "date": "2026-10-14",
+        "close": 288.5
       },
-      "pct_1d": 1.42,
+      "pct_1d": -1.2,
       "pct_1m": null,
       "series": [],
-      "last_success_date": "2026-10-12",
+      "last_success_date": "2026-10-14",
       "never_fetched": false,
       "series_empty": true
     },
@@ -6050,13 +6050,13 @@
         "NER": "revenue"
       },
       "latest": {
-        "date": "2026-10-12",
-        "close": 265.4
+        "date": "2026-10-14",
+        "close": 258.0
       },
-      "pct_1d": 0.38,
+      "pct_1d": -0.23,
       "pct_1m": null,
       "series": [],
-      "last_success_date": "2026-10-12",
+      "last_success_date": "2026-10-14",
       "never_fetched": false,
       "series_empty": true
     },
@@ -6078,13 +6078,13 @@
         "TEGH": "revenue"
       },
       "latest": {
-        "date": "2026-10-12",
-        "close": 20780.0
+        "date": "2026-10-14",
+        "close": 20215.0
       },
-      "pct_1d": 2.77,
+      "pct_1d": -1.46,
       "pct_1m": null,
       "series": [],
-      "last_success_date": "2026-10-12",
+      "last_success_date": "2026-10-14",
       "never_fetched": false,
       "series_empty": true
     },
@@ -12096,32 +12096,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-10-07",
-        "close": 69.46
+        "date": "2026-10-14",
+        "close": 68.1
       },
-      "pct_1d": -0.17,
-      "pct_1m": -1.03,
+      "pct_1d": 0.64,
+      "pct_1m": -2.55,
       "series": [
-        {
-          "date": "2026-01-21",
-          "close": 54.01
-        },
-        {
-          "date": "2026-01-22",
-          "close": 53.78
-        },
-        {
-          "date": "2026-01-23",
-          "close": 53.99
-        },
-        {
-          "date": "2026-01-26",
-          "close": 53.89
-        },
-        {
-          "date": "2026-01-27",
-          "close": 54.41
-        },
         {
           "date": "2026-01-28",
           "close": 54.31
@@ -12820,12 +12800,32 @@
         },
         {
           "date": "2026-10-07",
-          "close": 69.46
+          "close": 67.42
+        },
+        {
+          "date": "2026-10-08",
+          "close": 67.62
+        },
+        {
+          "date": "2026-10-09",
+          "close": 67.72
+        },
+        {
+          "date": "2026-10-12",
+          "close": 68.3
+        },
+        {
+          "date": "2026-10-13",
+          "close": 67.67
+        },
+        {
+          "date": "2026-10-14",
+          "close": 68.1
         }
       ],
-      "last_success_date": "2026-10-07",
+      "last_success_date": "2026-10-14",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "GC=F": {
       "name_th": "ทองคำ",
@@ -12835,28 +12835,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-10-08",
-        "close": 4145.3999
+        "date": "2026-10-14",
+        "close": 4163.2998
       },
-      "pct_1d": 0.11,
-      "pct_1m": -7.07,
+      "pct_1d": -0.34,
+      "pct_1m": -3.91,
       "series": [
-        {
-          "date": "2026-01-22",
-          "close": 4913.3999
-        },
-        {
-          "date": "2026-01-23",
-          "close": 4979.7002
-        },
-        {
-          "date": "2026-01-26",
-          "close": 5082.5
-        },
-        {
-          "date": "2026-01-27",
-          "close": 5082.6001
-        },
         {
           "date": "2026-01-28",
           "close": 5303.6001
@@ -13559,12 +13543,28 @@
         },
         {
           "date": "2026-10-08",
-          "close": 4145.3999
+          "close": 4157.0
+        },
+        {
+          "date": "2026-10-09",
+          "close": 4216.2998
+        },
+        {
+          "date": "2026-10-12",
+          "close": 4190.6001
+        },
+        {
+          "date": "2026-10-13",
+          "close": 4177.2998
+        },
+        {
+          "date": "2026-10-14",
+          "close": 4163.2998
         }
       ],
-      "last_success_date": "2026-10-08",
+      "last_success_date": "2026-10-14",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "THB=X": {
       "name_th": "อัตราแลกเปลี่ยน ดอลลาร์/บาท",
@@ -13588,28 +13588,12 @@
         "AOT": "cost"
       },
       "latest": {
-        "date": "2026-10-08",
-        "close": 33.68
+        "date": "2026-10-14",
+        "close": 33.56
       },
-      "pct_1d": 0.35,
-      "pct_1m": 2.4,
+      "pct_1d": -0.14,
+      "pct_1m": 1.02,
       "series": [
-        {
-          "date": "2026-01-30",
-          "close": 31.23
-        },
-        {
-          "date": "2026-02-02",
-          "close": 31.375
-        },
-        {
-          "date": "2026-02-03",
-          "close": 31.48
-        },
-        {
-          "date": "2026-02-04",
-          "close": 31.65
-        },
         {
           "date": "2026-02-05",
           "close": 31.72
@@ -14312,12 +14296,28 @@
         },
         {
           "date": "2026-10-08",
-          "close": 33.68
+          "close": 33.583
+        },
+        {
+          "date": "2026-10-09",
+          "close": 33.603
+        },
+        {
+          "date": "2026-10-12",
+          "close": 33.53
+        },
+        {
+          "date": "2026-10-13",
+          "close": 33.608
+        },
+        {
+          "date": "2026-10-14",
+          "close": 33.56
         }
       ],
-      "last_success_date": "2026-10-08",
+      "last_success_date": "2026-10-14",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "DX-Y.NYB": {
       "name_th": "ดัชนีดอลลาร์สหรัฐ",
@@ -14335,28 +14335,12 @@
         "HANA": "revenue"
       },
       "latest": {
-        "date": "2026-10-08",
-        "close": 102.381
+        "date": "2026-10-14",
+        "close": 102.252
       },
-      "pct_1d": 0.14,
-      "pct_1m": 3.66,
+      "pct_1d": 0.07,
+      "pct_1m": 2.61,
       "series": [
-        {
-          "date": "2026-01-22",
-          "close": 98.36
-        },
-        {
-          "date": "2026-01-23",
-          "close": 97.6
-        },
-        {
-          "date": "2026-01-26",
-          "close": 97.04
-        },
-        {
-          "date": "2026-01-27",
-          "close": 96.22
-        },
         {
           "date": "2026-01-28",
           "close": 96.45
@@ -15059,12 +15043,28 @@
         },
         {
           "date": "2026-10-08",
-          "close": 102.381
+          "close": 102.14
+        },
+        {
+          "date": "2026-10-09",
+          "close": 102.21
+        },
+        {
+          "date": "2026-10-12",
+          "close": 102.58
+        },
+        {
+          "date": "2026-10-13",
+          "close": 102.18
+        },
+        {
+          "date": "2026-10-14",
+          "close": 102.252
         }
       ],
-      "last_success_date": "2026-10-08",
+      "last_success_date": "2026-10-14",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "^TNX": {
       "name_th": "อัตราผลตอบแทนพันธบัตร US 10 ปี",
@@ -15092,28 +15092,12 @@
         "TIDLOR": "cost"
       },
       "latest": {
-        "date": "2026-10-07",
-        "close": 5.277
+        "date": "2026-10-13",
+        "close": 5.217
       },
-      "pct_1d": 0.15,
-      "pct_1m": 9.8,
+      "pct_1d": -0.44,
+      "pct_1m": 5.16,
       "series": [
-        {
-          "date": "2026-01-21",
-          "close": 4.253
-        },
-        {
-          "date": "2026-01-22",
-          "close": 4.249
-        },
-        {
-          "date": "2026-01-23",
-          "close": 4.239
-        },
-        {
-          "date": "2026-01-26",
-          "close": 4.213
-        },
         {
           "date": "2026-01-27",
           "close": 4.223
@@ -15817,11 +15801,27 @@
         {
           "date": "2026-10-07",
           "close": 5.277
+        },
+        {
+          "date": "2026-10-08",
+          "close": 5.231
+        },
+        {
+          "date": "2026-10-09",
+          "close": 5.244
+        },
+        {
+          "date": "2026-10-12",
+          "close": 5.24
+        },
+        {
+          "date": "2026-10-13",
+          "close": 5.217
         }
       ],
-      "last_success_date": "2026-10-07",
+      "last_success_date": "2026-10-13",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     },
     "BDRY": {
       "name_th": "ค่าระวางเรือสินค้าแห้ง (BDI ETF)",
@@ -15837,24 +15837,12 @@
         "TTA": "revenue"
       },
       "latest": {
-        "date": "2026-10-08",
-        "close": 14.48
+        "date": "2026-10-13",
+        "close": 13.12
       },
-      "pct_1d": 0.35,
-      "pct_1m": -10.06,
+      "pct_1d": -3.88,
+      "pct_1m": -14.25,
       "series": [
-        {
-          "date": "2026-01-22",
-          "close": 10.0
-        },
-        {
-          "date": "2026-01-23",
-          "close": 10.36
-        },
-        {
-          "date": "2026-01-26",
-          "close": 10.98
-        },
         {
           "date": "2026-01-27",
           "close": 11.26
@@ -16562,11 +16550,23 @@
         {
           "date": "2026-10-08",
           "close": 14.48
+        },
+        {
+          "date": "2026-10-09",
+          "close": 13.89
+        },
+        {
+          "date": "2026-10-12",
+          "close": 13.65
+        },
+        {
+          "date": "2026-10-13",
+          "close": 13.12
         }
       ],
-      "last_success_date": "2026-10-08",
+      "last_success_date": "2026-10-13",
       "never_fetched": false,
-      "is_stale_fallback": true
+      "series_empty": false
     }
   }
 }
