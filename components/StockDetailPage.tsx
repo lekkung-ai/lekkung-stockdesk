@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, AlertTriangle, ChevronLeft, ChevronRight, Users, Calendar, Newspaper } from 'lucide-react';
 import { bangkokDateKey, peColor, roeColor } from '@/lib/utils';
@@ -18,6 +19,7 @@ import type { F45Data } from '@/app/api/f45/[ticker]/route';
 import type { ShareholderData } from '@/app/api/shareholder/[ticker]/route';
 import NewsFlagBadges from '@/components/NewsFlagBadges';
 import NewListingBadge from '@/components/NewListingBadge';
+import { thaiDateLabel, type ListingStatus } from '@/lib/listingStatus';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -118,6 +120,7 @@ interface Props {
   combinedEntry: CombinedEntry | null;
   sectorInfo: SectorInfo | null;
   isPpbp?: boolean;
+  listingStatus?: ListingStatus | null;
 }
 
 // ── Stage style helper ──────────────────────────────────────────────────────
@@ -225,6 +228,51 @@ function SepaChecklist({ entry }: { entry: SepaEntry }) {
   );
 }
 
+// ── Listing status banner (delisted / renamed · active / unknown → nothing) ──
+function ListingStatusBanner({ status }: { status: ListingStatus | null }) {
+  if (status?.status === 'delisted') {
+    const date = thaiDateLabel(status.date);
+    return (
+      <div
+        className="flex items-center gap-2 px-3.5 py-2.5 rounded-lg bg-[#E24B4A]/10 border border-[#E24B4A]/30 text-label text-[#E24B4A]"
+        data-testid="listing-status-banner"
+        data-status="delisted"
+      >
+        <AlertTriangle size={14} className="flex-shrink-0" />
+        <span>
+          {status.stillTrading ? (
+            <span className="font-bold">ตลาดประกาศเพิกถอนแล้ว · ยังเปิดซื้อขายชั่วคราว</span>
+          ) : (
+            <>
+              <span className="font-bold">{date ? `ตลาดประกาศเพิกถอนเมื่อ ${date}` : 'ตลาดประกาศเพิกถอนแล้ว'}</span> · ข้อมูลด้านล่างเป็นข้อมูลล่าสุดที่มี
+            </>
+          )}
+        </span>
+      </div>
+    );
+  }
+  if (status?.status === 'renamed' && status.newTicker) {
+    const date = thaiDateLabel(status.date);
+    return (
+      <div
+        className="flex items-center gap-2 px-3.5 py-2.5 rounded-lg bg-[#378ADD]/10 border border-[#378ADD]/30 text-label text-[#378ADD]"
+        data-testid="listing-status-banner"
+        data-status="renamed"
+        title={date ? `พบครั้งแรก ${date}` : undefined}
+      >
+        <AlertTriangle size={14} className="flex-shrink-0" />
+        <span>
+          เปลี่ยนชื่อเป็น{' '}
+          <Link href={`/stock/${encodeURIComponent(status.newTicker)}`} className="font-bold underline underline-offset-2 hover:text-white">
+            {status.newTicker}
+          </Link>
+        </span>
+      </div>
+    );
+  }
+  return null;
+}
+
 // ── Main component ──────────────────────────────────────────────────────────
 export default function StockDetailPage({
   ticker,
@@ -235,6 +283,7 @@ export default function StockDetailPage({
   combinedEntry,
   sectorInfo,
   isPpbp = false,
+  listingStatus = null,
 }: Props) {
   const router = useRouter();
   const [chartHeight, setChartHeight] = useState(350);
@@ -248,7 +297,9 @@ export default function StockDetailPage({
   const [upcomingCA, setUpcomingCA] = useState<CalendarRow[]>([]);
   const [financials, setFinancials] = useState<YearlyFinancials[] | null>(null);
   const [f45, setF45] = useState<F45Data | null>(null);
+  const [f45Failed, setF45Failed] = useState(false);
   const [shareholders, setShareholders] = useState<ShareholderData | null>(null);
+  const [shareholdersFailed, setShareholdersFailed] = useState(false);
   const [fullCA, setFullCA] = useState<CalendarRow[]>([]);
   const [setNewsPage, setSetNewsPage] = useState(1);
   const [generalNewsPage, setGeneralNewsPage] = useState(1);
@@ -264,16 +315,16 @@ export default function StockDetailPage({
   }, []);
 
   useEffect(() => {
-    fetch(`/api/quote/${encodeURIComponent(ticker)}`)
+    fetch(`/api/quote/${encodeURIComponent(ticker)}?soft=1`)
       .then(r => r.ok ? r.json() : null)
       .then(data => { if (data?.price != null) setQuote(data); })
       .catch(() => {});
   }, [ticker]);
 
   useEffect(() => {
-    fetch(`/api/fundamental/${encodeURIComponent(ticker)}`)
+    fetch(`/api/fundamental/${encodeURIComponent(ticker)}?soft=1`)
       .then(r => r.ok ? r.json() : null)
-      .then(data => { if (data && !data.error) setFundamental(data); })
+      .then(data => { if (data && !data.error && !data.noData) setFundamental(data); })
       .catch(() => {});
   }, [ticker]);
 
@@ -325,15 +376,19 @@ export default function StockDetailPage({
   useEffect(() => {
     fetch(`/api/f45/${encodeURIComponent(ticker)}`)
       .then(r => r.ok ? r.json() : null)
-      .then(data => setF45(data ?? null))
-      .catch(() => setF45(null));
+      .then(data => { setF45(data ?? null); setF45Failed(!data); })
+      .catch(() => { setF45(null); setF45Failed(true); });
   }, [ticker]);
 
   useEffect(() => {
-    fetch(`/api/shareholder/${encodeURIComponent(ticker)}`)
+    fetch(`/api/shareholder/${encodeURIComponent(ticker)}?soft=1`)
       .then(r => r.ok ? r.json() : null)
-      .then(data => setShareholders(data ?? null))
-      .catch(() => setShareholders(null));
+      .then(data => {
+        const ok = data && !data.noData ? (data as ShareholderData) : null;
+        setShareholders(ok);
+        setShareholdersFailed(!ok);
+      })
+      .catch(() => { setShareholders(null); setShareholdersFailed(true); });
   }, [ticker]);
 
   useEffect(() => {
@@ -389,6 +444,8 @@ export default function StockDetailPage({
           <ArrowLeft size={13} />
           กลับ
         </button>
+
+        <ListingStatusBanner status={listingStatus} />
 
         {/* Ticker + name + price */}
         <div className="flex flex-col sm:flex-row sm:items-end gap-3">
@@ -501,7 +558,7 @@ export default function StockDetailPage({
       )}
 
       {/* ── Chart ── */}
-      <StockChart ticker={ticker} height={chartHeight} isPpbp={isPpbp} />
+      <StockChart ticker={ticker} height={chartHeight} isPpbp={isPpbp} soft />
 
       {/* ── Fair Value เทียบราคาจริง ── */}
       <FairValueCompare ticker={ticker} currentPrice={quote?.price ?? combinedEntry?.price ?? null} />
@@ -601,7 +658,9 @@ export default function StockDetailPage({
           )}
         </div>
         {f45 === null ? (
-          <p className="text-label text-meta text-center py-6 animate-pulse">กำลังโหลด...</p>
+          f45Failed
+            ? <p className="text-label text-meta text-center py-6">ไม่มีข้อมูล</p>
+            : <p className="text-label text-meta text-center py-6 animate-pulse">กำลังโหลด...</p>
         ) : !f45.found ? (
           <p className="text-label text-meta text-center py-6">ไม่มีรายงานล่าสุด</p>
         ) : (
@@ -1027,7 +1086,9 @@ export default function StockDetailPage({
         {/* Shareholders Table */}
         {shareholders === null ? (
           <div className="py-6 text-center">
-            <span className="text-label text-meta animate-pulse">กำลังโหลดผู้ถือหุ้นรายใหญ่...</span>
+            {shareholdersFailed
+              ? <p className="text-label text-meta">ไม่มีข้อมูล</p>
+              : <span className="text-label text-meta animate-pulse">กำลังโหลดผู้ถือหุ้นรายใหญ่...</span>}
           </div>
         ) : shareholders.majorShareholders.length === 0 ? (
           <div className="py-6 text-center">
