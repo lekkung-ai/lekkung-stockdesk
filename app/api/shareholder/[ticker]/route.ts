@@ -48,11 +48,16 @@ export interface ShareholderData {
 }
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ ticker: string }> }
 ) {
   const { ticker } = await params;
   const t = ticker.toUpperCase();
+  // ?soft=1 (stock page): "no data" is a normal answer (delisted / renamed tickers), not a 404 the browser
+  // logs as a console error — same as dcf-inputs / ddm-inputs. Every other caller keeps the 404.
+  const soft = req.nextUrl.searchParams.get('soft') === '1';
+  const noData = (status: number, body: object) =>
+    soft && status === 404 ? Response.json({ ticker: t, noData: true }) : Response.json(body, { status });
 
   try {
     const cookie = await getSessionCookie();
@@ -69,7 +74,7 @@ export async function GET(
     });
 
     if (!res.ok) {
-      return Response.json({ error: `http_${res.status}`, symbol: t, majorShareholders: [] }, { status: res.status });
+      return noData(res.status, { error: `http_${res.status}`, symbol: t, majorShareholders: [] });
     }
 
     const data: ShareholderData = await res.json();
