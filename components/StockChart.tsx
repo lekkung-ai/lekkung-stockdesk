@@ -148,10 +148,10 @@ function getPpbpTimes(data: OhlcvPoint[]): Set<string> {
   return times;
 }
 
-export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates, highlightColor = '#f59e0b', reentryDates, reentryColor = '#22c55e', stageMarker = false, stageMarkerColor = '#F472B6', defaultTimeframe = '6M' }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[]; highlightColor?: string; reentryDates?: string[]; reentryColor?: string; stageMarker?: boolean; stageMarkerColor?: string; defaultTimeframe?: Timeframe }) {
+export default function StockChart({ ticker, height = 350, isPpbp = false, showEma10 = false, showSma50 = false, showSma150 = false, highlightDates, highlightColor = '#f59e0b', reentryDates, reentryColor = '#22c55e', stageMarker = false, stageMarkerColor = '#F472B6', defaultTimeframe = '6M', soft = false }: { ticker: string; height?: number; isPpbp?: boolean; showEma10?: boolean; showSma50?: boolean; showSma150?: boolean; highlightDates?: string[]; highlightColor?: string; reentryDates?: string[]; reentryColor?: string; stageMarker?: boolean; stageMarkerColor?: string; defaultTimeframe?: Timeframe; /** stock page: ask /api/chart for ?soft=1 (200 {noData} instead of a 404) */ soft?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error' | 'nodata'>('loading');
   const [chartData, setChartData] = useState<OhlcvPoint[]>([]);
   const [timeframe, setTimeframe] = useState<Timeframe>(defaultTimeframe);
   const timeframeRef = useRef<Timeframe>(defaultTimeframe);
@@ -173,10 +173,11 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
     setStatus('loading');
     setChartData([]);
 
-    fetch(`/api/chart/${encodeURIComponent(ticker)}?market=SET`)
+    fetch(`/api/chart/${encodeURIComponent(ticker)}?market=SET${soft ? '&soft=1' : ''}`)
       .then(r => { if (!r.ok) throw new Error('upstream'); return r.json(); })
       .then(json => {
         if (cancelled) return;
+        if (json?.noData) { setStatus('nodata'); return; }
         if (!Array.isArray(json.data) || json.data.length === 0) throw new Error('empty');
         setChartData(json.data);
         setStatus('ready');
@@ -184,7 +185,7 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
       .catch(() => { if (!cancelled) setStatus('error'); });
 
     return () => { cancelled = true; };
-  }, [ticker]);
+  }, [ticker, soft]);
 
   // Create / recreate chart when data arrives
   useEffect(() => {
@@ -433,6 +434,11 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
         {status === 'loading' && (
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-[12px] text-white/30 animate-pulse">กำลังโหลดกราฟ...</span>
+          </div>
+        )}
+        {status === 'nodata' && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-[12px] text-white/30">ไม่มีข้อมูลราคา</span>
           </div>
         )}
         {status === 'error' && (
