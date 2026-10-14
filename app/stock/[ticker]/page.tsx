@@ -7,6 +7,7 @@ import rawCombined from '@/data/scans/combined.json';
 import rawSectorMap from '@/data/scans/sector_map.json';
 import rawPpbp from '@/data/scans/ppbp.json';
 import StockDetailPage from '@/components/StockDetailPage';
+import { listingStatusWithTrading } from '@/lib/listingStatusData';
 
 interface SectorMap {
   sectors: unknown[];
@@ -65,6 +66,7 @@ export default async function StockPage({
 
   const sectorInfo = sectorMap.ticker_to_sector[t] ?? null;
   const isPpbp = (rawPpbp as { Ticker: string }[]).some(r => r.Ticker === t);
+  const listingStatus = await listingStatusWithTrading(t);
 
   return (
     <StockDetailPage
@@ -76,6 +78,7 @@ export default async function StockPage({
       combinedEntry={combinedEntry}
       sectorInfo={sectorInfo}
       isPpbp={isPpbp}
+      listingStatus={listingStatus}
     />
   );
 }
