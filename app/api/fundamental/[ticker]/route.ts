@@ -114,11 +114,16 @@ async function fetchTradingViewData(symbol: string): Promise<any[] | null> {
 }
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ ticker: string }> }
 ) {
   const { ticker } = await context.params;
   const symbol = ticker.toUpperCase();
+  // ?soft=1 (stock page): "no data" is a normal answer (delisted / renamed tickers), not a 404 the browser
+  // logs as a console error — same as dcf-inputs / ddm-inputs. Every other caller keeps the 404.
+  const soft = req.nextUrl.searchParams.get('soft') === '1';
+  const noData = (status: number, body: object) =>
+    soft && status === 404 ? Response.json({ ticker: symbol, noData: true }) : Response.json(body, { status });
 
   try {
     const [tvResult, settradeResult] = await Promise.allSettled([
@@ -130,7 +135,7 @@ export async function GET(
     const settrade = settradeResult.status === 'fulfilled' ? settradeResult.value : null;
 
     if (!tvD && !settrade) {
-      return Response.json({ error: 'no_data' }, { status: 404 });
+      return noData(404, { error: 'no_data' });
     }
 
     const d = tvD || [];
