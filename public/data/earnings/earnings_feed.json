@@ -1,19 +1,15 @@
 {
-  "generatedAt": "2026-10-14T18:12:06.068315+07:00",
+  "generatedAt": "2026-10-15T14:46:52.252553+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 3,
+      "count": 2,
       "top3": [
         {
           "ticker": "MVP",
           "netProfitYoY": 103.66927246877829
-        },
-        {
-          "ticker": "FLE",
-          "netProfitYoY": 22.746823716251985
         },
         {
           "ticker": "TISCO",
@@ -41,7 +37,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 3,
+      "count": 2,
       "top3": [
         {
           "ticker": "TNH",
@@ -50,10 +46,6 @@
         {
           "ticker": "AEONTS",
           "netProfitYoY": -18.846781152208163
-        },
-        {
-          "ticker": "MC",
-          "netProfitYoY": -7.812576027563896
         }
       ]
     },
@@ -69,7 +61,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 8,
+      "count": 9,
       "top3": [
         {
           "ticker": "INGRS",
@@ -93,11 +85,42 @@
   },
   "announcements": [
     {
+      "ticker": "DOD",
+      "sector": "Consumer",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-10-14T19:00:00+07:00",
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": -21874000.0,
+      "netProfitPrior": 27204000.0,
+      "netProfitYoY": -180.40729304514042,
+      "netProfitPriorQ": 941000.0,
+      "netProfitQoQ": -2424.548352816153,
+      "profitAcceleration": "stable",
+      "eps": -0.049,
+      "epsPrior": 0.06,
+      "epsYoY": -181.66666666666666,
+      "auditorOpinion": "มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": true,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107096601&symbol=DOD",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107096101&symbol=DOD",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107096701&symbol=DOD",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)(แก้ไขหน้ารายงานผู้สอบบัญชี เพิ่มเติม)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -3.85,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
       "ticker": "TISCO",
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-10-14T08:35:18+07:00",
+      "announceDate": "2026-10-14T08:35:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 1804704000.0,
@@ -119,7 +142,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.4,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.4,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -676,68 +699,10 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 1.37,
+      "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
-    },
-    {
-      "ticker": "FLE",
-      "sector": "Industrials",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-08-31T12:53:00+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": 37099000.0,
-      "netProfitPrior": 30224000.0,
-      "netProfitYoY": 22.746823716251985,
-      "netProfitPriorQ": 3242980.0,
-      "netProfitQoQ": 1043.9786862700355,
-      "profitAcceleration": "accelerating",
-      "eps": 0.2,
-      "epsPrior": 0.25,
-      "epsYoY": -19.999999999999996,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": true,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106609701&symbol=FLE",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17881331359301&symbol=FLE",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106607401&symbol=FLE",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "คําอธิบายและวิเคราะห์ของฝ่ายจัดการ (MD&A) สำหรับปีสิ้นสุดวันที่ 31 ธันวาคม 2568 ปี 2568 บริษัทฯ มีรายได้จากการขายและให้บริการ 574.71 ล้านบาท เพิ่มขึ้นร้อยละ 14.90 และมี กำไรสุทธิ 37.10 ล้านบาท เพิ่มขึ้นร้อยละ 22.75 แม้อัตรากำไรขั้นต้นลดลงจากร้อยละ 23.48 เป็นร้อยละ 21.72 จากต้นทุนงานและโครงสร้างรายได้ของโครงการ บริษัทฯ",
-      "reason_source": "mda_extract"
-    },
-    {
-      "ticker": "MC",
-      "sector": "Services",
-      "subsector": "Commerce",
-      "market": "SET",
-      "announceDate": "2026-08-31T06:54:00+07:00",
-      "quarter": "ประจำปี 2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 701007000.0,
-      "netProfitPrior": 760415000.0,
-      "netProfitYoY": -7.812576027563896,
-      "netProfitPriorQ": 176306000.0,
-      "netProfitQoQ": 297.6081358547072,
-      "profitAcceleration": "stable",
-      "eps": 0.89,
-      "epsPrior": 0.96,
-      "epsYoY": -7.291666666666662,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "profit_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106600701&symbol=MC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17881331352351&symbol=MC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106601701&symbol=MC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "68) รายได้จากการขาย 4,402 4,152 6.0% กำไรขั้นต้น 2,810 2,655 5.8% อัตรากำไรขั้นต้น 63.8% 63.9% -0.1% ค่าใช้จ่ายในการขายและบริหาร 1,944 1,760 10.4% %ค่าใช้จ่ายในการขายและบริหาร 44.2% 42.4% 1.8% รายได้อื่นๆ 49 70 -30.3%",
-      "reason_source": "mda_extract",
-      "gap_pct": -0.84,
-      "drift_d1_pct": -5.04,
-      "drift_d2_pct": -7.56,
-      "drift_d5_pct": -5.04
     }
   ],
   "calendar": [
@@ -826,12 +791,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-08-13T19:24:00+07:00"
-    },
-    {
-      "ticker": "KTIS",
-      "date": "2026-08-13T19:56:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "UNIX",
@@ -925,12 +884,6 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "MC",
-      "date": "2026-08-31T06:54:00+07:00",
-      "status": "confirmed",
-      "quarter": "ประจำปี 2569"
-    },
-    {
       "ticker": "FLE",
       "date": "2026-08-31T12:53:00+07:00",
       "status": "confirmed",
@@ -1016,9 +969,15 @@
     },
     {
       "ticker": "TISCO",
-      "date": "2026-10-14T08:35:18+07:00",
+      "date": "2026-10-14T08:35:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "DOD",
+      "date": "2026-10-14T19:00:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 1/2569"
     },
     {
       "ticker": "TSTH",
@@ -2414,6 +2373,13 @@
       "basedOnLastYear": "2025-11-11T08:07:00+07:00"
     },
     {
+      "ticker": "MC",
+      "date": "2026-11-11T08:08:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-11T08:08:00+07:00"
+    },
+    {
       "ticker": "ACG",
       "date": "2026-11-11T08:30:00+07:00",
       "status": "predicted",
@@ -2853,13 +2819,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-11T18:20:00+07:00"
-    },
-    {
-      "ticker": "DOD",
-      "date": "2026-11-11T18:23:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-11T18:23:00+07:00"
     },
     {
       "ticker": "IP",
@@ -7207,6 +7166,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-27T08:13:00+07:00"
+    },
+    {
+      "ticker": "KTIS",
+      "date": "2026-11-28T20:50:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-28T20:50:00+07:00"
     }
   ]
 }
