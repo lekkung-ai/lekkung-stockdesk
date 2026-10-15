@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T14:46:52.252553+07:00",
+  "generatedAt": "2026-10-15T18:12:33.481322+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -19,19 +19,19 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 6,
+      "count": 5,
       "top3": [
         {
           "ticker": "TAPAC",
           "netProfitYoY": 2658.732498157701
         },
         {
-          "ticker": "BANPU",
-          "netProfitYoY": 329.55035850527304
-        },
-        {
           "ticker": "META",
           "netProfitYoY": 166.76516600034765
+        },
+        {
+          "ticker": "TAPAC",
+          "netProfitYoY": 126.66784023222229
         }
       ]
     },
@@ -108,8 +108,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107096101&symbol=DOD",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107096701&symbol=DOD",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 1 (F45) (สอบทานแล้ว)(แก้ไขหน้ารายงานผู้สอบบัญชี เพิ่มเติม)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "บริษัทมีรายได้จากการขาย 119.91 ล้านบาท ลดลง 51.16 ล้านบาท หรือลดลงในอัตราร้อย ละ 29.91 และมีขาดทุนจากการดำเนินงาน 15.14 ล้านบาท ในขณะที่ช่วงเวลาเดียวกันของปีก่อนมีกำไรจากการ ดำเนินงาน 15.47 ล้านบาท คิดเป็นการลดลง 30.61 ล้านบาท",
+      "reason_source": "mda_extract",
       "gap_pct": -3.85,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -672,37 +672,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -2.38,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "BANPU",
-      "sector": "Resources",
-      "subsector": "Energy & Utilities",
-      "market": "SET",
-      "announceDate": "2026-08-31T17:45:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": 1778749000.0,
-      "netProfitPrior": -774884000.0,
-      "netProfitYoY": 329.55035850527304,
-      "netProfitPriorQ": 1091265000.0,
-      "netProfitQoQ": 62.998813303826296,
-      "profitAcceleration": "accelerating",
-      "eps": 0.439,
-      "epsPrior": -0.191,
-      "epsYoY": 329.8429319371728,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "turnaround",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106612001&symbol=BANPU",
-      "statementUrl": null,
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106617501&symbol=BANPU",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) ข้อมูลทางการเงินรวมเสมือน (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.0,
-      "drift_d1_pct": null,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
     }
   ],
   "calendar": [
