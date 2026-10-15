@@ -16,6 +16,7 @@ import {
   baseValue, flowSummary, fmtNetBaht, netFlowMb, netLabel, netRows, statusBoxes, windowValue,
   NET_LABEL_PCT, NO_STATUS, type BoxKey, type NetLabel,
 } from '@/lib/sectorFlowNet';
+import { READABLE } from '@/lib/typeScale';
 
 // "แบบใหม่" layout of /sector-flow (?layout=new). Same data, URL params and row links as the
 // classic SectorFlowView (which is left untouched); type is one step larger than the classic
@@ -130,7 +131,7 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
       {/* How to read: 2 lines + full text behind a toggle */}
       <section className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 text-[15px] text-white/60 leading-relaxed space-y-2">
         <div className="flex items-start justify-between gap-3">
-          <div>
+          <div className={READABLE}>
             <p><span className="font-bold text-white/85">เงินเข้า/ออก</span> = เงินที่ไหลเข้ากลุ่มมากกว่า (หรือน้อยกว่า) สัดส่วนปกติของกลุ่มในตลาด เป็นล้านบาทต่อวัน</p>
             <p><span className="font-bold text-white/85">สถานะ</span> = ผลตอบแทนเทียบ SET ช่วง 3 เดือน (ระดับ) กับ 1 เดือน (ทิศทาง)</p>
           </div>
@@ -143,7 +144,7 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
           </button>
         </div>
         {showHelp && (
-          <div className="pt-2 border-t border-white/[0.06] space-y-1.5" data-testid="flow-help">
+          <div className={`pt-2 border-t border-white/[0.06] space-y-1.5 ${READABLE}`} data-testid="flow-help">
             <p>
               <span className="font-bold text-white/85">เงินเข้า/ออก (บาท)</span> — มูลค่าซื้อขายของกลุ่ม × (1 − 1/×เท่า) โดย ×เท่า = สัดส่วนมูลค่าซื้อขายของกลุ่มในตลาดทั้งหมด เทียบกับสัดส่วนปกติของ 20 วันทำการก่อนหน้า
               · บวก = กลุ่มได้ส่วนแบ่งเงินในตลาดมากกว่าปกติ · ลบ = น้อยกว่าปกติ · รวมทุกกลุ่มแล้วใกล้ 0 (เงินย้ายจากกลุ่มหนึ่งไปอีกกลุ่ม)
