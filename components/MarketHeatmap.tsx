@@ -6,6 +6,7 @@ import { squarify } from '@/lib/treemap';
 import { weightedChange, formatPct } from '@/lib/sectorChange';
 import { formatThaiDate } from '@/lib/utils';
 import { heatColor, heatTextColor, NO_DATA_COLOR } from '@/lib/heatColor';
+import { TS } from '@/lib/typeScale';
 
 export { heatColor };
 
@@ -41,19 +42,21 @@ const BOX_GAP = 1; // between stock boxes
 const fmtMcap = (v: number) =>
   v >= 1e12 ? `${(v / 1e12).toFixed(2)} ล้านล้าน` : v >= 1e9 ? `${(v / 1e9).toFixed(1)} พันล้าน` : `${(v / 1e6).toFixed(0)} ล้าน`;
 
-export function HeatmapLegend({ fetchedAt }: { fetchedAt?: string | null }) {
+// large: /sector's bigger type scale (lib/typeScale) — other pages keep the default sizes
+export function HeatmapLegend({ fetchedAt, large = false }: { fetchedAt?: string | null; large?: boolean }) {
   const stops = [-3, -2, -1, 0, 1, 2, 3];
+  const swatch = large ? 'w-12 h-5 text-[11px] leading-5' : 'w-11 h-4 text-[9.5px] leading-4';
   return (
-    <div className="flex items-center gap-2 text-[10.5px] text-white/45 flex-wrap">
+    <div className={`flex items-center gap-2 ${large ? TS.caption : 'text-[10.5px]'} text-white/45 flex-wrap`}>
       <span>% วันนี้</span>
       <div className="flex">
         {stops.map(s => (
-          <div key={s} className="w-11 h-4 text-[9.5px] text-white text-center leading-4 font-mono font-bold" style={{ background: heatColor(s), textShadow: TEXT_SHADOW }}>
+          <div key={s} className={`${swatch} text-white text-center font-mono font-bold`} style={{ background: heatColor(s), textShadow: TEXT_SHADOW }}>
             {s > 0 ? `+${s}%` : s < 0 ? `−${Math.abs(s)}%` : '0%'}
           </div>
         ))}
       </div>
-      <div className="h-4 px-2 text-[9.5px] leading-4 text-white/50 text-center" style={{ background: NO_DATA_COLOR }}>ไม่มีการซื้อขาย</div>
+      <div className={`px-2 text-white/50 text-center ${large ? 'h-5 text-[11px] leading-5' : 'h-4 text-[9.5px] leading-4'}`} style={{ background: NO_DATA_COLOR }}>ไม่มีการซื้อขาย</div>
       <span>· ขนาดกล่อง = market cap</span>
       {fetchedAt && <span className="text-white/40">· ข้อมูลล่าช้า 15 นาที · อัปเดต {formatThaiDate(fetchedAt)}</span>}
     </div>
@@ -62,7 +65,7 @@ export function HeatmapLegend({ fetchedAt }: { fetchedAt?: string | null }) {
 
 interface Tip { stock: HeatStock; x: number; y: number }
 
-export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGroup[]; height?: number }) {
+export default function MarketHeatmap({ groups, height = 600, large = false }: { groups: HeatGroup[]; height?: number; large?: boolean }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const [tip, setTip] = useState<Tip | null>(null);
@@ -115,7 +118,7 @@ export default function MarketHeatmap({ groups, height = 600 }: { groups: HeatGr
           style={{ left: rect.x + GROUP_GAP / 2, top: rect.y + GROUP_GAP / 2, width: Math.max(0, rect.w - GROUP_GAP), height: Math.max(0, rect.h - GROUP_GAP), background: PAGE_BG }}
         >
           {showHeader && (
-            <div className="flex items-center justify-between gap-2 px-1.5 text-[11px] font-bold text-white/90 whitespace-nowrap overflow-hidden" style={{ height: HEADER_H }}>
+            <div className={`flex items-center justify-between gap-2 px-1.5 ${large ? TS.caption : 'text-[11px]'} font-bold text-white/90 whitespace-nowrap overflow-hidden`} style={{ height: HEADER_H }}>
               {group.href ? (
                 <Link href={group.href} className="truncate hover:underline" title={group.label}>{label}</Link>
               ) : (
