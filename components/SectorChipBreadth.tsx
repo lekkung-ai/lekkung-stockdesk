@@ -1,4 +1,5 @@
 import type { SectorSummaryRow, StageSplit } from '@/lib/sectorSummary';
+import { TS } from '@/lib/typeScale';
 
 // Stage colours as on the home page Stage Distribution (Bull = S.Bull+Bull, Accum = Accumulation+Recovery).
 const SEGMENTS: { key: keyof StageSplit; label: string; color: string }[] = [
@@ -20,7 +21,7 @@ export default function SectorChipBreadth({ row }: { row: SectorSummaryRow | und
   return (
     <div className="mt-2 pt-2 border-t border-white/[0.05] space-y-1.5 text-left" data-testid="sector-chip-breadth">
       <div title={`${row.emaAbove}/${row.emaDenom} หุ้นราคาเหนือ EMA50`}>
-        <div className="flex items-center justify-between text-[10px]">
+        <div className={`flex items-center justify-between ${TS.caption}`}>
           <span className="text-white/35">เหนือ EMA50</span>
           <span className="text-white/70 font-semibold tabular-nums" data-testid="chip-ema">
             {row.emaPct != null ? `${row.emaPct.toFixed(0)}%` : '—'}
@@ -32,13 +33,13 @@ export default function SectorChipBreadth({ row }: { row: SectorSummaryRow | und
       </div>
       {split && (
         <div title={STAGE_TIP}>
-          <div className="text-[10px] text-white/35">Stage</div>
+          <div className={`${TS.caption} text-white/35`}>Stage</div>
           <div className="flex h-1.5 mt-0.5 rounded-full overflow-hidden gap-px" data-testid="chip-stage-bar">
             {segs.map(s => (
               <div key={s.key} style={{ width: `${split[s.key]}%`, background: s.color }} title={`${s.label} ${split[s.key].toFixed(0)}%`} />
             ))}
           </div>
-          <div className="flex flex-wrap justify-between gap-x-1 mt-0.5 text-[9.5px] tabular-nums" data-testid="chip-stage-pcts">
+          <div className={`flex flex-wrap justify-between gap-x-1 mt-0.5 ${TS.caption} tabular-nums`} data-testid="chip-stage-pcts">
             {segs.map(s => (
               <span key={s.key} style={{ color: s.color }} title={s.label} data-stage={s.key}>
                 {split[s.key].toFixed(0)}
