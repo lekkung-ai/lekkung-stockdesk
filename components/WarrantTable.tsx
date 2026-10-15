@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ArrowDown, ArrowUp } from 'lucide-react';
 import type { WarrantListRow } from '@/app/api/warrant-list/route';
+import { TS } from '@/lib/typeScale';
 
 type SortKey = 'symbol' | 'parent' | 'price' | 'changePercent' | 'exercisePrice' | 'exerciseRatio' | 'maturityDate';
 type SortConfig = { key: SortKey; dir: 'asc' | 'desc' } | null;
@@ -25,7 +26,7 @@ function SortTh({
   return (
     <th
       onClick={() => onSort(sortKey)}
-      className={`px-3 py-3 text-[11px] font-semibold uppercase tracking-wider whitespace-nowrap cursor-pointer select-none group ${active ? 'text-white/60' : 'text-white/25 hover:text-white/40'} ${className}`}
+      className={`px-3 py-3 ${TS.body} font-semibold uppercase tracking-wider whitespace-nowrap cursor-pointer select-none group ${active ? 'text-white/60' : 'text-white/25 hover:text-white/40'} ${className}`}
     >
       <div className="flex items-center gap-1">
         {label}
@@ -153,30 +154,30 @@ export default function WarrantTable() {
               <tbody className="divide-y divide-white/[0.03]">
                 {filteredRows.map(row => (
                   <tr key={row.symbol} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-3 py-3 text-[15px] font-semibold text-white/85 whitespace-nowrap">
+                    <td className={`px-3 py-3 ${TS.tableCell} font-semibold text-white/85 whitespace-nowrap`}>
                       {row.symbol}
                     </td>
                     <td
                       onClick={() => router.push(`/stock/${row.parent}`)}
-                      className="px-3 py-3 text-[14px] font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap"
+                      className={`px-3 py-3 ${TS.tableCell} font-semibold text-blue-400 cursor-pointer hover:text-blue-300 whitespace-nowrap`}
                     >
                       {row.parent}
                     </td>
-                    <td className="px-3 py-3 text-[14px] text-white/70 tabular-nums whitespace-nowrap">
+                    <td className={`px-3 py-3 ${TS.tableCell} text-white/70 tabular-nums whitespace-nowrap`}>
                       {row.price != null ? row.price.toFixed(2) : '—'}
                     </td>
-                    <td className={`px-3 py-3 text-[14px] font-semibold tabular-nums whitespace-nowrap ${
+                    <td className={`px-3 py-3 ${TS.tableCell} font-semibold tabular-nums whitespace-nowrap ${
                       row.changePercent > 0 ? 'text-green-400' : row.changePercent < 0 ? 'text-red-400' : 'text-white/50'
                     }`}>
                       {row.changePercent != null ? `${row.changePercent > 0 ? '+' : ''}${row.changePercent.toFixed(2)}%` : '—'}
                     </td>
-                    <td className="px-3 py-3 text-[14px] text-white/70 tabular-nums whitespace-nowrap">
+                    <td className={`px-3 py-3 ${TS.tableCell} text-white/70 tabular-nums whitespace-nowrap`}>
                       {row.exercisePrice != null ? row.exercisePrice.toFixed(2) : '—'}
                     </td>
-                    <td className="px-3 py-3 text-[14px] text-white/70 tabular-nums whitespace-nowrap">
+                    <td className={`px-3 py-3 ${TS.tableCell} text-white/70 tabular-nums whitespace-nowrap`}>
                       1 : {row.exerciseRatio}
                     </td>
-                    <td className="px-3 py-3 text-[14px] text-white/55 whitespace-nowrap">
+                    <td className={`px-3 py-3 ${TS.tableCell} text-white/55 whitespace-nowrap`}>
                       {isoToThaiLabel(row.maturityDate)}
                     </td>
                   </tr>
@@ -187,7 +188,7 @@ export default function WarrantTable() {
         )}
       </div>
 
-      <p className="text-[10px] text-white/20 text-right">
+      <p className={`${TS.caption} text-white/20 text-right`}>
         แหล่งข้อมูล: SET (ผ่าน Settrade) · อัปเดตทุก 5 นาที{filteredRows.length > 0 ? ` · ${filteredRows.length} รายการ` : ''}
       </p>
     </div>
