@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { getSectorsGrouped, sectorToSlug, listedFundTickers, FUND_GROUP_LABEL, FUND_GROUP_SHORT_LABEL } from '@/lib/sectorData';
 import WarrantTable from '@/components/WarrantTable';
@@ -15,6 +15,9 @@ import { getRS, getStage } from '@/lib/tickerMeta';
 import { heatTextColor } from '@/lib/heatColor';
 import { sectorSummary } from '@/lib/sectorSummaryData';
 import SectorChipBreadth from '@/components/SectorChipBreadth';
+import FullWidthPage from '@/components/FullWidthPage';
+import { TS } from '@/lib/typeScale';
+import { useHeatmapHeight } from '@/lib/heatmapHeight';
 
 type Market = 'SET' | 'MAI' | 'WARRANT';
 
@@ -45,7 +48,7 @@ function sectorColor(sector: string): string {
 function TodayChange({ change }: { change?: { pct: number | null; n: number; total: number } }) {
   if (!change || change.pct == null) return null;
   return (
-    <p className="mt-1 text-[11px] font-bold tabular-nums">
+    <p className={`mt-1 ${TS.numberSub} tabular-nums`}>
       <span className="text-white/35 font-medium">วันนี้ </span>
       <span style={{ color: heatTextColor(change.pct) ?? undefined }}>{formatPct(change.pct)}</span>
       <span className="text-white/25 font-medium"> · n={change.n}/{change.total}</span>
@@ -61,6 +64,8 @@ export default function SectorPage() {
 
   const { status: quotesStatus, quotes, fetchedAt } = useMarketQuotes();
   const quotesOk = quotesStatus === 'ok';
+  const heatWrapRef = useRef<HTMLDivElement>(null);
+  const heatHeight = useHeatmapHeight(heatWrapRef);
 
   // Today's market-cap-weighted % per sector + heatmap groups (SET / MAI only)
   const sectorToday = useMemo(() => {
@@ -150,10 +155,10 @@ export default function SectorPage() {
   });
 
   return (
-    <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">
+    <FullWidthPage className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 shadow-sm">
         <div>
-          <h1 className="text-[20px] font-bold text-white tracking-tight">Sector Map & Relative Strength</h1>
+          <h1 className={`${TS.pageTitle} text-white tracking-tight`}>Sector Map & Relative Strength</h1>
           <p className="text-[13px] text-white/40 mt-1">
             {isWarrantTab ? 'Warrant ที่ยัง trade อยู่ทั้งหมด' : `${sectors.length} sectors · ${totalTickers} tickers (ไม่รวม${FUND_GROUP_LABEL}) · เปรียบเทียบความแข็งแกร่งกับ SET Index`}
           </p>
@@ -166,7 +171,7 @@ export default function SectorPage() {
               key={m}
               onClick={() => setMarket(m)}
               className={[
-                'px-4 py-2 rounded-xl text-[12px] font-bold uppercase tracking-wider transition-all border shadow-sm',
+                `px-4 py-2 rounded-xl ${TS.body} font-bold uppercase tracking-wider transition-all border shadow-sm`,
                 market === m
                   ? 'bg-white text-black border-white'
                   : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:bg-white/[0.08] hover:text-white',
@@ -182,7 +187,7 @@ export default function SectorPage() {
       {!isWarrantTab && (
         <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[13px] font-extrabold text-white flex items-center gap-2">
+            <span className={`${TS.sectionTitle} text-white flex items-center gap-2`}>
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
               Sector Relative Strength Ranking ({market} - Median RS หุ้นในกลุ่ม)
             </span>
@@ -193,9 +198,9 @@ export default function SectorPage() {
               const status = statusMap[item.sector] ?? 'Neutral';
               return (
                 <div key={item.sector} className="bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2 text-center min-w-[130px] flex-1">
-                  <p className="text-[12px] font-bold text-white truncate">{item.sector}</p>
+                  <p className={`${TS.body} font-bold text-white truncate`}>{item.sector}</p>
                   <div className="flex items-center justify-center gap-1.5 mt-1">
-                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                    <span className={`${TS.numberSub} px-2 py-0.5 rounded-md ${
                       status === 'Outperforming' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
                       status === 'Neutral' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
                       'bg-rose-500/20 text-rose-400 border border-rose-500/30'
@@ -215,27 +220,29 @@ export default function SectorPage() {
       {!isWarrantTab && (
         <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 space-y-3">
           <div className="flex items-center justify-between gap-3 flex-wrap">
-            <span className="text-[13px] font-extrabold text-white">Market Heatmap ({market}) · % เปลี่ยนแปลงวันนี้</span>
+            <span className={`${TS.sectionTitle} text-white`}>Market Heatmap ({market}) · % เปลี่ยนแปลงวันนี้</span>
           </div>
+          <div ref={heatWrapRef} className="space-y-3">
           {quotesStatus === 'loading' ? (
-            <div className="h-[600px] flex items-center justify-center text-[13px] text-white/40">กำลังโหลดข้อมูลราคา...</div>
+            <div className="flex items-center justify-center text-[13px] text-white/40" style={{ height: heatHeight }}>กำลังโหลดข้อมูลราคา...</div>
           ) : quotesOk ? (
             <>
-              <MarketHeatmap groups={heatGroups} height={600} />
-              <HeatmapLegend fetchedAt={fetchedAt} />
+              <MarketHeatmap groups={heatGroups} height={heatHeight} large />
+              <HeatmapLegend fetchedAt={fetchedAt} large />
             </>
           ) : (
             <div className="h-24 flex items-center justify-center rounded-xl bg-white/[0.03] text-[13px] text-amber-300/80">
               ไม่มีข้อมูลราคาสด
             </div>
           )}
+          </div>
         </div>
       )}
 
       {isWarrantTab ? (
         <WarrantTable />
       ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4" data-grid="sector-cards">
         {sectors.map(({ sector, subsectors, totalCount }) => {
           const color = sectorColor(sector);
           const slug = sectorToSlug(sector);
@@ -259,25 +266,25 @@ export default function SectorPage() {
                   />
                   <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-extrabold text-white leading-tight">{sector}</p>
-                    <p className="text-[12px] text-white/40 mt-0.5 font-medium">{totalCount} หุ้น</p>
+                    <p className={`${TS.body} text-white/40 mt-0.5 font-medium`}>{totalCount} หุ้น</p>
                     {median !== null ? (
-                      <p className="text-[12px] text-white/40 mt-0.5 font-medium">
+                      <p className={`${TS.body} text-white/40 mt-0.5 font-medium`}>
                         PE {median.toFixed(1)}x · <span className="text-white/25">n={n}</span>
                       </p>
                     ) : (
-                      <p className="text-[12px] text-white/25 mt-0.5 font-medium">PE —</p>
+                      <p className={`${TS.body} text-white/25 mt-0.5 font-medium`}>PE —</p>
                     )}
                     {medianPb !== null ? (
-                      <p className="text-[12px] text-white/40 mt-0.5 font-medium">
+                      <p className={`${TS.body} text-white/40 mt-0.5 font-medium`}>
                         PBV {medianPb.toFixed(2)}x · <span className="text-white/25">n={nPb}</span>
                       </p>
                     ) : (
-                      <p className="text-[12px] text-white/25 mt-0.5 font-medium">PBV —</p>
+                      <p className={`${TS.body} text-white/25 mt-0.5 font-medium`}>PBV —</p>
                     )}
                   </div>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full inline-block ${
+                  <span className={`${TS.numberSub} px-2.5 py-0.5 rounded-full inline-block ${
                     status === 'Outperforming' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
                     status === 'Neutral' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
                     'bg-rose-500/10 text-rose-400 border border-rose-500/20'
@@ -288,10 +295,10 @@ export default function SectorPage() {
               </div>
 
               <div data-testid="sector-card-stats">
-                <p className="text-[12px] font-bold tabular-nums" data-testid="card-today" title={today ? `คำนวณจาก ${today.n}/${today.total} หุ้นที่มีราคาและ market cap` : undefined}>
-                  <span className="text-white/35 font-medium">วันนี้ </span>
-                  <span style={{ color: heatTextColor(today?.pct) ?? 'rgba(255,255,255,0.3)' }}>{formatPct(today?.pct)}</span>
-                  {today && <span className="text-white/25 font-medium"> · {today.n} หุ้น</span>}
+                <p className="tabular-nums leading-tight" data-testid="card-today" title={today ? `คำนวณจาก ${today.n}/${today.total} หุ้นที่มีราคาและ market cap` : undefined}>
+                  <span className={`${TS.caption} text-white/35 font-medium`}>วันนี้ </span>
+                  <span className={TS.numberMain} style={{ color: heatTextColor(today?.pct) ?? 'rgba(255,255,255,0.3)' }}>{formatPct(today?.pct)}</span>
+                  {today && <span className={`${TS.caption} text-white/25 font-medium`}> · {today.n} หุ้น</span>}
                 </p>
                 <SectorChipBreadth row={breadthBySector[sector]} />
               </div>
@@ -299,8 +306,8 @@ export default function SectorPage() {
               <div className="space-y-1.5 pt-1 border-t border-white/[0.05]">
                 {subsectors.map(sub => (
                   <div key={sub.subsector} className="flex items-center justify-between gap-2">
-                    <span className="text-[12px] text-white/50 truncate font-medium">{sub.subsector}</span>
-                    <span className="text-[12px] text-white/30 tabular-nums flex-shrink-0 font-mono">{sub.count}</span>
+                    <span className={`${TS.body} text-white/50 truncate font-medium`}>{sub.subsector}</span>
+                    <span className={`${TS.body} text-white/30 tabular-nums flex-shrink-0 font-mono`}>{sub.count}</span>
                   </div>
                 ))}
               </div>
@@ -309,6 +316,6 @@ export default function SectorPage() {
         })}
       </div>
       )}
-    </div>
+    </FullWidthPage>
   );
 }
