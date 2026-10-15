@@ -1,73 +1,73 @@
 {
-  "generated_at": "2026-10-14T18:05:29.403309+07:00",
+  "generated_at": "2026-10-15T18:05:46.158392+07:00",
   "method": "median_stock_rs",
   "sectors": {
-    "MAI": {
-      "Industrials": {
-        "rsScore": 69,
-        "count": 46
-      },
-      "Services": {
-        "rsScore": 33,
-        "count": 62
-      },
-      "Consumer": {
-        "rsScore": 27,
-        "count": 19
-      },
-      "Resources": {
-        "rsScore": 24,
-        "count": 11
-      },
-      "Property": {
-        "rsScore": 36,
-        "count": 35
-      },
-      "Technology": {
-        "rsScore": 50,
-        "count": 24
-      },
-      "Financials": {
-        "rsScore": 48,
-        "count": 10
-      },
-      "Agro": {
-        "rsScore": 56,
-        "count": 13
-      }
-    },
     "SET": {
+      "Technology": {
+        "rsScore": 52,
+        "count": 44
+      },
       "Property": {
         "rsScore": 45,
         "count": 109
       },
-      "Resources": {
-        "rsScore": 74,
-        "count": 55
+      "Services": {
+        "rsScore": 46,
+        "count": 128
       },
-      "Technology": {
-        "rsScore": 51,
-        "count": 44
+      "Resources": {
+        "rsScore": 72,
+        "count": 55
       },
       "Financials": {
         "rsScore": 60,
         "count": 67
       },
       "Industrials": {
-        "rsScore": 63,
+        "rsScore": 64,
         "count": 93
       },
-      "Services": {
-        "rsScore": 46,
-        "count": 128
-      },
       "Agro": {
-        "rsScore": 44,
+        "rsScore": 45,
         "count": 71
       },
       "Consump": {
-        "rsScore": 43,
+        "rsScore": 42,
         "count": 46
+      }
+    },
+    "MAI": {
+      "Industrials": {
+        "rsScore": 70,
+        "count": 46
+      },
+      "Services": {
+        "rsScore": 30,
+        "count": 62
+      },
+      "Consumer": {
+        "rsScore": 28,
+        "count": 19
+      },
+      "Property": {
+        "rsScore": 32,
+        "count": 35
+      },
+      "Resources": {
+        "rsScore": 62,
+        "count": 11
+      },
+      "Technology": {
+        "rsScore": 48,
+        "count": 24
+      },
+      "Financials": {
+        "rsScore": 50,
+        "count": 10
+      },
+      "Agro": {
+        "rsScore": 54,
+        "count": 13
       }
     }
   }

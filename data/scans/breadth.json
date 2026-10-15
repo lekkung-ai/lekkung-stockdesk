@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T18:05:34+07:00",
+  "generated_at": "2026-10-15T18:05:51+07:00",
   "universe": {
     "count": 877,
     "min_history_days": 252,
@@ -21,27 +21,18 @@
   "ftd_dd_rule": "DD (Distribution Day): SET index ปิดลบ >= 0.2% ด้วย volume มากกว่าวันก่อนหน้า (นับทุกครั้งที่เข้าเงื่อนไข ไม่ขึ้นกับสถานะ rally attempt). FTD (Follow-Through Day): เกิดได้เฉพาะวันที่ 4-10 ของ 'rally attempt' (วันที่ 1 = วันแรกที่ index ปิดบวกหลังวันก่อนหน้าปิดลบ) โดยวันนั้นต้องปิดบวก >= 1.5% ด้วย volume มากกว่าวันก่อนหน้า. rally attempt ถือว่าล้มเหลวและเริ่มนับวันที่ 1 ใหม่ ถ้า close หลุดต่ำกว่า low ของวันที่ 1 ก่อนเกิด FTD. หลัง FTD ยืนยันแล้ว จะกลับไปเฝ้าหา rally attempt ใหม่ อีกครั้งเมื่อ index ปิดลบเป็นวันแรก (pullback ครั้งถัดไป). หมายเหตุ: เป็นการตีความเกณฑ์ O'Neil แบบย่อของทีมเรา ไม่ใช่สูตรทางการของ IBD ปรับ threshold ได้ที่ config.py (DD_MIN_DECLINE_PCT / FTD_MIN_GAIN_PCT / FTD_WINDOW_START_DAY / FTD_WINDOW_END_DAY)",
   "market_stage": {
     "stage": "Correction",
-    "dd_count_25d": 8,
-    "pct_above_ma50_today": 29.64,
+    "dd_count_25d": 7,
+    "pct_above_ma50_today": 32.12,
     "rule": "stage = 'Correction' ถ้า dd_count_25d >= 6; 'Under Pressure' ถ้า dd_count_25d >= 4 หรือ pct_above_ma50 วันล่าสุด < 35%; มิฉะนั้น 'Uptrend'. เกณฑ์นี้เป็นการตีความของทีมเรา ปรับได้ที่ config.py (MARKET_STAGE_DD_CORRECTION / MARKET_STAGE_DD_PRESSURE / MARKET_STAGE_MA50_PRESSURE_PCT)"
   },
   "set_index": [
-    {
-      "date": "2026-04-20",
-      "open": 1480.01,
-      "high": 1484.97,
-      "low": 1472.24,
-      "close": 1481.85,
-      "volume": 49093442871,
-      "marker": null
-    },
     {
       "date": "2026-04-21",
       "open": 1483.79,
       "high": 1487.28,
       "low": 1476.57,
       "close": 1483.5,
-      "volume": 53790553734,
+      "volume": 53790553786,
       "marker": null
     },
     {
@@ -50,7 +41,7 @@
       "high": 1488.68,
       "low": 1477.05,
       "close": 1479.74,
-      "volume": 55258749706,
+      "volume": 55258749699,
       "marker": "DD"
     },
     {
@@ -59,7 +50,7 @@
       "high": 1476.84,
       "low": 1452.36,
       "close": 1461.35,
-      "volume": 62024571341,
+      "volume": 62024571345,
       "marker": "DD"
     },
     {
@@ -68,7 +59,7 @@
       "high": 1458.47,
       "low": 1438.33,
       "close": 1456.1,
-      "volume": 44468196529,
+      "volume": 44468196508,
       "marker": null
     },
     {
@@ -77,7 +68,7 @@
       "high": 1484.13,
       "low": 1463.0,
       "close": 1479.13,
-      "volume": 43167380056,
+      "volume": 43167380149,
       "marker": null
     },
     {
@@ -86,7 +77,7 @@
       "high": 1489.78,
       "low": 1467.67,
       "close": 1480.2,
-      "volume": 55583902425,
+      "volume": 55583902281,
       "marker": null
     },
     {
@@ -95,7 +86,7 @@
       "high": 1492.72,
       "low": 1475.3,
       "close": 1491.74,
-      "volume": 53011120778,
+      "volume": 53011120841,
       "marker": null
     },
     {
@@ -104,7 +95,7 @@
       "high": 1493.69,
       "low": 1481.05,
       "close": 1493.69,
-      "volume": 56401670328,
+      "volume": 56401670147,
       "marker": null
     },
     {
@@ -113,7 +104,7 @@
       "high": 1503.9,
       "low": 1482.17,
       "close": 1490.1,
-      "volume": 67635636717,
+      "volume": 67635636740,
       "marker": "DD"
     },
     {
@@ -122,7 +113,7 @@
       "high": 1517.94,
       "low": 1494.23,
       "close": 1516.91,
-      "volume": 76176154357,
+      "volume": 76176154380,
       "marker": null
     },
     {
@@ -131,7 +122,7 @@
       "high": 1527.17,
       "low": 1507.53,
       "close": 1507.53,
-      "volume": 74789222988,
+      "volume": 74789222614,
       "marker": null
     },
     {
@@ -140,7 +131,7 @@
       "high": 1512.66,
       "low": 1498.13,
       "close": 1500.36,
-      "volume": 59215663694,
+      "volume": 59215663688,
       "marker": null
     },
     {
@@ -149,7 +140,7 @@
       "high": 1509.86,
       "low": 1483.95,
       "close": 1489.29,
-      "volume": 56186869247,
+      "volume": 56186869248,
       "marker": null
     },
     {
@@ -167,7 +158,7 @@
       "high": 1521.02,
       "low": 1493.28,
       "close": 1517.26,
-      "volume": 62236268193,
+      "volume": 62236268194,
       "marker": null
     },
     {
@@ -176,7 +167,7 @@
       "high": 1540.07,
       "low": 1514.56,
       "close": 1539.12,
-      "volume": 69187525430,
+      "volume": 69187525446,
       "marker": null
     },
     {
@@ -185,7 +176,7 @@
       "high": 1536.79,
       "low": 1512.91,
       "close": 1517.95,
-      "volume": 62507587784,
+      "volume": 62507587787,
       "marker": null
     },
     {
@@ -194,7 +185,7 @@
       "high": 1523.19,
       "low": 1510.42,
       "close": 1517.74,
-      "volume": 51767684611,
+      "volume": 51767684610,
       "marker": null
     },
     {
@@ -203,7 +194,7 @@
       "high": 1524.01,
       "low": 1509.26,
       "close": 1516.69,
-      "volume": 46178636722,
+      "volume": 46178636718,
       "marker": null
     },
     {
@@ -212,7 +203,7 @@
       "high": 1532.03,
       "low": 1516.78,
       "close": 1528.43,
-      "volume": 54280388916,
+      "volume": 54280388918,
       "marker": null
     },
     {
@@ -230,7 +221,7 @@
       "high": 1542.25,
       "low": 1533.03,
       "close": 1538.67,
-      "volume": 55392849003,
+      "volume": 55392849005,
       "marker": null
     },
     {
@@ -239,7 +230,7 @@
       "high": 1558.95,
       "low": 1545.63,
       "close": 1550.33,
-      "volume": 58721242671,
+      "volume": 58721242673,
       "marker": null
     },
     {
@@ -464,7 +455,7 @@
       "high": 1600.98,
       "low": 1587.88,
       "close": 1588.23,
-      "volume": 59508231432,
+      "volume": 59508231433,
       "marker": null
     },
     {
@@ -473,7 +464,7 @@
       "high": 1596.33,
       "low": 1583.28,
       "close": 1593.56,
-      "volume": 83301636359,
+      "volume": 83301636360,
       "marker": null
     },
     {
@@ -1103,28 +1094,23 @@
       "high": 1580.23,
       "low": 1566.21,
       "close": 1575.88,
-      "volume": 75623744564,
+      "volume": 74303234289,
+      "marker": null
+    },
+    {
+      "date": "2026-10-15",
+      "open": 1558.17,
+      "high": 1573.01,
+      "low": 1557.67,
+      "close": 1573.01,
+      "volume": 53268747020,
       "marker": null
     }
   ],
   "breadth": [
     {
-      "date": "2026-04-20",
-      "pct_above_ma10": 40.78,
-      "denom_ma10": 873,
-      "pct_above_ma20": 49.71,
-      "denom_ma20": 873,
-      "pct_above_ma50": 43.53,
-      "denom_ma50": 873,
-      "pct_above_ma200": 43.86,
-      "denom_ma200": 871,
-      "pct_new_52wh": 3.35,
-      "pct_new_52wl": 5.66,
-      "denom_52w": 866
-    },
-    {
       "date": "2026-04-21",
-      "pct_above_ma10": 47.25,
+      "pct_above_ma10": 47.14,
       "denom_ma10": 874,
       "pct_above_ma20": 55.21,
       "denom_ma20": 873,
@@ -1194,7 +1180,7 @@
     },
     {
       "date": "2026-04-28",
-      "pct_above_ma10": 40.32,
+      "pct_above_ma10": 40.44,
       "denom_ma10": 873,
       "pct_above_ma20": 43.18,
       "denom_ma20": 873,
@@ -2006,7 +1992,7 @@
     },
     {
       "date": "2026-07-23",
-      "pct_above_ma10": 43.31,
+      "pct_above_ma10": 43.43,
       "denom_ma10": 875,
       "pct_above_ma20": 62.06,
       "denom_ma20": 875,
@@ -2020,7 +2006,7 @@
     },
     {
       "date": "2026-07-24",
-      "pct_above_ma10": 40.78,
+      "pct_above_ma10": 40.89,
       "denom_ma10": 873,
       "pct_above_ma20": 59.45,
       "denom_ma20": 873,
@@ -2148,7 +2134,7 @@
       "date": "2026-08-10",
       "pct_above_ma10": 49.77,
       "denom_ma10": 872,
-      "pct_above_ma20": 49.31,
+      "pct_above_ma20": 49.2,
       "denom_ma20": 872,
       "pct_above_ma50": 66.02,
       "denom_ma50": 871,
@@ -2342,7 +2328,7 @@
     },
     {
       "date": "2026-08-31",
-      "pct_above_ma10": 44.55,
+      "pct_above_ma10": 44.43,
       "denom_ma10": 871,
       "pct_above_ma20": 48.34,
       "denom_ma20": 871,
@@ -2456,7 +2442,7 @@
       "date": "2026-09-10",
       "pct_above_ma10": 48.85,
       "denom_ma10": 870,
-      "pct_above_ma20": 45.29,
+      "pct_above_ma20": 45.17,
       "denom_ma20": 870,
       "pct_above_ma50": 49.6,
       "denom_ma50": 869,
@@ -2622,7 +2608,7 @@
     },
     {
       "date": "2026-09-28",
-      "pct_above_ma10": 41.8,
+      "pct_above_ma10": 41.92,
       "denom_ma10": 866,
       "pct_above_ma20": 44.28,
       "denom_ma20": 865,
@@ -2762,7 +2748,7 @@
     },
     {
       "date": "2026-10-12",
-      "pct_above_ma10": 39.62,
+      "pct_above_ma10": 39.39,
       "denom_ma10": 848,
       "pct_above_ma20": 30.85,
       "denom_ma20": 846,
@@ -2776,17 +2762,31 @@
     },
     {
       "date": "2026-10-14",
-      "pct_above_ma10": 39.63,
-      "denom_ma10": 805,
-      "pct_above_ma20": 31.88,
-      "denom_ma20": 803,
-      "pct_above_ma50": 29.64,
-      "denom_ma50": 803,
-      "pct_above_ma200": 61.15,
-      "denom_ma200": 803,
+      "pct_above_ma10": 39.13,
+      "denom_ma10": 846,
+      "pct_above_ma20": 31.52,
+      "denom_ma20": 844,
+      "pct_above_ma50": 29.74,
+      "denom_ma50": 844,
+      "pct_above_ma200": 60.19,
+      "denom_ma200": 844,
       "pct_new_52wh": 2.37,
-      "pct_new_52wl": 4.48,
-      "denom_52w": 803
+      "pct_new_52wl": 4.62,
+      "denom_52w": 844
+    },
+    {
+      "date": "2026-10-15",
+      "pct_above_ma10": 44.14,
+      "denom_ma10": 802,
+      "pct_above_ma20": 33.12,
+      "denom_ma20": 800,
+      "pct_above_ma50": 32.12,
+      "denom_ma50": 800,
+      "pct_above_ma200": 63.62,
+      "denom_ma200": 800,
+      "pct_new_52wh": 2.5,
+      "pct_new_52wl": 4.0,
+      "denom_52w": 800
     }
   ]
 }
