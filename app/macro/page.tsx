@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { ChangeBadge } from '@/components/ChangeBadge';
 import TrendSparkline from '@/components/TrendSparkline';
+import FullWidthPage from '@/components/FullWidthPage';
+import { READABLE } from '@/lib/typeScale';
 import { formatShortThaiDate } from '@/lib/utils';
 import {
   macroCommodities,
@@ -84,7 +86,7 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
       </div>
 
       {/* Price & Badges */}
-      <div className="flex items-center justify-between gap-3 pt-0.5">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 pt-0.5">
         <div>
           <div className="flex items-baseline gap-1.5">
             <span className="text-[23px] font-black text-white tabular-nums leading-none tracking-tight">
@@ -220,7 +222,7 @@ export default function MacroPage() {
   }, [items]);
 
   return (
-    <div className="p-4 md:p-6 space-y-6 max-w-[1400px] mx-auto">
+    <FullWidthPage className="space-y-6">
       {/* Page Title Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 shadow-sm">
         <div>
@@ -230,7 +232,7 @@ export default function MacroPage() {
               {items.length} ตัวแปร
             </span>
           </div>
-          <p className="text-[13px] text-white/40 mt-1">
+          <p className={`text-[13px] text-white/40 mt-1 ${READABLE}`}>
             ดัชนีโภคภัณฑ์และอัตราแลกเปลี่ยนที่มีผลต่อบริษัทจดทะเบียนในไทย · ข้อมูลล่าสุด ณ {formatShortThaiDate(macroGeneratedAt)}
           </p>
           <div className="flex items-center gap-3 mt-2 text-[11px] text-white/35">
@@ -284,7 +286,7 @@ export default function MacroPage() {
       {/* Filter Tabs & Search Bar */}
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] p-3.5 rounded-2xl shadow-sm">
         {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none min-w-0">
           <button
             onClick={() => setSelectedZone('all')}
             className={`px-3.5 py-2 rounded-xl text-[13px] font-bold transition-all whitespace-nowrap ${
@@ -359,7 +361,7 @@ export default function MacroPage() {
 
       {/* Grid of Commodity Cards */}
       {filteredCommodities.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(min(240px, 100%), 1fr))' /* 240 = card width at a 1280px screen */ }} data-grid="macro-cards">
           {filteredCommodities.map(c => (
             <CommodityCard key={c.symbol} commodity={c} />
           ))}
@@ -374,9 +376,9 @@ export default function MacroPage() {
       {/* Methodology Footer Note */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-2xl p-5 space-y-2.5">
         <h2 className="text-[13.5px] font-bold text-white/80">หมายเหตุและที่มาของข้อมูล</h2>
-        <p className="text-[12.5px] text-white/50 leading-relaxed">{macroMethodology}</p>
-        <p className="text-[12.5px] text-white/50 leading-relaxed">{macroPalmOilNote}</p>
+        <p className={`text-[12.5px] text-white/50 leading-relaxed ${READABLE}`}>{macroMethodology}</p>
+        <p className={`text-[12.5px] text-white/50 leading-relaxed ${READABLE}`}>{macroPalmOilNote}</p>
       </div>
-    </div>
+    </FullWidthPage>
   );
 }
