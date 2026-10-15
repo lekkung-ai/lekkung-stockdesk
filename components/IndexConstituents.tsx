@@ -11,6 +11,7 @@ import { peColor } from '@/lib/utils';
 import { heatTextColor } from '@/lib/heatColor';
 import { fmtSignedPct, vsFutures, type S50FuturesQuote } from '@/lib/s50Futures';
 import marketStageRaw from '@/data/scans/market_stage.json';
+import { TS } from '@/lib/typeScale';
 
 interface Item {
   symbol: string;
@@ -132,24 +133,24 @@ const COLUMNS: Column[] = [
   {
     key: 'rank', label: 'Rank', title: 'อันดับตาม Market Cap ในดัชนี', align: 'left', minWidth: 52,
     sortValue: r => r.rank,
-    render: r => <span className="text-[13px] text-white/30 tabular-nums">{r.rank}</span>,
+    render: r => <span className={`${TS.body} text-white/30 tabular-nums`}>{r.rank}</span>,
   },
   {
     key: 'symbol', label: 'Symbol', align: 'left', minWidth: 80,
     sortValue: r => r.item.symbol,
-    render: r => <span className="text-[14px] font-bold text-white">{r.item.symbol}</span>,
+    render: r => <span className={`${TS.tableCell} font-bold text-white`}>{r.item.symbol}</span>,
   },
   {
     key: 'sector', label: 'Sector', align: 'left', minWidth: 110,
     sortValue: r => r.sector || null,
     render: r => r.sector
-      ? <span className="text-[12px] text-white/50 whitespace-nowrap">{r.sector}</span>
+      ? <span className={`${TS.body} text-white/50 whitespace-nowrap`}>{r.sector}</span>
       : DASH,
   },
   {
     key: 'price', label: 'Price', align: 'right', minWidth: 72,
     sortValue: r => r.item.last,
-    render: r => <span className="text-[14px] text-white/75 tabular-nums">{fmtPrice(r.item.last)}</span>,
+    render: r => <span className={`${TS.tableCell} text-white/75 tabular-nums`}>{fmtPrice(r.item.last)}</span>,
   },
   {
     key: 'change', label: '1D%', align: 'right', minWidth: 68,
@@ -159,7 +160,7 @@ const COLUMNS: Column[] = [
       if (p == null) return DASH;
       const up = p >= 0;
       return (
-        <span className="text-[14px] font-semibold tabular-nums" style={{ color: up ? '#1D9E75' : '#E24B4A' }}>
+        <span className={`${TS.tableCell} font-semibold tabular-nums`} style={{ color: up ? '#1D9E75' : '#E24B4A' }}>
           {`${up ? '+' : ''}${p.toFixed(2)}%`}
         </span>
       );
@@ -170,7 +171,7 @@ const COLUMNS: Column[] = [
     title: 'ผลต่าง %วันนี้ของหุ้น เทียบกับ SET50 Futures (ข้อมูล TradingView ล่าช้า 15 นาที)',
     sortValue: r => r.vsS50f,
     render: r => r.vsS50f == null ? DASH : (
-      <span className="text-[14px] font-semibold tabular-nums" style={{ color: heatTextColor(r.vsS50f) ?? undefined }}>
+      <span className={`${TS.tableCell} font-semibold tabular-nums`} style={{ color: heatTextColor(r.vsS50f) ?? undefined }}>
         {fmtSignedPct(r.vsS50f)}
       </span>
     ),
@@ -187,7 +188,7 @@ const COLUMNS: Column[] = [
     key: 'rs', label: 'RS', align: 'right', minWidth: 48,
     sortValue: r => r.scan?.rs_score ?? null,
     render: r => r.scan?.rs_score != null
-      ? <span className="text-[13px] text-white/80 tabular-nums font-semibold">{r.scan.rs_score}</span>
+      ? <span className={`${TS.tableCell} text-white/80 tabular-nums font-semibold`}>{r.scan.rs_score}</span>
       : DASH,
   },
   {
@@ -208,20 +209,20 @@ const COLUMNS: Column[] = [
     key: 'adtv', label: 'ADTV (MB)', align: 'right', minWidth: 84,
     sortValue: r => r.adtv,
     render: r => r.adtv != null
-      ? <span className="text-[13px] text-white/60 tabular-nums">{fmtAdtv(r.adtv)}</span>
+      ? <span className={`${TS.tableCell} text-white/60 tabular-nums`}>{fmtAdtv(r.adtv)}</span>
       : DASH,
   },
   {
     key: 'pe', label: 'P/E', align: 'right', minWidth: 56,
     sortValue: r => r.item.pe,
     render: r => r.item.pe != null
-      ? <span className="text-[13px] tabular-nums" style={{ color: peColor(r.item.pe) || 'rgba(255,255,255,0.6)' }}>{r.item.pe.toFixed(2)}</span>
+      ? <span className={`${TS.tableCell} tabular-nums`} style={{ color: peColor(r.item.pe) || 'rgba(255,255,255,0.6)' }}>{r.item.pe.toFixed(2)}</span>
       : DASH,
   },
   {
     key: 'marketCap', label: 'Mkt Cap', align: 'right', minWidth: 76,
     sortValue: r => r.item.marketCap,
-    render: r => <span className="text-[13px] text-white/60 tabular-nums">{fmtMktCap(r.item.marketCap)}</span>,
+    render: r => <span className={`${TS.tableCell} text-white/60 tabular-nums`}>{fmtMktCap(r.item.marketCap)}</span>,
   },
   {
     key: 'chart', label: 'Chart', align: 'left', minWidth: 160, className: 'hidden lg:table-cell',
@@ -395,8 +396,8 @@ export default function IndexConstituents({ index }: { index: string }) {
           <ArrowLeft size={18} />
         </button>
         <div className="flex-1 min-w-0">
-          <h1 className="text-[18px] font-bold text-white">{idxName}</h1>
-          <p className="text-[12px] text-white/35 mt-0.5">
+          <h1 className={`${TS.pageTitle} text-white`}>{idxName}</h1>
+          <p className={`${TS.body} text-white/35 mt-0.5`}>
             หุ้นในดัชนี {idxName}
             {items && items.length > 0
               ? hasFilter ? ` · แสดง ${rows.length} / ${baseRows.length}` : ` · ${baseRows.length} ตัว`
@@ -417,7 +418,7 @@ export default function IndexConstituents({ index }: { index: string }) {
               href={`/set-index/${t.key}`}
               replace
               className={[
-                'px-3.5 py-1 rounded-lg text-[12px] font-bold transition-all',
+                `px-3.5 py-1 rounded-lg ${TS.body} font-bold transition-all`,
                 indexKey === t.key ? 'bg-white text-black shadow-sm' : 'text-white/50 hover:text-white',
               ].join(' ')}
             >
@@ -429,7 +430,7 @@ export default function IndexConstituents({ index }: { index: string }) {
 
       {/* Filters — all empty by default */}
       {items && items.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2 text-[12px]">
+        <div className={`flex flex-wrap items-center gap-2 ${TS.body}`}>
           <input
             value={filterSym}
             onChange={e => setFilterSym(e.target.value)}
@@ -443,7 +444,7 @@ export default function IndexConstituents({ index }: { index: string }) {
               <button
                 key={s}
                 onClick={() => toggleScan(s)}
-                className="text-[11px] px-1.5 py-0.5 rounded font-bold border transition-colors"
+                className={`${TS.caption} px-1.5 py-0.5 rounded font-bold border transition-colors`}
                 style={
                   filterScan.has(s)
                     ? { background: '#1D9E75', color: '#fff', borderColor: '#1D9E75' }
@@ -473,7 +474,7 @@ export default function IndexConstituents({ index }: { index: string }) {
           {hasFilter && (
             <button
               onClick={clearFilters}
-              className="text-[11px] text-white/40 hover:text-white/70 border border-white/15 hover:border-white/30 rounded-lg px-2.5 py-1 transition-colors"
+              className={`${TS.caption} text-white/40 hover:text-white/70 border border-white/15 hover:border-white/30 rounded-lg px-2.5 py-1 transition-colors`}
             >
               ล้างตัวกรอง
             </button>
@@ -483,7 +484,7 @@ export default function IndexConstituents({ index }: { index: string }) {
 
       {/* SET50 futures reference for the "เทียบ S50F" column */}
       {s50f !== undefined && (
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[12px] text-white/40">
+        <div className={`flex flex-wrap items-center gap-x-2 gap-y-0.5 ${TS.body} text-white/40`}>
           {s50f ? (
             <>
               <span className="text-white/60">S50 Futures ({s50f.contract})</span>
@@ -523,7 +524,7 @@ export default function IndexConstituents({ index }: { index: string }) {
                     <th
                       key={c.key}
                       title={c.title}
-                      className={`px-2 py-2.5 text-[12px] font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${c.className ?? ''}`}
+                      className={`px-2 py-2.5 ${TS.body} font-semibold uppercase tracking-wider text-white/25 whitespace-nowrap ${c.className ?? ''}`}
                       style={{ minWidth: c.minWidth }}
                       aria-sort={sortKey === c.key ? (sortDir === 'asc' ? 'ascending' : 'descending') : undefined}
                     >
