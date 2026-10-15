@@ -16,6 +16,8 @@ import { formatShortThaiDate, formatThaiDate } from '@/lib/utils';
 import SetIndexChart from '@/components/breadth/SetIndexChart';
 import BreadthLineChart from '@/components/breadth/BreadthLineChart';
 import { Info, HelpCircle, BookOpen } from 'lucide-react';
+import FullWidthPage from '@/components/FullWidthPage';
+import { READABLE } from '@/lib/typeScale';
 
 const STAGE_CLS: Record<string, string> = {
   Uptrend: 'bg-[#1D9E75]/20 text-[#1D9E75] border-[#1D9E75]/40',
@@ -95,7 +97,7 @@ export default function BreadthPage() {
   const stageCls = STAGE_CLS[dynamicData.stage.stage] ?? 'bg-white/10 text-white/60 border-white/20';
 
   return (
-    <div className="p-4 md:p-6 space-y-5 max-w-[1400px] mx-auto">
+    <FullWidthPage className="space-y-5">
       {/* Header Banner */}
       <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -106,7 +108,7 @@ export default function BreadthPage() {
                 {dynamicData.stage.stage}
               </span>
             </div>
-            <p className="text-[12px] text-white/40 mt-1">
+            <p className={`text-[12px] text-white/40 mt-1 ${READABLE}`}>
               ดัชนีสุขภาพความกว้างของตลาดหุ้นไทย · ข้อมูลล่าสุด ณ {formatThaiDate(dynamicData.generatedAt)}
             </p>
           </div>
@@ -280,7 +282,7 @@ export default function BreadthPage() {
             <span>❓</span>
             <span>ตัวเลข "% เหนือ MA10 / 20 / 50 / 200" เปรียบเทียบมาจากอะไร?</span>
           </h3>
-          <p className="text-[12px] text-white/80 leading-relaxed">
+          <p className={`text-[12px] text-white/80 leading-relaxed ${READABLE}`}>
             ตัวเลขเปอร์เซ็นต์นี้คำนวณเปรียบเทียบจาก <strong className="text-white">จักรวาลหุ้นไทยทั้งหมดใน SET Universe (ประมาณ 866 บริษัท)</strong> โดยคิดสัดส่วนว่ามีกี่ % (จำนวนกี่บริษัท) ที่ราคาปิดล่าสุดยืนอยู่ <strong className="text-emerald-400">สูงกว่า (เหนือ) เส้นค่าเฉลี่ยเคลื่อนที่ (Moving Average)</strong> ของตัวมันเอง
           </p>
           <div className="bg-black/40 p-3 rounded-lg border border-white/10 text-[11.5px] text-white/70 space-y-1 mt-2 font-mono">
@@ -298,10 +300,10 @@ export default function BreadthPage() {
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
               1. สถานะตลาด & Summary KPI Cards
             </h3>
-            <p className="text-[11.5px] text-white/60 leading-relaxed">
+            <p className={`text-[11.5px] text-white/60 leading-relaxed ${READABLE}`}>
               สรุปสภาวะรวมของตลาดหุ้นไทยในมุมมอง Macro View ตามหลักการของ CAN SLIM (William O'Neil):
             </p>
-            <ul className="text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1">
+            <ul className={`text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1 ${READABLE}`}>
               <li><strong className="text-emerald-400">Uptrend</strong>: ตลาดเป็นขาขึ้นแข็งแกร่ง น่าลงทุนและเปิดสถานะหุ้นใหม่ได้เต็มที่</li>
               <li><strong className="text-amber-400">Under Pressure</strong>: ตลาดเริ่มตึงตัว มีแรงขายสะสม ต้องเริ่มจำกัดขนาดพอร์ต</li>
               <li><strong className="text-rose-400">Correction</strong>: ตลาดเข้าสู่รอบพักตัว/ขาลง ควรถือเงินสดเป็นหลัก</li>
@@ -315,10 +317,10 @@ export default function BreadthPage() {
               <span className="w-2 h-2 rounded-full bg-blue-400" />
               2. SET Index + FTD / DD Markers
             </h3>
-            <p className="text-[11.5px] text-white/60 leading-relaxed">
+            <p className={`text-[11.5px] text-white/60 leading-relaxed ${READABLE}`}>
               กราฟแท่งเทียนราคา SET Index พร้อมมาร์กเกอร์แสดงจุดเปลี่ยนผ่านสำคัญ:
             </p>
-            <ul className="text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1">
+            <ul className={`text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1 ${READABLE}`}>
               <li><strong className="text-emerald-400">FTD (Follow-Through Day)</strong>: วันยืนยันการกลับตัวเป็นขาขึ้นรอบใหม่ (เกิดในวันที่ 4-10 ของการพยายามฟื้นตัว โดย SET บวก ≥1.5% พร้อม Volume เพิ่ม)</li>
               <li><strong className="text-rose-400">DD (Distribution Day)</strong>: จุดเตือนการเทขายของรายใหญ่ในวันนั้นๆ</li>
             </ul>
@@ -330,10 +332,10 @@ export default function BreadthPage() {
               <span className="w-2 h-2 rounded-full bg-purple-400" />
               3. % หุ้นทำ 52-Week High / Low รายวัน
             </h3>
-            <p className="text-[11.5px] text-white/60 leading-relaxed">
+            <p className={`text-[11.5px] text-white/60 leading-relaxed ${READABLE}`}>
               เปรียบเทียบสัดส่วนหุ้นที่สามารถทำ New High หรือ New Low รอบ 1 ปี:
             </p>
-            <ul className="text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1">
+            <ul className={`text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1 ${READABLE}`}>
               <li><strong className="text-blue-400">% 52W High สูงขึ้น</strong>: บ่งบอกมีกลุ่มหุ้นนำตลาด (Leading Stocks) ทะลุทำจุดสูงสุดใหม่ต่อเนื่อง</li>
               <li><strong className="text-rose-400">% 52W Low พุ่งสูงขึ้น</strong>: บ่งบอกหุ้นในตลาดกำลังโดนทุบหลุดแนวรับรุนแรง สัญญาณอันตราย</li>
             </ul>
@@ -345,10 +347,10 @@ export default function BreadthPage() {
               <span className="w-2 h-2 rounded-full bg-amber-400" />
               4. % หุ้นยืนเหนือเส้น MA10 / 20 / 50 / 200
             </h3>
-            <p className="text-[11.5px] text-white/60 leading-relaxed">
+            <p className={`text-[11.5px] text-white/60 leading-relaxed ${READABLE}`}>
               แสดงการกระจายตัวของราคาหุ้นในแต่ละกรอบเวลาเทียบกับเส้นค่าเฉลี่ย:
             </p>
-            <ul className="text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1">
+            <ul className={`text-[11px] text-white/60 space-y-1 list-disc list-inside pl-1 ${READABLE}`}>
               <li><strong className="text-[#1D9E75]">MA10 (10 วัน)</strong>: วัดแรงส่งเก็งกำไรระยะสั้นมากๆ</li>
               <li><strong className="text-[#F9C942]">MA20 (20 วัน)</strong>: วัดแนวโน้มระยะสั้น (ใช้ดูโซน Overbought/Oversold รายสัปดาห์)</li>
               <li><strong className="text-[#3B82F6]">MA50 (50 วัน)</strong>: เส้นอ้างอิงสุขภาพตลาดระยะกลาง (เกณฑ์สำคัญ &gt; 50% = ตลาดปกติ)</li>
@@ -357,6 +359,6 @@ export default function BreadthPage() {
           </div>
         </div>
       </div>
-    </div>
+    </FullWidthPage>
   );
 }
