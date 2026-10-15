@@ -3,6 +3,8 @@ import Link from 'next/link';
 import SectorFlowView from '@/components/SectorFlowView';
 import SectorFlowNewView from '@/components/SectorFlowNewView';
 import DataUpdatedBadge from '@/components/DataUpdatedBadge';
+import FullWidthPage from '@/components/FullWidthPage';
+import { TS, READABLE } from '@/lib/typeScale';
 import rawFlow from '@/data/scans/sector_flow.json';
 import { formatThaiDay, parseFlowLayout, type FlowLayout, type FlowRow } from '@/lib/sectorFlow';
 
@@ -38,13 +40,13 @@ export default async function SectorFlowPage({
   const rawLayout = sp.layout;
   const layout = parseFlowLayout(Array.isArray(rawLayout) ? rawLayout[0] : rawLayout);
   const seg = (active: boolean) =>
-    `px-3 py-1 rounded-lg text-[12px] font-bold transition-all ${active ? 'bg-white text-black shadow-sm' : 'text-white/50 hover:text-white'}`;
+    `px-3 py-1 rounded-lg ${TS.body} font-bold transition-all ${active ? 'bg-white text-black shadow-sm' : 'text-white/50 hover:text-white'}`;
   return (
-    <div className="p-4 md:p-6 max-w-[1400px] mx-auto space-y-5">
+    <FullWidthPage className="space-y-5">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-[#13161e] border border-white/[0.08] rounded-2xl p-5 shadow-sm">
         <div>
-          <h1 className="text-[20px] font-bold text-white tracking-tight">Sector Flow</h1>
-          <p className="text-[13px] text-white/40 mt-1">
+          <h1 className={`${TS.pageTitle} text-white tracking-tight`}>Sector Flow</h1>
+          <p className={`${TS.body} text-white/40 mt-1 ${READABLE}`}>
             เงินไหลเข้ากลุ่มไหน · กลุ่มไหนแข็งขึ้น/หมดแรง · ข้อมูลราคาปิดรายวัน ณ วันที่ {formatThaiDay(flow.as_of)} · เฉพาะตลาด SET
           </p>
         </div>
@@ -63,12 +65,12 @@ export default async function SectorFlowPage({
         </Suspense>
       ) : (
       <>
-      <div className="bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 text-[12.5px] text-white/60 leading-relaxed space-y-1.5">
-        <p>
+      <div className={`bg-[#13161e] border border-white/[0.08] rounded-2xl p-4 ${TS.body} text-white/60 leading-relaxed space-y-1.5`}>
+        <p className={READABLE}>
           <span className="font-bold text-white/85">วิธีอ่าน ×เท่า</span> — สัดส่วนมูลค่าซื้อขายของกลุ่มนี้ในตลาดทั้งหมด เทียบกับสัดส่วนปกติของ 20 วันทำการก่อนหน้า
           ×1.0 = ปกติ · ×2.0 = สัดส่วนเป็น 2 เท่าของปกติ (เทียบกับตลาด ไม่ใช่มูลค่าดิบ) · &quot;5 วัน&quot; ใช้ค่าเฉลี่ย 5 วันล่าสุดเทียบกับ 20 วันก่อนหน้านั้น
         </p>
-        <p>
+        <p className={READABLE}>
           <span className="font-bold text-white/85">สถานะความแข็ง</span> — ดูผลตอบแทนส่วนเกินเทียบ SET (ถ่วง market cap):
           <span className="text-emerald-400 font-bold"> แข็งต่อเนื่อง</span> = 3 เดือนและ 1 เดือนชนะ SET ·
           <span className="text-sky-400 font-bold"> เพิ่งเริ่มแข็ง</span> = 3 เดือนยังตามหลัง แต่ 1 เดือนชนะแล้ว ·
@@ -82,6 +84,6 @@ export default async function SectorFlowPage({
       </Suspense>
       </>
       )}
-    </div>
+    </FullWidthPage>
   );
 }
