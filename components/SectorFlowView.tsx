@@ -12,6 +12,7 @@ import {
   flowChg, flowLabel, flowRows, flowValue, isThinGroup, parseFlowWindow, parseSortDir, parseSortKey, rowName, sectorLinkFromFlow, strengthRows,
   MIN_AVG_VALUE_MB, type FlowRow, type FlowWindow, type SortKey,
 } from '@/lib/sectorFlow';
+import { TS } from '@/lib/typeScale';
 
 const STATUS_STYLE: Record<string, string> = {
   'แข็งต่อเนื่อง': 'bg-emerald-500/15 text-emerald-400 border-emerald-500/40',
@@ -21,7 +22,7 @@ const STATUS_STYLE: Record<string, string> = {
 };
 
 const BAR_MAX = 3; // bars saturate at ×3 so one outlier doesn't flatten the rest
-const FLOW_COLS = 'md:grid-cols-[minmax(170px,1.1fr)_2fr_64px_120px_72px_170px]';
+const FLOW_COLS = 'md:grid-cols-[minmax(170px,1.1fr)_2fr_72px_150px_84px_170px]';
 
 const fmtMb = (v: number | null | undefined) =>
   v == null ? '—' : v >= 1000 ? `${(v / 1000).toFixed(1)} พัน` : v.toFixed(v < 10 ? 1 : 0);
@@ -73,7 +74,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
   };
 
   const seg = (active: boolean) =>
-    `px-3.5 py-1.5 rounded-lg text-[12px] font-bold transition-all ${active ? 'bg-white text-black shadow-sm' : 'text-white/50 hover:text-white'}`;
+    `px-3.5 py-1.5 rounded-lg ${TS.body} font-bold transition-all ${active ? 'bg-white text-black shadow-sm' : 'text-white/50 hover:text-white'}`;
 
   const th = (k: SortKey, label: string, align: 'text-left' | 'text-right' | 'text-center' = 'text-right') => (
     <th className={`px-3 py-2.5 font-semibold ${align}`}>
@@ -96,7 +97,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
           </div>
         </div>
 
-        <div className={`hidden md:grid ${FLOW_COLS} gap-3 px-2 text-[10.5px] text-white/35`}>
+        <div className={`hidden md:grid ${FLOW_COLS} gap-3 px-2 ${TS.caption} text-white/35`}>
           <span>กลุ่มย่อย</span>
           <span>สัดส่วนมูลค่าซื้อขายเทียบปกติ (เส้น = ×1.0)</span>
           <span className="text-right">×เท่า</span>
@@ -117,23 +118,23 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
             return (
               <div key={`${r.sector}/${r.subsector}`} className={`grid grid-cols-2 ${FLOW_COLS} gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]${isThinGroup(r.n) ? ' opacity-50' : ''}`}>
                 <Link href={rowHref(r.sector, r.subsector)} className="min-w-0 col-span-2 md:col-span-1">
-                  <p className="text-[13px] font-bold text-white truncate">{r.subsector}<ThinGroupBadge n={r.n} /></p>
-                  <p className="text-[10.5px] text-white/35 truncate">{displayGroup(r.sector, r.subsector)}</p>
+                  <p className={`${TS.tableCell} font-bold text-white truncate`}>{r.subsector}<ThinGroupBadge n={r.n} /></p>
+                  <p className={`${TS.caption} text-white/35 truncate`}>{displayGroup(r.sector, r.subsector)}</p>
                 </Link>
                 <div className="relative h-4 bg-white/[0.04] rounded col-span-2 md:col-span-1">
                   <div className="absolute inset-y-0 left-0 rounded" style={{ width: `${pctBar}%`, background: f != null && f >= 1.3 ? '#3B82F6' : f != null && f <= 0.7 ? '#4B5060' : '#6B7280' }} />
                   <div className="absolute inset-y-[-2px] w-px bg-white/70" style={{ left: `${refPct}%` }} />
                 </div>
-                <span className="text-right font-mono font-extrabold text-[13px] text-white">{f == null ? '—' : `×${f.toFixed(2)}`}</span>
-                <span className="text-right text-[11.5px] text-white/50 font-mono">{fmtMb(val)} / {fmtMb(base)}</span>
-                <span className="text-right text-[12px]"><PctText pct={chg} /></span>
-                <span className={`text-[11.5px] font-semibold ${label === 'เงียบ' ? 'text-white/35' : label?.includes('ลง') ? 'text-rose-400' : 'text-emerald-400'}`}>{label ?? ''}</span>
+                <span className={`text-right font-mono font-extrabold ${TS.tableCell} text-white`}>{f == null ? '—' : `×${f.toFixed(2)}`}</span>
+                <span className={`text-right ${TS.body} text-white/50 font-mono`}>{fmtMb(val)} / {fmtMb(base)}</span>
+                <span className={`text-right ${TS.tableCell}`}><PctText pct={chg} /></span>
+                <span className={`${TS.body} font-semibold ${label === 'เงียบ' ? 'text-white/35' : label?.includes('ลง') ? 'text-rose-400' : 'text-emerald-400'}`}>{label ?? ''}</span>
               </div>
             );
           })}
         </div>
 
-        <div className="flex items-center justify-between text-[11px] text-white/40 pt-1 border-t border-white/[0.05]">
+        <div className={`flex items-center justify-between ${TS.caption} text-white/40 pt-1 border-t border-white/[0.05]`}>
           <span>
             แสดง {flowList.length} กลุ่ม
             {!showAll && hiddenCount > 0 ? ` · ซ่อน ${hiddenCount} กลุ่มที่ซื้อขายเฉลี่ย < ${MIN_AVG_VALUE_MB} ล้านบาท/วัน` : ''}
@@ -151,9 +152,9 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-[15px] font-extrabold text-white">กลุ่มไหนกำลังแข็งขึ้น / หมดแรง</h2>
-            <p className="text-[11.5px] text-white/40 mt-0.5">ผลตอบแทนส่วนเกินเทียบ SET (จุด %) · เรียงค่าเริ่มต้นตามสถานะ · คลิกหัวคอลัมน์เพื่อเรียง · คลิกแถวเพื่อดู sector</p>
+            <p className={`${TS.body} text-white/40 mt-0.5`}>ผลตอบแทนส่วนเกินเทียบ SET (จุด %) · เรียงค่าเริ่มต้นตามสถานะ · คลิกหัวคอลัมน์เพื่อเรียง · คลิกแถวเพื่อดู sector</p>
             {marketBenchmark && (
-              <p className="text-[11px] text-amber-400/80 mt-0.5" data-testid="benchmark-note">เทียบกับค่าเฉลี่ยทั้งตลาด (ข้อมูลดัชนี SET ไม่อัปเดต)</p>
+              <p className={`${TS.caption} text-amber-400/80 mt-0.5`} data-testid="benchmark-note">เทียบกับค่าเฉลี่ยทั้งตลาด (ข้อมูลดัชนี SET ไม่อัปเดต)</p>
             )}
           </div>
           <div className="flex gap-1 bg-white/[0.04] p-1 rounded-xl border border-white/[0.08]">
@@ -163,9 +164,9 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-[12.5px]">
+          <table className={`w-full ${TS.tableCell}`}>
             <thead>
-              <tr className="text-[11px] text-white/40 border-b border-white/[0.06]">
+              <tr className={`${TS.body} text-white/40 border-b border-white/[0.06]`}>
                 {th('name', tab === 'sector' ? 'Sector' : 'Subsector', 'text-left')}
                 {th('n', 'จำนวนหุ้น')}
                 {th('excess_1w', 'ส่วนเกิน 1W', 'text-center')}
@@ -184,7 +185,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
                   <td className="px-3 py-2">
                     <Link href={rowHref(r.sector, r.subsector)} onClick={e => e.stopPropagation()} className="font-bold text-white hover:underline">{rowName(r)}</Link>
                     <ThinGroupBadge n={r.n} />
-                    {r.subsector && <span className="ml-2 text-[10.5px] text-white/35">{displayGroup(r.sector, r.subsector)}</span>}
+                    {r.subsector && <span className={`ml-2 ${TS.caption} text-white/35`}>{displayGroup(r.sector, r.subsector)}</span>}
                   </td>
                   <td className="px-3 py-2 text-right font-mono text-white/50">{r.n}</td>
                   {([r.excess_1w, r.excess_1m, r.excess_3m] as (number | null)[]).map((v, i) => (
@@ -196,7 +197,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
                   ))}
                   <td className="px-3 py-2 text-center">
                     {r.status ? (
-                      <span className={`inline-block px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${STATUS_STYLE[r.status] ?? ''}`}>{r.status}</span>
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full border ${TS.body} font-bold ${STATUS_STYLE[r.status] ?? ''}`}>{r.status}</span>
                     ) : (
                       <span className="text-white/30">—</span>
                     )}
@@ -206,7 +207,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
             </tbody>
           </table>
         </div>
-        <p className="text-[10.5px] text-white/30">
+        <p className={`${TS.caption} text-white/30`}>
           ผลตอบแทนกลุ่มถ่วง market cap โดยประมาณจำนวนหุ้นจาก market cap ปัจจุบัน ÷ ราคาปัจจุบัน (ไม่ใช่จำนวนหุ้นย้อนหลังจริง) · 1W/1M/3M = 5/21/63 วันทำการ
         </p>
       </section>
