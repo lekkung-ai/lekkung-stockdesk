@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Clock, X, CandlestickChart } from 'lucide-react';
+import { Search, Clock, X, CandlestickChart, Flame } from 'lucide-react';
 import { newsBySymbol } from '@/lib/mockData';
 import { stockNames } from '@/lib/stockNames';
 import { ALL_SET_TICKERS, SECTOR_INFO } from '@/lib/setTickers';
@@ -32,6 +32,17 @@ function ListingStatusTag({ status }: { status: ListingStatus | undefined }) {
   }
   return null;
 }
+
+// ทางลัดไปหน้า scan (นอกจาก ticker / Survivor) — ต่อท้ายรายการ ticker และ Survivor เสมอ
+// ดัชนีคีย์บอร์ด: [tickers…][Survivor ถ้ามี][ทางลัดหน้า…]
+const PAGE_SHORTCUTS = [
+  {
+    href: '/lekkung-daytrade',
+    label: 'Lekkung Daytrade Scan',
+    desc: 'สแกนโมเมนตัม TradingView',
+    keywords: ['LEKKUNG DAYTRADE SCAN', 'LEKKUNG DAYTRADE', 'DAYTRADE', 'DAY TRADE', 'เดย์เทรด', 'เดย์'],
+  },
+] as const;
 
 function fuzzySearch(query: string, limit = 8): string[] {
   const q = query.toUpperCase();
@@ -107,6 +118,10 @@ export default function SearchBox() {
     'SURVIVOR'.startsWith(q.toUpperCase()) ||
     'ตัวช่วยตัดสินใจ'.startsWith(q)
   );
+  const matchedPages = useMemo(
+    () => (q.length >= 3 ? PAGE_SHORTCUTS.filter(p => p.keywords.some(k => k.includes(q.toUpperCase()))) : []),
+    [q]
+  );
 
   // Reset keyboard selection whenever the candidate list changes, so an old
   // highlight doesn't point at a since-shifted row.
@@ -128,6 +143,15 @@ export default function SearchBox() {
     [recent, router]
   );
 
+  const handleSelectPage = useCallback(
+    (href: string) => {
+      setQuery('');
+      setOpen(false);
+      router.push(href);
+    },
+    [router]
+  );
+
   const handleSelectSurvivor = useCallback(() => {
     setQuery('');
     setOpen(false);
@@ -138,8 +162,8 @@ export default function SearchBox() {
     (e: ReactKeyboardEvent<HTMLInputElement>) => {
       const hasQuery = Boolean(query.trim());
       const totalCount = hasQuery
-        ? results.length + (isSurvivor ? 1 : 0)
-        : recent.length + 1;
+        ? results.length + (isSurvivor ? 1 : 0) + matchedPages.length
+        : recent.length + 1 + PAGE_SHORTCUTS.length;
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -164,6 +188,11 @@ export default function SearchBox() {
             handleSelect(results[activeIndex]);
             return;
           }
+          const pageIdx = activeIndex - results.length - (isSurvivor ? 1 : 0);
+          if (pageIdx >= 0 && pageIdx < matchedPages.length) {
+            handleSelectPage(matchedPages[pageIdx].href);
+            return;
+          }
           const exact = query.trim().toUpperCase();
           if (exact === 'SURVIVOR') {
             handleSelectSurvivor();
@@ -177,6 +206,8 @@ export default function SearchBox() {
             handleSelect(results[0]);
           } else if (isSurvivor) {
             handleSelectSurvivor();
+          } else if (matchedPages.length > 0) {
+            handleSelectPage(matchedPages[0].href);
           }
         } else {
           const survivorIdx = recent.length;
@@ -188,6 +219,11 @@ export default function SearchBox() {
             handleSelect(recent[activeIndex]);
             return;
           }
+          const toolIdx = activeIndex - recent.length - 1;
+          if (toolIdx >= 0 && toolIdx < PAGE_SHORTCUTS.length) {
+            handleSelectPage(PAGE_SHORTCUTS[toolIdx].href);
+            return;
+          }
           if (recent.length > 0) {
             handleSelect(recent[0]);
           }
@@ -197,7 +233,7 @@ export default function SearchBox() {
         inputRef.current?.blur();
       }
     },
-    [query, results, recent, activeIndex, isSurvivor, handleSelect, handleSelectSurvivor]
+    [query, results, recent, activeIndex, isSurvivor, matchedPages, handleSelect, handleSelectPage, handleSelectSurvivor]
   );
 
   return (
@@ -295,12 +331,33 @@ export default function SearchBox() {
                   <span className="text-[12px] text-white/35 truncate">ตัวช่วยตัดสินใจ วิถี Survivor</span>
                   <span className="text-[11px] text-white/20 ml-auto flex-shrink-0">/survivor.html</span>
                 </button>
+                {PAGE_SHORTCUTS.map((p, j) => {
+                  const idx = recent.length + 1 + j;
+                  return (
+                    <button
+                      key={p.href}
+                      id={`search-option-${idx}`}
+                      role="option"
+                      aria-selected={activeIndex === idx}
+                      onClick={() => handleSelectPage(p.href)}
+                      onMouseEnter={() => setActiveIndex(idx)}
+                      className={`w-full flex items-center gap-3 px-2 py-2 rounded-lg text-left transition-colors ${
+                        activeIndex === idx ? 'bg-white/[0.08]' : 'hover:bg-white/[0.05]'
+                      }`}
+                    >
+                      <Flame size={14} className="text-white/40 flex-shrink-0" />
+                      <span className="text-[13px] font-semibold text-white">{p.label}</span>
+                      <span className="text-[12px] text-white/35 truncate">{p.desc}</span>
+                      <span className="text-[11px] text-white/20 ml-auto flex-shrink-0">{p.href}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
 
           {/* Search results */}
-          {query.trim() && (results.length > 0 || isSurvivor) && (
+          {query.trim() && (results.length > 0 || isSurvivor || matchedPages.length > 0) && (
             <div className="p-2">
               {results.map((ticker, i) => {
                 const sec = SECTOR_INFO[ticker];
@@ -364,6 +421,34 @@ export default function SearchBox() {
                 </button>
               )}
 
+              {matchedPages.map((p, j) => {
+                const idx = results.length + (isSurvivor ? 1 : 0) + j;
+                return (
+                  <button
+                    key={p.href}
+                    id={`search-option-${idx}`}
+                    role="option"
+                    aria-selected={activeIndex === idx}
+                    onClick={() => handleSelectPage(p.href)}
+                    onMouseEnter={() => setActiveIndex(idx)}
+                    className={`w-full flex items-center gap-3 px-2 py-2.5 rounded-lg text-left transition-colors ${
+                      activeIndex === idx ? 'bg-white/[0.08]' : 'hover:bg-white/[0.05]'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-white/[0.07] flex items-center justify-center flex-shrink-0 text-white/45">
+                      <Flame size={16} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-[13px] font-semibold text-white">{p.label}</span>
+                        <span className="text-[11px] text-white/40 truncate">{p.desc}</span>
+                      </div>
+                      <div className="text-[11px] text-white/25 mt-0.5">{p.href}</div>
+                    </div>
+                  </button>
+                );
+              })}
+
               {topNews.length > 0 && (
                 <div className="mt-1 pt-2 border-t border-white/[0.06]">
                   <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/25">
@@ -393,7 +478,7 @@ export default function SearchBox() {
           )}
 
           {/* No results */}
-          {query.trim() && results.length === 0 && !isSurvivor && (
+          {query.trim() && results.length === 0 && !isSurvivor && matchedPages.length === 0 && (
             <p className="px-3 py-6 text-center text-[12px] text-white/25">
               ไม่พบหุ้น &ldquo;{query}&rdquo; ในระบบ
             </p>

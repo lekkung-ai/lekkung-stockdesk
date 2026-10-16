@@ -44,6 +44,7 @@ from datetime import datetime, timedelta, timezone
 # nothing else in this file needs to change.
 SCANNERS = {
     "lekkung": "lekkung",
+    "lekkung_daytrade": "lekkung_daytrade",
     "sepa": "sepa",
     "kell": "oliver_kell",
     "oneil": "oneil",

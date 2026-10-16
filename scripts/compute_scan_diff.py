@@ -31,6 +31,7 @@ from scan_calendar import previous_valid_date
 # as compute_scan_days.py.
 SCANNERS = {
     "lekkung": "lekkung",
+    "lekkung_daytrade": "lekkung_daytrade",
     "oneil": "oneil",
     "sepa": "sepa",
     "kell": "oliver_kell",

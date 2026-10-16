@@ -1,4 +1,5 @@
 import rawLekkungHistory from '@/data/scans/lekkung_history.json';
+import rawLekkungDaytradeHistory from '@/data/scans/lekkung_daytrade_history.json';
 import rawSepaHistory from '@/data/scans/sepa_history.json';
 import rawKellHistory from '@/data/scans/oliver_kell_history.json';
 import rawOneilHistory from '@/data/scans/oneil_history.json';
@@ -34,6 +35,7 @@ export interface ScanHistoryData {
 // itself takes scanName as a prop and needs no other changes.
 const HISTORY_BY_SCAN: Record<string, ScanHistoryData> = {
   lekkung: rawLekkungHistory as unknown as ScanHistoryData,
+  lekkung_daytrade: rawLekkungDaytradeHistory as unknown as ScanHistoryData,
   sepa: rawSepaHistory as unknown as ScanHistoryData,
   kell: rawKellHistory as unknown as ScanHistoryData,
   oneil: rawOneilHistory as unknown as ScanHistoryData,

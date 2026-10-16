@@ -19,6 +19,7 @@ from scan_calendar import valid_dates
 # page key -> history/scan filename (without .json)
 SCANNERS = {
     "lekkung": "lekkung",
+    "lekkung_daytrade": "lekkung_daytrade",
     "oneil": "oneil",
     "sepa": "sepa",
     "kell": "oliver_kell",

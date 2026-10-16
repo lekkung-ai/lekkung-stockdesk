@@ -6,9 +6,10 @@ import {
   Globe, LayoutDashboard, Map, ScanLine, TrendingUp, BarChart2,
   Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings, RotateCw,
-  Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck, Building2, CandlestickChart,
+  Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck, Building2, CandlestickChart, Flame,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
+import { lekkungDaytradeData } from '@/lib/lekkungDaytradeData';
 import { fundTickers } from '@/lib/sectorData';
 
 const COUNTS = {
@@ -20,6 +21,7 @@ const COUNTS = {
   lekkung: scanData.filter(s => s.lekkung).length,
   oneil: scanData.filter(s => s.oneil).length,
   weinstein: scanData.filter(s => (s as any).weinstein).length,
+  lekkungDaytrade: lekkungDaytradeData.length,
 };
 
 interface NavItem {
@@ -70,6 +72,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { label: 'Quant Scanner', href: '/scanner', icon: ScanLine, count: COUNTS.all },
       { label: 'Lekkung Growth', href: '/lekkung', icon: Activity, indent: true, count: COUNTS.lekkung },
+      { label: 'Lekkung Daytrade Scan', href: '/lekkung-daytrade', icon: Flame, indent: true, count: COUNTS.lekkungDaytrade },
       { label: 'CAN SLIM (O\'Neil)', href: '/oneil', icon: TrendingUp, indent: true, count: COUNTS.oneil },
       { label: 'SEPA Trend Template', href: '/sepa', icon: TrendingUp, indent: true, count: COUNTS.sepa },
       { label: 'VCP Review', href: '/vcp-review', icon: ClipboardCheck, indent: true },

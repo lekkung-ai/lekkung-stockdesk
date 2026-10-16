@@ -1,4 +1,5 @@
 import rawLekkungDiff from '@/data/scans/lekkung_diff.json';
+import rawLekkungDaytradeDiff from '@/data/scans/lekkung_daytrade_diff.json';
 import rawSepaDiff from '@/data/scans/sepa_diff.json';
 import rawKellDiff from '@/data/scans/oliver_kell_diff.json';
 import rawOneilDiff from '@/data/scans/oneil_diff.json';
@@ -25,6 +26,7 @@ export interface ScanDiffData {
 
 const DIFF_BY_SCAN: Record<string, ScanDiffData> = {
   lekkung: rawLekkungDiff as unknown as ScanDiffData,
+  lekkung_daytrade: rawLekkungDaytradeDiff as unknown as ScanDiffData,
   sepa: rawSepaDiff as unknown as ScanDiffData,
   kell: rawKellDiff as unknown as ScanDiffData,
   oneil: rawOneilDiff as unknown as ScanDiffData,
