@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T18:12:33.481322+07:00",
+  "generatedAt": "2026-10-16T14:32:43.907207+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -51,29 +51,24 @@
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 1,
-      "top3": [
-        {
-          "ticker": "BYD",
-          "netProfitYoY": 88.74550731085392
-        }
-      ]
+      "count": 0,
+      "top3": []
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 9,
+      "count": 8,
       "top3": [
         {
           "ticker": "INGRS",
           "netProfitYoY": -710.8196869833073
         },
         {
-          "ticker": "META",
-          "netProfitYoY": -578.5844051280993
-        },
-        {
           "ticker": "ECF",
           "netProfitYoY": -563.4294136206665
+        },
+        {
+          "ticker": "KSL",
+          "netProfitYoY": -365.791826080738
         }
       ]
     },
@@ -610,68 +605,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "META",
-      "sector": "Property",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-09-01T08:28:00+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": -657399000.0,
-      "netProfitPrior": -96878000.0,
-      "netProfitYoY": -578.5844051280993,
-      "netProfitPriorQ": -14339000.0,
-      "netProfitQoQ": -4484.692098472697,
-      "profitAcceleration": "stable",
-      "eps": -0.21,
-      "epsPrior": -0.03,
-      "epsYoY": -600.0,
-      "auditorOpinion": "ไม่แสดงความเห็นและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": true,
-      "bucket": "loss_worse",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106623601&symbol=META",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106634701&symbol=META",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106634201&symbol=META",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "รายได้จากการขาย 32,444 40% 101,485 70% (69,041) (68)% รายได้ดอกเบี้ยรับจากเงินให้สินเชื่อ 48,360 60% 44,279 30% 4,081 9% รวมรำยได้จำกกำรด ำเนินงำน 80,804 100% 145,764 100% (64,960) (45)% หัก ต้นทุนขาย 28,447 35% 96,867 66%",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "BYD",
-      "sector": "Financials",
-      "subsector": "Finance & Securities",
-      "market": "SET",
-      "announceDate": "2026-09-01T06:34:00+07:00",
-      "quarter": "ไตรมาส 2/2569",
-      "periodEnd": "30 มิถุนายน 2569",
-      "netProfit": -273209000.0,
-      "netProfitPrior": -2427555000.0,
-      "netProfitYoY": 88.74550731085392,
-      "netProfitPriorQ": 18612000.0,
-      "netProfitQoQ": -1567.9185471738663,
-      "profitAcceleration": "decelerating",
-      "eps": -0.052,
-      "epsPrior": -0.466,
-      "epsYoY": 88.84120171673821,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "loss_shrink",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106621801&symbol=BYD",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17882191603171&symbol=BYD",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106622001&symbol=BYD",
-      "headline": "สรุปผลการดำเนินงานของ บจ. งวดครึ่งปีสำหรับกลุ่มสถาบันการเงิน (F45) (ตรวจสอบแล้ว)",
-      "reason": "รายได้ค่านายหน้าเพิ่มขึ้นจาก 37.28 ล้านบาท เป็น 80.25 ล้านบาท เพิ่มขึ้นเท่ากับ 42.97 ล้านบาทหรือร้อยละ 115.26 โดยเป็นการเพิ่มขึ้นจากรายได้ค่านายหน้าจากการซื้อขายหลักทรัพย์ ซึ่งคิดเป็นเพิ่มขึ้นร้อยละ 95.69 อันเป็นผลมาจาก มูลค่าการซื้อขายเฉลี่ยของตลาดหลักทรัพย์เพิ่มขึ้นจาก 38,529 ล้านบาท/วัน เป็น 61,977 ล้านบาท/วัน หรือเพิ่มขึ้นร้อย ละ 60.86",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": -2.38,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
@@ -861,12 +794,6 @@
     {
       "ticker": "BANPU",
       "date": "2026-08-31T17:45:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2569"
-    },
-    {
-      "ticker": "BYD",
-      "date": "2026-09-01T06:34:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
@@ -6960,6 +6887,13 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-17T06:43:00+07:00"
+    },
+    {
+      "ticker": "BYD",
+      "date": "2026-11-17T06:48:00+07:00",
+      "status": "predicted",
+      "quarter": null,
+      "basedOnLastYear": "2025-11-17T06:48:00+07:00"
     },
     {
       "ticker": "TNPC",
