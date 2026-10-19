@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { ChangeBadge } from '@/components/ChangeBadge';
 import TrendSparkline from '@/components/TrendSparkline';
 import FullWidthPage from '@/components/FullWidthPage';
-import { READABLE } from '@/lib/typeScale';
+import { READABLE, TS } from '@/lib/typeScale';
 import { formatShortThaiDate } from '@/lib/utils';
 import {
   macroCommodities,
   macroGeneratedAt,
   macroMethodology,
   macroPalmOilNote,
+  macroSourceLabel,
   type MacroCommodity,
   type MacroZone,
 } from '@/lib/macroData';
@@ -48,6 +49,9 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
   const isSynthetic = commodity.symbol.startsWith('PETRO_');
   const hasValidPrice = latestClose != null && !isNaN(latestClose) && latestClose > 0;
   const priceDateStr = commodity.latest?.date ? ` · ณ ${commodity.latest.date}` : '';
+  // แหล่งราคาจริง (source_symbol) — ไม่มี → แสดง key เดิมแบบเดิม · ป้ายแหล่งเฉพาะเมื่อ JSON บอก source
+  const sourceSymbol = commodity.source_symbol || null;
+  const sourceLabel = macroSourceLabel(commodity.source);
 
   return (
     <div className="bg-[#13161e] border border-white/[0.08] hover:border-white/[0.18] rounded-2xl p-4 transition-all space-y-3.5 shadow-sm hover:shadow-md">
@@ -65,9 +69,20 @@ function CommodityCard({ commodity }: { commodity: MacroCommodity }) {
             )}
           </div>
           <h3 className="text-[15px] font-extrabold text-white truncate leading-tight tracking-tight">{commodity.name_th}</h3>
-          <p className="text-[11.5px] text-white/45 truncate mt-0.5 font-medium">
-            {commodity.name_en} · <span className="font-mono text-white/60 font-semibold">{commodity.symbol}</span>
-          </p>
+          {sourceSymbol ? (
+            <>
+              <p className="text-[11.5px] text-white/45 truncate mt-0.5 font-medium">{commodity.name_en}</p>
+              {/* own line, wraps instead of truncating: a long symbol (ICEEUR:BRN1!) is never cut off */}
+              <p className={`${TS.caption} text-white/45 mt-0.5 font-medium flex flex-wrap gap-x-1`} data-testid="macro-source">
+                <span className="font-mono text-white/60 font-semibold whitespace-nowrap">{sourceSymbol}</span>
+                {sourceLabel && <span className="whitespace-nowrap">· {sourceLabel}</span>}
+              </p>
+            </>
+          ) : (
+            <p className="text-[11.5px] text-white/45 truncate mt-0.5 font-medium">
+              {commodity.name_en} · <span className="font-mono text-white/60 font-semibold">{commodity.symbol}</span>
+            </p>
+          )}
         </div>
         <div className="flex-shrink-0 pt-1">
           {hasSparkline ? (
@@ -172,6 +187,8 @@ export default function MacroPage() {
           last_success_date: data.last_success_date ?? null,
           never_fetched: data.never_fetched ?? false,
           ticker_impacts: data.ticker_impacts || {},
+          source: data.source ?? null,
+          source_symbol: data.source_symbol ?? null,
         }));
         if (fetchedList.length > 0) {
           // Merge fetched items with default static items so missing symbols are never dropped
