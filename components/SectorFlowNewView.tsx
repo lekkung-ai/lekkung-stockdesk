@@ -176,7 +176,7 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
           </div>
         </div>
 
-        <div className="hidden md:grid md:grid-cols-[minmax(180px,1.1fr)_2fr_130px_84px_90px] gap-3 px-2 text-[13px] text-white/35">
+        <div className="hidden md:grid md:grid-cols-[minmax(210px,1.1fr)_2fr_130px_84px_90px] gap-3 px-2 text-[13px] text-white/35">
           <span>กลุ่มย่อย</span>
           <span className="flex justify-between"><span>← เงินออก</span><span>เงินเข้า →</span></span>
           <span className="text-right">ล้านบาท/วัน</span>
@@ -196,11 +196,11 @@ export default function SectorFlowNewView({ subsectors, sectors, marketBenchmark
               <div
                 key={`${r.sector}/${r.subsector}`}
                 title={tip}
-                className={`grid grid-cols-2 md:grid-cols-[minmax(180px,1.1fr)_2fr_130px_84px_90px] gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]${isThinGroup(r.n) ? ' opacity-50' : ''}`}
+                className={`grid grid-cols-2 md:grid-cols-[minmax(210px,1.1fr)_2fr_130px_84px_90px] gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]${isThinGroup(r.n) ? ' opacity-50' : ''}`}
                 data-testid="net-row"
               >
                 <Link href={rowHref(r.sector, r.subsector)} className="min-w-0 col-span-2 md:col-span-1">
-                  <p className="text-[15px] font-bold text-white truncate">{r.subsector}<ThinGroupBadge n={r.n} /></p>
+                  <p className="text-[15px] font-bold text-white line-clamp-2 break-words">{r.subsector}<ThinGroupBadge n={r.n} /></p>
                   <p className="text-[12px] text-white/35 truncate">{displayGroup(r.sector, r.subsector)}</p>
                 </Link>
                 <div className="relative h-5 bg-white/[0.04] rounded col-span-2 md:col-span-1" aria-hidden>
