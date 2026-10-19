@@ -1,16 +1,12 @@
 {
-  "generatedAt": "2026-10-16T14:32:43.907207+07:00",
+  "generatedAt": "2026-10-19T15:08:25.636125+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 2,
+      "count": 1,
       "top3": [
-        {
-          "ticker": "MVP",
-          "netProfitYoY": 103.66927246877829
-        },
         {
           "ticker": "TISCO",
           "netProfitYoY": 4.304705231637771
@@ -19,7 +15,7 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 5,
+      "count": 4,
       "top3": [
         {
           "ticker": "TAPAC",
@@ -37,8 +33,12 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 2,
+      "count": 3,
       "top3": [
+        {
+          "ticker": "TSTH",
+          "netProfitYoY": -75.54604923836663
+        },
         {
           "ticker": "TNH",
           "netProfitYoY": -19.864178445537366
@@ -56,7 +56,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 8,
+      "count": 7,
       "top3": [
         {
           "ticker": "INGRS",
@@ -79,6 +79,37 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "TSTH",
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET",
+      "announceDate": "2026-10-19T06:33:09+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 209564000.0,
+      "netProfitPrior": 856974000.0,
+      "netProfitYoY": -75.54604923836663,
+      "netProfitPriorQ": 409710000.0,
+      "netProfitQoQ": -48.85065046008152,
+      "profitAcceleration": "stable",
+      "eps": 0.02488,
+      "epsPrior": 0.10176,
+      "epsYoY": -75.5503144654088,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107123501&symbol=TSTH",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17923663552271&symbol=TSTH",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107123601&symbol=TSTH",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -1.05,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
     {
       "ticker": "DOD",
       "sector": "Consumer",
@@ -106,7 +137,7 @@
       "reason": "บริษัทมีรายได้จากการขาย 119.91 ล้านบาท ลดลง 51.16 ล้านบาท หรือลดลงในอัตราร้อย ละ 29.91 และมีขาดทุนจากการดำเนินงาน 15.14 ล้านบาท ในขณะที่ช่วงเวลาเดียวกันของปีก่อนมีกำไรจากการ ดำเนินงาน 15.47 ล้านบาท คิดเป็นการลดลง 30.61 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -3.85,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -138,7 +169,7 @@
       "reason_source": "none",
       "gap_pct": 0.4,
       "drift_d1_pct": 0.4,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -170,7 +201,7 @@
       "gap_pct": 2.22,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 1.39,
-      "drift_d5_pct": null
+      "drift_d5_pct": 3.05
     },
     {
       "ticker": "INGRS",
@@ -512,99 +543,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "MVP",
-      "sector": "Services",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-09-02T18:30:00+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": -122682000.0,
-      "netProfitPrior": -60236000.0,
-      "netProfitYoY": -103.66890231755097,
-      "netProfitPriorQ": -63996000.0,
-      "netProfitQoQ": -91.7026064129008,
-      "profitAcceleration": "stable",
-      "eps": -0.364,
-      "epsPrior": -0.179,
-      "epsYoY": -103.35195530726257,
-      "auditorOpinion": "ไม่แสดงความเห็นและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": true,
-      "bucket": "loss_worse",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106650001&symbol=MVP",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106651301&symbol=MVP",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106651001&symbol=MVP",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว) (แก้ไข)",
-      "reason": "ขาดทุนจากการด้อยค่าทรัพย์สิน - (41.17) -41.17 -100.0% รวมค่าใช้จ่าย (458.27) (271.03) 187.25 +69.1% ขาดทุนจากกิจกรรมดําเนินงาน (112.69) (54.50) 58.19 +106.8% ต้นทุนทางการเงิน (5.17) (5.43) -0.26 -4.7% ขาดทุนก่อนภาษีเงินได้",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "MVP",
-      "sector": "Services",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-09-02T18:12:50+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": 122682669000.0,
-      "netProfitPrior": 60236219000.0,
-      "netProfitYoY": 103.66927246877829,
-      "netProfitPriorQ": -63996000.0,
-      "netProfitQoQ": 191803.6517907369,
-      "profitAcceleration": "accelerating",
-      "eps": 0.364,
-      "epsPrior": 0.179,
-      "epsYoY": 103.35195530726257,
-      "auditorOpinion": "ไม่แสดงความเห็นและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "profit_growth",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106648801&symbol=MVP",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17883061681381&symbol=MVP",
-      "mdaUrl": null,
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "TAPAC",
-      "sector": "Property",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-09-02T17:08:00+07:00",
-      "quarter": "ไตรมาส 2/2568",
-      "periodEnd": "30 เมษายน 2568",
-      "netProfit": 1134000.0,
-      "netProfitPrior": -39154000.0,
-      "netProfitYoY": 102.89625581038975,
-      "netProfitPriorQ": 11635000.0,
-      "netProfitQoQ": -90.25354533734422,
-      "profitAcceleration": "decelerating",
-      "eps": 0.003,
-      "epsPrior": 0.36,
-      "epsYoY": -99.16666666666667,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "turnaround",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106643001&symbol=TAPAC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17883061666741&symbol=TAPAC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106643101&symbol=TAPAC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
@@ -798,16 +736,16 @@
       "quarter": "ไตรมาส 2/2569"
     },
     {
-      "ticker": "TAPAC",
-      "date": "2026-09-02T17:08:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 2/2568"
-    },
-    {
       "ticker": "MVP",
       "date": "2026-09-02T18:12:50+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
+    },
+    {
+      "ticker": "TAPAC",
+      "date": "2026-09-08T08:04:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2568"
     },
     {
       "ticker": "PICO",
@@ -877,10 +815,9 @@
     },
     {
       "ticker": "TSTH",
-      "date": "2026-10-17T18:37:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-10-17T18:37:00+07:00"
+      "date": "2026-10-19T06:33:09+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "BAREIT",
@@ -7072,10 +7009,10 @@
     },
     {
       "ticker": "KTIS",
-      "date": "2026-11-28T20:50:00+07:00",
+      "date": "2026-12-01T08:41:00+07:00",
       "status": "predicted",
       "quarter": null,
-      "basedOnLastYear": "2025-11-28T20:50:00+07:00"
+      "basedOnLastYear": "2025-12-01T08:41:00+07:00"
     }
   ]
 }
