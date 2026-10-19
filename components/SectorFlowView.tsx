@@ -22,7 +22,10 @@ const STATUS_STYLE: Record<string, string> = {
 };
 
 const BAR_MAX = 3; // bars saturate at ×3 so one outlier doesn't flatten the rest
-const FLOW_COLS = 'md:grid-cols-[minmax(170px,1.1fr)_2fr_72px_150px_84px_170px]';
+// name column min 210px from 1180px up so "Information & Communication Technology" fits in 2 lines;
+// below that the fixed columns leave no room (170px, longest names clamp at 2 lines with a title tooltip)
+// (min-[768px] = md: both arbitrary so Tailwind orders them by width — a named md: would sort after min-[1180px] and win)
+const FLOW_COLS = 'min-[768px]:grid-cols-[minmax(170px,1.1fr)_2fr_72px_150px_84px_170px] min-[1180px]:grid-cols-[minmax(210px,1.1fr)_2fr_72px_150px_84px_170px]';
 
 const fmtMb = (v: number | null | undefined) =>
   v == null ? '—' : v >= 1000 ? `${(v / 1000).toFixed(1)} พัน` : v.toFixed(v < 10 ? 1 : 0);
@@ -118,7 +121,7 @@ export default function SectorFlowView({ subsectors, sectors, marketBenchmark = 
             return (
               <div key={`${r.sector}/${r.subsector}`} className={`grid grid-cols-2 ${FLOW_COLS} gap-x-3 gap-y-1 items-center px-2 py-1.5 rounded-lg hover:bg-white/[0.03]${isThinGroup(r.n) ? ' opacity-50' : ''}`}>
                 <Link href={rowHref(r.sector, r.subsector)} className="min-w-0 col-span-2 md:col-span-1">
-                  <p className={`${TS.tableCell} font-bold text-white truncate`}>{r.subsector}<ThinGroupBadge n={r.n} /></p>
+                  <p className={`${TS.tableCell} font-bold text-white line-clamp-2 break-words`} title={r.subsector ?? undefined}>{r.subsector}<ThinGroupBadge n={r.n} /></p>
                   <p className={`${TS.caption} text-white/35 truncate`}>{displayGroup(r.sector, r.subsector)}</p>
                 </Link>
                 <div className="relative h-4 bg-white/[0.04] rounded col-span-2 md:col-span-1">
