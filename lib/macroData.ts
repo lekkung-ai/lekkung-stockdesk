@@ -24,6 +24,19 @@ export interface MacroCommodity {
   series_empty?: boolean;
   last_success_date?: string | null;
   never_fetched?: boolean;
+  // แหล่งราคาจริงของรอบที่ได้ราคานี้ (data-engine fetch_macro ตั้งแต่ 2026-10-16) — JSON เก่า / ค่าที่ค้างจาก
+  // ก่อนมี field นี้ = null → หน้าเว็บแสดง key เดิมและไม่ใส่ป้ายแหล่ง (ไม่เดา)
+  source?: string | null;         // "TradingView continuous" | "TradingView scanner" | "TradingView TA" | "Yahoo Finance"
+  source_symbol?: string | null;  // เช่น "ICEEUR:BRN1!" · Yahoo = key เดิม (เช่น "HG=F")
+}
+
+/** ป้ายแหล่งแบบสั้นบนการ์ด · ไม่มีข้อมูลแหล่ง → null */
+export function macroSourceLabel(source: string | null | undefined): string | null {
+  if (!source) return null;
+  if (source === 'TradingView continuous') return 'TradingView continuous';
+  if (source.startsWith('TradingView')) return 'TradingView';
+  if (source.startsWith('Yahoo')) return 'Yahoo';
+  return source;
 }
 
 interface MacroCommoditiesJson {
@@ -68,6 +81,8 @@ export const macroCommodities: MacroCommodity[] = rawEntries.map(
     series_empty: data.series_empty ?? false,
     last_success_date: data.last_success_date ?? null,
     never_fetched: data.never_fetched ?? false,
+    source: data.source ?? null,
+    source_symbol: data.source_symbol ?? null,
   })
 );
 
