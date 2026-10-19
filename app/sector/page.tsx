@@ -305,8 +305,9 @@ export default function SectorPage() {
 
               <div className="space-y-1.5 pt-1 border-t border-white/[0.05]">
                 {subsectors.map(sub => (
-                  <div key={sub.subsector} className="flex items-center justify-between gap-2">
-                    <span className={`${TS.body} text-white/50 truncate font-medium`}>{sub.subsector}</span>
+                  <div key={sub.subsector} className="flex items-start justify-between gap-2">
+                    {/* up to 2 lines instead of "…" (long names at 1280px) · title = full name if it ever needs more */}
+                    <span className={`${TS.body} text-white/50 line-clamp-2 break-words min-w-0 font-medium`} title={sub.subsector}>{sub.subsector}</span>
                     <span className={`${TS.body} text-white/30 tabular-nums flex-shrink-0 font-mono`}>{sub.count}</span>
                   </div>
                 ))}
