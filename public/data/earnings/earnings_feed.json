@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T15:08:25.636125+07:00",
+  "generatedAt": "2026-10-19T18:11:39.864000+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -103,8 +103,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17923663552271&symbol=TSTH",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107123601&symbol=TSTH",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "ผลการดำเนินงานและผลประกอบการทางการเงินเปรียบเทียบกับไตรมาสก่อนและปีก่อน 1.1 รายได้จากการขายและบริการที่เกี่ยวข้อง ในไตรมาสนี้ บริษัทฯ มีปริมาณการขายสินค้าจำนวน 313,000 ตัน ลดลงร้อยละ 6 จาก 334,000 ตัน ในไตรมาส ก่อน และลดลงร้อยละ 12 จากจำนวน 356,000 ตัน ในไตรมาสเดียวกันของปีก่อน โดยมีสาเหตุหลักจากความ",
+      "reason_source": "mda_extract",
       "gap_pct": -1.05,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -137,7 +137,7 @@
       "reason": "บริษัทมีรายได้จากการขาย 119.91 ล้านบาท ลดลง 51.16 ล้านบาท หรือลดลงในอัตราร้อย ละ 29.91 และมีขาดทุนจากการดำเนินงาน 15.14 ล้านบาท ในขณะที่ช่วงเวลาเดียวกันของปีก่อนมีกำไรจากการ ดำเนินงาน 15.47 ล้านบาท คิดเป็นการลดลง 30.61 ล้านบาท",
       "reason_source": "mda_extract",
       "gap_pct": -3.85,
-      "drift_d1_pct": 2.56,
+      "drift_d1_pct": 6.41,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -169,7 +169,7 @@
       "reason_source": "none",
       "gap_pct": 0.4,
       "drift_d1_pct": 0.4,
-      "drift_d2_pct": 0.0,
+      "drift_d2_pct": 0.8,
       "drift_d5_pct": null
     },
     {
@@ -201,7 +201,7 @@
       "gap_pct": 2.22,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 1.39,
-      "drift_d5_pct": 3.05
+      "drift_d5_pct": 2.77
     },
     {
       "ticker": "INGRS",
