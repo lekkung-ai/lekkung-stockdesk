@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T18:05:51+07:00",
+  "generated_at": "2026-10-19T18:05:57+07:00",
   "universe": {
     "count": 877,
     "min_history_days": 252,
@@ -22,26 +22,17 @@
   "market_stage": {
     "stage": "Correction",
     "dd_count_25d": 7,
-    "pct_above_ma50_today": 32.12,
+    "pct_above_ma50_today": 30.32,
     "rule": "stage = 'Correction' ถ้า dd_count_25d >= 6; 'Under Pressure' ถ้า dd_count_25d >= 4 หรือ pct_above_ma50 วันล่าสุด < 35%; มิฉะนั้น 'Uptrend'. เกณฑ์นี้เป็นการตีความของทีมเรา ปรับได้ที่ config.py (MARKET_STAGE_DD_CORRECTION / MARKET_STAGE_DD_PRESSURE / MARKET_STAGE_MA50_PRESSURE_PCT)"
   },
   "set_index": [
-    {
-      "date": "2026-04-21",
-      "open": 1483.79,
-      "high": 1487.28,
-      "low": 1476.57,
-      "close": 1483.5,
-      "volume": 53790553786,
-      "marker": null
-    },
     {
       "date": "2026-04-22",
       "open": 1477.05,
       "high": 1488.68,
       "low": 1477.05,
       "close": 1479.74,
-      "volume": 55258749699,
+      "volume": 55258749631,
       "marker": "DD"
     },
     {
@@ -50,7 +41,7 @@
       "high": 1476.84,
       "low": 1452.36,
       "close": 1461.35,
-      "volume": 62024571345,
+      "volume": 62024571298,
       "marker": "DD"
     },
     {
@@ -59,7 +50,7 @@
       "high": 1458.47,
       "low": 1438.33,
       "close": 1456.1,
-      "volume": 44468196508,
+      "volume": 44468196545,
       "marker": null
     },
     {
@@ -68,7 +59,7 @@
       "high": 1484.13,
       "low": 1463.0,
       "close": 1479.13,
-      "volume": 43167380149,
+      "volume": 43167380126,
       "marker": null
     },
     {
@@ -77,7 +68,7 @@
       "high": 1489.78,
       "low": 1467.67,
       "close": 1480.2,
-      "volume": 55583902281,
+      "volume": 55583902260,
       "marker": null
     },
     {
@@ -86,7 +77,7 @@
       "high": 1492.72,
       "low": 1475.3,
       "close": 1491.74,
-      "volume": 53011120841,
+      "volume": 53011120847,
       "marker": null
     },
     {
@@ -95,7 +86,7 @@
       "high": 1493.69,
       "low": 1481.05,
       "close": 1493.69,
-      "volume": 56401670147,
+      "volume": 56401670186,
       "marker": null
     },
     {
@@ -104,7 +95,7 @@
       "high": 1503.9,
       "low": 1482.17,
       "close": 1490.1,
-      "volume": 67635636740,
+      "volume": 67635636743,
       "marker": "DD"
     },
     {
@@ -113,7 +104,7 @@
       "high": 1517.94,
       "low": 1494.23,
       "close": 1516.91,
-      "volume": 76176154380,
+      "volume": 76176154386,
       "marker": null
     },
     {
@@ -122,7 +113,7 @@
       "high": 1527.17,
       "low": 1507.53,
       "close": 1507.53,
-      "volume": 74789222614,
+      "volume": 74789222600,
       "marker": null
     },
     {
@@ -131,7 +122,7 @@
       "high": 1512.66,
       "low": 1498.13,
       "close": 1500.36,
-      "volume": 59215663688,
+      "volume": 59215663689,
       "marker": null
     },
     {
@@ -149,7 +140,7 @@
       "high": 1501.35,
       "low": 1481.95,
       "close": 1483.56,
-      "volume": 50017921871,
+      "volume": 50017921888,
       "marker": null
     },
     {
@@ -158,7 +149,7 @@
       "high": 1521.02,
       "low": 1493.28,
       "close": 1517.26,
-      "volume": 62236268194,
+      "volume": 62236268196,
       "marker": null
     },
     {
@@ -167,7 +158,7 @@
       "high": 1540.07,
       "low": 1514.56,
       "close": 1539.12,
-      "volume": 69187525446,
+      "volume": 69187525434,
       "marker": null
     },
     {
@@ -176,7 +167,7 @@
       "high": 1536.79,
       "low": 1512.91,
       "close": 1517.95,
-      "volume": 62507587787,
+      "volume": 62507587802,
       "marker": null
     },
     {
@@ -185,7 +176,7 @@
       "high": 1523.19,
       "low": 1510.42,
       "close": 1517.74,
-      "volume": 51767684610,
+      "volume": 51767684652,
       "marker": null
     },
     {
@@ -194,7 +185,7 @@
       "high": 1524.01,
       "low": 1509.26,
       "close": 1516.69,
-      "volume": 46178636718,
+      "volume": 46178636715,
       "marker": null
     },
     {
@@ -203,7 +194,7 @@
       "high": 1532.03,
       "low": 1516.78,
       "close": 1528.43,
-      "volume": 54280388918,
+      "volume": 54280388932,
       "marker": null
     },
     {
@@ -212,7 +203,7 @@
       "high": 1541.96,
       "low": 1530.93,
       "close": 1532.67,
-      "volume": 49477716989,
+      "volume": 49477717043,
       "marker": null
     },
     {
@@ -221,7 +212,7 @@
       "high": 1542.25,
       "low": 1533.03,
       "close": 1538.67,
-      "volume": 55392849005,
+      "volume": 55392848957,
       "marker": null
     },
     {
@@ -230,7 +221,7 @@
       "high": 1558.95,
       "low": 1545.63,
       "close": 1550.33,
-      "volume": 58721242673,
+      "volume": 58721242607,
       "marker": null
     },
     {
@@ -1103,28 +1094,23 @@
       "high": 1573.01,
       "low": 1557.67,
       "close": 1573.01,
-      "volume": 53268747020,
+      "volume": 53083141566,
+      "marker": null
+    },
+    {
+      "date": "2026-10-19",
+      "open": 1578.03,
+      "high": 1580.46,
+      "low": 1569.64,
+      "close": 1571.72,
+      "volume": 58175811469,
       "marker": null
     }
   ],
   "breadth": [
     {
-      "date": "2026-04-21",
-      "pct_above_ma10": 47.14,
-      "denom_ma10": 874,
-      "pct_above_ma20": 55.21,
-      "denom_ma20": 873,
-      "pct_above_ma50": 46.51,
-      "denom_ma50": 873,
-      "pct_above_ma200": 45.24,
-      "denom_ma200": 871,
-      "pct_new_52wh": 2.89,
-      "pct_new_52wl": 5.66,
-      "denom_52w": 866
-    },
-    {
       "date": "2026-04-22",
-      "pct_above_ma10": 48.05,
+      "pct_above_ma10": 47.83,
       "denom_ma10": 874,
       "pct_above_ma20": 52.12,
       "denom_ma20": 873,
@@ -1152,9 +1138,9 @@
     },
     {
       "date": "2026-04-24",
-      "pct_above_ma10": 39.29,
+      "pct_above_ma10": 39.4,
       "denom_ma10": 873,
-      "pct_above_ma20": 44.67,
+      "pct_above_ma20": 44.79,
       "denom_ma20": 873,
       "pct_above_ma50": 42.27,
       "denom_ma50": 873,
@@ -1166,7 +1152,7 @@
     },
     {
       "date": "2026-04-27",
-      "pct_above_ma10": 42.15,
+      "pct_above_ma10": 42.27,
       "denom_ma10": 873,
       "pct_above_ma20": 43.87,
       "denom_ma20": 873,
@@ -1194,7 +1180,7 @@
     },
     {
       "date": "2026-04-29",
-      "pct_above_ma10": 50.63,
+      "pct_above_ma10": 50.74,
       "denom_ma10": 873,
       "pct_above_ma20": 49.26,
       "denom_ma20": 873,
@@ -1270,7 +1256,7 @@
       "denom_ma20": 873,
       "pct_above_ma50": 53.15,
       "denom_ma50": 873,
-      "pct_above_ma200": 48.68,
+      "pct_above_ma200": 48.79,
       "denom_ma200": 871,
       "pct_new_52wh": 5.65,
       "pct_new_52wl": 5.99,
@@ -1434,7 +1420,7 @@
       "date": "2026-05-26",
       "pct_above_ma10": 59.61,
       "denom_ma10": 874,
-      "pct_above_ma20": 57.62,
+      "pct_above_ma20": 57.73,
       "denom_ma20": 873,
       "pct_above_ma50": 59.68,
       "denom_ma50": 873,
@@ -1520,7 +1506,7 @@
       "denom_ma10": 875,
       "pct_above_ma20": 58.81,
       "denom_ma20": 874,
-      "pct_above_ma50": 61.28,
+      "pct_above_ma50": 61.17,
       "denom_ma50": 873,
       "pct_above_ma200": 54.54,
       "denom_ma200": 871,
@@ -1562,7 +1548,7 @@
       "denom_ma10": 875,
       "pct_above_ma20": 40.5,
       "denom_ma20": 874,
-      "pct_above_ma50": 52.12,
+      "pct_above_ma50": 52.23,
       "denom_ma50": 873,
       "pct_above_ma200": 51.44,
       "denom_ma200": 871,
@@ -1964,7 +1950,7 @@
     },
     {
       "date": "2026-07-21",
-      "pct_above_ma10": 68.0,
+      "pct_above_ma10": 67.89,
       "denom_ma10": 875,
       "pct_above_ma20": 74.29,
       "denom_ma20": 875,
@@ -2136,7 +2122,7 @@
       "denom_ma10": 872,
       "pct_above_ma20": 49.2,
       "denom_ma20": 872,
-      "pct_above_ma50": 66.02,
+      "pct_above_ma50": 66.13,
       "denom_ma50": 871,
       "pct_above_ma200": 69.0,
       "denom_ma200": 871,
@@ -2150,7 +2136,7 @@
       "denom_ma10": 873,
       "pct_above_ma20": 43.35,
       "denom_ma20": 872,
-      "pct_above_ma50": 63.26,
+      "pct_above_ma50": 63.15,
       "denom_ma50": 871,
       "pct_above_ma200": 67.74,
       "denom_ma200": 871,
@@ -2234,7 +2220,7 @@
       "denom_ma10": 871,
       "pct_above_ma20": 49.43,
       "denom_ma20": 870,
-      "pct_above_ma50": 60.41,
+      "pct_above_ma50": 60.53,
       "denom_ma50": 869,
       "pct_above_ma200": 66.86,
       "denom_ma200": 869,
@@ -2244,11 +2230,11 @@
     },
     {
       "date": "2026-08-21",
-      "pct_above_ma10": 52.7,
+      "pct_above_ma10": 52.58,
       "denom_ma10": 871,
       "pct_above_ma20": 51.38,
       "denom_ma20": 870,
-      "pct_above_ma50": 61.1,
+      "pct_above_ma50": 60.99,
       "denom_ma50": 869,
       "pct_above_ma200": 67.78,
       "denom_ma200": 869,
@@ -2262,7 +2248,7 @@
       "denom_ma10": 871,
       "pct_above_ma20": 48.62,
       "denom_ma20": 870,
-      "pct_above_ma50": 57.08,
+      "pct_above_ma50": 57.19,
       "denom_ma50": 869,
       "pct_above_ma200": 67.43,
       "denom_ma200": 869,
@@ -2328,7 +2314,7 @@
     },
     {
       "date": "2026-08-31",
-      "pct_above_ma10": 44.43,
+      "pct_above_ma10": 44.55,
       "denom_ma10": 871,
       "pct_above_ma20": 48.34,
       "denom_ma20": 871,
@@ -2346,7 +2332,7 @@
       "denom_ma10": 871,
       "pct_above_ma20": 39.15,
       "denom_ma20": 871,
-      "pct_above_ma50": 52.07,
+      "pct_above_ma50": 51.95,
       "denom_ma50": 870,
       "pct_above_ma200": 67.32,
       "denom_ma200": 869,
@@ -2360,7 +2346,7 @@
       "denom_ma10": 871,
       "pct_above_ma20": 32.03,
       "denom_ma20": 871,
-      "pct_above_ma50": 46.21,
+      "pct_above_ma50": 46.32,
       "denom_ma50": 870,
       "pct_above_ma200": 65.13,
       "denom_ma200": 869,
@@ -2374,7 +2360,7 @@
       "denom_ma10": 871,
       "pct_above_ma20": 32.61,
       "denom_ma20": 871,
-      "pct_above_ma50": 46.67,
+      "pct_above_ma50": 46.55,
       "denom_ma50": 870,
       "pct_above_ma200": 64.79,
       "denom_ma200": 869,
@@ -2454,11 +2440,11 @@
     },
     {
       "date": "2026-09-11",
-      "pct_above_ma10": 45.75,
+      "pct_above_ma10": 45.86,
       "denom_ma10": 870,
       "pct_above_ma20": 41.49,
       "denom_ma20": 870,
-      "pct_above_ma50": 47.18,
+      "pct_above_ma50": 47.3,
       "denom_ma50": 869,
       "pct_above_ma200": 66.63,
       "denom_ma200": 869,
@@ -2472,7 +2458,7 @@
       "denom_ma10": 867,
       "pct_above_ma20": 38.64,
       "denom_ma20": 867,
-      "pct_above_ma50": 45.73,
+      "pct_above_ma50": 45.61,
       "denom_ma50": 866,
       "pct_above_ma200": 66.74,
       "denom_ma200": 866,
@@ -2486,7 +2472,7 @@
       "denom_ma10": 867,
       "pct_above_ma20": 38.75,
       "denom_ma20": 867,
-      "pct_above_ma50": 45.38,
+      "pct_above_ma50": 45.5,
       "denom_ma50": 866,
       "pct_above_ma200": 67.32,
       "denom_ma200": 866,
@@ -2526,7 +2512,7 @@
       "date": "2026-09-18",
       "pct_above_ma10": 43.02,
       "denom_ma10": 867,
-      "pct_above_ma20": 39.22,
+      "pct_above_ma20": 39.33,
       "denom_ma20": 867,
       "pct_above_ma50": 45.5,
       "denom_ma50": 866,
@@ -2570,7 +2556,7 @@
       "denom_ma10": 867,
       "pct_above_ma20": 51.15,
       "denom_ma20": 866,
-      "pct_above_ma50": 48.61,
+      "pct_above_ma50": 48.5,
       "denom_ma50": 866,
       "pct_above_ma200": 66.97,
       "denom_ma200": 866,
@@ -2584,7 +2570,7 @@
       "denom_ma10": 866,
       "pct_above_ma20": 45.32,
       "denom_ma20": 865,
-      "pct_above_ma50": 45.09,
+      "pct_above_ma50": 45.2,
       "denom_ma50": 865,
       "pct_above_ma200": 66.36,
       "denom_ma200": 865,
@@ -2598,7 +2584,7 @@
       "denom_ma10": 866,
       "pct_above_ma20": 48.67,
       "denom_ma20": 865,
-      "pct_above_ma50": 45.78,
+      "pct_above_ma50": 45.66,
       "denom_ma50": 865,
       "pct_above_ma200": 66.36,
       "denom_ma200": 865,
@@ -2608,7 +2594,7 @@
     },
     {
       "date": "2026-09-28",
-      "pct_above_ma10": 41.92,
+      "pct_above_ma10": 41.8,
       "denom_ma10": 866,
       "pct_above_ma20": 44.28,
       "denom_ma20": 865,
@@ -2724,7 +2710,7 @@
       "denom_ma10": 847,
       "pct_above_ma20": 28.61,
       "denom_ma20": 846,
-      "pct_above_ma50": 31.68,
+      "pct_above_ma50": 31.8,
       "denom_ma50": 846,
       "pct_above_ma200": 61.11,
       "denom_ma200": 846,
@@ -2738,7 +2724,7 @@
       "denom_ma10": 847,
       "pct_above_ma20": 34.28,
       "denom_ma20": 846,
-      "pct_above_ma50": 34.28,
+      "pct_above_ma50": 34.16,
       "denom_ma50": 846,
       "pct_above_ma200": 62.88,
       "denom_ma200": 846,
@@ -2748,7 +2734,7 @@
     },
     {
       "date": "2026-10-12",
-      "pct_above_ma10": 39.39,
+      "pct_above_ma10": 39.5,
       "denom_ma10": 848,
       "pct_above_ma20": 30.85,
       "denom_ma20": 846,
@@ -2762,31 +2748,45 @@
     },
     {
       "date": "2026-10-14",
-      "pct_above_ma10": 39.13,
-      "denom_ma10": 846,
-      "pct_above_ma20": 31.52,
-      "denom_ma20": 844,
-      "pct_above_ma50": 29.74,
-      "denom_ma50": 844,
-      "pct_above_ma200": 60.19,
-      "denom_ma200": 844,
-      "pct_new_52wh": 2.37,
-      "pct_new_52wl": 4.62,
-      "denom_52w": 844
+      "pct_above_ma10": 39.27,
+      "denom_ma10": 848,
+      "pct_above_ma20": 31.68,
+      "denom_ma20": 846,
+      "pct_above_ma50": 29.91,
+      "denom_ma50": 846,
+      "pct_above_ma200": 60.28,
+      "denom_ma200": 846,
+      "pct_new_52wh": 2.36,
+      "pct_new_52wl": 4.61,
+      "denom_52w": 846
     },
     {
       "date": "2026-10-15",
-      "pct_above_ma10": 44.14,
-      "denom_ma10": 802,
-      "pct_above_ma20": 33.12,
-      "denom_ma20": 800,
-      "pct_above_ma50": 32.12,
-      "denom_ma50": 800,
-      "pct_above_ma200": 63.62,
-      "denom_ma200": 800,
-      "pct_new_52wh": 2.5,
-      "pct_new_52wl": 4.0,
-      "denom_52w": 800
+      "pct_above_ma10": 43.04,
+      "denom_ma10": 848,
+      "pct_above_ma20": 32.86,
+      "denom_ma20": 846,
+      "pct_above_ma50": 31.91,
+      "denom_ma50": 846,
+      "pct_above_ma200": 61.94,
+      "denom_ma200": 846,
+      "pct_new_52wh": 2.48,
+      "pct_new_52wl": 4.26,
+      "denom_52w": 846
+    },
+    {
+      "date": "2026-10-19",
+      "pct_above_ma10": 40.49,
+      "denom_ma10": 810,
+      "pct_above_ma20": 31.06,
+      "denom_ma20": 808,
+      "pct_above_ma50": 30.32,
+      "denom_ma50": 808,
+      "pct_above_ma200": 61.39,
+      "denom_ma200": 808,
+      "pct_new_52wh": 1.98,
+      "pct_new_52wl": 5.07,
+      "denom_52w": 808
     }
   ]
 }

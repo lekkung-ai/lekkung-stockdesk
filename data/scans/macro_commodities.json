@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T18:38:00+07:00",
+  "generated_at": "2026-10-19T18:06:56+07:00",
   "series_days": 180,
   "zones": {
     "energy": "พลังงาน",
@@ -34,16 +34,12 @@
         "BA": "cost"
       },
       "latest": {
-        "date": "2026-10-16",
-        "close": 106.34
+        "date": "2026-10-19",
+        "close": 108.27
       },
-      "pct_1d": 0.4,
-      "pct_1m": 1.45,
+      "pct_1d": -1.45,
+      "pct_1m": 4.24,
       "series": [
-        {
-          "date": "2026-02-06",
-          "close": 68.05
-        },
         {
           "date": "2026-02-09",
           "close": 69.04
@@ -758,10 +754,14 @@
         },
         {
           "date": "2026-10-16",
-          "close": 106.34
+          "close": 109.86
+        },
+        {
+          "date": "2026-10-19",
+          "close": 108.27
         }
       ],
-      "last_success_date": "2026-10-16",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -775,16 +775,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-10-16",
-        "close": 96.08
+        "date": "2026-10-19",
+        "close": 97.96
       },
-      "pct_1d": -1.93,
-      "pct_1m": -5.72,
+      "pct_1d": -1.07,
+      "pct_1m": 1.96,
       "series": [
-        {
-          "date": "2026-01-30",
-          "close": 65.21
-        },
         {
           "date": "2026-02-02",
           "close": 62.14
@@ -1499,10 +1495,14 @@
         },
         {
           "date": "2026-10-16",
-          "close": 96.08
+          "close": 99.02
+        },
+        {
+          "date": "2026-10-19",
+          "close": 97.96
         }
       ],
-      "last_success_date": "2026-10-16",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -1526,16 +1526,12 @@
         "GPSC": "cost"
       },
       "latest": {
-        "date": "2026-10-16",
-        "close": 3.176
+        "date": "2026-10-19",
+        "close": 3.147
       },
-      "pct_1d": -1.85,
-      "pct_1m": 9.48,
+      "pct_1d": 0.99,
+      "pct_1m": 8.07,
       "series": [
-        {
-          "date": "2026-01-30",
-          "close": 4.354
-        },
         {
           "date": "2026-02-02",
           "close": 3.237
@@ -2250,10 +2246,14 @@
         },
         {
           "date": "2026-10-16",
-          "close": 3.176
+          "close": 3.116
+        },
+        {
+          "date": "2026-10-19",
+          "close": 3.147
         }
       ],
-      "last_success_date": "2026-10-16",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -2283,16 +2283,12 @@
         "III": "cost"
       },
       "latest": {
-        "date": "2026-10-16",
-        "close": 4.6685
+        "date": "2026-10-19",
+        "close": 4.6998
       },
-      "pct_1d": 0.3,
-      "pct_1m": -4.51,
+      "pct_1d": -0.5,
+      "pct_1m": -2.98,
       "series": [
-        {
-          "date": "2026-01-30",
-          "close": 2.533
-        },
         {
           "date": "2026-02-02",
           "close": 2.3598
@@ -3007,10 +3003,14 @@
         },
         {
           "date": "2026-10-16",
-          "close": 4.6685
+          "close": 4.7232
+        },
+        {
+          "date": "2026-10-19",
+          "close": 4.6998
         }
       ],
-      "last_success_date": "2026-10-16",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -3036,16 +3036,12 @@
         "PTG": "margin"
       },
       "latest": {
-        "date": "2026-10-16",
-        "close": 3.073
+        "date": "2026-10-19",
+        "close": 3.1017
       },
-      "pct_1d": -0.22,
-      "pct_1m": -5.41,
+      "pct_1d": -1.35,
+      "pct_1m": -4.72,
       "series": [
-        {
-          "date": "2026-01-30",
-          "close": 1.9422
-        },
         {
           "date": "2026-02-02",
           "close": 1.8514
@@ -3760,10 +3756,14 @@
         },
         {
           "date": "2026-10-16",
-          "close": 3.073
+          "close": 3.1443
+        },
+        {
+          "date": "2026-10-19",
+          "close": 3.1017
         }
       ],
-      "last_success_date": "2026-10-16",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -3789,24 +3789,12 @@
         "MILL": "revenue"
       },
       "latest": {
-        "date": "2026-10-14",
-        "close": 1285.0
+        "date": "2026-10-19",
+        "close": 1320.0
       },
-      "pct_1d": 0.71,
-      "pct_1m": 4.3,
+      "pct_1d": 2.72,
+      "pct_1m": 6.71,
       "series": [
-        {
-          "date": "2026-01-28",
-          "close": 972.0
-        },
-        {
-          "date": "2026-01-29",
-          "close": 972.0
-        },
-        {
-          "date": "2026-01-30",
-          "close": 972.0
-        },
         {
           "date": "2026-02-02",
           "close": 972.0
@@ -4514,13 +4502,25 @@
         {
           "date": "2026-10-14",
           "close": 1285.0
+        },
+        {
+          "date": "2026-10-15",
+          "close": 1285.0
+        },
+        {
+          "date": "2026-10-16",
+          "close": 1285.0
+        },
+        {
+          "date": "2026-10-19",
+          "close": 1320.0
         }
       ],
-      "last_success_date": "2026-10-14",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "HRC=F"
     },
     "HG=F": {
       "name_th": "ทองแดง",
@@ -4540,20 +4540,12 @@
         "SVI": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 6.562
+        "date": "2026-10-19",
+        "close": 6.604
       },
-      "pct_1d": -0.75,
-      "pct_1m": 2.03,
+      "pct_1d": 1.12,
+      "pct_1m": -0.17,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 6.1755
-        },
-        {
-          "date": "2026-01-30",
-          "close": 5.897
-        },
         {
           "date": "2026-02-02",
           "close": 5.8015
@@ -5264,14 +5256,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 6.562
+          "close": 6.5115
+        },
+        {
+          "date": "2026-10-16",
+          "close": 6.531
+        },
+        {
+          "date": "2026-10-19",
+          "close": 6.604
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "HG=F"
     },
     "ALI=F": {
       "name_th": "อลูมิเนียม",
@@ -5287,20 +5287,12 @@
         "OSP": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 3069.5
+        "date": "2026-10-19",
+        "close": 3100.0
       },
-      "pct_1d": -0.54,
-      "pct_1m": -10.29,
+      "pct_1d": -0.43,
+      "pct_1m": -10.06,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 3138.5
-        },
-        {
-          "date": "2026-01-30",
-          "close": 3034.5
-        },
         {
           "date": "2026-02-02",
           "close": 2926.75
@@ -6011,14 +6003,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 3069.5
+          "close": 3096.5
+        },
+        {
+          "date": "2026-10-16",
+          "close": 3113.25
+        },
+        {
+          "date": "2026-10-19",
+          "close": 3100.0
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "ALI=F"
     },
     "SICOM_RSS3": {
       "name_th": "ยางพารา RSS3 (SICOM)",
@@ -6040,13 +6040,13 @@
         "TRUBB": "revenue"
       },
       "latest": {
-        "date": "2026-10-16",
-        "close": 287.8
+        "date": "2026-10-19",
+        "close": 285.3
       },
-      "pct_1d": 0.7,
+      "pct_1d": -0.87,
       "pct_1m": null,
       "series": [],
-      "last_success_date": "2026-10-16",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
       "series_empty": true,
       "source": "TradingView scanner",
@@ -6069,9 +6069,9 @@
       },
       "latest": {
         "date": "2026-10-16",
-        "close": 256.4
+        "close": 256.2
       },
-      "pct_1d": 0.67,
+      "pct_1d": -0.08,
       "pct_1m": null,
       "series": [],
       "last_success_date": "2026-10-16",
@@ -6099,9 +6099,9 @@
       },
       "latest": {
         "date": "2026-10-16",
-        "close": 19905.0
+        "close": 19855.0
       },
-      "pct_1d": 0.73,
+      "pct_1d": -0.25,
       "pct_1m": null,
       "series": [],
       "last_success_date": "2026-10-16",
@@ -6138,20 +6138,12 @@
         "SNNP": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 20.81
+        "date": "2026-10-19",
+        "close": 20.62
       },
-      "pct_1d": -0.14,
-      "pct_1m": 15.8,
+      "pct_1d": -1.1,
+      "pct_1m": 18.78,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 14.7
-        },
-        {
-          "date": "2026-01-30",
-          "close": 14.27
-        },
         {
           "date": "2026-02-02",
           "close": 14.26
@@ -6862,14 +6854,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 20.81
+          "close": 21.13
+        },
+        {
+          "date": "2026-10-16",
+          "close": 20.85
+        },
+        {
+          "date": "2026-10-19",
+          "close": 20.62
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "SB=F"
     },
     "ZC=F": {
       "name_th": "ข้าวโพดเลี้ยงสัตว์",
@@ -6889,20 +6889,12 @@
         "GFPT": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 481.0
+        "date": "2026-10-19",
+        "close": 473.0
       },
-      "pct_1d": 0.05,
-      "pct_1m": -9.97,
+      "pct_1d": -0.26,
+      "pct_1m": -10.33,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 430.75
-        },
-        {
-          "date": "2026-01-30",
-          "close": 428.25
-        },
         {
           "date": "2026-02-02",
           "close": 425.75
@@ -7613,14 +7605,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 481.0
+          "close": 478.0
+        },
+        {
+          "date": "2026-10-16",
+          "close": 474.25
+        },
+        {
+          "date": "2026-10-19",
+          "close": 473.0
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "ZC=F"
     },
     "ZS=F": {
       "name_th": "ถั่วเหลือง",
@@ -7642,20 +7642,12 @@
         "GFPT": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 1274.25
+        "date": "2026-10-19",
+        "close": 1262.0
       },
-      "pct_1d": -0.23,
-      "pct_1m": -3.5,
+      "pct_1d": 0.06,
+      "pct_1m": -3.18,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 1072.25
-        },
-        {
-          "date": "2026-01-30",
-          "close": 1064.25
-        },
         {
           "date": "2026-02-02",
           "close": 1060.25
@@ -8366,14 +8358,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 1274.25
+          "close": 1263.0
+        },
+        {
+          "date": "2026-10-16",
+          "close": 1261.25
+        },
+        {
+          "date": "2026-10-19",
+          "close": 1262.0
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "ZS=F"
     },
     "ZM=F": {
       "name_th": "กากถั่วเหลือง",
@@ -8395,20 +8395,12 @@
         "GFPT": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 368.2
+        "date": "2026-10-19",
+        "close": 358.0
       },
-      "pct_1d": -0.51,
-      "pct_1m": 2.02,
+      "pct_1d": 0.25,
+      "pct_1m": 0.96,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 296.0
-        },
-        {
-          "date": "2026-01-30",
-          "close": 293.6
-        },
         {
           "date": "2026-02-02",
           "close": 294.5
@@ -9119,14 +9111,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 368.2
+          "close": 359.8
+        },
+        {
+          "date": "2026-10-16",
+          "close": 357.1
+        },
+        {
+          "date": "2026-10-19",
+          "close": 358.0
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "ZM=F"
     },
     "ZW=F": {
       "name_th": "ข้าวสาลี",
@@ -9146,20 +9146,12 @@
         "TFM": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 672.5
+        "date": "2026-10-19",
+        "close": 663.0
       },
-      "pct_1d": -0.11,
-      "pct_1m": -7.97,
+      "pct_1d": 0.38,
+      "pct_1m": -7.18,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 541.5
-        },
-        {
-          "date": "2026-01-30",
-          "close": 538.0
-        },
         {
           "date": "2026-02-02",
           "close": 527.75
@@ -9870,14 +9862,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 672.5
+          "close": 670.0
+        },
+        {
+          "date": "2026-10-16",
+          "close": 660.5
+        },
+        {
+          "date": "2026-10-19",
+          "close": 663.0
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "ZW=F"
     },
     "CPO=F": {
       "name_th": "น้ำมันปาล์มดิบ (มาเลเซีย)",
@@ -9895,16 +9895,12 @@
         "VPO": "revenue"
       },
       "latest": {
-        "date": "2026-10-14",
-        "close": 1153.5
+        "date": "2026-10-16",
+        "close": 1147.25
       },
-      "pct_1d": 0.33,
-      "pct_1m": -5.04,
+      "pct_1d": -0.54,
+      "pct_1m": -5.87,
       "series": [
-        {
-          "date": "2026-01-27",
-          "close": 1019.25
-        },
         {
           "date": "2026-01-28",
           "close": 1021.25
@@ -10620,13 +10616,17 @@
         {
           "date": "2026-10-14",
           "close": 1153.5
+        },
+        {
+          "date": "2026-10-16",
+          "close": 1147.25
         }
       ],
-      "last_success_date": "2026-10-14",
+      "last_success_date": "2026-10-16",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "CPO=F"
     },
     "HE=F": {
       "name_th": "สุกร (หมูเนื้อแดง Lean Hogs)",
@@ -10644,20 +10644,12 @@
         "BTG": "revenue"
       },
       "latest": {
-        "date": "2026-10-14",
-        "close": 75.55
+        "date": "2026-10-16",
+        "close": 66.925
       },
-      "pct_1d": -0.07,
-      "pct_1m": -4.46,
+      "pct_1d": 0.53,
+      "pct_1m": -15.18,
       "series": [
-        {
-          "date": "2026-01-28",
-          "close": 87.95
-        },
-        {
-          "date": "2026-01-29",
-          "close": 87.7
-        },
         {
           "date": "2026-01-30",
           "close": 87.25
@@ -11369,13 +11361,21 @@
         {
           "date": "2026-10-14",
           "close": 75.55
+        },
+        {
+          "date": "2026-10-15",
+          "close": 66.575
+        },
+        {
+          "date": "2026-10-16",
+          "close": 66.925
         }
       ],
-      "last_success_date": "2026-10-14",
+      "last_success_date": "2026-10-16",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "HE=F"
     },
     "KC=F": {
       "name_th": "กาแฟอาราบิก้า (Coffee)",
@@ -11393,20 +11393,12 @@
         "TACC": "revenue"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 294.05
+        "date": "2026-10-19",
+        "close": 311.0
       },
-      "pct_1d": -1.34,
-      "pct_1m": -0.61,
+      "pct_1d": 1.77,
+      "pct_1m": 5.58,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 345.5
-        },
-        {
-          "date": "2026-01-30",
-          "close": 332.25
-        },
         {
           "date": "2026-02-02",
           "close": 333.25
@@ -12117,14 +12109,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 294.05
+          "close": 294.8
+        },
+        {
+          "date": "2026-10-16",
+          "close": 305.6
+        },
+        {
+          "date": "2026-10-19",
+          "close": 311.0
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "KC=F"
     },
     "ZL=F": {
       "name_th": "น้ำมันถั่วเหลือง",
@@ -12134,20 +12134,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-10-15",
-        "close": 66.52
+        "date": "2026-10-19",
+        "close": 67.04
       },
-      "pct_1d": -0.79,
-      "pct_1m": -3.86,
+      "pct_1d": -0.13,
+      "pct_1m": -0.97,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 54.03
-        },
-        {
-          "date": "2026-01-30",
-          "close": 53.51
-        },
         {
           "date": "2026-02-02",
           "close": 53.2
@@ -12858,14 +12850,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 66.52
+          "close": 67.15
+        },
+        {
+          "date": "2026-10-16",
+          "close": 67.13
+        },
+        {
+          "date": "2026-10-19",
+          "close": 67.04
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "ZL=F"
     },
     "GC=F": {
       "name_th": "ทองคำ",
@@ -12875,20 +12875,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-10-15",
-        "close": 4176.2002
+        "date": "2026-10-19",
+        "close": 4190.8999
       },
-      "pct_1d": 1.66,
-      "pct_1m": -4.82,
+      "pct_1d": 0.23,
+      "pct_1m": -5.29,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 5318.3999
-        },
-        {
-          "date": "2026-01-30",
-          "close": 4745.1001
-        },
         {
           "date": "2026-02-02",
           "close": 4652.6001
@@ -13599,14 +13591,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 4176.2002
+          "close": 4170.1001
+        },
+        {
+          "date": "2026-10-16",
+          "close": 4181.1001
+        },
+        {
+          "date": "2026-10-19",
+          "close": 4190.8999
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "GC=F"
     },
     "THB=X": {
       "name_th": "อัตราแลกเปลี่ยน ดอลลาร์/บาท",
@@ -13630,20 +13630,12 @@
         "AOT": "cost"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 33.48
+        "date": "2026-10-19",
+        "close": 33.54
       },
-      "pct_1d": -0.24,
-      "pct_1m": 0.57,
+      "pct_1d": 0.22,
+      "pct_1m": 0.81,
       "series": [
-        {
-          "date": "2026-02-06",
-          "close": 31.83
-        },
-        {
-          "date": "2026-02-09",
-          "close": 31.51
-        },
         {
           "date": "2026-02-10",
           "close": 31.17
@@ -14354,14 +14346,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 33.48
+          "close": 33.61
+        },
+        {
+          "date": "2026-10-16",
+          "close": 33.466
+        },
+        {
+          "date": "2026-10-19",
+          "close": 33.54
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "THB=X"
     },
     "DX-Y.NYB": {
       "name_th": "ดัชนีดอลลาร์สหรัฐ",
@@ -14379,20 +14379,12 @@
         "HANA": "revenue"
       },
       "latest": {
-        "date": "2026-10-15",
-        "close": 102.061
+        "date": "2026-10-19",
+        "close": 101.867
       },
-      "pct_1d": -0.48,
-      "pct_1m": 1.75,
+      "pct_1d": 0.03,
+      "pct_1m": 1.64,
       "series": [
-        {
-          "date": "2026-01-29",
-          "close": 96.28
-        },
-        {
-          "date": "2026-01-30",
-          "close": 96.99
-        },
         {
           "date": "2026-02-02",
           "close": 97.61
@@ -15103,14 +15095,22 @@
         },
         {
           "date": "2026-10-15",
-          "close": 102.061
+          "close": 102.0
+        },
+        {
+          "date": "2026-10-16",
+          "close": 101.84
+        },
+        {
+          "date": "2026-10-19",
+          "close": 101.867
         }
       ],
-      "last_success_date": "2026-10-15",
+      "last_success_date": "2026-10-19",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "DX-Y.NYB"
     },
     "^TNX": {
       "name_th": "อัตราผลตอบแทนพันธบัตร US 10 ปี",
@@ -15138,20 +15138,12 @@
         "TIDLOR": "cost"
       },
       "latest": {
-        "date": "2026-10-14",
-        "close": 5.19
+        "date": "2026-10-16",
+        "close": 5.098
       },
-      "pct_1d": -0.52,
-      "pct_1m": 3.88,
+      "pct_1d": 0.18,
+      "pct_1m": 3.05,
       "series": [
-        {
-          "date": "2026-01-28",
-          "close": 4.251
-        },
-        {
-          "date": "2026-01-29",
-          "close": 4.227
-        },
         {
           "date": "2026-01-30",
           "close": 4.241
@@ -15863,13 +15855,21 @@
         {
           "date": "2026-10-14",
           "close": 5.19
+        },
+        {
+          "date": "2026-10-15",
+          "close": 5.089
+        },
+        {
+          "date": "2026-10-16",
+          "close": 5.098
         }
       ],
-      "last_success_date": "2026-10-14",
+      "last_success_date": "2026-10-16",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "^TNX"
     },
     "BDRY": {
       "name_th": "ค่าระวางเรือสินค้าแห้ง (BDI ETF)",
@@ -15885,20 +15885,12 @@
         "TTA": "revenue"
       },
       "latest": {
-        "date": "2026-10-14",
-        "close": 12.58
+        "date": "2026-10-16",
+        "close": 12.55
       },
-      "pct_1d": -4.12,
-      "pct_1m": -17.94,
+      "pct_1d": 2.45,
+      "pct_1m": -20.52,
       "series": [
-        {
-          "date": "2026-01-28",
-          "close": 11.01
-        },
-        {
-          "date": "2026-01-29",
-          "close": 11.48
-        },
         {
           "date": "2026-01-30",
           "close": 11.53
@@ -16610,13 +16602,21 @@
         {
           "date": "2026-10-14",
           "close": 12.58
+        },
+        {
+          "date": "2026-10-15",
+          "close": 12.25
+        },
+        {
+          "date": "2026-10-16",
+          "close": 12.55
         }
       ],
-      "last_success_date": "2026-10-14",
+      "last_success_date": "2026-10-16",
       "never_fetched": false,
-      "is_stale_fallback": true,
-      "source": null,
-      "source_symbol": null
+      "series_empty": false,
+      "source": "Yahoo Finance",
+      "source_symbol": "BDRY"
     }
   }
 }

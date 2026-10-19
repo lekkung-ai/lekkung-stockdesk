@@ -1,73 +1,73 @@
 {
-  "generated_at": "2026-10-15T18:05:46.158392+07:00",
+  "generated_at": "2026-10-19T18:05:52.099639+07:00",
   "method": "median_stock_rs",
   "sectors": {
-    "SET": {
-      "Technology": {
-        "rsScore": 52,
-        "count": 44
-      },
-      "Property": {
-        "rsScore": 45,
-        "count": 109
-      },
-      "Services": {
-        "rsScore": 46,
-        "count": 128
-      },
-      "Resources": {
-        "rsScore": 72,
-        "count": 55
-      },
-      "Financials": {
-        "rsScore": 60,
-        "count": 67
-      },
-      "Industrials": {
-        "rsScore": 64,
-        "count": 93
-      },
-      "Agro": {
-        "rsScore": 45,
-        "count": 71
-      },
-      "Consump": {
-        "rsScore": 42,
-        "count": 46
-      }
-    },
     "MAI": {
       "Industrials": {
-        "rsScore": 70,
+        "rsScore": 68,
         "count": 46
       },
       "Services": {
-        "rsScore": 30,
+        "rsScore": 33,
         "count": 62
       },
       "Consumer": {
-        "rsScore": 28,
+        "rsScore": 25,
         "count": 19
       },
-      "Property": {
-        "rsScore": 32,
-        "count": 35
-      },
       "Resources": {
-        "rsScore": 62,
+        "rsScore": 54,
         "count": 11
       },
+      "Property": {
+        "rsScore": 31,
+        "count": 35
+      },
       "Technology": {
-        "rsScore": 48,
+        "rsScore": 38,
         "count": 24
       },
       "Financials": {
-        "rsScore": 50,
+        "rsScore": 54,
         "count": 10
       },
       "Agro": {
         "rsScore": 54,
         "count": 13
+      }
+    },
+    "SET": {
+      "Financials": {
+        "rsScore": 60,
+        "count": 67
+      },
+      "Resources": {
+        "rsScore": 74,
+        "count": 55
+      },
+      "Technology": {
+        "rsScore": 53,
+        "count": 44
+      },
+      "Property": {
+        "rsScore": 42,
+        "count": 109
+      },
+      "Services": {
+        "rsScore": 47,
+        "count": 128
+      },
+      "Industrials": {
+        "rsScore": 65,
+        "count": 93
+      },
+      "Agro": {
+        "rsScore": 46,
+        "count": 71
+      },
+      "Consump": {
+        "rsScore": 44,
+        "count": 46
       }
     }
   }
