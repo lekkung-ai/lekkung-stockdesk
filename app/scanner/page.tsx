@@ -22,6 +22,7 @@ import { ChangeBadge } from '@/components/ChangeBadge';
 import { sparklineMap } from '@/lib/sparklineData';
 import Pagination from '@/components/Pagination';
 import ReportCardButton from '@/components/ReportCardButton';
+import NewListingBadge from '@/components/NewListingBadge';
 import TableSkeleton from '@/components/TableSkeleton';
 import GrowthScatter, { type ScatterPoint } from '@/components/scanner/GrowthScatter';
 import { LayoutGrid, ScatterChart as ScatterIcon } from 'lucide-react';
@@ -441,6 +442,8 @@ function QuantScannerContent() {
                         PPBP 🔥
                       </span>
                     )}
+                    {/* PPBP takes IPO stocks with >= 55 bars (data-engine scan_ppbp) — label them, don't hide */}
+                    {row.ppbp && <NewListingBadge ticker={row.ticker} />}
                     {row.lekkung && (
                       <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#FF9800] text-white">
                         Lekkung
