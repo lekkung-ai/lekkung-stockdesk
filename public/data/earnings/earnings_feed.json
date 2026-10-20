@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-10-20T14:59:00.859503+07:00",
+  "generatedAt": "2026-10-20T18:12:49.855385+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 3,
+      "count": 4,
       "top3": [
         {
           "ticker": "KKP",
           "netProfitYoY": 43.01220086209685
         },
         {
-          "ticker": "TISCO",
-          "netProfitYoY": 4.304705231637771
+          "ticker": "KTC",
+          "netProfitYoY": 8.88653718034131
         },
         {
-          "ticker": "TTB",
-          "netProfitYoY": 2.97370206365816
+          "ticker": "TISCO",
+          "netProfitYoY": 4.304705231637771
         }
       ]
     },
@@ -88,6 +88,33 @@
   },
   "announcements": [
     {
+      "ticker": "KTC",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-10-20T17:46:07+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 2124703000.0,
+      "netProfitPrior": 1951300000.0,
+      "netProfitYoY": 8.88653718034131,
+      "netProfitPriorQ": 2225308000.0,
+      "netProfitQoQ": -4.520947212700444,
+      "profitAcceleration": "decelerating",
+      "eps": 0.82,
+      "epsPrior": 0.76,
+      "epsYoY": 7.894736842105256,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107161601&symbol=KTC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17924533694471&symbol=KTC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107161701&symbol=KTC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "TTB",
       "sector": "Financials",
       "subsector": "Banking",
@@ -113,7 +140,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": -2.07,
+      "gap_pct": -6.21,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -239,7 +266,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -3.85,
       "drift_d1_pct": 6.41,
-      "drift_d2_pct": 3.85,
+      "drift_d2_pct": 2.56,
       "drift_d5_pct": null
     },
     {
@@ -935,6 +962,12 @@
     {
       "ticker": "TTB",
       "date": "2026-10-20T12:33:30+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "KTC",
+      "date": "2026-10-20T17:46:07+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
@@ -3593,13 +3626,6 @@
     },
     {
       "ticker": "FANCY",
-      "date": "2026-11-12T17:53:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-12T17:53:00+07:00"
-    },
-    {
-      "ticker": "KTC",
       "date": "2026-11-12T17:53:00+07:00",
       "status": "predicted",
       "quarter": null,
