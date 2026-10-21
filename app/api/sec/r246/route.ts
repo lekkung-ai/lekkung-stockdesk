@@ -61,13 +61,86 @@ function daysAgoISO(days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+// 59-2 / 246-2 may be at most 5 min behind: 30 s browser + 60 s fresh + 180 s stale-while-revalidate.
+const CACHE_OK = 'public, max-age=30, s-maxage=60, stale-while-revalidate=180';
+
+// Rows for [fromISO, toISO]: dated snapshots from data/history first, live SEC scrape only for
+// days without one (see getCachedSecDay). Shared by the ?date= / ?from= path and by ?latest=1&include=day.
+async function buildPayload(fromISO: string, toISO: string) {
+  const { days, truncated } = enumerateDaysISO(fromISO, toISO);
+  const todayISOStr = todayISOBangkok();
+  const allRows: Record<string, string>[] = [];
+  let anyParseFailure = false;
+
+  for (const dayISO of days) {
+    const staticDay = readStaticDay(dayISO, 'r246.json');
+    let dayRows: Record<string, string>[] = [];
+
+    if (staticDay) {
+      dayRows = staticDay.rows ?? [];
+    } else {
+      const isToday = dayISO === todayISOStr;
+      const result = await getCachedSecDay(ROUTE_KEY, BASE, buildFields, HEADER_SIGNATURE, cleanSupHeader, dayISO, isToday);
+      if (!result.found) { anyParseFailure = true; continue; }
+      dayRows = result.rows;
+      if (result.live) await sleep(LIVE_FETCH_DELAY_MS);
+    }
+
+    const beLabel = isoToBELabel(dayISO);
+    for (const rawRow of dayRows) {
+      if (rawRow['หลักทรัพย์'] === 'ไม่พบข้อมูล') continue;
+      const row = { ...rawRow };
+      const txISO = thaiDateToISO(row[TX_COL]);
+      row[PUBLISH_COL] = beLabel;
+      row['__publishISO'] = dayISO;
+      row['__txISO'] = txISO ?? '';
+      row['__retroactive'] = txISO && businessDaysBetween(txISO, dayISO) > 2 ? '1' : '';
+      allRows.push(row);
+    }
+  }
+
+  // Dedupe by report number - a filing can be resubmitted/corrected and
+  // reappear under a later disclosure date; keep the most recently
+  // published version.
+  const byKey = new Map<string, Record<string, string>>();
+  for (const row of allRows) {
+    const key = row[REPORT_NO_COL] || `${row['หลักทรัพย์']}|${row['ชื่อผู้ได้มา/จำหน่าย']}|${row[TX_COL]}`;
+    const existing = byKey.get(key);
+    if (!existing || row['__publishISO'] > existing['__publishISO']) byKey.set(key, row);
+  }
+  const rows = [...byKey.values()].sort((a, b) => b['__publishISO'].localeCompare(a['__publishISO']));
+
+  const headers = rows.length > 0
+    ? Object.keys(rows[0]).filter(h => !h.startsWith('__'))
+    : ['หลักทรัพย์', 'ชื่อผู้ได้มา/จำหน่าย', 'วิธีการ', PUBLISH_COL, TX_COL];
+
+  const fetchDate = new Date().toISOString().slice(0, 10);
+  return {
+    headers,
+    rows,
+    fetchDate,
+    dateBasis: PUBLISH_COL,
+    from: fromISO,
+    to: toISO,
+    truncated,
+    ...(anyParseFailure ? { partial: true } : {}),
+  };
+}
+
 export async function GET(req: NextRequest) {
   // ?latest=1 → the day the page should open on: newest snapshot with real filings (+ today, and whether
   // today's snapshot exists yet - it lands after ~18:00). Snapshot-only, never scrapes SEC.
+  // &include=day also returns that day's rows as `day` (the body ?date=<latest> would give), so the
+  // page opens on one request instead of two. No snapshot-with-filings → no `day`; the page then
+  // falls back to its normal ?date= request for today.
   if (req.nextUrl.searchParams.get('latest') === '1') {
     const today = todayISOBangkok();
     const r = findLatestSecDay(path.join(process.cwd(), 'data', 'history'), 'r246.json', 'หลักทรัพย์', today);
-    return Response.json({ ...r, today }, { headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60, stale-while-revalidate=300' } });
+    let day: Awaited<ReturnType<typeof buildPayload>> | null = null;
+    if (r.latest && req.nextUrl.searchParams.get('include') === 'day') {
+      try { day = await buildPayload(r.latest, r.latest); } catch { day = null; }
+    }
+    return Response.json({ ...r, today, ...(day ? { day } : {}) }, { headers: { 'Cache-Control': CACHE_OK } });
   }
   const fromParam = req.nextUrl.searchParams.get('from');
   const toParam = req.nextUrl.searchParams.get('to');
@@ -76,68 +149,10 @@ export async function GET(req: NextRequest) {
   const fromISO = dateParam || fromParam || daysAgoISO(6); // default: last 7 days (inclusive) by publish date
 
   try {
-    const { days, truncated } = enumerateDaysISO(fromISO, toISO);
-    const todayISOStr = todayISOBangkok();
-    const allRows: Record<string, string>[] = [];
-    let anyParseFailure = false;
-
-    for (const dayISO of days) {
-      const staticDay = readStaticDay(dayISO, 'r246.json');
-      let dayRows: Record<string, string>[] = [];
-
-      if (staticDay) {
-        dayRows = staticDay.rows ?? [];
-      } else {
-        const isToday = dayISO === todayISOStr;
-        const result = await getCachedSecDay(ROUTE_KEY, BASE, buildFields, HEADER_SIGNATURE, cleanSupHeader, dayISO, isToday);
-        if (!result.found) { anyParseFailure = true; continue; }
-        dayRows = result.rows;
-        if (result.live) await sleep(LIVE_FETCH_DELAY_MS);
-      }
-
-      const beLabel = isoToBELabel(dayISO);
-      for (const rawRow of dayRows) {
-        if (rawRow['หลักทรัพย์'] === 'ไม่พบข้อมูล') continue;
-        const row = { ...rawRow };
-        const txISO = thaiDateToISO(row[TX_COL]);
-        row[PUBLISH_COL] = beLabel;
-        row['__publishISO'] = dayISO;
-        row['__txISO'] = txISO ?? '';
-        row['__retroactive'] = txISO && businessDaysBetween(txISO, dayISO) > 2 ? '1' : '';
-        allRows.push(row);
-      }
-    }
-
-    // Dedupe by report number - a filing can be resubmitted/corrected and
-    // reappear under a later disclosure date; keep the most recently
-    // published version.
-    const byKey = new Map<string, Record<string, string>>();
-    for (const row of allRows) {
-      const key = row[REPORT_NO_COL] || `${row['หลักทรัพย์']}|${row['ชื่อผู้ได้มา/จำหน่าย']}|${row[TX_COL]}`;
-      const existing = byKey.get(key);
-      if (!existing || row['__publishISO'] > existing['__publishISO']) byKey.set(key, row);
-    }
-    const rows = [...byKey.values()].sort((a, b) => b['__publishISO'].localeCompare(a['__publishISO']));
-
-    const headers = rows.length > 0
-      ? Object.keys(rows[0]).filter(h => !h.startsWith('__'))
-      : ['หลักทรัพย์', 'ชื่อผู้ได้มา/จำหน่าย', 'วิธีการ', PUBLISH_COL, TX_COL];
-
-    const fetchDate = new Date().toISOString().slice(0, 10);
-    return Response.json(
-      {
-        headers,
-        rows,
-        fetchDate,
-        dateBasis: PUBLISH_COL,
-        from: fromISO,
-        to: toISO,
-        truncated,
-        ...(anyParseFailure ? { partial: true } : {}),
-      },
-      { headers: { 'Cache-Control': 'public, max-age=60, s-maxage=60, stale-while-revalidate=300' } }
-    );
+    const payload = await buildPayload(fromISO, toISO);
+    // a day whose live scrape failed (partial) is not cached
+    return Response.json(payload, { headers: { 'Cache-Control': 'partial' in payload ? 'no-store' : CACHE_OK } });
   } catch {
-    return Response.json({ headers: [], rows: [], error: 'fetch_failed' });
+    return Response.json({ headers: [], rows: [], error: 'fetch_failed' }, { headers: { 'Cache-Control': 'no-store' } });
   }
 }
