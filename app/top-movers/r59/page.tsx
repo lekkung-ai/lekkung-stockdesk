@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { bangkokDateKey } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, Calendar, ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -76,6 +76,9 @@ export default function Report59Page() {
   const [truncated, setTruncated] = useState(false); // API ตัดช่วงเหลือ 45 วัน
   const [partial, setPartial] = useState(false); // บางวัน scrape ไม่สำเร็จ
   const isRange = rangeDays > 0;
+  // The opening day's rows arrive with the "which day to open on" answer (one request instead of two);
+  // loadData uses them once instead of fetching the same day again.
+  const preloaded = useRef<{ date: string; data: Record<string, unknown> } | null>(null);
 
   const prevDay = () => {
     if (!selectedDate) return;
@@ -105,12 +108,19 @@ export default function Report59Page() {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 25000);
     try {
-      const url = days > 0
-        ? `/api/sec/r59?from=${shiftDay(date, -(days - 1))}&to=${date}`
-        : `/api/sec/r59?date=${date}`;
-      const res = await fetch(url, { signal: ctrl.signal });
-      if (!res.ok) throw new Error();
-      const data = await res.json();
+      let data;
+      const pre = preloaded.current;
+      if (!background && days === 0 && pre && pre.date === date) {
+        preloaded.current = null;
+        data = pre.data;
+      } else {
+        const url = days > 0
+          ? `/api/sec/r59?from=${shiftDay(date, -(days - 1))}&to=${date}`
+          : `/api/sec/r59?date=${date}`;
+        const res = await fetch(url, { signal: ctrl.signal });
+        if (!res.ok) throw new Error();
+        data = await res.json();
+      }
       setHeaders(data.headers ?? []);
       setRawRows(data.rows ?? []);
       setFetchDate(data.fetchDate ?? '');
@@ -129,12 +139,14 @@ export default function Report59Page() {
   // only lands after ~18:00, so before that "today" is usually empty. Any other day stays selectable.
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/sec/r59?latest=1')
+    fetch('/api/sec/r59?latest=1&include=day')
       .then(res => (res.ok ? res.json() : null))
       .then(j => {
         if (cancelled) return;
         const latest = typeof j?.latest === 'string' ? j.latest : null;
         const today = typeof j?.today === 'string' ? j.today : todayISO();
+        // `day` is only ever the payload for `latest`, which is also the day opened below
+        if (latest && j?.day && typeof j.day === 'object') preloaded.current = { date: latest, data: j.day };
         if (latest && latest < today) {
           setOpenedOn({ date: latest, todaySnapshot: j?.todaySnapshot === true });
           setSelectedDate(latest);
