@@ -11,6 +11,7 @@ import {
 } from '@/lib/feedParsing';
 import rawIaaResearch from '@/data/scans/research_iaa.json';
 import { IAA_SOURCE_NAME } from '@/lib/researchRating';
+import { settleExceptStragglers } from '@/lib/serverMemo';
 
 // Broker-research feeds — probed 2026-07-12. Both are WordPress category
 // feeds (same /feed pattern as the general news route), containing actual
@@ -175,17 +176,14 @@ export async function GET(
   const t = ticker.toUpperCase();
   const wantGeneral = GENERAL_TOKENS.has(t);
 
-  const settled = await Promise.allSettled(
-    FEEDS.map(f => fetchFeed(f, 'research', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC))
+  // fetchFeed never rejects (it logs and returns []). A feed still pending after the other one
+  // finished gets 1.2 s more, then counts as failed for this response - the archive covers it.
+  const feedResults = await settleExceptStragglers(
+    FEEDS.map(f => fetchFeed(f, 'research', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC)),
+    { maxStragglers: 1, graceMs: 1200 },
+    [] as FeedItem[],
   );
-  let allLive: FeedItem[] = [];
-  settled.forEach((result, i) => {
-    if (result.status === 'fulfilled') {
-      allLive.push(...result.value);
-    } else {
-      console.log(`[research] REJECTED ${FEEDS[i].name} -> ${result.reason}  (${FEEDS[i].url})`);
-    }
-  });
+  const allLive: FeedItem[] = feedResults.flat();
 
   // Archive is always merged in as a base (same reasoning as the news
   // route) - not just for มิติหุ้น's batch-only path, but so Kaohoon itself
@@ -260,8 +258,13 @@ export async function GET(
         ...feedResearch.sort((a, b) => b.ts - a.ts),
       ];
 
+  // Research may be at most 15 min behind: 30 s browser + 300 s fresh + 480 s stale-while-revalidate
+  // at the CDN + the 60 s feed Data Cache. If neither live feed delivered anything the response is
+  // archive + IAA only, so it is not cached - the next request goes upstream again.
+  const liveOk = allLive.length > 0;
+
   return Response.json(
     { research },
-    { headers: { 'Cache-Control': 'public, max-age=30, s-maxage=60, stale-while-revalidate=300' } }
+    { headers: { 'Cache-Control': liveOk ? 'public, max-age=30, s-maxage=300, stale-while-revalidate=480' : 'no-store' } }
   );
 }
