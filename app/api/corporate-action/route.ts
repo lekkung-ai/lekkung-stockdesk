@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server';
+import { createMemo, dropSharedCookie, hasSharedCookie, sharedCookie } from '@/lib/serverMemo';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 const CAL_PAGE = 'https://www.settrade.com/th/equities/stock-calendar';
@@ -8,6 +9,9 @@ const CAL_API = (year: number, month: number) =>
 // Settrade's stock-calendar API sits behind Incapsula bot-protection; a plain
 // request gets a 403 challenge page. Visiting the HTML page first (like
 // investor-type/route.ts does) picks up the session cookie that clears it.
+// That page visit is ~0.8 s of a ~1.2 s response, so the cookie is reused across requests
+// (sharedCookie) and re-issued only when Settrade rejects it.
+const CAL_COOKIE_KEY = 'settrade-calendar';
 async function getSessionCookie(): Promise<string> {
   try {
     const res = await fetch(CAL_PAGE, {
@@ -134,7 +138,9 @@ function monthsInRange(from: string, to: string): { year: number; month: number 
   return out;
 }
 
-async function fetchMonth(year: number, month: number, cookie: string): Promise<CADay[]> {
+// null = the month could not be fetched (blocked / down / not the expected JSON), as opposed to
+// [] = fetched fine and nothing is scheduled. Callers must not mix the two up.
+async function fetchMonthOnce(year: number, month: number, cookie: string): Promise<{ days: CADay[] | null; status: number }> {
   try {
     const res = await fetch(CAL_API(year, month), {
       headers: {
@@ -144,15 +150,28 @@ async function fetchMonth(year: number, month: number, cookie: string): Promise<
         Referer: CAL_PAGE,
         ...(cookie ? { Cookie: cookie } : {}),
       },
+      cache: 'no-store',
       signal: AbortSignal.timeout(8000),
     });
-    if (!res.ok) return [];
+    if (!res.ok) return { days: null, status: res.status };
     const json = await res.json();
-    return Array.isArray(json) ? (json as CADay[]) : [];
+    return { days: Array.isArray(json) ? (json as CADay[]) : null, status: res.status };
   } catch {
-    return [];
+    return { days: null, status: 0 };
   }
 }
+
+async function fetchMonth(year: number, month: number): Promise<CADay[] | null> {
+  const reused = hasSharedCookie(CAL_COOKIE_KEY);
+  const first = await fetchMonthOnce(year, month, await sharedCookie(CAL_COOKIE_KEY, getSessionCookie));
+  if (first.days || !reused || (first.status !== 401 && first.status !== 403)) return first.days;
+  // the reused cookie may have expired - issue a fresh one and retry once
+  dropSharedCookie(CAL_COOKIE_KEY);
+  return (await fetchMonthOnce(year, month, await sharedCookie(CAL_COOKIE_KEY, getSessionCookie))).days;
+}
+
+// Last good answer per request, used only when Settrade fails (see GET).
+const lastGood = createMemo<{ rows: CalendarRow[]; from: string; to: string; generatedAt: string }>(24);
 
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
@@ -168,13 +187,21 @@ export async function GET(req: NextRequest) {
   })();
   const symbolFilter = (req.nextUrl.searchParams.get('symbol') || '').trim().toUpperCase();
 
+  const memoKey = `${from}|${to}|${symbolFilter}`;
   try {
-    const cookie = await getSessionCookie();
     const months = monthsInRange(from, to);
-    const monthResults = await Promise.all(months.map(m => fetchMonth(m.year, m.month, cookie)));
+    const monthResults = await Promise.all(months.map(m => fetchMonth(m.year, m.month)));
+
+    // A month that failed is not the same as an empty month: never cache that answer. Serve this
+    // instance's last good one for the same request if it has it (generatedAt says how old it is).
+    if (monthResults.some(r => r === null)) {
+      const last = lastGood.get(memoKey);
+      if (last) return Response.json(last.value, { headers: { 'Cache-Control': 'no-store' } });
+      return Response.json({ rows: [], from, to, error: 'fetch_failed' }, { headers: { 'Cache-Control': 'no-store' } });
+    }
 
     const rows: CalendarRow[] = [];
-    for (const days of monthResults) {
+    for (const days of monthResults as CADay[][]) {
       for (const day of days) {
         for (const group of day.types) {
           for (const ca of group.corporateActions) {
@@ -202,11 +229,15 @@ export async function GET(req: NextRequest) {
 
     rows.sort((a, b) => a.xDate.localeCompare(b.xDate) || a.ticker.localeCompare(b.ticker));
 
+    const payload = { rows, from, to, generatedAt: new Date().toISOString() };
+    lastGood.set(memoKey, payload);
+    // Corporate actions may be at most 60 min behind: 5 min browser + 25 min fresh + 15 min
+    // stale-while-revalidate at the CDN = 45 min.
     return Response.json(
-      { rows, from, to, generatedAt: new Date().toISOString() },
-      { headers: { 'Cache-Control': 'public, max-age=1800, s-maxage=1800, stale-while-revalidate=300' } }
+      payload,
+      { headers: { 'Cache-Control': 'public, max-age=300, s-maxage=1500, stale-while-revalidate=900' } }
     );
   } catch {
-    return Response.json({ rows: [], from, to, error: 'fetch_failed' }, { status: 500 });
+    return Response.json({ rows: [], from, to, error: 'fetch_failed' }, { status: 500, headers: { 'Cache-Control': 'no-store' } });
   }
 }
