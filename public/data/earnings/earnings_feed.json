@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T18:12:49.855385+07:00",
+  "generatedAt": "2026-10-21T15:03:58.435878+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -41,19 +41,19 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 4,
+      "count": 8,
       "top3": [
         {
           "ticker": "TSTH",
           "netProfitYoY": -75.54604923836663
         },
         {
-          "ticker": "TNH",
-          "netProfitYoY": -19.864178445537366
+          "ticker": "BBL",
+          "netProfitYoY": -31.185555478282463
         },
         {
-          "ticker": "AEONTS",
-          "netProfitYoY": -18.846781152208163
+          "ticker": "TNH",
+          "netProfitYoY": -19.864178445537366
         }
       ]
     },
@@ -88,11 +88,135 @@
   },
   "announcements": [
     {
+      "ticker": "SCB",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-10-21T12:32:45+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 10676926000.0,
+      "netProfitPrior": 12056250000.0,
+      "netProfitYoY": -11.44073820632452,
+      "netProfitPriorQ": 11116695000.0,
+      "netProfitQoQ": -3.9559329458980392,
+      "profitAcceleration": "stable",
+      "eps": 3.17,
+      "epsPrior": 3.58,
+      "epsYoY": -11.452513966480451,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107154101&symbol=SCB",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17925384252171&symbol=SCB",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107169701&symbol=SCB",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.34,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "KBANK",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-10-21T08:07:59+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 12719980000.0,
+      "netProfitPrior": 13007190000.0,
+      "netProfitYoY": -2.2080864506476803,
+      "netProfitPriorQ": 13247491000.0,
+      "netProfitQoQ": -3.98196911400053,
+      "profitAcceleration": "stable",
+      "eps": 5.41,
+      "epsPrior": 5.35,
+      "epsYoY": 1.1214953271028132,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107164801&symbol=KBANK",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17925384246111&symbol=KBANK",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.85,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "BAY",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-10-20T19:24:00+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 8660049000.0,
+      "netProfitPrior": 8782891000.0,
+      "netProfitYoY": -1.3986510819728948,
+      "netProfitPriorQ": 8293940000.0,
+      "netProfitQoQ": 4.414174686578393,
+      "profitAcceleration": "stable",
+      "eps": 1.18,
+      "epsPrior": 1.19,
+      "epsYoY": -0.8403361344537823,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107133701&symbol=BAY",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107152901&symbol=BAY",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107162301&symbol=BAY",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 1.28,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
+      "ticker": "BBL",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-10-20T18:48:00+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 9489152000.0,
+      "netProfitPrior": 13789477000.0,
+      "netProfitYoY": -31.185555478282463,
+      "netProfitPriorQ": 9497916000.0,
+      "netProfitQoQ": -0.09227287333347653,
+      "profitAcceleration": "stable",
+      "eps": 4.97,
+      "epsPrior": 7.22,
+      "epsYoY": -31.163434903047094,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107149701&symbol=BBL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17924533697251&symbol=BBL",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.27,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
       "ticker": "KTC",
       "sector": "Financials",
       "subsector": "Finance & Securities",
       "market": "SET",
-      "announceDate": "2026-10-20T17:46:07+07:00",
+      "announceDate": "2026-10-20T17:46:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 2124703000.0,
@@ -112,14 +236,18 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107161701&symbol=KTC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.7,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "TTB",
       "sector": "Financials",
       "subsector": "Banking",
       "market": "SET",
-      "announceDate": "2026-10-20T12:33:30+07:00",
+      "announceDate": "2026-10-20T12:33:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 5456664000.0,
@@ -141,7 +269,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -6.21,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -8.28,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -172,7 +300,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 2.62,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -203,7 +331,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -0.81,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -235,7 +363,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.05,
       "drift_d1_pct": -1.05,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -3.16,
       "drift_d5_pct": null
     },
     {
@@ -961,13 +1089,37 @@
     },
     {
       "ticker": "TTB",
-      "date": "2026-10-20T12:33:30+07:00",
+      "date": "2026-10-20T12:33:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "KTC",
-      "date": "2026-10-20T17:46:07+07:00",
+      "date": "2026-10-20T17:46:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "BBL",
+      "date": "2026-10-20T18:48:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "BAY",
+      "date": "2026-10-20T19:24:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "KBANK",
+      "date": "2026-10-21T08:07:59+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "SCB",
+      "date": "2026-10-21T12:32:45+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
@@ -2967,13 +3119,6 @@
       "basedOnLastYear": "2025-11-11T19:47:00+07:00"
     },
     {
-      "ticker": "BBL",
-      "date": "2026-11-11T19:50:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-11T19:50:00+07:00"
-    },
-    {
       "ticker": "ROH",
       "date": "2026-11-11T19:57:00+07:00",
       "status": "predicted",
@@ -4262,13 +4407,6 @@
       "basedOnLastYear": "2025-11-13T12:31:00+07:00"
     },
     {
-      "ticker": "BAY",
-      "date": "2026-11-13T12:32:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-13T12:32:00+07:00"
-    },
-    {
       "ticker": "MINT",
       "date": "2026-11-13T12:33:00+07:00",
       "status": "predicted",
@@ -4939,13 +5077,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-13T17:59:00+07:00"
-    },
-    {
-      "ticker": "KBANK",
-      "date": "2026-11-13T18:00:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-13T18:00:00+07:00"
     },
     {
       "ticker": "NEO",
@@ -6374,13 +6505,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-14T17:50:00+07:00"
-    },
-    {
-      "ticker": "SCB",
-      "date": "2026-11-14T17:53:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-14T17:53:00+07:00"
     },
     {
       "ticker": "JPARK",
