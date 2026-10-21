@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server';
+import { createMemo, memoized } from '@/lib/serverMemo';
 
 const RSS_URL = 'https://www.ryt9.com/tag/BIG+LOT%3A/rss.xml';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
@@ -94,17 +95,58 @@ function parseTableRows(html: string): BigLotRow[] {
   return rows;
 }
 
+interface BigLotPayload {
+  date: string;
+  publishedAt: string;
+  source: string;
+  rows: BigLotRow[];
+  availableDates: string[];
+}
+
+// Warm-instance memos (see lib/serverMemo.ts). The RSS index is the only part that can change
+// within a day, so it gets a short hard limit; a past day's article no longer changes, so its
+// parsed table is kept per link (today's only briefly). Only non-empty results are stored. `payloadMemo` is the last good
+// answer per requested date and is used solely when upstream fails.
+const RSS_MAX_AGE_MS = 3 * 60 * 1000;
+const ARTICLE_TODAY_MAX_AGE_MS = 5 * 60 * 1000; // today's article could still be edited
+const ARTICLE_PAST_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+const rssMemo = createMemo<RssItem[]>(1);
+const articleMemo = createMemo<BigLotRow[]>(40);
+const payloadMemo = createMemo<BigLotPayload>(40);
+
+// Big Lot may be at most 10 min behind: 240 s fresh + 120 s stale-while-revalidate at the CDN
+// + the 180 s RSS memo above. Errors and empty answers are never cached.
+const OK_CACHE = 'public, max-age=0, s-maxage=240, stale-while-revalidate=120';
+const NO_CACHE = 'no-store';
+
 export async function GET(req: NextRequest) {
   const selectedDate = req.nextUrl.searchParams.get('date');
-  try {
-    const rssRes = await fetch(RSS_URL, {
-      headers: { 'User-Agent': UA, Accept: 'application/rss+xml, application/xml, text/xml' },
-      cache: 'no-store',
-    });
-    if (!rssRes.ok) return Response.json({ error: `rss_${rssRes.status}`, rows: [] });
+  const memoKey = selectedDate ?? 'latest';
 
-    const items = parseRssItems(await rssRes.text());
-    if (!items.length) return Response.json({ error: 'no_items', rows: [] });
+  // On any upstream failure: the last good payload for this request if this instance has one
+  // (its own date / publishedAt fields still tell the page how old it is), else the same error
+  // body as before. Either way it is not cached.
+  const failed = (error: string, status = 200) => {
+    const last = payloadMemo.get(memoKey);
+    if (last) return Response.json(last.value, { headers: { 'Cache-Control': NO_CACHE } });
+    return Response.json({ error, rows: [] }, { status, headers: { 'Cache-Control': NO_CACHE } });
+  };
+
+  try {
+    let rssError = 'no_items';
+    const items = await memoized(rssMemo, 'rss', RSS_MAX_AGE_MS, async () => {
+      const rssRes = await fetch(RSS_URL, {
+        headers: { 'User-Agent': UA, Accept: 'application/rss+xml, application/xml, text/xml' },
+        cache: 'no-store',
+      });
+      if (!rssRes.ok) {
+        rssError = `rss_${rssRes.status}`;
+        return null;
+      }
+      const parsed = parseRssItems(await rssRes.text());
+      return parsed.length ? parsed : null;
+    });
+    if (!items) return failed(rssError);
 
     // Group by Bangkok date — keep latest item per date
     const dateMap = new Map<string, RssItem>();
@@ -117,24 +159,27 @@ export async function GET(req: NextRequest) {
     const targetDate = (selectedDate && dateMap.has(selectedDate)) ? selectedDate : availableDates[0];
     const targetItem = dateMap.get(targetDate)!;
 
-    const artRes = await fetch(targetItem.link, {
-      headers: { 'User-Agent': UA, Referer: 'https://www.ryt9.com' },
-      cache: 'no-store',
+    let articleError = 'article_empty';
+    const todayBangkok = new Date(Date.now() + 7 * 3600000).toISOString().slice(0, 10);
+    const articleMaxAge = targetDate < todayBangkok ? ARTICLE_PAST_MAX_AGE_MS : ARTICLE_TODAY_MAX_AGE_MS;
+    const rows = await memoized(articleMemo, targetItem.link, articleMaxAge, async () => {
+      const artRes = await fetch(targetItem.link, {
+        headers: { 'User-Agent': UA, Referer: 'https://www.ryt9.com' },
+        cache: 'no-store',
+      });
+      if (!artRes.ok) {
+        articleError = `article_${artRes.status}`;
+        return null;
+      }
+      const parsed = parseTableRows(await artRes.text());
+      return parsed.length ? parsed : null;
     });
-    if (!artRes.ok) return Response.json({ error: `article_${artRes.status}`, rows: [] });
+    if (!rows) return failed(articleError);
 
-    const rows = parseTableRows(await artRes.text());
-
-    // Cache: 30 min after 17:00 BKK, 5 min before
-    const bkHour = new Date(Date.now() + 7 * 3600000).getUTCHours();
-    const cache = bkHour >= 17 ? 'public, max-age=1800, stale-while-revalidate=60'
-                               : 'public, max-age=300, stale-while-revalidate=60';
-
-    return Response.json(
-      { date: targetDate, publishedAt: targetItem.pubDate, source: 'InfoQuest/RYT9', rows, availableDates },
-      { headers: { 'Cache-Control': cache } }
-    );
+    const payload: BigLotPayload = { date: targetDate, publishedAt: targetItem.pubDate, source: 'InfoQuest/RYT9', rows, availableDates };
+    payloadMemo.set(memoKey, payload);
+    return Response.json(payload, { headers: { 'Cache-Control': OK_CACHE } });
   } catch {
-    return Response.json({ error: 'fetch_failed', rows: [] }, { status: 500 });
+    return failed('fetch_failed', 500);
   }
 }
