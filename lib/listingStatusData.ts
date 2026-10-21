@@ -119,7 +119,9 @@ async function stillTrading(tickers: string[]): Promise<Set<string>> {
         columns: ['name', 'volume', 'time'],
         range: [0, names.length],
       }),
-      cache: 'no-store',
+      // Data Cache, not no-store: a no-store fetch would opt /stock/[ticker] out of static
+      // regeneration for every delisted ticker. 5 min matches that page's revalidate.
+      next: { revalidate: 300 },
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) return new Set();

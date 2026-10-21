@@ -16,6 +16,18 @@ interface SectorMap {
 
 const sectorMap = rawSectorMap as SectorMap;
 
+// Everything this page renders is baked into the deployment (data/scans/*.json, listing history),
+// so the HTML is cached per ticker and regenerated at most every 5 min instead of on every request.
+// A new deploy starts with an empty cache, so a fresh data commit is never hidden behind it.
+// (The live parts - quote, news, chart - are fetched client-side by StockDetailPage.)
+export const revalidate = 300;
+
+// No tickers at build time: each one is rendered on its first visit, then served from the cache
+// (this empty list is what lets a dynamic-segment page use revalidate at runtime).
+export function generateStaticParams() {
+  return [];
+}
+
 export async function generateMetadata({
   params,
 }: {
