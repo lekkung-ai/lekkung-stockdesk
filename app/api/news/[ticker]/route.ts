@@ -13,6 +13,7 @@ import {
 } from '@/lib/feedParsing';
 import { fetchEfinanceThai } from '@/lib/efinanceThai';
 import { fetchSetNews } from '@/lib/setNews';
+import { settleExceptStragglers } from '@/lib/serverMemo';
 
 // Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
 // works (see console output). A failing feed is skipped, not fatal.
@@ -73,6 +74,14 @@ const FEEDS: Feed[] = [
 //     งบการเงิน, ปันผล, บล, หุ้นกู้ (only "SET", "IPO", and "หุ้น" tags resolve)
 
 const FEED_TIMEOUT_MS = 3000;
+// Healthy feeds answer in 60-250 ms (Data Cache) / <0.7 s cold, but one permanently dead feed
+// (Reporter Journey) used to hold the whole response for its full 3 s timeout. Once only this many
+// feeds are still pending, they get STRAGGLER_GRACE_MS more and are then treated as failed for this
+// response (their archived items still come through below) - see settleExceptStragglers.
+const MAX_STRAGGLERS = 2;
+const STRAGGLER_GRACE_MS = 350;
+// Settrade needs a session cookie first (see lib/setNews.ts), so it gets a longer leash.
+const SET_TIMEOUT_MS = 3000;
 const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
 
 // Shared across concurrent page loads via Next.js's fetch Data Cache, instead
@@ -206,24 +215,23 @@ export async function GET(
   const wantGeneral = GENERAL_TOKENS.has(t);
 
   // Fetch RSS feeds, efinancethai, and SET news concurrently in parallel for max speed
-  const [settled, efinItems, setNewsItems] = await Promise.all([
-    Promise.allSettled(
-      FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC))
+  const [feedResults, efinItems, setNewsItems] = await Promise.all([
+    settleExceptStragglers(
+      FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC)),
+      { maxStragglers: MAX_STRAGGLERS, graceMs: STRAGGLER_GRACE_MS },
+      [] as NewsItem[],
     ),
     fetchEfinanceThai(1, EFIN_PAGE_SIZE, EFIN_REVALIDATE_SEC, FEED_TIMEOUT_MS),
-    fetchSetNews(wantGeneral ? 'SET' : t, LIVE_REVALIDATE_SEC, FEED_TIMEOUT_MS),
+    fetchSetNews(wantGeneral ? 'SET' : t, SET_TIMEOUT_MS),
   ]);
 
   let allLive: NewsItem[] = [];
   const failedFeeds: Feed[] = [];
 
-  settled.forEach((result, i) => {
-    if (result.status === 'fulfilled' && result.value.length > 0) {
-      allLive.push(...result.value);
+  feedResults.forEach((items, i) => {
+    if (items.length > 0) {
+      allLive.push(...items);
     } else {
-      if (result.status === 'rejected') {
-        console.log(`[news] REJECTED ${FEEDS[i].name} -> ${result.reason}  (${FEEDS[i].url})`);
-      }
       failedFeeds.push(FEEDS[i]);
     }
   });
@@ -332,8 +340,17 @@ export async function GET(
     };
   });
 
+  // News may be at most 5 min behind: 30 s browser + 90 s fresh + 90 s stale-while-revalidate at the
+  // CDN + the 60 s feed Data Cache above. A response built while SET / EFIN were down, or while
+  // most RSS feeds were failing, is not cached at all - the next request retries upstream.
+  // (One or two permanently dead feeds, e.g. Reporter Journey, are normal and do not count.)
+  const degraded =
+    efinItems.length === 0 ||
+    (wantGeneral && setNewsItems.length === 0) ||
+    failedFeeds.length >= 5;
+
   return Response.json(
     { news, isGeneral, staleSources },
-    { headers: { 'Cache-Control': 'public, max-age=30, s-maxage=60, stale-while-revalidate=300' } }
+    { headers: { 'Cache-Control': degraded ? 'no-store' : 'public, max-age=30, s-maxage=90, stale-while-revalidate=90' } }
   );
 }

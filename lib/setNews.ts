@@ -1,4 +1,5 @@
 import type { FeedItem } from './feedParsing';
+import { dropSharedCookie, hasSharedCookie, sharedCookie } from './serverMemo';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
@@ -30,9 +31,14 @@ async function getSessionCookie(symbol: string, timeoutMs: number): Promise<stri
   }
 }
 
+// The Incapsula session cookie is reused across requests (see sharedCookie) instead of being
+// re-issued by a page fetch on every call. The news call itself stays live (no-store) on purpose:
+// SET disclosures are the time-critical part of the page, and the cookie used to change on every
+// request anyway, which already kept this fetch out of the Data Cache.
+const SET_COOKIE_KEY = 'settrade-news';
+
 export async function fetchSetNews(
   symbol = 'SET',
-  revalidateSec = 60,
   timeoutMs = 12000,
   limit = 40
 ): Promise<FeedItem[]> {
@@ -40,18 +46,27 @@ export async function fetchSetNews(
   const url = `https://www.settrade.com/api/set/news/${encodeURIComponent(targetSymbol)}/list?limit=${limit}`;
 
   try {
-    const cookie = await getSessionCookie(targetSymbol, Math.min(timeoutMs, 5000));
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent': UA,
-        Accept: 'application/json, text/plain, */*',
-        'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8',
-        Referer: `https://www.settrade.com/th/equities/quote/${targetSymbol}/news`,
-        ...(cookie ? { Cookie: cookie } : {}),
-      },
-      next: { revalidate: revalidateSec },
-      signal: AbortSignal.timeout(timeoutMs),
-    });
+    const call = (cookie: string) =>
+      fetch(url, {
+        headers: {
+          'User-Agent': UA,
+          Accept: 'application/json, text/plain, */*',
+          'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8',
+          Referer: `https://www.settrade.com/th/equities/quote/${targetSymbol}/news`,
+          ...(cookie ? { Cookie: cookie } : {}),
+        },
+        cache: 'no-store',
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+    const newCookie = () => sharedCookie(SET_COOKIE_KEY, () => getSessionCookie(targetSymbol, Math.min(timeoutMs, 5000)));
+
+    const reused = hasSharedCookie(SET_COOKIE_KEY);
+    let res = await call(await newCookie());
+    if (reused && (res.status === 401 || res.status === 403)) {
+      // a reused cookie can have expired - drop it and retry once with a fresh one
+      dropSharedCookie(SET_COOKIE_KEY);
+      res = await call(await newCookie());
+    }
 
     if (!res.ok) {
       console.log(`[news] FAIL  SET -> HTTP ${res.status} (${url})`);
