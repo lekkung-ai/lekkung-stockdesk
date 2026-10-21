@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { RefreshCw, Search, ChevronDown } from 'lucide-react';
 import Pagination from '@/components/Pagination';
@@ -59,6 +59,9 @@ export default function BigLotPage() {
   const [page, setPage] = useState(1);
   const [historicalChartData, setHistoricalChartData] = useState<HistoricalChartPoint[] | null>(null);
   const [chartLoading, setChartLoading] = useState(false);
+  // Daily snapshots by date, kept for the life of the page: switching to another symbol's chart
+  // reuses them instead of fetching the same 15 files again.
+  const dayFiles = useRef(new Map<string, ReturnType<typeof JSON.parse>>());
 
   // Load all available historical dates from index.json
   useEffect(() => {
@@ -196,9 +199,15 @@ export default function BigLotPage() {
           }
           
           try {
-            const res = await fetch(`/data/history/${d}/biglot.json`, { cache: 'no-store' });
-            if (!res.ok) return { date: d, volume: 0 };
-            const json = await res.json();
+            let json = dayFiles.current.get(d);
+            if (!json) {
+              // default cache mode: a dated snapshot is only replaced by a deploy, so the browser
+              // can revalidate it (304) instead of re-downloading
+              const res = await fetch(`/data/history/${d}/biglot.json`);
+              if (!res.ok) return { date: d, volume: 0 };
+              json = await res.json();
+              dayFiles.current.set(d, json);
+            }
             
             if (json.rows && Array.isArray(json.rows)) {
               const row = json.rows.find((r: any) => r.symbol.toUpperCase() === activeSymbol);
