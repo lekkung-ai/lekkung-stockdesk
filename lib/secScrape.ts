@@ -210,6 +210,9 @@ export async function getCachedSecDay(
   isToday: boolean
 ): Promise<SecTableResult & { live: boolean }> {
   let live = false;
+  // A failed fetch / unparseable page must not be remembered (a past day would otherwise stay
+  // "failed" for 24 h): unstable_cache stores only what the callback returns, so failures throw
+  // out of it and are turned back into `found: false` below.
   const run = unstable_cache(
     async (): Promise<SecTableResult> => {
       live = true;
@@ -217,21 +220,24 @@ export async function getCachedSecDay(
       const html = await fetchSecDayHtml(basePath, buildFields(secDateStr));
       if (!html) {
         console.log(`[sec:${routeKey}] FETCH_FAIL day=${dateISO}`);
-        return { found: false, headers: [], rows: [] };
+        throw new Error('sec fetch failed');
       }
       const table = selectResultTable(html, expectedHeaderSignature, headerCleaner);
       if (!table.found) {
         console.log(`[sec:${routeKey}] TABLE_NOT_FOUND day=${dateISO} (parse failure, not "no data")`);
-      } else {
-        console.log(`[sec:${routeKey}] OK day=${dateISO} rows=${table.rows.length}`);
+        throw new Error('sec table not found');
       }
+      console.log(`[sec:${routeKey}] OK day=${dateISO} rows=${table.rows.length}`);
       return table;
     },
     ['sec-day', routeKey, dateISO],
     { revalidate: isToday ? TODAY_REVALIDATE_SEC : PAST_DAY_REVALIDATE_SEC }
   );
-  const result = await run();
-  return { ...result, live };
+  try {
+    return { ...(await run()), live };
+  } catch {
+    return { found: false, headers: [], rows: [], live };
+  }
 }
 
 export function sleep(ms: number): Promise<void> {
