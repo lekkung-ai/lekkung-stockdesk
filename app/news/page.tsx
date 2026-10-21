@@ -85,9 +85,6 @@ function NewsPageContent() {
 
   useEffect(() => {
     let active = true;
-    // Pre-fetch research data in background so tab switching is instant
-    fetch('/api/research/all').catch(() => {});
-
     fetch('/api/news/all')
       .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then(d => {
@@ -116,6 +113,11 @@ function NewsPageContent() {
           setAllNews([]);
           setError(true);
         }
+      })
+      // Pre-fetch research data in background so tab switching is instant - only once the news is
+      // on screen, so its 1.5 MB doesn't compete with the news response for bandwidth.
+      .finally(() => {
+        if (active) fetch('/api/research/all').catch(() => {});
       });
     return () => {
       active = false;
