@@ -16,7 +16,8 @@ import {
   formatPE, ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
-import ScanHistoryView from '@/components/ScanHistoryView';
+import dynamic from 'next/dynamic';
+import ScanHistoryLoading from '@/components/ScanHistoryLoading';
 import ModeToggle from '@/components/ModeToggle';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
@@ -30,6 +31,11 @@ import { parseAssetType, matchesAssetType, countByAssetType, DEFAULT_ASSET_TYPE,
 import { compareNullLast } from '@/lib/sepaTier';
 import NewListingBadge from '@/components/NewListingBadge';
 import React from 'react';
+
+// History data (~1.8 MB raw) is only needed by the "ย้อนหลัง" tab: it lives in
+// its own chunk, fetched on demand (and warmed up when the pointer reaches the toggle).
+const StageAnalysisHistoryView = dynamic(() => import('@/components/StageAnalysisHistoryView'), { loading: () => <ScanHistoryLoading /> });
+const preloadHistoryView = () => { void import('@/components/StageAnalysisHistoryView'); };
 
 export default function StageAnalysisPage() {
   return (
@@ -126,14 +132,14 @@ function StageAnalysisContent() {
         />
         <div className="flex items-center gap-3">
           <ExportCSVButton data={filtered} filename="stage_analysis.csv" />
-          <ModeToggle mode={mode} onChange={setMode} />
+          <ModeToggle mode={mode} onChange={setMode} onHistoryIntent={preloadHistoryView} />
         </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('weinstein')} missing={!hasScanKey('weinstein')} />
       <ReportCardBar scanKey="stage-analysis" />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName="stage-analysis" />
+        <StageAnalysisHistoryView />
       ) : (
       <>
       <FilterBar>

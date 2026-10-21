@@ -27,7 +27,7 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
-import { getScanHistory } from '@/lib/scanHistory';
+import { kellHistory } from '@/lib/scanHistoryData/kell';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
@@ -94,8 +94,6 @@ function KellContent() {
   const pageSize = 10;
   const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(kellData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('kell')?.newTickers ?? []), []);
-
-  const kellHistory = useMemo(() => getScanHistory('kell'), []);
 
   const handleSort = (key: string) => {
     setCurrentPage(1);
@@ -211,10 +209,10 @@ function KellContent() {
   // "this one sorted first".
   const activeTicker = selectedTicker;
   const scanMarkers = useMemo(() => {
-    if (!activeTicker || !kellHistory) return { firstSeen: null, reentries: [] };
+    if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = kellHistory.tickers.find(t => t.ticker === activeTicker);
     return computeScanMarkers(match?.hitDates);
-  }, [activeTicker, kellHistory]);
+  }, [activeTicker]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -237,7 +235,7 @@ function KellContent() {
       <ReportCardBar scanKey="kell" />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName="kell" />
+        <ScanHistoryView data={kellHistory} />
       ) : (
       <>
       <FilterBar>

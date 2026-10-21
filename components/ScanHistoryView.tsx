@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { bangkokDateKey } from '@/lib/utils';
 import { Calendar, ArrowDown, ArrowUp } from 'lucide-react';
-import { getScanHistory } from '@/lib/scanHistory';
+import type { ScanHistoryData } from '@/lib/scanHistory';
 import { Th, Td, TableWrap, SortableTh, SortConfig } from '@/components/StrategyTable';
 import StockChart from './StockChart';
 import ThaiDateInput from './ThaiDateInput';
@@ -37,14 +37,12 @@ interface RangedRow {
 }
 
 export default function ScanHistoryView({
-  scanName,
+  data,
   initialTicker,
 }: {
-  scanName: string;
+  data: ScanHistoryData | null;
   initialTicker?: string | null;
 }) {
-  const data = useMemo(() => getScanHistory(scanName), [scanName]);
-
   // The actual span of data on disk is very often much shorter than
   // windowDays (a fixed 90-day cap on the aggregator) - e.g. only 18 days
   // in if the batch has only been running since July 1st. Deriving the real

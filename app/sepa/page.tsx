@@ -28,7 +28,7 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
-import { getScanHistory } from '@/lib/scanHistory';
+import { sepaHistory } from '@/lib/scanHistoryData/sepa';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
@@ -235,8 +235,6 @@ function SepaContent() {
   const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(sepaData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('sepa')?.newTickers ?? []), []);
 
-  const sepaHistory = useMemo(() => getScanHistory('sepa'), []);
-
   const handleSort = (key: string) => {
     setCurrentPage(1);
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -363,10 +361,10 @@ function SepaContent() {
   // "this one sorted first".
   const activeTicker = selectedTicker;
   const scanMarkers = useMemo(() => {
-    if (!activeTicker || !sepaHistory) return { firstSeen: null, reentries: [] };
+    if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = sepaHistory.tickers.find(t => t.ticker === activeTicker);
     return computeScanMarkers(match?.hitDates);
-  }, [activeTicker, sepaHistory]);
+  }, [activeTicker]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -389,7 +387,7 @@ function SepaContent() {
       <ReportCardBar scanKey="sepa" />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName="sepa" />
+        <ScanHistoryView data={sepaHistory} />
       ) : (
       <>
       <FilterBar>

@@ -26,7 +26,7 @@ import NewBadge from '@/components/NewBadge';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 import { getScanDiff } from '@/lib/scanDiff';
-import { getScanHistory } from '@/lib/scanHistory';
+import { lekkungHistory } from '@/lib/scanHistoryData/lekkung';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
@@ -41,8 +41,6 @@ export default function LekkungPage() {
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(lekkungData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('lekkung')?.newTickers ?? []), []);
-
-  const lekkungHistory = useMemo(() => getScanHistory('lekkung'), []);
 
   const goToHistory = (ticker: string) => {
     setHistoryInitialTicker(ticker);
@@ -92,10 +90,10 @@ export default function LekkungPage() {
   // "this one sorted first".
   const activeTicker = selectedTicker;
   const scanMarkers = useMemo(() => {
-    if (!activeTicker || !lekkungHistory) return { firstSeen: null, reentries: [] };
+    if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = lekkungHistory.tickers.find(t => t.ticker === activeTicker);
     return computeScanMarkers(match?.hitDates);
-  }, [activeTicker, lekkungHistory]);
+  }, [activeTicker]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -120,7 +118,7 @@ export default function LekkungPage() {
       <ReportCardBar scanKey="lekkung_growth" />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName="lekkung" initialTicker={historyInitialTicker} />
+        <ScanHistoryView data={lekkungHistory} initialTicker={historyInitialTicker} />
       ) : (
       <>
       <FilterBar>

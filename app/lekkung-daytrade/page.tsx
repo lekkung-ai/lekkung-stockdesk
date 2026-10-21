@@ -13,7 +13,7 @@ import { stockNames } from '@/lib/stockNames';
 import { formatThaiDate } from '@/lib/utils';
 import { useInfiniteRows } from '@/lib/useInfiniteRows';
 import { getScanDiff } from '@/lib/scanDiff';
-import { getScanHistory } from '@/lib/scanHistory';
+import { lekkungDaytradeHistory } from '@/lib/scanHistoryData/lekkungDaytrade';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import FullWidthPage from '@/components/FullWidthPage';
 import MobileScanProgress from '@/components/MobileScanProgress';
@@ -82,7 +82,6 @@ export default function LekkungDaytradePage() {
   const [historyInitialTicker, setHistoryInitialTicker] = useState<string | null>(null);
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const newSet = useMemo(() => new Set(getScanDiff(SCAN_KEY)?.newTickers ?? []), []);
-  const history = useMemo(() => getScanHistory(SCAN_KEY), []);
 
   const goToHistory = (ticker: string) => {
     setHistoryInitialTicker(ticker);
@@ -106,9 +105,9 @@ export default function LekkungDaytradePage() {
   const displayRows = isMobile ? visibleRows : filtered;
   const activeTicker = selectedTicker;
   const scanMarkers = useMemo(() => {
-    if (!activeTicker || !history) return { firstSeen: null, reentries: [] };
-    return computeScanMarkers(history.tickers.find(t => t.ticker === activeTicker)?.hitDates);
-  }, [activeTicker, history]);
+    if (!activeTicker) return { firstSeen: null, reentries: [] };
+    return computeScanMarkers(lekkungDaytradeHistory.tickers.find(t => t.ticker === activeTicker)?.hitDates);
+  }, [activeTicker]);
 
   const sortProps = { currentSort: sortConfig, onSort: handleSort };
   const secondary = 'hidden min-[1201px]:table-cell';
@@ -150,7 +149,7 @@ export default function LekkungDaytradePage() {
       <StaleDataBanner generatedAt={lekkungDaytradeGeneratedAt} />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName={SCAN_KEY} initialTicker={historyInitialTicker} />
+        <ScanHistoryView data={lekkungDaytradeHistory} initialTicker={historyInitialTicker} />
       ) : (
       <>
       <FilterBar>

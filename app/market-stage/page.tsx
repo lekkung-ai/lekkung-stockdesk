@@ -18,7 +18,8 @@ import {
 import StageSelect, { STAGE_ALL } from '@/components/StageSelect';
 import Pagination from '@/components/Pagination';
 import StockChart from '@/components/StockChart';
-import ScanHistoryView from '@/components/ScanHistoryView';
+import dynamic from 'next/dynamic';
+import ScanHistoryLoading from '@/components/ScanHistoryLoading';
 import ModeToggle from '@/components/ModeToggle';
 import TrendSparkline from '@/components/TrendSparkline';
 import { sparklineMap } from '@/lib/sparklineData';
@@ -34,6 +35,11 @@ import { parseAssetType, matchesAssetType, countByAssetType, DEFAULT_ASSET_TYPE,
 import React from 'react';
 
 // IPO = ข้อมูลยังไม่พอคำนวณ stage (หุ้นจดทะเบียนใหม่) · ท้ายสุด
+// History data (~1.8 MB raw) is only needed by the "ย้อนหลัง" tab: it lives in
+// its own chunk, fetched on demand (and warmed up when the pointer reaches the toggle).
+const MarketStageHistoryView = dynamic(() => import('@/components/MarketStageHistoryView'), { loading: () => <ScanHistoryLoading /> });
+const preloadHistoryView = () => { void import('@/components/MarketStageHistoryView'); };
+
 const ALL_STAGES = ['S.Bull', 'Bull', 'Accumulation', 'Recovery', 'Warning', 'Distribution', 'Bear', 'UNKNOWN', 'IPO'];
 
 const STAGE_ORDER: Record<string, number> = {
@@ -251,14 +257,14 @@ function MarketStageContent() {
         />
         <div className="flex items-center gap-3">
           <ExportCSVButton data={filtered} filename="market_stage.csv" />
-          <ModeToggle mode={mode} onChange={setMode} />
+          <ModeToggle mode={mode} onChange={setMode} onHistoryIntent={preloadHistoryView} />
         </div>
       </div>
       <StaleDataBanner generatedAt={getScanGeneratedAt('market_stage')} missing={!hasScanKey('market_stage')} />
       <ReportCardBar scanKey="market-stage" />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName="market-stage" />
+        <MarketStageHistoryView />
       ) : (
       <>
       <FilterBar>

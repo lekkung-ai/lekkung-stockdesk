@@ -25,7 +25,7 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
-import { getScanHistory } from '@/lib/scanHistory';
+import { oneilHistory } from '@/lib/scanHistoryData/oneil';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
@@ -37,8 +37,6 @@ export default function OneilPage() {
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(oneilData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('oneil')?.newTickers ?? []), []);
-
-  const oneilHistory = useMemo(() => getScanHistory('oneil'), []);
 
   const handleSort = (key: string) => {
     setSortConfig(prev => prev?.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'desc' });
@@ -78,10 +76,10 @@ export default function OneilPage() {
   // "this one sorted first".
   const activeTicker = selectedTicker;
   const scanMarkers = useMemo(() => {
-    if (!activeTicker || !oneilHistory) return { firstSeen: null, reentries: [] };
+    if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = oneilHistory.tickers.find(t => t.ticker === activeTicker);
     return computeScanMarkers(match?.hitDates);
-  }, [activeTicker, oneilHistory]);
+  }, [activeTicker]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -104,7 +102,7 @@ export default function OneilPage() {
       <ReportCardBar scanKey="oneil" />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName="oneil" />
+        <ScanHistoryView data={oneilHistory} />
       ) : (
       <>
       <FilterBar>

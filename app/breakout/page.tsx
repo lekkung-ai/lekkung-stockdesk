@@ -26,7 +26,7 @@ import ScanDiffChips, { DiffFilter } from '@/components/ScanDiffChips';
 import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
-import { getScanHistory } from '@/lib/scanHistory';
+import { breakoutHistory } from '@/lib/scanHistoryData/breakout';
 import { computeScanMarkers } from '@/lib/scanMarkers';
 import StockChart from '@/components/StockChart';
 import ReportCardBar from '@/components/ReportCardBar';
@@ -67,7 +67,6 @@ function BreakoutContent() {
   const pageSize = 10;
   const { priceMap, fetchDone, fetchedAt: pricesAt } = useLivePrices(breakoutData.map(s => s.Ticker));
   const newSet = useMemo(() => new Set(getScanDiff('breakout')?.newTickers ?? []), []);
-  const breakoutHistory = useMemo(() => getScanHistory('breakout'), []);
 
   const handleSort = (key: string) => {
     setCurrentPage(1);
@@ -152,10 +151,10 @@ function BreakoutContent() {
   // "this one sorted first".
   const activeTicker = selectedTicker;
   const scanMarkers = useMemo(() => {
-    if (!activeTicker || !breakoutHistory) return { firstSeen: null, reentries: [] };
+    if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = breakoutHistory.tickers.find(t => t.ticker === activeTicker);
     return computeScanMarkers(match?.hitDates);
-  }, [activeTicker, breakoutHistory]);
+  }, [activeTicker]);
 
   return (
     <div className="p-4 md:p-6 space-y-4">
@@ -178,7 +177,7 @@ function BreakoutContent() {
       <ReportCardBar scanKey="breakout" />
 
       {mode === 'history' ? (
-        <ScanHistoryView scanName="breakout" />
+        <ScanHistoryView data={breakoutHistory} />
       ) : (
       <>
       <FilterBar>

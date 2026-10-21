@@ -6,9 +6,12 @@
 export default function ModeToggle({
   mode,
   onChange,
+  onHistoryIntent,
 }: {
   mode: 'today' | 'history';
   onChange: (mode: 'today' | 'history') => void;
+  /** Fired when the pointer/finger/focus reaches the "ย้อนหลัง" button, before the click - lets a page warm up lazily-loaded history data. */
+  onHistoryIntent?: () => void;
 }) {
   return (
     <div className="flex items-center gap-0.5 bg-[#13161e] border border-white/[0.07] rounded-xl p-0.5">
@@ -22,6 +25,9 @@ export default function ModeToggle({
       </button>
       <button
         onClick={() => onChange('history')}
+        onPointerEnter={onHistoryIntent}
+        onFocus={onHistoryIntent}
+        onTouchStart={onHistoryIntent}
         className={`px-3 py-1.5 rounded-lg text-label font-medium transition-colors ${
           mode === 'history' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
         }`}
