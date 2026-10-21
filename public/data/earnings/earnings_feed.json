@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-10-21T15:03:58.435878+07:00",
+  "generatedAt": "2026-10-21T18:11:48.697986+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 4,
+      "count": 5,
       "top3": [
         {
           "ticker": "KKP",
           "netProfitYoY": 43.01220086209685
         },
         {
-          "ticker": "KTC",
-          "netProfitYoY": 8.88653718034131
+          "ticker": "CREDIT",
+          "netProfitYoY": 22.25209722520972
         },
         {
-          "ticker": "TISCO",
-          "netProfitYoY": 4.304705231637771
+          "ticker": "KTC",
+          "netProfitYoY": 8.88653718034131
         }
       ]
     },
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 8,
+      "count": 9,
       "top3": [
         {
           "ticker": "TSTH",
@@ -88,6 +88,60 @@
   },
   "announcements": [
     {
+      "ticker": "CREDIT",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-10-21T17:46:20+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 1239003000.0,
+      "netProfitPrior": 1013482000.0,
+      "netProfitYoY": 22.25209722520972,
+      "netProfitPriorQ": 989264000.0,
+      "netProfitQoQ": 25.244929563796926,
+      "profitAcceleration": "accelerating",
+      "eps": 1.01,
+      "epsPrior": 0.82,
+      "epsYoY": 23.17073170731708,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107175701&symbol=CREDIT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17925384268981&symbol=CREDIT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107175801&symbol=CREDIT",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
+      "reason": "รวมรายได้จากการดำเนินงานสุทธิ 4,604.7 4,112.0 12.0 3,821.4 20.5 12,510.5 10,978.7 14.0 รวมค่าใช้จ่ายจากการดำเนินงานอื่น ๆ 1,823.7 1,745.8 4.5 1,614.4 13.0 5,236.2 4,672.9 12.1 ผลขาดทุนด้านเครดิตที่คาดว่าจะเกิดขึ้น 1,227.7",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "KTB",
+      "sector": "Financials",
+      "subsector": "Banking",
+      "market": "SET",
+      "announceDate": "2026-10-21T17:04:44+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 12582101000.0,
+      "netProfitPrior": 14620100000.0,
+      "netProfitYoY": -13.939706294758587,
+      "netProfitPriorQ": 12125223000.0,
+      "netProfitQoQ": 3.7679966793188053,
+      "profitAcceleration": "stable",
+      "eps": 0.9,
+      "epsPrior": 1.05,
+      "epsYoY": -14.285714285714288,
+      "auditorOpinion": null,
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107173201&symbol=KTB",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17925384266061&symbol=KTB",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107173301&symbol=KTB",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "SCB",
       "sector": "Financials",
       "subsector": "Banking",
@@ -113,7 +167,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (ก่อนสอบทาน)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 0.34,
+      "gap_pct": 0.68,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -269,7 +323,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -6.21,
-      "drift_d1_pct": -8.28,
+      "drift_d1_pct": -6.9,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -331,7 +385,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": -0.81,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -363,7 +417,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.05,
       "drift_d1_pct": -1.05,
-      "drift_d2_pct": -3.16,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -1120,6 +1174,18 @@
     {
       "ticker": "SCB",
       "date": "2026-10-21T12:32:45+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "KTB",
+      "date": "2026-10-21T17:04:44+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "CREDIT",
+      "date": "2026-10-21T17:46:20+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
@@ -4708,13 +4774,6 @@
       "basedOnLastYear": "2025-11-13T17:11:00+07:00"
     },
     {
-      "ticker": "CREDIT",
-      "date": "2026-11-13T17:13:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-13T17:13:00+07:00"
-    },
-    {
       "ticker": "SPACK",
       "date": "2026-11-13T17:13:00+07:00",
       "status": "predicted",
@@ -6582,13 +6641,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-14T18:06:00+07:00"
-    },
-    {
-      "ticker": "KTB",
-      "date": "2026-11-14T18:09:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-14T18:09:00+07:00"
     },
     {
       "ticker": "CHAYO",
