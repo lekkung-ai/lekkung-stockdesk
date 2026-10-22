@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T15:01:58.022459+07:00",
+  "generatedAt": "2026-10-22T18:16:50.219612+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -87,6 +87,33 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "BAREIT",
+      "sector": "Property",
+      "subsector": "Property Fund & REITs",
+      "market": "SET",
+      "announceDate": "2026-10-22T17:40:30+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107182901&symbol=BAREIT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17926251220001&symbol=BAREIT",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 3 (F45)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "CREDIT",
       "sector": "Financials",
@@ -207,7 +234,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.85,
-      "drift_d1_pct": 3.85,
+      "drift_d1_pct": 3.42,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -238,7 +265,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 1.28,
-      "drift_d1_pct": 3.21,
+      "drift_d1_pct": 2.56,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -269,7 +296,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.27,
-      "drift_d1_pct": 0.82,
+      "drift_d1_pct": 0.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -300,7 +327,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.7,
-      "drift_d1_pct": -1.41,
+      "drift_d1_pct": -2.11,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -488,7 +515,7 @@
       "gap_pct": 0.4,
       "drift_d1_pct": 0.4,
       "drift_d2_pct": 0.8,
-      "drift_d5_pct": 1.2
+      "drift_d5_pct": 0.8
     },
     {
       "ticker": "AEONTS",
@@ -1199,10 +1226,9 @@
     },
     {
       "ticker": "BAREIT",
-      "date": "2026-10-22T17:10:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-10-22T17:10:00+07:00"
+      "date": "2026-10-22T17:40:30+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "DELTA",
