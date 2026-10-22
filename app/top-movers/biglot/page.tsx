@@ -182,6 +182,8 @@ export default function BigLotPage() {
     const fetchHistory = async () => {
       setChartLoading(true);
       try {
+        // the 15 most recent days that have Big Lot data: dates come from the history index (one
+        // entry per saved biglot.json, rebuilt by save_biglot.py) plus the API's own date list
         const recentDates = mergedDates.slice(0, 15);
         if (recentDates.length === 0) return;
         
@@ -204,8 +206,16 @@ export default function BigLotPage() {
               // default cache mode: a dated snapshot is only replaced by a deploy, so the browser
               // can revalidate it (304) instead of re-downloading
               const res = await fetch(`/data/history/${d}/biglot.json`);
-              if (!res.ok) return { date: d, volume: 0 };
-              json = await res.json();
+              if (res.ok) {
+                json = await res.json();
+              } else {
+                // no snapshot file yet (e.g. a date only the RSS list knows): ask the API for that
+                // exact day; it answers with the latest day when it doesn't have the one asked for
+                const apiRes = await fetch(`/api/settrade/biglot?date=${d}`);
+                const apiJson = apiRes.ok ? await apiRes.json() : null;
+                if (!apiJson || apiJson.date !== d || !Array.isArray(apiJson.rows)) return { date: d, volume: 0 };
+                json = apiJson;
+              }
               dayFiles.current.set(d, json);
             }
             
