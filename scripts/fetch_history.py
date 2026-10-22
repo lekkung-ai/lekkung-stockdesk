@@ -62,18 +62,6 @@ for item in items:
         print(f"Saved {date_str}")
         dates.append(date_str)
 
-idx_file = os.path.join(os.path.dirname(__file__), '..', 'public', 'data', 'history', 'index.json')
-existing_dates = []
-if os.path.exists(idx_file):
-    with open(idx_file, "r") as f:
-        existing_dates = json.load(f)
-        
-hist_dir = os.path.join(os.path.dirname(__file__), '..', 'public', 'data', 'history')
-for d in os.listdir(hist_dir):
-    if os.path.isdir(os.path.join(hist_dir, d)) and d.startswith('202'):
-        existing_dates.append(d)
-
-all_dates = sorted(list(set(existing_dates + dates)))
-with open(idx_file, "w") as f:
-    json.dump(all_dates, f)
-print("Updated index.json")
+# index.json is derived from the folders (Big Lot days only) - never hand-assembled here
+import build_history_index
+build_history_index.rebuild(build_history_index.default_history_root())
