@@ -19,7 +19,9 @@ Resolution strategy on a rebase conflict:
       sides with save_news.merge_news_items() - the same dedupe-by-link
       logic that already makes two independent fetches converge to the same
       superset at the application level. Stage the merged file and continue
-      the rebase.
+      the rebase. The history index files (public/data/history/index.json,
+      data/history/index.json - plain sorted date lists, one entry per day
+      folder) are resolved by union of both sides' dates.
     - If ANY other file is conflicted, abort the rebase immediately and fail
       loudly - this script does not attempt to resolve unknown conflict
       shapes, since a wrong auto-resolution silently corrupting data is far
@@ -51,6 +53,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 NEWS_JSON_PATTERN = re.compile(r'(^|/)((public/)?data/history/\d{4}-\d{2}-\d{2}/news\.json)$')
+INDEX_JSON_PATTERN = re.compile(r'(^|/)((public/)?data/history/index\.json)$')
 MAX_RETRIES_DEFAULT = 3
 
 
@@ -107,6 +110,27 @@ def _merge_news_conflict(repo_dir, relpath):
     print(f'  Auto-resolved {relpath}: merged {len(ours)} + {len(theirs)} -> {len(merged)} items ({added} new from theirs)')
 
 
+def _merge_index_conflict(repo_dir, relpath):
+    import json
+
+    def read_stage(stage):
+        result = _run(['git', 'show', f':{stage}:{relpath}'], cwd=repo_dir, check=False)
+        try:
+            dates = json.loads(result.stdout) if result.returncode == 0 and result.stdout.strip() else []
+        except json.JSONDecodeError:
+            return []
+        return dates if isinstance(dates, list) else []
+
+    ours = read_stage(2)
+    theirs = read_stage(3)
+    merged = sorted(set(ours) | set(theirs))
+
+    with open(Path(repo_dir) / relpath, 'w', encoding='utf-8') as f:
+        json.dump(merged, f)  # same one-line format the writers use
+    _git(repo_dir, 'add', relpath)
+    print(f'  Auto-resolved {relpath}: merged {len(ours)} + {len(theirs)} -> {len(merged)} dates')
+
+
 def _resolve_rebase_conflicts(repo_dir):
     """Returns True if all conflicts were auto-resolved and the rebase was
     continued; False if an unresolvable conflict was found (rebase aborted,
@@ -117,7 +141,7 @@ def _resolve_rebase_conflicts(repo_dir):
     if not conflicted:
         return True  # nothing conflicted - shouldn't normally be called in this case
 
-    unresolvable = [f for f in conflicted if not NEWS_JSON_PATTERN.search(f)]
+    unresolvable = [f for f in conflicted if not (NEWS_JSON_PATTERN.search(f) or INDEX_JSON_PATTERN.search(f))]
     if unresolvable:
         print('=' * 70, file=sys.stderr)
         print('ERROR: rebase conflict on file(s) this script does not know how to auto-resolve:', file=sys.stderr)
@@ -129,7 +153,10 @@ def _resolve_rebase_conflicts(repo_dir):
         return False
 
     for f in conflicted:
-        _merge_news_conflict(repo_dir, f)
+        if INDEX_JSON_PATTERN.search(f):
+            _merge_index_conflict(repo_dir, f)
+        else:
+            _merge_news_conflict(repo_dir, f)
 
     continue_result = _git(repo_dir, 'rebase', '--continue', check=False)
     if continue_result.returncode != 0:
