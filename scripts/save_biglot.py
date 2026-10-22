@@ -11,6 +11,8 @@ Usage:
 
 Output:
     stockdesk/public/data/history/YYYY-MM-DD/biglot.json
+    stockdesk/public/data/history/index.json   (rebuilt from the folders on every run,
+                                                 see build_history_index.py)
 
 The snapshot is labeled with the RSS item's own pubDate (converted to a
 Bangkok-local date), not the date the script happened to run. Bucketing by
@@ -29,6 +31,9 @@ import urllib.request
 from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 import re
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import build_history_index
 
 # Console output includes Thai article titles; reconfigure stdout to UTF-8 so
 # this doesn't depend on the caller's console codepage (cmd.exe defaults to
@@ -138,18 +143,9 @@ def bangkok_date_from_pubdate(pub_date: str):
     except Exception:
         return None
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("run_date", nargs="?", default=None, help="advisory only - logging/comparison, not the save target")
-    parser.add_argument("--dry-run", action="store_true", help="fetch and print, write nothing")
-    parser.add_argument("--out", default=None, help="write into this dir instead of the real public/data/history/ tree (for manual testing)")
-    args = parser.parse_args()
-
+def save_snapshot(args, history_root):
     requested_date = args.run_date or datetime.now().strftime("%Y-%m-%d")
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    stockdesk_dir = os.path.dirname(script_dir)
-    history_root = args.out if args.out else os.path.join(stockdesk_dir, "public", "data", "history")
     if args.out:
         print(f"  [--out] Writing into {history_root} instead of the real history tree")
     if args.dry_run:
@@ -206,6 +202,22 @@ def main():
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, separators=(",", ":"))
     print(f"    Saved {len(rows)} rows to: {out_file}")
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("run_date", nargs="?", default=None, help="advisory only - logging/comparison, not the save target")
+    parser.add_argument("--dry-run", action="store_true", help="fetch and print, write nothing")
+    parser.add_argument("--out", default=None, help="write into this dir instead of the real public/data/history/ tree (for manual testing)")
+    args = parser.parse_args()
+
+    history_root = args.out if args.out else build_history_index.default_history_root()
+    try:
+        save_snapshot(args, history_root)
+    finally:
+        # The index is derived from the folders, so rebuild it on every run - including runs that
+        # saved nothing (RSS down, article already saved) - so it can never fall behind the folders.
+        if not args.dry_run:
+            build_history_index.rebuild(history_root)
 
 if __name__ == "__main__":
     main()
