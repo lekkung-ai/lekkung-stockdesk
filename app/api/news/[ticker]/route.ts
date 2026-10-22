@@ -13,7 +13,8 @@ import {
 } from '@/lib/feedParsing';
 import { fetchEfinanceThai } from '@/lib/efinanceThai';
 import { fetchSetNews } from '@/lib/setNews';
-import { settleExceptStragglers } from '@/lib/serverMemo';
+import { createMemo, memoized, settleExceptStragglers } from '@/lib/serverMemo';
+import { bangkokDateKey } from '@/lib/utils';
 
 // Every feed is attempted in parallel; fetchFeed() logs whether each URL actually
 // works (see console output). A failing feed is skipped, not fatal.
@@ -38,6 +39,18 @@ const FEEDS: Feed[] = [
 
 // The Standard's wealth feed is dead and its general /feed/ buries stock news
 // under politics, so it is intentionally excluded.
+
+// Feeds that do not work from the server. They are NOT fetched: next's fetch cache keeps the response
+// open until every revalidating fetch of the request has finished, so each slow/dead feed added up to
+// FEED_TIMEOUT_MS to the end of every response (and it also re-requested a dead host each time). They still go
+// through the "failed feed" path below, so their archived items and the amber "stale" dot on the
+// source chip look exactly as they did when the live fetch failed. Remove an entry to try it again.
+// Measured from Vercel's egress on 2026-10-22 (6 requests each, FEED_TIMEOUT_MS is 3 s):
+const DISABLED_FEEDS: Record<string, string> = {
+  'Money & Banking': '403 every time (bot protection), 0 items',
+  'Reporter Journey': '3.2-3.9 s every time, always past the timeout',
+  'Standard Wealth': '663 KB feed, 2.6-5 s or no answer within 6 s; only 1 of 6 requests came back within the timeout',
+};
 
 // Verified NOT usable from a server-side fetch (2026-06/07, rechecked 2026-07-10) — kept for reference:
 //   Settrade feedburner (saaDailyUpdate / researchAll / researchMarket /
@@ -83,6 +96,23 @@ const STRAGGLER_GRACE_MS = 350;
 // Settrade needs a session cookie first (see lib/setNews.ts), so it gets a longer leash.
 const SET_TIMEOUT_MS = 3000;
 const GENERAL_TOKENS = new Set(['ALL', 'GENERAL', '_']);
+
+// One page load is two requests (?part=head then ?part=rest, see below). Settrade is fetched live
+// (no-store) and costs a session cookie + an API call, so both requests share one result for
+// SET_SHARE_MS. If Settrade fails, the last good result is reused for up to SET_LAST_GOOD_MS instead
+// of dropping SET news from the page; only a failure with nothing recent to reuse counts as degraded.
+const SET_SHARE_MS = 15_000;
+const SET_LAST_GOOD_MS = 5 * 60_000;
+const setMemo = createMemo<NewsItem[]>(24);
+
+async function fetchSetShared(symbol: string): Promise<NewsItem[]> {
+  const fresh = await memoized(setMemo, symbol, SET_SHARE_MS, async () => {
+    const items = await fetchSetNews(symbol, SET_TIMEOUT_MS);
+    return items.length > 0 ? items : null;
+  });
+  if (fresh) return fresh;
+  return setMemo.get(symbol, SET_LAST_GOOD_MS)?.value ?? [];
+}
 
 // Shared across concurrent page loads via Next.js's fetch Data Cache, instead
 // of every single request hitting all 10 upstream feeds directly (that was
@@ -207,7 +237,7 @@ function loadSetHistoricalItems(): NewsItem[] {
 }
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ ticker: string }> }
 ) {
   const { ticker } = await context.params;
@@ -215,14 +245,17 @@ export async function GET(
   const wantGeneral = GENERAL_TOKENS.has(t);
 
   // Fetch RSS feeds, efinancethai, and SET news concurrently in parallel for max speed
+  const startedAt = Date.now();
+  const took: Record<string, number> = {};
+  const timed = <T,>(label: string, p: Promise<T>) => p.then(v => { took[label] = Date.now() - startedAt; return v; });
   const [feedResults, efinItems, setNewsItems] = await Promise.all([
-    settleExceptStragglers(
-      FEEDS.map(f => fetchFeedShared(f, 'news', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC)),
+    timed('feeds', settleExceptStragglers(
+      FEEDS.map(f => (DISABLED_FEEDS[f.name] ? Promise.resolve([] as NewsItem[]) : fetchFeedShared(f, 'news', FEED_TIMEOUT_MS, LIVE_REVALIDATE_SEC))),
       { maxStragglers: MAX_STRAGGLERS, graceMs: STRAGGLER_GRACE_MS },
       [] as NewsItem[],
-    ),
-    fetchEfinanceThai(1, EFIN_PAGE_SIZE, EFIN_REVALIDATE_SEC, FEED_TIMEOUT_MS),
-    fetchSetNews(wantGeneral ? 'SET' : t, SET_TIMEOUT_MS),
+    )),
+    timed('efin', fetchEfinanceThai(1, EFIN_PAGE_SIZE, EFIN_REVALIDATE_SEC, FEED_TIMEOUT_MS)),
+    timed('set', fetchSetShared(wantGeneral ? 'SET' : t)),
   ]);
 
   let allLive: NewsItem[] = [];
@@ -340,17 +373,55 @@ export async function GET(
     };
   });
 
-  // News may be at most 5 min behind: 30 s browser + 90 s fresh + 90 s stale-while-revalidate at the
-  // CDN + the 60 s feed Data Cache above. A response built while SET / EFIN were down, or while
-  // most RSS feeds were failing, is not cached at all - the next request retries upstream.
-  // (One or two permanently dead feeds, e.g. Reporter Journey, are normal and do not count.)
-  const degraded =
-    efinItems.length === 0 ||
-    (wantGeneral && setNewsItems.length === 0) ||
-    failedFeeds.length >= 5;
+  // The page asks for the newest day first (?part=head) and the other days right after (?part=rest):
+  // the full week is ~750 KB of JSON (~150 KB compressed) but the page shows one day at a time, so the
+  // first paint needs about a tenth of it. head = items of the newest Bangkok date + what the filter
+  // bar needs from the whole week (source chips in their usual order, ticker list); rest = older dates.
+  // No ?part -> the full list, exactly as before.
+  const part = wantGeneral ? req.nextUrl.searchParams.get('part') : null;
+  let body: Record<string, unknown> = { news, isGeneral, staleSources };
+  if (part === 'head' || part === 'rest') {
+    const dayOf = (n: { ts: number }) => bangkokDateKey(n.ts);
+    let latestDate = '';
+    for (const n of news) {
+      const d = dayOf(n);
+      if (d > latestDate) latestDate = d;
+    }
+    if (part === 'rest') {
+      body = { news: news.filter(n => dayOf(n) < latestDate), isGeneral, staleSources };
+    } else {
+      const isSetItem = (n: { source: string; link: string }) => n.source === SET_SOURCE || n.link.includes('set.or.th');
+      const sourcesNews: string[] = [];
+      const sourcesSet: string[] = [];
+      const tickers = new Set<string>();
+      for (const n of news) {
+        if (!sourcesSet.includes(n.source)) sourcesSet.push(n.source);
+        if (!isSetItem(n) && !sourcesNews.includes(n.source)) sourcesNews.push(n.source);
+        for (const tk of n.tickers) tickers.add(tk);
+      }
+      body = {
+        news: news.filter(n => dayOf(n) === latestDate),
+        isGeneral,
+        staleSources,
+        meta: { latestDate, sourcesNews, sourcesSet, tickers: [...tickers].sort() },
+      };
+    }
+  }
 
-  return Response.json(
-    { news, isGeneral, staleSources },
-    { headers: { 'Cache-Control': degraded ? 'no-store' : 'public, max-age=30, s-maxage=90, stale-while-revalidate=90' } }
-  );
+  // News may be at most 5 min behind: 120 s fresh + 90 s stale-while-revalidate at the CDN, the 60 s feed
+  // Data Cache above, and the browser always revalidating (max-age=0, a CDN hit is ~60 ms).
+  // A response is not cached at all when SET (all-market list) failed with nothing recent to reuse, or
+  // when at least half of the live feeds failed - the next request retries upstream. Disabled feeds,
+  // EFIN and the odd single failing feed do not count: they get the archive fallback + stale dot above.
+  const liveFeedCount = FEEDS.filter(f => !DISABLED_FEEDS[f.name]).length;
+  const liveFailed = failedFeeds.filter(f => FEEDS.some(x => x.name === f.name) && !DISABLED_FEEDS[f.name]).length;
+  const degraded =
+    (wantGeneral && setNewsItems.length === 0) ||
+    liveFailed * 2 >= liveFeedCount;
+
+  const headers: Record<string, string> = {
+    'Cache-Control': degraded ? 'no-store' : 'public, max-age=0, s-maxage=120, stale-while-revalidate=90',
+    'Server-Timing': `feeds;dur=${took.feeds ?? 0}, efin;dur=${took.efin ?? 0}, set;dur=${took.set ?? 0}, total;dur=${Date.now() - startedAt}, failed;desc="${failedFeeds.length}", degraded;desc="${degraded ? 1 : 0}"`,
+  };
+  return Response.json(body, { headers });
 }
