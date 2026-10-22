@@ -20,6 +20,19 @@ interface NewsItem {
   stale?: boolean;
 }
 
+// First response of /api/news/all?part=head: only the newest day's items + what the filter bar needs
+// from the whole week. The other days (?part=rest) are merged in right after.
+interface NewsHeadMeta {
+  latestDate: string;
+  sourcesNews: string[];
+  sourcesSet: string[];
+  tickers: string[];
+}
+
+function getJson(url: string) {
+  return fetch(url).then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))));
+}
+
 const PAGE_SIZE = 20;
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -69,6 +82,8 @@ function NewsPageContent() {
   const [allNews, setAllNews] = useState<NewsItem[] | null>(null);
   const [error, setError] = useState(false);
   const [staleSources, setStaleSources] = useState<string[]>([]);
+  // non-null while only the newest day is loaded (the rest of the week is on its way)
+  const [headMeta, setHeadMeta] = useState<NewsHeadMeta | null>(null);
 
   // filters
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
@@ -85,13 +100,41 @@ function NewsPageContent() {
 
   useEffect(() => {
     let active = true;
-    fetch('/api/news/all')
-      .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+    // Newest day first so the page is usable after ~1/7 of the bytes; the older days follow at once.
+    // If the rest cannot be had, fall back to the whole week in one request.
+    const prefetchResearch = () => {
+      if (active) fetch('/api/research/all').catch(() => {});
+    };
+    const loadRest = () =>
+      getJson('/api/news/all?part=rest')
+        .catch(() => getJson('/api/news/all'))
+        .then(d => {
+          if (!active) return;
+          const older: NewsItem[] = d.news ?? [];
+          setAllNews(prev => {
+            const seen = new Set((prev ?? []).map(n => n.link));
+            return [...(prev ?? []), ...older.filter(n => !seen.has(n.link))];
+          });
+          setStaleSources(prev => (d.staleSources?.length ? [...new Set([...prev, ...d.staleSources])] : prev));
+        })
+        .catch(() => {})
+        .finally(() => {
+          if (active) setHeadMeta(null);
+          prefetchResearch();
+        });
+
+    let restStarted = false;
+    getJson('/api/news/all?part=head')
       .then(d => {
         if (active) {
           const list: NewsItem[] = d.news ?? [];
           setAllNews(list);
           setStaleSources(d.staleSources ?? []);
+          if (d.meta) {
+            restStarted = true;
+            setHeadMeta(d.meta as NewsHeadMeta);
+            loadRest();
+          }
 
           if (!dateAutoSet.current && list.length > 0) {
             dateAutoSet.current = true;
@@ -115,9 +158,10 @@ function NewsPageContent() {
         }
       })
       // Pre-fetch research data in background so tab switching is instant - only once the news is
-      // on screen, so its 1.5 MB doesn't compete with the news response for bandwidth.
+      // on screen (and, when the week arrives in two parts, only once both are in), so its 1.5 MB
+      // doesn't compete with the news responses for bandwidth.
       .finally(() => {
-        if (active) fetch('/api/research/all').catch(() => {});
+        if (!restStarted) prefetchResearch();
       });
     return () => {
       active = false;
@@ -170,21 +214,23 @@ function NewsPageContent() {
   // distinct sources present in the data (for the chip bar)
   const sources = useMemo(() => {
     if (!allNews) return [];
+    if (headMeta) return activeTab === 'news' ? headMeta.sourcesNews : headMeta.sourcesSet;
     const seen: string[] = [];
     for (const n of allNews) {
       if (activeTab === 'news' && (n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th'))) continue;
       if (!seen.includes(n.source)) seen.push(n.source);
     }
     return seen;
-  }, [allNews, activeTab]);
+  }, [allNews, activeTab, headMeta]);
 
   // tickers present in the data (for the search dropdown)
   const tickerOptions = useMemo(() => {
     if (!allNews) return [];
+    if (headMeta) return headMeta.tickers;
     const set = new Set<string>();
     for (const n of allNews) for (const t of n.tickers) set.add(t);
     return [...set].sort();
-  }, [allNews]);
+  }, [allNews, headMeta]);
 
   const suggestions = useMemo(() => {
     const q = tickerInput.trim().toUpperCase();
@@ -204,6 +250,17 @@ function NewsPageContent() {
       return true;
     });
   }, [allNews, selectedDate, selectedSources, tickerFilter, activeTab]);
+
+  // While only the newest day is loaded, a date (or a tab) it cannot answer is "still loading", not
+  // "no news": the tab's own latest date may be an older day that arrives with the rest.
+  const waitingForRest =
+    headMeta !== null &&
+    allNews !== null &&
+    (selectedDate !== headMeta.latestDate ||
+      !allNews.some(n => {
+        const isSet = n.source === 'SET (ตลาดหลักทรัพย์)' || n.link.includes('set.or.th');
+        return activeTab === 'set' ? isSet : !isSet;
+      }));
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageItems = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
@@ -428,7 +485,7 @@ function NewsPageContent() {
       {/* ── Results ── */}
       <div className="flex items-center justify-between px-1">
         <span className="text-[11px] text-white/30">
-          {allNews === null ? 'กำลังโหลด…' : `${filtered.length} ข่าว`}
+          {allNews === null || waitingForRest ? 'กำลังโหลด…' : `${filtered.length} ข่าว`}
           {tickerFilter && ` · กรอง ${tickerFilter}`}
         </span>
         {totalPages > 1 && (
@@ -437,7 +494,7 @@ function NewsPageContent() {
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
-        {allNews === null ? (
+        {allNews === null || waitingForRest ? (
           <TableSkeleton rows={10} />
         ) : pageItems.length === 0 ? (
           <div className="px-5 py-10 text-center">
