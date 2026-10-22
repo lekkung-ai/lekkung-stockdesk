@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   lekkungDaytradeData, lekkungDaytradeGeneratedAt, lekkungDaytradeUniverse,
@@ -19,7 +19,7 @@ import FullWidthPage from '@/components/FullWidthPage';
 import MobileScanProgress from '@/components/MobileScanProgress';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
-  SectorChip, Td, TableWrap, FilterBar, PageHeader, SortableTh, SortConfig,
+  Td, TableWrap, FilterBar, PageHeader, SortableTh, SortConfig,
   formatPE, ExportCSVButton, AddMyStockButton,
 } from '@/components/StrategyTable';
 import StockChart from '@/components/StockChart';
@@ -31,7 +31,7 @@ import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 
 const SCAN_KEY = 'lekkung_daytrade';
-const COLS = 18; // colSpan ของแถว chart / loading / empty
+const COLS = 11; // colSpan ของแถว chart / loading / empty
 
 type Row = LekkungDaytradeEntry;
 type SortValue = number | string | null;
@@ -82,6 +82,20 @@ export default function LekkungDaytradePage() {
   const [historyInitialTicker, setHistoryInitialTicker] = useState<string | null>(null);
   const [diffFilter, setDiffFilter] = useState<DiffFilter>('all');
   const newSet = useMemo(() => new Set(getScanDiff(SCAN_KEY)?.newTickers ?? []), []);
+
+  const [containerWidth, setContainerWidth] = useState<number | null>(null);
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!tableContainerRef.current) return;
+    const ro = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+    ro.observe(tableContainerRef.current);
+    return () => ro.disconnect();
+  }, []);
 
   const goToHistory = (ticker: string) => {
     setHistoryInitialTicker(ticker);
@@ -159,10 +173,10 @@ export default function LekkungDaytradePage() {
       {diffFilter === 'dropped' ? (
         <DroppedTickersList scanName={SCAN_KEY} />
       ) : (
-      <div className="space-y-4">
+      <div ref={tableContainerRef} className="space-y-4">
       <MobileScanProgress shown={visibleCount} total={totalCount} />
       <TableWrap>
-        <thead className="border-b border-white/[0.06] bg-white/[0.015]">
+        <thead className="border-b border-white/[0.06] bg-white/[0.015] [&_th]:!px-2.5">
           {/* Symbol เป็น first-child (TableWrap ปักหมุดซ้ายให้) · คอลัมน์รองซ่อนที่ ≤1200px
               (ครอบ iPad Air 1180) แล้วไปโผล่ใน strip ของแถวที่กางออก — เหมือน 7 หน้า scan เดิม */}
           <tr>
@@ -171,22 +185,15 @@ export default function LekkungDaytradePage() {
             <SortableTh right sortKey="__days" {...sortProps} title="จำนวนวันทำการติดกันที่อยู่ในสแกนนี้">Days</SortableTh>
             <SortableTh right sortKey="Change_Pct" {...sortProps} title="% เปลี่ยนแปลงวันนี้">Chg%</SortableTh>
             <SortableTh right sortKey="Volume" {...sortProps} title="ปริมาณซื้อขายวันนี้ (หุ้น)">Vol</SortableTh>
-            <SortableTh right sortKey="Rel_Volume" {...sortProps} title="Volume ÷ ค่าเฉลี่ย 10 วัน (เท่า)">Rel Vol</SortableTh>
-            <SortableTh right sortKey="RSI7" {...sortProps} title="RSI 7 วัน (ผ่านเกณฑ์ > 50)">RSI7</SortableTh>
             <SortableTh right sortKey="Tech_Rating" {...sortProps} title="TradingView Technical Rating (Recommend.All) · Strong Buy > 0.5">Tech Rating</SortableTh>
-            <SortableTh className={secondary} sortKey="Name" {...sortProps}>ชื่อ</SortableTh>
             <SortableTh right className={secondary} sortKey="Market_Cap" {...sortProps} title="มูลค่าตลาด (ล้านบาท)">Mkt Cap (MB)</SortableTh>
             <SortableTh right className={secondary} sortKey="PE_Ratio" {...sortProps} title="P/E (TTM)">P/E</SortableTh>
             <SortableTh right className={secondary} sortKey="EPS_TTM" {...sortProps} title="กำไรต่อหุ้น TTM (บาท)">EPS (TTM)</SortableTh>
             <SortableTh right className={secondary} sortKey="EPS_Growth_YoY" {...sortProps} title="การเติบโตของ EPS TTM เทียบปีก่อน (%)">EPS Gr YoY</SortableTh>
             <SortableTh right className={secondary} sortKey="Div_Yield" {...sortProps} title="อัตราปันผลล่าสุด (%)">Div Yield</SortableTh>
-            <SortableTh className={secondary} sortKey="__sector" {...sortProps}>Sector</SortableTh>
-            <SortableTh right className={secondary} sortKey="ADX" {...sortProps} title="ADX 14 วัน (ผ่านเกณฑ์ > 20)">ADX</SortableTh>
-            <SortableTh right className={secondary} sortKey="Pct_Above_EMA200" {...sortProps} title="(ราคา ÷ EMA200 − 1) × 100">% เหนือ EMA200</SortableTh>
-            <SortableTh className={secondary} sortKey="Analyst_Rating" {...sortProps} title="ความเห็นนักวิเคราะห์ (ไม่ใช่ Tech Rating)">Analyst Rating</SortableTh>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="[&_td]:!px-2.5">
           {displayRows.map((s, i) => {
             const isActive = activeTicker === s.Ticker;
             const techLabel = techRatingLabel(s.Tech_Rating);
@@ -202,11 +209,15 @@ export default function LekkungDaytradePage() {
                 <Td>
                   <div className="flex items-center gap-2">
                     <span className="text-white/25 tabular-nums text-[11px] shrink-0">{i + 1}</span>
-                    <div className={`font-bold flex items-center gap-1.5 ${isActive ? 'text-emerald-400' : 'text-white'}`}>
+                    <div
+                      className={`font-bold flex items-center gap-1.5 ${isActive ? 'text-emerald-400' : 'text-white'}`}
+                      title={nameOf(s) || s.Ticker}
+                    >
                       <Link
                         href={`/stock/${s.Ticker}`}
                         onClick={e => e.stopPropagation()}
                         className="hover:underline underline-offset-2"
+                        title={nameOf(s) || s.Ticker}
                       >
                         {s.Ticker}
                       </Link>
@@ -214,7 +225,6 @@ export default function LekkungDaytradePage() {
                     </div>
                     <AddMyStockButton ticker={s.Ticker} />
                   </div>
-                  <div className="min-[1201px]:hidden"><SectorChip ticker={s.Ticker} /></div>
                 </Td>
                 <Td right mono>{fmt(s.Close)}</Td>
                 <Td right mono>
@@ -233,18 +243,11 @@ export default function LekkungDaytradePage() {
                 </Td>
                 <Td right mono>{fmtInt(s.Volume)}</Td>
                 <Td right mono>
-                  <span className={s.Rel_Volume != null && s.Rel_Volume >= 2 ? 'text-amber-400 font-semibold' : ''}>
-                    {s.Rel_Volume != null ? `${s.Rel_Volume.toFixed(2)}x` : '—'}
-                  </span>
-                </Td>
-                <Td right mono>{fmt(s.RSI7, 1)}</Td>
-                <Td right mono>
                   <div className="flex flex-col items-end leading-tight">
                     <span className={techCls(s.Tech_Rating)}>{techLabel ?? '—'}</span>
                     <span className="text-label text-white/35">{s.Tech_Rating != null ? s.Tech_Rating.toFixed(2) : ''}</span>
                   </div>
                 </Td>
-                <Td className={`${secondary} max-w-[200px] truncate`}>{nameOf(s) || '—'}</Td>
                 <Td right mono className={secondary}>{s.Market_Cap != null ? fmtInt(s.Market_Cap / 1e6) : '—'}</Td>
                 <Td right mono className={secondary}>{formatPE(s.PE_Ratio)}</Td>
                 <Td right mono className={secondary}>{fmt(s.EPS_TTM)}</Td>
@@ -254,17 +257,17 @@ export default function LekkungDaytradePage() {
                   </span>
                 </Td>
                 <Td right mono className={secondary}>{s.Div_Yield != null ? `${s.Div_Yield.toFixed(2)}%` : '—'}</Td>
-                <Td className={secondary}>{sectorOf(s.Ticker) || '—'}</Td>
-                <Td right mono className={secondary}>{fmt(s.ADX, 1)}</Td>
-                <Td right mono className={secondary}>{fmtSigned(s.Pct_Above_EMA200, 1)}</Td>
-                <Td className={secondary}>
-                  <span className={analystCls(s.Analyst_Rating)}>{analyst ?? '—'}</span>
-                </Td>
               </tr>
               {isActive && (
                 <tr key={`${s.Ticker}-chart`} className="bg-black/20 border-b border-white/[0.04]">
-                  <td colSpan={COLS} className="p-4">
-                    <div className="bg-[#13161e] border border-emerald-500/25 rounded-xl p-4 shadow-xl space-y-3">
+                  <td colSpan={COLS} className="py-4 px-2 sm:px-4">
+                    <div
+                      className="sticky left-2 sm:left-4 bg-[#13161e] border border-emerald-500/25 rounded-xl p-4 shadow-xl space-y-3"
+                      style={{
+                        width: containerWidth ? `${containerWidth - (isMobile ? 16 : 32)}px` : '100%',
+                        maxWidth: containerWidth ? `${containerWidth - (isMobile ? 16 : 32)}px` : '100%',
+                      }}
+                    >
                       <div className="flex items-center justify-between gap-3 flex-wrap border-b border-white/[0.06] pb-3">
                         <div className="flex items-center gap-3 flex-wrap">
                           <h2 className="text-section font-extrabold text-white tracking-wide">{s.Ticker}</h2>
@@ -289,18 +292,20 @@ export default function LekkungDaytradePage() {
                           ปิดกราฟ
                         </button>
                       </div>
-                      {/* คอลัมน์รองที่ซ่อนบนจอ ≤1200 — โชว์ตรงนี้แทน (desktop ≥1201 เห็นในแถวแล้ว) */}
-                      <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-label border-b border-white/[0.06] pb-3">
-                        <span className="text-white/40">ชื่อ: <span className="font-semibold text-white/80">{nameOf(s) || '—'}</span></span>
-                        <span className="text-white/40">Mkt Cap: <span className="tabular-nums font-semibold text-white/80">{s.Market_Cap != null ? `${fmtInt(s.Market_Cap / 1e6)} MB` : '—'}</span></span>
-                        <span className="text-white/40">P/E (TTM): <span className="tabular-nums font-semibold text-white/80">{s.PE_Ratio != null ? s.PE_Ratio.toFixed(1) : '—'}</span></span>
-                        <span className="text-white/40">EPS (TTM): <span className="tabular-nums font-semibold text-white/80">{fmt(s.EPS_TTM)}</span></span>
-                        <span className="text-white/40">EPS Gr YoY: <span className="tabular-nums font-semibold text-white/80">{fmtSigned(s.EPS_Growth_YoY, 1)}</span></span>
-                        <span className="text-white/40">Div Yield: <span className="tabular-nums font-semibold text-white/80">{s.Div_Yield != null ? `${s.Div_Yield.toFixed(2)}%` : '—'}</span></span>
+                      {/* แถบข้อมูลคอลัมน์ที่ย้ายออกจากตาราง + คอลัมน์รองที่ซ่อนบนจอแคบ */}
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-label border-b border-white/[0.06] pb-3">
                         <span className="text-white/40">Sector: <span className="font-semibold text-white/80">{sectorOf(s.Ticker) || '—'}</span></span>
+                        <span className="text-white/40">Rel Vol: <span className={`tabular-nums font-semibold ${s.Rel_Volume != null && s.Rel_Volume >= 2 ? 'text-amber-400' : 'text-white/80'}`}>{s.Rel_Volume != null ? `${s.Rel_Volume.toFixed(2)}x` : '—'}</span></span>
+                        <span className="text-white/40">RSI (7): <span className="tabular-nums font-semibold text-white/80">{fmt(s.RSI7, 1)}</span></span>
                         <span className="text-white/40">ADX (14): <span className="tabular-nums font-semibold text-white/80">{fmt(s.ADX, 1)}</span></span>
                         <span className="text-white/40">% เหนือ EMA200: <span className="tabular-nums font-semibold text-white/80">{fmtSigned(s.Pct_Above_EMA200, 1)}</span></span>
-                        <span className="text-white/40">Analyst Rating: <span className="font-semibold text-white/80">{analyst ?? '—'}</span></span>
+                        <span className="text-white/40">Analyst Rating: <span className={`font-semibold ${analystCls(s.Analyst_Rating)}`}>{analyst ?? '—'}</span></span>
+                        {/* คอลัมน์รองที่ซ่อนบนจอ ≤1200 — โชว์ตรงนี้เพิ่มเมื่อจอแคบ */}
+                        <span className="min-[1201px]:hidden text-white/40">Mkt Cap: <span className="tabular-nums font-semibold text-white/80">{s.Market_Cap != null ? `${fmtInt(s.Market_Cap / 1e6)} MB` : '—'}</span></span>
+                        <span className="min-[1201px]:hidden text-white/40">P/E (TTM): <span className="tabular-nums font-semibold text-white/80">{s.PE_Ratio != null ? s.PE_Ratio.toFixed(1) : '—'}</span></span>
+                        <span className="min-[1201px]:hidden text-white/40">EPS (TTM): <span className="tabular-nums font-semibold text-white/80">{fmt(s.EPS_TTM)}</span></span>
+                        <span className="min-[1201px]:hidden text-white/40">EPS Gr YoY: <span className={`tabular-nums font-semibold ${s.EPS_Growth_YoY != null && s.EPS_Growth_YoY > 20 ? 'text-[#1D9E75]' : s.EPS_Growth_YoY != null && s.EPS_Growth_YoY < 0 ? 'text-[#E24B4A]' : 'text-white/80'}`}>{fmtSigned(s.EPS_Growth_YoY, 1)}</span></span>
+                        <span className="min-[1201px]:hidden text-white/40">Div Yield: <span className="tabular-nums font-semibold text-white/80">{s.Div_Yield != null ? `${s.Div_Yield.toFixed(2)}%` : '—'}</span></span>
                       </div>
                       <StockChart
                         ticker={s.Ticker}

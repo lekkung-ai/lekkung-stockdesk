@@ -205,7 +205,8 @@ export default function StockChart({ ticker, height = 350, isPpbp = false, showE
       timeScale: {
         borderColor: 'rgba(255,255,255,0.08)',
         fixLeftEdge: false,
-        fixRightEdge: true,
+        fixRightEdge: false,
+        rightOffset: 5,
       },
       rightPriceScale: {
         borderColor: 'rgba(255,255,255,0.08)',
