@@ -16,6 +16,10 @@ export interface LekkungEntry {
   Revenue_Growth_YoY: number | null;
   Profit_Growth_YoY: number | null;
   NetProfit_Growth_QoQY: number | null;
+  // งวดที่ใช้คำนวณ growth (ISO period end) — ไฟล์รุ่นก่อน 2026-10-23 ไม่มี
+  Growth_Quarter_End?: string | null;
+  Rev_Growth_Period_End?: string | null;
+  growth_source?: string | null;
   ADTV_MB: number;
   Market_Cap: number | null;
   '52W_High': number | null;
