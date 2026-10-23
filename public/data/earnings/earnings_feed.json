@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T18:16:50.219612+07:00",
+  "generatedAt": "2026-10-23T14:57:47.762716+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -23,12 +23,8 @@
     },
     "turnaround": {
       "label": "พลิกกำไร",
-      "count": 4,
+      "count": 3,
       "top3": [
-        {
-          "ticker": "TAPAC",
-          "netProfitYoY": 2658.732498157701
-        },
         {
           "ticker": "META",
           "netProfitYoY": 166.76516600034765
@@ -36,6 +32,10 @@
         {
           "ticker": "TAPAC",
           "netProfitYoY": 126.66784023222229
+        },
+        {
+          "ticker": "CITY",
+          "netProfitYoY": 124.33056828519014
         }
       ]
     },
@@ -92,7 +92,7 @@
       "sector": "Property",
       "subsector": "Property Fund & REITs",
       "market": "SET",
-      "announceDate": "2026-10-22T17:40:30+07:00",
+      "announceDate": "2026-10-22T17:40:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": null,
@@ -857,37 +857,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "TAPAC",
-      "sector": "Property",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-09-08T08:04:00+07:00",
-      "quarter": "ไตรมาส 3/2568",
-      "periodEnd": "31 กรกฎาคม 2568",
-      "netProfit": 34722000.0,
-      "netProfitPrior": -1357000.0,
-      "netProfitYoY": 2658.732498157701,
-      "netProfitPriorQ": 1134000.0,
-      "netProfitQoQ": 2961.904761904762,
-      "profitAcceleration": "accelerating",
-      "eps": 0.084,
-      "epsPrior": -0.003,
-      "epsYoY": 2900.0000000000005,
-      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "turnaround",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106703501&symbol=TAPAC",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17888238032091&symbol=TAPAC",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106717401&symbol=TAPAC",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "โดยมีสาเหตุหลักและรายละเอียดดังต่อไปนี้ 1.",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
@@ -1087,12 +1056,6 @@
       "quarter": "ประจำปี 2568"
     },
     {
-      "ticker": "TAPAC",
-      "date": "2026-09-08T08:04:00+07:00",
-      "status": "confirmed",
-      "quarter": "ไตรมาส 3/2568"
-    },
-    {
       "ticker": "PICO",
       "date": "2026-09-10T19:43:00+07:00",
       "status": "confirmed",
@@ -1107,6 +1070,12 @@
     {
       "ticker": "ECF",
       "date": "2026-09-15T17:01:00+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2568"
+    },
+    {
+      "ticker": "TAPAC",
+      "date": "2026-09-15T20:19:00+07:00",
       "status": "confirmed",
       "quarter": "ประจำปี 2568"
     },
@@ -1226,7 +1195,7 @@
     },
     {
       "ticker": "BAREIT",
-      "date": "2026-10-22T17:40:30+07:00",
+      "date": "2026-10-22T17:40:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
