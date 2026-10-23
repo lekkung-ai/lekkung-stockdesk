@@ -28,6 +28,7 @@ import ReportCardButton from '@/components/ReportCardButton';
 import { getScanDiff } from '@/lib/scanDiff';
 import { lekkungHistory } from '@/lib/scanHistoryData/lekkung';
 import { computeScanMarkers } from '@/lib/scanMarkers';
+import { quarterShort, fyShort } from '@/lib/growthPeriod';
 import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
 
@@ -197,11 +198,13 @@ export default function LekkungPage() {
                   <span className={(s.Revenue_Growth_YoY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.Revenue_Growth_YoY?.toFixed(1) || '-'}%
                   </span>
+                  {fyShort(s.Rev_Growth_Period_End) && <span className="text-white/35 text-[10.5px] ml-1" title="งวดงบที่ใช้คำนวณ">· {fyShort(s.Rev_Growth_Period_End)}</span>}
                 </Td>
                 <Td right mono className="hidden min-[1201px]:table-cell">
                   <span className={(s.NetProfit_Growth_QoQY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white'}>
                     {s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}
                   </span>
+                  {quarterShort(s.Growth_Quarter_End) && <span className="text-white/35 text-[10.5px] ml-1" title={`ไตรมาสที่ใช้คำนวณ (เทียบไตรมาสเดียวกันปีก่อน)${s.growth_source ? ' · แหล่ง ' + s.growth_source : ''}`}>· {quarterShort(s.Growth_Quarter_End)}</span>}
                 </Td>
                 <Td right mono>
                   <div className="flex flex-col items-end leading-tight text-label">
@@ -263,8 +266,8 @@ export default function LekkungPage() {
                       {/* ข้อมูลรองที่ซ่อนคอลัมน์บนจอ ≤1200 (ครอบ iPad Air 1180) — โชว์ตรงนี้แทน
                           (desktop ≥1201 เห็นในแถวแล้ว จึง min-[1201px]:hidden) ให้ตรงกับคอลัมน์ */}
                       <div className="min-[1201px]:hidden flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] border-b border-white/[0.06] pb-3">
-                        <span className="text-white/40">Rev Gr (YoY): <span className={`tabular-nums font-semibold ${(s.Revenue_Growth_YoY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.Revenue_Growth_YoY != null ? s.Revenue_Growth_YoY.toFixed(1) + '%' : '-'}</span></span>
-                        <span className="text-white/40">Profit Gr (QoQY): <span className={`tabular-nums font-semibold ${(s.NetProfit_Growth_QoQY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}</span></span>
+                        <span className="text-white/40">Rev Gr (YoY): <span className={`tabular-nums font-semibold ${(s.Revenue_Growth_YoY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.Revenue_Growth_YoY != null ? s.Revenue_Growth_YoY.toFixed(1) + '%' : '-'}</span>{fyShort(s.Rev_Growth_Period_End) && <span className="text-white/35"> · {fyShort(s.Rev_Growth_Period_End)}</span>}</span>
+                        <span className="text-white/40">Profit Gr (QoQY): <span className={`tabular-nums font-semibold ${(s.NetProfit_Growth_QoQY ?? 0) > 20 ? 'text-[#1D9E75]' : 'text-white/80'}`}>{s.NetProfit_Growth_QoQY != null ? s.NetProfit_Growth_QoQY.toFixed(1) + '%' : '-'}</span>{quarterShort(s.Growth_Quarter_End) && <span className="text-white/35"> · {quarterShort(s.Growth_Quarter_End)}</span>}</span>
                         <span className="text-white/40">Mkt Cap: <span className="tabular-nums font-semibold text-white/80">{s.Market_Cap != null ? (s.Market_Cap / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' MB' : '-'}</span></span>
                         <span className="text-white/40">ADTV: <span className={`tabular-nums font-semibold ${isLowLiquidity ? 'text-amber-400' : 'text-white/80'}`}>{s.ADTV_MB != null ? s.ADTV_MB.toFixed(0) + ' ลบ.' : '-'}{isLowLiquidity && ' ⚠️'}</span></span>
                       </div>
