@@ -8,11 +8,29 @@ interface IncompleteItem {
 }
 
 // Reason from lekkung_incomplete.json (pipeline English) → short Thai; the raw text stays in the tooltip
+const FIELD_TH: Record<string, string> = {
+  PE_Ratio: 'P/E',
+  NetProfit_Growth_QoQY: 'Profit Gr',
+  Revenue_Growth_YoY: 'Rev Gr',
+  Profit_Growth_YoY: 'Profit Gr (ปี)',
+};
+
+// "missing: PE_Ratio; stale: NetProfit_Growth_QoQY Q1/26" → "ไม่มีค่า P/E · งบค้าง Q1/26 (Profit Gr)"
+// stale = the newest period the sources had is older than the one already due (SET deadline + 7 days),
+// so the pipeline refused to compute growth from it
 export function reasonTh(reason: string): string {
   if (/not in daily_prices/i.test(reason)) return 'ดึงราคาและงบการเงินไม่สำเร็จ';
-  const m = /^missing:\s*(.+)$/i.exec(reason.trim());
-  if (m) return `ไม่มีค่า ${m[1].split(/\s*,\s*/).map(f => (f === 'PE_Ratio' ? 'P/E' : f)).join(', ')}`;
-  return reason;
+  const parts = reason.trim().split(/\s*;\s*/).map(part => {
+    const m = /^(missing|stale):\s*(.+)$/i.exec(part);
+    if (!m) return part;
+    const items = m[2].split(/\s*,\s*/);
+    if (m[1].toLowerCase() === 'missing') return `ไม่มีค่า ${items.map(f => FIELD_TH[f] ?? f).join(', ')}`;
+    return items.map(it => {
+      const [field, period] = it.split(/\s+/);
+      return `งบค้าง ${period ?? ''} (${FIELD_TH[field] ?? field})`.replace('  ', ' ');
+    }).join(', ');
+  });
+  return parts.join(' · ');
 }
 
 // The "งบไม่ครบ N ตัว" button (was "รอข้อมูล N ตัว") used to be a plain hover-tooltip with no way to see WHICH
@@ -38,7 +56,7 @@ export default function IncompletePopover({ items }: { items: IncompleteItem[] }
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(o => !o)}
-        title="หุ้นที่ผ่านเงื่อนไขราคา/สภาพคล่องแล้ว แต่ยังไม่อยู่ในตาราง เพราะข้อมูลงบการเงินไม่ครบ (Yahoo/F45 ยังดึงไม่สำเร็จ) - คลิกดูรายชื่อ"
+        title="หุ้นที่ผ่านเงื่อนไขราคา/สภาพคล่องแล้ว แต่ยังไม่อยู่ในตาราง เพราะข้อมูลงบการเงินไม่ครบ (Yahoo/F45 ยังดึงไม่สำเร็จ หรือมีแต่งบไตรมาสเก่ากว่าที่ควรมี = งบค้าง) - คลิกดูรายชื่อ"
         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-amber-500/[0.08] text-amber-300/80 hover:bg-amber-500/15 hover:text-amber-200 transition-colors border border-amber-500/20 whitespace-nowrap"
         data-testid="lekkung-incomplete"
       >
