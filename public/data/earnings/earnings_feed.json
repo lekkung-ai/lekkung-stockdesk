@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T14:57:47.762716+07:00",
+  "generatedAt": "2026-10-26T15:16:45.239749+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -64,7 +64,7 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 7,
+      "count": 6,
       "top3": [
         {
           "ticker": "INGRS",
@@ -112,7 +112,11 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 3 (F45)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "CREDIT",
@@ -141,7 +145,7 @@
       "reason": "รวมรายได้จากการดำเนินงานสุทธิ 4,604.7 4,112.0 12.0 3,821.4 20.5 12,510.5 10,978.7 14.0 รวมค่าใช้จ่ายจากการดำเนินงานอื่น ๆ 1,823.7 1,745.8 4.5 1,614.4 13.0 5,236.2 4,672.9 12.1 ผลขาดทุนด้านเครดิตที่คาดว่าจะเกิดขึ้น 1,227.7",
       "reason_source": "mda_extract",
       "gap_pct": 7.14,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 8.1,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -172,7 +176,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 1.16,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -204,7 +208,7 @@
       "reason_source": "none",
       "gap_pct": 0.68,
       "drift_d1_pct": 3.77,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 3.42,
       "drift_d5_pct": null
     },
     {
@@ -235,7 +239,7 @@
       "reason_source": "none",
       "gap_pct": 0.85,
       "drift_d1_pct": 3.42,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 4.7,
       "drift_d5_pct": null
     },
     {
@@ -266,7 +270,7 @@
       "reason_source": "none",
       "gap_pct": 1.28,
       "drift_d1_pct": 2.56,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.92,
       "drift_d5_pct": null
     },
     {
@@ -297,7 +301,7 @@
       "reason_source": "none",
       "gap_pct": -0.27,
       "drift_d1_pct": 0.55,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.1,
       "drift_d5_pct": null
     },
     {
@@ -328,7 +332,7 @@
       "reason_source": "none",
       "gap_pct": -0.7,
       "drift_d1_pct": -2.11,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.11,
       "drift_d5_pct": null
     },
     {
@@ -484,7 +488,7 @@
       "gap_pct": -3.85,
       "drift_d1_pct": 6.41,
       "drift_d2_pct": 2.56,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.28
     },
     {
       "ticker": "TISCO",
@@ -826,37 +830,6 @@
       "drift_d1_pct": -6.6,
       "drift_d2_pct": -12.69,
       "drift_d5_pct": -10.15
-    },
-    {
-      "ticker": "PICO",
-      "sector": "Services",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-09-10T19:43:00+07:00",
-      "quarter": "ไตรมาส 3/2569",
-      "periodEnd": "31 กรกฎาคม 2569",
-      "netProfit": -5858000.0,
-      "netProfitPrior": 11967000.0,
-      "netProfitYoY": -148.9512826940754,
-      "netProfitPriorQ": -7662670.0,
-      "netProfitQoQ": 23.55145138704916,
-      "profitAcceleration": "stable",
-      "eps": -0.027,
-      "epsPrior": 0.056,
-      "epsYoY": -148.21428571428572,
-      "auditorOpinion": "ไม่มีเงื่อนไข",
-      "isCorrection": false,
-      "bucket": "loss_worse",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106762901&symbol=PICO",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17889973989691&symbol=PICO",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106763301&symbol=PICO",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "รายได้จากการให้บริการสำหรับไตรมาสสิ้นสุดวันที่ 31 กรกฎาคม 2569 จำนวน 175.5 ล้านบาท ลดลง 123.1 ล้าน บาท หรือ ร้อยละ 41 โดยรวมเป็นผลมาจากรายได้จาก ธุรกิจกิจกรรมทางการตลาด ลดลง 113.8 ล้านบาท เป็น 81.2 ล้าน บาท",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
