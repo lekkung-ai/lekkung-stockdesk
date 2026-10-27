@@ -35,7 +35,7 @@ import { parseAssetType, matchesAssetType, countByAssetType, DEFAULT_ASSET_TYPE,
 import React from 'react';
 
 // IPO = ข้อมูลยังไม่พอคำนวณ stage (หุ้นจดทะเบียนใหม่) · ท้ายสุด
-// History data (~1.8 MB raw) is only needed by the "ย้อนหลัง" tab: it lives in
+// Stage-change history (data/scans/*_transitions.json) is only needed by the "ย้อนหลัง" tab: it lives in
 // its own chunk, fetched on demand (and warmed up when the pointer reaches the toggle).
 const MarketStageHistoryView = dynamic(() => import('@/components/MarketStageHistoryView'), { loading: () => <ScanHistoryLoading /> });
 const preloadHistoryView = () => { void import('@/components/MarketStageHistoryView'); };

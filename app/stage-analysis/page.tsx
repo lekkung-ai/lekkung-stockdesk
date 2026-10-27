@@ -32,7 +32,7 @@ import { compareNullLast } from '@/lib/sepaTier';
 import NewListingBadge from '@/components/NewListingBadge';
 import React from 'react';
 
-// History data (~1.8 MB raw) is only needed by the "ย้อนหลัง" tab: it lives in
+// Stage-change history (data/scans/*_transitions.json) is only needed by the "ย้อนหลัง" tab: it lives in
 // its own chunk, fetched on demand (and warmed up when the pointer reaches the toggle).
 const StageAnalysisHistoryView = dynamic(() => import('@/components/StageAnalysisHistoryView'), { loading: () => <ScanHistoryLoading /> });
 const preloadHistoryView = () => { void import('@/components/StageAnalysisHistoryView'); };

@@ -4,10 +4,10 @@
 //
 // Each scan's data lives in its own module under lib/scanHistoryData/ and is
 // imported only by the page that uses it. Do NOT re-introduce a lookup table
-// of all scans here: it would pull every history file (4 MB raw, mostly the
-// two ~1.8 MB stage ones) into every page that imports it. To extend the
-// /history view to another scan, add a module there and pass its data to
-// <ScanHistoryView data={...} />.
+// of all scans here: it would pull every history file into every page that
+// imports it. To extend the /history view to another scan, add a module there
+// and pass its data to <ScanHistoryView data={...} />. (/market-stage and
+// /stage-analysis use stage-change runs instead, see lib/stageTransitions.ts.)
 
 export interface ScanHistoryTicker {
   ticker: string;
