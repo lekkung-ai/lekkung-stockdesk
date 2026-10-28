@@ -1,8 +1,799 @@
 {
-  "generated_at": "2026-10-27T18:10:09+07:00",
+  "generated_at": "2026-10-28T16:03:35+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "31e3f926-bf59-43e4-85c2-5b5bbc48ff99",
+      "title": "Neutral by KSS | VGI PUBLIC COMPANY LIMITED (VGI) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126817-neutral-kss-vgi",
+      "tickers": [
+        "VGI"
+      ],
+      "symbolId": "17056",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "VGI PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T15:01:48+07:00",
+      "ts": 1793174508000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_VGI_QC-(E).pdf"
+    },
+    {
+      "uuid": "7475bb88-6060-4252-9ce9-6de3aa4fbfd8",
+      "title": "Neutral by KSS | HOME PRODUCT CENTER PUBLIC COMPANY LIMITED (HMPRO) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/dr/126814-neutral-kss-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "HOME PRODUCT CENTER PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T13:43:46+07:00",
+      "ts": 1793169826000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261027_HMPRO_ER-(E).pdf"
+    },
+    {
+      "uuid": "a922a8ab-9e93-470a-bf4b-b631cd4a34dc",
+      "title": "BBB+ by TRIS | SC ASSET CORPORATION PUBLIC COMPANY LIMITED (SC) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126812-bbb-tris-sc",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "TRIS",
+      "rating": "BBB+",
+      "companyName": "SC ASSET CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T13:41:05+07:00",
+      "ts": 1793169665000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/SC28Oct26-e.pdf"
+    },
+    {
+      "uuid": "6be53b55-5064-4a2e-a472-e002d7780242",
+      "title": "A- by TRIS | ROJANA INDUSTRIAL PARK PUBLIC COMPANY LIMITED (ROJNA) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126811-a--tris-rojna",
+      "tickers": [
+        "ROJNA"
+      ],
+      "symbolId": "1410",
+      "broker": "TRIS",
+      "rating": "A-",
+      "companyName": "ROJANA INDUSTRIAL PARK PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T13:39:23+07:00",
+      "ts": 1793169563000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/ROJNA28Oct26-e.pdf"
+    },
+    {
+      "uuid": "6c20a81d-9662-41c6-bbfc-5e979fad26ac",
+      "title": "BBB+ by TRIS | THAIFOODS GROUP PUBLIC COMPANY LIMITED (TFG) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126810-bbb-tris-tfg",
+      "tickers": [
+        "TFG"
+      ],
+      "symbolId": "22006",
+      "broker": "TRIS",
+      "rating": "BBB+",
+      "companyName": "THAIFOODS GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T13:36:29+07:00",
+      "ts": 1793169389000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/TFG28Oct26-e.pdf"
+    },
+    {
+      "uuid": "e2d4f08d-6678-48c1-86c5-ca7f5fcfe83b",
+      "title": "BUY โดย KSS | บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน) (AMATA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126809-buy-kss-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน)",
+      "date": "2026-10-28T13:34:35+07:00",
+      "ts": 1793169275000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_AMATA_EP.pdf"
+    },
+    {
+      "uuid": "3597e67e-1a80-4558-943c-823ff8bc9c43",
+      "title": "BUY โดย KSS | บริษัท ดิ เอราวัณ กรุ๊ป จำกัด (มหาชน) (ERW) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126808-buy-kss-erw",
+      "tickers": [
+        "ERW"
+      ],
+      "symbolId": "324",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ดิ เอราวัณ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-10-28T13:29:38+07:00",
+      "ts": 1793168978000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_ERW_EP.pdf"
+    },
+    {
+      "uuid": "af520c03-f94e-474b-b108-daaa31b837a3",
+      "title": "BUY โดย KSS | บริษัท โมชิ โมชิ รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (MOSHI) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126807-buy-kss-moshi",
+      "tickers": [
+        "MOSHI"
+      ],
+      "symbolId": "114628",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท โมชิ โมชิ รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-10-28T13:27:35+07:00",
+      "ts": 1793168855000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_MOSHI_QC.pdf"
+    },
+    {
+      "uuid": "d66d5fe7-c5c1-415d-b5c4-7279807a5bbb",
+      "title": "BUY by KSS | SIAM GLOBAL HOUSE PUBLIC COMPANY LIMITED (GLOBAL) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126806-buy-kss-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "SIAM GLOBAL HOUSE PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T13:21:39+07:00",
+      "ts": 1793168499000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_GLOBAL_ER-(E).pdf"
+    },
+    {
+      "uuid": "ffd53dab-a92b-4fb8-9e78-c2050926f800",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126800-lhs-trading-ideas",
+      "tickers": [
+        "ICHI",
+        "OR"
+      ],
+      "symbolId": "20792,99543",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-10-28T13:13:42+07:00",
+      "ts": 1793168022000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Trading-Ideas_20261028.pdf"
+    },
+    {
+      "uuid": "32d2b2b0-2ced-46b9-9297-5fcc7a280a2f",
+      "title": "BUY โดย ASL | ธนาคารทหารไทยธนชาต จำกัด (มหาชน) (TTB) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126798-buy-asl-ttb",
+      "tickers": [
+        "TTB"
+      ],
+      "symbolId": "181",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+      "date": "2026-10-28T13:11:25+07:00",
+      "ts": 1793167885000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Company-Report-3Q26-TTB-28102026.pdf"
+    },
+    {
+      "uuid": "5f6956b2-f0b0-4809-9951-c2f85e1bc39a",
+      "title": "TRADING โดย YUANTA | บริษัท ซีเค พาวเวอร์ จำกัด (มหาชน) (CKP) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126794-trading-yuanta-ckp",
+      "tickers": [
+        "CKP"
+      ],
+      "symbolId": "18740",
+      "broker": "YUANTA",
+      "rating": "TRADING",
+      "companyName": "บริษัท ซีเค พาวเวอร์ จำกัด (มหาชน)",
+      "date": "2026-10-28T11:42:23+07:00",
+      "ts": 1793162543000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/CKP_Update_3Q26_281026-28044259.pdf"
+    },
+    {
+      "uuid": "2e573ec4-6c52-4333-b975-91561adbbbd7",
+      "title": "TRADING โดย YUANTA | บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (DELTA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126793-trading-yuanta-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "YUANTA",
+      "rating": "TRADING",
+      "companyName": "บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-10-28T11:40:42+07:00",
+      "ts": 1793162442000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/DELTA_Company-Update_281026-28044140.pdf"
+    },
+    {
+      "uuid": "d0f21c8e-9056-43aa-8061-d4989d81833b",
+      "title": "BUY โดย YUANTA | บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน) (GLOBAL) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126792-buy-yuanta-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "YUANTA",
+      "rating": "BUY",
+      "companyName": "บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน)",
+      "date": "2026-10-28T11:38:30+07:00",
+      "ts": 1793162310000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/GLOBAL_Earnings_Result_281026-28044009.pdf"
+    },
+    {
+      "uuid": "edc490fd-ca4a-4ed0-8d0c-6c84bcc5dbfa",
+      "title": "BUY โดย YUANTA | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126791-buy-yuanta-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "YUANTA",
+      "rating": "BUY",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-10-28T11:29:09+07:00",
+      "ts": 1793161749000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/HMPRO_Earning-Result_271026-28043719.pdf"
+    },
+    {
+      "uuid": "2309e3bb-6244-43f6-97bf-e7acd3b495ba",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน) (AMATA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126790-buy-maintain-yuanta-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน)",
+      "date": "2026-10-28T11:28:21+07:00",
+      "ts": 1793161701000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/AMATA_Company_Update_281026-28042933.pdf"
+    },
+    {
+      "uuid": "488a7ec8-ef2d-437e-9fe0-602629cac747",
+      "title": "BUY โดย YUANTA | บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน) (NCAP) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126789-buy-yuanta-ncap",
+      "tickers": [
+        "NCAP"
+      ],
+      "symbolId": "100051",
+      "broker": "YUANTA",
+      "rating": "BUY",
+      "companyName": "บริษัท เน็คซ์ แคปปิตอล จำกัด (มหาชน)",
+      "date": "2026-10-28T11:27:58+07:00",
+      "ts": 1793161678000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/NCAP_Company_Update_28102026.pdf"
+    },
+    {
+      "uuid": "1cdd77a2-0f0d-4208-8f8d-70419c09653c",
+      "title": "BUY โดย YUANTA | บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน) (SCGP) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126788-buy-yuanta-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "YUANTA",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน)",
+      "date": "2026-10-28T11:26:47+07:00",
+      "ts": 1793161607000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/SCGP_3Q26_Result_281026.pdf"
+    },
+    {
+      "uuid": "962556cf-c700-4fde-a25b-031fecd41abe",
+      "title": "BUY โดย YUANTA | บริษัท ไทยสแตนเลย์การไฟฟ้า จำกัด (มหาชน) (STANLY) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126786-buy-yuanta-stanly",
+      "tickers": [
+        "STANLY"
+      ],
+      "symbolId": "655",
+      "broker": "YUANTA",
+      "rating": "BUY",
+      "companyName": "บริษัท ไทยสแตนเลย์การไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-10-28T11:25:03+07:00",
+      "ts": 1793161503000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/STANLY_2Q26_Earning-Result_280726.pdf"
+    },
+    {
+      "uuid": "feb0a7c2-f12a-4e83-8028-6db5a96d5da0",
+      "title": "BUY โดย YUANTA | บริษัท ไทยฟู้ดส์ กรุ๊ป จำกัด (มหาชน) (TFG) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126784-buy-yuanta-tfg",
+      "tickers": [
+        "TFG"
+      ],
+      "symbolId": "22006",
+      "broker": "YUANTA",
+      "rating": "BUY",
+      "companyName": "บริษัท ไทยฟู้ดส์ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-10-28T11:22:23+07:00",
+      "ts": 1793161343000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/TFG_Update_281026.pdf"
+    },
+    {
+      "uuid": "0d352eea-a209-428a-8a9a-671f00cbf952",
+      "title": "Neutral(Maintained) โดย KGI | บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน) (SCGP) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126781-neutralmaintained-kgi-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน)",
+      "date": "2026-10-28T11:19:15+07:00",
+      "ts": 1793161155000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_SCGP_2026_10_28_th.pdf"
+    },
+    {
+      "uuid": "4024987c-5f86-414d-9aea-8e5077cefe9f",
+      "title": "Neutral(Maintained) by KGI | SCG PACKAGING PUBLIC COMPANY LIMITED (SCGP) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126780-neutralmaintained-kgi-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "SCG PACKAGING PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T11:16:34+07:00",
+      "ts": 1793160994000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_SCGP_2026_10_28_e_th.pdf"
+    },
+    {
+      "uuid": "81636ef3-2e00-4e9f-9d08-59c274214407",
+      "title": "Neutral(Maintained) โดย KGI | บริษัท แพลน บี มีเดีย จำกัด (มหาชน) (PLANB) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126779-neutralmaintained-kgi-planb",
+      "tickers": [
+        "PLANB",
+        "PLANET"
+      ],
+      "symbolId": "26086,20852",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "บริษัท แพลน บี มีเดีย จำกัด (มหาชน)",
+      "date": "2026-10-28T11:15:14+07:00",
+      "ts": 1793160914000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_PLANB_2026_10_28_th.pdf"
+    },
+    {
+      "uuid": "f396dfe6-0fa6-4a46-a643-631ac89c565c",
+      "title": "Neutral(Maintained) by KGI | PLAN B MEDIA PUBLIC COMPANY LIMITED (PLANB) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126778-neutralmaintained-kgi-planb",
+      "tickers": [
+        "PLANB"
+      ],
+      "symbolId": "26086",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "PLAN B MEDIA PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T11:14:13+07:00",
+      "ts": 1793160853000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_PLANB_2026_10_28_th.pdf"
+    },
+    {
+      "uuid": "6431a076-a66e-4cc9-8e48-54b296970c4e",
+      "title": "Outperform(Maintained) โดย KGI | บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน) (GLOBAL) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126777-outperformmaintained-kgi-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน)",
+      "date": "2026-10-28T11:12:58+07:00",
+      "ts": 1793160778000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_GLOBAL_2026_10_28_th_THAI.pdf"
+    },
+    {
+      "uuid": "f50e8fb3-22b6-4b5a-8b5a-3c2f64a75750",
+      "title": "Outperform(Maintained) by KGI | SIAM GLOBAL HOUSE PUBLIC COMPANY LIMITED (GLOBAL) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126776-outperformmaintained-kgi-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "SIAM GLOBAL HOUSE PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T11:11:45+07:00",
+      "ts": 1793160705000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_GLOBAL_2026_10_28_e_th.pdf"
+    },
+    {
+      "uuid": "69ccaada-1434-4765-8db5-39f4b8fe7ffd",
+      "title": "Outperform(Maintained) by KGI | BUMRUNGRAD HOSPITAL PUBLIC COMPANY LIMITED (BH) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126775-outperformmaintained-kgi-bh",
+      "tickers": [
+        "BH"
+      ],
+      "symbolId": "478",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "BUMRUNGRAD HOSPITAL PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T11:10:08+07:00",
+      "ts": 1793160608000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_BH_2026_10_28_e_th.pdf"
+    },
+    {
+      "uuid": "509e045e-8c7d-4444-812e-e26c7edb5ec3",
+      "title": "Outperform(Maintained) by KGI | B.GRIMM POWER PUBLIC COMPANY LIMITED (BGRIM) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126774-outperformmaintained-kgi-bgrim",
+      "tickers": [
+        "BGRIM"
+      ],
+      "symbolId": "84051",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "B.GRIMM POWER PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T11:08:48+07:00",
+      "ts": 1793160528000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Daily-Story_BGRIM_2026_10_28_e_th.pdf"
+    },
+    {
+      "uuid": "14967e9a-6d46-4b3c-a13e-80cb4c06aac4",
+      "title": "Outperform(Maintained) by KGI | DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED (DELTA) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126773-outperformmaintained-kgi-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T11:07:27+07:00",
+      "ts": 1793160447000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Alert_DELTA_2026_10_28_e_th.pdf"
+    },
+    {
+      "uuid": "c0320774-8f27-4f65-bc9f-8586ff8714df",
+      "title": "Earning Result โดย SBITO | บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน) (SCGP) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126771-earning-result-sbito-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "SBITO",
+      "rating": "Earning Result",
+      "companyName": "บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน)",
+      "date": "2026-10-28T10:54:40+07:00",
+      "ts": 1793159680000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Earning-Result-281069--SCGP.pdf"
+    },
+    {
+      "uuid": "2af39859-2ace-4c51-9e8b-e5595e7690af",
+      "title": "Outperform(Maintained) โดย KGI | บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (DELTA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126772-outperformmaintained-kgi-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-10-28T10:45:54+07:00",
+      "ts": 1793159154000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Alert_DELTA_2026_10_28_th_THAI.pdf"
+    },
+    {
+      "uuid": "5a20c0bf-28ac-4bfa-9b9d-1f0579b32e29",
+      "title": "BUY โดย LHS | บริษัท ไทยฟู้ดส์ กรุ๊ป จำกัด (มหาชน) (TFG) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126762-buy-lhs-tfg",
+      "tickers": [
+        "TFG"
+      ],
+      "symbolId": "22006",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ไทยฟู้ดส์ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-10-28T10:43:11+07:00",
+      "ts": 1793158991000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/TFG_20261027.pdf"
+    },
+    {
+      "uuid": "a540f30b-2135-4297-963a-328237298952",
+      "title": "BUY โดย LHS | บริษัท อิชิตัน กรุ๊ป จำกัด (มหาชน) (ICHI) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126756-buy--lhs-------ichi---28--2569--buy-lhs------ichi-set---th-buy-lhs-ichi",
+      "tickers": [
+        "ICHI"
+      ],
+      "symbolId": "20792",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท อิชิตัน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-10-28T10:39:47+07:00",
+      "ts": 1793158787000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/ICHI_20261027_PV-3Q69.pdf"
+    },
+    {
+      "uuid": "ee3b779e-af79-4338-b017-01bb65f623df",
+      "title": "HOLD โดย LHS | บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน) (AMATA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126755-hold-lhs-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "LHS",
+      "rating": "HOLD",
+      "companyName": "บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน)",
+      "date": "2026-10-28T10:38:33+07:00",
+      "ts": 1793158713000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/AMATA_20261028.pdf"
+    },
+    {
+      "uuid": "b399eabc-82f3-415d-a295-7face854d138",
+      "title": "BUY โดย LHS | บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน) (SCGP) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126752-buy-lhs-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน)",
+      "date": "2026-10-28T10:37:23+07:00",
+      "ts": 1793158643000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/SCGP_20261028.pdf"
+    },
+    {
+      "uuid": "aa9f56cd-8d66-449c-a518-607b83973ae7",
+      "title": "BUY โดย LHS | บริษัท บี.กริม เพาเวอร์ จำกัด (มหาชน) (BGRIM) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126751-buy-lhs-bgrim",
+      "tickers": [
+        "BGRIM"
+      ],
+      "symbolId": "84051",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท บี.กริม เพาเวอร์ จำกัด (มหาชน)",
+      "date": "2026-10-28T10:35:36+07:00",
+      "ts": 1793158536000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/BGRIM_20261028.pdf"
+    },
+    {
+      "uuid": "1a264e64-2862-4d87-ba28-3aa3db88479d",
+      "title": "BUY โดย KSS | บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน) (GLOBAL) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126759-buy-kss-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน)",
+      "date": "2026-10-28T10:34:11+07:00",
+      "ts": 1793158451000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_GLOBAL_ER.pdf"
+    },
+    {
+      "uuid": "c7babf9d-9f0f-43a8-89c1-f5cd2363f551",
+      "title": "BUY โดย KSS | บริษัท กัลฟ์ ดีเวลลอปเมนท์ จำกัด (มหาชน) (GULF) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126746-buy-kss-gulf",
+      "tickers": [
+        "GULF"
+      ],
+      "symbolId": "126614",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท กัลฟ์ ดีเวลลอปเมนท์ จำกัด (มหาชน)",
+      "date": "2026-10-28T10:32:53+07:00",
+      "ts": 1793158373000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_GULF_EP.pdf"
+    },
+    {
+      "uuid": "3b62753c-3aaa-45f4-bc7f-ea45254d52e4",
+      "title": "BUY โดย ASL | บริษัท บัตรกรุงไทย จำกัด (มหาชน) (KTC) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126745-buy-asl-ktc",
+      "tickers": [
+        "KTC"
+      ],
+      "symbolId": "3182",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท บัตรกรุงไทย จำกัด (มหาชน)",
+      "date": "2026-10-28T10:31:29+07:00",
+      "ts": 1793158289000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/Earnings-Result-3Q26-KTC-28102026.pdf"
+    },
+    {
+      "uuid": "b1a01563-99ba-4e0f-aebc-1b9f85879e45",
+      "title": "BUY โดย KSS | บริษัท บี.กริม เพาเวอร์ จำกัด (มหาชน) (BGRIM) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126744-buy-kss-bgrim",
+      "tickers": [
+        "BGRIM"
+      ],
+      "symbolId": "84051",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท บี.กริม เพาเวอร์ จำกัด (มหาชน)",
+      "date": "2026-10-28T10:31:10+07:00",
+      "ts": 1793158270000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_BGRIM_EP.pdf"
+    },
+    {
+      "uuid": "6849b0fc-748a-44df-84f6-3497bf498c45",
+      "title": "Neutral โดย KSS | บริษัท วีจีไอ จำกัด (มหาชน) (VGI) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126742-neutral--kss-vgi",
+      "tickers": [
+        "VGI"
+      ],
+      "symbolId": "17056",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท วีจีไอ จำกัด (มหาชน)",
+      "date": "2026-10-28T10:29:15+07:00",
+      "ts": 1793158155000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_VGI_QC.pdf"
+    },
+    {
+      "uuid": "a723434b-ac61-4858-95c2-5b9440e86252",
+      "title": "BUY โดย KSS | บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน) (SCGP) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126734-buy-kss-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน)",
+      "date": "2026-10-28T10:19:08+07:00",
+      "ts": 1793157548000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028-SCGP_ER.pdf"
+    },
+    {
+      "uuid": "587789d1-6ce7-44ba-9a5c-aac3dd8d279a",
+      "title": "BUY โดย PST | บริษัท ไทยฟู้ดส์ กรุ๊ป จำกัด (มหาชน) (TFG) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126730-buy-pst-tfg",
+      "tickers": [
+        "TFG"
+      ],
+      "symbolId": "22006",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท ไทยฟู้ดส์ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-10-28T10:14:38+07:00",
+      "ts": 1793157278000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/TFG102826_t.pdf"
+    },
+    {
+      "uuid": "df0941d5-11a3-4eb4-a7a9-4be68bbec70a",
+      "title": "BUY โดย KSS | บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (DELTA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126729-buy-kss-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-10-28T10:14:09+07:00",
+      "ts": 1793157249000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/ER_DELTA_261028.pdf"
+    },
+    {
+      "uuid": "c9bb3eba-3bf9-46a9-b24e-8140021c8f6c",
+      "title": "BUY โดย PST | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126726-buy-pst-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-10-28T10:12:01+07:00",
+      "ts": 1793157121000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/HMPRO102826_t.pdf"
+    },
+    {
+      "uuid": "b349fd50-c7f2-4676-8b18-555a68b5a760",
+      "title": "BUY โดย PST | บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน) (GLOBAL) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126723-buy-pst-global",
+      "tickers": [
+        "GLOBAL"
+      ],
+      "symbolId": "10459",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท สยามโกลบอลเฮ้าส์ จำกัด (มหาชน)",
+      "date": "2026-10-28T10:10:25+07:00",
+      "ts": 1793157025000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/GLOBAL102826_t.pdf"
+    },
+    {
+      "uuid": "abd5c5a3-140f-4e4d-b06b-8289f480af40",
+      "title": "BUY by KSS | DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED (delta) | Research as of 28 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126720-buy-kss-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-10-28T10:07:18+07:00",
+      "ts": 1793156838000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/DELTA_261028_ER.pdf"
+    },
+    {
+      "uuid": "758c96c2-10d2-40ee-bcbd-13a4b56fddb3",
+      "title": "BUY โดย PST | บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (DELTA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126719-buy-pst-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-10-28T10:05:46+07:00",
+      "ts": 1793156746000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/DELTA102826_t.pdf"
+    },
+    {
+      "uuid": "526b1595-7658-457e-8115-dd76c5eb460d",
+      "title": "BUY โดย PST | บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน) (AMATA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126717-buy-pst-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน)",
+      "date": "2026-10-28T10:03:44+07:00",
+      "ts": 1793156624000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/AMATA102826_t.pdf"
+    },
+    {
+      "uuid": "6695fc9a-d83e-4850-b631-789555813552",
+      "title": "BUY โดย PI | บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน) (AMATA) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126706-buy-pi-amata",
+      "tickers": [
+        "AMATA"
+      ],
+      "symbolId": "1609",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท อมตะ คอร์ปอเรชัน จำกัด (มหาชน)",
+      "date": "2026-10-28T09:56:09+07:00",
+      "ts": 1793156169000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/AMATA-261028.pdf"
+    },
+    {
+      "uuid": "395c732d-27df-4e19-8c89-d04b11e3c32e",
+      "title": "HOLD โดย MST | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126704-hold-mst-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "MST",
+      "rating": "HOLD",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-10-28T09:52:07+07:00",
+      "ts": 1793155927000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261028_SPRC_DG-to-HOLD_press.pdf"
+    },
+    {
+      "uuid": "2a8581a5-2184-4de2-ab19-ad51101114ed",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126703-trinity-quick-win---moring-stock",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-10-28T09:51:39+07:00",
+      "ts": 1793155899000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/MORNING-STOCKs28OCT26-;IVL;GLOBAL.pdf"
+    },
+    {
+      "uuid": "f159fa65-97c7-45f9-ae6f-fb6610e7437f",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 28 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/126702-trinity-block-trade--moring-stock",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-10-28T09:48:06+07:00",
+      "ts": 1793155686000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/BlockTrade-Morning-28OCT26;whaup,global.pdf"
+    },
     {
       "uuid": "a5c9e053-59c7-4cd8-945b-b8b32b3e1af0",
       "title": "AAA โดย TRIS | บริษัท ไนท คลับ แคปปิตอล โฮลดิ้ง จำกัด (มหาชน) (KCC) | บทวิเคราะห์ประจำวันที่ 27 ตุลาคม 2569",
