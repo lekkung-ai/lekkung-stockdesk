@@ -274,8 +274,9 @@ dialog::backdrop{background:rgba(10,16,22,.55)}
 .tile[aria-pressed="true"]{background:var(--sel);border-color:var(--sel);color:var(--sel-ink)}
 .tile[aria-pressed="true"] .th,.tile[aria-pressed="true"] .tc{color:var(--sel-ink);opacity:.75}
 @media (max-width:560px){
-  .tabs{position:static;display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;gap:4px;margin:0 0 16px;padding:0;border:0;background:transparent}
-  .tabs button{padding:8px 4px;font-size:.86rem;background:var(--surface);border-radius:10px}
+  .tabs{position:static;display:grid;grid-template-columns:repeat(12,1fr);overflow:visible;gap:4px;margin:0 0 16px;padding:0;border:0;background:transparent}
+  .tabs button{grid-column:span 3;padding:9px 2px;font-size:.84rem;line-height:1.25;background:var(--surface);border-radius:10px;white-space:normal}
+  .tabs button:nth-child(n+5){grid-column:span 4}
 }
 
 .panel{max-width:820px;margin:0 auto}
@@ -382,6 +383,12 @@ h1{font-size:1.3rem}
 
 .kbody .ksub-hit{scroll-margin-top:90px;border-radius:8px;animation:subhit 2.4s ease-out}
 @keyframes subhit{0%,40%{background:var(--go-bg);box-shadow:0 0 0 6px var(--go-bg)}100%{background:transparent;box-shadow:0 0 0 6px transparent}}
+
+.practice-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}
+.practice-bar .note-s{margin:0}
+.practice-bar .btn{text-decoration:none;color:var(--ink);font-size:.85rem;white-space:nowrap}
+#practice-frame{display:block;width:100%;min-height:900px;border:0;background:transparent}
+#p-practice{max-width:none}
 /* embed mode */
 html.embed body{background:var(--bg)}
 html.embed header.top{display:none}
@@ -411,6 +418,7 @@ html.embed .wrap{padding-top:8px}
     <button role="tab" type="button" data-tab="mind">แก้ใจ</button>
     <button role="tab" type="button" data-tab="size">ไซส์และกฎขาย</button>
     <button role="tab" type="button" data-tab="know">ความรู้</button>
+    <button role="tab" type="button" data-tab="practice">แบบฝึกหัด</button>
   </nav>
   <div class="panel" id="p-sit">
   <div class="sit-ctl">
@@ -440,6 +448,12 @@ html.embed .wrap{padding-top:8px}
   <div class="panel" id="p-mind" hidden></div>
   <div class="panel" id="p-size" hidden></div>
   <div class="panel" id="p-know" hidden></div>
+  <div class="panel" id="p-practice" hidden>
+    <section class="practice" aria-label="แบบฝึกหัด">
+      <div class="practice-bar"><p class="note-s">แบบฝึกหัดวิถี Survivor สุ่มกราฟให้ฝึกตัดสินใจ</p><a class="btn" id="practice-open" href="survivor-practice.html" target="_blank" rel="noopener">เปิดเต็มจอ</a></div>
+      <iframe id="practice-frame" title="แบบฝึกหัดวิถี Survivor" loading="lazy"></iframe>
+    </section>
+  </div>
   <div class="backbar" id="backbar" hidden><button type="button" id="backbtn" class="btn">กลับไป <span></span></button></div>
 
   <footer class="note">ข้อมูลเพื่อการศึกษาจากตำราเทรดวิถี Survivor v47 (คลาส Beer Vanon 2022–2026) ไม่ใช่คำแนะนำซื้อขายหุ้นตัวใดตัวหนึ่ง ภาพในการ์ดเป็นภาพจำลองที่วาดจากคำบรรยายในตำรา ไม่ใช่กราฟหุ้นจริง การ์ดที่มีป้าย “จากเนื้อตำรา” ดึงจากเนื้อหาในหัวข้อนั้นโดยตรง ไม่ได้อยู่ในตารางสถานการณ์เดิม</footer>
@@ -846,7 +860,7 @@ function openSec(k,sub){
 }
 function showBack(){const bb=document.getElementById('backbar');
   if(backTo&&tab==='know'){bb.hidden=false;bb.querySelector('span').textContent=TABNAME[backTo.tab];}else bb.hidden=true;}
-const TABNAME={sit:'สถานการณ์',now:'ตอนนี้กี่โมง',check:'เช็กก่อนเคาะ',mind:'แก้ใจ',size:'ไซส์และกฎขาย'};
+const TABNAME={practice:'แบบฝึกหัด',sit:'สถานการณ์',now:'ตอนนี้กี่โมง',check:'เช็กก่อนเคาะ',mind:'แก้ใจ',size:'ไซส์และกฎขาย'};
 
 // daily principle
 const C=DATA.core; const d=new Date(); const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);
@@ -861,7 +875,7 @@ let tab='sit'; try{tab=localStorage.getItem('svd-tab')||'sit'}catch(e){}
 function setTab(k,keepBack){if(!keepBack)backTo=null;tab=k;try{localStorage.setItem('svd-tab',k)}catch(e){}
   document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===k));
   document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!=='p-'+k);
-  ({now:renderNow,check:renderCheck,mind:renderMind,size:renderSize,know:renderKnow})[k]?.();showBack();}
+  ({now:renderNow,check:renderCheck,mind:renderMind,size:renderSize,know:renderKnow,practice:loadPractice})[k]?.();showBack();}
 const qaLink=n=>`<button type="button" class="qalink" data-sec="Q${n}"><b>ข้อ ${n}</b> ${esc(DATA.qa_titles[n]||'')}</button>`;
 const refBtns=a=>`<div class="refrow">${a.map(s=>`<button class="ref" type="button" data-sec="${esc(s)}">ตำรา ${esc(s)}</button>`).join('')}</div>`;
 
@@ -971,6 +985,27 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 });
 document.addEventListener('change',e=>{if(e.target.dataset.ck){ckState[e.target.dataset.ck]=e.target.checked;updCheck();}});
 document.addEventListener('input',e=>{if(e.target.dataset.rr){rr[e.target.dataset.rr]=e.target.value.replace(/,/g,'');updCheck();}});
+
+
+// ---------- practice (iframe) ----------
+const PRACTICE_URL='survivor-practice.html';
+function pageTheme(){const a=document.documentElement.getAttribute('data-theme');
+  if(a==='dark'||a==='light') return a;
+  return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+function loadPractice(){const f=document.getElementById('practice-frame'); if(!f) return;
+  const th=pageTheme();
+  if(f.dataset.theme!==th){f.dataset.theme=th; f.src=PRACTICE_URL+'?embed=1&theme='+th;}
+  const o=document.getElementById('practice-open'); if(o) o.href=PRACTICE_URL+'?theme='+th;}
+// ความสูง iframe ตามเนื้อหา + เลื่อนกลับขึ้นบนเมื่อขึ้นข้อใหม่ (ตาม survivor-tab-snippet.html)
+window.addEventListener('message',function(e){const f=document.getElementById('practice-frame');
+  if(!f||e.source!==f.contentWindow||!e.data) return;
+  if(e.data.type==='survivor-practice-height') f.style.height=Math.max(600,e.data.h+8)+'px';
+  if(e.data.type==='survivor-practice-top'){const top=f.getBoundingClientRect().top; if(top<0) window.scrollBy({top:top-12,behavior:'smooth'});}
+});
+function practiceThemeChanged(){const f=document.getElementById('practice-frame');
+  if(f&&f.dataset.theme&&f.dataset.theme!==pageTheme()) loadPractice();}
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',practiceThemeChanged);}catch(e){}
+new MutationObserver(practiceThemeChanged).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
 showM(); render(); setTab(tab);
 </script>
