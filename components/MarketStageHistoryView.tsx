@@ -6,8 +6,9 @@ import { marketStageTransitions } from '@/lib/scanHistoryData/marketStage';
 import type { StageDef } from '@/lib/stageTransitions';
 
 // Best -> worst (confirmed by the user 2026-10-27). Colors = stageCls on the "today" table.
-const STAGES: StageDef[] = [
-  { name: 'S.Bull', rank: 7, color: '#1b5e20' },
+const STAGES: StageDef[] = ([
+  // badge keeps the page's dark green; the strip uses a bright green so it doesn't vanish on the dark background
+  { name: 'S.Bull', rank: 7, color: '#1b5e20', stripColor: '#00e676' },
   { name: 'Bull', rank: 6, color: '#4caf50' },
   { name: 'Accumulation', rank: 5, color: '#00bcd4' },
   { name: 'Recovery', rank: 4, color: '#9e9e9e' },
@@ -16,9 +17,9 @@ const STAGES: StageDef[] = [
   { name: 'Bear', rank: 1, color: '#ef5350' },
   { name: 'UNKNOWN', rank: null, color: '#424242' },
   { name: 'IPO', rank: null, color: 'rgba(255,255,255,0.14)' },
-].map(s => ({ ...s, badgeCls: stageCls(s.name) }));
+] as Omit<StageDef, 'badgeCls'>[]).map(s => ({ ...s, badgeCls: stageCls(s.name) }));
 
 // Loaded on demand (next/dynamic in app/market-stage/page.tsx): only the "ย้อนหลัง" tab needs it.
 export default function MarketStageHistoryView() {
-  return <StageTransitionView data={marketStageTransitions} stages={STAGES} />;
+  return <StageTransitionView data={marketStageTransitions} stages={STAGES} swapPair={['S.Bull', 'Bull']} />;
 }

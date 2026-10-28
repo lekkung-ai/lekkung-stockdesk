@@ -25,6 +25,8 @@ export interface StageDef {
   rank: number | null;
   /** Fill for the daily strip / legend swatch. */
   color: string;
+  /** Strip / legend fill when `color` (the page's badge colour) doesn't stand out on the dark background. */
+  stripColor?: string;
   /** Classes for the stage badge (same look as the page's "today" table). */
   badgeCls: string;
 }

@@ -45,13 +45,23 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
   );
 }
 
-export default function StageTransitionView({ data, stages }: { data: StageTransitionData | null; stages: StageDef[] }) {
+export default function StageTransitionView({
+  data,
+  stages,
+  swapPair,
+}: {
+  data: StageTransitionData | null;
+  stages: StageDef[];
+  /** Two neighbouring stages that flip back and forth a lot: adds a "hide swaps" toggle (on by default) that drops A↔B changes from the table and the first two cards. */
+  swapPair?: [string, string];
+}) {
   const [within, setWithin] = useState(5);
   const [dir, setDir] = useState<Dir>('all');
   const [stageNow, setStageNow] = useState<string | null>(null);
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'age', dir: 'asc' });
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState<string | null>(null);
+  const [hideSwaps, setHideSwaps] = useState(true);
 
   const stageMap = useMemo(() => new Map(stages.map(s => [s.name, s])), [stages]);
   const def = (name: string): StageDef => stageMap.get(name) ?? { name, rank: null, color: '#424242', badgeCls: 'text-white/60' };
@@ -94,12 +104,18 @@ export default function StageTransitionView({ data, stages }: { data: StageTrans
     return out;
   }, [data, latest, stageMap]);
 
-  const changedToday = allRows.filter(r => r.age === 1);
-  const in5 = allRows.filter(r => r.age <= 5);
+  const shownRows = useMemo(
+    () => (swapPair && hideSwaps ? allRows.filter(r => !(swapPair.includes(r.cur) && swapPair.includes(r.prev))) : allRows),
+    [allRows, swapPair, hideSwaps]
+  );
+  const changedToday = shownRows.filter(r => r.age === 1);
+  const in5 = shownRows.filter(r => r.age <= 5);
+  // "เพิ่งเข้า <best>" and "เพิ่งหลุดลง" keep counting every change, swaps included.
+  const in5All = allRows.filter(r => r.age <= 5);
   const best = stages.find(s => s.rank != null);
 
   const rows = useMemo(() => {
-    const list = allRows.filter(r =>
+    const list = shownRows.filter(r =>
       (within === 0 || r.age <= within) &&
       (dir === 'all' || (dir === 'up' ? r.dir > 0 : r.dir < 0)) &&
       (stageNow == null || r.cur === stageNow)
@@ -121,7 +137,7 @@ export default function StageTransitionView({ data, stages }: { data: StageTrans
       const c = x < y ? -1 : x > y ? 1 : 0;
       return c !== 0 ? c * sign : a.ticker.localeCompare(b.ticker);
     });
-  }, [allRows, within, dir, stageNow, sortConfig, stageMap]);
+  }, [shownRows, within, dir, stageNow, sortConfig, stageMap]);
 
   if (!data || dates.length === 0) {
     return (
@@ -155,8 +171,8 @@ export default function StageTransitionView({ data, stages }: { data: StageTrans
           <span className="text-[15px] text-[#E24B4A]">↓{changedToday.filter(r => r.dir < 0).length}</span>
         </Card>
         <Card label="เปลี่ยนใน 5 วัน">{in5.length}</Card>
-        <Card label={`เพิ่งเข้า ${best?.name ?? ''} (5 วัน)`}><span className="text-[#1D9E75]">{in5.filter(r => r.cur === best?.name).length}</span></Card>
-        <Card label="เพิ่งหลุดลง (5 วัน)"><span className="text-[#E24B4A]">{in5.filter(r => r.dir < 0).length}</span></Card>
+        <Card label={`เพิ่งเข้า ${best?.name ?? ''} (5 วัน)`}><span className="text-[#1D9E75]">{in5All.filter(r => r.cur === best?.name).length}</span></Card>
+        <Card label="เพิ่งหลุดลง (5 วัน)"><span className="text-[#E24B4A]">{in5All.filter(r => r.dir < 0).length}</span></Card>
       </div>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-3 flex flex-wrap gap-x-5 gap-y-2.5 items-center">
@@ -172,6 +188,11 @@ export default function StageTransitionView({ data, stages }: { data: StageTrans
           <Chip on={stageNow == null} onClick={() => resetPage(setStageNow)(null)}>ทั้งหมด</Chip>
           {presentStages.map(s => <Chip key={s.name} on={stageNow === s.name} onClick={() => resetPage(setStageNow)(s.name)}>{s.name}</Chip>)}
         </FilterGroup>
+        {swapPair && (
+          <Chip on={hideSwaps} onClick={() => resetPage(setHideSwaps)(!hideSwaps)}>
+            {hideSwaps ? '✓ ' : ''}ซ่อนการสลับ {swapPair[0]} ↔ {swapPair[1]}
+          </Chip>
+        )}
       </div>
 
       <TableWrap>
@@ -218,7 +239,7 @@ export default function StageTransitionView({ data, stages }: { data: StageTrans
                       <i
                         key={i}
                         className="flex-1 rounded-[1px]"
-                        style={{ background: s ? def(s).color : 'transparent' }}
+                        style={{ background: s ? stripColor(def(s)) : 'transparent' }}
                         title={`${shortDate(dates[dates.length - r.strip.length + i])}: ${s ?? 'ไม่มีผลสแกน'}`}
                       />
                     ))}
@@ -265,7 +286,7 @@ export default function StageTransitionView({ data, stages }: { data: StageTrans
       <div className={`flex flex-wrap gap-x-3 gap-y-1.5 ${TS.caption} text-white/45`}>
         {stages.map(s => (
           <span key={s.name} className="inline-flex items-center gap-1">
-            <i className="inline-block w-2.5 h-2.5 rounded-[2px]" style={{ background: s.color }} />{s.name}
+            <i className="inline-block w-2.5 h-2.5 rounded-[2px]" style={{ background: stripColor(s) }} />{s.name}
           </span>
         ))}
       </div>
@@ -275,6 +296,8 @@ export default function StageTransitionView({ data, stages }: { data: StageTrans
     </div>
   );
 }
+
+const stripColor = (s: StageDef) => s.stripColor ?? s.color;
 
 function StageBadge({ name, cls }: { name: string; cls: string }) {
   return <span className={`inline-flex items-center px-1.5 py-0.5 rounded ${TS.body} font-semibold ${cls}`}>{name}</span>;
