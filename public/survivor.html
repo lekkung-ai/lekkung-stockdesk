@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
 (function(){var q=new URLSearchParams(location.search);var r=document.documentElement;
-if(q.get('embed')==='1')r.classList.add('embed');var th=q.get('theme');if(th==='dark'||th==='light')r.setAttribute('data-theme',th);})();
+if(q.get('embed')==='1')r.classList.add('embed');if(navigator.standalone)r.classList.add('standalone');var th=q.get('theme');if(th==='dark'||th==='light')r.setAttribute('data-theme',th);})();
 </script>
 <style>
 :root{
@@ -384,9 +384,12 @@ h1{font-size:1.3rem}
 .kbody .ksub-hit{scroll-margin-top:90px;border-radius:8px;animation:subhit 2.4s ease-out}
 @keyframes subhit{0%,40%{background:var(--go-bg);box-shadow:0 0 0 6px var(--go-bg)}100%{background:transparent;box-shadow:0 0 0 6px transparent}}
 
-.practice-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}
-.practice-bar .note-s{margin:0}
-.practice-bar .btn{text-decoration:none;color:var(--ink);font-size:.85rem;white-space:nowrap}
+.homelink{display:inline-flex;align-items:center;gap:4px;font-size:.85rem;font-weight:600;color:var(--muted);text-decoration:none;padding:4px 10px 4px 8px;margin:0 0 6px -8px;border-radius:8px;min-height:32px}
+.homelink:hover{color:var(--ink);background:var(--surface)}
+header.top{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0}
+.homelink{white-space:nowrap;flex:0 0 auto}
+html.embed .homelink,html.standalone .homelink{display:none}
+@media (display-mode: standalone){.homelink{display:none}}
 #practice-frame{display:block;width:100%;min-height:900px;border:0;background:transparent}
 #p-practice{max-width:none}
 /* embed mode */
@@ -403,6 +406,7 @@ html.embed .wrap{padding-top:8px}
 <div class="wrap">
   <div class="hero">
   <header class="top">
+    <a class="homelink" href="/">← StockDesk</a>
     <h1>ตัวช่วยตัดสินใจ วิถี Survivor<small>เลือกหน้าเทรด อารมณ์ตลาด และสถานะของ แล้วดูว่าตำราบอกให้ทำอะไร</small></h1>
   </header>
 
@@ -450,7 +454,6 @@ html.embed .wrap{padding-top:8px}
   <div class="panel" id="p-know" hidden></div>
   <div class="panel" id="p-practice" hidden>
     <section class="practice" aria-label="แบบฝึกหัด">
-      <div class="practice-bar"><p class="note-s">แบบฝึกหัดวิถี Survivor สุ่มกราฟให้ฝึกตัดสินใจ</p><a class="btn" id="practice-open" href="survivor-practice.html" target="_blank" rel="noopener">เปิดเต็มจอ</a></div>
       <iframe id="practice-frame" title="แบบฝึกหัดวิถี Survivor" loading="lazy"></iframe>
     </section>
   </div>
@@ -995,7 +998,7 @@ function pageTheme(){const a=document.documentElement.getAttribute('data-theme')
 function loadPractice(){const f=document.getElementById('practice-frame'); if(!f) return;
   const th=pageTheme();
   if(f.dataset.theme!==th){f.dataset.theme=th; f.src=PRACTICE_URL+'?embed=1&theme='+th;}
-  const o=document.getElementById('practice-open'); if(o) o.href=PRACTICE_URL+'?theme='+th;}
+}
 // ความสูง iframe ตามเนื้อหา + เลื่อนกลับขึ้นบนเมื่อขึ้นข้อใหม่ (ตาม survivor-tab-snippet.html)
 window.addEventListener('message',function(e){const f=document.getElementById('practice-frame');
   if(!f||e.source!==f.contentWindow||!e.data) return;
