@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T18:13:52.093756+07:00",
+  "generatedAt": "2026-10-28T16:03:40.721726+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -92,7 +92,7 @@
       "sector": "Services",
       "subsector": "Commerce",
       "market": "SET",
-      "announceDate": "2026-10-27T18:06:15+07:00",
+      "announceDate": "2026-10-27T18:06:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 551098000.0,
@@ -112,14 +112,18 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107218701&symbol=GLOBAL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "มีปัจจัยหลักมาจากการปรับตัวดีขึ้นของอัตรากำไรขั้นต้น อันเป็นผลจากการเพิ่มสัดส่วนยอดขายสินค้า House Brand ร่วมกับการบริหารจัดการต้นทุนและควบคุมค่าใช้จ่ายในการดำเนินงานอย่างมีประสิทธิภาพ แม้ว่าภาวะเศรษฐกิจโดยรวมและกำลังซื้อ",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 1.44,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "DELTA",
       "sector": "Technology",
       "subsector": "Electronic Components",
       "market": "SET",
-      "announceDate": "2026-10-27T17:15:20+07:00",
+      "announceDate": "2026-10-27T17:15:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 7757407000.0,
@@ -139,14 +143,18 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107217201&symbol=DELTA",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "รายได้จากการขาย 75,801 100.0 53,231 100.0 65,191 100.0 42.4 16.3 กำไรขั้นต้น 20,697 27.3 15,083 28.3 17,469 26.8 37.2 18.5 กำไรสุทธิจากการดำเนินงาน 7,851 10.4 7,499 14.1 6,114 9.4 4.7 28.4 กำไรสุทธิ 7,757 10.2 7,437 14.0",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": -2.13,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "STANLY",
       "sector": "Industrials",
       "subsector": "Automotive",
       "market": "SET",
-      "announceDate": "2026-10-27T17:10:02+07:00",
+      "announceDate": "2026-10-27T17:10:00+07:00",
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 567715000.0,
@@ -166,14 +174,18 @@
       "mdaUrl": null,
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.43,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "SCGP",
       "sector": "Industrials",
       "subsector": "Packaging",
       "market": "SET",
-      "announceDate": "2026-10-27T12:46:43+07:00",
+      "announceDate": "2026-10-27T12:46:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 2025861000.0,
@@ -189,13 +201,13 @@
       "isCorrection": false,
       "bucket": "profit_growth",
       "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107210501&symbol=SCGP",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17930582113821&symbol=SCGP",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17930582113811&symbol=SCGP",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107212801&symbol=SCGP",
       "headline": "สรุปผลการดำเนินงานของไตรมาสที่ 3/2569(F45) (ก่อนสอบทาน)",
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.85,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -3.39,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -204,7 +216,7 @@
       "sector": "Services",
       "subsector": "Commerce",
       "market": "SET",
-      "announceDate": "2026-10-27T07:30:05+07:00",
+      "announceDate": "2026-10-27T07:30:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 1321432000.0,
@@ -226,7 +238,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -257,7 +269,7 @@
       "reason": "รายได้ค่านายหน้าเพิѷมขึѸน 94.07 ล้านบาท จาก 253.75 ล้านบาท เป็น 347.81 ล้านบาท หรือเพิѷมขึѸนร้อยละ 37.07 เนืѷองจาก 1.1 รายได้ค่านายหน้าจากการซืѸอขายหลักทรัพย์เพิѷมขึѸน 101.77 ล้านบาท จาก 223.53 ล้านบาท เป็น 325.31 ล้านบาท หรือเพิѷมขึѸนร้อยละ 45.53 อันเป็นผลจากมูลค่าการซืѸอขายเฉลีѷยของตลาดหลักทรัพย์เพิѷมขึѸนจาก 45,278.88 ล้านบาท/วัน เป็น 77,454.79",
       "reason_source": "mda_extract",
       "gap_pct": 2.63,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -1.32,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -288,7 +300,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 4.55,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 5.45,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -320,7 +332,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -569,7 +581,7 @@
       "gap_pct": -6.21,
       "drift_d1_pct": -6.9,
       "drift_d2_pct": -6.21,
-      "drift_d5_pct": null
+      "drift_d5_pct": -3.45
     },
     {
       "ticker": "KKP",
@@ -600,7 +612,7 @@
       "gap_pct": 2.62,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 2.18,
-      "drift_d5_pct": null
+      "drift_d5_pct": 4.37
     },
     {
       "ticker": "LHFG",
@@ -631,7 +643,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.81
     },
     {
       "ticker": "TSTH",
@@ -1360,31 +1372,31 @@
     },
     {
       "ticker": "HMPRO",
-      "date": "2026-10-27T07:30:05+07:00",
+      "date": "2026-10-27T07:30:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "SCGP",
-      "date": "2026-10-27T12:46:43+07:00",
+      "date": "2026-10-27T12:46:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "STANLY",
-      "date": "2026-10-27T17:10:02+07:00",
+      "date": "2026-10-27T17:10:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "DELTA",
-      "date": "2026-10-27T17:15:20+07:00",
+      "date": "2026-10-27T17:15:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "GLOBAL",
-      "date": "2026-10-27T18:06:15+07:00",
+      "date": "2026-10-27T18:06:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
