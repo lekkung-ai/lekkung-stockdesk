@@ -231,7 +231,13 @@ function history(kind,k0,baseVol,ho={}){
   if(kind==='trend'){
     const L=ri(16,32), rise=ri(16,32), bw=ri(4,8), p=ho.pause!=null?ho.pause:ri(1,3);
     const top=k0-3+bw;
-    const pre=walk([[0,k0-3-rise],[ri(4,L-4),k0-3-Math.round(rise*(0.35+R()*0.3))],[L-1,k0-3]],L,ri(1,2));
+    const st=ho.style||pick(['steady','stairs','fromBase','steep']), z=k0-3;
+    let pts;
+    if(st==='stairs'){ const a=ri(5,Math.max(6,L-10)); pts=[[0,z-rise],[a,z-Math.round(rise*0.45)],[a+ri(3,5),z-Math.round(rise*0.6)],[L-1,z]]; }
+    else if(st==='fromBase'){ const a=ri(Math.round(L*0.4),Math.round(L*0.65)); pts=[[0,z-rise+ri(-1,2)],[a,z-rise],[L-1,z]]; }
+    else if(st==='steep'){ pts=[[0,z-rise],[Math.round(L*0.3),z-Math.round(rise*0.9)],[L-1,z]]; }
+    else pts=[[0,z-rise],[ri(4,L-4),z-Math.round(rise*(0.35+R()*0.3))],[L-1,z]];
+    const pre=walk(pts,L,st==='steep'?1:ri(1,2));
     const pause=[]; for(let i=0;i<p;i++) pause.push(top-ri(0,2));
     closes=pre.concat([top],pause);
     vm=closes.map((_,i)=> i===L?2.2+R() : i>L?0.42+R()*0.2 : 0.85+R()*0.3);
@@ -433,11 +439,27 @@ function tGap(C,kind,g){
   else if(kind==='pin'){ O=C+g; k=[[0,O],[53,O]]; lo=O; hi=O+1; vf=()=>2.4; }
   else if(kind==='tight'){ O=C+g; k=[[0,O],[1,O+1],[2,O+2],[53,O+2]]; lo=O-1; hi=O+3; vf=i=>i<3?4:1.5; }
   else if(kind==='flat'){ O=C; k=[[0,O],[53,O]]; lo=C-1; hi=C; vf=()=>0.6; }
+  else if(kind==='norun'){ O=C+g; k=[[0,O],[53,O]]; lo=O-1; hi=O+1; vf=i=>i<2?2:0.5; }
   else if(kind==='down'){ O=C-g; k=[[0,O],[1,O-2],[3,O-4],[5,O-3],[53,O-4]]; lo=O-5; hi=O+1; vf=i=>i<4?3:1.2; }
   const bars=intraday(O,k,lo,hi,vf); bars[0].o=O; if(kind==='fade') force(bars,2,53,c=>Math.min(c,O-1)); return bars;
 }
 const force=(b,a,z,f)=>{ for(let i=a;i<=z&&i<b.length;i++){ b[i].c=f(b[i].c); } };
-const yBars=(k0,bv,kind)=>SHAPES.sideways(k0,bv,kind||'trend');
+/* ย่อยืน / ออกข้าง วอลุ่มแห้ง — 3 ทรงย่อย + ฐาน Day 2 แบบ (สุ่ม) */
+function pauseDay(k0,bv,o={}){
+  const kind=o.kind||pick(['trend','trend','support']), H=history(kind,k0,bv), C=H.C;
+  const v=o.v||pick(['flat','dipHold','upHold']); let b, from=0;
+  if(v==='dipHold'){ const d=kind==='support'?Math.max(1,Math.min(ri(2,3),C-H.S-2)):ri(2,3), tb=ri(6,16), lv=C-d, o0=C+ri(0,1);
+    b=intraday(o0,[[0,o0],[tb,lv],...swK(tb+2,52,lv,0).map(([x,y])=>[x,y+ri(0,1)]),[53,lv+ri(0,1)]],lv,o0+1,i=>i<=tb?1.4:0.45); from=tb; }
+  else if(v==='upHold'){ const u=ri(2,3), tb=ri(6,16), lv=C+u;
+    b=intraday(C,[[0,C],[tb,lv],...swK(tb+2,52,lv,0).map(([x,y])=>[x,y-ri(0,1)]),[53,lv]],C-1,lv,i=>i<=tb?1.4:0.45); from=tb; }
+  else { const o0=C+ri(-1,1); b=intraday(o0,[[0,o0],...swK(ri(4,10),52,o0),[53,o0+ri(0,1)]],o0-1,o0+1,i=>i<6?1.1:0.5); }
+  fixBars(b); scaleVol(b,minV(H.days,3)*(0.45+R()*0.15));
+  const box=Math.min(...b.slice(from).map(x=>x.l));
+  return {H,bars:b,stopRef:box,stopHint:v==='flat'?'ใต้กรอบออกข้าง (Low ของวัน)':'ใต้กรอบที่ย่อยืน'};
+}
+const yBars=(k0,bv,kind)=>{ if(kind) return SHAPES.sideways(k0,bv,kind);
+  const w=pick(['pause','pause','sideways','holdStrong','reclaim']);
+  return w==='pause'?pauseDay(k0,bv):SHAPES[w](k0,bv); };
 const vol=(bars,H,m)=>scaleVol(bars,avgVol(H.days)*m);
 
 const G = {
@@ -450,8 +472,9 @@ const G = {
   bw3(t){ return (k0,bv)=>{ const H=history('bw3',k0,bv), C=H.C, O=C+ri(1,3), sp=O+ri(4,6);
     const b=intraday(O,[[0,O],[4,sp],[8,sp-2],[12,O+1],[30,O+1],[46,O+2],[53,O+1]],O-1,sp,i=>i<8?4:i<14?2:1); vol(b,H,3.4); return partQ(H,b,t); }; },
   /* พักตัว */
-  side(t){ return (k0,bv)=>{ const g=SHAPES.sideways(k0,bv); return part(g.H,g.bars,t,{stopRef:g.stopRef,stopHint:'ใต้กรอบออกข้าง (Low ของวัน)'}); }; },
-  nleg(k0,bv){ const g=SHAPES.sideways(k0,bv); return part(g.H,g.bars,'16:10',{stopRef:g.stopRef,stopHint:'ใต้จุดต่ำสุดของช่วงพัก'}); },
+  side(t,o){ return (k0,bv)=>{ const g=pauseDay(k0,bv,o); const tt=Array.isArray(t)?pick(t):t; const q=part(g.H,g.bars,tt,{stopRef:g.stopRef,stopHint:g.stopHint});
+    q.stopRef=Math.min(...q.bars.slice(Math.min(q.bars.length-4,bi('14:30'))).map(x=>x.l)); return q; }; },
+  nleg(k0,bv){ const g=pauseDay(k0,bv,{kind:'trend'}); return part(g.H,g.bars,pick(['16:05','16:10','16:15']),{stopRef:g.stopRef,stopHint:'ใต้จุดต่ำสุดของช่วงพัก'}); },
   pauseGap(k0,bv){ const y=yBars(k0,bv), C=agg(y.bars).c, O=C+ri(2,3);
     const tb=intraday(O,[[0,O],[2,O+2],[4,O+3],[6,O+2],[8,O+3],[10,O+2],[12,O+3],[53,O+4]],O,O+4,i=>i<4?3:0.4);
     for(let i=4;i<12;i++){ tb[i].l=Math.max(tb[i].l,O+2); tb[i].c=Math.max(tb[i].c,O+2); }
@@ -494,7 +517,7 @@ const G = {
   vshape(k0,bv){ const g=SHAPES.reclaim(k0,bv); return part(g.H,g.bars,'16:25',{stopRef:g.stopRef,stopHint:g.stopHint}); },
   vfail(k0,bv){ const H=history('support',k0,bv), C=H.C, S=H.S; const b=intraday(C,[[0,C],[30,S+1],[40,S-2],[44,S-3],[53,S-3]],S-4,C+1,i=>i>=38&&i<=44?2.5:0.8); vol(b,H,1.3); return part(H,b,'16:20'); },
   ranAM(k0,bv){ const H=history('trend',k0,bv), C=H.C, o=C+1, up=ri(5,7); const b=intraday(o,[[0,o],[ri(10,20),C+up],...swK(26,52,C+up,0).slice(1),[53,C+up]],C,C+up,i=>i<20?2:0.9); vol(b,H,1.6); return part(H,b,'16:15'); },
-  timing(k0,bv){ const g=SHAPES.sideways(k0,bv); return part(g.H,g.bars,'15:30'); },
+  timing(k0,bv){ const g=pauseDay(k0,bv); return part(g.H,g.bars,pick(['15:25','15:30'])); },
   /* Breakout */
   brkClose(k0,bv){ const H=history('base',k0,bv), C=H.C, Rr=H.R;
     const b=intraday(C,[[0,C],[10,Rr-1],...swK(12,47,Rr-1).slice(1),[48,Rr-1],[49,Rr+1],[53,Rr+1]],Math.min(C,Rr-2),Rr+1,i=>i<10?1.1:i<48?0.4:2); force(b,49,53,c=>Rr+1); vol(b,H,0.9);
@@ -528,6 +551,23 @@ const G = {
     else { H=history('trend',k0,bv); C=H.C; b=intraday(C,[[0,C],[53,C+2]],C-1,C+3,()=>0.9); }
     vol(b,H,1); const q=part(H,b,kind==='swing'?'10:10':'16:10'); if(kind==='res') q.rLabel='แนวต้าน'; if(kind==='swing'||kind==='fed') q.quote={prevC:H.C,O:q.bars[0].o,last:q.bars[q.bars.length-1].c}; return q; }; },
 };
+/* ---------- generators for "chart decides" families ---------- */
+const GF = {
+  rush(t){ return (k0,bv)=>{ const g=SHAPES.rush(k0,bv); return part(g.H,g.bars,t); }; },
+  hold(t){ return (k0,bv)=>{ const g=SHAPES.holdStrong(k0,bv); return part(g.H,g.bars,t); }; },
+  brk(t){ return (k0,bv)=>{ const g=SHAPES.downBreak(k0,bv); return part(g.H,g.bars,t); }; },
+  vback(t){ return (k0,bv)=>{ const g=SHAPES.reclaim(k0,bv); return part(g.H,g.bars,t,{stopRef:g.stopRef,stopHint:g.stopHint}); }; },
+  vfail(t){ return (k0,bv)=>{ const H=history('support',k0,bv), C=H.C, S=H.S, d=ri(2,3), tb=ri(36,44);
+    const b=intraday(C,[[0,C],[ri(14,28),S+1],[tb,S-d],[53,S-d]],S-d-1,C+1,i=>i>=tb-4&&i<=tb+2?2.5:0.8); force(b,tb,53,c=>Math.min(c,S-1)); vol(b,H,1.3); return part(H,b,t); }; },
+  brkLate(t){ return (k0,bv)=>{ const H=history('base',k0,bv), C=H.C, Rr=H.R, top=Rr+ri(4,6), s0=ri(41,44);
+    const b=intraday(C,[[0,C],[8,Rr-1],...swK(10,s0-1,Rr-1).slice(1),[s0,Rr+1],[s0+3,top],[53,top]],Math.min(C,Rr-2),top+1,i=>i<8?1.1:i<s0?0.45:4.5); force(b,s0+2,53,c=>Math.max(c,Rr+2)); vol(b,H,2.2);
+    return part(H,b,t,{rLabel:'แนวเบรค'}); }; },
+  bw1(t){ return (k0,bv)=>{ const g=SHAPES.bigWhite(k0,bv); return part(g.H,g.bars,t,{stopRef:g.stopRef,stopHint:g.stopHint}); }; },
+  bw2(t){ return (k0,bv)=>{ const H=history('bw2',k0,bv), C=H.C, O=C+ri(0,1), u=ri(2,3), tb=ri(6,14);
+    const b=intraday(O,[[0,O],[tb,C+u],...swK(tb+2,52,C+u,0).map(([x,y])=>[x,y-ri(0,1)]),[53,C+u]],C,C+u,i=>i<=tb?1.4:0.5); vol(b,H,0.8);
+    const q=part(H,b,t); q.stopRef=Math.min(...q.bars.slice(tb).map(x=>x.l)); q.stopHint='ใต้กรอบที่ย่อยืน'; return q; }; },
+};
+
 /* ---------- topics & option sets ---------- */
 const TOPICS=[
  {id:'close',name:'ทรงปิด / ห่อหุ้น',sec:'11.3'},
@@ -539,6 +579,7 @@ const TOPICS=[
  {id:'brk',name:'Breakout & สภาวะตลาด',sec:'11.5 · 8.1'},
  {id:'earn',name:'รอบงบ',sec:'16.5'},
  {id:'mkt',name:'ตลาด & ดัชนี SET',sec:'2.12 · 3.7'},
+ {id:'read',name:'อ่านกราฟตัดสิน',sec:'ภาพต่าง บริบทเดียวกัน'},
 ];
 const NONE4=[['buy','ซื้อ / เคาะเลย'],['wrap','ห่อข้ามคืน'],['wait','รอ ยังไม่เข้า'],['skip','ไม่ยุ่ง / ทับมือ']];
 const HOLD3=[['hold','ถือต่อ'],['peak','ปาพีค ขายทำกำไร'],['sell','ขาย / คัทลอส']];
@@ -559,8 +600,8 @@ const SC2 = [
  N({id:'bw3h',topic:'bw',name:'Big White แท่งที่ 3+ — ถืออยู่',sit:49,gen:G.bw3('15:50'),hold:'ซื้อตั้งแต่ต้นรอบ',ans:['peak','sell'],ctx:()=>[SZ(MID),['รอบ','Big White ติดกันมา 2 แท่งแล้ว']],note:'วอลุ่มพีค ไส้บนยาว Offer ขวาง'}),
 
  /* การพักตัว 6.7 */
- N({id:'p_m15',topic:'pause',name:'ย่อยืน / ออกข้าง — อารมณ์ 1–1.5',sit:33,gen:G.side('16:10'),mood:['1','1.5'],ans:['buy','wrap'],stop:true,ctx:()=>[SZ(MID)],note:'หยุดไหล ไม่ทำ Low ใหม่ · Bids ยันแน่น Offer ไม่สาด'}),
- N({id:'p_m45',topic:'pause',name:'ย่อยืน / ออกข้าง — อารมณ์ 4–5',sit:34,gen:G.side('16:10'),mood:['4','4.5','5'],ans:['skip'],ctx:()=>[SZ(MID)],note:'ภาพหุ้นพักตัวสวย แต่ตลาดคลั่ง'}),
+ N({id:'p_m15',topic:'pause',name:'ย่อยืน / ออกข้าง — อารมณ์ 1–1.5',sit:33,gen:G.side(['16:05','16:10','16:15']),mood:['1','1.5'],ans:['buy','wrap'],stop:true,ctx:()=>[SZ(MID)],note:'หยุดไหล ไม่ทำ Low ใหม่ · Bids ยันแน่น Offer ไม่สาด'}),
+ N({id:'p_m45',topic:'pause',name:'ย่อยืน / ออกข้าง — อารมณ์ 4–5',sit:34,gen:G.side(['16:05','16:10','16:15']),mood:['4','4.5','5'],ans:['skip'],ctx:()=>[SZ(MID)],note:'ภาพหุ้นพักตัวสวย แต่ตลาดคลั่ง'}),
  N({id:'p_nleg',topic:'pause',name:'ขา N — Big White แล้วพัก 1–3 วัน',sit:35,gen:G.nleg,ans:['buy','wrap'],stop:true,ctx:()=>[SZ(MID)],note:'พักบนแนวเบรค วอลุ่มลดลงเหลือราวครึ่งหนึ่ง'}),
  N({id:'p_gap',topic:'pause',name:'พักหลังเปิดโดด (TF 5 นาที)',sit:36,gen:G.pauseGap,ans:['buy'],stop:true,ctx:()=>[SZ(MID)],note:'แกว่งออกข้างชิดโซนบน 30 นาที วอลุ่มแห้ง'}),
  N({id:'p_box',topic:'pause',name:'ดองราคา — อยู่กลางกรอบ',sit:37,gen:G.boxMid,ans:['wait'],ctx:()=>[SZ(MID),['กรอบ','มินิ 9–10 วัน']]}),
@@ -602,7 +643,7 @@ const SC2 = [
  N({id:'o_smN',topic:'overlap',name:'หุ้นเล็กทุบหลุดไม่มีไม้รวบ — ยังไม่มีของ',sit:27,gen:G.overlapAM('10:45','fail'),ans:['skip'],ctx:()=>[['ขนาดหุ้น','หุ้นเล็ก']]}),
 
  /* ชิดเย็น 6.8 + จังหวะห่อ */
- N({id:'e_fav',topic:'eod',name:'หุ้นใน FAV ย่อยืนวอลุ่มแห้ง 16:00',sit:51,gen:G.side('16:10'),ans:['wrap','buy'],stop:true,ctx:()=>[SZ(MID),['FAV','อยู่ใน FAV']],note:'16:00 มีไม้ใหญ่เคาะขวา · Bids ยันแน่น'}),
+ N({id:'e_fav',topic:'eod',name:'หุ้นใน FAV ย่อยืนวอลุ่มแห้ง 16:00',sit:51,gen:G.side(['16:05','16:10','16:15']),ans:['wrap','buy'],stop:true,ctx:()=>[SZ(MID),['FAV','อยู่ใน FAV']],note:'16:00 มีไม้ใหญ่เคาะขวา · Bids ยันแน่น'}),
  N({id:'e_v',topic:'eod',name:'โดนทุบระหว่างวัน แล้ว V กลับชิดเย็น',sit:52,gen:G.vshape,ans:['buy','wrap'],stop:true,ctx:()=>[SZ(MID)],note:'16:00–16:20 ไม้ใหญ่รวบ ม้วนกลับยืนแสกหน้า'}),
  N({id:'e_vf',topic:'eod',name:'โดนทุบระหว่างวัน ไม่ม้วนกลับ',sit:52,gen:G.vfail,ans:['skip'],ctx:()=>[SZ(MID)]}),
  N({id:'e_runH',topic:'eod',name:'วิ่งเช้า เย็นไม่ย่อเคลียร์ (ถืออยู่)',sit:53,gen:G.ranAM,hold:'ซื้อเมื่อวาน',ans:['sell','peak'],ctx:()=>[SZ(MID)],note:'Bids ตื้อ Offer ขวาง'}),
@@ -622,13 +663,13 @@ const SC2 = [
  N({id:'b_sideT',topic:'brk',name:'ตลาดไซด์เวย์ — เบรคกรอบบน',sit:28,gen:G.range('top','brkTop','16:10'),market:'ไซด์เวย์ ไม่มีทิศทาง',ans:['skip','wait'],ctx:()=>[SZ(MID)]}),
  N({id:'b_sideTH',topic:'brk',name:'ไซด์เวย์ ถือจนชนกรอบบน',sit:29,gen:G.range('top','touchTop','14:45'),market:'ไซด์เวย์ ไม่มีทิศทาง',hold:'ซื้อที่กรอบล่าง',ans:['peak','sell'],ctx:()=>[SZ(MID)]}),
  N({id:'b_sideLH',topic:'brk',name:'ไซด์เวย์ หลุดกรอบล่าง 1–2 ช่อง (ถืออยู่)',sit:29,gen:G.range('low','breakLow','14:45'),market:'ไซด์เวย์ ไม่มีทิศทาง',hold:'ซื้อที่กรอบล่าง',ans:['sell'],ctx:()=>[SZ(MID)]}),
- N({id:'b_smDip',topic:'brk',name:'Buy on Dip หุ้นเล็ก',sit:30,gen:G.side('16:10'),ans:['buy','wrap'],stop:true,ctx:()=>[['ขนาดหุ้น','หุ้นเล็ก']],note:'พักบนแนวรับ 1–3 วัน วอลุ่มแห้งกริบ'}),
+ N({id:'b_smDip',topic:'brk',name:'Buy on Dip หุ้นเล็ก',sit:30,gen:G.side(['16:05','16:10','16:15'],{kind:'support'}),ans:['buy','wrap'],stop:true,ctx:()=>[['ขนาดหุ้น','หุ้นเล็ก']],note:'พักบนแนวรับ 1–3 วัน วอลุ่มแห้งกริบ'}),
  N({id:'b_smBot',topic:'brk',name:'หุ้นเล็กโซน Bottom — ชิดเย็น',sit:31,gen:G.smallBottom,ans:['skip'],ctx:()=>[['ขนาดหุ้น','หุ้นเล็ก โซน Bottom']]}),
  N({id:'b_lunch',topic:'brk',name:'เบรคช่วงกลางวัน 11:30–11:40',sit:32,gen:G.brkLunch,ans:['buy'],stop:true,ctx:()=>[SZ(MID)],note:'วอลุ่มเข้าตอนเบรค · Bids ยันรับ'}),
 
  /* รอบงบ 16.5 + P7 */
- N({id:'r_pre',topic:'earn',name:'ก่อนงบออก — กำไรตุนยังไม่หนา',sit:64,gen:G.side('16:10'),hold:'ซื้อเมื่อวาน',ans:['sell'],ctx:()=>[SZ(MID),['งบ','ออกพรุ่งนี้'],['กำไรตุน','ยังไม่หนา']]}),
- N({id:'r_preT',topic:'earn',name:'ก่อนงบออก — กำไรตุนหนา',sit:64,gen:G.side('16:10'),hold:'ถือมานาน ทุนต่ำ',ans:['hold'],ctx:()=>[SZ(MID),['งบ','ออกพรุ่งนี้'],['กำไรตุน','หนามาก']]}),
+ N({id:'r_pre',topic:'earn',name:'ก่อนงบออก — กำไรตุนยังไม่หนา',sit:64,gen:G.side(['16:05','16:10','16:15']),hold:'ซื้อเมื่อวาน',ans:['sell'],ctx:()=>[SZ(MID),['งบ','ออกพรุ่งนี้'],['กำไรตุน','ยังไม่หนา']]}),
+ N({id:'r_preT',topic:'earn',name:'ก่อนงบออก — กำไรตุนหนา',sit:64,gen:G.side(['16:05','16:10','16:15']),hold:'ถือมานาน ทุนต่ำ',ans:['hold'],ctx:()=>[SZ(MID),['งบ','ออกพรุ่งนี้'],['กำไรตุน','หนามาก']]}),
  N({id:'r_beatH',topic:'earn',name:'งบดีกว่าคาด เปิดโดดตึงโซนบน (ถืออยู่)',sit:65,gen:G.gap('tight','10:05',()=>ri(4,6),'bottom'),hold:'ห่อมาจากโซนล่าง',ans:['peak'],ctx:()=>[SZ(MID),['งบ','ดีกว่าคาด']]}),
  N({id:'r_beatN',topic:'earn',name:'งบดีกว่าคาด เปิดโดด — ยังไม่มีของ',sit:66,gen:G.gap('go','10:05',()=>ri(3,4)),ans:['wait'],ctx:()=>[SZ(MID),['งบ','ดีกว่าคาด']]}),
  N({id:'r_missH',topic:'earn',name:'งบแย่กว่าคาด เปิดกดหลุดแนวรับ (ถืออยู่)',sit:67,gen:G.gapDownSup,hold:'ห่อมาเมื่อวาน',ans:['sell'],ctx:()=>[SZ(MID),['งบ','แย่กว่าคาด']]}),
@@ -704,7 +745,46 @@ const SC1 = [
   ctx:()=>[['พอร์ต','เล็ก 2–3 แสน'],['ห่อแบบ','ย่อยืนวอลุ่มแห้งชิดเย็น'],['ขนาดหุ้น','Mid Cap']]},
 ];
 
-const SC = SC1.concat(SC2);
+/* "chart decides": same context, the picture carries the decisive feature */
+const FAM = [
+ {id:'f_eod',name:'ชิดเย็น ยังไม่มีของ — ภาพไหนเข้า',mood:['2'],ctx:()=>[SZ(MID)],variants:[
+   {v:'dry',name:'ออกข้าง / ย่อยืน วอลุ่มแห้ง',sit:56,ans:['wrap','buy'],stop:true,gen:G.side('16:20')},
+   {v:'vback',name:'ทุบระหว่างวัน แล้ว V กลับชิดเย็น',sit:52,ans:['buy','wrap'],stop:true,gen:GF.vback('16:20')},
+   {v:'vfail',name:'ทุบหลุดแนวรับ ไม่ม้วนกลับ',sit:52,ans:['skip'],gen:GF.vfail('16:20')},
+   {v:'rush',name:'วิ่งพรวดชิดเย็นไม่ย่อ',sit:63,ans:['skip'],gen:GF.rush('16:20')}]},
+ {id:'f_eodH',name:'ชิดเย็น ถืออยู่ — ถือข้ามคืนหรือออก',hold:'ซื้อเมื่อวาน',mood:['2'],ctx:()=>[SZ(MID)],variants:[
+   {v:'firm',name:'ย่อยืนทั้งบ่าย ปิดชิด High',sit:50,ans:['hold'],gen:GF.hold('16:20')},
+   {v:'brk',name:'ปิดกดหลุดแนวรับ',sit:61,ans:['sell'],gen:GF.brk('16:20')},
+   {v:'rush',name:'วิ่งพรวดชิดเย็นไม่ย่อ',sit:53,ans:['sell','peak'],gen:GF.rush('16:20')}]},
+ {id:'f_gapH',name:'เปิดโดด ถืออยู่ (ห่อมาเมื่อวาน) — 10:50',hold:'ห่อมาเมื่อวาน',mood:['2'],ctx:()=>[['พอร์ต','เล็ก'],['ขนาดหุ้น','Mid Cap']],variants:[
+   {v:'go',name:'เปิดเขียวแล้ววิ่งต่อ',sit:0,ans:['hold'],gen:G.gap('go','10:50',()=>ri(1,2))},
+   {v:'fade',name:'เปิดโดดแล้วโรย',sit:10,ans:['sell','peak'],gen:G.gap('fade','10:50',()=>ri(2,3))},
+   {v:'pin',name:'เปิดแปะ เติมขวารัวๆ',sit:11,ans:['sell','peak'],gen:G.gap('pin','10:50',()=>ri(4,6))},
+   {v:'norun',name:'เปิดเขียวแต่เช้าไม่วิ่ง',sit:6,ans:['sell'],gen:G.gap('norun','10:50',()=>ri(1,2))}]},
+ {id:'f_gapN',name:'เปิดโดด ยังไม่มีของ — 10:30',mood:['2'],ctx:()=>[SZ(MID)],variants:[
+   {v:'go',name:'เปิดโดดแล้ววิ่งต่อ ยังไม่ย่อ',sit:9,ans:['wait'],gen:G.gap('go','10:30',()=>ri(2,3))},
+   {v:'dip',name:'Gap & Dip ย่อเทสแนวรับวอลุ่มแห้ง',sit:9,ans:['buy'],stop:true,gen:G.gap('dip','10:30',()=>ri(2,3))},
+   {v:'pin',name:'เปิดแปะ เติมขวารัวๆ',sit:11,ans:['skip'],gen:G.gap('pin','10:30',()=>ri(4,6))}]},
+ {id:'f_brk',name:'แถวแนวเบรค ชิดเย็น — ภาพไหนเข้า',mood:['2','2.5'],ctx:()=>[SZ(MID)],variants:[
+   {v:'pause',name:'พักจ่อแนวเบรค วอลุ่มลด',sit:19,ans:['buy','wrap'],stop:true,gen:(k0,bv)=>{ const q=G.nearBrk(k0,bv); return q; }},
+   {v:'spike',name:'กำลังพุ่งเบรค วอลุ่มพีค',sit:22,ans:['wait','skip'],gen:GF.brkLate('16:10')},
+   {v:'box',name:'ดองราคา อยู่กลางกรอบ',sit:37,ans:['wait'],gen:G.boxMid}]},
+ {id:'f_side',name:'ตลาดไซด์เวย์ ยังไม่มีของ — อยู่ตรงไหนของกรอบ',market:'ไซด์เวย์ ไม่มีทิศทาง',ctx:()=>[SZ(MID)],variants:[
+   {v:'low',name:'ย่อยืนกรอบล่าง วอลุ่มแห้ง',sit:28,ans:['buy','wrap'],stop:true,gen:G.range('low','sit','16:10')},
+   {v:'top',name:'กำลังเบรคกรอบบน',sit:28,ans:['skip','wait'],gen:G.range('top','brkTop','16:10')}]},
+ {id:'f_sideH',name:'ตลาดไซด์เวย์ ถืออยู่ — 14:45',market:'ไซด์เวย์ ไม่มีทิศทาง',hold:'ซื้อที่กรอบล่าง',ctx:()=>[SZ(MID)],variants:[
+   {v:'top',name:'ชนกรอบบน',sit:29,ans:['peak','sell'],gen:G.range('top','touchTop','14:45')},
+   {v:'low',name:'หลุดกรอบล่าง 1–2 ช่อง',sit:29,ans:['sell'],gen:G.range('low','breakLow','14:45')}]},
+ {id:'f_bw',name:'นับ Big White — ชิดเย็น ยังไม่มีของ',mood:['1.5','2'],ctx:()=>[SZ(MID)],variants:[
+   {v:'1',name:'Big White แท่งแรก',sit:45,ans:['wrap','buy'],stop:true,gen:GF.bw1('16:10')},
+   {v:'2',name:'Big White แท่งที่ 2 ย่อยืน',sit:47,ans:['buy','wrap'],stop:true,gen:GF.bw2('16:10')},
+   {v:'3',name:'Big White แท่งที่ 3+',sit:49,ans:['skip'],gen:G.bw3('16:10')}]},
+ {id:'f_idx',name:'ดัชนี SET วันนี้ — ห่อแบบไหน',index:true,opts:MKT3,q:'หุ้นที่เล็งไว้ย่อยืนวอลุ่มแห้ง จะห่อแบบไหน',variants:[
+   {v:'res',name:'ดัชนีชนแนวต้าน',sit:80,ans:['small','no'],gen:G.idx('res')},
+   {v:'sup',name:'ดัชนีย่อยืนแนวรับ',sit:81,ans:['full'],gen:G.idx('sup')},
+   {v:'break',name:'ดัชนีแตกหลุดแนวรับ',sit:82,ans:['no'],gen:G.idx('break')}]},
+].map(f=>({topic:'read',...f,fam:'F:'+f.id}));
+const SC = SC1.concat(SC2, FAM);
 SC.forEach(s=>{ if(!Array.isArray(s.ans)) s.ans=[s.ans]; });
 
 /* ---------- build question ---------- */
@@ -712,7 +792,7 @@ function legacyQ(sc){
   BAND = pick(BANDS);
   const k0 = ri(BAND.lo+42, BAND.hi-32);
   const bv = pick([4e5,9e5,1.8e6,3.5e6,7e6]);
-  const q = {sc, ctx: [['อารมณ์ตลาด',MOOD()], ...sc.ctx()], note: sc.note||''};
+  const q = {sc, ctx: [['อารมณ์ตลาด',MOOD()], ...sc.ctx()], note: varyNote(pick(sc.note||''))};
   if(sc.grp==='close'){
     const g = SHAPES[sc.shape](k0,bv);
     q.days = g.H.days.concat([agg(g.bars)]); q.S=g.H.S; q.bars=g.bars; q.stopRef=g.stopRef; q.stopHint=g.stopHint;
@@ -740,17 +820,25 @@ function legacyQ(sc){
   }
   return q;
 }
+const SYN=[['Bids ยันแน่น',['Bids ยันแน่น','Bids เติมยันตลอด','ฝั่ง Bids หนา ไม่ยอมลง']],['วอลุ่มแห้ง',['วอลุ่มแห้ง','วอลุ่มเบาบางลงชัด','วอลุ่มลดลงเรื่อยๆ']],
+ ['Offer บาง',['Offer บาง','ฝั่งขายบาง']],['ไม่มีไม้สาด',['ไม่มีไม้สาด','ไม่มีไม้ขายทุบลงมา']],['Offer ขวาง',['Offer ขวาง','ฝั่งขายตั้งขวางหนา']],['Bids ตื้อ',['Bids ตื้อ','Bids ไม่ขยับขึ้น']]];
+function varyNote(n){ if(!n) return ''; let parts=n.split(' · ').map(x=>{ for(const [k,alts] of SYN){ if(x.includes(k)){ x=x.replace(k,pick(alts)); } } return x; });
+  if(parts.length>1 && R()<.5) parts=parts.reverse(); return parts.join(' · '); }
 function stageOf(t){ return t<='10:15'?'ช่วงเปิดตลาด':t<='12:30'?'ช่วงเช้า':t<'16:00'?'ช่วงบ่าย':'ชิดเย็น'; }
-function newQ(sc){
+function chooseVariant(sc){ const vs=sc.variants, ws=vs.map(v=>{ const s=stats.by[sc.id+':'+v.v]||{seen:0,right:0}; return 1+2*(s.seen-s.right+1)/(s.seen+2); });
+  let t=R()*ws.reduce((a,b)=>a+b,0); for(let i=0;i<vs.length;i++){ t-=ws[i]; if(t<=0) return vs[i]; } return vs[vs.length-1]; }
+function newQ(sc,v){
   BAND = sc.index?IDX_BAND:pick(BANDS);
   const k0 = ri(BAND.lo+42, BAND.hi-32), bv = sc.index?3e7:pick([4e5,9e5,1.8e6,3.5e6,7e6]);
-  const g = sc.gen(k0,bv);
+  const g = (v?v.gen:sc.gen)(k0,bv);
   const ctx=[];
   if(!sc.noMood) ctx.push(['อารมณ์ตลาด',pick(sc.mood||['1.5','2'])]);
   if(sc.market) ctx.push(['ตลาด',sc.market]);
   if(!sc.index||sc.hold) ctx.push(['สถานะ', sc.hold?('ถืออยู่ — '+sc.hold):'ยังไม่มีของ']);
-  const q = {sc, ...g, ctx: ctx.concat(sc.ctx?sc.ctx():[]), note: sc.note||'', opts: sc.opts || (sc.hold?HOLD3:NONE4)};
+  const q = {sc, ...g, ctx: ctx.concat(sc.ctx?sc.ctx():[]), note: varyNote(pick(sc.note||'')), opts: sc.opts || (sc.hold?HOLD3:NONE4)};
   q.stageName = stageOf(q.clock);
+  if(v){ q.v=v; q.sit=v.sit; q.ans=v.ans; q.stopOn=!!v.stop; q.vname=v.name; q.note=varyNote(pick(v.note||'')); if(!v.stop){ q.stopRef=null; } }
+  else { q.sit=sc.sit; q.ans=sc.ans; q.stopOn=!!sc.stop; q.vname=sc.name; }
   if(sc.index){ q.dayTitle='ดัชนี SET · TF Day'; q.m5Title='ดัชนี SET · TF 5 นาที'; }
   return q;
 }
@@ -761,8 +849,10 @@ function validNew(q){
   return true;
 }
 function makeQ(sc){
-  for(let t=0;t<60;t++){ const q = sc.gen?newQ(sc):legacyQ(sc); if(sc.gen?validNew(q):validQ(q)) return q; }
-  return sc.gen?newQ(sc):legacyQ(sc);
+  const isNew=!!(sc.gen||sc.variants), v=sc.variants?chooseVariant(sc):null;
+  const mk=()=>{ if(isNew) return newQ(sc,v); const q=legacyQ(sc); q.sit=sc.sit; q.ans=sc.ans; q.stopOn=!!sc.stop; q.vname=sc.name; return q; };
+  for(let t=0;t<60;t++){ const q=mk(); if(isNew?validNew(q):validQ(q)) return q; }
+  return mk();
 }
 
 /* ---------- chart ---------- */
@@ -831,10 +921,11 @@ function saveStats(){
   }catch(e){}
 })();
 function weightOf(sc){ const s=stats.by[sc.id]||{seen:0,right:0}; const miss=s.seen-s.right; return 0.6 + 3*(miss+1)/(s.seen+2) + (s.seen===0?0.8:0); }
-let lastId=null;
+let lastId=null, recentFam=[];
+const famOf=s=> s.fam || (s.gen? s.gen.toString().slice(0,70) : 'L:'+(s.shape||s.y));
 const poolOf=t=>SC.filter(s=>t==='all'||s.topic===t);
 function chooseSc(){
-  const pool=poolOf(topic).filter(s=>s.id!==lastId); const ws=pool.map(weightOf); let t=R()*ws.reduce((a,b)=>a+b,0);
+  const pool=poolOf(topic).filter(s=>s.id!==lastId); const ws=pool.map(s=>weightOf(s)*(recentFam.includes(famOf(s))?0.12:1)); let t=R()*ws.reduce((a,b)=>a+b,0);
   for(let i=0;i<pool.length;i++){ t-=ws[i]; if(t<=0) return pool[i]; } return pool[pool.length-1];
 }
 function sumOf(list){ let s=0,r=0; list.forEach(x=>{ const v=stats.by[x.id]; if(v){s+=v.seen;r+=v.right;} }); return [s,r]; }
@@ -851,7 +942,7 @@ function renderTopics(){
 /* ---------- render question ---------- */
 const topicName=id=>(TOPICS.find(t=>t.id===id)||{}).name||'';
 function show(){
-  const sc=chooseSc(); lastId=sc.id; cur=makeQ(sc); phase='ask'; picked=null; stopK=null;
+  const sc=chooseSc(); lastId=sc.id; recentFam.unshift(famOf(sc)); recentFam=recentFam.slice(0,3); cur=makeQ(sc); phase='ask'; picked=null; stopK=null;
   $('clock').textContent=cur.clock; $('stageName').textContent=cur.stageName; $('qline').textContent=sc.q||'';
   $('topicTag').textContent = topic==='all' ? 'หมวด: '+topicName(sc.topic) : '';
   $('ctx').innerHTML=cur.ctx.map(([k,v])=>`<li>${k} <b>${v}</b></li>`).join('');
@@ -898,7 +989,7 @@ function startTimer(){
 function stopTimer(){ clearTimeout(tmr); const f=$('timerFill'); const w=getComputedStyle(f).width; f.style.transition='none'; f.style.width=w; }
 
 /* ---------- answering ---------- */
-const needStop = k=> cur.sc.stop && cur.stopRef!=null && cur.sc.ans.includes(k) && (k==='wrap'||k==='buy');
+const needStop = k=> cur.stopOn && cur.stopRef!=null && cur.ans.includes(k) && (k==='wrap'||k==='buy');
 function answer(k){
   if(phase!=='ask') return;
   stopTimer(); picked=k;
@@ -918,19 +1009,21 @@ $('stGo').onclick=()=>{ if(phase==='stop'&&stopK!=null){ $('stopbar').classList.
 
 function grade(k,timeout){
   phase='done';
-  const sc=cur.sc, okAct = sc.ans.includes(k);
+  const sc=cur.sc, ANS=cur.ans, okAct = ANS.includes(k);
   let stopOk=null;
   if(okAct && stopK!=null && needStop(k)){ const d=cur.stopRef-stopK; stopOk = d>=1&&d<=2; }
   const ok = okAct && stopOk!==false;
-  const s=stats.by[sc.id]||{seen:0,right:0}; s.seen++; if(ok) s.right++; stats.by[sc.id]=s; saveStats(); renderScore();
-  [...$('answers').children].forEach(b=>{ b.disabled=true; if(sc.ans.includes(b.dataset.k)) b.classList.add('right'); else if(b.dataset.k===k) b.classList.add('wrong'); });
+  const s=stats.by[sc.id]||{seen:0,right:0}; s.seen++; if(ok) s.right++; stats.by[sc.id]=s;
+  if(cur.v){ const vk=sc.id+':'+cur.v.v, sv=stats.by[vk]||{seen:0,right:0}; sv.seen++; if(ok) sv.right++; stats.by[vk]=sv; }
+  saveStats(); renderScore();
+  [...$('answers').children].forEach(b=>{ b.disabled=true; if(ANS.includes(b.dataset.k)) b.classList.add('right'); else if(b.dataset.k===k) b.classList.add('wrong'); });
   drawAll(true);
   const lab=Object.fromEntries(cur.opts);
-  const st=SITS[sc.sit], also=sc.also!=null?SITS[sc.also]:null;
+  const st=SITS[cur.sit], also=(!cur.v&&sc.also!=null)?SITS[sc.also]:null;
   const pending = x=>x && /รอเข้าตำรา/.test(x.textbook_section);
-  let sub = (timeout?'หมดเวลา 10 วินาที':`คุณเลือก: ${lab[k]}`) + ` · ที่ถูก: ${sc.ans.map(a=>lab[a]).join(' หรือ ')}`;
+  let sub = (timeout?'หมดเวลา 10 วินาที':`คุณเลือก: ${lab[k]}`) + ` · ที่ถูก: ${ANS.map(a=>lab[a]).join(' หรือ ')}`;
   let stopTxt='';
-  if(sc.stop && cur.stopRef!=null){
+  if(cur.stopOn && cur.stopRef!=null){
     const z=`${fmt(cur.stopRef-2)}–${fmt(cur.stopRef-1)}`;
     if(stopOk===true) stopTxt=`<dt>Stop</dt><dd>${fmt(stopK)} ถูกต้อง — ${cur.stopHint} 1–2 ช่อง (${z})</dd>`;
     else if(stopOk===false) stopTxt=`<dt>Stop</dt><dd>${fmt(stopK)} ยังไม่ตรง — ควรอยู่${cur.stopHint} 1–2 ช่อง = ${z} (แถบสีบนกราฟ 5 นาที)</dd>`;
@@ -939,7 +1032,7 @@ function grade(k,timeout){
   const verdict = ok?'ถูก':(okAct&&stopOk===false?'ตัดสินใจถูก แต่ Stop ผิดที่':'ยังไม่ถูก');
   $('fb').className='fb on '+(ok?'ok':'no');
   $('fb').innerHTML = `<p class="verdict">${verdict}</p><p class="sub">${sub}</p>
-   <dl><dt>ภาพนี้คือ</dt><dd>${st.setup}${st.setup.includes(sc.name)?'':` <span class="dim">(${sc.name})</span>`}</dd>
+   <dl><dt>ภาพนี้คือ</dt><dd>${st.setup}${st.setup.includes(cur.vname)?'':` <span class="dim">(${cur.vname})</span>`}</dd>
    <dt>สภาวะในตำรา</dt><dd>${st.market} · ${st.holding}</dd>
    <dt>ทำอะไร</dt><dd>${st.action}</dd>
    ${also?`<dt>เทียบ ${also.textbook_section} (${also.holding})</dt><dd>${also.action}</dd>`:''}
