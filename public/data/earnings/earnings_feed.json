@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T18:13:14.487654+07:00",
+  "generatedAt": "2026-10-29T15:59:43.126698+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 10,
+      "count": 11,
       "top3": [
         {
           "ticker": "TSTH",
@@ -88,11 +88,42 @@
   },
   "announcements": [
     {
+      "ticker": "ITC",
+      "sector": "Agro",
+      "subsector": "Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-10-29T12:42:45+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 755824000.0,
+      "netProfitPrior": 812103000.0,
+      "netProfitYoY": -6.930032274231223,
+      "netProfitPriorQ": 844094000.0,
+      "netProfitQoQ": -10.457366122730406,
+      "profitAcceleration": "stable",
+      "eps": 0.25196,
+      "epsPrior": 0.27072,
+      "epsYoY": -6.92966903073286,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107243101&symbol=ITC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17932310382421&symbol=ITC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107243201&symbol=ITC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.59,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
       "ticker": "SCC",
       "sector": "Property",
       "subsector": "Construction Materials",
       "market": "SET",
-      "announceDate": "2026-10-28T17:54:43+07:00",
+      "announceDate": "2026-10-28T17:54:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 2385896000.0,
@@ -112,7 +143,11 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107232901&symbol=SCC",
       "headline": "สรุปผลการดำเนินงานของไตรมาสที่ 3/2569 (F45) (ก่อนสอบทาน)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.72,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
     },
     {
       "ticker": "GLOBAL",
@@ -141,7 +176,7 @@
       "reason": "มีปัจจัยหลักมาจากการปรับตัวดีขึ้นของอัตรากำไรขั้นต้น อันเป็นผลจากการเพิ่มสัดส่วนยอดขายสินค้า House Brand ร่วมกับการบริหารจัดการต้นทุนและควบคุมค่าใช้จ่ายในการดำเนินงานอย่างมีประสิทธิภาพ แม้ว่าภาวะเศรษฐกิจโดยรวมและกำลังซื้อ",
       "reason_source": "mda_extract",
       "gap_pct": 1.44,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 2.88,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -172,7 +207,7 @@
       "reason": "รายได้จากการขาย 75,801 100.0 53,231 100.0 65,191 100.0 42.4 16.3 กำไรขั้นต้น 20,697 27.3 15,083 28.3 17,469 26.8 37.2 18.5 กำไรสุทธิจากการดำเนินงาน 7,851 10.4 7,499 14.1 6,114 9.4 4.7 28.4 กำไรสุทธิ 7,757 10.2 7,437 14.0",
       "reason_source": "mda_extract",
       "gap_pct": -2.13,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -4.68,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -203,7 +238,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.43,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 3.91,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -235,7 +270,7 @@
       "reason_source": "none",
       "gap_pct": -0.85,
       "drift_d1_pct": -4.24,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -9.32,
       "drift_d5_pct": null
     },
     {
@@ -266,7 +301,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -1.55,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -1.55,
       "drift_d5_pct": null
     },
     {
@@ -297,7 +332,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.63,
       "drift_d1_pct": -1.32,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -2.63,
       "drift_d5_pct": null
     },
     {
@@ -328,7 +363,7 @@
       "reason_source": "none",
       "gap_pct": 4.55,
       "drift_d1_pct": 7.27,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 4.55,
       "drift_d5_pct": null
     },
     {
@@ -453,7 +488,7 @@
       "gap_pct": 0.68,
       "drift_d1_pct": 3.77,
       "drift_d2_pct": 4.45,
-      "drift_d5_pct": null
+      "drift_d5_pct": 5.14
     },
     {
       "ticker": "KBANK",
@@ -484,7 +519,7 @@
       "gap_pct": 0.85,
       "drift_d1_pct": 3.42,
       "drift_d2_pct": 4.27,
-      "drift_d5_pct": null
+      "drift_d5_pct": 6.84
     },
     {
       "ticker": "BAY",
@@ -515,7 +550,7 @@
       "gap_pct": 1.28,
       "drift_d1_pct": 2.56,
       "drift_d2_pct": 2.56,
-      "drift_d5_pct": null
+      "drift_d5_pct": 1.28
     },
     {
       "ticker": "BBL",
@@ -546,7 +581,7 @@
       "gap_pct": -0.27,
       "drift_d1_pct": 0.55,
       "drift_d2_pct": 1.37,
-      "drift_d5_pct": null
+      "drift_d5_pct": 2.74
     },
     {
       "ticker": "KTC",
@@ -577,7 +612,7 @@
       "gap_pct": -0.7,
       "drift_d1_pct": -2.11,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.7
     },
     {
       "ticker": "TTB",
@@ -1429,7 +1464,13 @@
     },
     {
       "ticker": "SCC",
-      "date": "2026-10-28T17:54:43+07:00",
+      "date": "2026-10-28T17:54:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "ITC",
+      "date": "2026-10-29T12:42:45+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
@@ -1439,13 +1480,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-30T12:51:00+07:00"
-    },
-    {
-      "ticker": "ITC",
-      "date": "2026-10-30T12:54:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-10-30T12:54:00+07:00"
     },
     {
       "ticker": "TAE",
