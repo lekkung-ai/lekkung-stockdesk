@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T18:05:51+07:00",
+  "generated_at": "2026-10-29T18:05:27+07:00",
   "universe": {
     "count": 880,
     "min_history_days": 252,
@@ -20,28 +20,19 @@
   },
   "ftd_dd_rule": "DD (Distribution Day): SET index ปิดลบ >= 0.2% ด้วย volume มากกว่าวันก่อนหน้า (นับทุกครั้งที่เข้าเงื่อนไข ไม่ขึ้นกับสถานะ rally attempt). FTD (Follow-Through Day): เกิดได้เฉพาะวันที่ 4-10 ของ 'rally attempt' (วันที่ 1 = วันแรกที่ index ปิดบวกหลังวันก่อนหน้าปิดลบ) โดยวันนั้นต้องปิดบวก >= 1.5% ด้วย volume มากกว่าวันก่อนหน้า. rally attempt ถือว่าล้มเหลวและเริ่มนับวันที่ 1 ใหม่ ถ้า close หลุดต่ำกว่า low ของวันที่ 1 ก่อนเกิด FTD. หลัง FTD ยืนยันแล้ว จะกลับไปเฝ้าหา rally attempt ใหม่ อีกครั้งเมื่อ index ปิดลบเป็นวันแรก (pullback ครั้งถัดไป). หมายเหตุ: เป็นการตีความเกณฑ์ O'Neil แบบย่อของทีมเรา ไม่ใช่สูตรทางการของ IBD ปรับ threshold ได้ที่ config.py (DD_MIN_DECLINE_PCT / FTD_MIN_GAIN_PCT / FTD_WINDOW_START_DAY / FTD_WINDOW_END_DAY)",
   "market_stage": {
-    "stage": "Under Pressure",
-    "dd_count_25d": 5,
-    "pct_above_ma50_today": 28.91,
+    "stage": "Correction",
+    "dd_count_25d": 6,
+    "pct_above_ma50_today": 24.35,
     "rule": "stage = 'Correction' ถ้า dd_count_25d >= 6; 'Under Pressure' ถ้า dd_count_25d >= 4 หรือ pct_above_ma50 วันล่าสุด < 35%; มิฉะนั้น 'Uptrend'. เกณฑ์นี้เป็นการตีความของทีมเรา ปรับได้ที่ config.py (MARKET_STAGE_DD_CORRECTION / MARKET_STAGE_DD_PRESSURE / MARKET_STAGE_MA50_PRESSURE_PCT)"
   },
   "set_index": [
-    {
-      "date": "2026-04-30",
-      "open": 1485.99,
-      "high": 1493.69,
-      "low": 1481.05,
-      "close": 1493.69,
-      "volume": 56366665678,
-      "marker": null
-    },
     {
       "date": "2026-05-05",
       "open": 1498.27,
       "high": 1503.9,
       "low": 1482.17,
       "close": 1490.1,
-      "volume": 67598171527,
+      "volume": 67598171319,
       "marker": "DD"
     },
     {
@@ -50,7 +41,7 @@
       "high": 1517.94,
       "low": 1494.23,
       "close": 1516.91,
-      "volume": 76097124297,
+      "volume": 76097124423,
       "marker": null
     },
     {
@@ -59,7 +50,7 @@
       "high": 1527.17,
       "low": 1507.53,
       "close": 1507.53,
-      "volume": 74652344689,
+      "volume": 74652344704,
       "marker": null
     },
     {
@@ -68,7 +59,7 @@
       "high": 1512.66,
       "low": 1498.13,
       "close": 1500.36,
-      "volume": 58479815088,
+      "volume": 58479815091,
       "marker": null
     },
     {
@@ -77,7 +68,7 @@
       "high": 1509.86,
       "low": 1483.95,
       "close": 1489.29,
-      "volume": 55596301466,
+      "volume": 55596301463,
       "marker": null
     },
     {
@@ -86,7 +77,7 @@
       "high": 1501.35,
       "low": 1481.95,
       "close": 1483.56,
-      "volume": 49832947050,
+      "volume": 49832947031,
       "marker": null
     },
     {
@@ -95,7 +86,7 @@
       "high": 1521.02,
       "low": 1493.28,
       "close": 1517.26,
-      "volume": 62141153520,
+      "volume": 62141153518,
       "marker": null
     },
     {
@@ -104,7 +95,7 @@
       "high": 1540.07,
       "low": 1514.56,
       "close": 1539.12,
-      "volume": 69092049396,
+      "volume": 69092049382,
       "marker": null
     },
     {
@@ -113,7 +104,7 @@
       "high": 1536.79,
       "low": 1512.91,
       "close": 1517.95,
-      "volume": 62408515883,
+      "volume": 62408515858,
       "marker": null
     },
     {
@@ -122,7 +113,7 @@
       "high": 1523.19,
       "low": 1510.42,
       "close": 1517.74,
-      "volume": 51704719803,
+      "volume": 51704719802,
       "marker": null
     },
     {
@@ -131,7 +122,7 @@
       "high": 1524.01,
       "low": 1509.26,
       "close": 1516.69,
-      "volume": 46004136607,
+      "volume": 46004136603,
       "marker": null
     },
     {
@@ -140,7 +131,7 @@
       "high": 1532.03,
       "low": 1516.78,
       "close": 1528.43,
-      "volume": 54208690259,
+      "volume": 54208690249,
       "marker": null
     },
     {
@@ -149,7 +140,7 @@
       "high": 1541.96,
       "low": 1530.93,
       "close": 1532.67,
-      "volume": 49429448079,
+      "volume": 49429448067,
       "marker": null
     },
     {
@@ -158,7 +149,7 @@
       "high": 1542.25,
       "low": 1533.03,
       "close": 1538.67,
-      "volume": 55299366136,
+      "volume": 55299366134,
       "marker": null
     },
     {
@@ -167,7 +158,7 @@
       "high": 1558.95,
       "low": 1545.63,
       "close": 1550.33,
-      "volume": 58583783826,
+      "volume": 58583783824,
       "marker": null
     },
     {
@@ -194,7 +185,7 @@
       "high": 1571.56,
       "low": 1552.85,
       "close": 1568.97,
-      "volume": 56430988299,
+      "volume": 56430988300,
       "marker": null
     },
     {
@@ -221,7 +212,7 @@
       "high": 1607.25,
       "low": 1586.2,
       "close": 1594.79,
-      "volume": 81892348329,
+      "volume": 81898869204,
       "marker": null
     },
     {
@@ -230,7 +221,7 @@
       "high": 1598.53,
       "low": 1580.36,
       "close": 1582.6,
-      "volume": 61570884617,
+      "volume": 61572899442,
       "marker": null
     },
     {
@@ -239,7 +230,7 @@
       "high": 1576.58,
       "low": 1558.97,
       "close": 1561.68,
-      "volume": 58991686558,
+      "volume": 58993636117,
       "marker": null
     },
     {
@@ -248,7 +239,7 @@
       "high": 1587.42,
       "low": 1570.48,
       "close": 1584.14,
-      "volume": 64841587107,
+      "volume": 64842653920,
       "marker": null
     },
     {
@@ -257,7 +248,7 @@
       "high": 1591.59,
       "low": 1563.59,
       "close": 1563.59,
-      "volume": 45148567287,
+      "volume": 45149041330,
       "marker": null
     },
     {
@@ -266,7 +257,7 @@
       "high": 1581.92,
       "low": 1559.45,
       "close": 1572.32,
-      "volume": 47115248543,
+      "volume": 47117427226,
       "marker": null
     },
     {
@@ -275,7 +266,7 @@
       "high": 1595.84,
       "low": 1582.26,
       "close": 1592.41,
-      "volume": 60419842587,
+      "volume": 60420606583,
       "marker": null
     },
     {
@@ -284,7 +275,7 @@
       "high": 1609.71,
       "low": 1585.61,
       "close": 1591.72,
-      "volume": 71807546755,
+      "volume": 71807980014,
       "marker": null
     },
     {
@@ -293,7 +284,7 @@
       "high": 1596.23,
       "low": 1583.96,
       "close": 1588.05,
-      "volume": 60883613558,
+      "volume": 60883823821,
       "marker": null
     },
     {
@@ -302,7 +293,7 @@
       "high": 1590.04,
       "low": 1574.14,
       "close": 1587.07,
-      "volume": 57314070760,
+      "volume": 57315246082,
       "marker": null
     },
     {
@@ -311,7 +302,7 @@
       "high": 1596.44,
       "low": 1583.24,
       "close": 1585.06,
-      "volume": 62392789072,
+      "volume": 62393206615,
       "marker": null
     },
     {
@@ -320,7 +311,7 @@
       "high": 1592.34,
       "low": 1570.1,
       "close": 1572.5,
-      "volume": 63869305980,
+      "volume": 63870124792,
       "marker": "DD"
     },
     {
@@ -329,7 +320,7 @@
       "high": 1580.86,
       "low": 1568.05,
       "close": 1574.13,
-      "volume": 62517840336,
+      "volume": 62518161848,
       "marker": null
     },
     {
@@ -338,7 +329,7 @@
       "high": 1569.78,
       "low": 1538.69,
       "close": 1540.9,
-      "volume": 106972062997,
+      "volume": 106972336121,
       "marker": "DD"
     },
     {
@@ -347,7 +338,7 @@
       "high": 1553.35,
       "low": 1536.37,
       "close": 1548.22,
-      "volume": 52767007338,
+      "volume": 52767206800,
       "marker": null
     },
     {
@@ -356,7 +347,7 @@
       "high": 1567.47,
       "low": 1554.51,
       "close": 1558.55,
-      "volume": 77606977228,
+      "volume": 77607030740,
       "marker": null
     },
     {
@@ -365,7 +356,7 @@
       "high": 1549.82,
       "low": 1537.96,
       "close": 1542.34,
-      "volume": 60467790734,
+      "volume": 60468032259,
       "marker": null
     },
     {
@@ -374,7 +365,7 @@
       "high": 1577.81,
       "low": 1550.14,
       "close": 1577.81,
-      "volume": 65374800461,
+      "volume": 65375222369,
       "marker": null
     },
     {
@@ -383,7 +374,7 @@
       "high": 1595.23,
       "low": 1576.0,
       "close": 1591.24,
-      "volume": 85981377126,
+      "volume": 85981732088,
       "marker": null
     },
     {
@@ -392,7 +383,7 @@
       "high": 1600.98,
       "low": 1587.88,
       "close": 1588.23,
-      "volume": 59461649947,
+      "volume": 59461937516,
       "marker": null
     },
     {
@@ -401,7 +392,7 @@
       "high": 1596.33,
       "low": 1583.28,
       "close": 1593.56,
-      "volume": 83191102889,
+      "volume": 83191835607,
       "marker": null
     },
     {
@@ -410,7 +401,7 @@
       "high": 1621.19,
       "low": 1598.3,
       "close": 1611.28,
-      "volume": 68289183598,
+      "volume": 68290246373,
       "marker": null
     },
     {
@@ -455,7 +446,7 @@
       "high": 1621.55,
       "low": 1612.12,
       "close": 1621.55,
-      "volume": 66760218919,
+      "volume": 66760218917,
       "marker": null
     },
     {
@@ -482,7 +473,7 @@
       "high": 1642.14,
       "low": 1627.19,
       "close": 1630.21,
-      "volume": 75393106515,
+      "volume": 75393106516,
       "marker": null
     },
     {
@@ -590,7 +581,7 @@
       "high": 1631.58,
       "low": 1616.56,
       "close": 1617.13,
-      "volume": 69531818623,
+      "volume": 69531818624,
       "marker": "DD"
     },
     {
@@ -617,7 +608,7 @@
       "high": 1617.77,
       "low": 1607.45,
       "close": 1612.0,
-      "volume": 57950832334,
+      "volume": 57950832335,
       "marker": null
     },
     {
@@ -644,7 +635,7 @@
       "high": 1623.63,
       "low": 1611.15,
       "close": 1614.36,
-      "volume": 70109508487,
+      "volume": 70109508488,
       "marker": null
     },
     {
@@ -653,7 +644,7 @@
       "high": 1623.82,
       "low": 1605.13,
       "close": 1609.06,
-      "volume": 70839104693,
+      "volume": 70839104694,
       "marker": "DD"
     },
     {
@@ -1103,25 +1094,20 @@
       "high": 1576.55,
       "low": 1565.52,
       "close": 1566.1,
-      "volume": 60631943035,
+      "volume": 56991690218,
       "marker": null
+    },
+    {
+      "date": "2026-10-29",
+      "open": 1564.25,
+      "high": 1564.92,
+      "low": 1544.2,
+      "close": 1544.6,
+      "volume": 64772049775,
+      "marker": "DD"
     }
   ],
   "breadth": [
-    {
-      "date": "2026-04-30",
-      "pct_above_ma10": 52.62,
-      "denom_ma10": 878,
-      "pct_above_ma20": 49.32,
-      "denom_ma20": 878,
-      "pct_above_ma50": 46.24,
-      "denom_ma50": 878,
-      "pct_above_ma200": 45.02,
-      "denom_ma200": 873,
-      "pct_new_52wh": 5.29,
-      "pct_new_52wl": 4.83,
-      "denom_52w": 870
-    },
     {
       "date": "2026-05-05",
       "pct_above_ma10": 54.72,
@@ -1208,7 +1194,7 @@
     },
     {
       "date": "2026-05-13",
-      "pct_above_ma10": 44.6,
+      "pct_above_ma10": 44.48,
       "denom_ma10": 879,
       "pct_above_ma20": 51.31,
       "denom_ma20": 879,
@@ -2538,255 +2524,269 @@
     },
     {
       "date": "2026-09-30",
-      "pct_above_ma10": 19.23,
-      "denom_ma10": 853,
-      "pct_above_ma20": 24.5,
-      "denom_ma20": 853,
-      "pct_above_ma50": 32.12,
-      "denom_ma50": 853,
-      "pct_above_ma200": 61.66,
-      "denom_ma200": 853,
-      "pct_new_52wh": 1.3,
-      "pct_new_52wl": 5.54,
-      "denom_52w": 849
+      "pct_above_ma10": 19.2,
+      "denom_ma10": 854,
+      "pct_above_ma20": 24.59,
+      "denom_ma20": 854,
+      "pct_above_ma50": 32.2,
+      "denom_ma50": 854,
+      "pct_above_ma200": 61.59,
+      "denom_ma200": 854,
+      "pct_new_52wh": 1.29,
+      "pct_new_52wl": 5.53,
+      "denom_52w": 850
     },
     {
       "date": "2026-10-01",
-      "pct_above_ma10": 21.95,
-      "denom_ma10": 852,
-      "pct_above_ma20": 27.46,
-      "denom_ma20": 852,
-      "pct_above_ma50": 33.22,
-      "denom_ma50": 852,
-      "pct_above_ma200": 62.44,
-      "denom_ma200": 852,
-      "pct_new_52wh": 1.42,
-      "pct_new_52wl": 4.13,
-      "denom_52w": 848
+      "pct_above_ma10": 21.92,
+      "denom_ma10": 853,
+      "pct_above_ma20": 27.55,
+      "denom_ma20": 853,
+      "pct_above_ma50": 33.29,
+      "denom_ma50": 853,
+      "pct_above_ma200": 62.37,
+      "denom_ma200": 853,
+      "pct_new_52wh": 1.41,
+      "pct_new_52wl": 4.12,
+      "denom_52w": 849
     },
     {
       "date": "2026-10-02",
-      "pct_above_ma10": 26.53,
-      "denom_ma10": 852,
-      "pct_above_ma20": 31.1,
-      "denom_ma20": 852,
-      "pct_above_ma50": 35.45,
-      "denom_ma50": 852,
-      "pct_above_ma200": 63.85,
-      "denom_ma200": 852,
+      "pct_above_ma10": 26.49,
+      "denom_ma10": 853,
+      "pct_above_ma20": 31.18,
+      "denom_ma20": 853,
+      "pct_above_ma50": 35.52,
+      "denom_ma50": 853,
+      "pct_above_ma200": 63.77,
+      "denom_ma200": 853,
       "pct_new_52wh": 2.12,
       "pct_new_52wl": 3.18,
-      "denom_52w": 848
+      "denom_52w": 849
     },
     {
       "date": "2026-10-05",
-      "pct_above_ma10": 27.58,
-      "denom_ma10": 852,
-      "pct_above_ma20": 29.11,
-      "denom_ma20": 852,
-      "pct_above_ma50": 34.98,
-      "denom_ma50": 852,
-      "pct_above_ma200": 63.85,
-      "denom_ma200": 852,
+      "pct_above_ma10": 27.55,
+      "denom_ma10": 853,
+      "pct_above_ma20": 29.19,
+      "denom_ma20": 853,
+      "pct_above_ma50": 35.05,
+      "denom_ma50": 853,
+      "pct_above_ma200": 63.77,
+      "denom_ma200": 853,
       "pct_new_52wh": 2.24,
       "pct_new_52wl": 3.89,
-      "denom_52w": 848
+      "denom_52w": 849
     },
     {
       "date": "2026-10-06",
-      "pct_above_ma10": 29.34,
-      "denom_ma10": 852,
-      "pct_above_ma20": 29.34,
-      "denom_ma20": 852,
-      "pct_above_ma50": 33.92,
-      "denom_ma50": 852,
-      "pct_above_ma200": 62.68,
-      "denom_ma200": 852,
+      "pct_above_ma10": 29.31,
+      "denom_ma10": 853,
+      "pct_above_ma20": 29.43,
+      "denom_ma20": 853,
+      "pct_above_ma50": 34.0,
+      "denom_ma50": 853,
+      "pct_above_ma200": 62.6,
+      "denom_ma200": 853,
       "pct_new_52wh": 2.59,
-      "pct_new_52wl": 4.01,
-      "denom_52w": 848
+      "pct_new_52wl": 4.0,
+      "denom_52w": 849
     },
     {
       "date": "2026-10-07",
-      "pct_above_ma10": 33.33,
-      "denom_ma10": 852,
-      "pct_above_ma20": 30.87,
-      "denom_ma20": 852,
-      "pct_above_ma50": 34.15,
-      "denom_ma50": 852,
-      "pct_above_ma200": 62.09,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.48,
-      "pct_new_52wl": 4.6,
-      "denom_52w": 848
+      "pct_above_ma10": 33.29,
+      "denom_ma10": 853,
+      "pct_above_ma20": 30.95,
+      "denom_ma20": 853,
+      "pct_above_ma50": 34.23,
+      "denom_ma50": 853,
+      "pct_above_ma200": 62.02,
+      "denom_ma200": 853,
+      "pct_new_52wh": 2.47,
+      "pct_new_52wl": 4.59,
+      "denom_52w": 849
     },
     {
       "date": "2026-10-08",
-      "pct_above_ma10": 30.95,
-      "denom_ma10": 853,
-      "pct_above_ma20": 28.37,
-      "denom_ma20": 853,
-      "pct_above_ma50": 31.42,
-      "denom_ma50": 853,
-      "pct_above_ma200": 60.49,
-      "denom_ma200": 853,
+      "pct_above_ma10": 30.91,
+      "denom_ma10": 854,
+      "pct_above_ma20": 28.45,
+      "denom_ma20": 854,
+      "pct_above_ma50": 31.5,
+      "denom_ma50": 854,
+      "pct_above_ma200": 60.42,
+      "denom_ma200": 854,
       "pct_new_52wh": 1.53,
-      "pct_new_52wl": 4.24,
-      "denom_52w": 850
+      "pct_new_52wl": 4.23,
+      "denom_52w": 851
     },
     {
       "date": "2026-10-09",
-      "pct_above_ma10": 41.2,
-      "denom_ma10": 852,
-      "pct_above_ma20": 34.04,
-      "denom_ma20": 852,
-      "pct_above_ma50": 33.92,
-      "denom_ma50": 852,
-      "pct_above_ma200": 62.44,
-      "denom_ma200": 852,
+      "pct_above_ma10": 41.15,
+      "denom_ma10": 853,
+      "pct_above_ma20": 34.11,
+      "denom_ma20": 853,
+      "pct_above_ma50": 34.0,
+      "denom_ma50": 853,
+      "pct_above_ma200": 62.37,
+      "denom_ma200": 853,
       "pct_new_52wh": 2.12,
       "pct_new_52wl": 4.24,
-      "denom_52w": 849
+      "denom_52w": 850
     },
     {
       "date": "2026-10-12",
-      "pct_above_ma10": 39.16,
-      "denom_ma10": 853,
-      "pct_above_ma20": 30.6,
-      "denom_ma20": 853,
-      "pct_above_ma50": 31.42,
-      "denom_ma50": 853,
-      "pct_above_ma200": 59.91,
-      "denom_ma200": 853,
+      "pct_above_ma10": 39.11,
+      "denom_ma10": 854,
+      "pct_above_ma20": 30.68,
+      "denom_ma20": 854,
+      "pct_above_ma50": 31.5,
+      "denom_ma50": 854,
+      "pct_above_ma200": 59.84,
+      "denom_ma200": 854,
       "pct_new_52wh": 2.0,
       "pct_new_52wl": 4.0,
-      "denom_52w": 850
+      "denom_52w": 851
     },
     {
       "date": "2026-10-14",
-      "pct_above_ma10": 39.2,
-      "denom_ma10": 852,
-      "pct_above_ma20": 31.46,
-      "denom_ma20": 852,
-      "pct_above_ma50": 29.69,
-      "denom_ma50": 852,
-      "pct_above_ma200": 59.86,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.36,
+      "pct_above_ma10": 39.16,
+      "denom_ma10": 853,
+      "pct_above_ma20": 31.54,
+      "denom_ma20": 853,
+      "pct_above_ma50": 29.78,
+      "denom_ma50": 853,
+      "pct_above_ma200": 59.79,
+      "denom_ma200": 853,
+      "pct_new_52wh": 2.35,
       "pct_new_52wl": 4.71,
-      "denom_52w": 849
+      "denom_52w": 850
     },
     {
       "date": "2026-10-15",
-      "pct_above_ma10": 42.84,
-      "denom_ma10": 852,
-      "pct_above_ma20": 32.63,
-      "denom_ma20": 852,
-      "pct_above_ma50": 31.69,
-      "denom_ma50": 852,
-      "pct_above_ma200": 61.62,
-      "denom_ma200": 852,
+      "pct_above_ma10": 42.79,
+      "denom_ma10": 853,
+      "pct_above_ma20": 32.59,
+      "denom_ma20": 853,
+      "pct_above_ma50": 31.77,
+      "denom_ma50": 853,
+      "pct_above_ma200": 61.55,
+      "denom_ma200": 853,
       "pct_new_52wh": 2.47,
-      "pct_new_52wl": 4.36,
-      "denom_52w": 849
+      "pct_new_52wl": 4.35,
+      "denom_52w": 850
     },
     {
       "date": "2026-10-19",
-      "pct_above_ma10": 39.74,
-      "denom_ma10": 853,
-      "pct_above_ma20": 30.6,
-      "denom_ma20": 853,
-      "pct_above_ma50": 30.13,
-      "denom_ma50": 853,
-      "pct_above_ma200": 60.14,
-      "denom_ma200": 853,
+      "pct_above_ma10": 39.7,
+      "denom_ma10": 854,
+      "pct_above_ma20": 30.56,
+      "denom_ma20": 854,
+      "pct_above_ma50": 30.21,
+      "denom_ma50": 854,
+      "pct_above_ma200": 60.07,
+      "denom_ma200": 854,
       "pct_new_52wh": 2.12,
-      "pct_new_52wl": 5.18,
-      "denom_52w": 850
+      "pct_new_52wl": 5.17,
+      "denom_52w": 851
     },
     {
       "date": "2026-10-20",
-      "pct_above_ma10": 34.0,
-      "denom_ma10": 853,
-      "pct_above_ma20": 27.78,
-      "denom_ma20": 853,
-      "pct_above_ma50": 27.78,
-      "denom_ma50": 853,
-      "pct_above_ma200": 58.62,
-      "denom_ma200": 853,
+      "pct_above_ma10": 33.96,
+      "denom_ma10": 854,
+      "pct_above_ma20": 27.75,
+      "denom_ma20": 854,
+      "pct_above_ma50": 27.87,
+      "denom_ma50": 854,
+      "pct_above_ma200": 58.55,
+      "denom_ma200": 854,
       "pct_new_52wh": 1.88,
-      "pct_new_52wl": 5.18,
-      "denom_52w": 850
+      "pct_new_52wl": 5.17,
+      "denom_52w": 851
     },
     {
       "date": "2026-10-21",
-      "pct_above_ma10": 39.04,
-      "denom_ma10": 853,
-      "pct_above_ma20": 32.0,
-      "denom_ma20": 853,
-      "pct_above_ma50": 31.07,
-      "denom_ma50": 853,
-      "pct_above_ma200": 59.09,
-      "denom_ma200": 853,
-      "pct_new_52wh": 2.24,
-      "pct_new_52wl": 5.18,
-      "denom_52w": 850
+      "pct_above_ma10": 38.99,
+      "denom_ma10": 854,
+      "pct_above_ma20": 31.97,
+      "denom_ma20": 854,
+      "pct_above_ma50": 31.15,
+      "denom_ma50": 854,
+      "pct_above_ma200": 59.02,
+      "denom_ma200": 854,
+      "pct_new_52wh": 2.23,
+      "pct_new_52wl": 5.17,
+      "denom_52w": 851
     },
     {
       "date": "2026-10-22",
-      "pct_above_ma10": 43.54,
-      "denom_ma10": 852,
-      "pct_above_ma20": 36.38,
-      "denom_ma20": 852,
-      "pct_above_ma50": 31.46,
-      "denom_ma50": 852,
-      "pct_above_ma200": 59.51,
-      "denom_ma200": 852,
-      "pct_new_52wh": 3.06,
-      "pct_new_52wl": 4.35,
-      "denom_52w": 851
-    },
-    {
-      "date": "2026-10-26",
-      "pct_above_ma10": 45.42,
-      "denom_ma10": 852,
-      "pct_above_ma20": 39.55,
-      "denom_ma20": 852,
-      "pct_above_ma50": 30.87,
-      "denom_ma50": 852,
-      "pct_above_ma200": 60.33,
-      "denom_ma200": 852,
-      "pct_new_52wh": 2.7,
-      "pct_new_52wl": 4.69,
+      "pct_above_ma10": 43.49,
+      "denom_ma10": 853,
+      "pct_above_ma20": 36.34,
+      "denom_ma20": 853,
+      "pct_above_ma50": 31.54,
+      "denom_ma50": 853,
+      "pct_above_ma200": 59.44,
+      "denom_ma200": 853,
+      "pct_new_52wh": 3.05,
+      "pct_new_52wl": 4.34,
       "denom_52w": 852
     },
     {
+      "date": "2026-10-26",
+      "pct_above_ma10": 45.37,
+      "denom_ma10": 853,
+      "pct_above_ma20": 39.51,
+      "denom_ma20": 853,
+      "pct_above_ma50": 30.95,
+      "denom_ma50": 853,
+      "pct_above_ma200": 60.26,
+      "denom_ma200": 853,
+      "pct_new_52wh": 2.7,
+      "pct_new_52wl": 4.69,
+      "denom_52w": 853
+    },
+    {
       "date": "2026-10-27",
-      "pct_above_ma10": 42.07,
-      "denom_ma10": 851,
-      "pct_above_ma20": 38.19,
-      "denom_ma20": 851,
-      "pct_above_ma50": 29.96,
-      "denom_ma50": 851,
-      "pct_above_ma200": 58.4,
-      "denom_ma200": 851,
-      "pct_new_52wh": 3.41,
-      "pct_new_52wl": 4.82,
-      "denom_52w": 851
+      "pct_above_ma10": 42.02,
+      "denom_ma10": 852,
+      "pct_above_ma20": 38.15,
+      "denom_ma20": 852,
+      "pct_above_ma50": 30.05,
+      "denom_ma50": 852,
+      "pct_above_ma200": 58.33,
+      "denom_ma200": 852,
+      "pct_new_52wh": 3.4,
+      "pct_new_52wl": 4.81,
+      "denom_52w": 852
     },
     {
       "date": "2026-10-28",
-      "pct_above_ma10": 39.58,
-      "denom_ma10": 806,
-      "pct_above_ma20": 36.35,
-      "denom_ma20": 806,
-      "pct_above_ma50": 28.91,
-      "denom_ma50": 806,
-      "pct_above_ma200": 59.06,
-      "denom_ma200": 806,
+      "pct_above_ma10": 39.04,
+      "denom_ma10": 853,
+      "pct_above_ma20": 35.05,
+      "denom_ma20": 853,
+      "pct_above_ma50": 28.6,
+      "denom_ma50": 853,
+      "pct_above_ma200": 57.56,
+      "denom_ma200": 853,
       "pct_new_52wh": 1.99,
-      "pct_new_52wl": 4.47,
-      "denom_52w": 806
+      "pct_new_52wl": 4.69,
+      "denom_52w": 853
+    },
+    {
+      "date": "2026-10-29",
+      "pct_above_ma10": 30.28,
+      "denom_ma10": 809,
+      "pct_above_ma20": 30.04,
+      "denom_ma20": 809,
+      "pct_above_ma50": 24.35,
+      "denom_ma50": 809,
+      "pct_above_ma200": 57.73,
+      "denom_ma200": 809,
+      "pct_new_52wh": 0.74,
+      "pct_new_52wl": 7.29,
+      "denom_52w": 809
     }
   ]
 }
