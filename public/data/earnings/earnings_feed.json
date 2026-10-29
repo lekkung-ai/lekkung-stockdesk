@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T15:59:43.126698+07:00",
+  "generatedAt": "2026-10-29T18:12:13.090783+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -111,9 +111,9 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17932310382421&symbol=ITC",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107243201&symbol=ITC",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": -0.59,
+      "reason": "โดยรายได้จากการขายจากการดำเนินงานปกติอยู่ที่ 15,220 ล้านบาท เพิ่มขึ้น 13.2% จากปีก่อน ขณะที่รายได้จากการขายในไตรมาส 3 ปี 2569 อยู่ที่ 5,177 ล้านบาท เพิ่มขึ้น 9.7% จากปีก่อน และเป็นรายได้รายไตรมาสสูงสุดในช่วง 9 เดือน แรกของปี",
+      "reason_source": "mda_extract",
+      "gap_pct": -1.18,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -176,7 +176,7 @@
       "reason": "มีปัจจัยหลักมาจากการปรับตัวดีขึ้นของอัตรากำไรขั้นต้น อันเป็นผลจากการเพิ่มสัดส่วนยอดขายสินค้า House Brand ร่วมกับการบริหารจัดการต้นทุนและควบคุมค่าใช้จ่ายในการดำเนินงานอย่างมีประสิทธิภาพ แม้ว่าภาวะเศรษฐกิจโดยรวมและกำลังซื้อ",
       "reason_source": "mda_extract",
       "gap_pct": 1.44,
-      "drift_d1_pct": 2.88,
+      "drift_d1_pct": 3.6,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -207,7 +207,7 @@
       "reason": "รายได้จากการขาย 75,801 100.0 53,231 100.0 65,191 100.0 42.4 16.3 กำไรขั้นต้น 20,697 27.3 15,083 28.3 17,469 26.8 37.2 18.5 กำไรสุทธิจากการดำเนินงาน 7,851 10.4 7,499 14.1 6,114 9.4 4.7 28.4 กำไรสุทธิ 7,757 10.2 7,437 14.0",
       "reason_source": "mda_extract",
       "gap_pct": -2.13,
-      "drift_d1_pct": -4.68,
+      "drift_d1_pct": -5.96,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -238,7 +238,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.43,
-      "drift_d1_pct": 3.91,
+      "drift_d1_pct": 4.35,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -270,7 +270,7 @@
       "reason_source": "none",
       "gap_pct": -0.85,
       "drift_d1_pct": -4.24,
-      "drift_d2_pct": -9.32,
+      "drift_d2_pct": -7.63,
       "drift_d5_pct": null
     },
     {
@@ -301,7 +301,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -1.55,
-      "drift_d2_pct": -1.55,
+      "drift_d2_pct": -0.78,
       "drift_d5_pct": null
     },
     {
@@ -332,7 +332,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 2.63,
       "drift_d1_pct": -1.32,
-      "drift_d2_pct": -2.63,
+      "drift_d2_pct": -1.97,
       "drift_d5_pct": null
     },
     {
@@ -550,7 +550,7 @@
       "gap_pct": 1.28,
       "drift_d1_pct": 2.56,
       "drift_d2_pct": 2.56,
-      "drift_d5_pct": 1.28
+      "drift_d5_pct": 1.92
     },
     {
       "ticker": "BBL",
