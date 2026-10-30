@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T18:12:13.090783+07:00",
+  "generatedAt": "2026-10-30T16:05:40.301482+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
@@ -41,19 +41,19 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 11,
+      "count": 12,
       "top3": [
         {
           "ticker": "TSTH",
           "netProfitYoY": -75.54604923836663
         },
         {
-          "ticker": "BBL",
-          "netProfitYoY": -31.185555478282463
+          "ticker": "TFM",
+          "netProfitYoY": -53.50523590694508
         },
         {
-          "ticker": "TNH",
-          "netProfitYoY": -19.864178445537366
+          "ticker": "BBL",
+          "netProfitYoY": -31.185555478282463
         }
       ]
     },
@@ -88,11 +88,42 @@
   },
   "announcements": [
     {
+      "ticker": "TFM",
+      "sector": "Agro",
+      "subsector": "Agribusiness",
+      "market": "SET",
+      "announceDate": "2026-10-30T12:41:46+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 103807000.0,
+      "netProfitPrior": 223266000.0,
+      "netProfitYoY": -53.50523590694508,
+      "netProfitPriorQ": 160798000.0,
+      "netProfitQoQ": -35.44260500752497,
+      "profitAcceleration": "stable",
+      "eps": 0.1,
+      "epsPrior": 0.22,
+      "epsYoY": -54.54545454545454,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107259101&symbol=TFM",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17933100672601&symbol=TFM",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107259801&symbol=TFM",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null
+    },
+    {
       "ticker": "ITC",
       "sector": "Agro",
       "subsector": "Food & Beverage",
       "market": "SET",
-      "announceDate": "2026-10-29T12:42:45+07:00",
+      "announceDate": "2026-10-29T12:42:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 755824000.0,
@@ -114,7 +145,7 @@
       "reason": "โดยรายได้จากการขายจากการดำเนินงานปกติอยู่ที่ 15,220 ล้านบาท เพิ่มขึ้น 13.2% จากปีก่อน ขณะที่รายได้จากการขายในไตรมาส 3 ปี 2569 อยู่ที่ 5,177 ล้านบาท เพิ่มขึ้น 9.7% จากปีก่อน และเป็นรายได้รายไตรมาสสูงสุดในช่วง 9 เดือน แรกของปี",
       "reason_source": "mda_extract",
       "gap_pct": -1.18,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -145,7 +176,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.72,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -7.55,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -177,7 +208,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 1.44,
       "drift_d1_pct": 3.6,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 1.44,
       "drift_d5_pct": null
     },
     {
@@ -208,7 +239,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.13,
       "drift_d1_pct": -5.96,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -14.47,
       "drift_d5_pct": null
     },
     {
@@ -239,7 +270,7 @@
       "reason_source": "none",
       "gap_pct": 0.43,
       "drift_d1_pct": 4.35,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 3.91,
       "drift_d5_pct": null
     },
     {
@@ -426,7 +457,7 @@
       "gap_pct": 7.14,
       "drift_d1_pct": 9.05,
       "drift_d2_pct": 9.52,
-      "drift_d5_pct": null
+      "drift_d5_pct": 13.81
     },
     {
       "ticker": "KTB",
@@ -457,7 +488,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.73,
       "drift_d2_pct": 2.31,
-      "drift_d5_pct": null
+      "drift_d5_pct": 0.58
     },
     {
       "ticker": "SCB",
@@ -1470,7 +1501,13 @@
     },
     {
       "ticker": "ITC",
-      "date": "2026-10-29T12:42:45+07:00",
+      "date": "2026-10-29T12:42:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "TFM",
+      "date": "2026-10-30T12:41:46+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
@@ -1487,13 +1524,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-30T17:04:00+07:00"
-    },
-    {
-      "ticker": "TFM",
-      "date": "2026-10-31T12:31:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-10-31T12:31:00+07:00"
     },
     {
       "ticker": "TU",
