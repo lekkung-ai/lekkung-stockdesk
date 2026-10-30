@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T18:06:42+07:00",
+  "generated_at": "2026-10-30T18:07:52+07:00",
   "series_days": 180,
   "zones": {
     "energy": "พลังงาน",
@@ -34,16 +34,12 @@
         "BA": "cost"
       },
       "latest": {
-        "date": "2026-10-29",
-        "close": 110.09
+        "date": "2026-10-30",
+        "close": 113.62
       },
-      "pct_1d": -1.39,
-      "pct_1m": 12.3,
+      "pct_1d": 2.55,
+      "pct_1m": 11.05,
       "series": [
-        {
-          "date": "2026-02-19",
-          "close": 71.66
-        },
         {
           "date": "2026-02-20",
           "close": 71.76
@@ -758,10 +754,14 @@
         },
         {
           "date": "2026-10-29",
-          "close": 110.09
+          "close": 110.8
+        },
+        {
+          "date": "2026-10-30",
+          "close": 113.62
         }
       ],
-      "last_success_date": "2026-10-29",
+      "last_success_date": "2026-10-30",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -775,16 +775,12 @@
       "tickers": [],
       "ticker_impacts": {},
       "latest": {
-        "date": "2026-10-29",
-        "close": 101.27
+        "date": "2026-10-30",
+        "close": 104.26
       },
-      "pct_1d": -1.47,
-      "pct_1m": 12.0,
+      "pct_1d": 2.22,
+      "pct_1m": 12.26,
       "series": [
-        {
-          "date": "2026-02-12",
-          "close": 62.84
-        },
         {
           "date": "2026-02-13",
           "close": 62.89
@@ -1499,10 +1495,14 @@
         },
         {
           "date": "2026-10-29",
-          "close": 101.27
+          "close": 102.0
+        },
+        {
+          "date": "2026-10-30",
+          "close": 104.26
         }
       ],
-      "last_success_date": "2026-10-29",
+      "last_success_date": "2026-10-30",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -1526,16 +1526,12 @@
         "GPSC": "cost"
       },
       "latest": {
-        "date": "2026-10-29",
-        "close": 3.035
+        "date": "2026-10-30",
+        "close": 2.904
       },
-      "pct_1d": 0.1,
-      "pct_1m": 0.3,
+      "pct_1d": -1.63,
+      "pct_1m": -2.12,
       "series": [
-        {
-          "date": "2026-02-12",
-          "close": 3.217
-        },
         {
           "date": "2026-02-13",
           "close": 3.243
@@ -2250,10 +2246,14 @@
         },
         {
           "date": "2026-10-29",
-          "close": 3.035
+          "close": 2.952
+        },
+        {
+          "date": "2026-10-30",
+          "close": 2.904
         }
       ],
-      "last_success_date": "2026-10-29",
+      "last_success_date": "2026-10-30",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -2283,16 +2283,12 @@
         "III": "cost"
       },
       "latest": {
-        "date": "2026-10-29",
-        "close": 4.5635
+        "date": "2026-10-30",
+        "close": 4.6703
       },
-      "pct_1d": -2.15,
-      "pct_1m": -2.66,
+      "pct_1d": 1.8,
+      "pct_1m": 0.61,
       "series": [
-        {
-          "date": "2026-02-12",
-          "close": 2.3104
-        },
         {
           "date": "2026-02-13",
           "close": 2.3003
@@ -3007,10 +3003,14 @@
         },
         {
           "date": "2026-10-29",
-          "close": 4.5635
+          "close": 4.5875
+        },
+        {
+          "date": "2026-10-30",
+          "close": 4.6703
         }
       ],
-      "last_success_date": "2026-10-29",
+      "last_success_date": "2026-10-30",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -3036,16 +3036,12 @@
         "PTG": "margin"
       },
       "latest": {
-        "date": "2026-10-29",
-        "close": 3.0697
+        "date": "2026-10-30",
+        "close": 3.1383
       },
-      "pct_1d": -1.25,
-      "pct_1m": -5.85,
+      "pct_1d": 1.63,
+      "pct_1m": -7.77,
       "series": [
-        {
-          "date": "2026-02-12",
-          "close": 2.1436
-        },
         {
           "date": "2026-02-13",
           "close": 2.14
@@ -3760,10 +3756,14 @@
         },
         {
           "date": "2026-10-29",
-          "close": 3.0697
+          "close": 3.0881
+        },
+        {
+          "date": "2026-10-30",
+          "close": 3.1383
         }
       ],
-      "last_success_date": "2026-10-29",
+      "last_success_date": "2026-10-30",
       "never_fetched": false,
       "series_empty": false,
       "source": "TradingView continuous",
@@ -6040,13 +6040,13 @@
         "TRUBB": "revenue"
       },
       "latest": {
-        "date": "2026-10-28",
-        "close": 285.0
+        "date": "2026-10-30",
+        "close": 279.6
       },
-      "pct_1d": 0.35,
+      "pct_1d": 0.0,
       "pct_1m": null,
       "series": [],
-      "last_success_date": "2026-10-28",
+      "last_success_date": "2026-10-30",
       "never_fetched": false,
       "series_empty": true,
       "source": "TradingView scanner",
@@ -6068,13 +6068,13 @@
         "NER": "revenue"
       },
       "latest": {
-        "date": "2026-10-28",
-        "close": 250.0
+        "date": "2026-10-29",
+        "close": 249.2
       },
-      "pct_1d": -2.11,
+      "pct_1d": -0.32,
       "pct_1m": null,
       "series": [],
-      "last_success_date": "2026-10-28",
+      "last_success_date": "2026-10-29",
       "never_fetched": false,
       "series_empty": true,
       "source": "TradingView scanner",
@@ -6098,13 +6098,13 @@
         "TEGH": "revenue"
       },
       "latest": {
-        "date": "2026-10-28",
-        "close": 19270.0
+        "date": "2026-10-29",
+        "close": 19180.0
       },
-      "pct_1d": -1.51,
+      "pct_1d": -0.47,
       "pct_1m": null,
       "series": [],
-      "last_success_date": "2026-10-28",
+      "last_success_date": "2026-10-29",
       "never_fetched": false,
       "series_empty": true,
       "source": "TradingView scanner",

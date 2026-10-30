@@ -1,23 +1,33 @@
 [
   {
-    "Ticker": "PT",
-    "Price": 11.6,
-    "Box_Low": 10.29,
-    "Box_High(Break)": 11.7,
-    "To_Break": "0.85%",
-    "ADTV(MB)": 11.3,
-    "Box_Width": "13.68%",
-    "SMA150_Chg": 0.009
+    "Ticker": "BH",
+    "Price": 203.0,
+    "Box_Low": 153.86,
+    "Box_High(Break)": 203.0,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 659.5,
+    "Box_Width": "31.94%",
+    "SMA150_Chg": 2.673
   },
   {
-    "Ticker": "OSP",
-    "Price": 18.1,
-    "Box_Low": 13.28,
-    "Box_High(Break)": 18.3,
-    "To_Break": "1.09%",
-    "ADTV(MB)": 195.8,
-    "Box_Width": "37.76%",
-    "SMA150_Chg": 0.12
+    "Ticker": "PTTEP",
+    "Price": 165.0,
+    "Box_Low": 125.63,
+    "Box_High(Break)": 166.5,
+    "To_Break": "0.9%",
+    "ADTV(MB)": 2458.0,
+    "Box_Width": "32.53%",
+    "SMA150_Chg": 2.588
+  },
+  {
+    "Ticker": "EGCO",
+    "Price": 133.0,
+    "Box_Low": 104.87,
+    "Box_High(Break)": 134.5,
+    "To_Break": "1.12%",
+    "ADTV(MB)": 144.8,
+    "Box_Width": "28.25%",
+    "SMA150_Chg": 1.954
   },
   {
     "Ticker": "TLI",
@@ -25,89 +35,49 @@
     "Box_Low": 9.32,
     "Box_High(Break)": 11.74,
     "To_Break": "1.19%",
-    "ADTV(MB)": 150.0,
+    "ADTV(MB)": 152.0,
     "Box_Width": "26.01%",
-    "SMA150_Chg": 0.158
+    "SMA150_Chg": 0.17
   },
   {
-    "Ticker": "PTTEP",
-    "Price": 163.5,
-    "Box_Low": 125.63,
-    "Box_High(Break)": 166.5,
-    "To_Break": "1.8%",
-    "ADTV(MB)": 2472.4,
-    "Box_Width": "32.53%",
-    "SMA150_Chg": 2.558
+    "Ticker": "OSP",
+    "Price": 18.0,
+    "Box_Low": 13.28,
+    "Box_High(Break)": 18.3,
+    "To_Break": "1.64%",
+    "ADTV(MB)": 191.3,
+    "Box_Width": "37.76%",
+    "SMA150_Chg": 0.161
   },
   {
-    "Ticker": "TTW",
-    "Price": 10.1,
-    "Box_Low": 8.79,
-    "Box_High(Break)": 10.3,
-    "To_Break": "1.94%",
-    "ADTV(MB)": 25.8,
-    "Box_Width": "17.19%",
-    "SMA150_Chg": 0.145
-  },
-  {
-    "Ticker": "BH",
-    "Price": 196.5,
-    "Box_Low": 153.86,
-    "Box_High(Break)": 201.0,
-    "To_Break": "2.24%",
-    "ADTV(MB)": 661.9,
-    "Box_Width": "30.64%",
-    "SMA150_Chg": 2.535
-  },
-  {
-    "Ticker": "DMT",
-    "Price": 12.0,
-    "Box_Low": 10.59,
-    "Box_High(Break)": 12.3,
-    "To_Break": "2.44%",
-    "ADTV(MB)": 12.9,
-    "Box_Width": "16.12%",
-    "SMA150_Chg": 0.179
-  },
-  {
-    "Ticker": "EGCO",
-    "Price": 131.0,
-    "Box_Low": 104.87,
-    "Box_High(Break)": 134.5,
-    "To_Break": "2.6%",
-    "ADTV(MB)": 141.9,
-    "Box_Width": "28.25%",
-    "SMA150_Chg": 1.842
-  },
-  {
-    "Ticker": "SCB",
-    "Price": 153.5,
-    "Box_Low": 127.8,
-    "Box_High(Break)": 158.0,
-    "To_Break": "2.85%",
-    "ADTV(MB)": 2148.4,
-    "Box_Width": "23.63%",
-    "SMA150_Chg": 1.784
+    "Ticker": "PT",
+    "Price": 11.5,
+    "Box_Low": 10.29,
+    "Box_High(Break)": 11.7,
+    "To_Break": "1.71%",
+    "ADTV(MB)": 11.2,
+    "Box_Width": "13.68%",
+    "SMA150_Chg": 0.013
   },
   {
     "Ticker": "SCCC",
     "Price": 151.0,
-    "Box_Low": 134.43,
+    "Box_Low": 134.91,
     "Box_High(Break)": 155.5,
     "To_Break": "2.89%",
-    "ADTV(MB)": 16.7,
-    "Box_Width": "15.68%",
-    "SMA150_Chg": 1.696
+    "ADTV(MB)": 15.9,
+    "Box_Width": "15.26%",
+    "SMA150_Chg": 1.703
   },
   {
-    "Ticker": "TU",
-    "Price": 13.0,
-    "Box_Low": 10.28,
-    "Box_High(Break)": 13.4,
-    "To_Break": "2.99%",
-    "ADTV(MB)": 226.9,
-    "Box_Width": "30.3%",
-    "SMA150_Chg": 0.187
+    "Ticker": "TTW",
+    "Price": 10.0,
+    "Box_Low": 8.79,
+    "Box_High(Break)": 10.3,
+    "To_Break": "2.91%",
+    "ADTV(MB)": 25.2,
+    "Box_Width": "17.19%",
+    "SMA150_Chg": 0.145
   },
   {
     "Ticker": "OR",
@@ -115,9 +85,9 @@
     "Box_Low": 10.84,
     "Box_High(Break)": 12.9,
     "To_Break": "3.1%",
-    "ADTV(MB)": 182.8,
+    "ADTV(MB)": 184.4,
     "Box_Width": "19.01%",
-    "SMA150_Chg": -0.01
+    "SMA150_Chg": 0.01
   },
   {
     "Ticker": "BDMS",
@@ -125,78 +95,78 @@
     "Box_Low": 17.59,
     "Box_High(Break)": 20.25,
     "To_Break": "3.19%",
-    "ADTV(MB)": 1424.2,
+    "ADTV(MB)": 1416.5,
     "Box_Width": "15.08%",
-    "SMA150_Chg": -0.049
+    "SMA150_Chg": -0.032
   },
   {
-    "Ticker": "AAI",
-    "Price": 4.16,
-    "Box_Low": 3.23,
-    "Box_High(Break)": 4.3,
-    "To_Break": "3.26%",
-    "ADTV(MB)": 10.1,
-    "Box_Width": "33.32%",
-    "SMA150_Chg": 0.06
+    "Ticker": "SCB",
+    "Price": 152.5,
+    "Box_Low": 127.8,
+    "Box_High(Break)": 158.0,
+    "To_Break": "3.48%",
+    "ADTV(MB)": 2151.8,
+    "Box_Width": "23.63%",
+    "SMA150_Chg": 1.798
   },
   {
-    "Ticker": "SPALI",
-    "Price": 15.9,
-    "Box_Low": 14.41,
-    "Box_High(Break)": 16.5,
-    "To_Break": "3.64%",
-    "ADTV(MB)": 68.5,
-    "Box_Width": "14.49%",
-    "SMA150_Chg": -0.091
+    "Ticker": "ICHI",
+    "Price": 14.0,
+    "Box_Low": 11.63,
+    "Box_High(Break)": 14.63,
+    "To_Break": "4.34%",
+    "ADTV(MB)": 56.4,
+    "Box_Width": "25.83%",
+    "SMA150_Chg": 0.011
   },
   {
-    "Ticker": "NER",
-    "Price": 4.66,
-    "Box_Low": 4.27,
-    "Box_High(Break)": 4.84,
-    "To_Break": "3.72%",
-    "ADTV(MB)": 35.1,
-    "Box_Width": "13.28%",
-    "SMA150_Chg": 0.008
-  },
-  {
-    "Ticker": "HMPRO",
-    "Price": 6.4,
-    "Box_Low": 5.6,
-    "Box_High(Break)": 6.65,
-    "To_Break": "3.76%",
-    "ADTV(MB)": 203.7,
-    "Box_Width": "18.7%",
-    "SMA150_Chg": -0.016
+    "Ticker": "MAJOR",
+    "Price": 7.5,
+    "Box_Low": 6.5,
+    "Box_High(Break)": 7.85,
+    "To_Break": "4.42%",
+    "ADTV(MB)": 10.7,
+    "Box_Width": "20.72%",
+    "SMA150_Chg": -0.014
   },
   {
     "Ticker": "SAT",
-    "Price": 15.8,
+    "Price": 15.7,
     "Box_Low": 13.66,
     "Box_High(Break)": 16.5,
-    "To_Break": "4.24%",
+    "To_Break": "4.85%",
     "ADTV(MB)": 10.3,
     "Box_Width": "20.79%",
-    "SMA150_Chg": 0.214
+    "SMA150_Chg": 0.211
+  },
+  {
+    "Ticker": "SPALI",
+    "Price": 15.7,
+    "Box_Low": 14.41,
+    "Box_High(Break)": 16.5,
+    "To_Break": "4.85%",
+    "ADTV(MB)": 66.3,
+    "Box_Width": "14.49%",
+    "SMA150_Chg": -0.086
   },
   {
     "Ticker": "TISCO",
-    "Price": 125.0,
+    "Price": 124.5,
     "Box_Low": 104.72,
     "Box_High(Break)": 130.91,
-    "To_Break": "4.51%",
-    "ADTV(MB)": 352.8,
+    "To_Break": "4.89%",
+    "ADTV(MB)": 347.2,
     "Box_Width": "25.0%",
     "SMA150_Chg": 2.358
   },
   {
-    "Ticker": "QH",
-    "Price": 1.38,
-    "Box_Low": 1.25,
-    "Box_High(Break)": 1.45,
-    "To_Break": "4.79%",
-    "ADTV(MB)": 14.8,
-    "Box_Width": "16.26%",
-    "SMA150_Chg": 0.004
+    "Ticker": "NER",
+    "Price": 4.6,
+    "Box_Low": 4.27,
+    "Box_High(Break)": 4.84,
+    "To_Break": "4.96%",
+    "ADTV(MB)": 35.1,
+    "Box_Width": "13.28%",
+    "SMA150_Chg": 0.012
   }
 ]
