@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-30T16:05:40.301482+07:00",
+  "generatedAt": "2026-10-30T18:13:13.666852+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 11,
+      "count": 13,
       "top3": [
         {
           "ticker": "SCGP",
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 12,
+      "count": 13,
       "top3": [
         {
           "ticker": "TSTH",
@@ -64,19 +64,19 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 5,
+      "count": 4,
       "top3": [
         {
           "ticker": "INGRS",
           "netProfitYoY": -710.8196869833073
         },
         {
-          "ticker": "ECF",
-          "netProfitYoY": -563.4294136206665
-        },
-        {
           "ticker": "DOD",
           "netProfitYoY": -180.40729304514042
+        },
+        {
+          "ticker": "TSR",
+          "netProfitYoY": -30.702321481046134
         }
       ]
     },
@@ -87,6 +87,87 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "CSR",
+      "sector": "Services",
+      "subsector": "Tourism & Leisure",
+      "market": "SET",
+      "announceDate": "2026-10-30T18:10:10+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 15173000.0,
+      "netProfitPrior": 18406000.0,
+      "netProfitYoY": -17.56492448114745,
+      "netProfitPriorQ": 12968000.0,
+      "netProfitQoQ": 17.003392967304134,
+      "profitAcceleration": "stable",
+      "eps": 0.74,
+      "epsPrior": 0.9,
+      "epsYoY": -17.777777777777782,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107262501&symbol=CSR",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17933100686961&symbol=CSR",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107262601&symbol=CSR",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "PTTEP",
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "announceDate": "2026-10-30T18:03:59+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 14709324000.0,
+      "netProfitPrior": 12695087000.0,
+      "netProfitYoY": 15.866271731733702,
+      "netProfitPriorQ": 27197171000.0,
+      "netProfitQoQ": -45.915977805191574,
+      "profitAcceleration": "decelerating",
+      "eps": 3.71,
+      "epsPrior": 3.19,
+      "epsYoY": 16.300940438871475,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107262101&symbol=PTTEP",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17933100686731&symbol=PTTEP",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107262201&symbol=PTTEP",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "MMM",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-10-30T17:58:03+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 41024000.0,
+      "netProfitPrior": 39692000.0,
+      "netProfitYoY": 3.3558399677516877,
+      "netProfitPriorQ": 37521000.0,
+      "netProfitQoQ": 9.33610511446923,
+      "profitAcceleration": "accelerating",
+      "eps": 0.11,
+      "epsPrior": 0.13,
+      "epsYoY": -15.384615384615389,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107271201&symbol=MMM",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17933100686571&symbol=MMM",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107271301&symbol=MMM",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "TFM",
       "sector": "Agro",
@@ -145,7 +226,7 @@
       "reason": "โดยรายได้จากการขายจากการดำเนินงานปกติอยู่ที่ 15,220 ล้านบาท เพิ่มขึ้น 13.2% จากปีก่อน ขณะที่รายได้จากการขายในไตรมาส 3 ปี 2569 อยู่ที่ 5,177 ล้านบาท เพิ่มขึ้น 9.7% จากปีก่อน และเป็นรายได้รายไตรมาสสูงสุดในช่วง 9 เดือน แรกของปี",
       "reason_source": "mda_extract",
       "gap_pct": -1.18,
-      "drift_d1_pct": 0.0,
+      "drift_d1_pct": -0.59,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -176,7 +257,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.72,
-      "drift_d1_pct": -7.55,
+      "drift_d1_pct": -8.27,
       "drift_d2_pct": null,
       "drift_d5_pct": null
     },
@@ -208,7 +289,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 1.44,
       "drift_d1_pct": 3.6,
-      "drift_d2_pct": 1.44,
+      "drift_d2_pct": 2.88,
       "drift_d5_pct": null
     },
     {
@@ -239,7 +320,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -2.13,
       "drift_d1_pct": -5.96,
-      "drift_d2_pct": -14.47,
+      "drift_d2_pct": -13.62,
       "drift_d5_pct": null
     },
     {
@@ -457,7 +538,7 @@
       "gap_pct": 7.14,
       "drift_d1_pct": 9.05,
       "drift_d2_pct": 9.52,
-      "drift_d5_pct": 13.81
+      "drift_d5_pct": 14.29
     },
     {
       "ticker": "KTB",
@@ -488,7 +569,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.73,
       "drift_d2_pct": 2.31,
-      "drift_d5_pct": 0.58
+      "drift_d5_pct": 1.16
     },
     {
       "ticker": "SCB",
@@ -1078,37 +1159,6 @@
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
       "drift_d5_pct": 0.0
-    },
-    {
-      "ticker": "ECF",
-      "sector": "Consumer",
-      "subsector": "",
-      "market": "MAI",
-      "announceDate": "2026-09-15T17:01:00+07:00",
-      "quarter": "ประจำปี 2568",
-      "periodEnd": "31 ธันวาคม 2568",
-      "netProfit": -1534970000.0,
-      "netProfitPrior": -231369000.0,
-      "netProfitYoY": -563.4294136206665,
-      "netProfitPriorQ": null,
-      "netProfitQoQ": null,
-      "profitAcceleration": "stable",
-      "eps": -2.7934,
-      "epsPrior": -4.8227,
-      "epsYoY": 42.078089037261286,
-      "auditorOpinion": "ไม่แสดงความเห็นและมีข้อสังเกต/เรื่องอื่น",
-      "isCorrection": false,
-      "bucket": "loss_worse",
-      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106797701&symbol=ECF",
-      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106809201&symbol=ECF",
-      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=106797901&symbol=ECF",
-      "headline": "สรุปผลการดำเนินงานของ บจ. ประจำปี (F45) (ตรวจสอบแล้ว)",
-      "reason": "และเนื่องจากบริษัทฯ มีรายได้หลักจาก การประกอบธุรกิจเฟอร์นิเจอร์ ดังนั้นข้อมูลจากงบการเงินรวม และงบการเงินเฉพาะกิจการจึงไม่มีรายละเอียดที่แตกต่างอย่าง มีนัยสำคัญ ภาพรวมการดำเนินธุรกิจ บริษัทฯ",
-      "reason_source": "mda_extract",
-      "gap_pct": 0.0,
-      "drift_d1_pct": 0.0,
-      "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
     }
   ],
   "calendar": [
@@ -1512,18 +1562,29 @@
       "quarter": "ไตรมาส 3/2569"
     },
     {
-      "ticker": "PTTEP",
-      "date": "2026-10-30T12:51:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-10-30T12:51:00+07:00"
-    },
-    {
       "ticker": "TAE",
       "date": "2026-10-30T17:04:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-10-30T17:04:00+07:00"
+    },
+    {
+      "ticker": "MMM",
+      "date": "2026-10-30T17:58:03+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "PTTEP",
+      "date": "2026-10-30T18:03:59+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "CSR",
+      "date": "2026-10-30T18:10:10+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "TU",
@@ -1652,13 +1713,6 @@
       "basedOnLastYear": "2025-11-05T12:36:00+07:00"
     },
     {
-      "ticker": "CSR",
-      "date": "2026-11-05T12:47:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-05T12:47:00+07:00"
-    },
-    {
       "ticker": "BCPG",
       "date": "2026-11-05T17:08:00+07:00",
       "status": "predicted",
@@ -1734,13 +1788,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-06T06:59:00+07:00"
-    },
-    {
-      "ticker": "MMM",
-      "date": "2026-11-06T08:12:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-06T08:12:00+07:00"
     },
     {
       "ticker": "BCP",
