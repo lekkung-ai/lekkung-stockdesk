@@ -392,6 +392,26 @@ html.embed .homelink,html.standalone .homelink{display:none}
 @media (display-mode: standalone){.homelink{display:none}}
 #practice-frame{display:block;width:100%;min-height:900px;border:0;background:transparent}
 #p-practice{max-width:none}
+
+.lbl .cnt{display:inline-block;font-size:.75rem;background:var(--soft);color:var(--muted);border-radius:6px;padding:0 6px;margin-left:4px;font-weight:600}
+.slot .lbl:not(.do):not(.dont),.now-detail .lbl:not(.do):not(.dont){color:var(--ink);margin-top:16px;font-weight:700;font-size:.9rem}
+.now-detail .lbl{font-weight:700}
+.nsits{display:grid;gap:6px;margin:4px 0 6px}
+.nsit{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;text-align:left;border:1px solid var(--line);background:var(--bg);border-left:4px solid var(--c);border-radius:10px;padding:8px 10px;cursor:pointer;color:var(--ink)}
+.nsit .nv{font-weight:700;font-size:.82rem;color:var(--c);white-space:nowrap}
+.nsit .na{font-size:.92rem;line-height:1.45}
+.nsit .ns{grid-column:2;font-size:.78rem;color:var(--muted)}
+.nsit:hover{background:var(--soft)}
+@media (max-width:560px){.nsit{grid-template-columns:1fr}.nsit .ns{grid-column:1}}
+.nref{background:var(--bg);border:1px solid var(--line);border-radius:10px;margin:0 0 6px}
+.nref summary{list-style:none;cursor:pointer;padding:9px 12px;display:flex;gap:10px;align-items:baseline}
+.nref summary::-webkit-details-marker{display:none}
+.nref summary::after{content:'+';margin-left:auto;color:var(--muted);font-weight:700}
+.nref[open] summary::after{content:'–'}
+.nrb{padding:0 12px 12px}
+.exn{font-size:.8rem;color:var(--muted);margin:0 0 4px}
+.exl{margin:0 0 10px;padding-left:1.1em}.exl li{font-size:.92rem;margin:0 0 6px}
+.sit.flash{animation:subhit 2.4s ease-out}
 /* embed mode */
 html.embed body{background:var(--bg)}
 html.embed header.top{display:none}
@@ -751,7 +771,7 @@ function card(it){
   const refs=String(it.textbook_section).split('/').map(s=>s.trim()).filter(Boolean)
     .map(s=>{const k=(s.match(/^[\dผ.]+/)||[s])[0].replace(/\.$/,''), sub=(s.slice(k.length).match(/[ก-ฮ]/)||[''])[0];
       return `<button class="ref" type="button" data-sec="${esc(k)}"${sub?` data-sub="${sub}"`:''}>ตำรา ${esc(s)}</button>`;}).join('');
-  return `<article class="sit tone-${it.tone}">
+  return `<article class="sit tone-${it.tone}" data-id="${it.id}">
     <div class="verdict">${ICON[it.tone]}${esc(it.verdict)}</div>
     <div class="sbody"><div class="stext"><p class="action">${fmt(it.action)}</p>
     ${it.principle?`<p class="principle"><b>หลักคิด</b> ${fmt(it.principle)}</p>`:''}</div>${sitFig(it.id)}</div>
@@ -862,7 +882,7 @@ function openSec(k,sub){
   showBack();
 }
 function showBack(){const bb=document.getElementById('backbar');
-  if(backTo&&tab==='know'){bb.hidden=false;bb.querySelector('span').textContent=TABNAME[backTo.tab];}else bb.hidden=true;}
+  if(backTo&&tab!==backTo.tab){bb.hidden=false;bb.querySelector('span').textContent=TABNAME[backTo.tab];}else bb.hidden=true;}
 const TABNAME={practice:'แบบฝึกหัด',sit:'สถานการณ์',now:'ตอนนี้กี่โมง',check:'เช็กก่อนเคาะ',mind:'แก้ใจ',size:'ไซส์และกฎขาย'};
 
 // daily principle
@@ -895,12 +915,54 @@ function renderQA(){const el=document.getElementById('qa-sit');
 let nowPick=null, nowTimer=null;
 function bkk(){const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Bangkok',hour:'2-digit',minute:'2-digit',weekday:'short',hour12:false}).formatToParts(new Date());
   const g=k=>p.find(x=>x.type===k)?.value; return {h:+g('hour'),m:+g('minute'),wd:g('weekday')};}
+
+// ---------- now: richer detail ----------
+const tmin=(h,m)=>(+h)*100+(+m);
+function timeHits(text,a,b){
+  const T=String(text); let hit=false, m;
+  const RR=/(\d{1,2}):(\d{2})\s*(?:–|-|ถึง)\s*(\d{1,2}):(\d{2})/g;
+  const used=[];
+  while((m=RR.exec(T))){const r1=tmin(m[1],m[2]), r2=tmin(m[3],m[4]); used.push([m.index,m.index+m[0].length]); if(r1<b&&r2>a) hit=true;}
+  const RS=/(\d{1,2}):(\d{2})/g;
+  while((m=RS.exec(T))){ if(used.some(([x,y])=>m.index>=x&&m.index<y)) continue; const v=tmin(m[1],m[2]); if(v>=a&&v<b) hit=true; }
+  return hit;}
+function slotSits(s){
+  const [ma,mb]=slotWin(s);
+  const L=DATA.items.filter(it=>timeHits(it.setup+' '+it.action+' '+it.market+' '+it.principle,ma,mb));
+  if(!L.length) return '';
+  return `<p class="lbl">สถานการณ์ที่เกิดช่วงนี้ <span class="cnt">${L.length}</span></p><div class="nsits">${L.map(it=>
+    `<button type="button" class="nsit tone-${it.tone}" data-goto="${it.id}"><span class="nv">${esc(it.verdict)}</span><span class="na">${fmt(it.action)}</span><span class="ns">${esc(it.setup)} · ${esc(it.holding)}</span></button>`).join('')}</div>`;}
+let nowOpenRefs=new Set();
+// 11:40 = ปลายช่วงเบรคหนีมวลชน (ตำรา 11.5 / 13.7) จึงนับเข้าช่วง 11:00–11:40
+const slotWin=s=>[s.a===1140?1141:s.a, s.b===1140?1141:s.b];
+function secExcerpt(k,a,b){const S=SEC[k]; if(!S) return '';
+  const box=document.createElement('div'); box.innerHTML=S.html;
+  const els=[...box.querySelectorAll('p,li,tr')].filter(e=>!e.querySelector('p,li,tr,th'));
+  const txt=e=>e.tagName==='TR'?[...e.children].map(c=>c.textContent.trim()).filter(Boolean).join(' — '):e.textContent.trim();
+  [a,b]=slotWin({a,b});
+  let pick=(a===0&&b===945)||a>=1640?[]:els.filter(e=>timeHits(txt(e),a,b));
+  const timed=pick.length>0;
+  if(!pick.length) pick=els.filter(e=>txt(e).length>20).slice(0,3);
+  pick=pick.slice(0,5);
+  return `<p class="exn">${timed?'ตำราพูดถึงช่วงเวลานี้ว่า':'ใจความหลักของหัวข้อ'}</p><ul class="exl">${pick.map(e=>`<li>${fmt(txt(e))}</li>`).join('')}</ul>`;}
+function slotBook(s){
+  return `<p class="lbl">สรุปจากตำรา</p>${s.refs.map(k=>{const S=SEC[k]; if(!S) return '';
+    const id=s.a+'-'+k, o=nowOpenRefs.has(id);
+    return `<details class="nref" data-nk="${esc(id)}" ${o?'open':''}><summary><span class="kk">${esc(k)}</span><span class="kt">${esc(S.title)}</span></summary><div class="nrb">${secExcerpt(k,s.a,s.b)}<button class="ref" type="button" data-sec="${esc(k)}">อ่านเต็มในตำรา ${esc(k)}</button></div></details>`;}).join('')}`;}
+document.addEventListener('toggle',e=>{const d=e.target; if(d.classList&&d.classList.contains('nref')){d.open?nowOpenRefs.add(d.dataset.nk):nowOpenRefs.delete(d.dataset.nk);}},true);
+function gotoSit(id){const it=DATA.items.find(x=>x.id===id); if(!it) return;
+  backTo={tab,y:window.scrollY};
+  st.g=it.groups[0]||'all'; st.m='any'; st.h='any'; st.sub='all'; save();
+  setTab('sit',true); render();
+  const c=document.querySelector(`.sit[data-id="${id}"]`);
+  if(c){c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');setTimeout(()=>c.scrollIntoView({block:'center'}),30);}
+  showBack();}
 function renderNow(){
   const n=bkk(), hm=n.h*100+n.m, weekend=n.wd==='Sat'||n.wd==='Sun';
   const cur=DATA.timeline.findIndex(s=>hm>=s.a&&hm<s.b);
   const open=nowPick??cur;
   const el=document.getElementById('p-now');
-  const det=s=>`${s.do.length?`<p class="lbl do">ทำ</p><ul>${s.do.map(x=>`<li>${fmt(x)}</li>`).join('')}</ul>`:''}${s.dont.length?`<p class="lbl dont">ห้าม / ระวัง</p><ul>${s.dont.map(x=>`<li>${fmt(x)}</li>`).join('')}</ul>`:''}${refBtns(s.refs)}`;
+    const det=s=>`${s.do.length?`<p class="lbl do">ทำ</p><ul>${s.do.map(x=>`<li>${fmt(x)}</li>`).join('')}</ul>`:''}${s.dont.length?`<p class="lbl dont">ห้าม / ระวัง</p><ul>${s.dont.map(x=>`<li>${fmt(x)}</li>`).join('')}</ul>`:''}${slotSits(s)}${slotBook(s)}`;
   const di=(open>=0?open:(cur>=0?cur:0)), ds=DATA.timeline[di];
   el.innerHTML=`<div class="clock"><span class="tm">${String(n.h).padStart(2,'0')}:${String(n.m).padStart(2,'0')}</span><span class="tz">เวลาไทย</span></div>
   <p class="note-s">${weekend?'วันนี้ตลาดปิด ใช้ช่วง "หลังปิดตลาด" ทบทวนและทำการบ้าน ':''}ช่วงเวลาและการกระทำตามตำราบท 5, 6, 12–13 แตะช่วงอื่นเพื่อดูล่วงหน้า</p>
@@ -979,6 +1041,7 @@ function renderSize(){
 
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
   if(b.dataset.tab) setTab(b.dataset.tab);
+  else if(b.dataset.goto!==undefined){gotoSit(+b.dataset.goto);}
   else if(b.dataset.slot!==undefined){const i=+b.dataset.slot; nowPick=(nowPick===i)?-1:i; renderNow();}
   else if(b.dataset.mind){mindK=mindK===b.dataset.mind?null:b.dataset.mind; renderMind();}
   else if(b.dataset.size){sizeK=b.dataset.size;try{localStorage.setItem('svd-size',sizeK)}catch(e){} renderSize();}
