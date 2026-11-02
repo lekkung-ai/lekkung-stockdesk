@@ -1,8 +1,823 @@
 {
-  "generated_at": "2026-10-30T18:08:38+07:00",
+  "generated_at": "2026-11-02T17:03:59+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "faf9a850-b3d9-461a-9e9d-7d2b2999d247",
+      "title": "HOLD (from BUY) by GLOBLEX | PTG ENERGY PUBLIC COMPANY LIMITED (PTG) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127216-hold-from-buy-globlex-ptg",
+      "tickers": [
+        "PTG"
+      ],
+      "symbolId": "18478",
+      "broker": "HGF",
+      "rating": "HOLD (from BUY)",
+      "companyName": "PTG ENERGY PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T16:23:22+07:00",
+      "ts": 1793611402000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/research_36478_1_20261102-PTG_U_EN.pdf"
+    },
+    {
+      "uuid": "0f45a637-fcac-41c0-bb4c-2876eaf221c3",
+      "title": "Trading by ASP | PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED (PTTEP) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127215-trading-asp-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "ASP",
+      "rating": "Trading",
+      "companyName": "PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T16:23:21+07:00",
+      "ts": 1793611401000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PTTEP261102.pdf"
+    },
+    {
+      "uuid": "add7f5b0-8df4-4ce8-a5f7-a5ee4c23a317",
+      "title": "BUY โดย TRINITY | บริษัท ไมเนอร์ อินเตอร์เนชั่นแนล จำกัด (มหาชน) (MINT) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127213-buy-trinity-mint",
+      "tickers": [
+        "MINT"
+      ],
+      "symbolId": "343",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัท ไมเนอร์ อินเตอร์เนชั่นแนล จำกัด (มหาชน)",
+      "date": "2026-11-02T14:46:07+07:00",
+      "ts": 1793605567000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/MINT_Thai_20261102.pdf"
+    },
+    {
+      "uuid": "0ec96f4c-08cf-40d1-a5a6-69c012815dc6",
+      "title": "Neutral by KSS | PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED (PTTEP) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127208-neutral-kss-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T14:33:58+07:00",
+      "ts": 1793604838000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102-PTTEP_ER-(E).pdf"
+    },
+    {
+      "uuid": "1f654248-5c38-4fb1-aaba-e69e78678e24",
+      "title": "BUY by KSS | COM7 PUBLIC COMPANY LIMITED (COM7) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127206-buy-kss-com7",
+      "tickers": [
+        "COM7"
+      ],
+      "symbolId": "76340",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "COM7 PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T14:20:51+07:00",
+      "ts": 1793604051000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102_COM7_EP-(E)-02073956.pdf"
+    },
+    {
+      "uuid": "6954f42f-1349-4865-be7f-de5d5ae47e08",
+      "title": "BUY โดย ASL | ธนาคารกรุงศรีอยุธยา จำกัด (มหาชน) (BAY) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127201-buy-asl-bay",
+      "tickers": [
+        "BAY"
+      ],
+      "symbolId": "67",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "ธนาคารกรุงศรีอยุธยา จำกัด (มหาชน)",
+      "date": "2026-11-02T14:08:44+07:00",
+      "ts": 1793603324000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Earnings-Result-3Q26-BAY-02112026.pdf"
+    },
+    {
+      "uuid": "039b3af1-edfe-4dd8-bdaf-32892329dc93",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127198-lhs-trading-ideas",
+      "tickers": [
+        "ERW",
+        "WHA"
+      ],
+      "symbolId": "324,17351",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-11-02T14:08:44+07:00",
+      "ts": 1793603324000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Trading-Ideas_20261102.pdf"
+    },
+    {
+      "uuid": "20cd1e22-b609-47f9-9027-e446d9d46086",
+      "title": "TRADING (Downgrade) โดย YUANTA | บริษัท ศรีนานาพร มาร์เก็ตติ้ง จำกัด (มหาชน) (SNNP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127197-trading-downgrade-yuanta-snnp",
+      "tickers": [
+        "SNNP"
+      ],
+      "symbolId": "96338",
+      "broker": "YUANTA",
+      "rating": "TRADING (Downgrade)",
+      "companyName": "บริษัท ศรีนานาพร มาร์เก็ตติ้ง จำกัด (มหาชน)",
+      "date": "2026-11-02T13:52:03+07:00",
+      "ts": 1793602323000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SNNP_Update_021126.pdf"
+    },
+    {
+      "uuid": "3ebf059f-8070-4fe4-8c02-409f614769f0",
+      "title": "BUY (Initiate) โดย YUANTA | บริษัท ไพลอน จำกัด (มหาชน) (PYLON) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127196-buy-initiate-yuanta-pylon",
+      "tickers": [
+        "PYLON"
+      ],
+      "symbolId": "7009",
+      "broker": "YUANTA",
+      "rating": "BUY (Initiate)",
+      "companyName": "บริษัท ไพลอน จำกัด (มหาชน)",
+      "date": "2026-11-02T13:52:03+07:00",
+      "ts": 1793602323000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PYLON_Initiate_021126.pdf"
+    },
+    {
+      "uuid": "94dd865f-8ddd-4f8e-a75f-88dfd6f58f4a",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท การบินไทย จำกัด (มหาชน) (THAI) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127195-buy-maintain-yuanta-thai",
+      "tickers": [
+        "THAI"
+      ],
+      "symbolId": "831",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท การบินไทย จำกัด (มหาชน)",
+      "date": "2026-11-02T13:52:03+07:00",
+      "ts": 1793602323000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/THAI_Company_Update_021126.pdf"
+    },
+    {
+      "uuid": "31bbae68-7536-4541-936f-87b5e07c0d21",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท กิจเจริญ เอ็นจิเนียริ่ง อีเลคทริค จำกัด (มหาชน) (KJL) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127194-buy-maintain-yuanta-kjl",
+      "tickers": [
+        "KJL"
+      ],
+      "symbolId": "114196",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท กิจเจริญ เอ็นจิเนียริ่ง อีเลคทริค จำกัด (มหาชน)",
+      "date": "2026-11-02T13:52:03+07:00",
+      "ts": 1793602323000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/KJL_3Q26_Update_021126.pdf"
+    },
+    {
+      "uuid": "b100657b-3169-44ed-ba19-ef28fd70771b",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127193-buy-maintain-yuanta-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-02T13:38:54+07:00",
+      "ts": 1793601534000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PTTEP_Company_update_021126.pdf"
+    },
+    {
+      "uuid": "fe298515-1d72-4207-8577-5071b2ea5757",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เอส โฮเทล แอนด์ รีสอร์ท จำกัด (มหาชน) (SHR) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127192-buy-maintain-yuanta-shr",
+      "tickers": [
+        "SHR"
+      ],
+      "symbolId": "94385",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เอส โฮเทล แอนด์ รีสอร์ท จำกัด (มหาชน)",
+      "date": "2026-11-02T13:38:53+07:00",
+      "ts": 1793601533000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SHR_Company_Update_021126.pdf"
+    },
+    {
+      "uuid": "29d099c6-bc3a-4ef0-84cd-bab0ddd307f4",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน) (TIDLOR) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127191-buy-maintain-yuanta-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-11-02T13:38:53+07:00",
+      "ts": 1793601533000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TIDLOR_Company_Update_02112026.pdf"
+    },
+    {
+      "uuid": "fc070435-741f-4ef6-ac94-b9ee850c291e",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ทางด่วนและรถไฟฟ้ากรุงเทพ จำกัด (มหาชน) (BEM) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127190-buy-maintain-yuanta-bem",
+      "tickers": [
+        "BEM"
+      ],
+      "symbolId": "77582",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ทางด่วนและรถไฟฟ้ากรุงเทพ จำกัด (มหาชน)",
+      "date": "2026-11-02T13:38:53+07:00",
+      "ts": 1793601533000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BEM_Company_Update_021126.pdf"
+    },
+    {
+      "uuid": "38ccc25f-0ce9-45c3-865a-b6e9ad421e97",
+      "title": "Neutral (Maintained) โดย KGI | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127182-neutral-maintained-kgi-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-02T13:19:35+07:00",
+      "ts": 1793600375000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_PTTEP_2026_11_02_th.pdf"
+    },
+    {
+      "uuid": "89670451-e125-4f5e-9f70-27cb43351a87",
+      "title": "Neutral (Maintained) by KGI | PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED (PTTEP) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127181-neutral-maintained-kgi-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T13:19:34+07:00",
+      "ts": 1793600374000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_PTTEP_2026_11_02_e_th.pdf"
+    },
+    {
+      "uuid": "b0ca34fd-ed1d-4b0a-a477-3b98684abbf9",
+      "title": "Outperform (Maintained) by KGI | ELECTRICITY GENERATING PUBLIC COMPANY LIMITED (EGCO) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127180-outperform-maintained-kgi-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "ELECTRICITY GENERATING PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T13:13:42+07:00",
+      "ts": 1793600022000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_EGCO_2026_11_02_e_th.pdf"
+    },
+    {
+      "uuid": "25ddc75f-f2a7-4482-89d8-92039bab1d39",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท ผลิตไฟฟ้า จำกัด (มหาชน) (EGCO) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127179-outperform-maintained-kgi-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท ผลิตไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-11-02T13:13:42+07:00",
+      "ts": 1793600022000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_EGCO_2026_11_02_th.pdf"
+    },
+    {
+      "uuid": "6288ba26-c063-44ff-9a9f-86e9ba27a1f1",
+      "title": "Outperform (Maintained) by KGI | ELECTRICITY GENERATING PUBLIC COMPANY LIMITED (EGCO) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127178-outperform-maintained-kgi-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "ELECTRICITY GENERATING PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T13:13:41+07:00",
+      "ts": 1793600021000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_EGCO_2026_11_02_e_th.pdf"
+    },
+    {
+      "uuid": "9dd4179d-5562-449d-b1ec-8286c2ef8a00",
+      "title": "Outperform (Maintained) by KGI | SYNNEX (THAILAND) PUBLIC COMPANY LIMITED (SYNEX) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127176-outperform-maintained-kgi-synex",
+      "tickers": [
+        "SYNEX"
+      ],
+      "symbolId": "10225",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "SYNNEX (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T13:13:41+07:00",
+      "ts": 1793600021000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_SYNEX_2026_11_02_e_th.pdf"
+    },
+    {
+      "uuid": "0b77a5ec-d442-4531-aaf6-ab77807a2803",
+      "title": "Outperform (Maintained) by KGI | THAI AIRWAYS INTERNATIONAL PUBLIC COMPANY LIMITED (THAI) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127175-outperform-maintained-kgi-thai",
+      "tickers": [
+        "THAI"
+      ],
+      "symbolId": "831",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "THAI AIRWAYS INTERNATIONAL PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T12:52:41+07:00",
+      "ts": 1793598761000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_THAI_2026_11_02_e_th.pdf"
+    },
+    {
+      "uuid": "af8d69bc-c542-4596-9e68-628f5d159454",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท การบินไทย จำกัด (มหาชน) (THAI) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127174-outperform-maintained-kgi-thai",
+      "tickers": [
+        "THAI"
+      ],
+      "symbolId": "831",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท การบินไทย จำกัด (มหาชน)",
+      "date": "2026-11-02T12:52:39+07:00",
+      "ts": 1793598759000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_THAI_2026_11_02_th.pdf"
+    },
+    {
+      "uuid": "a260cbfa-4f92-4a6b-8d9d-32ae690cbe40",
+      "title": "Outperform (Maintained) by KGI | BANGKOK EXPRESSWAY AND METRO PUBLIC COMPANY LIMITED (BEM) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127173-outperform-maintained-kgi-bem",
+      "tickers": [
+        "BEM"
+      ],
+      "symbolId": "77582",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "BANGKOK EXPRESSWAY AND METRO PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T12:52:39+07:00",
+      "ts": 1793598759000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_BEM_2026_11_02_e_th.pdf"
+    },
+    {
+      "uuid": "4f501f27-1a41-4188-8ba7-ab7a18710e5f",
+      "title": "BUY โดย KSS | บริษัท เอสไอเอสบี จำกัด (มหาชน) (SISB) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127165-buy-kss-sisb",
+      "tickers": [
+        "SISB"
+      ],
+      "symbolId": "89853",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสไอเอสบี จำกัด (มหาชน)",
+      "date": "2026-11-02T12:37:42+07:00",
+      "ts": 1793597862000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102_SISB_EP.pdf"
+    },
+    {
+      "uuid": "fe1bec49-609b-4d94-a31e-b1e354b2619e",
+      "title": "BUY โดย KSS | บริษัท การบินไทย จำกัด (มหาชน) (THAI) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127162-buy-kss-thai",
+      "tickers": [
+        "THAI"
+      ],
+      "symbolId": "831",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท การบินไทย จำกัด (มหาชน)",
+      "date": "2026-11-02T12:30:52+07:00",
+      "ts": 1793597452000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102_THAI_EP.pdf"
+    },
+    {
+      "uuid": "29e743dc-f8fc-4cfc-9602-111c5e659d6e",
+      "title": "BUY โดย KSS | บริษัท คอมเซเว่น จำกัด (มหาชน) (COM7) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127161-buy-kss-com7",
+      "tickers": [
+        "COM7"
+      ],
+      "symbolId": "76340",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท คอมเซเว่น จำกัด (มหาชน)",
+      "date": "2026-11-02T12:30:52+07:00",
+      "ts": 1793597452000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102_COM7_EP.pdf"
+    },
+    {
+      "uuid": "b381431d-c52a-4fd6-86f5-b35f859085bd",
+      "title": "BUY โดย KSS | บริษัท ทางด่วนและรถไฟฟ้ากรุงเทพ จำกัด (มหาชน) (BEM) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127158-buy-kss-bem",
+      "tickers": [
+        "BEM"
+      ],
+      "symbolId": "77582",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ทางด่วนและรถไฟฟ้ากรุงเทพ จำกัด (มหาชน)",
+      "date": "2026-11-02T12:22:47+07:00",
+      "ts": 1793596967000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/QC_BEM_261102.pdf"
+    },
+    {
+      "uuid": "524e0c2a-5bca-49ba-baf3-d951f3080ea6",
+      "title": "BUY โดย TRINITY | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/dr/127159-buy-trinity-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-02T12:22:47+07:00",
+      "ts": 1793596967000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PTTEP_Thai_20261102.pdf"
+    },
+    {
+      "uuid": "58f1ac0c-72bc-4d28-b1df-98b2f5db550a",
+      "title": "BUY โดย KSS | บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (DELTA) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127156-buy-kss-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-11-02T12:22:46+07:00",
+      "ts": 1793596966000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/DELTA_261102_QC.pdf"
+    },
+    {
+      "uuid": "36f5ddf4-40d0-46cf-a2e9-37958843c014",
+      "title": "BUY by KSS | BANGKOK EXPRESSWAY AND METRO PUBLIC COMPANY LIMITED (BEM) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127157-buy-kss-bem",
+      "tickers": [
+        "BEM"
+      ],
+      "symbolId": "77582",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "BANGKOK EXPRESSWAY AND METRO PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T12:22:46+07:00",
+      "ts": 1793596966000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BEM_261102_QC.pdf"
+    },
+    {
+      "uuid": "b77e0af6-5d7c-43d3-bdbe-a7d448d1fb4c",
+      "title": "BUY by KSS | DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED (DELTA) | Research as of 2 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127155-buy-kss-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "DELTA ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-11-02T12:21:08+07:00",
+      "ts": 1793596868000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/DELTA_261102_QC.pdf"
+    },
+    {
+      "uuid": "ed3bf9b3-b04e-4b6e-af3f-287d0f2f2da2",
+      "title": "WBUY โดย LHS | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127151-wbuy-lhs-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "LHS",
+      "rating": "WBUY",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-02T12:02:37+07:00",
+      "ts": 1793595757000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PTTEP_20261102.pdf"
+    },
+    {
+      "uuid": "7006f59f-ed8f-425f-bca3-231eddce69ba",
+      "title": "TBUY โดย LHS | บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน) (BCH) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127150-tbuy-lhs-bch",
+      "tickers": [
+        "BCH"
+      ],
+      "symbolId": "5271",
+      "broker": "LHS",
+      "rating": "TBUY",
+      "companyName": "บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน)",
+      "date": "2026-11-02T12:02:36+07:00",
+      "ts": 1793595756000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BCH_20261102.pdf"
+    },
+    {
+      "uuid": "4148397d-53e1-4252-b1a1-b8d56b01ec1a",
+      "title": "LHS | Weekly Picks | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127149-lhs-weekly-picks",
+      "tickers": [
+        "BDMS",
+        "CPALL",
+        "WHA"
+      ],
+      "symbolId": "731,4086,17351",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Weekly Picks",
+      "date": "2026-11-02T12:02:36+07:00",
+      "ts": 1793595756000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Weekly-Picks_20261102.pdf"
+    },
+    {
+      "uuid": "298bc552-c679-4de1-beca-1db0eded57eb",
+      "title": "Earning Result โดย SBITO | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127145-earning-result--sbito-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "SBITO",
+      "rating": "Earning Result",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-02T11:36:34+07:00",
+      "ts": 1793594194000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Earning-Result-021169--PTTEP.pdf"
+    },
+    {
+      "uuid": "f3acdae0-0bab-4a41-a04a-a7db96b04604",
+      "title": "HOLD โดย BEYOND | บริษัท เอเชีย เอวิเอชั่น จำกัด (มหาชน) (AAV) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127115-hold-beyond-aav",
+      "tickers": [
+        "AAV"
+      ],
+      "symbolId": "16399",
+      "broker": "BEYOND",
+      "rating": "HOLD",
+      "companyName": "บริษัท เอเชีย เอวิเอชั่น จำกัด (มหาชน)",
+      "date": "2026-11-02T10:43:20+07:00",
+      "ts": 1793591000000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/AAV-20261102-Earnings-Preview-3Q69.pdf"
+    },
+    {
+      "uuid": "db30cac5-6d8d-428e-9fcf-0d1826760e2a",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127116-trinity-quick-win---moring-stock",
+      "tickers": [
+        "AMATA",
+        "TOP"
+      ],
+      "symbolId": "1609,5170",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-11-02T10:43:20+07:00",
+      "ts": 1793591000000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/MORNING-STOCKs02NOV26-amata;top.pdf"
+    },
+    {
+      "uuid": "5c961d12-e34b-41b0-b1ec-c0211dd8e50f",
+      "title": "BUY โดย BEYOND | บริษัท ทริพเพิล ไอ โลจิสติกส์ จำกัด (มหาชน) (III) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127114-buy-beyond-iii",
+      "tickers": [
+        "III"
+      ],
+      "symbolId": "84324",
+      "broker": "BEYOND",
+      "rating": "BUY",
+      "companyName": "บริษัท ทริพเพิล ไอ โลจิสติกส์ จำกัด (มหาชน)",
+      "date": "2026-11-02T10:25:52+07:00",
+      "ts": 1793589952000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/III-20261102-Earnings-Preview-3Q69.pdf"
+    },
+    {
+      "uuid": "ea15a8d3-ff4a-43c0-9935-3c7d14172d1f",
+      "title": "BUY โดย BEYOND | บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (DELTA) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127112-buy-beyond-delta",
+      "tickers": [
+        "DELTA"
+      ],
+      "symbolId": "1353",
+      "broker": "BEYOND",
+      "rating": "BUY",
+      "companyName": "บริษัทเดลต้า อีเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-11-02T10:20:57+07:00",
+      "ts": 1793589657000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/DELTA-20261102-Company-update.pdf"
+    },
+    {
+      "uuid": "a459aa46-cdd2-41cd-9387-341fcdf6a34e",
+      "title": "BUY โดย BEYOND | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127113-buy-beyond-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "BEYOND",
+      "rating": "BUY",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-02T10:20:57+07:00",
+      "ts": 1793589657000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PTTEP-20261102-Earnings-Results-3Q69.pdf"
+    },
+    {
+      "uuid": "16922607-023e-4492-ad59-1cca8247025a",
+      "title": "Buy (Maintain recommendation) โดย PST | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127111-buy-maintain-recommendation-pst-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "PST",
+      "rating": "Buy (Maintain recommendation)",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-11-02T10:20:57+07:00",
+      "ts": 1793589657000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/ITC110226_t.pdf"
+    },
+    {
+      "uuid": "fc745a3c-3792-40ce-b3b4-84024a3f2ad4",
+      "title": "BUY โดย PST | บริษัท คอมเซเว่น จำกัด (มหาชน) (COM7) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127110-buy-pst-com7",
+      "tickers": [
+        "COM7"
+      ],
+      "symbolId": "76340",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท คอมเซเว่น จำกัด (มหาชน)",
+      "date": "2026-11-02T10:20:56+07:00",
+      "ts": 1793589656000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/COM7110226_t.pdf"
+    },
+    {
+      "uuid": "e3f38ff2-ce19-422d-accf-61fba1c6ddfe",
+      "title": "BUY โดย PST | บริษัท ท่าอากาศยานไทย จำกัด (มหาชน) (AOT) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127109-buy-pst-aot",
+      "tickers": [
+        "AOT"
+      ],
+      "symbolId": "4473",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท ท่าอากาศยานไทย จำกัด (มหาชน)",
+      "date": "2026-11-02T10:13:26+07:00",
+      "ts": 1793589206000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/AOT110226_t.pdf"
+    },
+    {
+      "uuid": "514fd5f4-0f5f-48ae-b048-85f04be25611",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127102-trinity-block-trade--moring-stock",
+      "tickers": [
+        "CHG",
+        "EGCO"
+      ],
+      "symbolId": "18407,1283",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-11-02T10:01:14+07:00",
+      "ts": 1793588474000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BlockTrade-Morning-02NOV26;CHG;EGCO.pdf"
+    },
+    {
+      "uuid": "46b75736-e298-444a-b6ca-b52fad37e679",
+      "title": "Trading Buy โดย TRINITY | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127096-trading-buy-trinity-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "TRINITY",
+      "rating": "Trading Buy",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-11-02T09:47:31+07:00",
+      "ts": 1793587651000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/ITC_Thai_20261102.pdf"
+    },
+    {
+      "uuid": "e9b90384-1b6e-48af-92ed-91f5d1b04a4e",
+      "title": "BUY โดย KSS | บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน) (AP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127093-buy-kss-ap",
+      "tickers": [
+        "AP"
+      ],
+      "symbolId": "852",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน)",
+      "date": "2026-11-02T09:38:35+07:00",
+      "ts": 1793587115000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102_AP_EP.pdf"
+    },
+    {
+      "uuid": "aa518aa2-925c-42ee-b368-1f9fb221ab45",
+      "title": "Neutral โดย KSS | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127092-neutral-kss-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-02T09:38:33+07:00",
+      "ts": 1793587113000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102-PTTEP_ER.pdf"
+    },
+    {
+      "uuid": "a1db1a1b-f25d-47ee-a406-4aab36bb2ce7",
+      "title": "BUY โดย PI | บริษัท การบินไทย จำกัด (มหาชน) (THAI) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127089-buy-pi-thai",
+      "tickers": [
+        "THAI"
+      ],
+      "symbolId": "831",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท การบินไทย จำกัด (มหาชน)",
+      "date": "2026-11-02T09:32:12+07:00",
+      "ts": 1793586732000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/THAI-261102.pdf"
+    },
+    {
+      "uuid": "3222dd03-9721-441a-9d7e-9abf38d972c0",
+      "title": "BUY โดย PI | บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน) (ITC) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127088-buy-pi-itc",
+      "tickers": [
+        "ITC"
+      ],
+      "symbolId": "113211",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ไอ-เทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-11-02T09:32:09+07:00",
+      "ts": 1793586729000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/ITC-261102.pdf"
+    },
+    {
+      "uuid": "b15d8b24-8e2b-4256-98e9-e3d0bc3a728a",
+      "title": "BUY โดย MST | บริษัท สเตคอน กรุ๊ป จำกัด (มหาชน) (STECON) | บทวิเคราะห์ประจำวันที่ 2 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127075-buy-mst-stecon",
+      "tickers": [
+        "STECON"
+      ],
+      "symbolId": "124457",
+      "broker": "MST",
+      "rating": "BUY",
+      "companyName": "บริษัท สเตคอน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-02T09:20:16+07:00",
+      "ts": 1793586016000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261102_STECON_3Q26-preview_press.pdf"
+    },
+    {
+      "uuid": "bbca0315-a2a5-455a-992a-100baf9ff788",
+      "title": "BUY โดย MST | บริษัท เมก้า ไลฟ์ไซแอ็นซ์ จำกัด (มหาชน) (MEGA) | บทวิเคราะห์ประจำวันที่ 30 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127070-buy-mst-mega",
+      "tickers": [
+        "MEGA"
+      ],
+      "symbolId": "19619",
+      "broker": "MST",
+      "rating": "BUY",
+      "companyName": "บริษัท เมก้า ไลฟ์ไซแอ็นซ์ จำกัด (มหาชน)",
+      "date": "2026-10-30T19:38:25+07:00",
+      "ts": 1793363905000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/261030_MEGA_3Q26-update_press.pdf"
+    },
+    {
+      "uuid": "80347eff-4d91-405a-aae0-e1f07272700f",
+      "title": "AA โดย TRIS | บริษัท ทิพย กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน) (TIPH) | บทวิเคราะห์ประจำวันที่ 30 ตุลาคม 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127063-aa-tris-tiph",
+      "tickers": [
+        "TIPH"
+      ],
+      "symbolId": "105692",
+      "broker": "TRIS",
+      "rating": "AA",
+      "companyName": "บริษัท ทิพย กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-10-30T17:20:02+07:00",
+      "ts": 1793355602000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/TIPH30Oct26-t.pdf"
+    },
+    {
+      "uuid": "eedf94d4-a37e-47e7-95a8-71692d296548",
+      "title": "AA by TRIS | DHIPAYA GROUP HOLDINGS PUBLIC COMPANY LIMITED (TIPH) | Research as of 30 October 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127062-aa-tris-tiph",
+      "tickers": [
+        "TIPH"
+      ],
+      "symbolId": "105692",
+      "broker": "TRIS",
+      "rating": "AA",
+      "companyName": "DHIPAYA GROUP HOLDINGS PUBLIC COMPANY LIMITED",
+      "date": "2026-10-30T17:20:00+07:00",
+      "ts": 1793355600000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Oct/TIPH30Oct26-e.pdf"
+    },
     {
       "uuid": "42a67074-6d8e-459c-bdfc-df0346cdc48f",
       "title": "BUY โดย KSS | บริษัท บางจาก คอร์ปอเรชั่น จำกัด (มหาชน) (BCP) | บทวิเคราะห์ประจำวันที่ 30 ตุลาคม 2569",
