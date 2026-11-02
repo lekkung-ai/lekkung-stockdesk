@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-11-02T17:04:04.492624+07:00",
+  "generatedAt": "2026-11-02T18:11:29.214679+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 15,
+      "count": 16,
       "top3": [
         {
           "ticker": "TRUE",
           "netProfitYoY": 324.0636710072745
         },
         {
-          "ticker": "SCGP",
-          "netProfitYoY": 112.52616107986644
+          "ticker": "PSL",
+          "netProfitYoY": 187.61970798581532
         },
         {
-          "ticker": "MST",
-          "netProfitYoY": 85.39678083473704
+          "ticker": "SCGP",
+          "netProfitYoY": 112.52616107986644
         }
       ]
     },
@@ -88,6 +88,33 @@
   },
   "announcements": [
     {
+      "ticker": "PSL",
+      "sector": "Services",
+      "subsector": "Transportation & Logistics",
+      "market": "SET",
+      "announceDate": "2026-11-02T17:51:53+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 725909000.0,
+      "netProfitPrior": 252385000.0,
+      "netProfitYoY": 187.61970798581532,
+      "netProfitPriorQ": 521494000.0,
+      "netProfitQoQ": 39.197958174015426,
+      "profitAcceleration": "accelerating",
+      "eps": 0.4889,
+      "epsPrior": 0.1699,
+      "epsYoY": 187.7575044143614,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107294801&symbol=PSL",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17935754847541&symbol=PSL",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107295001&symbol=PSL",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
       "ticker": "TNP",
       "sector": "Services",
       "subsector": "",
@@ -111,8 +138,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17935754840541&symbol=TNP",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107281101&symbol=TNP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none"
+      "reason": "บริษัทมีรายได้จากการขายรวมทั้ง 3 ช่องทางรวมจ ำนวน 929.27 ล้านบาท เพิ่มขึ้นร้อยละ 27.11 เมื่อ เทียบจากงวดเดียวกันของปีก่อน และมีก ำไรสุทธิจ ำนวน 57.63 ล้านบาท เพิ่มขึ้นร้อยละ 20.91 เมื่อเทียบกับช่วงเดียวกันของปี ก่อน ส ำหรับงวด 9",
+      "reason_source": "mda_extract"
     },
     {
       "ticker": "TRUE",
@@ -140,7 +167,7 @@
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": -0.78,
+      "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null
@@ -293,7 +320,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -1.18,
       "drift_d1_pct": -0.59,
-      "drift_d2_pct": 0.59,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null
     },
     {
@@ -573,7 +600,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 2.61,
-      "drift_d5_pct": 1.74
+      "drift_d5_pct": 2.61
     },
     {
       "ticker": "CREDIT",
@@ -1585,6 +1612,12 @@
       "quarter": "ไตรมาส 3/2569"
     },
     {
+      "ticker": "PSL",
+      "date": "2026-11-02T17:51:53+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
       "ticker": "TU",
       "date": "2026-11-03T12:37:00+07:00",
       "status": "predicted",
@@ -1604,13 +1637,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-03T18:01:00+07:00"
-    },
-    {
-      "ticker": "PSL",
-      "date": "2026-11-03T18:11:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-03T18:11:00+07:00"
     },
     {
       "ticker": "ANI",
