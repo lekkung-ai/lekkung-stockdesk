@@ -5,8 +5,10 @@ gap_pct, drift_d1_pct, drift_d2_pct, and drift_d5_pct using Yahoo Finance 3-mont
 
 Usage:
     python scripts/enrich_earnings_pead.py
+    python scripts/enrich_earnings_pead.py --feed <path>   # enrich another copy (testing)
 """
 
+import argparse
 import json
 import math
 import os
@@ -138,15 +140,34 @@ def compute_pead(ticker, announce_iso):
         'gap_pct': g,
         'drift_d1_pct': safe(d1c),
         'drift_d2_pct': safe(d2c),
-        'drift_d5_pct': safe(d5c)
+        'drift_d5_pct': safe(d5c),
+        'price_path': price_path(series, t0, pre, g),
     }
 
+
+def price_path(series, t0, pre, gap):
+    """Daily closes around the announcement, as % vs the last close before
+    it (series[t0-1], the same `pre` every case above uses) - drives the
+    /earnings mini chart.
+      pre  - closes t0-5 .. t0-1 (fewer if the series starts later); the
+             last one is always 0.0
+      post - [gap (first reaction), D+1, D+2, ..., D+5 close] - only the
+             days that have happened, so a fresh filing has a short list"""
+    def pct(v):
+        return round((v / pre - 1) * 100, 2) if (v is not None and math.isfinite(v)) else None
+    pre_pts = [pct(series[i][2]) for i in range(max(0, t0 - 5), t0)]
+    post_pts = [gap] + [pct(series[i][2]) for i in range(t0 + 1, min(len(series), t0 + 6))]
+    return {'pre': pre_pts, 'post': post_pts}
+
 def main():
-    if not os.path.exists(FEED_PATH):
-        print(f"ERROR: File not found: {FEED_PATH}")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--feed', default=FEED_PATH, help='feed file to enrich in place (default: the real one)')
+    feed_path = parser.parse_args().feed
+    if not os.path.exists(feed_path):
+        print(f"ERROR: File not found: {feed_path}")
         sys.exit(1)
         
-    with open(FEED_PATH, 'r', encoding='utf-8') as f:
+    with open(feed_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
         
     if isinstance(data, dict) and 'announcements' in data:
@@ -196,10 +217,10 @@ def main():
         print(f"ERROR: Non-finite value guard failed during JSON serialization: {e}")
         sys.exit(1)
         
-    with open(FEED_PATH, 'w', encoding='utf-8') as f:
+    with open(feed_path, 'w', encoding='utf-8') as f:
         f.write(output_json)
         
-    print(f"Successfully enriched {enriched_count}/{count_after} records with PEAD fields and updated {FEED_PATH}")
+    print(f"Successfully enriched {enriched_count}/{count_after} records with PEAD fields and updated {feed_path}")
 
 if __name__ == '__main__':
     main()

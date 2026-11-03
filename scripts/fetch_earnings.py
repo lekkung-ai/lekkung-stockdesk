@@ -305,16 +305,51 @@ def parse_dt(iso_str):
         return None
 
 
-def classify_profit_acceleration(net_profit, net_profit_prior, net_profit_prior_q, yoy, qoq):
+def meaningful_yoy(net_profit, net_profit_prior):
+    """%YoY only when both years are a profit-comparable base: last year's
+    profit must be > 0. A loss (or zero) base gives a meaningless % (SCC
+    -669M -> +2,386M = "+456%"), so a turnaround gets the "พลิกกำไร" label
+    instead and never ranks in a % growth list. Kept in sync with
+    meaningfulYoY() in lib/earningsMetrics.ts."""
+    if net_profit is None or net_profit_prior is None or net_profit_prior <= 0:
+        return None
+    return yoy_pct(net_profit, net_profit_prior)
+
+
+def is_previous_quarter(quarter, prior_quarter):
+    """True only for back-to-back quarterly filings (Q2 -> Q3 of the same
+    year). The "prior" F45 the scan finds can be a different period - a Q1
+    filing's predecessor is the annual F45 (skipped), so the next quarterly
+    one found is last year's Q3; a late filer (DOD) can even list a newer
+    quarter first. Last quarter's %YoY is only meaningful when it really is
+    the quarter right before this one."""
+    m1 = re.match(r'ไตรมาส\s*(\d)/(\d{4})', quarter or '')
+    m2 = re.match(r'ไตรมาส\s*(\d)/(\d{4})', prior_quarter or '')
+    if not m1 or not m2:
+        return False
+    return m1.group(2) == m2.group(2) and int(m2.group(1)) == int(m1.group(1)) - 1
+
+
+def classify_profit_acceleration(net_profit, net_profit_prior, net_profit_prior_q, net_profit_prior_q_prior):
+    """Kept in sync with isAccelerating() in lib/earningsMetrics.ts.
+    accelerating - this quarter's %YoY > 0 AND > last quarter's own %YoY
+                   (growing faster, not just growing). No last-quarter
+                   %YoY -> never accelerating.
+    decelerating - this quarter's %YoY > 0 but below last quarter's.
+    double_turnaround - loss -> profit vs both last year and last quarter."""
     if net_profit is None:
         return 'stable'
     is_turnaround_yoy = net_profit_prior is not None and net_profit_prior < 0 and net_profit > 0
     is_turnaround_qoq = net_profit_prior_q is not None and net_profit_prior_q < 0 and net_profit > 0
     if is_turnaround_yoy and is_turnaround_qoq:
         return 'double_turnaround'
-    if yoy is not None and yoy > 0 and qoq is not None and qoq > 0:
+    yoy = meaningful_yoy(net_profit, net_profit_prior)
+    prev_yoy = meaningful_yoy(net_profit_prior_q, net_profit_prior_q_prior)
+    if yoy is None or prev_yoy is None or yoy <= 0:
+        return 'stable'
+    if yoy > prev_yoy:
         return 'accelerating'
-    if yoy is not None and yoy > 0 and qoq is not None and qoq < 0:
+    if yoy < prev_yoy:
         return 'decelerating'
     return 'stable'
 
@@ -345,6 +380,8 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
 
         # Fetch prior quarter F45 for QoQ comparison (skipping Annual filings)
         net_profit_prior_q = None
+        net_profit_prior_q_prior = None
+        prior_quarter = None
         net_profit_qoq = None
         f45_idx = f45_items.index(f45_in_window)
         for prev_candidate in f45_items[f45_idx + 1:]:
@@ -353,6 +390,10 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
             q_label = parsed_prev.get('quarter') or ''
             if q_label and 'ประจำปี' not in q_label and '12 เดือน' not in q_label:
                 net_profit_prior_q = parsed_prev.get('netProfit')
+                # Last quarter's own year-ago figure (same F45 page) - gives
+                # last quarter's %YoY for the acceleration rule.
+                net_profit_prior_q_prior = parsed_prev.get('netProfitPrior')
+                prior_quarter = q_label
                 net_profit_qoq = yoy_pct(net_profit, net_profit_prior_q)
                 break
 
@@ -367,7 +408,9 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
         mda_item = nearest('mda')
 
         yoy = parsed.get('netProfitYoY')
-        profit_acceleration = classify_profit_acceleration(net_profit, net_profit_prior, net_profit_prior_q, yoy, net_profit_qoq)
+        profit_acceleration = classify_profit_acceleration(
+            net_profit, net_profit_prior, net_profit_prior_q,
+            net_profit_prior_q_prior if is_previous_quarter(parsed.get('quarter'), prior_quarter) else None)
 
         result['announcement'] = {
             'ticker': ticker,
@@ -382,6 +425,12 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
             'netProfitYoY': yoy,
             'netProfitPriorQ': net_profit_prior_q,
             'netProfitQoQ': net_profit_qoq,
+            'priorQuarter': prior_quarter,
+            'netProfitPriorQPrior': net_profit_prior_q_prior,
+            'netProfitPriorQYoY': (
+                meaningful_yoy(net_profit_prior_q, net_profit_prior_q_prior)
+                if is_previous_quarter(parsed.get('quarter'), prior_quarter) else None
+            ),
             'profitAcceleration': profit_acceleration,
             'eps': parsed.get('eps'),
             'epsPrior': parsed.get('epsPrior'),
@@ -492,6 +541,12 @@ def merge_announcement_fields(new_a, old_a):
     merged['netProfitYoY'] = yoy_pct(merged.get('netProfit'), merged.get('netProfitPrior'))
     merged['epsYoY'] = yoy_pct(merged.get('eps'), merged.get('epsPrior'))
     merged['bucket'] = classify_bucket(merged.get('netProfit'), merged.get('netProfitPrior'))
+    consecutive = is_previous_quarter(merged.get('quarter'), merged.get('priorQuarter'))
+    prior_q_prior = merged.get('netProfitPriorQPrior') if consecutive else None
+    merged['netProfitPriorQYoY'] = meaningful_yoy(merged.get('netProfitPriorQ'), prior_q_prior)
+    merged['profitAcceleration'] = classify_profit_acceleration(
+        merged.get('netProfit'), merged.get('netProfitPrior'),
+        merged.get('netProfitPriorQ'), prior_q_prior)
     return merged
 
 
@@ -649,9 +704,12 @@ def main():
     buckets = {}
     for key, label in BUCKET_LABELS.items():
         members = [a for a in announcements if a['bucket'] == key]
+        # A turnaround's % is off a loss base (meaningless) - rank by the
+        # profit itself instead, so it never tops a "% growth" list.
+        rank_field = 'netProfit' if key == 'turnaround' else 'netProfitYoY'
         members_sorted = sorted(
-            (a for a in members if a['netProfitYoY'] is not None),
-            key=lambda a: a['netProfitYoY'],
+            (a for a in members if a[rank_field] is not None),
+            key=lambda a: a[rank_field],
             reverse=(key in ('profit_growth', 'turnaround', 'loss_shrink')),
         )
         buckets[key] = {

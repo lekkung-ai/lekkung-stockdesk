@@ -176,6 +176,18 @@ def extract_pdf_text(pdf_bytes):
         doc.close()
 
 
+def fix_sara_am(text):
+    """Normalize the broken sara-am (ำ) forms SET's PDFs produce into the
+    single code point U+0E33. Kept in sync with fixSaraAm() in
+    lib/earningsMetrics.ts (the page applies it again for old data).
+      "ํา" (nikhahit U+0E4D + sara aa U+0E32) -> "ำ"  ("สําคัญ")
+      whitespace + "ำ"                        -> "ำ"  ("จ ำนวน", "ก ำไร")
+    ำ is a dependent vowel - it never starts a word, so dropping the space
+    in front of it is always safe."""
+    text = text.replace('\u0e4d\u0e32', '\u0e33')
+    return re.sub(r'\s+\u0e33', '\u0e33', text)
+
+
 def clean_text(raw):
     # SET's PDF generator emits the sara-am vowel (ำ) as a stray space
     # followed by า (e.g. "จ ากัด" for "จำกัด" - confirmed against real
@@ -183,7 +195,10 @@ def clean_text(raw):
     # า never legitimately starts a word right after whitespace in Thai (it's
     # a dependent vowel, never a word-initial character), so collapsing
     # " า" -> "ำ" is unconditionally safe.
-    text = raw.replace(' า', 'ำ')
+    # Other SET PDFs break it differently (" ำ" / "ํา") - fix_sara_am()
+    # covers those, run again at the end since the whitespace collapse
+    # below can turn a line break before ำ into a space.
+    text = fix_sara_am(raw.replace(' า', 'ำ'))
     text = CONTROL_CHARS_RE.sub(' ', text)
     text = PAGE_NUM_RE.sub(' ', text)
     text = re.sub(r'[ \t\r\n]+', ' ', text).strip()
@@ -328,9 +343,13 @@ def main():
         key = cache_key(a)
         cached = cache.get(key)
         if cached and cached.get('reason_source') == 'mda_extract':
+            # Cached before fix_sara_am() existed -> normalize on the way out
+            # (and in the cache itself, written back below).
+            cached['reason'] = fix_sara_am(cached['reason'])
             a['reason'] = cached['reason']
             a['reason_source'] = cached['reason_source']
         elif a.get('reason_source') == 'mda_extract' and a.get('reason'):
+            a['reason'] = fix_sara_am(a['reason'])
             # fetch_earnings.py's own merge-on-write already restored this
             # one from the previous file (our cache.json is missing/behind)
             # - trust it and backfill the cache, instead of attempting a
