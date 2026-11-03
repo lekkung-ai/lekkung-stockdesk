@@ -15,6 +15,11 @@ export interface EarningsAnnouncement {
   netProfitYoY: number | null;
   netProfitPriorQ?: number | null;
   netProfitQoQ?: number | null;
+  // The quarter netProfitPriorQ comes from, and that quarter's own year-ago
+  // profit - gives last quarter's %YoY for the ⚡ rule (lib/earningsMetrics.ts).
+  priorQuarter?: string | null;
+  netProfitPriorQPrior?: number | null;
+  netProfitPriorQYoY?: number | null;
   profitAcceleration?: string | boolean | null;
   eps: number | null;
   epsPrior: number | null;
@@ -36,6 +41,9 @@ export interface EarningsAnnouncement {
   drift_d1_pct?: number | null;
   drift_d2_pct?: number | null;
   drift_d5_pct?: number | null;
+  // % vs the last close before the announcement (scripts/enrich_earnings_pead.py):
+  // pre = closes of the 5 days before (last = 0), post = [first reaction, D+1..D+5].
+  price_path?: { pre: (number | null)[]; post: (number | null)[] } | null;
 }
 
 export interface EarningsCalendarEntry {
