@@ -33,6 +33,39 @@ export function fixSaraAm(text: string): string {
   return text.replace(NIKHAHIT_AA, SARA_AM).replace(SPACE_SARA_AM, SARA_AM);
 }
 
+// ── MD&A reason preview ──────────────────────────────────────────────────────
+// extract_reason.py sometimes lands on a financial table instead of a sentence
+// ("รวมรายได้ ... 4,604.7 4,112.0 12.0 3,821.4 ..."). That reads as noise under a
+// ticker, so the one-line preview hides it; the expanded row still shows the
+// full text.
+const NUMERIC_CHAR = /[0-9%.,]/g;
+const NUMERIC_TOKEN = /^[()\-+]*\d[\d.,%()\-+]*$/;
+export const TABLE_LIKE_RATIO = 0.35;
+export const TABLE_LIKE_RUN = 4;
+
+/** True when the text is mostly a table: > 35% of the non-space characters are
+ *  digits / % / . / , - or more than 4 numeric tokens sit side by side. */
+export function isTableLikeReason(text: string | null | undefined): boolean {
+  const t = (text ?? '').trim();
+  if (!t) return false;
+  const chars = t.replace(/\s/g, '');
+  const numeric = chars.match(NUMERIC_CHAR)?.length ?? 0;
+  if (numeric / chars.length > TABLE_LIKE_RATIO) return true;
+  let run = 0;
+  for (const tok of t.split(/\s+/)) {
+    run = NUMERIC_TOKEN.test(tok) ? run + 1 : 0;
+    if (run > TABLE_LIKE_RUN) return true;
+  }
+  return false;
+}
+
+/** The line shown under a ticker: the fixed reason text, or '' when there is none
+ *  or it is table-like. Never a placeholder. */
+export function reasonPreview(reason: string | null | undefined): string {
+  const fixed = reason ? fixSaraAm(reason) : '';
+  return isTableLikeReason(fixed) ? '' : fixed;
+}
+
 // ── YoY / turnaround ─────────────────────────────────────────────────────────
 
 /** %YoY only off a profit base (last year > 0). A loss/zero base gives a

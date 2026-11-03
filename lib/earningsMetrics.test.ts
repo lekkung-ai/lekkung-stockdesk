@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   fixSaraAm, meaningfulYoY, isTurnaround, isPreviousQuarter, isAccelerating,
-  isPead, peadRanked, priorQuarterImproved, pricePath, type EarningsFigures,
+  isPead, peadRanked, priorQuarterImproved, pricePath, isTableLikeReason, reasonPreview, type EarningsFigures,
 } from './earningsMetrics';
 
 const AM = String.fromCharCode(0x0e33);
@@ -120,5 +120,41 @@ describe('pricePath', () => {
     const p = pricePath(f({ gap_pct: 1, drift_d1_pct: 2, drift_d2_pct: 3, drift_d5_pct: null }));
     expect(p.pre).toEqual([{ x: -1, y: 0 }]);
     expect(p.post).toEqual([{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }]);
+  });
+});
+
+// Real MD&A texts from earnings_feed.json (2026-11-03).
+const REASON = {
+  CREDIT: 'รวมรายได้จากการดำเนินงานสุทธิ 4,604.7 4,112.0 12.0 3,821.4 20.5 12,510.5 10,978.7 14.0 รวมค่าใช้จ่ายจากการดำเนินงานอื่น ๆ 1,823.7 1,745.8 4.5 1,614.4 13.0 5,236.2 4,672.9 12.1 ผลขาดทุนด้านเครดิตที่คาดว่าจะเกิดขึ้น 1,227.7',
+  SO: '68 ล้านบาท % ล้านบาท % ล้านบาท % รายได้ รายได้ค่าบริการจัดหาบุคลากรและบริการอื่น 1,726.00 79.53% 1,730.06 79.92% (4.06) (0.23)% รายได้ค่าเช่าและบริการ 417.65 19.25% 367.18 16.96% 50.47 13.75% กำไรจากการจำหน่ายสินทรัพย์ให้เช่ารอการขายและอุปกรณ์ 17.09 0.79% 58.88 2.72% (41.79) (70.97)% รายได้อื่น /1 9.41 0.43% 8.57 0.40% 0.84 9.80% รวมรายได้ 2,170.15 100.00% 2,164.69 100.00% 5.46 0.25% ค่าใช้จ่าย',
+  TNP: 'บริษัทมีรายได้จากการขายรวมทั้ง 3 ช่องทางรวมจำนวน 929.27 ล้านบาท เพิ่มขึ้นร้อยละ 27.11 เมื่อ เทียบจากงวดเดียวกันของปีก่อน และมีกำไรสุทธิจำนวน 57.63 ล้านบาท เพิ่มขึ้นร้อยละ 20.91 เมื่อเทียบกับช่วงเดียวกันของปี ก่อน สำหรับงวด 9',
+  GLOBAL: 'มีปัจจัยหลักมาจากการปรับตัวดีขึ้นของอัตรากำไรขั้นต้น อันเป็นผลจากการเพิ่มสัดส่วนยอดขายสินค้า House Brand ร่วมกับการบริหารจัดการต้นทุนและควบคุมค่าใช้จ่ายในการดำเนินงานอย่างมีประสิทธิภาพ แม้ว่าภาวะเศรษฐกิจโดยรวมและกำลังซื้อ',
+};
+
+describe('isTableLikeReason / reasonPreview', () => {
+  it('hides the table-like texts (CREDIT, SO)', () => {
+    expect(isTableLikeReason(REASON.CREDIT)).toBe(true);
+    expect(isTableLikeReason(REASON.SO)).toBe(true);
+    expect(reasonPreview(REASON.CREDIT)).toBe('');
+  });
+  it('keeps real sentences (TNP, GLOBAL), even with figures inside', () => {
+    expect(isTableLikeReason(REASON.TNP)).toBe(false);
+    expect(isTableLikeReason(REASON.GLOBAL)).toBe(false);
+    expect(reasonPreview(REASON.TNP)).toBe(REASON.TNP);
+  });
+  it('more than 4 numbers side by side hides; exactly 4 does not', () => {
+    expect(isTableLikeReason('กำไรสุทธิ ยอดขายรวมทั้งปีเพิ่มขึ้นจากการขยายสาขาใหม่และการบริหารต้นทุนที่ดีขึ้น 1.0 2.0 3.0 4.0 5.0 จากปีก่อน')).toBe(true);
+    expect(isTableLikeReason('กำไรสุทธิ ยอดขายรวมทั้งปีเพิ่มขึ้นจากการขยายสาขาใหม่และการบริหารต้นทุนที่ดีขึ้น 1.0 2.0 3.0 4.0 จากปีก่อน')).toBe(false);
+  });
+  it('character ratio over 35% hides', () => {
+    expect(isTableLikeReason('กำไร 1,234.56 7,890.12%')).toBe(true);
+  });
+  it('empty / missing -> no preview, no placeholder', () => {
+    expect(reasonPreview('')).toBe('');
+    expect(reasonPreview(null)).toBe('');
+    expect(isTableLikeReason(undefined)).toBe(false);
+  });
+  it('applies the sara-am fix to what it shows', () => {
+    expect(reasonPreview(`รวมจ ${AM}นวนเพิ่มขึ้นจากปีก่อนอย่างมีนัยสำคัญ`)).toBe(`รวมจ${AM}นวนเพิ่มขึ้นจากปีก่อนอย่างมีนัยสำคัญ`);
   });
 });

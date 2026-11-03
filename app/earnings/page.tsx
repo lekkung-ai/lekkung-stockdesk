@@ -9,7 +9,7 @@ import TableSkeleton from '@/components/TableSkeleton';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
 import { classifyQoQ } from '@/lib/qoqBucket';
 import {
-  fixSaraAm, meaningfulYoY, isTurnaround, isAccelerating, isPead, peadRanked,
+  fixSaraAm, reasonPreview, meaningfulYoY, isTurnaround, isAccelerating, isPead, peadRanked,
   isImproved, isWorsened, priorQuarterImproved, pricePath,
 } from '@/lib/earningsMetrics';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
@@ -355,7 +355,7 @@ function PeadSection({ rows, onPick, onShowAll }: {
               className="w-full text-left grid grid-cols-[1fr_84px_70px] md:grid-cols-[minmax(170px,1.4fr)_96px_250px_64px_64px_70px_64px] gap-3 items-center py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025]">
               <span className="min-w-0">
                 <b className="text-ink text-[16px]">{a.ticker}</b>
-                <span className="block text-[13px] text-meta truncate">{reasonOf(a) || a.quarter}</span>
+                {reasonPreview(a.reason) && <span className="block text-[13px] text-meta truncate">{reasonPreview(a.reason)}</span>}
               </span>
               <span className="text-right">{yoyOf(a)}</span>
               <span className="hidden md:block"><PriceChart a={a} w={250} h={40} /></span>
@@ -373,7 +373,7 @@ function PeadSection({ rows, onPick, onShowAll }: {
               className="text-left flex-1 min-w-[200px] border border-white/[0.07] hover:border-[#33507f] rounded-xl p-3.5 bg-[#13161e]">
               <div className="min-h-[96px]">
                 <b className="text-ink text-[17px]">{a.ticker}</b>
-                <div className="text-[13px] text-meta truncate">{reasonOf(a) || a.quarter}</div>
+                {reasonPreview(a.reason) && <div className="text-[13px] text-meta truncate">{reasonPreview(a.reason)}</div>}
                 <div className="flex flex-wrap gap-x-3 gap-y-1 items-center text-[13px] mt-2">
                   <span><i className="not-italic text-meta text-[11px] mr-1">ปีก่อน</i>{yoyOf(a)}</span>
                   <span><i className="not-italic text-meta text-[11px] mr-1">ไตรมาสก่อน</i><QoQCell a={a} /></span>
@@ -612,8 +612,8 @@ export default function EarningsPage() {
   const filterLabel = [tab && TAB_LABEL[tab], ...[...chips].map(k => CHIPS.find(c => c.key === k)!.label)].filter(Boolean).join(' + ');
 
   return (
-    <div className="px-4 py-5 md:px-6 md:py-7 max-w-[1180px] mx-auto">
-      <header className="flex flex-wrap items-baseline justify-between gap-2 mb-6">
+    <div className="p-4 md:p-6">
+      <header className="flex flex-wrap items-baseline justify-between gap-2 mb-5">
         <h1 className={`${TS.pageTitle} text-ink`}>ประกาศงบ{seasonQuarter ? ` · ${seasonQuarter}` : ''}</h1>
         <div className="flex items-center gap-2 text-[13px] text-meta">
           {!loading && (
@@ -711,7 +711,7 @@ export default function EarningsPage() {
                   {pageRows.map(a => {
                     const key = rowKey(a);
                     const open = openKey === key;
-                    const reason = reasonOf(a);
+                    const reason = reasonPreview(a.reason);
                     const isToday = a.announceDate?.startsWith(today);
                     return (
                       <Fragment key={key}>
