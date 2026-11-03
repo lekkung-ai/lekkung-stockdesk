@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   fixSaraAm, meaningfulYoY, isTurnaround, isPreviousQuarter, isAccelerating,
-  isPead, peadRanked, priorQuarterImproved, pricePath, isTableLikeReason, reasonPreview, type EarningsFigures,
+  isPead, peadRanked, priorQuarterImproved, pricePath, isTableLikeReason, reasonPreview, compareProfit, type EarningsFigures,
 } from './earningsMetrics';
 
 const AM = String.fromCharCode(0x0e33);
@@ -156,5 +156,24 @@ describe('isTableLikeReason / reasonPreview', () => {
   });
   it('applies the sara-am fix to what it shows', () => {
     expect(reasonPreview(`รวมจ ${AM}นวนเพิ่มขึ้นจากปีก่อนอย่างมีนัยสำคัญ`)).toBe(`รวมจ${AM}นวนเพิ่มขึ้นจากปีก่อนอย่างมีนัยสำคัญ`);
+  });
+});
+
+describe('compareProfit', () => {
+  it('profit both periods → %', () => {
+    expect(compareProfit(120, 100)).toEqual({ kind: 'pct', pct: 20 });
+    expect(compareProfit(0, 100)).toEqual({ kind: 'pct', pct: -100 });
+  });
+  it('sign flips and loss-vs-loss are labels, never a %', () => {
+    expect(compareProfit(2386, -669)).toEqual({ kind: 'turnaround' });   // SCC
+    expect(compareProfit(5, 0)).toEqual({ kind: 'turnaround' });
+    expect(compareProfit(-56, 9)).toEqual({ kind: 'to_loss' });
+    expect(compareProfit(-253, -20)).toEqual({ kind: 'loss_more' });     // SAMCO
+    expect(compareProfit(-10, -30)).toEqual({ kind: 'loss_less' });
+  });
+  it('nothing to compare → null', () => {
+    expect(compareProfit(100, null)).toBeNull();
+    expect(compareProfit(null, 100)).toBeNull();
+    expect(compareProfit(-5, 0)).toBeNull();
   });
 });

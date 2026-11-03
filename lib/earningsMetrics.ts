@@ -80,6 +80,28 @@ export function isTurnaround(a: Pick<EarningsFigures, 'netProfit' | 'netProfitPr
   return a.netProfit != null && a.netProfitPrior != null && a.netProfitPrior <= 0 && a.netProfit > 0;
 }
 
+export type ProfitChange =
+  | { kind: 'pct'; pct: number }
+  | { kind: 'turnaround' }  // พลิกกำไร: base ≤ 0, now > 0
+  | { kind: 'to_loss' }     // พลิกขาดทุน: base > 0, now < 0
+  | { kind: 'loss_more' }   // ขาดทุนเพิ่มขึ้น
+  | { kind: 'loss_less' };  // ขาดทุนลดลง
+
+/** How `cur` compares with `base` (last year, last quarter, last year's 9
+ *  months…). A % only off a profit base - every sign flip or loss-vs-loss
+ *  case is a label. null = nothing to compare (missing, or a zero base with
+ *  no profit now). */
+export function compareProfit(cur: number | null | undefined, base: number | null | undefined): ProfitChange | null {
+  if (cur == null || base == null) return null;
+  if (base <= 0 && cur > 0) return { kind: 'turnaround' };
+  if (base > 0) {
+    if (cur < 0) return { kind: 'to_loss' };
+    return { kind: 'pct', pct: meaningfulYoY(cur, base)! };
+  }
+  if (base === 0) return null;
+  return cur < base ? { kind: 'loss_more' } : { kind: 'loss_less' };
+}
+
 const QUARTER_RE = /ไตรมาส\s*(\d)\/(\d{4})/;
 
 /** Back-to-back quarterly filings only (Q2 → Q3 of the same year). */
