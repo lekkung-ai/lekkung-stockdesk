@@ -89,3 +89,110 @@ def test_price_path_from_daily_series(monkeypatch):
     path = out['price_path']
     assert path['pre'] == [1.0, -1.0, 0.0, 2.0, 0.0]   # closes idx 1..5 vs base 100
     assert path['post'] == [3.0, 4.0]                  # gap, D+1 (no later days yet)
+
+
+# ── 5-quarter history / 9-month figures ──
+
+from fetch_earnings import build_profit_history, parse_f45_detail  # noqa: E402
+
+
+def q(label, np, prior, cum=None, cum_prior=None, months=None):
+    return {'quarter': label, 'netProfit': np, 'netProfitPrior': prior,
+            'netProfitCum': cum, 'netProfitCumPrior': cum_prior, 'cumMonths': months}
+
+
+def test_q4_is_full_year_minus_nine_months():
+    filings = [  # newest first
+        q('ไตรมาส 3/2569', 30, 20, cum=90, cum_prior=60, months=9),
+        q('ไตรมาส 2/2569', 32, 21, cum=60, cum_prior=40, months=6),
+        q('ไตรมาส 1/2569', 28, 19),
+        q('ประจำปี 2568', 85, 70),
+    ]
+    hist = build_profit_history(filings, 2569, 3)
+    assert [h['q'] for h in hist] == ['Q3/68', 'Q4/68', 'Q1/69', 'Q2/69', 'Q3/69']
+    # Q4/68 = FY68 85 - 9M68 60 (the 9M68 figure is the year-ago column of the Q3/69 filing)
+    assert [h['np'] for h in hist] == [20, 25, 28, 32, 30]
+
+
+def test_q4_without_nine_months_is_a_gap_not_the_full_year():
+    filings = [q('ไตรมาส 1/2569', 28, 19), q('ประจำปี 2568', 85, 70)]
+    hist = build_profit_history(filings, 2569, 1)
+    assert hist[-2] == {'q': 'Q4/68', 'np': None}
+    assert hist[-1] == {'q': 'Q1/69', 'np': 28}
+
+
+def test_missing_quarters_stay_none():
+    hist = build_profit_history([q('ไตรมาส 3/2569', 30, 20, cum=90, cum_prior=60, months=9)], 2569, 3)
+    assert [h['np'] for h in hist] == [20, None, None, None, 30]
+
+
+def test_loss_and_profit_mixed_and_newest_filing_wins():
+    filings = [
+        q('ไตรมาส 3/2569', 2386, -669, cum=18000, cum_prior=-500, months=9),  # SCC-like turnaround
+        q('ไตรมาส 2/2569', 11534, -200),
+        q('ไตรมาส 3/2568', -700, 400, cum=-480, cum_prior=900, months=9),      # older figure for Q3/68
+        q('ประจำปี 2568', -100, 1200),
+    ]
+    hist = build_profit_history(filings, 2569, 3)
+    by_q = {h['q']: h['np'] for h in hist}
+    assert by_q['Q3/68'] == -669          # the Q3/69 filing's restated year-ago figure wins
+    assert by_q['Q4/68'] == -100 - (-500)  # FY68 - 9M68, both losses -> +400
+    assert by_q['Q2/69'] == 11534
+    assert by_q['Q1/69'] is None
+
+
+ADVANC_Q3_PRE = '''
+                                           (หน่วย : พันบาท)
+งบการเงิน
+                                   ไตรมาสที่ 3                 9 เดือน
+                                      สอบทาน                    สอบทาน
+สิ้นสุดวันที่\t\t\t            30 กันยายน                  30 กันยายน
+ปี       \t\t\t    2569         2568         2569         2568
+กำไร (ขาดทุน) \t\t\t13,504,271   12,038,861   40,715,782   33,604,272
+ส่วนที่เป็นของผู้ถือ
+หุ้นของบริษัทใหญ่ *
+กำไร (ขาดทุน) \t\t\t      4.54         4.05        13.69        11.30
+สุทธิ
+'''
+
+
+def test_parse_nine_month_columns_from_real_f45():
+    p = parse_f45_detail(f'<pre>{ADVANC_Q3_PRE}</pre>')
+    assert p['quarter'] == 'ไตรมาส 3/2569'
+    assert p['netProfit'] == 13_504_271_000 and p['netProfitPrior'] == 12_038_861_000
+    assert p['cumMonths'] == 9
+    assert p['netProfitCum'] == 40_715_782_000 and p['netProfitCumPrior'] == 33_604_272_000
+    assert p['eps'] == 4.54
+
+
+def test_parse_single_period_filing_has_no_cumulative():
+    pre = ADVANC_Q3_PRE.replace('ไตรมาสที่ 3                 9 เดือน', 'ไตรมาสที่ 1') \
+        .replace('13,504,271   12,038,861   40,715,782   33,604,272', '13,504,271   12,038,861') \
+        .replace('4.54         4.05        13.69        11.30', '4.54         4.05')
+    p = parse_f45_detail(f'<pre>{pre}</pre>')
+    assert p['netProfitCum'] is None and p['cumMonths'] is None
+    assert p['eps'] == 4.54
+
+
+def test_cache_keeps_real_pages_only(monkeypatch):
+    import fetch_earnings as fe
+    pages = {'1': f'<pre>{ADVANC_Q3_PRE}</pre>', '2': '<pre>no figures here</pre>', '3': '<html>throttled</html>'}
+    calls = []
+    monkeypatch.setattr(fe, 'fetch_detail_html', lambda nid, t, c: calls.append(nid) or pages[nid])
+    monkeypatch.setattr(fe, 'F45_CACHE', {})
+    monkeypatch.setattr(fe, 'F45_CACHE_USED', set())
+    for nid in ('1', '2', '3', '1', '2', '3'):
+        fe.parsed_f45({'id': nid, 'datetime': '2026-11-03T17:50:00+07:00'}, 'X', '')
+    assert fe.F45_CACHE['1']['netProfit'] == 13_504_271_000
+    assert fe.F45_CACHE['1']['filed'] == '2026-11-03'
+    assert fe.F45_CACHE['2'] == {'quarter': None, 'filed': '2026-11-03'}  # real F45 page, nothing usable - don't ask again
+    assert '3' not in fe.F45_CACHE                   # no F45 table - retried next run
+    assert calls == ['1', '2', '3', '3']
+
+
+def test_prune_drops_only_filings_too_old_for_any_history(monkeypatch):
+    import fetch_earnings as fe
+    from datetime import datetime
+    monkeypatch.setattr(fe, 'F45_CACHE', {'old': {'filed': '2025-01-01'}, 'new': {'filed': '2025-11-04'}, 'nodate': {}})
+    kept = fe.prune_f45_cache(datetime(2026, 11, 3, tzinfo=fe.BANGKOK_TZ))
+    assert set(kept) == {'new', 'nodate'}

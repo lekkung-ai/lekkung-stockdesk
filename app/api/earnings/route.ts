@@ -21,6 +21,15 @@ export interface EarningsAnnouncement {
   netProfitPriorQPrior?: number | null;
   netProfitPriorQYoY?: number | null;
   profitAcceleration?: string | boolean | null;
+  // Net profit of the 5 quarters ending at this filing, oldest first
+  // (scripts/fetch_earnings.py build_profit_history). np null = no figure
+  // (e.g. Q4 without a 9-month base) - a gap, never zero.
+  profitHistory?: { q: string; np: number | null }[] | null;
+  // Cumulative profit this year vs last year from the same F45 (9 months on a
+  // Q3 filing, 6 on Q2) - null on Q1 / annual filings.
+  cumMonths?: number | null;
+  netProfitCum?: number | null;
+  netProfitCumPrior?: number | null;
   eps: number | null;
   epsPrior: number | null;
   epsYoY: number | null;
@@ -78,7 +87,9 @@ const FEED_PATH = path.join(process.cwd(), 'public', 'data', 'earnings', 'earnin
 export async function GET() {
   try {
     const raw = fs.readFileSync(FEED_PATH, 'utf-8');
-    const data: EarningsFeed = JSON.parse(raw);
+    // f45Cache is the batch script's parsed-F45 store - never sent to the page.
+    const { f45Cache: _cache, ...data } = JSON.parse(raw) as EarningsFeed & { f45Cache?: unknown };
+    void _cache;
     return Response.json(data, {
       headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' },
     });

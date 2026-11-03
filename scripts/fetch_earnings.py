@@ -54,6 +54,7 @@ import sys
 import time
 import urllib.request
 import urllib.error
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 
@@ -229,6 +230,11 @@ def parse_f45_detail(html):
     scale = 1000 if unit_is_thousand else 1
 
     profit_pairs = re.findall(r'กำไร \(ขาดทุน\)\s*([\d,.\-()]+)\s+([\d,.\-()]+)', text)
+    # Q2/Q3 filings carry a cumulative block on the same profit line
+    # ("ไตรมาสที่ 3   9 เดือน" -> this Q, last year Q, 9M this year, 9M last year).
+    # Same line only ([ \t]) - the next line down is the EPS row.
+    cum_match = re.search(r'กำไร \(ขาดทุน\)[ \t]*[\d,.\-()]+[ \t]+[\d,.\-()]+[ \t]+([\d,.\-()]+)[ \t]+([\d,.\-()]+)', text)
+    cum_months_match = re.search(r'ไตรมาสที่\s*\d[ \t]+(\d{1,2})\s*เดือน', text)
     net_profit = parse_number(profit_pairs[0][0]) if profit_pairs else None
     net_profit_prior = parse_number(profit_pairs[0][1]) if profit_pairs else None
     eps = parse_number(profit_pairs[1][0]) if len(profit_pairs) > 1 else None
@@ -237,6 +243,8 @@ def parse_f45_detail(html):
     net_profit_scaled = net_profit * scale if net_profit is not None else None
     net_profit_prior_scaled = net_profit_prior * scale if net_profit_prior is not None else None
     year = year_match.group(1) if year_match else ''
+    cum = parse_number(cum_match.group(1)) if cum_match and cum_months_match else None
+    cum_prior = parse_number(cum_match.group(2)) if cum_match and cum_months_match else None
 
     if quarter_match:
         quarter = f'ไตรมาส {quarter_match.group(1)}/{year}'
@@ -255,6 +263,9 @@ def parse_f45_detail(html):
         'epsPrior': eps_prior,
         'epsYoY': yoy_pct(eps, eps_prior),
         'auditorOpinion': opinion_match.group(1).strip() if opinion_match else None,
+        'cumMonths': int(cum_months_match.group(1)) if cum is not None else None,
+        'netProfitCum': cum * scale if cum is not None else None,
+        'netProfitCumPrior': cum_prior * scale if cum_prior is not None else None,
     }
 
 
@@ -354,6 +365,124 @@ def classify_profit_acceleration(net_profit, net_profit_prior, net_profit_prior_
     return 'stable'
 
 
+# ── F45 cache + 5-quarter history ───────────────────────────────────────────
+# A filed F45 never changes (a correction is a new filing with its own news
+# id), so parsed results are kept by news id in earnings_feed.json's
+# "f45Cache" and reused across runs - only filings never seen before hit SET.
+F45_CACHE = {}
+F45_CACHE_USED = set()
+F45_FETCHES = [0]  # detail pages actually requested this run (report only)
+_CACHE_LOCK = threading.Lock()
+F45_CACHE_KEEP_DAYS = 500  # older filings can't be in any 5-quarter history
+HISTORY_QUARTERS = 5
+HISTORY_LOOKBACK_DAYS = 430  # Q(n) last year's filing + the annual one in between
+
+
+def parsed_f45(item, ticker, cookie):
+    """parse_f45_detail() for one news item, through the cache."""
+    news_id = str(item.get('id'))
+    with _CACHE_LOCK:
+        hit = F45_CACHE.get(news_id)
+        if hit is not None:
+            F45_CACHE_USED.add(news_id)
+            return dict(hit)
+    html = fetch_detail_html(item['id'], ticker, cookie)
+    with _CACHE_LOCK:
+        F45_FETCHES[0] += 1
+    parsed = parse_f45_detail(html) if html else {}
+    # A real F45 page (has its <pre> table) is final either way: a parsed
+    # filing, or one with no usable figures (kept as an empty marker so it
+    # isn't re-requested every run). Anything else - a failed fetch, or a
+    # page without the table (throttled / error page, seen on CSC's annual
+    # filing in a 16-worker run) - is not cached and is retried next run.
+    if html and (parsed.get('quarter') or '<pre>' in html):
+        with _CACHE_LOCK:
+            entry = dict(parsed) if parsed.get('quarter') else {'quarter': None}
+            entry['filed'] = (item.get('datetime') or '')[:10]
+            F45_CACHE[news_id] = entry
+            F45_CACHE_USED.add(news_id)
+    return parsed
+
+
+_REVIEW_STATUS_RE = re.compile(r'\((?:ก่อน)?(?:สอบทาน|ตรวจสอบ)(?:แล้ว)?\)')
+SAME_PERIOD_DAYS = 75
+
+
+def latest_per_period(items):
+    """F45 items (newest first) with the earlier filing of each period
+    dropped - SET companies file each period twice ("ก่อนสอบทาน" then
+    "สอบทานแล้ว"), and the later one is the final figure. Same period = same
+    headline once the review status is removed, filed within 75 days."""
+    kept = []
+    for it in items:
+        key = _REVIEW_STATUS_RE.sub('', it.get('headline', '')).strip()
+        if any(k == key and (d - it['_dt']).days <= SAME_PERIOD_DAYS for k, d, _ in kept):
+            continue
+        kept.append((key, it['_dt'], it))
+    return [it for _, _, it in kept]
+
+
+def period_of(quarter_label):
+    """'ไตรมาส 3/2569' -> (2569, 3), 'ประจำปี 2569' -> (2569, 'FY'), else None."""
+    m = re.match(r'ไตรมาส\s*(\d)/(\d{4})', quarter_label or '')
+    if m:
+        return int(m.group(2)), int(m.group(1))
+    m = re.match(r'ประจำปี\s*(\d{4})', quarter_label or '')
+    if m:
+        return int(m.group(1)), 'FY'
+    return None
+
+
+def quarter_short(year, q):
+    return f'Q{q}/{str(year)[-2:]}'
+
+
+def build_profit_history(filings, end_year, end_q, n=HISTORY_QUARTERS):
+    """Net profit for the n quarters ending at (end_year, end_q), oldest first,
+    as [{'q': 'Q3/68', 'np': float|None}]. The /earnings chart draws exactly
+    this list - None is a gap, never a zero bar.
+
+    filings: parsed F45 dicts, NEWEST FIRST - a newer filing's figure for a
+    period (its year-ago column, or a correction) wins over an older one, so
+    the history matches the year-ago number the table shows next to it.
+      quarterly Qn/Y -> Qn/Y = netProfit, Qn/Y-1 = netProfitPrior,
+                        9 months of Y / Y-1 when cumMonths == 9
+      annual FY/Y    -> full year Y / Y-1
+      Q4/Y = full year Y - 9 months Y, only when both exist. Never the full
+      year on its own - that would draw a 4x bar."""
+    quarters, nine_m, full_year = {}, {}, {}
+
+    def put(d, k, v):
+        if v is not None and k not in d:
+            d[k] = v
+
+    for f in filings:
+        per = period_of(f.get('quarter'))
+        if not per:
+            continue
+        y, q = per
+        if q == 'FY':
+            put(full_year, y, f.get('netProfit'))
+            put(full_year, y - 1, f.get('netProfitPrior'))
+            continue
+        put(quarters, (y, q), f.get('netProfit'))
+        put(quarters, (y - 1, q), f.get('netProfitPrior'))
+        if f.get('cumMonths') == 9:
+            put(nine_m, y, f.get('netProfitCum'))
+            put(nine_m, y - 1, f.get('netProfitCumPrior'))
+
+    for y in full_year:
+        if (y, 4) not in quarters and y in nine_m:
+            quarters[(y, 4)] = full_year[y] - nine_m[y]
+
+    out = []
+    y, q = end_year, end_q
+    for _ in range(n):
+        out.append({'q': quarter_short(y, q), 'np': quarters.get((y, q))})
+        y, q = (y, q - 1) if q > 1 else (y - 1, 4)
+    return out[::-1]
+
+
 def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from, predict_to):
     items = fetch_news_list(ticker, cookie)
     if not items:
@@ -371,8 +500,7 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
     f45_in_window = next((it for it in f45_items if it['_dt'] >= window_start), None)
 
     if f45_in_window:
-        detail_html = fetch_detail_html(f45_in_window['id'], ticker, cookie)
-        parsed = parse_f45_detail(detail_html) if detail_html else {}
+        parsed = parsed_f45(f45_in_window, ticker, cookie)
         net_profit = parsed.get('netProfit')
         net_profit_prior = parsed.get('netProfitPrior')
 
@@ -385,8 +513,7 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
         net_profit_qoq = None
         f45_idx = f45_items.index(f45_in_window)
         for prev_candidate in f45_items[f45_idx + 1:]:
-            detail_prev_html = fetch_detail_html(prev_candidate['id'], ticker, cookie)
-            parsed_prev = parse_f45_detail(detail_prev_html) if detail_prev_html else {}
+            parsed_prev = parsed_f45(prev_candidate, ticker, cookie)
             q_label = parsed_prev.get('quarter') or ''
             if q_label and 'ประจำปี' not in q_label and '12 เดือน' not in q_label:
                 net_profit_prior_q = parsed_prev.get('netProfit')
@@ -396,6 +523,20 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
                 prior_quarter = q_label
                 net_profit_qoq = yoy_pct(net_profit, net_profit_prior_q)
                 break
+
+        # 5-quarter history: every F45 from this one back ~14 months (the
+        # same quarter last year, the annual filing in between). All cached
+        # after the first run.
+        profit_history = None
+        end = period_of(parsed.get('quarter'))
+        if end:
+            end_year, end_q = end[0], (4 if end[1] == 'FY' else end[1])
+            history_filings = [parsed]
+            for older in latest_per_period(f45_items[f45_idx:])[1:]:
+                if (anchor_dt - older['_dt']).days > HISTORY_LOOKBACK_DAYS:
+                    break
+                history_filings.append(parsed_f45(older, ticker, cookie))
+            profit_history = build_profit_history(history_filings, end_year, end_q)
 
         def nearest(kind):
             cands = [
@@ -432,6 +573,10 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
                 if is_previous_quarter(parsed.get('quarter'), prior_quarter) else None
             ),
             'profitAcceleration': profit_acceleration,
+            'profitHistory': profit_history,
+            'cumMonths': parsed.get('cumMonths'),
+            'netProfitCum': parsed.get('netProfitCum'),
+            'netProfitCumPrior': parsed.get('netProfitCumPrior'),
             'eps': parsed.get('eps'),
             'epsPrior': parsed.get('epsPrior'),
             'epsYoY': parsed.get('epsYoY'),
@@ -490,6 +635,24 @@ def load_existing_announcements(out_path):
     except Exception:
         return {}
     return {_reason_key(a): a for a in existing.get('announcements', [])}
+
+
+def load_f45_cache(out_path):
+    if not os.path.exists(out_path):
+        return {}
+    try:
+        with open(out_path, 'r', encoding='utf-8') as f:
+            return json.load(f).get('f45Cache') or {}
+    except Exception:
+        return {}
+
+
+def prune_f45_cache(now):
+    """Drop filings older than F45_CACHE_KEEP_DAYS. Entries never change once
+    written (keyed by news id, stamped with the filing date), so the cache
+    only adds/removes lines in the committed feed - no daily churn."""
+    cutoff = (now - timedelta(days=F45_CACHE_KEEP_DAYS)).date().isoformat()
+    return dict(sorted((k, e) for k, e in F45_CACHE.items() if (e.get('filed') or cutoff) >= cutoff))
 
 
 def load_existing_calendar(out_path):
@@ -581,9 +744,15 @@ def main():
     predict_from = now - timedelta(days=3)
     predict_to = now + timedelta(days=WINDOW_DAYS)
 
+    out_path_for_merge = os.path.join(args.out if args.out else OUTPUT_DIR, 'earnings_feed.json')
+    existing_cache = load_f45_cache(out_path_for_merge)
+    F45_CACHE.update(existing_cache)
+    print(f"F45 cache: {len(F45_CACHE)} filings from the previous run")
+
     announcements = []
     calendar = []
     errors = 0
+    started = time.time()
 
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures = {
@@ -615,7 +784,9 @@ def main():
     #    never wipes out previously captured filings for the other 24+ tickers.
     # 2. Field-level merge: For filings that ARE re-fetched, merge fields so non-empty
     #    derived data and previously-extracted reasons are carried forward.
-    out_path_for_merge = os.path.join(args.out if args.out else OUTPUT_DIR, 'earnings_feed.json')
+    print(f"Fetched {len(universe)} tickers in {time.time() - started:.1f}s - "
+          f"F45 detail pages requested: {F45_FETCHES[0]}, "
+          f"served from cache: {len(F45_CACHE_USED & set(existing_cache))}")
     existing_by_key = load_existing_announcements(out_path_for_merge)
     existing_cal_by_ticker = load_existing_calendar(out_path_for_merge)
 
@@ -728,6 +899,9 @@ def main():
         'buckets': buckets,
         'announcements': announcements,
         'calendar': calendar,
+        # Parsed F45s by news id (see parsed_f45) - batch-side only, the API
+        # route strips it before serving the feed.
+        'f45Cache': prune_f45_cache(now),
     }
 
     print(f"\nSummary: {len(announcements)} announcements, {len(calendar)} calendar entries, {errors} errors")
