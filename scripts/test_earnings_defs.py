@@ -196,3 +196,84 @@ def test_prune_drops_only_filings_too_old_for_any_history(monkeypatch):
     monkeypatch.setattr(fe, 'F45_CACHE', {'old': {'filed': '2025-01-01'}, 'new': {'filed': '2025-11-04'}, 'nodate': {}})
     kept = fe.prune_f45_cache(datetime(2026, 11, 3, tzinfo=fe.BANGKOK_TZ))
     assert set(kept) == {'new', 'nodate'}
+
+
+# ── history fetch limits ──
+
+def _fresh_cache(monkeypatch, fe):
+    monkeypatch.setattr(fe, 'F45_CACHE', {})
+    monkeypatch.setattr(fe, 'F45_CACHE_USED', set())
+    monkeypatch.setattr(fe, 'F45_FETCHES', [0])
+
+
+def _jobs(n, pages_each=5):
+    # announceDate rises with i, so the last job is the newest announcement
+    return [{'ticker': f'T{i:03d}', 'announceDate': f'2026-11-{1 + i // 60:02d}T{i % 24:02d}:{i % 60:02d}:00+07:00',
+             'items': [{'id': f'{i}-{k}', 'datetime': '2026-08-01T17:00:00+07:00'} for k in range(pages_each)]}
+            for i in range(n)]
+
+
+def test_history_stops_at_the_page_budget_newest_first(monkeypatch):
+    import fetch_earnings as fe
+    _fresh_cache(monkeypatch, fe)
+    calls = []
+    monkeypatch.setattr(fe, 'fetch_detail_html', lambda nid, t, c: calls.append(t) or f'<pre>{ADVANC_Q3_PRE}</pre>')
+    jobs = _jobs(250)  # peak-season day: 250 filings x 5 older pages
+    done, stats = fe.fetch_history(jobs, '', sleep=lambda s: None)
+    assert stats['fetched'] == fe.HISTORY_PAGE_BUDGET == 150 and len(calls) == 150
+    assert len(done) == 30 and len(stats['pending']) == 220 and stats['stopped'] == 'budget'
+    newest = sorted(jobs, key=lambda j: j['announceDate'], reverse=True)
+    assert set(done) == {j['ticker'] for j in newest[:30]}       # newest announcements first
+    # next run: those 150 pages come from the cache, the next 150 are fetched
+    calls.clear()
+    done2, stats2 = fe.fetch_history(jobs, '', sleep=lambda s: None)
+    assert len(calls) == 150 and len(done2) == 60 and len(stats2['pending']) == 190
+
+
+def test_history_pauses_between_requests_only(monkeypatch):
+    import fetch_earnings as fe
+    _fresh_cache(monkeypatch, fe)
+    monkeypatch.setattr(fe, 'fetch_detail_html', lambda nid, t, c: f'<pre>{ADVANC_Q3_PRE}</pre>')
+    pauses = []
+    fe.fetch_history(_jobs(2), '', sleep=pauses.append)
+    assert len(pauses) == 10 and all(0.3 <= p <= 0.5 for p in pauses)
+    pauses.clear()
+    fe.fetch_history(_jobs(2), '', sleep=pauses.append)        # all cached now
+    assert pauses == []
+
+
+def test_history_stops_after_five_blank_pages_in_a_row(monkeypatch):
+    import fetch_earnings as fe
+    _fresh_cache(monkeypatch, fe)
+    calls = []
+
+    def fake(nid, t, c):
+        calls.append(nid)
+        return f'<pre>{ADVANC_Q3_PRE}</pre>' if len(calls) <= 3 else '<html>throttled</html>'
+    monkeypatch.setattr(fe, 'fetch_detail_html', fake)
+    done, stats = fe.fetch_history(_jobs(10), '', sleep=lambda s: None)
+    assert len(calls) == 3 + fe.HISTORY_BLANK_STREAK_STOP == 8   # 3 good, then 5 blank -> stop
+    assert stats['stopped'] == 'blank' and done == {} and len(stats['pending']) == 10
+
+
+def test_current_f45_is_never_limited(monkeypatch):
+    import fetch_earnings as fe
+    from datetime import datetime, timedelta
+    _fresh_cache(monkeypatch, fe)
+    monkeypatch.setattr(fe, 'HISTORY_PAGE_BUDGET', 0)
+    monkeypatch.setattr(fe, 'fetch_news_list', lambda t, c: [
+        {'id': 'now', 'datetime': '2026-11-03T17:50:00+07:00', 'url': 'u',
+         'headline': 'สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)'},
+        {'id': 'old', 'datetime': '2026-08-06T17:00:00+07:00', 'url': 'u2',
+         'headline': 'สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)'},
+    ])
+    calls = []
+    monkeypatch.setattr(fe, 'fetch_detail_html', lambda nid, t, c: calls.append(nid) or f'<pre>{ADVANC_Q3_PRE}</pre>')
+    now = datetime(2026, 11, 3, 20, tzinfo=fe.BANGKOK_TZ)
+    res = fe.process_ticker('ADVANC', {}, '', now, now - timedelta(days=45), now, now + timedelta(days=45))
+    assert calls == ['now']                                 # current F45 fetched in the ticker pass
+    assert res['announcement']['netProfit'] == 13_504_271_000
+    assert [i['id'] for i in res['history_items']] == ['old']
+    done, stats = fe.fetch_history([{'ticker': 'ADVANC', 'announceDate': 'x', 'items': res['history_items']}], '',
+                                   sleep=lambda s: None)
+    assert calls == ['now'] and stats['pending'] == ['ADVANC']  # budget 0 holds back history only

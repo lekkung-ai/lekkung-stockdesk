@@ -54,6 +54,7 @@ import sys
 import time
 import urllib.request
 import urllib.error
+import random
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
@@ -377,15 +378,41 @@ F45_CACHE_KEEP_DAYS = 500  # older filings can't be in any 5-quarter history
 HISTORY_QUARTERS = 5
 HISTORY_LOOKBACK_DAYS = 430  # Q(n) last year's filing + the annual one in between
 
+# History fetch (older F45s: last quarter, annual, same quarter last year)
+# runs after every ticker's current F45, one page at a time, newest
+# announcement first. Peak season (10-14 Nov: 200-300 filings a day x ~5
+# older pages each) would otherwise be 1,000+ pages a day, and SET starts
+# answering with blank pages after ~150 in a burst. Whatever is left over
+# is fetched on the next run (cached pages never count).
+HISTORY_PAGE_BUDGET = 150          # max older F45 pages requested per run
+HISTORY_PAUSE_SECONDS = (0.3, 0.5)  # random pause before each such request
+HISTORY_BLANK_STREAK_STOP = 5      # this many blank/no-table pages in a row = throttled, stop
 
-def parsed_f45(item, ticker, cookie):
-    """parse_f45_detail() for one news item, through the cache."""
+
+def cached_f45(item):
+    """The cached parse for this news item, or None if never fetched."""
     news_id = str(item.get('id'))
     with _CACHE_LOCK:
         hit = F45_CACHE.get(news_id)
         if hit is not None:
             F45_CACHE_USED.add(news_id)
             return dict(hit)
+    return None
+
+
+def parsed_f45(item, ticker, cookie):
+    """parse_f45_detail() for one news item, through the cache."""
+    return fetch_f45(item, ticker, cookie)[0]
+
+
+def fetch_f45(item, ticker, cookie):
+    """(parsed, status): status 'cache' (no request), 'ok' (a real F45
+    page came back), or 'blank' (no page / no F45 table - what SET sends
+    when it throttles)."""
+    hit = cached_f45(item)
+    if hit is not None:
+        return hit, 'cache'
+    news_id = str(item.get('id'))
     html = fetch_detail_html(item['id'], ticker, cookie)
     with _CACHE_LOCK:
         F45_FETCHES[0] += 1
@@ -401,7 +428,8 @@ def parsed_f45(item, ticker, cookie):
             entry['filed'] = (item.get('datetime') or '')[:10]
             F45_CACHE[news_id] = entry
             F45_CACHE_USED.add(news_id)
-    return parsed
+        return parsed, 'ok'
+    return parsed, 'blank'
 
 
 _REVIEW_STATUS_RE = re.compile(r'\((?:ก่อน)?(?:สอบทาน|ตรวจสอบ)(?:แล้ว)?\)')
@@ -483,6 +511,70 @@ def build_profit_history(filings, end_year, end_q, n=HISTORY_QUARTERS):
     return out[::-1]
 
 
+def fetch_history(jobs, cookie, budget=None, pause=None, sleep=time.sleep):
+    """Fetch the older F45s for each job, newest announcement first.
+
+    jobs: [{'ticker', 'announceDate', 'items': [news items]}]. Cached pages
+    are free; at most `budget` real requests (HISTORY_PAGE_BUDGET), each
+    after a random pause, and everything stops at HISTORY_BLANK_STREAK_STOP
+    blank pages in a row (SET throttling). Returns ({ticker: [parsed...]}
+    for tickers with every page available, stats)."""
+    budget = HISTORY_PAGE_BUDGET if budget is None else budget
+    pause = HISTORY_PAUSE_SECONDS if pause is None else pause
+    done, pending = {}, []
+    fetched = blank_streak = 0
+    stopped = None
+    for job in sorted(jobs, key=lambda j: j.get('announceDate') or '', reverse=True):
+        parsed_list, complete = [], True
+        for item in job['items']:
+            hit = cached_f45(item)
+            if hit is not None:
+                parsed_list.append(hit)
+                continue
+            if stopped or fetched >= budget:
+                stopped = stopped or 'budget'
+                complete = False
+                continue
+            sleep(random.uniform(*pause))
+            parsed, status = fetch_f45(item, job['ticker'], cookie)
+            fetched += 1
+            if status == 'blank':
+                blank_streak += 1
+                complete = False
+                if blank_streak >= HISTORY_BLANK_STREAK_STOP:
+                    stopped = 'blank'
+                continue
+            blank_streak = 0
+            parsed_list.append(parsed)
+        if complete:
+            done[job['ticker']] = parsed_list
+        else:
+            pending.append(job['ticker'])
+    return done, {'fetched': fetched, 'pending': pending, 'stopped': stopped}
+
+
+def apply_history(a, parsed, older):
+    """Fill an announcement's last-quarter / 5-quarter fields from its
+    current F45 (`parsed`) and the older ones (newest first)."""
+    prev = next((f for f in older if (f.get('quarter') or '').startswith('ไตรมาส')), None)
+    if prev:
+        a['priorQuarter'] = prev.get('quarter')
+        a['netProfitPriorQ'] = prev.get('netProfit')
+        # Last quarter's own year-ago figure (same F45 page) - gives last
+        # quarter's %YoY for the acceleration rule.
+        a['netProfitPriorQPrior'] = prev.get('netProfitPrior')
+        a['netProfitQoQ'] = yoy_pct(a.get('netProfit'), a['netProfitPriorQ'])
+    consecutive = is_previous_quarter(a.get('quarter'), a.get('priorQuarter'))
+    prior_q_prior = a.get('netProfitPriorQPrior') if consecutive else None
+    a['netProfitPriorQYoY'] = meaningful_yoy(a.get('netProfitPriorQ'), prior_q_prior)
+    a['profitAcceleration'] = classify_profit_acceleration(
+        a.get('netProfit'), a.get('netProfitPrior'), a.get('netProfitPriorQ'), prior_q_prior)
+    end = period_of(parsed.get('quarter'))
+    if end:
+        a['profitHistory'] = build_profit_history([parsed, *older], end[0], 4 if end[1] == 'FY' else end[1])
+    return a
+
+
 def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from, predict_to):
     items = fetch_news_list(ticker, cookie)
     if not items:
@@ -506,37 +598,16 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
 
         anchor_dt = f45_in_window['_dt']
 
-        # Fetch prior quarter F45 for QoQ comparison (skipping Annual filings)
-        net_profit_prior_q = None
-        net_profit_prior_q_prior = None
-        prior_quarter = None
-        net_profit_qoq = None
+        # Older F45s (last quarter, annual, same quarter last year) are NOT
+        # fetched here - they go to fetch_history() after every ticker's
+        # current F45 is in, under HISTORY_PAGE_BUDGET. The fields they feed
+        # are filled in by apply_history().
         f45_idx = f45_items.index(f45_in_window)
-        for prev_candidate in f45_items[f45_idx + 1:]:
-            parsed_prev = parsed_f45(prev_candidate, ticker, cookie)
-            q_label = parsed_prev.get('quarter') or ''
-            if q_label and 'ประจำปี' not in q_label and '12 เดือน' not in q_label:
-                net_profit_prior_q = parsed_prev.get('netProfit')
-                # Last quarter's own year-ago figure (same F45 page) - gives
-                # last quarter's %YoY for the acceleration rule.
-                net_profit_prior_q_prior = parsed_prev.get('netProfitPrior')
-                prior_quarter = q_label
-                net_profit_qoq = yoy_pct(net_profit, net_profit_prior_q)
-                break
-
-        # 5-quarter history: every F45 from this one back ~14 months (the
-        # same quarter last year, the annual filing in between). All cached
-        # after the first run.
-        profit_history = None
-        end = period_of(parsed.get('quarter'))
-        if end:
-            end_year, end_q = end[0], (4 if end[1] == 'FY' else end[1])
-            history_filings = [parsed]
-            for older in latest_per_period(f45_items[f45_idx:])[1:]:
-                if (anchor_dt - older['_dt']).days > HISTORY_LOOKBACK_DAYS:
-                    break
-                history_filings.append(parsed_f45(older, ticker, cookie))
-            profit_history = build_profit_history(history_filings, end_year, end_q)
+        result['history_items'] = [
+            older for older in latest_per_period(f45_items[f45_idx:])[1:]
+            if (anchor_dt - older['_dt']).days <= HISTORY_LOOKBACK_DAYS
+        ]
+        result['parsed'] = parsed
 
         def nearest(kind):
             cands = [
@@ -549,9 +620,6 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
         mda_item = nearest('mda')
 
         yoy = parsed.get('netProfitYoY')
-        profit_acceleration = classify_profit_acceleration(
-            net_profit, net_profit_prior, net_profit_prior_q,
-            net_profit_prior_q_prior if is_previous_quarter(parsed.get('quarter'), prior_quarter) else None)
 
         result['announcement'] = {
             'ticker': ticker,
@@ -564,16 +632,15 @@ def process_ticker(ticker, sector_info, cookie, now, window_start, predict_from,
             'netProfit': net_profit,
             'netProfitPrior': net_profit_prior,
             'netProfitYoY': yoy,
-            'netProfitPriorQ': net_profit_prior_q,
-            'netProfitQoQ': net_profit_qoq,
-            'priorQuarter': prior_quarter,
-            'netProfitPriorQPrior': net_profit_prior_q_prior,
-            'netProfitPriorQYoY': (
-                meaningful_yoy(net_profit_prior_q, net_profit_prior_q_prior)
-                if is_previous_quarter(parsed.get('quarter'), prior_quarter) else None
-            ),
-            'profitAcceleration': profit_acceleration,
-            'profitHistory': profit_history,
+            # filled by apply_history(); None = not fetched yet this run, so
+            # merge_announcement_fields() keeps the previous run's value
+            'netProfitPriorQ': None,
+            'netProfitQoQ': None,
+            'priorQuarter': None,
+            'netProfitPriorQPrior': None,
+            'netProfitPriorQYoY': None,
+            'profitAcceleration': None,
+            'profitHistory': None,
             'cumMonths': parsed.get('cumMonths'),
             'netProfitCum': parsed.get('netProfitCum'),
             'netProfitCumPrior': parsed.get('netProfitCumPrior'),
@@ -751,6 +818,7 @@ def main():
 
     announcements = []
     calendar = []
+    history_jobs = []
     errors = 0
     started = time.time()
 
@@ -775,6 +843,9 @@ def main():
                 continue
             if res['announcement']:
                 announcements.append(res['announcement'])
+                history_jobs.append({'ticker': t, 'announceDate': res['announcement']['announceDate'],
+                                     'items': res['history_items'], 'parsed': res['parsed'],
+                                     'announcement': res['announcement']})
             if res['calendar']:
                 calendar.append(res['calendar'])
 
@@ -784,9 +855,21 @@ def main():
     #    never wipes out previously captured filings for the other 24+ tickers.
     # 2. Field-level merge: For filings that ARE re-fetched, merge fields so non-empty
     #    derived data and previously-extracted reasons are carried forward.
-    print(f"Fetched {len(universe)} tickers in {time.time() - started:.1f}s - "
-          f"F45 detail pages requested: {F45_FETCHES[0]}, "
-          f"served from cache: {len(F45_CACHE_USED & set(existing_cache))}")
+    current_pages = F45_FETCHES[0]
+    print(f"Current F45s: {len(universe)} tickers in {time.time() - started:.1f}s - "
+          f"{current_pages} pages requested (never limited)")
+
+    hist_started = time.time()
+    hist_done, hist = fetch_history(history_jobs, cookie)
+    for job in history_jobs:
+        if job['ticker'] in hist_done:
+            apply_history(job['announcement'], job['parsed'], hist_done[job['ticker']])
+    stop_note = {'budget': f" - stopped at the {HISTORY_PAGE_BUDGET}-page budget",
+                 'blank': f" - stopped after {HISTORY_BLANK_STREAK_STOP} blank pages in a row (SET throttling)"}.get(hist['stopped'], '')
+    print(f"History: {hist['fetched']} pages requested in {time.time() - hist_started:.1f}s{stop_note}; "
+          f"{len(hist_done)} tickers complete, {len(hist['pending'])} pending for the next run"
+          + (f" ({', '.join(hist['pending'][:15])}{' ...' if len(hist['pending']) > 15 else ''})" if hist['pending'] else ''))
+    print(f"F45 pages served from the previous run's cache: {len(F45_CACHE_USED & set(existing_cache))}")
     existing_by_key = load_existing_announcements(out_path_for_merge)
     existing_cal_by_ticker = load_existing_calendar(out_path_for_merge)
 
