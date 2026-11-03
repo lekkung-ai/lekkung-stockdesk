@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-02T18:11:29.214679+07:00",
+  "generatedAt": "2026-11-03T17:14:41.862860+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 16,
+      "count": 17,
       "top3": [
         {
           "ticker": "TRUE",
@@ -41,7 +41,7 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 13,
+      "count": 14,
       "top3": [
         {
           "ticker": "TSTH",
@@ -64,19 +64,19 @@
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 3,
+      "count": 5,
       "top3": [
+        {
+          "ticker": "SAMCO",
+          "netProfitYoY": -1152.248023715415
+        },
         {
           "ticker": "INGRS",
           "netProfitYoY": -710.8196869833073
         },
         {
-          "ticker": "DOD",
-          "netProfitYoY": -180.40729304514042
-        },
-        {
-          "ticker": "TSR",
-          "netProfitYoY": -30.702321481046134
+          "ticker": "EMPIRE",
+          "netProfitYoY": -274.08265316664944
         }
       ]
     },
@@ -88,11 +88,225 @@
   },
   "announcements": [
     {
+      "ticker": "SAMCO",
+      "sector": "Property",
+      "subsector": "Property Development",
+      "market": "SET",
+      "announceDate": "2026-11-03T17:01:40+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -253455000.0,
+      "netProfitPrior": -20240000.0,
+      "netProfitYoY": -1152.248023715415,
+      "netProfitPriorQ": -23509000.0,
+      "netProfitQoQ": -978.1190182483303,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": -3918000.0,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "eps": -0.395,
+      "epsPrior": -0.032,
+      "epsYoY": -1134.375,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107311301&symbol=SAMCO",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17936625208761&symbol=SAMCO",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107311501&symbol=SAMCO",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "DCC",
+      "sector": "Property",
+      "subsector": "Construction Materials",
+      "market": "SET",
+      "announceDate": "2026-11-03T12:40:47+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 206715000.0,
+      "netProfitPrior": 210601000.0,
+      "netProfitYoY": -1.8451954169258453,
+      "netProfitPriorQ": 220709000.0,
+      "netProfitQoQ": -6.340475467697285,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 229580000.0,
+      "netProfitPriorQYoY": -3.8640125446467466,
+      "profitAcceleration": "stable",
+      "eps": 0.023,
+      "epsPrior": 0.023,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107306701&symbol=DCC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17936625201071&symbol=DCC",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.77,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          1.54,
+          0.77,
+          0.0,
+          0.77,
+          0.0
+        ],
+        "post": [
+          0.77
+        ]
+      }
+    },
+    {
+      "ticker": "3BBIF",
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET",
+      "announceDate": "2026-11-03T12:35:01+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": null,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107304301&symbol=3BBIF",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17936625200921&symbol=3BBIF",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107281701&symbol=3BBIF",
+      "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 3 (F45)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -0.8,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          0.8,
+          0.8,
+          0.8,
+          0.8,
+          0.0
+        ],
+        "post": [
+          -0.8
+        ]
+      }
+    },
+    {
+      "ticker": "EMPIRE",
+      "sector": "Property",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-11-03T07:17:21+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -8424730.0,
+      "netProfitPrior": 4839500.0,
+      "netProfitYoY": -274.08265316664944,
+      "netProfitPriorQ": -8424730.0,
+      "netProfitQoQ": 0.0,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 4839500.0,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "eps": -0.01,
+      "epsPrior": 0.01,
+      "epsYoY": -200.0,
+      "auditorOpinion": "มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": true,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107299801&symbol=EMPIRE",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107301801&symbol=EMPIRE",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107299701&symbol=EMPIRE",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว) (แก้ไข)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": -16.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "post": [
+          -16.0
+        ]
+      }
+    },
+    {
+      "ticker": "TU",
+      "sector": "Agro",
+      "subsector": "Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-11-02T18:16:00+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 1345651000.0,
+      "netProfitPrior": 1304355000.0,
+      "netProfitYoY": 3.166009253615772,
+      "netProfitPriorQ": 1264053000.0,
+      "netProfitQoQ": 6.455267302874168,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 1272570000.0,
+      "netProfitPriorQYoY": -0.6692755604799736,
+      "profitAcceleration": "accelerating",
+      "eps": 0.35,
+      "epsPrior": 0.34,
+      "epsYoY": 2.9411764705882213,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107296801&symbol=TU",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17935754849151&symbol=TU",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107296901&symbol=TU",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          2.34,
+          0.78,
+          1.56,
+          -0.78,
+          0.0
+        ],
+        "post": [
+          0.0
+        ]
+      }
+    },
+    {
       "ticker": "PSL",
       "sector": "Services",
       "subsector": "Transportation & Logistics",
       "market": "SET",
-      "announceDate": "2026-11-02T17:51:53+07:00",
+      "announceDate": "2026-11-02T17:51:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 725909000.0,
@@ -100,7 +314,10 @@
       "netProfitYoY": 187.61970798581532,
       "netProfitPriorQ": 521494000.0,
       "netProfitQoQ": 39.197958174015426,
-      "profitAcceleration": "accelerating",
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": -43313000.0,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
       "eps": 0.4889,
       "epsPrior": 0.1699,
       "epsYoY": 187.7575044143614,
@@ -112,14 +329,30 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107295001&symbol=PSL",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 2.16,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          9.19,
+          4.32,
+          4.86,
+          2.7,
+          0.0
+        ],
+        "post": [
+          2.16
+        ]
+      }
     },
     {
       "ticker": "TNP",
       "sector": "Services",
       "subsector": "",
       "market": "MAI",
-      "announceDate": "2026-11-02T17:02:01+07:00",
+      "announceDate": "2026-11-02T17:02:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 57630000.0,
@@ -127,6 +360,9 @@
       "netProfitYoY": 20.906325395992866,
       "netProfitPriorQ": 55219000.0,
       "netProfitQoQ": 4.3662507470254805,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 50395000.0,
+      "netProfitPriorQYoY": 9.57237821212422,
       "profitAcceleration": "accelerating",
       "eps": 0.072,
       "epsPrior": 0.06,
@@ -139,14 +375,30 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107281101&symbol=TNP",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "บริษัทมีรายได้จากการขายรวมทั้ง 3 ช่องทางรวมจ ำนวน 929.27 ล้านบาท เพิ่มขึ้นร้อยละ 27.11 เมื่อ เทียบจากงวดเดียวกันของปีก่อน และมีก ำไรสุทธิจ ำนวน 57.63 ล้านบาท เพิ่มขึ้นร้อยละ 20.91 เมื่อเทียบกับช่วงเดียวกันของปี ก่อน ส ำหรับงวด 9",
-      "reason_source": "mda_extract"
+      "reason_source": "mda_extract",
+      "gap_pct": 4.51,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          1.5,
+          1.5,
+          1.5,
+          1.5,
+          0.0
+        ],
+        "post": [
+          4.51
+        ]
+      }
     },
     {
       "ticker": "TRUE",
       "sector": "Technology",
       "subsector": "Information & Communication Technology",
       "market": "SET",
-      "announceDate": "2026-11-02T12:34:59+07:00",
+      "announceDate": "2026-11-02T12:34:00+07:00",
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
       "netProfit": 6670089000.0,
@@ -154,6 +406,9 @@
       "netProfitYoY": 324.0636710072745,
       "netProfitPriorQ": 6554129000.0,
       "netProfitQoQ": 1.7692663662860466,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 2031150000.0,
+      "netProfitPriorQYoY": 222.680698126677,
       "profitAcceleration": "accelerating",
       "eps": 0.19,
       "epsPrior": 0.05,
@@ -168,9 +423,22 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          1.56,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "post": [
+          0.0,
+          0.0
+        ]
+      }
     },
     {
       "ticker": "CSR",
@@ -185,6 +453,9 @@
       "netProfitYoY": -17.56492448114745,
       "netProfitPriorQ": 12968000.0,
       "netProfitQoQ": 17.003392967304134,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 10085000.0,
+      "netProfitPriorQYoY": 28.587010411502227,
       "profitAcceleration": "stable",
       "eps": 0.74,
       "epsPrior": 0.9,
@@ -197,7 +468,23 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107262601&symbol=CSR",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "post": [
+          0.0
+        ]
+      }
     },
     {
       "ticker": "PTTEP",
@@ -212,6 +499,9 @@
       "netProfitYoY": 15.866271731733702,
       "netProfitPriorQ": 27197171000.0,
       "netProfitQoQ": -45.915977805191574,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 13515258000.0,
+      "netProfitPriorQYoY": 101.23308781822738,
       "profitAcceleration": "decelerating",
       "eps": 3.71,
       "epsPrior": 3.19,
@@ -226,9 +516,22 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": -0.91,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -7.27,
       "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          -1.82,
+          0.91,
+          -1.52,
+          -0.91,
+          0.0
+        ],
+        "post": [
+          -0.91,
+          -7.27
+        ]
+      }
     },
     {
       "ticker": "MMM",
@@ -243,7 +546,10 @@
       "netProfitYoY": 3.3558399677516877,
       "netProfitPriorQ": 37521000.0,
       "netProfitQoQ": 9.33610511446923,
-      "profitAcceleration": "accelerating",
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 31373000.0,
+      "netProfitPriorQYoY": 19.596468300768176,
+      "profitAcceleration": "decelerating",
       "eps": 0.11,
       "epsPrior": 0.13,
       "epsYoY": -15.384615384615389,
@@ -257,9 +563,22 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.78,
-      "drift_d1_pct": null,
+      "drift_d1_pct": 0.0,
       "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          2.34,
+          2.34,
+          2.34,
+          -0.78,
+          0.0
+        ],
+        "post": [
+          0.78,
+          0.0
+        ]
+      }
     },
     {
       "ticker": "TFM",
@@ -274,6 +593,9 @@
       "netProfitYoY": -53.50523590694508,
       "netProfitPriorQ": 160798000.0,
       "netProfitQoQ": -35.44260500752497,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 193722000.0,
+      "netProfitPriorQYoY": -16.995488380256244,
       "profitAcceleration": "stable",
       "eps": 0.1,
       "epsPrior": 0.22,
@@ -289,8 +611,22 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": -2.48,
-      "drift_d2_pct": null,
-      "drift_d5_pct": null
+      "drift_d2_pct": -2.48,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          1.65,
+          0.83,
+          0.83,
+          0.83,
+          0.0
+        ],
+        "post": [
+          0.0,
+          -2.48,
+          -2.48
+        ]
+      }
     },
     {
       "ticker": "ITC",
@@ -305,6 +641,9 @@
       "netProfitYoY": -6.930032274231223,
       "netProfitPriorQ": 844094000.0,
       "netProfitQoQ": -10.457366122730406,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 695956000.0,
+      "netProfitPriorQYoY": 21.2855410399508,
       "profitAcceleration": "stable",
       "eps": 0.25196,
       "epsPrior": 0.27072,
@@ -321,7 +660,22 @@
       "gap_pct": -1.18,
       "drift_d1_pct": -0.59,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          1.18,
+          2.94,
+          1.18,
+          2.35,
+          0.0
+        ],
+        "post": [
+          -1.18,
+          -0.59,
+          0.0,
+          0.0
+        ]
+      }
     },
     {
       "ticker": "SCC",
@@ -336,7 +690,10 @@
       "netProfitYoY": 456.55995803587575,
       "netProfitPriorQ": 11534556000.0,
       "netProfitQoQ": -79.3152332868296,
-      "profitAcceleration": "decelerating",
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 17337286000.0,
+      "netProfitPriorQYoY": -33.46965609265487,
+      "profitAcceleration": "stable",
       "eps": 1.99,
       "epsPrior": -0.56,
       "epsYoY": 455.3571428571428,
@@ -352,7 +709,22 @@
       "gap_pct": -0.72,
       "drift_d1_pct": -8.27,
       "drift_d2_pct": -10.79,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          -2.52,
+          -1.08,
+          -1.44,
+          0.0,
+          0.0
+        ],
+        "post": [
+          -0.72,
+          -8.27,
+          -10.79,
+          -12.95
+        ]
+      }
     },
     {
       "ticker": "GLOBAL",
@@ -367,6 +739,9 @@
       "netProfitYoY": 40.528507424246676,
       "netProfitPriorQ": 955484000.0,
       "netProfitQoQ": -42.322634392621964,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 520401000.0,
+      "netProfitPriorQYoY": 83.60533511657357,
       "profitAcceleration": "decelerating",
       "eps": 0.0984,
       "epsPrior": 0.07,
@@ -383,7 +758,23 @@
       "gap_pct": 1.44,
       "drift_d1_pct": 3.6,
       "drift_d2_pct": 2.88,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          -2.16,
+          -3.6,
+          -2.16,
+          -1.44,
+          0.0
+        ],
+        "post": [
+          1.44,
+          3.6,
+          2.88,
+          3.6,
+          2.88
+        ]
+      }
     },
     {
       "ticker": "DELTA",
@@ -398,7 +789,10 @@
       "netProfitYoY": 4.246957047588651,
       "netProfitPriorQ": 6074598000.0,
       "netProfitQoQ": 27.702392816775696,
-      "profitAcceleration": "accelerating",
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 4629056000.0,
+      "netProfitPriorQYoY": 31.227576421628946,
+      "profitAcceleration": "decelerating",
       "eps": 0.62,
       "epsPrior": 0.6,
       "epsYoY": 3.3333333333333366,
@@ -414,7 +808,23 @@
       "gap_pct": -2.13,
       "drift_d1_pct": -5.96,
       "drift_d2_pct": -13.62,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          4.26,
+          1.7,
+          -0.43,
+          2.55,
+          0.0
+        ],
+        "post": [
+          -2.13,
+          -5.96,
+          -13.62,
+          -15.11,
+          -18.3
+        ]
+      }
     },
     {
       "ticker": "STANLY",
@@ -429,6 +839,9 @@
       "netProfitYoY": -7.921882450637248,
       "netProfitPriorQ": 361651000.0,
       "netProfitQoQ": 56.97868939944863,
+      "priorQuarter": "ไตรมาส 1/2569",
+      "netProfitPriorQPrior": 369624000.0,
+      "netProfitPriorQYoY": -2.15705690106703,
       "profitAcceleration": "stable",
       "eps": 7.41,
       "epsPrior": 8.05,
@@ -445,7 +858,23 @@
       "gap_pct": 0.43,
       "drift_d1_pct": 4.35,
       "drift_d2_pct": 3.91,
-      "drift_d5_pct": null
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          -0.43,
+          0.0,
+          -0.87,
+          0.0,
+          0.0
+        ],
+        "post": [
+          0.43,
+          4.35,
+          3.91,
+          4.78,
+          4.35
+        ]
+      }
     },
     {
       "ticker": "SCGP",
@@ -460,6 +889,9 @@
       "netProfitYoY": 112.52616107986644,
       "netProfitPriorQ": 2303796000.0,
       "netProfitQoQ": -12.064219227744124,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 1009793000.0,
+      "netProfitPriorQYoY": 128.1453723683963,
       "profitAcceleration": "decelerating",
       "eps": 0.47,
       "epsPrior": 0.22,
@@ -476,7 +908,24 @@
       "gap_pct": -0.85,
       "drift_d1_pct": -4.24,
       "drift_d2_pct": -7.63,
-      "drift_d5_pct": null
+      "drift_d5_pct": -9.32,
+      "price_path": {
+        "pre": [
+          0.85,
+          -2.54,
+          -1.69,
+          -2.54,
+          0.0
+        ],
+        "post": [
+          -0.85,
+          -4.24,
+          -7.63,
+          -10.17,
+          -10.17,
+          -9.32
+        ]
+      }
     },
     {
       "ticker": "HMPRO",
@@ -491,6 +940,9 @@
       "netProfitYoY": 1.3704704092693356,
       "netProfitPriorQ": 1594181000.0,
       "netProfitQoQ": -17.109035925029843,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 1398554000.0,
+      "netProfitPriorQYoY": 13.987804546696086,
       "profitAcceleration": "decelerating",
       "eps": 0.1,
       "epsPrior": 0.1,
@@ -507,7 +959,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": -1.55,
       "drift_d2_pct": -0.78,
-      "drift_d5_pct": null
+      "drift_d5_pct": -0.78,
+      "price_path": {
+        "pre": [
+          -1.55,
+          -2.33,
+          -1.55,
+          -1.55,
+          0.0
+        ],
+        "post": [
+          0.0,
+          -1.55,
+          -0.78,
+          -2.33,
+          -2.33,
+          -0.78
+        ]
+      }
     },
     {
       "ticker": "MST",
@@ -522,7 +991,10 @@
       "netProfitYoY": 85.39678083473704,
       "netProfitPriorQ": 82968000.0,
       "netProfitQoQ": 43.2708996239514,
-      "profitAcceleration": "accelerating",
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 2188000.0,
+      "netProfitPriorQYoY": 3691.956124314442,
+      "profitAcceleration": "decelerating",
       "eps": 0.21,
       "epsPrior": 0.11,
       "epsYoY": 90.9090909090909,
@@ -538,7 +1010,24 @@
       "gap_pct": 2.63,
       "drift_d1_pct": -1.32,
       "drift_d2_pct": -1.97,
-      "drift_d5_pct": null
+      "drift_d5_pct": -1.32,
+      "price_path": {
+        "pre": [
+          0.0,
+          -1.32,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "post": [
+          2.63,
+          -1.32,
+          -1.97,
+          -1.32,
+          -0.66,
+          -1.32
+        ]
+      }
     },
     {
       "ticker": "SCGD",
@@ -553,6 +1042,9 @@
       "netProfitYoY": 3.1759222459081546,
       "netProfitPriorQ": -281297000.0,
       "netProfitQoQ": 211.66702808775065,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 222560000.0,
+      "netProfitPriorQYoY": -226.39153486700218,
       "profitAcceleration": "accelerating",
       "eps": 0.19,
       "epsPrior": 0.18,
@@ -569,7 +1061,24 @@
       "gap_pct": 4.55,
       "drift_d1_pct": 7.27,
       "drift_d2_pct": 4.55,
-      "drift_d5_pct": null
+      "drift_d5_pct": 4.55,
+      "price_path": {
+        "pre": [
+          -0.91,
+          -1.82,
+          -1.82,
+          -1.82,
+          0.0
+        ],
+        "post": [
+          4.55,
+          7.27,
+          4.55,
+          2.73,
+          7.27,
+          4.55
+        ]
+      }
     },
     {
       "ticker": "BAREIT",
@@ -584,6 +1093,9 @@
       "netProfitYoY": null,
       "netProfitPriorQ": null,
       "netProfitQoQ": null,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": null,
+      "netProfitPriorQYoY": null,
       "profitAcceleration": "stable",
       "eps": null,
       "epsPrior": null,
@@ -600,7 +1112,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 2.61,
-      "drift_d5_pct": 2.61
+      "drift_d5_pct": 2.61,
+      "price_path": {
+        "pre": [
+          -2.61,
+          -3.48,
+          -4.35,
+          -4.35,
+          0.0
+        ],
+        "post": [
+          0.0,
+          0.0,
+          2.61,
+          1.74,
+          2.61,
+          2.61
+        ]
+      }
     },
     {
       "ticker": "CREDIT",
@@ -615,6 +1144,9 @@
       "netProfitYoY": 22.25209722520972,
       "netProfitPriorQ": 989264000.0,
       "netProfitQoQ": 25.244929563796926,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 925154000.0,
+      "netProfitPriorQYoY": 6.929657116544921,
       "profitAcceleration": "accelerating",
       "eps": 1.01,
       "epsPrior": 0.82,
@@ -631,7 +1163,24 @@
       "gap_pct": 7.14,
       "drift_d1_pct": 9.05,
       "drift_d2_pct": 9.52,
-      "drift_d5_pct": 14.29
+      "drift_d5_pct": 14.29,
+      "price_path": {
+        "pre": [
+          -0.48,
+          0.95,
+          0.95,
+          0.0,
+          0.0
+        ],
+        "post": [
+          7.14,
+          9.05,
+          9.52,
+          12.86,
+          15.71,
+          14.29
+        ]
+      }
     },
     {
       "ticker": "KTB",
@@ -646,6 +1195,9 @@
       "netProfitYoY": -13.939706294758587,
       "netProfitPriorQ": 12125223000.0,
       "netProfitQoQ": 3.7679966793188053,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 11122004000.0,
+      "netProfitPriorQYoY": 9.02012802728717,
       "profitAcceleration": "stable",
       "eps": 0.9,
       "epsPrior": 1.05,
@@ -662,7 +1214,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 1.73,
       "drift_d2_pct": 2.31,
-      "drift_d5_pct": 1.16
+      "drift_d5_pct": 1.16,
+      "price_path": {
+        "pre": [
+          -1.16,
+          -0.58,
+          1.73,
+          0.0,
+          0.0
+        ],
+        "post": [
+          0.0,
+          1.73,
+          2.31,
+          2.89,
+          1.73,
+          1.16
+        ]
+      }
     },
     {
       "ticker": "SCB",
@@ -677,6 +1246,9 @@
       "netProfitYoY": -11.44073820632452,
       "netProfitPriorQ": 11116695000.0,
       "netProfitQoQ": -3.9559329458980392,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 12786065000.0,
+      "netProfitPriorQYoY": -13.056167006815622,
       "profitAcceleration": "stable",
       "eps": 3.17,
       "epsPrior": 3.58,
@@ -693,7 +1265,24 @@
       "gap_pct": 0.68,
       "drift_d1_pct": 3.77,
       "drift_d2_pct": 4.45,
-      "drift_d5_pct": 5.14
+      "drift_d5_pct": 5.14,
+      "price_path": {
+        "pre": [
+          0.34,
+          -0.34,
+          0.34,
+          0.68,
+          0.0
+        ],
+        "post": [
+          0.68,
+          3.77,
+          4.45,
+          5.14,
+          5.82,
+          5.14
+        ]
+      }
     },
     {
       "ticker": "KBANK",
@@ -708,6 +1297,9 @@
       "netProfitYoY": -2.2080864506476803,
       "netProfitPriorQ": 13247491000.0,
       "netProfitQoQ": -3.98196911400053,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 12488192000.0,
+      "netProfitPriorQYoY": 6.080135539235783,
       "profitAcceleration": "stable",
       "eps": 5.41,
       "epsPrior": 5.35,
@@ -724,7 +1316,24 @@
       "gap_pct": 0.85,
       "drift_d1_pct": 3.42,
       "drift_d2_pct": 4.27,
-      "drift_d5_pct": 6.84
+      "drift_d5_pct": 6.84,
+      "price_path": {
+        "pre": [
+          -1.28,
+          -1.28,
+          0.43,
+          1.28,
+          0.0
+        ],
+        "post": [
+          0.85,
+          3.42,
+          4.27,
+          4.7,
+          6.84,
+          6.84
+        ]
+      }
     },
     {
       "ticker": "BAY",
@@ -739,6 +1348,9 @@
       "netProfitYoY": -1.3986510819728948,
       "netProfitPriorQ": 8293940000.0,
       "netProfitQoQ": 4.414174686578393,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 8295367000.0,
+      "netProfitPriorQYoY": -0.01720237332477273,
       "profitAcceleration": "stable",
       "eps": 1.18,
       "epsPrior": 1.19,
@@ -755,7 +1367,24 @@
       "gap_pct": 1.28,
       "drift_d1_pct": 2.56,
       "drift_d2_pct": 2.56,
-      "drift_d5_pct": 1.92
+      "drift_d5_pct": 1.92,
+      "price_path": {
+        "pre": [
+          2.56,
+          1.28,
+          1.28,
+          0.64,
+          0.0
+        ],
+        "post": [
+          1.28,
+          2.56,
+          2.56,
+          3.21,
+          2.56,
+          1.92
+        ]
+      }
     },
     {
       "ticker": "BBL",
@@ -770,6 +1399,9 @@
       "netProfitYoY": -31.185555478282463,
       "netProfitPriorQ": 9497916000.0,
       "netProfitQoQ": -0.09227287333347653,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 11839865000.0,
+      "netProfitPriorQYoY": -19.7802001965394,
       "profitAcceleration": "stable",
       "eps": 4.97,
       "epsPrior": 7.22,
@@ -786,7 +1418,24 @@
       "gap_pct": -0.27,
       "drift_d1_pct": 0.55,
       "drift_d2_pct": 1.37,
-      "drift_d5_pct": 2.74
+      "drift_d5_pct": 2.74,
+      "price_path": {
+        "pre": [
+          0.82,
+          1.1,
+          1.92,
+          1.1,
+          0.0
+        ],
+        "post": [
+          -0.27,
+          0.55,
+          1.37,
+          1.37,
+          2.74,
+          2.74
+        ]
+      }
     },
     {
       "ticker": "KTC",
@@ -801,6 +1450,9 @@
       "netProfitYoY": 8.88653718034131,
       "netProfitPriorQ": 2225308000.0,
       "netProfitQoQ": -4.520947212700444,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 1894792000.0,
+      "netProfitPriorQYoY": 17.44339220347141,
       "profitAcceleration": "decelerating",
       "eps": 0.82,
       "epsPrior": 0.76,
@@ -817,7 +1469,24 @@
       "gap_pct": -0.7,
       "drift_d1_pct": -2.11,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -0.7
+      "drift_d5_pct": -0.7,
+      "price_path": {
+        "pre": [
+          -0.7,
+          -1.41,
+          -0.7,
+          -0.7,
+          0.0
+        ],
+        "post": [
+          -0.7,
+          -2.11,
+          0.0,
+          -1.41,
+          0.0,
+          -0.7
+        ]
+      }
     },
     {
       "ticker": "TTB",
@@ -832,6 +1501,9 @@
       "netProfitYoY": 2.97370206365816,
       "netProfitPriorQ": 5512966000.0,
       "netProfitQoQ": -1.0212651411236708,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 5004268000.0,
+      "netProfitPriorQYoY": 10.16528291450418,
       "profitAcceleration": "decelerating",
       "eps": 0.06,
       "epsPrior": 0.06,
@@ -848,7 +1520,24 @@
       "gap_pct": -6.21,
       "drift_d1_pct": -6.9,
       "drift_d2_pct": -6.21,
-      "drift_d5_pct": -4.83
+      "drift_d5_pct": -4.83,
+      "price_path": {
+        "pre": [
+          -1.38,
+          0.0,
+          0.0,
+          1.38,
+          0.0
+        ],
+        "post": [
+          -6.21,
+          -6.9,
+          -6.21,
+          -5.52,
+          -5.52,
+          -4.83
+        ]
+      }
     },
     {
       "ticker": "KKP",
@@ -863,7 +1552,10 @@
       "netProfitYoY": 43.01220086209685,
       "netProfitPriorQ": 2122087000.0,
       "netProfitQoQ": 12.537092023088592,
-      "profitAcceleration": "accelerating",
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 1409402000.0,
+      "netProfitPriorQYoY": 50.56648138714149,
+      "profitAcceleration": "decelerating",
       "eps": 2.78,
       "epsPrior": 2.02,
       "epsYoY": 37.623762376237615,
@@ -879,7 +1571,24 @@
       "gap_pct": 2.62,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 2.18,
-      "drift_d5_pct": 4.37
+      "drift_d5_pct": 4.37,
+      "price_path": {
+        "pre": [
+          -3.06,
+          -0.87,
+          -0.87,
+          -0.87,
+          0.0
+        ],
+        "post": [
+          2.62,
+          0.0,
+          2.18,
+          5.68,
+          4.37,
+          4.37
+        ]
+      }
     },
     {
       "ticker": "LHFG",
@@ -894,6 +1603,9 @@
       "netProfitYoY": -12.569381053943093,
       "netProfitPriorQ": 696084000.0,
       "netProfitQoQ": 16.13354135420438,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 550955000.0,
+      "netProfitPriorQYoY": 26.341352742056973,
       "profitAcceleration": "stable",
       "eps": 0.038,
       "epsPrior": 0.044,
@@ -910,7 +1622,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.81
+      "drift_d5_pct": 0.81,
+      "price_path": {
+        "pre": [
+          -2.42,
+          -2.42,
+          -1.61,
+          -0.81,
+          0.0
+        ],
+        "post": [
+          0.0,
+          0.0,
+          0.0,
+          0.81,
+          0.0,
+          0.81
+        ]
+      }
     },
     {
       "ticker": "TSTH",
@@ -925,6 +1654,9 @@
       "netProfitYoY": -75.54604923836663,
       "netProfitPriorQ": 409710000.0,
       "netProfitQoQ": -48.85065046008152,
+      "priorQuarter": "ไตรมาส 1/2569",
+      "netProfitPriorQPrior": 373120000.0,
+      "netProfitPriorQYoY": 9.806496569468267,
       "profitAcceleration": "stable",
       "eps": 0.02488,
       "epsPrior": 0.10176,
@@ -941,7 +1673,24 @@
       "gap_pct": -1.05,
       "drift_d1_pct": -1.05,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": -5.26
+      "drift_d5_pct": -5.26,
+      "price_path": {
+        "pre": [
+          -3.16,
+          -3.16,
+          -4.21,
+          -4.21,
+          0.0
+        ],
+        "post": [
+          -1.05,
+          -1.05,
+          0.0,
+          -1.05,
+          -3.16,
+          -5.26
+        ]
+      }
     },
     {
       "ticker": "DOD",
@@ -956,6 +1705,9 @@
       "netProfitYoY": -180.40729304514042,
       "netProfitPriorQ": 941000.0,
       "netProfitQoQ": -2424.548352816153,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 9582000.0,
+      "netProfitPriorQYoY": null,
       "profitAcceleration": "stable",
       "eps": -0.049,
       "epsPrior": 0.06,
@@ -972,7 +1724,24 @@
       "gap_pct": -3.85,
       "drift_d1_pct": 6.41,
       "drift_d2_pct": 2.56,
-      "drift_d5_pct": 2.56
+      "drift_d5_pct": 2.56,
+      "price_path": {
+        "pre": [
+          3.85,
+          2.56,
+          -1.28,
+          -3.85,
+          0.0
+        ],
+        "post": [
+          -3.85,
+          6.41,
+          2.56,
+          3.85,
+          3.85,
+          2.56
+        ]
+      }
     },
     {
       "ticker": "TISCO",
@@ -987,7 +1756,10 @@
       "netProfitYoY": 4.304705231637771,
       "netProfitPriorQ": 1763850000.0,
       "netProfitQoQ": 2.3161833489242283,
-      "profitAcceleration": "accelerating",
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 1643518000.0,
+      "netProfitPriorQYoY": 7.321611324001319,
+      "profitAcceleration": "decelerating",
       "eps": 2.25,
       "epsPrior": 2.16,
       "epsYoY": 4.16666666666666,
@@ -1003,7 +1775,24 @@
       "gap_pct": 0.4,
       "drift_d1_pct": 0.4,
       "drift_d2_pct": 0.8,
-      "drift_d5_pct": 0.8
+      "drift_d5_pct": 0.8,
+      "price_path": {
+        "pre": [
+          -0.8,
+          0.8,
+          -0.8,
+          -0.8,
+          0.0
+        ],
+        "post": [
+          0.4,
+          0.4,
+          0.8,
+          0.0,
+          0.8,
+          0.8
+        ]
+      }
     },
     {
       "ticker": "AEONTS",
@@ -1018,6 +1807,9 @@
       "netProfitYoY": -18.846781152208163,
       "netProfitPriorQ": 793010000.0,
       "netProfitQoQ": -18.997112268445544,
+      "priorQuarter": "ไตรมาส 1/2569",
+      "netProfitPriorQPrior": 771839000.0,
+      "netProfitPriorQYoY": 2.742929548778955,
       "profitAcceleration": "stable",
       "eps": 2.59,
       "epsPrior": 3.18,
@@ -1034,7 +1826,24 @@
       "gap_pct": 2.22,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 1.39,
-      "drift_d5_pct": 2.77
+      "drift_d5_pct": 2.77,
+      "price_path": {
+        "pre": [
+          -0.55,
+          0.28,
+          0.28,
+          -0.28,
+          0.0
+        ],
+        "post": [
+          2.22,
+          0.0,
+          1.39,
+          3.05,
+          3.05,
+          2.77
+        ]
+      }
     },
     {
       "ticker": "INGRS",
@@ -1049,6 +1858,9 @@
       "netProfitYoY": -710.8196869833073,
       "netProfitPriorQ": -253162000.0,
       "netProfitQoQ": -6.525860911195203,
+      "priorQuarter": "ไตรมาส 3/2568",
+      "netProfitPriorQPrior": 26283000.0,
+      "netProfitPriorQYoY": null,
       "profitAcceleration": "stable",
       "eps": -0.186,
       "epsPrior": 0.031,
@@ -1065,7 +1877,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.0,
+      "price_path": {
+        "pre": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "post": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
     },
     {
       "ticker": "TNH",
@@ -1080,6 +1909,9 @@
       "netProfitYoY": -19.864178445537366,
       "netProfitPriorQ": 59889000.0,
       "netProfitQoQ": 428.2399772913223,
+      "priorQuarter": "ไตรมาส 3/2569",
+      "netProfitPriorQPrior": 87602000.0,
+      "netProfitPriorQYoY": null,
       "profitAcceleration": "stable",
       "eps": 1.7575,
       "epsPrior": 2.1932,
@@ -1096,7 +1928,24 @@
       "gap_pct": 0.88,
       "drift_d1_pct": 0.88,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.0,
+      "price_path": {
+        "pre": [
+          1.77,
+          0.88,
+          0.88,
+          0.88,
+          0.0
+        ],
+        "post": [
+          0.88,
+          0.88,
+          0.0,
+          0.88,
+          0.0,
+          0.0
+        ]
+      }
     },
     {
       "ticker": "CITY",
@@ -1111,6 +1960,9 @@
       "netProfitYoY": 124.33056828519014,
       "netProfitPriorQ": -2519000.0,
       "netProfitQoQ": 398.4692338229456,
+      "priorQuarter": "ไตรมาส 3/2569",
+      "netProfitPriorQPrior": -8993000.0,
+      "netProfitPriorQYoY": null,
       "profitAcceleration": "double_turnaround",
       "eps": 0.0251,
       "epsPrior": -0.103,
@@ -1127,7 +1979,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.0,
+      "price_path": {
+        "pre": [
+          1.37,
+          1.37,
+          1.37,
+          1.37,
+          0.0
+        ],
+        "post": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
     },
     {
       "ticker": "TSR",
@@ -1158,7 +2027,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": 0.0
+      "drift_d5_pct": 0.0,
+      "price_path": {
+        "pre": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "post": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
     },
     {
       "ticker": "META",
@@ -1173,6 +2059,9 @@
       "netProfitYoY": 166.76516600034765,
       "netProfitPriorQ": -19187000.0,
       "netProfitQoQ": 160.05628811174233,
+      "priorQuarter": "ไตรมาส 1/2569",
+      "netProfitPriorQPrior": -17161000.0,
+      "netProfitPriorQYoY": null,
       "profitAcceleration": "double_turnaround",
       "eps": 0.004,
       "epsPrior": -0.006,
@@ -1189,7 +2078,24 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 100.0,
       "drift_d2_pct": 200.0,
-      "drift_d5_pct": 250.0
+      "drift_d5_pct": 250.0,
+      "price_path": {
+        "pre": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "post": [
+          0.0,
+          100.0,
+          200.0,
+          250.0,
+          250.0,
+          250.0
+        ]
+      }
     }
   ],
   "calendar": [
@@ -1601,28 +2507,51 @@
     },
     {
       "ticker": "TRUE",
-      "date": "2026-11-02T12:34:59+07:00",
+      "date": "2026-11-02T12:34:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "TNP",
-      "date": "2026-11-02T17:02:01+07:00",
+      "date": "2026-11-02T17:02:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "PSL",
-      "date": "2026-11-02T17:51:53+07:00",
+      "date": "2026-11-02T17:51:00+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "TU",
-      "date": "2026-11-03T12:37:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-03T12:37:00+07:00"
+      "date": "2026-11-02T18:16:00+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "EMPIRE",
+      "date": "2026-11-03T07:17:21+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
+    },
+    {
+      "ticker": "3BBIF",
+      "date": "2026-11-03T12:35:01+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "DCC",
+      "date": "2026-11-03T12:40:47+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "SAMCO",
+      "date": "2026-11-03T17:01:40+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "GGC",
@@ -1644,20 +2573,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-04T08:24:00+07:00"
-    },
-    {
-      "ticker": "3BBIF",
-      "date": "2026-11-04T12:34:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-04T12:34:00+07:00"
-    },
-    {
-      "ticker": "DCC",
-      "date": "2026-11-04T12:35:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-04T12:35:00+07:00"
     },
     {
       "ticker": "ADVANC",
@@ -1700,13 +2615,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-04T18:16:00+07:00"
-    },
-    {
-      "ticker": "SAMCO",
-      "date": "2026-11-04T18:17:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-04T18:17:00+07:00"
     },
     {
       "ticker": "KWC",
