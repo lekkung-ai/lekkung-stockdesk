@@ -2,5 +2,11 @@
   "renamed": [
     { "from": "PSTC", "to": "POWER", "evidence": "sector_map remap commit ecd5633 (26 ก.ค. 2569)" }
   ],
-  "delisted": []
+  "delisted": [
+    {
+      "ticker": "AKS",
+      "date": "2026-10-23",
+      "evidence": "SET news: AKS delisted from the SET, last trading day 22 Oct 2569 (newsdetails id=107149801), delisting 23 Oct (kaohoon.com/news/870684); Settrade /api/set/stock/AKS/profile status=Delisted and AKS not in the listed-securities list, checked 5 Nov 2569. History kept, nothing removed."
+    }
+  ]
 }
