@@ -1,12 +1,16 @@
 {
-  "generatedAt": "2026-11-05T16:54:25.925011+07:00",
+  "generatedAt": "2026-11-05T18:14:07.396548+07:00",
   "windowDays": 45,
   "universeSize": 908,
   "buckets": {
     "profit_growth": {
       "label": "กำไรโต",
-      "count": 31,
+      "count": 36,
       "top3": [
+        {
+          "ticker": "AKR",
+          "netProfitYoY": 2833.0483112441216
+        },
         {
           "ticker": "WINDOW",
           "netProfitYoY": 2109.039214087722
@@ -14,10 +18,6 @@
         {
           "ticker": "BBGI",
           "netProfitYoY": 429.87754144176813
-        },
-        {
-          "ticker": "TRUE",
-          "netProfitYoY": 324.0636710072745
         }
       ]
     },
@@ -41,8 +41,12 @@
     },
     "profit_shrink": {
       "label": "กำไรหด",
-      "count": 16,
+      "count": 21,
       "top3": [
+        {
+          "ticker": "UPOIC",
+          "netProfitYoY": -96.99170610561829
+        },
         {
           "ticker": "TEKA",
           "netProfitYoY": -87.97064345451442
@@ -50,33 +54,34 @@
         {
           "ticker": "TSTH",
           "netProfitYoY": -75.54604923836663
-        },
-        {
-          "ticker": "TFM",
-          "netProfitYoY": -53.50523590694508
         }
       ]
     },
     "loss_shrink": {
       "label": "ขาดทุนลดลง",
-      "count": 0,
-      "top3": []
+      "count": 1,
+      "top3": [
+        {
+          "ticker": "TURTLE",
+          "netProfitYoY": 5.825147057374545
+        }
+      ]
     },
     "loss_worse": {
       "label": "ขาดทุน-แย่ลง",
-      "count": 5,
+      "count": 9,
       "top3": [
+        {
+          "ticker": "VPO",
+          "netProfitYoY": -2815.75456053068
+        },
+        {
+          "ticker": "GST",
+          "netProfitYoY": -1217.9661016949153
+        },
         {
           "ticker": "SAMCO",
           "netProfitYoY": -1152.248023715415
-        },
-        {
-          "ticker": "INGRS",
-          "netProfitYoY": -710.8196869833073
-        },
-        {
-          "ticker": "EMPIRE",
-          "netProfitYoY": -274.08265316664944
         }
       ]
     },
@@ -87,6 +92,886 @@
     }
   },
   "announcements": [
+    {
+      "ticker": "TURTLE",
+      "sector": "Services",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-11-05T18:01:26+07:00",
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -95579000.0,
+      "netProfitPrior": -101491000.0,
+      "netProfitYoY": 5.825147057374545,
+      "netProfitPriorQ": -93972000.0,
+      "netProfitQoQ": -1.7100838547652493,
+      "priorQuarter": "ไตรมาส 1/2569",
+      "netProfitPriorQPrior": -85825000.0,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q2/68",
+          "np": -101491000.0
+        },
+        {
+          "q": "Q3/68",
+          "np": -103587000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 10620090.0
+        },
+        {
+          "q": "Q1/69",
+          "np": -93972000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": -95579000.0
+        }
+      ],
+      "cumMonths": 6,
+      "netProfitCum": -189551000.0,
+      "netProfitCumPrior": -187316000.0,
+      "eps": -0.06,
+      "epsPrior": -0.06,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "loss_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107367001&symbol=TURTLE",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312123061&symbol=TURTLE",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107367201&symbol=TURTLE",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 2 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "VPO",
+      "sector": "Agro",
+      "subsector": "Agribusiness",
+      "market": "SET",
+      "announceDate": "2026-11-05T18:01:20+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -52746000.0,
+      "netProfitPrior": -1809000.0,
+      "netProfitYoY": -2815.75456053068,
+      "netProfitPriorQ": -52746000.0,
+      "netProfitQoQ": 0.0,
+      "priorQuarter": "ไตรมาส 3/2569",
+      "netProfitPriorQPrior": -1809000.0,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": -1809000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": -47366000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": -42847000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": -41811000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": -52746000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": -137298000.0,
+      "netProfitCumPrior": 74640000.0,
+      "eps": -0.056,
+      "epsPrior": -0.002,
+      "epsYoY": -2700.0,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": true,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107366401&symbol=VPO",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312113171&symbol=VPO",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107357201&symbol=VPO",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว) (แก้ไข)",
+      "reason": "บริษัทฯมีผลขาดทุนจากการดำเนินงานในงบการเงิน รวม จำนวน 52.66 ล้านบาท ในขณะที่ไตรมาสที่ 3 ปี 2568 ที่มีผลขาดทุนสุทธิจำนวน 1.77 ล้านบาท สัดส่วนที่ลดลงคิดเป็น ร้อยละ 2,880.96",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "TPA",
+      "sector": "Industrials",
+      "subsector": "Petrochemicals & Chemicals",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:43:09+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -585000.0,
+      "netProfitPrior": 532000.0,
+      "netProfitYoY": -209.96240601503757,
+      "netProfitPriorQ": 2013000.0,
+      "netProfitQoQ": -129.06110283159464,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": -11424000.0,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 532000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 655000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 2820000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 2013000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": -585000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 4248000.0,
+      "netProfitCumPrior": -14626000.0,
+      "eps": -0.005,
+      "epsPrior": 0.004,
+      "epsYoY": -225.0,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107365201&symbol=TPA",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312121371&symbol=TPA",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107365301&symbol=TPA",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "รายได้รวม สำหรับไตรมาสที่ 3 สิ้นสุดวันที่ 30 กันยายน 2569 บริษัทฯ มีรายได้รวม จำนวน 131.21 ล้านบาท ลดลง 18.31 ล้านบาท หรือ ร้อยละ 12.2 เมื่อเปรียบเทียบกับไตรมาสที่ 3 ปี 2568 จำนวน 149.52 ล้านบาท สาเหตุหลักมาจากปริมาณการขายที่ลดลง ตาม แผนของบริษัทในการปรับลดกำลังการผลิตระบบเครื่องรีดในช่วงครึ่งปีหลังของปี 2568 2.",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "AKR",
+      "sector": "Industrials",
+      "subsector": "Industrial Materials & Machinery",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:42:10+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 68604000.0,
+      "netProfitPrior": 2339000.0,
+      "netProfitYoY": 2833.0483112441216,
+      "netProfitPriorQ": 53078000.0,
+      "netProfitQoQ": 29.251290553525,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 19247000.0,
+      "netProfitPriorQYoY": 175.77284771652725,
+      "profitAcceleration": "accelerating",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 2339000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 76220000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 7293000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 53078000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 68604000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 128975000.0,
+      "netProfitCumPrior": 113100000.0,
+      "eps": 0.047,
+      "epsPrior": 0.002,
+      "epsYoY": 2250.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107353801&symbol=AKR",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312121301&symbol=AKR",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107364601&symbol=AKR",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "เพิ่มขึ้นจากรายได้จากการขายสินค้าเพิ่มขึ้น ร้อยละ 60.18 สำหรับรายได้รวม งวด 9 เดือน เท่ากับ 1,388.37 ล้านบาท เพิ่มขึ้นร้อยละ 1.68 จากงวดเดียวกันปีที่แล้ว • กำไรขั้นต้น เท่ากับ 185.84 ล้านบาท เพิ่มขึ้นร้อยละ 117.05 จากงวดเดียวกันปีที่แล้ว",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "NER",
+      "sector": "Agro",
+      "subsector": "Agribusiness",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:40:22+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 511683000.0,
+      "netProfitPrior": 326583000.0,
+      "netProfitYoY": 56.67778175838913,
+      "netProfitPriorQ": 436359000.0,
+      "netProfitQoQ": 17.26193340804246,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 553998000.0,
+      "netProfitPriorQYoY": -21.23455319333283,
+      "profitAcceleration": "accelerating",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 326583000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 395108000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 254369000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 436359000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 511683000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 1202411000.0,
+      "netProfitCumPrior": 1489417000.0,
+      "eps": 0.2769,
+      "epsPrior": 0.1767,
+      "epsYoY": 56.70628183361629,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107360901&symbol=NER",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312121201&symbol=NER",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107364901&symbol=NER",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "กำไร(ขาดทุน)จากการดำเนินงาน 673.13 8.29% 449.30 6.69% 223.83 49.82% ต้นทุนทางการเงิน 129.67 1.60% 137.05 2.04% (7.38) (5.39%) กำไร(ขาดทุน)ก่อนภาษีเงินได้ 543.46 6.69% 312.25 4.65% 231.21 74.05% ค่าใช้จ่าย(รายได้)ภาษีเงินได้ 31.77",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "CTARAF",
+      "sector": "Property",
+      "subsector": "Property Fund & REITs",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:36:02+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": null,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": null
+        },
+        {
+          "q": "Q4/68",
+          "np": null
+        },
+        {
+          "q": "Q1/69",
+          "np": null
+        },
+        {
+          "q": "Q2/69",
+          "np": null
+        },
+        {
+          "q": "Q3/69",
+          "np": null
+        }
+      ],
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107348701&symbol=CTARAF",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312120881&symbol=CTARAF",
+      "mdaUrl": null,
+      "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 3 (F45)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "ASW",
+      "sector": "Property",
+      "subsector": "Property Development",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:31:02+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 287532000.0,
+      "netProfitPrior": 289459000.0,
+      "netProfitYoY": -0.6657246794882867,
+      "netProfitPriorQ": 562919900.0,
+      "netProfitQoQ": -48.92132965986813,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 198468670.0,
+      "netProfitPriorQYoY": 183.63161802817544,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 289459000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 388304000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 229551260.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 562919900.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 287532000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 1080003000.0,
+      "netProfitCumPrior": 689358000.0,
+      "eps": 0.32,
+      "epsPrior": 0.32,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107363601&symbol=ASW",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312120331&symbol=ASW",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107358101&symbol=ASW",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "กลุ่มบริษัทมีรายได้จากการขายและ บริการจำนวน 2,743.39 ล้านบาท โดยรายได้หลักของกลุ่มบริษัทมาจากรายได้จากการขายอสังหาริมทรัพย์ กลุ่มบริษัทมี กำไรขั้นต้นจำนวน 1,211.15 ล้านบาท คิดเป็นอัตรากำไรขั้นต้นร้อยละ 42.94",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "OR",
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:25:40+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 5138463000.0,
+      "netProfitPrior": 2614259000.0,
+      "netProfitYoY": 96.55523802347051,
+      "netProfitPriorQ": -1774947000.0,
+      "netProfitQoQ": 389.4995174503802,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 2231799000.0,
+      "netProfitPriorQYoY": -179.52987701849494,
+      "profitAcceleration": "accelerating",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 2614259000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 2078026000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 2414752000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": -1774947000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 5138463000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 5778267000.0,
+      "netProfitCumPrior": 9225542000.0,
+      "eps": 0.43,
+      "epsPrior": 0.22,
+      "epsYoY": 95.45454545454545,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107362001&symbol=OR",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312120141&symbol=OR",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107362101&symbol=OR",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "ในไตรมาสนี้มีการกลับรายการประมาณการผลขาดทุนจากการปรับลดมูลค่าสินค้าคงเหลือ (Net Realizable Value: NRV) ตามราคาน้ำมันในตลาดโลกที่ปรับตัวสูงขึ้น ตรงกันข้ามไตรมาสก่อนที่ราคาปรับตัวลดลงอย่างมาก อย่างไรก็ตาม กลุ่มธุรกิจ Lifestyle ปรับตัวลดลง จากธุรกิจค้าปลีกอื่น ๆ",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "IFS",
+      "sector": "Financials",
+      "subsector": "Finance & Securities",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:21:16+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 47064000.0,
+      "netProfitPrior": 45438000.0,
+      "netProfitYoY": 3.578502574937277,
+      "netProfitPriorQ": 27794000.0,
+      "netProfitQoQ": 69.33151039792762,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 38225000.0,
+      "netProfitPriorQYoY": -27.28842380640942,
+      "profitAcceleration": "accelerating",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 45438000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 27129000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 15806000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 27794000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 47064000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 90664000.0,
+      "netProfitCumPrior": 68258000.0,
+      "eps": 0.1,
+      "epsPrior": 0.09,
+      "epsYoY": 11.111111111111121,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107355901&symbol=IFS",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312119101&symbol=IFS",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107355801&symbol=IFS",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "GULF",
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:18:59+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 9288683000.0,
+      "netProfitPrior": 7274297000.0,
+      "netProfitYoY": 27.69183056452053,
+      "netProfitPriorQ": 12445684000.0,
+      "netProfitQoQ": -25.366231377881682,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 63871479000.0,
+      "netProfitPriorQYoY": -80.5144891039708,
+      "profitAcceleration": "accelerating",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 7274297000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 8851992000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 9116802000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 12445684000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 9288683000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 30851169000.0,
+      "netProfitCumPrior": 71145776000.0,
+      "eps": 0.62,
+      "epsPrior": 0.49,
+      "epsYoY": 26.53061224489796,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_growth",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107361501&symbol=GULF",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312119091&symbol=GULF",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107363001&symbol=GULF",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "READY",
+      "sector": "Technology",
+      "subsector": "",
+      "market": "MAI",
+      "announceDate": "2026-11-05T17:18:43+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 5290000.0,
+      "netProfitPrior": 8039000.0,
+      "netProfitYoY": -34.19579549695236,
+      "netProfitPriorQ": 3989000.0,
+      "netProfitQoQ": 32.61469039859614,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 8722000.0,
+      "netProfitPriorQYoY": -54.26507681724375,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 8039000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 26254000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 6258000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 3989000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 5290000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 15537000.0,
+      "netProfitCumPrior": 27024000.0,
+      "eps": 0.04,
+      "epsPrior": 0.07,
+      "epsYoY": -42.85714285714286,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107356501&symbol=READY",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312119031&symbol=READY",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107362201&symbol=READY",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "TYCN",
+      "sector": "Industrials",
+      "subsector": "Steel",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:17:21+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -109193000.0,
+      "netProfitPrior": 64622000.0,
+      "netProfitYoY": -268.9718671659806,
+      "netProfitPriorQ": -21810000.0,
+      "netProfitQoQ": -400.6556625401192,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 38239000.0,
+      "netProfitPriorQYoY": -157.03601035591933,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 64622000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 6421000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": -7157000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": -21810000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": -109193000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": -138160000.0,
+      "netProfitCumPrior": 126669000.0,
+      "eps": -0.18,
+      "epsPrior": 0.11,
+      "epsYoY": -263.6363636363636,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107350901&symbol=TYCN",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312118511&symbol=TYCN",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107351101&symbol=TYCN",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "ภาพรวมผลการดำเนินงาน ในไตรมาสที่ 3 ปี 2569 บริษัทและบริษัทย่อยมีรายได้รวมจำนวน 1,486.04 ล้านบาท ลดลง 277.33 ล้านบาท หรือคิดเป็นร้อยละ 15.73 เมื่อเทียบกับรายได้รวมจำนวน 1,763.37 ล้านบาท ในช่วงเวลาเดียวกันของปีก่อน สาเหตุหลักเกิดจากรายได้จากการขายลดลงจำนวน 257.19 ล้านบาท หรือคิดเป็นร้อยละ 14.88 รวมถึงรายได้อื่นและกำไรจาก อัตราแลกเปลี่ยนที่ลดลง ในขณะเดียวกัน บริษัทมีค่าใช้จ่ายรวมจำนวน 1,579.77 ล้านบาท ลดลง 103.14 ล้านบาท",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "GPSC",
+      "sector": "Resources",
+      "subsector": "Energy & Utilities",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:09:59+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 1591791000.0,
+      "netProfitPrior": 1741877000.0,
+      "netProfitYoY": -8.616337433699394,
+      "netProfitPriorQ": 1819104000.0,
+      "netProfitQoQ": -12.495877091139374,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 2019251000.0,
+      "netProfitPriorQYoY": -9.911942596537033,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 1741877000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 1497839000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 1719348000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 1819104000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 1591791000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 5130243000.0,
+      "netProfitCumPrior": 4901164000.0,
+      "eps": 0.56,
+      "epsPrior": 0.62,
+      "epsYoY": -9.677419354838701,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107348201&symbol=GPSC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312117901&symbol=GPSC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107355301&symbol=GPSC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
+    {
+      "ticker": "GST",
+      "sector": "Technology",
+      "subsector": "Information & Communication Technology",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:05:49+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -11664000.0,
+      "netProfitPrior": -885000.0,
+      "netProfitYoY": -1217.9661016949153,
+      "netProfitPriorQ": -87425000.0,
+      "netProfitQoQ": 86.65827852444953,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": -207190000.0,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": -885000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 128840730.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 587675000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": -87425000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": -11664000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 488585000.0,
+      "netProfitCumPrior": -88748000.0,
+      "eps": -0.011,
+      "epsPrior": -0.001,
+      "epsYoY": -999.9999999999998,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "isCorrection": false,
+      "bucket": "loss_worse",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107356801&symbol=GST",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312113621&symbol=GST",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107357901&symbol=GST",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "ภาพรวมผลประกอบการของบริษัท รายได้รวมจากการขายและการให้บริการในไตรมาส 3/2569 จำนวน 611 ล้านบาท เพิ่มขึ้น 114 ล้านบาท หรือ 22.9% จากรายได้จำนวน 497 ล้านบาทในไตรมาส 2/2569 (QoQ) โดยมีสาเหตุหลักจากการเพิ่มขึ้นของรายได้จากโครงการ",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "CPI",
+      "sector": "Agro",
+      "subsector": "Food & Beverage",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:05:30+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 32394000.0,
+      "netProfitPrior": 110322000.0,
+      "netProfitYoY": -70.63686300103333,
+      "netProfitPriorQ": 65013000.0,
+      "netProfitQoQ": -50.173042314614,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 253032000.0,
+      "netProfitPriorQYoY": -74.30641183723797,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 110322000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 7468000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 74913000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 65013000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 32394000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 172320000.0,
+      "netProfitCumPrior": 411017000.0,
+      "eps": 0.051,
+      "epsPrior": 0.174,
+      "epsYoY": -70.68965517241381,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107354101&symbol=CPI",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312113391&symbol=CPI",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107354201&symbol=CPI",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "บริษัทย่อยมีผลกำไรจากการดำเนินงานก่อนดอกเบี้ยจ่าย ภาษีเงินได้ ค่าเสื่อมราคาและตัดจำหน่ายของไตรมาส 3 ปี 2569 เป็นจำนวนเงิน 91.80 ล้านบาท ลดลงจากไตรมาสเดียวกันของปีก่อนเป็นจำนวนเงิน 105.95 ล้านบาท สาเหตุ",
+      "reason_source": "mda_extract"
+    },
+    {
+      "ticker": "UPOIC",
+      "sector": "Agro",
+      "subsector": "Agribusiness",
+      "market": "SET",
+      "announceDate": "2026-11-05T17:01:49+07:00",
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 1926000.0,
+      "netProfitPrior": 64023000.0,
+      "netProfitYoY": -96.99170610561829,
+      "netProfitPriorQ": 3444000.0,
+      "netProfitQoQ": -44.076655052264805,
+      "priorQuarter": "ไตรมาส 2/2569",
+      "netProfitPriorQPrior": 29273830.0,
+      "netProfitPriorQYoY": -88.23522579723938,
+      "profitAcceleration": "stable",
+      "profitHistory": [
+        {
+          "q": "Q3/68",
+          "np": 64023000.0
+        },
+        {
+          "q": "Q4/68",
+          "np": 89813000.0
+        },
+        {
+          "q": "Q1/69",
+          "np": 78812000.0
+        },
+        {
+          "q": "Q2/69",
+          "np": 3444000.0
+        },
+        {
+          "q": "Q3/69",
+          "np": 1926000.0
+        }
+      ],
+      "cumMonths": 9,
+      "netProfitCum": 84182000.0,
+      "netProfitCumPrior": 129089000.0,
+      "eps": 0.00594,
+      "epsPrior": 0.19757,
+      "epsYoY": -96.99347066862379,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": "profit_shrink",
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107353001&symbol=UPOIC",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312112961&symbol=UPOIC",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107353101&symbol=UPOIC",
+      "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
+      "reason": "",
+      "reason_source": "none"
+    },
     {
       "ticker": "BRRGIF",
       "sector": "Resources",
@@ -139,22 +1024,22 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17938312102601&symbol=BRRGIF",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107346801&symbol=BRRGIF",
       "headline": "สรุปผลการดำเนินงานของบจ. ไตรมาสที่ 3 (F45)",
-      "reason": "",
-      "reason_source": "none",
-      "gap_pct": 0.0,
+      "reason": "รายได้จากการลงทุนสุทธิ สำหรับไตรมาส 3 ปี 2569 เท่ากับ 23.74 ล้านบาท ลดลง 7.89% จากไตรมาสเดียวกันของปีก่อน และลดลง 2.52% จากไตรมาสก่อน โดยรายได้จากการลงทุนสุทธิสำหรับ 9 เดือนของปี 2569 เท่ากับ 73.65 ล้านบาท ลดลง 4.21%",
+      "reason_source": "mda_extract",
+      "gap_pct": 0.57,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null,
       "price_path": {
         "pre": [
           0.0,
-          0.0,
           0.57,
+          0.0,
           0.0,
           0.0
         ],
         "post": [
-          0.0
+          0.57
         ]
       }
     },
@@ -212,7 +1097,7 @@
       "headline": "สรุปผลการดำเนินงาน ไตรมาสที่ 3/2569 (F45) (สอบทานแล้ว)",
       "reason": "",
       "reason_source": "none",
-      "gap_pct": 0.87,
+      "gap_pct": 0.0,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
       "drift_d5_pct": null,
@@ -225,7 +1110,7 @@
           0.0
         ],
         "post": [
-          0.87
+          0.0
         ]
       }
     },
@@ -494,8 +1379,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17937493969961&symbol=TEKA",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107341501&symbol=TEKA",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "สามารถรับรู้รายได้จากการก่อสร้างเติบโตต่อเนื่องถึง 511.60 ล้านบาท คิดเป็น เพิ่มขึ้น 9.34% เมื่อเทียบกับไตรมาสเดียวกันของปีก่อน และเมื่อพิจารณาในงวด 9 เดือนแรกของปี 2569 รายได้สะสมอยู่ที่ 1,535.95 ล้านบาท",
+      "reason_source": "mda_extract",
       "gap_pct": -2.2,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -565,8 +1450,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17937493966511&symbol=NTF",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107338401&symbol=NTF",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "มีรายได้จากการขาย 3,509.12 ล้านบาท เพิ่มขึ้นร้อยละ 66.57 และมีกำไรสุทธิ 392.48 ล้านบาท เพิ่มขึ้นร้อยละ 93.54 จากงวดเดียวกันของปีก่อน ปริมาณส่งออก เพิ่มขึ้นร้อยละ 58.30 เป็น 22,073 ตัน ขณะที่กำไรขั้นต้นเพิ่มขึ้นร้อยละ 78.59 เป็น",
+      "reason_source": "mda_extract",
       "gap_pct": 10.17,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -707,8 +1592,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17937493964311&symbol=BCPG",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107337201&symbol=BCPG",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้จากการขายและบริการ 1,100.0 1,116.9 1.5% 806.7 38.5% 2,611.2 3,022.3 15.7% ส่วนแบ่งกำไรจากเงินลงทุนในบริษัทร่วม* 757.5 1,364.0 80.1% 460.9 196.0% 1,523.8 2,794.8 83.4% EBITDA* 1,565.6 2,159.2 37.9% 927.1 132.9% 3,321.1",
+      "reason_source": "mda_extract",
       "gap_pct": 1.45,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -778,8 +1663,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17937493964231&symbol=TITLE",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107336801&symbol=TITLE",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "มีรายได้จากการขาย และให้บริการของกลุ่มบริษัท ประกอบด้วย รายได้จากการขายอสังหาริมทรัพย์ และรายได้ที่เกี่ยวข้องกับการขาย อสังหาริมทรัพย์อาทิเช่น",
+      "reason_source": "mda_extract",
       "gap_pct": 0.63,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -849,8 +1734,8 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17937493957001&symbol=IT",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107330701&symbol=IT",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "กำไรจากการดำเนินงาน 122.1 4.0 52.6 2.1% 69.5 132.1 ส่วนแบ่งกำไรจากเงินลงทุนในบริษัทร่วม 19.4 0.6 9.0 0.4 10.4 115.6 ต้นทุนทางการเงินสุทธิ (15.4) (0.5) (14.6) (0.6) 0.8 106.1 กำไรก่อนภาษีเงินได้ 126.1 4.1 47.0 1.9 79.1 168.3",
+      "reason_source": "mda_extract",
       "gap_pct": 1.4,
       "drift_d1_pct": null,
       "drift_d2_pct": null,
@@ -1063,10 +1948,10 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17936625223921&symbol=WINDOW",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107275301&symbol=WINDOW",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "รายได้จากการขายสินค้า - ร้านค้าปลีกวัสดุก่อสร้างสมัยใหม่ 123.20 76.88 125.19 75.38 1.99 1.62% - ร้านค้าปลีกวัสดุก่อสร้างแบบดั้งเดิม 17.20 10.73 13.88 8.36 (3.32) (19.30) - ร้านค้าวินโดว์ เอเชีย 10.97 6.85 10.39 6.26 (0.58)",
+      "reason_source": "mda_extract",
       "gap_pct": 2.99,
-      "drift_d1_pct": 1.49,
+      "drift_d1_pct": 2.99,
       "drift_d2_pct": null,
       "drift_d5_pct": null,
       "price_path": {
@@ -1079,7 +1964,7 @@
         ],
         "post": [
           2.99,
-          1.49
+          2.99
         ]
       }
     },
@@ -1135,10 +2020,10 @@
       "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17936625224281&symbol=SPVI",
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107321301&symbol=SPVI",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
-      "reason": "",
-      "reason_source": "none",
+      "reason": "จากการบริหารจัดการต้นทุนสินค้าอย่างมีประสิทธิภาพ สรุปเหตุการณ์และพัฒนาการที่สำคัญ ไตรมาสที่ 3/2569 บริษัทฯ มีสาขาที่เปิดให้บริการจำนวน 60 สาขา (31 ธันวาคม 2568: 73 สาขา) ประกอบด้วย ผลการดำเนินงานในไตรมาส 3/2569",
+      "reason_source": "mda_extract",
       "gap_pct": 11.52,
-      "drift_d1_pct": 8.48,
+      "drift_d1_pct": 7.88,
       "drift_d2_pct": null,
       "drift_d5_pct": null,
       "price_path": {
@@ -1151,7 +2036,7 @@
         ],
         "post": [
           11.52,
-          8.48
+          7.88
         ]
       }
     },
@@ -1571,8 +2456,8 @@
       "reason": "กำไรจากการลงทุนสุทธิ สำหรับไตรมาส 3 ปี 2569 เท่ากับ 1,616.4 ล้านบาท เพิ่มขึ้น 0.3% จากไตรมาสเดียวกันของปีก่อน และเพิ่มขึ้น 0.3% จากไตรมาสก่อน • การเปลี่ยนแปลงในสินทรัพย์สุทธิจากการดำเนินงาน สำหรับไตรมาส 3 ปี 2569",
       "reason_source": "mda_extract",
       "gap_pct": -0.8,
-      "drift_d1_pct": 0.8,
-      "drift_d2_pct": null,
+      "drift_d1_pct": -0.8,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null,
       "price_path": {
         "pre": [
@@ -1584,7 +2469,8 @@
         ],
         "post": [
           -0.8,
-          0.8
+          -0.8,
+          0.0
         ]
       }
     },
@@ -1644,7 +2530,7 @@
       "reason_source": "mda_extract",
       "gap_pct": -16.0,
       "drift_d1_pct": -56.0,
-      "drift_d2_pct": -48.0,
+      "drift_d2_pct": -44.0,
       "drift_d5_pct": null,
       "price_path": {
         "pre": [
@@ -1657,7 +2543,7 @@
         "post": [
           -16.0,
           -56.0,
-          -48.0
+          -44.0
         ]
       }
     },
@@ -1717,7 +2603,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": 3.12,
-      "drift_d2_pct": 2.34,
+      "drift_d2_pct": 3.12,
       "drift_d5_pct": null,
       "price_path": {
         "pre": [
@@ -1730,7 +2616,7 @@
         "post": [
           0.0,
           3.12,
-          2.34
+          3.12
         ]
       }
     },
@@ -1790,7 +2676,7 @@
       "reason_source": "none",
       "gap_pct": 2.16,
       "drift_d1_pct": -2.7,
-      "drift_d2_pct": -5.41,
+      "drift_d2_pct": -4.86,
       "drift_d5_pct": null,
       "price_path": {
         "pre": [
@@ -1803,7 +2689,7 @@
         "post": [
           2.16,
           -2.7,
-          -5.41
+          -4.86
         ]
       }
     },
@@ -2383,7 +3269,7 @@
       "gap_pct": -0.72,
       "drift_d1_pct": -8.27,
       "drift_d2_pct": -10.79,
-      "drift_d5_pct": -11.87,
+      "drift_d5_pct": -12.59,
       "price_path": {
         "pre": [
           -2.52,
@@ -2398,7 +3284,7 @@
           -10.79,
           -12.95,
           -12.23,
-          -11.87
+          -12.59
         ]
       }
     },
@@ -4801,13 +5687,6 @@
       "quarter": "ไตรมาส 3/2569"
     },
     {
-      "ticker": "NER",
-      "date": "2026-11-03T18:01:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-03T18:01:00+07:00"
-    },
-    {
       "ticker": "SPVI",
       "date": "2026-11-03T19:09:00+07:00",
       "status": "confirmed",
@@ -4871,13 +5750,6 @@
       "basedOnLastYear": "2025-11-04T17:48:00+07:00"
     },
     {
-      "ticker": "GST",
-      "date": "2026-11-04T17:48:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-04T17:48:00+07:00"
-    },
-    {
       "ticker": "TOG",
       "date": "2026-11-04T17:50:00+07:00",
       "status": "confirmed",
@@ -4934,15 +5806,56 @@
       "quarter": "ไตรมาส 3/2569"
     },
     {
-      "ticker": "GPSC",
-      "date": "2026-11-05T12:36:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-05T12:36:00+07:00"
-    },
-    {
       "ticker": "BRRGIF",
       "date": "2026-11-05T12:41:09+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "UPOIC",
+      "date": "2026-11-05T17:01:49+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "CPI",
+      "date": "2026-11-05T17:05:30+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "GST",
+      "date": "2026-11-05T17:05:49+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "GPSC",
+      "date": "2026-11-05T17:09:59+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "TYCN",
+      "date": "2026-11-05T17:17:21+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "READY",
+      "date": "2026-11-05T17:18:43+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "GULF",
+      "date": "2026-11-05T17:18:59+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "IFS",
+      "date": "2026-11-05T17:21:16+07:00",
       "status": "confirmed",
       "quarter": "ไตรมาส 3/2569"
     },
@@ -4954,11 +5867,47 @@
       "basedOnLastYear": "2025-11-05T17:24:00+07:00"
     },
     {
+      "ticker": "OR",
+      "date": "2026-11-05T17:25:40+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "ASW",
+      "date": "2026-11-05T17:31:02+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "CTARAF",
+      "date": "2026-11-05T17:36:02+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "NER",
+      "date": "2026-11-05T17:40:22+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
       "ticker": "LANNA",
       "date": "2026-11-05T17:42:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-05T17:42:00+07:00"
+    },
+    {
+      "ticker": "AKR",
+      "date": "2026-11-05T17:42:10+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
+    },
+    {
+      "ticker": "TPA",
+      "date": "2026-11-05T17:43:09+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
     },
     {
       "ticker": "WP",
@@ -4968,18 +5917,16 @@
       "basedOnLastYear": "2025-11-05T17:53:00+07:00"
     },
     {
-      "ticker": "UPOIC",
-      "date": "2026-11-05T18:26:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-05T18:26:00+07:00"
+      "ticker": "VPO",
+      "date": "2026-11-05T18:01:20+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 3/2569"
     },
     {
-      "ticker": "CTARAF",
-      "date": "2026-11-05T18:39:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-05T18:39:00+07:00"
+      "ticker": "TURTLE",
+      "date": "2026-11-05T18:01:26+07:00",
+      "status": "confirmed",
+      "quarter": "ไตรมาส 2/2569"
     },
     {
       "ticker": "GC",
@@ -4987,13 +5934,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-05T18:40:00+07:00"
-    },
-    {
-      "ticker": "READY",
-      "date": "2026-11-05T20:03:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-05T20:03:00+07:00"
     },
     {
       "ticker": "BH",
@@ -5038,32 +5978,11 @@
       "basedOnLastYear": "2025-11-06T17:08:00+07:00"
     },
     {
-      "ticker": "GULF",
-      "date": "2026-11-06T17:22:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-06T17:22:00+07:00"
-    },
-    {
-      "ticker": "VPO",
-      "date": "2026-11-06T17:24:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-06T17:24:00+07:00"
-    },
-    {
       "ticker": "TPLAS",
       "date": "2026-11-06T17:28:00+07:00",
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-06T17:28:00+07:00"
-    },
-    {
-      "ticker": "OR",
-      "date": "2026-11-06T17:35:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-06T17:35:00+07:00"
     },
     {
       "ticker": "ATLAS",
@@ -5080,13 +5999,6 @@
       "basedOnLastYear": "2025-11-06T17:42:00+07:00"
     },
     {
-      "ticker": "IFS",
-      "date": "2026-11-06T17:43:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-06T17:43:00+07:00"
-    },
-    {
       "ticker": "AIT",
       "date": "2026-11-06T17:43:00+07:00",
       "status": "predicted",
@@ -5099,13 +6011,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-06T17:53:00+07:00"
-    },
-    {
-      "ticker": "TURTLE",
-      "date": "2026-11-06T18:04:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-06T18:04:00+07:00"
     },
     {
       "ticker": "GLAND",
@@ -5148,13 +6053,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-06T19:43:00+07:00"
-    },
-    {
-      "ticker": "ASW",
-      "date": "2026-11-06T19:55:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-06T19:55:00+07:00"
     },
     {
       "ticker": "SMT",
@@ -5211,13 +6109,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-07T08:29:00+07:00"
-    },
-    {
-      "ticker": "AKR",
-      "date": "2026-11-07T08:35:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-07T08:35:00+07:00"
     },
     {
       "ticker": "CMAN",
@@ -5323,13 +6214,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-07T17:14:00+07:00"
-    },
-    {
-      "ticker": "TYCN",
-      "date": "2026-11-07T17:17:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-07T17:17:00+07:00"
     },
     {
       "ticker": "BEC",
@@ -7031,13 +7915,6 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-12T17:08:00+07:00"
-    },
-    {
-      "ticker": "CPI",
-      "date": "2026-11-12T17:09:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-12T17:09:00+07:00"
     },
     {
       "ticker": "PERM",
@@ -9455,13 +10332,6 @@
       "basedOnLastYear": "2025-11-14T08:46:00+07:00"
     },
     {
-      "ticker": "TPA",
-      "date": "2026-11-14T08:47:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-14T08:47:00+07:00"
-    },
-    {
       "ticker": "EMC",
       "date": "2026-11-14T08:50:00+07:00",
       "status": "predicted",
@@ -10996,6 +11866,21 @@
       "netProfitCumPrior": null,
       "filed": "2026-02-19"
     },
+    "101022201": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": -103587000.0,
+      "netProfitPrior": -57301000.0,
+      "netProfitYoY": -80.77694979145215,
+      "eps": -0.07,
+      "epsPrior": -0.04,
+      "epsYoY": -75.00000000000001,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": -290903000.0,
+      "netProfitCumPrior": -202121000.0,
+      "filed": "2026-02-05"
+    },
     "101026301": {
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
@@ -11040,6 +11925,21 @@
       "netProfitCum": null,
       "netProfitCumPrior": null,
       "filed": "2026-02-09"
+    },
+    "101063501": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-10"
     },
     "101065001": {
       "quarter": "ประจำปี 2568",
@@ -11100,6 +12000,51 @@
       "netProfitCum": null,
       "netProfitCumPrior": null,
       "filed": "2026-02-10"
+    },
+    "101072601": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 40092730.0,
+      "netProfitPrior": -22836360.0,
+      "netProfitYoY": 275.56532652314115,
+      "eps": 0.04,
+      "epsPrior": -0.02,
+      "epsYoY": 300.0,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-10"
+    },
+    "101074601": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 11303568000.0,
+      "netProfitPrior": 7650312000.0,
+      "netProfitYoY": 47.75303281748509,
+      "eps": 0.94,
+      "epsPrior": 0.64,
+      "epsYoY": 46.874999999999986,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-10"
+    },
+    "101079101": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 6399003000.0,
+      "netProfitPrior": 4062379000.0,
+      "netProfitYoY": 57.51861163126336,
+      "eps": 2.27,
+      "epsPrior": 1.44,
+      "epsYoY": 57.63888888888889,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-11"
     },
     "101096301": {
       "quarter": "ประจำปี 2568",
@@ -11266,6 +12211,21 @@
       "netProfitCumPrior": null,
       "filed": "2026-02-17"
     },
+    "101211401": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 79997768000.0,
+      "netProfitPrior": 0.0,
+      "netProfitYoY": null,
+      "eps": 5.35,
+      "epsPrior": 0.0,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-17"
+    },
     "101230901": {
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
@@ -11356,6 +12316,36 @@
       "netProfitCumPrior": null,
       "filed": "2026-02-19"
     },
+    "101277601": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 218902000.0,
+      "netProfitPrior": 162825000.0,
+      "netProfitYoY": 34.440042990941194,
+      "eps": 0.68,
+      "epsPrior": 0.5,
+      "epsYoY": 36.00000000000001,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-19"
+    },
+    "101278801": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 1884525000.0,
+      "netProfitPrior": 1652466000.0,
+      "netProfitYoY": 14.043193626979313,
+      "eps": 1.0199,
+      "epsPrior": 0.8943,
+      "epsYoY": 14.044504081404455,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-19"
+    },
     "101287101": {
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
@@ -11366,6 +12356,51 @@
       "epsPrior": -0.32,
       "epsYoY": 184.37500000000003,
       "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-19"
+    },
+    "101289801": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 27274000.0,
+      "netProfitPrior": 48048000.0,
+      "netProfitYoY": -43.23593073593074,
+      "eps": 0.03,
+      "epsPrior": 0.05,
+      "epsYoY": -40.00000000000001,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-19"
+    },
+    "101295101": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 95387000.0,
+      "netProfitPrior": 137009000.0,
+      "netProfitYoY": -30.379026195359426,
+      "eps": 0.19,
+      "epsPrior": 0.28,
+      "epsYoY": -32.14285714285715,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-19"
+    },
+    "101304801": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 1077662000.0,
+      "netProfitPrior": 1456720000.0,
+      "netProfitYoY": -26.021335603273105,
+      "eps": 1.2,
+      "epsPrior": 1.62,
+      "epsYoY": -25.925925925925934,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
       "cumMonths": null,
       "netProfitCum": null,
       "netProfitCumPrior": null,
@@ -11500,6 +12535,21 @@
       "eps": 0.46,
       "epsPrior": 0.49,
       "epsYoY": -6.122448979591831,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-25"
+    },
+    "101508401": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 189320000.0,
+      "netProfitPrior": 279983000.0,
+      "netProfitYoY": -32.38160888339649,
+      "eps": 0.129,
+      "epsPrior": 0.19,
+      "epsYoY": -32.10526315789474,
       "auditorOpinion": "ไม่มีเงื่อนไข",
       "cumMonths": null,
       "netProfitCum": null,
@@ -11656,6 +12706,36 @@
       "netProfitCumPrior": null,
       "filed": "2026-02-26"
     },
+    "101775501": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 133090000.0,
+      "netProfitPrior": -283249000.0,
+      "netProfitYoY": 146.98692669700512,
+      "eps": 0.22,
+      "epsPrior": -0.47,
+      "epsYoY": 146.80851063829786,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-26"
+    },
+    "101802601": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": -13971000.0,
+      "netProfitPrior": -22510000.0,
+      "netProfitYoY": 37.93425144380275,
+      "eps": -0.11,
+      "epsPrior": -0.19,
+      "epsYoY": 42.10526315789473,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-26"
+    },
     "101819401": {
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
@@ -11686,6 +12766,36 @@
       "netProfitCumPrior": null,
       "filed": "2026-02-26"
     },
+    "101835901": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 53278000.0,
+      "netProfitPrior": 40592000.0,
+      "netProfitYoY": 31.252463539613718,
+      "eps": 0.44,
+      "epsPrior": 0.34,
+      "epsYoY": 29.411764705882344,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-26"
+    },
+    "101866601": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 53278000.0,
+      "netProfitPrior": 40592000.0,
+      "netProfitYoY": 31.252463539613718,
+      "eps": 0.44,
+      "epsPrior": 0.34,
+      "epsYoY": 29.411764705882344,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-27"
+    },
     "101881701": {
       "quarter": "ประจำปี 2568",
       "periodEnd": "31 ธันวาคม 2568",
@@ -11710,6 +12820,21 @@
       "eps": 4.63,
       "epsPrior": 5.52,
       "epsYoY": -16.123188405797098,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-02-27"
+    },
+    "101919701": {
+      "quarter": "ประจำปี 2568",
+      "periodEnd": "31 ธันวาคม 2568",
+      "netProfit": 418485000.0,
+      "netProfitPrior": 320589000.0,
+      "netProfitYoY": 30.536294133610326,
+      "eps": 0.661,
+      "epsPrior": 0.507,
+      "epsYoY": 30.374753451676533,
       "auditorOpinion": "ไม่มีเงื่อนไข",
       "cumMonths": null,
       "netProfitCum": null,
@@ -12031,6 +13156,21 @@
       "netProfitCumPrior": null,
       "filed": "2026-05-06"
     },
+    "103841001": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-06"
+    },
     "103847401": {
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 มีนาคม 2569",
@@ -12055,6 +13195,21 @@
       "eps": 0.11,
       "epsPrior": 0.12,
       "epsYoY": -8.33333333333333,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-06"
+    },
+    "103851101": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 254369000.0,
+      "netProfitPrior": 608836000.0,
+      "netProfitYoY": -58.22044031561866,
+      "eps": 0.1377,
+      "epsPrior": 0.3295,
+      "epsYoY": -58.20940819423369,
       "auditorOpinion": "ไม่มีเงื่อนไข",
       "cumMonths": null,
       "netProfitCum": null,
@@ -12181,6 +13336,66 @@
       "netProfitCumPrior": null,
       "filed": "2026-05-07"
     },
+    "103901501": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": -7157000.0,
+      "netProfitPrior": 23808000.0,
+      "netProfitYoY": -130.06132392473117,
+      "eps": -0.01,
+      "epsPrior": 0.04,
+      "epsYoY": -125.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103905101": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 78812000.0,
+      "netProfitPrior": 35792000.0,
+      "netProfitYoY": 120.19445686186859,
+      "eps": 0.24,
+      "epsPrior": 0.11,
+      "epsYoY": 118.18181818181819,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103907101": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 74913000.0,
+      "netProfitPrior": 47663000.0,
+      "netProfitYoY": 57.17223003168076,
+      "eps": 0.118,
+      "epsPrior": 0.075,
+      "epsYoY": 57.333333333333336,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103907501": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 1719348000.0,
+      "netProfitPrior": 1140036000.0,
+      "netProfitYoY": 50.81523741355536,
+      "eps": 0.61,
+      "epsPrior": 0.4,
+      "epsYoY": 52.49999999999999,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
     "103908601": {
       "quarter": "ไตรมาส 1/2569",
       "periodEnd": "31 มีนาคม 2569",
@@ -12191,6 +13406,36 @@
       "epsPrior": 0.05,
       "epsYoY": 280.0,
       "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103913601": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 229551260.0,
+      "netProfitPrior": 201429850.0,
+      "netProfitYoY": 13.960895070914267,
+      "eps": 0.26,
+      "epsPrior": 0.22,
+      "epsYoY": 18.181818181818183,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103916701": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 15806000.0,
+      "netProfitPrior": -15405000.0,
+      "netProfitYoY": 202.60305095748134,
+      "eps": 0.03,
+      "epsPrior": -0.03,
+      "epsYoY": 200.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
       "cumMonths": null,
       "netProfitCum": null,
       "netProfitCumPrior": null,
@@ -12210,6 +13455,81 @@
       "netProfitCum": null,
       "netProfitCumPrior": null,
       "filed": "2026-05-08"
+    },
+    "103927801": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 587675000.0,
+      "netProfitPrior": 119326000.0,
+      "netProfitYoY": 392.4953488761879,
+      "eps": 0.54,
+      "epsPrior": 0.11,
+      "epsYoY": 390.90909090909093,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103930701": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 9116802000.0,
+      "netProfitPrior": 0.0,
+      "netProfitYoY": null,
+      "eps": 0.61,
+      "epsPrior": 0.0,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103932901": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 2414752000.0,
+      "netProfitPrior": 4379483000.0,
+      "netProfitYoY": -44.8621675206868,
+      "eps": 0.2,
+      "epsPrior": 0.36,
+      "epsYoY": -44.44444444444444,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103935501": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 7293000.0,
+      "netProfitPrior": 91513000.0,
+      "netProfitYoY": -92.03064045545442,
+      "eps": 0.005,
+      "epsPrior": 0.062,
+      "epsYoY": -91.93548387096774,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
+    },
+    "103939301": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 2820000.0,
+      "netProfitPrior": -3734000.0,
+      "netProfitYoY": 175.52222817354044,
+      "eps": 0.023,
+      "epsPrior": -0.031,
+      "epsYoY": 174.19354838709677,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-07"
     },
     "104023901": {
       "quarter": "ไตรมาส 1/2569",
@@ -12235,6 +13555,21 @@
       "eps": 0.24,
       "epsPrior": 0.05,
       "epsYoY": 380.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-08"
+    },
+    "104031601": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": 6258000.0,
+      "netProfitPrior": 10263000.0,
+      "netProfitYoY": -39.023677287342885,
+      "eps": 0.05,
+      "epsPrior": 0.09,
+      "epsYoY": -44.44444444444444,
       "auditorOpinion": "ไม่มีเงื่อนไข",
       "cumMonths": null,
       "netProfitCum": null,
@@ -12375,6 +13710,21 @@
       "netProfitCum": null,
       "netProfitCumPrior": null,
       "filed": "2026-05-12"
+    },
+    "104250301": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": -42847000.0,
+      "netProfitPrior": -42069000.0,
+      "netProfitYoY": -1.8493427464403718,
+      "eps": -0.05,
+      "epsPrior": -0.05,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-13"
     },
     "104277801": {
       "quarter": "ไตรมาส 1/2569",
@@ -12600,6 +13950,21 @@
       "netProfitCum": null,
       "netProfitCumPrior": null,
       "filed": "2026-05-18"
+    },
+    "104810501": {
+      "quarter": "ประจำปี 2569",
+      "periodEnd": "31 มีนาคม 2569",
+      "netProfit": -471949460.0,
+      "netProfitPrior": -280282910.0,
+      "netProfitYoY": -68.3832453430714,
+      "eps": -0.29691,
+      "epsPrior": -0.17633,
+      "epsYoY": -68.38314523904046,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-05-19"
     },
     "105022901": {
       "quarter": "ไตรมาส 3/2569",
@@ -13036,6 +14401,36 @@
       "netProfitCumPrior": -498439000.0,
       "filed": "2026-08-05"
     },
+    "105653601": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 436359000.0,
+      "netProfitPrior": 553998000.0,
+      "netProfitYoY": -21.23455319333283,
+      "eps": 0.2362,
+      "epsPrior": 0.2998,
+      "epsYoY": -21.21414276184123,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 690728000.0,
+      "netProfitCumPrior": 1162834000.0,
+      "filed": "2026-08-05"
+    },
+    "105655801": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 1819104000.0,
+      "netProfitPrior": 2019251000.0,
+      "netProfitYoY": -9.911942596537033,
+      "eps": 0.65,
+      "epsPrior": 0.72,
+      "epsYoY": -9.722222222222216,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 3538452000.0,
+      "netProfitCumPrior": 3159287000.0,
+      "filed": "2026-08-06"
+    },
     "105657001": {
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
@@ -13066,6 +14461,21 @@
       "netProfitCumPrior": null,
       "filed": "2026-08-06"
     },
+    "105664201": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -21810000.0,
+      "netProfitPrior": 38239000.0,
+      "netProfitYoY": -157.03601035591933,
+      "eps": -0.04,
+      "epsPrior": 0.06,
+      "epsYoY": -166.66666666666669,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": -28967000.0,
+      "netProfitCumPrior": 62047000.0,
+      "filed": "2026-08-06"
+    },
     "105664801": {
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
@@ -13079,6 +14489,111 @@
       "cumMonths": 6,
       "netProfitCum": 27211511000.0,
       "netProfitCumPrior": 21565411000.0,
+      "filed": "2026-08-06"
+    },
+    "105667301": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-08-06"
+    },
+    "105671101": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 562919900.0,
+      "netProfitPrior": 198468670.0,
+      "netProfitYoY": 183.63161802817544,
+      "eps": 0.626,
+      "epsPrior": 0.221,
+      "epsYoY": 183.25791855203622,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 792471160.0,
+      "netProfitCumPrior": 399898520.0,
+      "filed": "2026-08-06"
+    },
+    "105672901": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -87425000.0,
+      "netProfitPrior": -207190000.0,
+      "netProfitYoY": 57.80443071576814,
+      "eps": -0.08,
+      "epsPrior": -0.19,
+      "epsYoY": 57.89473684210527,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 6,
+      "netProfitCum": 500250000.0,
+      "netProfitCumPrior": -87864000.0,
+      "filed": "2026-08-06"
+    },
+    "105674001": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 65013000.0,
+      "netProfitPrior": 253032000.0,
+      "netProfitYoY": -74.30641183723797,
+      "eps": 0.103,
+      "epsPrior": 0.4,
+      "epsYoY": -74.25,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 139926000.0,
+      "netProfitCumPrior": 300695000.0,
+      "filed": "2026-08-06"
+    },
+    "105675101": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -1774947000.0,
+      "netProfitPrior": 2231799000.0,
+      "netProfitYoY": -179.52987701849494,
+      "eps": -0.15,
+      "epsPrior": 0.19,
+      "epsYoY": -178.9473684210526,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 639804000.0,
+      "netProfitCumPrior": 6611283000.0,
+      "filed": "2026-08-06"
+    },
+    "105676701": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 82256000.0,
+      "netProfitPrior": 29274000.0,
+      "netProfitYoY": 180.98654095784653,
+      "eps": 0.01,
+      "epsPrior": 0.09,
+      "epsYoY": -88.8888888888889,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 73767000.0,
+      "netProfitCumPrior": 65066000.0,
+      "filed": "2026-08-06"
+    },
+    "105681301": {
+      "quarter": "ไตรมาส 1/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -93972000.0,
+      "netProfitPrior": -85825000.0,
+      "netProfitYoY": -9.492572094378096,
+      "eps": -0.06,
+      "epsPrior": -0.05,
+      "epsYoY": -19.99999999999999,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
       "filed": "2026-08-06"
     },
     "105682701": {
@@ -13096,6 +14611,21 @@
       "netProfitCumPrior": -183548000.0,
       "filed": "2026-08-06"
     },
+    "105683901": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 27794000.0,
+      "netProfitPrior": 38225000.0,
+      "netProfitYoY": -27.28842380640942,
+      "eps": 0.06,
+      "epsPrior": 0.08,
+      "epsYoY": -25.000000000000007,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 43600000.0,
+      "netProfitCumPrior": 22820000.0,
+      "filed": "2026-08-06"
+    },
     "105684301": {
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
@@ -13111,6 +14641,51 @@
       "netProfitCumPrior": 167752000.0,
       "filed": "2026-08-06"
     },
+    "105685401": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 12445684000.0,
+      "netProfitPrior": 63871479000.0,
+      "netProfitYoY": -80.5144891039708,
+      "eps": 0.83,
+      "epsPrior": 4.28,
+      "epsYoY": -80.60747663551402,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 21562486000.0,
+      "netProfitCumPrior": 63871479000.0,
+      "filed": "2026-08-06"
+    },
+    "105686201": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 2013000.0,
+      "netProfitPrior": -11424000.0,
+      "netProfitYoY": 117.62079831932772,
+      "eps": 0.017,
+      "epsPrior": -0.094,
+      "epsYoY": 118.08510638297874,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 6,
+      "netProfitCum": 4833000.0,
+      "netProfitCumPrior": -15158000.0,
+      "filed": "2026-08-06"
+    },
+    "105687701": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 3444000.0,
+      "netProfitPrior": 29273830.0,
+      "netProfitYoY": -88.23522579723938,
+      "eps": 0.01063,
+      "epsPrior": 0.09034,
+      "epsYoY": -88.23334071286251,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 82256000.0,
+      "netProfitCumPrior": 65066000.0,
+      "filed": "2026-08-06"
+    },
     "105691101": {
       "quarter": "ไตรมาส 2/2569",
       "periodEnd": "30 มิถุนายน 2569",
@@ -13124,6 +14699,21 @@
       "cumMonths": 6,
       "netProfitCum": 106880.0,
       "netProfitCumPrior": 40390.0,
+      "filed": "2026-08-06"
+    },
+    "105692201": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 53078000.0,
+      "netProfitPrior": 19247000.0,
+      "netProfitYoY": 175.77284771652725,
+      "eps": 0.036,
+      "epsPrior": 0.013,
+      "epsYoY": 176.92307692307693,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 60371000.0,
+      "netProfitCumPrior": 110761000.0,
       "filed": "2026-08-06"
     },
     "105693101": {
@@ -13170,6 +14760,21 @@
       "netProfitCum": 34761820.0,
       "netProfitCumPrior": 28505110.0,
       "filed": "2026-08-10"
+    },
+    "105728401": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": 3989000.0,
+      "netProfitPrior": 8722000.0,
+      "netProfitYoY": -54.26507681724375,
+      "eps": 0.03,
+      "epsPrior": 0.07,
+      "epsYoY": -57.14285714285715,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": 10247000.0,
+      "netProfitCumPrior": 18985000.0,
+      "filed": "2026-08-07"
     },
     "105768101": {
       "quarter": "ไตรมาส 2/2569",
@@ -13289,6 +14894,21 @@
       "cumMonths": 6,
       "netProfitCum": 200808000.0,
       "netProfitCumPrior": 77959000.0,
+      "filed": "2026-08-13"
+    },
+    "106023701": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 มิถุนายน 2569",
+      "netProfit": -41811000.0,
+      "netProfitPrior": 118426000.0,
+      "netProfitYoY": -135.30559167750326,
+      "eps": -0.04,
+      "epsPrior": 0.13,
+      "epsYoY": -130.76923076923077,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": -84552000.0,
+      "netProfitCumPrior": 76448000.0,
       "filed": "2026-08-13"
     },
     "106032101": {
@@ -14390,6 +16010,36 @@
       "netProfitCumPrior": 156684000.0,
       "filed": "2026-11-04"
     },
+    "107348201": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 1591791000.0,
+      "netProfitPrior": 1741877000.0,
+      "netProfitYoY": -8.616337433699394,
+      "eps": 0.56,
+      "epsPrior": 0.62,
+      "epsYoY": -9.677419354838701,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 5130243000.0,
+      "netProfitCumPrior": 4901164000.0,
+      "filed": "2026-11-05"
+    },
+    "107348701": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-11-05"
+    },
     "107350001": {
       "quarter": "ไตรมาส 3/2569",
       "periodEnd": "30 กันยายน 2569",
@@ -14418,6 +16068,231 @@
       "cumMonths": null,
       "netProfitCum": null,
       "netProfitCumPrior": null,
+      "filed": "2026-11-05"
+    },
+    "107350901": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -109193000.0,
+      "netProfitPrior": 64622000.0,
+      "netProfitYoY": -268.9718671659806,
+      "eps": -0.18,
+      "epsPrior": 0.11,
+      "epsYoY": -263.6363636363636,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": -138160000.0,
+      "netProfitCumPrior": 126669000.0,
+      "filed": "2026-11-05"
+    },
+    "107353001": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 1926000.0,
+      "netProfitPrior": 64023000.0,
+      "netProfitYoY": -96.99170610561829,
+      "eps": 0.00594,
+      "epsPrior": 0.19757,
+      "epsYoY": -96.99347066862379,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 84182000.0,
+      "netProfitCumPrior": 129089000.0,
+      "filed": "2026-11-05"
+    },
+    "107353801": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 68604000.0,
+      "netProfitPrior": 2339000.0,
+      "netProfitYoY": 2833.0483112441216,
+      "eps": 0.047,
+      "epsPrior": 0.002,
+      "epsYoY": 2250.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 128975000.0,
+      "netProfitCumPrior": 113100000.0,
+      "filed": "2026-11-05"
+    },
+    "107354101": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 32394000.0,
+      "netProfitPrior": 110322000.0,
+      "netProfitYoY": -70.63686300103333,
+      "eps": 0.051,
+      "epsPrior": 0.174,
+      "epsYoY": -70.68965517241381,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 172320000.0,
+      "netProfitCumPrior": 411017000.0,
+      "filed": "2026-11-05"
+    },
+    "107355901": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 47064000.0,
+      "netProfitPrior": 45438000.0,
+      "netProfitYoY": 3.578502574937277,
+      "eps": 0.1,
+      "epsPrior": 0.09,
+      "epsYoY": 11.111111111111121,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 90664000.0,
+      "netProfitCumPrior": 68258000.0,
+      "filed": "2026-11-05"
+    },
+    "107356501": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 5290000.0,
+      "netProfitPrior": 8039000.0,
+      "netProfitYoY": -34.19579549695236,
+      "eps": 0.04,
+      "epsPrior": 0.07,
+      "epsYoY": -42.85714285714286,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 15537000.0,
+      "netProfitCumPrior": 27024000.0,
+      "filed": "2026-11-05"
+    },
+    "107356801": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -11664000.0,
+      "netProfitPrior": -885000.0,
+      "netProfitYoY": -1217.9661016949153,
+      "eps": -0.011,
+      "epsPrior": -0.001,
+      "epsYoY": -999.9999999999998,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 9,
+      "netProfitCum": 488585000.0,
+      "netProfitCumPrior": -88748000.0,
+      "filed": "2026-11-05"
+    },
+    "107357101": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -52746000.0,
+      "netProfitPrior": -1809000.0,
+      "netProfitYoY": -2815.75456053068,
+      "eps": -0.056,
+      "epsPrior": -0.002,
+      "epsYoY": -2700.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": -137298000.0,
+      "netProfitCumPrior": 74640000.0,
+      "filed": "2026-11-05"
+    },
+    "107360901": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 511683000.0,
+      "netProfitPrior": 326583000.0,
+      "netProfitYoY": 56.67778175838913,
+      "eps": 0.2769,
+      "epsPrior": 0.1767,
+      "epsYoY": 56.70628183361629,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 1202411000.0,
+      "netProfitCumPrior": 1489417000.0,
+      "filed": "2026-11-05"
+    },
+    "107361501": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 9288683000.0,
+      "netProfitPrior": 7274297000.0,
+      "netProfitYoY": 27.69183056452053,
+      "eps": 0.62,
+      "epsPrior": 0.49,
+      "epsYoY": 26.53061224489796,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 30851169000.0,
+      "netProfitCumPrior": 71145776000.0,
+      "filed": "2026-11-05"
+    },
+    "107362001": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 5138463000.0,
+      "netProfitPrior": 2614259000.0,
+      "netProfitYoY": 96.55523802347051,
+      "eps": 0.43,
+      "epsPrior": 0.22,
+      "epsYoY": 95.45454545454545,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 5778267000.0,
+      "netProfitCumPrior": 9225542000.0,
+      "filed": "2026-11-05"
+    },
+    "107363601": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": 287532000.0,
+      "netProfitPrior": 289459000.0,
+      "netProfitYoY": -0.6657246794882867,
+      "eps": 0.32,
+      "epsPrior": 0.32,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 1080003000.0,
+      "netProfitCumPrior": 689358000.0,
+      "filed": "2026-11-05"
+    },
+    "107365201": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -585000.0,
+      "netProfitPrior": 532000.0,
+      "netProfitYoY": -209.96240601503757,
+      "eps": -0.005,
+      "epsPrior": 0.004,
+      "epsYoY": -225.0,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 9,
+      "netProfitCum": 4248000.0,
+      "netProfitCumPrior": -14626000.0,
+      "filed": "2026-11-05"
+    },
+    "107366401": {
+      "quarter": "ไตรมาส 3/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -52746000.0,
+      "netProfitPrior": -1809000.0,
+      "netProfitYoY": -2815.75456053068,
+      "eps": -0.056,
+      "epsPrior": -0.002,
+      "epsYoY": -2700.0,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 9,
+      "netProfitCum": -137298000.0,
+      "netProfitCumPrior": 74640000.0,
+      "filed": "2026-11-05"
+    },
+    "107367001": {
+      "quarter": "ไตรมาส 2/2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": -95579000.0,
+      "netProfitPrior": -101491000.0,
+      "netProfitYoY": 5.825147057374545,
+      "eps": -0.06,
+      "epsPrior": -0.06,
+      "epsYoY": 0.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 6,
+      "netProfitCum": -189551000.0,
+      "netProfitCumPrior": -187316000.0,
       "filed": "2026-11-05"
     },
     "98154601": {
@@ -14799,6 +16674,21 @@
       "netProfitCumPrior": 3771905000.0,
       "filed": "2025-11-03"
     },
+    "99338401": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 326583000.0,
+      "netProfitPrior": 360782000.0,
+      "netProfitYoY": -9.479131442255987,
+      "eps": 0.1767,
+      "epsPrior": 0.1953,
+      "epsYoY": -9.523809523809526,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 1489417000.0,
+      "netProfitCumPrior": 1293145000.0,
+      "filed": "2025-11-03"
+    },
     "99340501": {
       "quarter": "ไตรมาส 3/2568",
       "periodEnd": "30 กันยายน 2568",
@@ -14813,6 +16703,21 @@
       "netProfitCum": 68837000.0,
       "netProfitCumPrior": 1218894000.0,
       "filed": "2025-11-03"
+    },
+    "99341201": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 1741877000.0,
+      "netProfitPrior": 770066000.0,
+      "netProfitYoY": 126.19840377318307,
+      "eps": 0.62,
+      "epsPrior": 0.27,
+      "epsYoY": 129.62962962962962,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 4901164000.0,
+      "netProfitCumPrior": 3062611000.0,
+      "filed": "2025-11-05"
     },
     "99349101": {
       "quarter": "ไตรมาส 3/2568",
@@ -14904,6 +16809,21 @@
       "netProfitCumPrior": -3458075000.0,
       "filed": "2025-11-04"
     },
+    "99365401": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": -885000.0,
+      "netProfitPrior": -561901000.0,
+      "netProfitYoY": 99.8424989455438,
+      "eps": -0.001,
+      "epsPrior": -0.513,
+      "epsYoY": 99.80506822612085,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 9,
+      "netProfitCum": -88748000.0,
+      "netProfitCumPrior": -211435000.0,
+      "filed": "2025-11-04"
+    },
     "99367001": {
       "quarter": "ไตรมาส 3/2568",
       "periodEnd": "30 กันยายน 2568",
@@ -14933,6 +16853,21 @@
       "netProfitCum": -31425000.0,
       "netProfitCumPrior": -32091000.0,
       "filed": "2025-11-04"
+    },
+    "99373901": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2025-11-05"
     },
     "99377201": {
       "quarter": "ไตรมาส 3/2568",
@@ -14979,6 +16914,21 @@
       "netProfitCumPrior": 1655567000.0,
       "filed": "2025-11-05"
     },
+    "99383301": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 64023000.0,
+      "netProfitPrior": 61889000.0,
+      "netProfitYoY": 3.448108710756354,
+      "eps": 0.2,
+      "epsPrior": 0.19,
+      "epsYoY": 5.263157894736847,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 129089000.0,
+      "netProfitCumPrior": 115499000.0,
+      "filed": "2025-11-05"
+    },
     "99390601": {
       "quarter": "ไตรมาส 3/2568",
       "periodEnd": "30 กันยายน 2568",
@@ -15009,6 +16959,115 @@
       "netProfitCumPrior": 13112980.0,
       "filed": "2025-11-05"
     },
+    "99392201": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 8039000.0,
+      "netProfitPrior": 10025000.0,
+      "netProfitYoY": -19.810473815461346,
+      "eps": 0.07,
+      "epsPrior": 0.08,
+      "epsYoY": -12.499999999999993,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 27024000.0,
+      "netProfitCumPrior": 29717000.0,
+      "filed": "2025-11-05"
+    },
+    "99399201": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 64622000.0,
+      "netProfitPrior": -185712000.0,
+      "netProfitYoY": 134.79688980787458,
+      "eps": 0.11,
+      "epsPrior": -0.31,
+      "epsYoY": 135.48387096774192,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 126669000.0,
+      "netProfitCumPrior": -207176000.0,
+      "filed": "2025-11-07"
+    },
+    "99406601": {
+      "quarter": null,
+      "filed": "2025-11-06"
+    },
+    "99414001": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 7274297000.0,
+      "netProfitPrior": 0.0,
+      "netProfitYoY": null,
+      "eps": 0.49,
+      "epsPrior": 0.0,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 71145776000.0,
+      "netProfitCumPrior": 0.0,
+      "filed": "2025-11-06"
+    },
+    "99414301": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": -1809000.0,
+      "netProfitPrior": 72054000.0,
+      "netProfitYoY": -102.51061703722209,
+      "eps": -0.002,
+      "epsPrior": 0.076,
+      "epsYoY": -102.63157894736842,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 74640000.0,
+      "netProfitCumPrior": 91226000.0,
+      "filed": "2025-11-06"
+    },
+    "99415701": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 2614259000.0,
+      "netProfitPrior": -1608745000.0,
+      "netProfitYoY": 262.5030070023528,
+      "eps": 0.22,
+      "epsPrior": -0.13,
+      "epsYoY": 269.2307692307692,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 9225542000.0,
+      "netProfitCumPrior": 4650941000.0,
+      "filed": "2025-11-06"
+    },
+    "99417701": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 45438000.0,
+      "netProfitPrior": 33805000.0,
+      "netProfitYoY": 34.4120692205295,
+      "eps": 0.09,
+      "epsPrior": 0.07,
+      "epsYoY": 28.57142857142855,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 68258000.0,
+      "netProfitCumPrior": 96370000.0,
+      "filed": "2025-11-06"
+    },
+    "99422001": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 289459000.0,
+      "netProfitPrior": 450599000.0,
+      "netProfitYoY": -35.7612866428909,
+      "eps": 0.32,
+      "epsPrior": 0.5,
+      "epsYoY": -36.0,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 689358000.0,
+      "netProfitCumPrior": 1300003000.0,
+      "filed": "2025-11-06"
+    },
     "99422601": {
       "quarter": "ไตรมาส 3/2568",
       "periodEnd": "30 กันยายน 2568",
@@ -15023,6 +17082,21 @@
       "netProfitCum": 71586000.0,
       "netProfitCumPrior": 35134000.0,
       "filed": "2025-11-06"
+    },
+    "99434401": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 2339000.0,
+      "netProfitPrior": 81739000.0,
+      "netProfitYoY": -97.13845288050992,
+      "eps": 0.002,
+      "epsPrior": 0.056,
+      "epsYoY": -96.42857142857143,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 113100000.0,
+      "netProfitCumPrior": 159178000.0,
+      "filed": "2025-11-07"
     },
     "99439401": {
       "quarter": "ไตรมาส 3/2568",
@@ -15249,6 +17323,21 @@
       "netProfitCumPrior": 3579437000.0,
       "filed": "2025-11-13"
     },
+    "99702001": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 110322000.0,
+      "netProfitPrior": 135400000.0,
+      "netProfitYoY": -18.521418020679466,
+      "eps": 0.174,
+      "epsPrior": 0.214,
+      "epsYoY": -18.691588785046733,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": 9,
+      "netProfitCum": 411017000.0,
+      "netProfitCumPrior": 262091000.0,
+      "filed": "2025-11-12"
+    },
     "99714301": {
       "quarter": "ไตรมาส 3/2568",
       "periodEnd": "30 กันยายน 2568",
@@ -15292,6 +17381,21 @@
       "cumMonths": 9,
       "netProfitCum": 5017119000.0,
       "netProfitCumPrior": 5199469000.0,
+      "filed": "2025-11-13"
+    },
+    "99807801": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 531000.0,
+      "netProfitPrior": -16891000.0,
+      "netProfitYoY": 103.1436859866201,
+      "eps": 0.00438,
+      "epsPrior": -0.13902,
+      "epsYoY": 103.15062580923609,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 9,
+      "netProfitCum": -14626000.0,
+      "netProfitCumPrior": -13820000.0,
       "filed": "2025-11-13"
     },
     "99810401": {
@@ -15353,6 +17457,21 @@
       "netProfitCum": 39286834000.0,
       "netProfitCumPrior": 38835374000.0,
       "filed": "2025-11-13"
+    },
+    "99957901": {
+      "quarter": "ไตรมาส 3/2568",
+      "periodEnd": "30 กันยายน 2568",
+      "netProfit": 532000.0,
+      "netProfitPrior": -16891000.0,
+      "netProfitYoY": 103.14960629921259,
+      "eps": 0.004,
+      "epsPrior": -0.139,
+      "epsYoY": 102.87769784172663,
+      "auditorOpinion": "ไม่มีเงื่อนไขและมีข้อสังเกต/เรื่องอื่น",
+      "cumMonths": 9,
+      "netProfitCum": -14626000.0,
+      "netProfitCumPrior": -13821000.0,
+      "filed": "2025-11-14"
     }
   }
 }
