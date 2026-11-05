@@ -39,12 +39,15 @@ degrading gracefully (n=0 for horizons that don't have enough forward data yet).
 
 Usage:
     python -X utf8 calculate_report_card.py
+    python -X utf8 calculate_report_card.py --out <scratch>/report_card.json   # testing
 """
 
+import argparse
 import csv
 import json
 import math
 import os
+import random
 import sys
 import time
 import urllib.parse
@@ -447,15 +450,257 @@ def summarize_setups(all_setups):
     }
 
 
-def main():
+# ---------------------------------------------------------------------------
+# Extra per-setup / per-scan fields (added on top of the numbers above — they
+# never change how a setup is split, priced or summarised).
+# ---------------------------------------------------------------------------
+
+STAGE_FILE = os.path.join(SCANS_DIR, "market_stage_transitions.json")
+STAGE_NO_DATA = "ไม่มีข้อมูล"
+STAGE_ORDER = ["S.Bull", "Bull", "Accumulation", "Recovery", "Warning", "Distribution", "Bear", STAGE_NO_DATA]
+
+# Return buckets for the distribution chart. Each entry: (label, test(r)).
+# Every bucket includes its lower edge (−10 goes to "−10…−6", +2 to "2…4").
+# Flat (|r| < FLAT_EPS) has its own bucket "0"; the buckets either side of it
+# are strictly negative / strictly positive.
+HIST_BUCKETS = [
+    ("< −10", lambda r: r < -10),
+    ("−10…−6", lambda r: -10 <= r < -6),
+    ("−6…−4", lambda r: -6 <= r < -4),
+    ("−4…−2", lambda r: -4 <= r < -2),
+    ("−2…0", lambda r: -2 <= r <= -FLAT_EPS),
+    ("0", lambda r: abs(r) < FLAT_EPS),
+    ("0…2", lambda r: FLAT_EPS <= r < 2),
+    ("2…4", lambda r: 2 <= r < 4),
+    ("4…6", lambda r: 4 <= r < 6),
+    ("6…10", lambda r: 6 <= r < 10),
+    ("> 10", lambda r: r >= 10),
+]
+HIST_LABELS = [b[0] for b in HIST_BUCKETS]
+
+GIVEBACK_MFE_PCT = 3.0     # "เคยกำไร +3% ขึ้นไป แต่ขายเท่าทุนหรือขาดทุน"
+SCATTER_MAX_POINTS = 600
+SCATTER_SEED = 20261105    # fixed -> same sample every run for the same setups
+
+
+def load_stage_lookup(path=STAGE_FILE):
+    """ticker -> [(stage, first_date, last_date), ...] from market_stage_transitions.json,
+    or None when the file is missing/unreadable (the caller then writes stage = null)."""
+    data = load_json(path)
+    if not isinstance(data, dict) or not isinstance(data.get("tickers"), list):
+        return None
+    lookup = {}
+    for rec in data["tickers"]:
+        t = rec.get("ticker") if isinstance(rec, dict) else None
+        runs = rec.get("runs") if t else None
+        if not isinstance(runs, list):
+            continue
+        clean = [(r[0], r[1], r[2]) for r in runs if isinstance(r, (list, tuple)) and len(r) >= 3]
+        if clean:
+            lookup[t] = clean
+    return lookup
+
+
+def stage_on(lookup, ticker, day):
+    """Stage of `ticker` on `day` = the run whose [first, last] contains that day.
+    No run covers it (not tracked yet, gap, IPO/UNKNOWN label) -> STAGE_NO_DATA.
+    lookup None (no stage file) -> None."""
+    if lookup is None:
+        return None
+    for stage, first, last in lookup.get(ticker, ()):
+        if first <= day <= last:
+            return stage if stage in STAGE_ORDER else STAGE_NO_DATA
+    return STAGE_NO_DATA
+
+
+def exit_reason(setup):
+    if setup.get("status") == "open":
+        return "open"
+    if setup.get("holding_days") == 0:
+        return "single_day"
+    return "left_scan"
+
+
+def _finite(v):
+    return v is not None and isinstance(v, (int, float)) and math.isfinite(v)
+
+
+def _r2(v):
+    return round(v, 2) if _finite(v) else None
+
+
+def _mean(values):
+    vals = [v for v in values if _finite(v)]
+    if not vals:
+        return None
+    m = sum(vals) / len(vals)
+    return m if math.isfinite(m) else None
+
+
+def _median(values):
+    vals = sorted(v for v in values if _finite(v))
+    n = len(vals)
+    if n == 0:
+        return None
+    mid = n // 2
+    return vals[mid] if n % 2 == 1 else (vals[mid - 1] + vals[mid]) / 2
+
+
+def _win_rate(returns):
+    if not returns:
+        return None
+    wins, _, _ = win_flat_loss(returns)
+    return wins / len(returns) * 100.0
+
+
+def setup_extras(all_setups, stage_available=True):
+    """New setup_summary fields, from the CLOSED setups only. Returned as a dict
+    that is merged into summarize_setups()'s output (old keys are untouched)."""
+    closed = [s for s in all_setups if s.get("status") == "closed" and _finite(s.get("return_pct"))]
+    n = len(closed)
+    returns = [s["return_pct"] for s in closed]
+    n_win, n_flat, n_loss = win_flat_loss(returns)
+    if n == 0:
+        return {
+            "n_win": 0, "n_flat": 0, "n_loss": 0, "n_single_day": 0,
+            "median_return_pct": None, "avg_win_pct": None, "avg_loss_pct": None,
+            "payoff_ratio": None, "giveback_n": 0, "giveback_mfe_pct": GIVEBACK_MFE_PCT,
+            "hist": None, "hist_labels": HIST_LABELS, "by_stage": None, "monthly": None,
+            "scatter": None, "scatter_sampled": False,
+        }
+
+    avg_win = _mean([r for r in returns if r >= FLAT_EPS])
+    avg_loss = _mean([r for r in returns if r <= -FLAT_EPS])
+    payoff = None
+    if avg_win is not None and avg_loss is not None and abs(avg_loss) > 0:
+        payoff = avg_win / abs(avg_loss)
+        if not math.isfinite(payoff):
+            payoff = None
+
+    giveback = sum(
+        1 for s in closed
+        if _finite(s.get("mfe_pct")) and s["mfe_pct"] >= GIVEBACK_MFE_PCT and s["return_pct"] <= 0
+    )
+
+    hist = [0] * len(HIST_BUCKETS)
+    for r in returns:
+        for i, (_, test) in enumerate(HIST_BUCKETS):
+            if test(r):
+                hist[i] += 1
+                break
+
+    def group_stats(group):
+        rets = [s["return_pct"] for s in group]
+        return {
+            "n": len(group),
+            "avg_return_pct": _r2(_mean(rets)),
+            "win_rate_pct": _r2(_win_rate(rets)),
+        }
+
+    by_stage = None
+    if stage_available:
+        groups = {}
+        for s in closed:
+            groups.setdefault(s.get("stage_at_entry") or STAGE_NO_DATA, []).append(s)
+        by_stage = []
+        for stage in STAGE_ORDER:
+            g = groups.get(stage)
+            if not g:
+                continue
+            row = {"stage": stage, **group_stats(g)}
+            row["avg_mfe_pct"] = _r2(_mean([s.get("mfe_pct") for s in g]))
+            by_stage.append(row)
+
+    months = {}
+    for s in closed:
+        months.setdefault(s["entry_date"][:7], []).append(s)
+    monthly = []
+    for m in sorted(months):
+        g = months[m]
+        row = {"month": m, **group_stats(g)}
+        total = sum(s["return_pct"] for s in g)
+        row["sum_return_pct"] = _r2(total)
+        # keep the key order month, n, avg, sum, win
+        monthly.append({k: row[k] for k in ("month", "n", "avg_return_pct", "sum_return_pct", "win_rate_pct")})
+
+    points = [[s["mfe_pct"], s["return_pct"]] for s in closed if _finite(s.get("mfe_pct"))]
+    sampled = len(points) > SCATTER_MAX_POINTS
+    if sampled:
+        idx = sorted(random.Random(SCATTER_SEED).sample(range(len(points)), SCATTER_MAX_POINTS))
+        points = [points[i] for i in idx]
+
+    return {
+        "n_win": n_win,
+        "n_flat": n_flat,
+        "n_loss": n_loss,
+        "n_single_day": sum(1 for s in closed if s.get("holding_days") == 0),
+        "median_return_pct": _r2(_median(returns)),
+        "avg_win_pct": _r2(avg_win),
+        "avg_loss_pct": _r2(avg_loss),
+        "payoff_ratio": _r2(payoff),
+        "giveback_n": giveback,
+        "giveback_mfe_pct": GIVEBACK_MFE_PCT,
+        "hist": hist,
+        "hist_labels": HIST_LABELS,
+        "by_stage": by_stage,
+        "monthly": monthly,
+        "scatter": points,
+        "scatter_sampled": sampled,
+    }
+
+
+# Refuse to overwrite the file when the total number of setups drops by more
+# than this share versus the file already on disk (a broken price fetch or a
+# missing history dir would otherwise wipe the report card).
+DROP_GUARD_MAX_SHARE = 0.30
+
+
+def total_setups(report):
+    if not isinstance(report, dict):
+        return 0
+    scans = report.get("scans") or {}
+    return sum(len(s.get("setups") or []) for s in scans.values() if isinstance(s, dict))
+
+
+def drop_guard_ok(new_report, prev_report):
+    """(ok, prev_total, new_total). ok is False when setups fell by > DROP_GUARD_MAX_SHARE."""
+    prev_total = total_setups(prev_report)
+    new_total = total_setups(new_report)
+    if prev_total <= 0:
+        return True, prev_total, new_total
+    return new_total >= prev_total * (1 - DROP_GUARD_MAX_SHARE), prev_total, new_total
+
+
+def write_json_atomic(path, obj):
+    """allow_nan=False: a NaN/Infinity anywhere raises instead of writing invalid JSON."""
+    text = json.dumps(obj, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(text)
+    os.replace(tmp, path)
+
+
+def parse_args(argv=None):
+    p = argparse.ArgumentParser(description="Scan report card (forward returns + setups).")
+    p.add_argument("--out", default=OUT_FILE,
+                   help="output path (default: data/scans/report_card.json). Use a scratch path when testing.")
+    p.add_argument("--stage-file", default=STAGE_FILE,
+                   help="market_stage_transitions.json used for stage_at_entry (missing -> stage = null)")
+    return p.parse_args(argv)
+
+
+def main(argv=None):
+    args = parse_args(argv)
+    out_file = args.out
     dates = sorted(
         d for d in os.listdir(HIST_DIR)
         if os.path.isdir(os.path.join(HIST_DIR, d)) and d[0].isdigit()
     )
     if not dates:
-        print("[report-card] No history dates found - nothing to compute.")
-        json.dump({"generated_at": None, "scans": {}}, open(OUT_FILE, "w", encoding="utf-8"))
-        return
+        # Never overwrite a real report card with an empty one.
+        print("[report-card] ERROR: No history dates found - nothing to compute, file not written.")
+        sys.exit(1)
 
     print(f"[report-card] History dates available: {len(dates)} ({dates[0]}..{dates[-1]})")
 
@@ -507,6 +752,12 @@ def main():
     def get_price_series(ticker):
         return price_cache.get(ticker, ([], {}))
 
+    stage_lookup = load_stage_lookup(args.stage_file)
+    if stage_lookup is None:
+        print(f"[report-card] WARNING: stage file not found/unreadable ({args.stage_file}) - stage_at_entry = null, by_stage = null.")
+    else:
+        print(f"[report-card] Stage history loaded for {len(stage_lookup)} tickers ({args.stage_file})")
+
     set_series = drop_dates(load_set_index_series(), holidays)
     set_index = build_date_index(set_series)
     if not set_series:
@@ -553,6 +804,8 @@ def main():
                 continue
             t_setups = compute_setups(hit_dates, series, valid_scan_dates=set(vdates))
             for st in t_setups:
+                st["stage_at_entry"] = stage_on(stage_lookup, ticker, st["entry_date"])
+                st["exit_reason"] = exit_reason(st)
                 scan_setups.append({"ticker": ticker, **st})
 
         scan_setups.sort(key=lambda s: (s["entry_date"], s["ticker"]))
@@ -561,7 +814,10 @@ def main():
             "total_picks": len(entries),
             "horizons": {str(h): summarize_horizon(horizon_rows[h]) for h in HORIZONS},
             "setups": scan_setups,
-            "setup_summary": summarize_setups(scan_setups),
+            "setup_summary": {
+                **summarize_setups(scan_setups),
+                **setup_extras(scan_setups, stage_available=stage_lookup is not None),
+            },
         }
         n5 = result_scans[scan_key]["horizons"]["5"]["n"]
         n_closed = result_scans[scan_key]["setup_summary"]["n_closed"]
@@ -610,13 +866,27 @@ def main():
         print(
             f"[report-card] ERROR: Total computable n is 0 across all scans. "
             f"Price data missing or unreadable from Yahoo API. "
-            f"Aborting without overwriting {OUT_FILE}."
+            f"Aborting without overwriting {out_file}."
         )
         sys.exit(1)
 
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"[report-card] Saved: {OUT_FILE}")
+    # Drop guard: compare against the file being replaced (or the real report
+    # card when writing a fresh scratch file).
+    prev_path = out_file if os.path.exists(out_file) else OUT_FILE
+    ok, prev_total, new_total = drop_guard_ok(output, load_json(prev_path))
+    if not ok:
+        print(
+            f"[report-card] ERROR: total setups dropped {prev_total} -> {new_total} "
+            f"(> {DROP_GUARD_MAX_SHARE:.0%} fewer than {prev_path}). Aborting without overwriting {out_file}."
+        )
+        sys.exit(1)
+
+    try:
+        write_json_atomic(out_file, output)
+    except ValueError as e:  # NaN / Infinity slipped into a number
+        print(f"[report-card] ERROR: non-finite number in output ({e}). Aborting without overwriting {out_file}.")
+        sys.exit(1)
+    print(f"[report-card] Saved: {out_file} (setups {prev_total} -> {new_total})")
 
 
 if __name__ == "__main__":

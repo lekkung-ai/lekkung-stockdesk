@@ -11,14 +11,28 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import json  # noqa: E402
+import tempfile  # noqa: E402
+
 from calculate_report_card import (  # noqa: E402
+    HIST_LABELS,
+    STAGE_NO_DATA,
+    STAGE_ORDER,
     build_date_index,
+    compute_setups,
     drop_dates,
+    drop_guard_ok,
+    exit_reason,
     first_appearances,
     forward_return,
+    load_stage_lookup,
     non_trading_dates,
+    setup_extras,
+    stage_on,
     summarize_horizon,
+    summarize_setups,
     win_flat_loss,
+    write_json_atomic,
 )
 
 
@@ -111,6 +125,132 @@ class WinFlatLossTest(unittest.TestCase):
     def test_empty_summary(self):
         s = summarize_horizon([])
         self.assertEqual((s["n"], s["n_win"], s["n_flat"], s["n_loss"], s["flat_pct"]), (0, 0, 0, 0, None))
+
+
+def setup(ret, *, status="closed", hold=3, mfe=1.0, entry="2026-09-01", stage="Bull"):
+    return {"ticker": "T", "entry_date": entry, "return_pct": ret, "holding_days": hold,
+            "mfe_pct": mfe, "mae_pct": -1.0, "status": status, "stage_at_entry": stage}
+
+
+class StageLookupTest(unittest.TestCase):
+    def write(self, obj):
+        f = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8")
+        json.dump(obj, f)
+        f.close()
+        self.addCleanup(os.unlink, f.name)
+        return f.name
+
+    def test_stage_is_the_run_that_covers_the_entry_day(self):
+        lk = load_stage_lookup(self.write({"tickers": [{"ticker": "AAA", "runs": [
+            ["Bull", "2026-08-01", "2026-08-10"], ["S.Bull", "2026-08-11", "2026-08-31"],
+            ["IPO", "2026-09-01", "2026-09-05"]]}]}))
+        self.assertEqual(stage_on(lk, "AAA", "2026-08-10"), "Bull")
+        self.assertEqual(stage_on(lk, "AAA", "2026-08-11"), "S.Bull")
+        self.assertEqual(stage_on(lk, "AAA", "2026-07-01"), STAGE_NO_DATA)   # before tracking
+        self.assertEqual(stage_on(lk, "AAA", "2026-09-02"), STAGE_NO_DATA)   # label outside STAGE_ORDER
+        self.assertEqual(stage_on(lk, "ZZZ", "2026-08-05"), STAGE_NO_DATA)   # ticker not tracked
+
+    def test_missing_stage_file_gives_null_not_a_crash(self):
+        lk = load_stage_lookup(os.path.join(tempfile.gettempdir(), "no_such_stage_file_rc.json"))
+        self.assertIsNone(lk)
+        self.assertIsNone(stage_on(lk, "AAA", "2026-08-05"))
+        ex = setup_extras([setup(1.0, stage=None), setup(-1.0, stage=None)], stage_available=False)
+        self.assertIsNone(ex["by_stage"])
+        self.assertEqual(ex["n_win"] + ex["n_flat"] + ex["n_loss"], 2)
+
+
+class ExitReasonTest(unittest.TestCase):
+    def test_reasons(self):
+        self.assertEqual(exit_reason({"status": "open", "holding_days": 0}), "open")
+        self.assertEqual(exit_reason({"status": "closed", "holding_days": 0}), "single_day")
+        self.assertEqual(exit_reason({"status": "closed", "holding_days": 4}), "left_scan")
+
+    def test_zero_day_setup_is_still_flat_and_closed(self):
+        # hit once on D, entry = D+1 close, exit = day after last hit = the same D+1 bar
+        series = [row(f"2026-09-{d:02d}", 10 + d, 1) for d in range(1, 12)]
+        out = compute_setups(["2026-09-01"], series)
+        self.assertEqual(len(out), 1)
+        self.assertEqual((out[0]["holding_days"], out[0]["return_pct"], out[0]["status"]), (0, 0.0, "closed"))
+        self.assertEqual(exit_reason(out[0]), "single_day")
+
+
+class SetupExtrasTest(unittest.TestCase):
+    def test_counts_payoff_giveback_hist_and_groups_add_up(self):
+        s = [
+            setup(4.0, mfe=6.0, entry="2026-08-03", stage="S.Bull"),
+            setup(2.0, mfe=2.5, entry="2026-08-20", stage="Bull"),
+            setup(0.0, hold=0, mfe=3.5, entry="2026-09-01", stage="Bull"),   # single day, gave back
+            setup(-2.0, mfe=4.0, entry="2026-09-02", stage=STAGE_NO_DATA),  # gave back
+            setup(-10.0, mfe=0.0, entry="2026-09-03", stage="Bear"),
+            setup(5.0, status="open", mfe=9.0),                              # open: ignored
+        ]
+        ex = setup_extras(s)
+        self.assertEqual((ex["n_win"], ex["n_flat"], ex["n_loss"], ex["n_single_day"]), (2, 1, 2, 1))
+        self.assertEqual(ex["median_return_pct"], 0.0)
+        self.assertEqual((ex["avg_win_pct"], ex["avg_loss_pct"]), (3.0, -6.0))
+        self.assertEqual(ex["payoff_ratio"], 0.5)
+        self.assertEqual(ex["giveback_n"], 2)
+        self.assertEqual(len(ex["hist"]), len(HIST_LABELS))
+        self.assertEqual(ex["hist"][HIST_LABELS.index("−10…−6")], 1)   # lower edge included
+        self.assertEqual(ex["hist"][HIST_LABELS.index("−2…0")], 1)
+        self.assertEqual(ex["hist"][HIST_LABELS.index("0")], 1)
+        self.assertEqual(ex["hist"][HIST_LABELS.index("2…4")], 1)
+        self.assertEqual(ex["hist"][HIST_LABELS.index("4…6")], 1)
+        n = 5
+        self.assertEqual(sum(ex["hist"]), n)
+        self.assertEqual(sum(r["n"] for r in ex["by_stage"]), n)
+        self.assertEqual(sum(r["n"] for r in ex["monthly"]), n)
+        self.assertEqual([r["stage"] for r in ex["by_stage"]], ["S.Bull", "Bull", "Bear", STAGE_NO_DATA])
+        self.assertEqual([r["month"] for r in ex["monthly"]], ["2026-08", "2026-09"])
+        self.assertEqual(ex["monthly"][1]["sum_return_pct"], -12.0)
+        self.assertEqual(ex["monthly"][0]["win_rate_pct"], 100.0)
+        self.assertEqual(len(ex["scatter"]), n)
+
+    def test_win_count_matches_old_summary_win_rate(self):
+        s = [setup(r) for r in (1.0, 0.0, -1.0, 0.01, -0.01, 0.0)]
+        old = summarize_setups(s)
+        ex = setup_extras(s)
+        self.assertAlmostEqual(old["win_rate_pct"], round(ex["n_win"] / old["n_closed"] * 100, 2))
+
+    def test_one_sided_payoff_is_null(self):
+        self.assertIsNone(setup_extras([setup(1.0), setup(2.0)])["payoff_ratio"])
+        self.assertIsNone(setup_extras([setup(-1.0), setup(0.0)])["payoff_ratio"])
+
+    def test_no_closed_setups(self):
+        ex = setup_extras([setup(1.0, status="open")])
+        self.assertEqual((ex["n_win"], ex["n_flat"], ex["n_loss"]), (0, 0, 0))
+        self.assertIsNone(ex["hist"])
+        self.assertIsNone(ex["by_stage"])
+        self.assertIsNone(ex["monthly"])
+        self.assertIsNone(ex["payoff_ratio"])
+
+    def test_scatter_is_capped_and_deterministic(self):
+        s = [setup(float(i % 7 - 3), mfe=float(i % 11)) for i in range(1500)]
+        a, b = setup_extras(s), setup_extras(s)
+        self.assertEqual(len(a["scatter"]), 600)
+        self.assertTrue(a["scatter_sampled"])
+        self.assertEqual(a["scatter"], b["scatter"])
+
+    def test_stage_order_constant(self):
+        self.assertEqual(STAGE_ORDER, ["S.Bull", "Bull", "Accumulation", "Recovery", "Warning",
+                                       "Distribution", "Bear", STAGE_NO_DATA])
+
+
+class DropGuardAndWriteTest(unittest.TestCase):
+    def rep(self, n):
+        return {"scans": {"a": {"setups": [{}] * n}}}
+
+    def test_drop_over_30_percent_blocks(self):
+        self.assertFalse(drop_guard_ok(self.rep(69), self.rep(100))[0])
+        self.assertTrue(drop_guard_ok(self.rep(70), self.rep(100))[0])
+        self.assertTrue(drop_guard_ok(self.rep(5), None)[0])        # no previous file
+        self.assertTrue(drop_guard_ok(self.rep(150), self.rep(100))[0])
+
+    def test_nan_is_refused(self):
+        path = os.path.join(tempfile.gettempdir(), "rc_nan_test.json")
+        with self.assertRaises(ValueError):
+            write_json_atomic(path, {"x": float("nan")})
+        self.assertFalse(os.path.exists(path))
 
 
 if __name__ == "__main__":
