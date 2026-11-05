@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { fixThaiPua, fixThaiText, fixSaraAm, reasonPreview } from './earningsMetrics';
+import { fixThaiPua, fixThaiText, fixThaiIpa, fixSaraAm, reasonPreview } from './earningsMetrics';
 
 // Twin of scripts/test_thai_pua.py. Code points are built with fromCharCode so
 // the invisible glyphs are explicit in the source.
@@ -58,5 +58,21 @@ describe('fixThaiPua / fixThaiText', () => {
   it('correct text unchanged', () => {
     const ok = 'กำไรสุทธิ 57.63 ล้านบาท เพิ่มขึ้นร้อยละ 20.91';
     expect(fixThaiText(ok)).toBe(ok);
+  });
+});
+
+describe('fixThaiIpa (U+0269 -> ิ, U+026D -> ึ only after a Thai character)', () => {
+  const I = P(0x0269);
+  const L = P(0x026d);
+  it('TRUE case', () => {
+    expect(fixThaiText(`รายได้จากการให้บร${I}การ โทรทัศน์บอกรับสมาช${I}ก เพิ่มข${L}้น 2.1%`))
+      .toBe('รายได้จากการให้บริการ โทรทัศน์บอกรับสมาชิก เพิ่มขึ้น 2.1%');
+    expect(fixThaiText(`ให${P(0xf70b)}บร${I}การ เพิ่มข${L}${P(0xf70b)}น`)).toBe('ให้บริการ เพิ่มขึ้น');
+  });
+  it('English text with ɩ / ɭ is not touched', () => {
+    for (const s of [`the ${I} and ${L} letters`, `IPA: [${I}] [${L}]`, `A${I}B${L}`, `${I}${L} at the start`, `ไทย ${I}`]) {
+      expect(fixThaiIpa(s)).toBe(s);
+      expect(fixThaiText(s)).toBe(s);
+    }
   });
 });

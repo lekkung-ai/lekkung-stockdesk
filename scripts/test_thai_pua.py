@@ -74,3 +74,26 @@ def test_correct_text_and_empty_values_untouched():
     assert fix_thai_text(ok) == ok
     assert fix_thai_text('') == ''
     assert fix_thai_text(None) is None
+
+
+# ── IPA look-alikes after a Thai character (U+0269 -> ิ, U+026D -> ึ) ──
+
+from extract_reason import fix_thai_ipa  # noqa: E402
+
+I, L = chr(0x0269), chr(0x026D)
+
+
+def test_true_ipa_vowels():
+    raw = f'รายได้จากการให้บร{I}การ โทรทัศน์บอกรับสมาช{I}ก เพิ่มข{L}้น 2.1%'
+    assert fix_thai_text(raw) == 'รายได้จากการให้บริการ โทรทัศน์บอกรับสมาชิก เพิ่มขึ้น 2.1%'
+
+
+def test_true_full_raw_pua_plus_ipa():
+    raw = f'ให{P(0xF70B)}บร{I}การ เพิ่มข{L}{P(0xF70B)}น'
+    assert fix_thai_text(raw) == 'ให้บริการ เพิ่มขึ้น'
+
+
+def test_english_ipa_untouched():
+    for s in (f'the {I} and {L} letters', f'IPA: [{I}] [{L}]', f'A{I}B{L}', f'{I}{L} at the start', f'ไทย {I}'):
+        assert fix_thai_ipa(s) == s, s
+        assert fix_thai_text(s) == s, s

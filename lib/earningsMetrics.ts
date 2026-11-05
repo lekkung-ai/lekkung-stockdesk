@@ -55,9 +55,21 @@ export function fixThaiPua(text: string): string {
   return text.replace(THAI_PUA_RE, ch => THAI_PUA.get(ch) ?? ch);
 }
 
-/** Every Thai repair the page applies to MD&A text: PUA glyph variants, then sara am. */
+// Latin IPA look-alikes used for two Thai upper vowels (TRUE: "บร" + U+0269 =
+// "บริการ", "ข" + U+026D + "้น" = "ขึ้น") - replaced only right after a Thai
+// character, so English text is never touched. Twin of fix_thai_ipa().
+const IPA_AFTER_THAI = new Map([[String.fromCharCode(0x0269), String.fromCharCode(0x0e34)], [String.fromCharCode(0x026d), String.fromCharCode(0x0e36)]]);
+const IPA_AFTER_THAI_RE = new RegExp(
+  `(?<=[${String.fromCharCode(0x0e01)}-${String.fromCharCode(0x0e5b)}])[${String.fromCharCode(0x0269, 0x026d)}]`, 'g');
+
+export function fixThaiIpa(text: string): string {
+  return text.replace(IPA_AFTER_THAI_RE, ch => IPA_AFTER_THAI.get(ch) ?? ch);
+}
+
+/** Every Thai repair the page applies to MD&A text: PUA glyph variants, IPA look-alikes
+ *  after a Thai character, then sara am. */
 export function fixThaiText(text: string): string {
-  return fixSaraAm(fixThaiPua(text));
+  return fixSaraAm(fixThaiIpa(fixThaiPua(text)));
 }
 
 // ── MD&A reason preview ──────────────────────────────────────────────────────

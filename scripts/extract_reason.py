@@ -234,10 +234,27 @@ def fix_thai_pua(text):
     return text.translate(_THAI_PUA_TABLE) if text else text
 
 
+# Latin IPA look-alikes some fonts use for two Thai upper vowels (TRUE Q3/2569:
+# "บร" + U+0269 for "บริการ", "ข" + U+026D + "้น" for "ขึ้น"). Replaced ONLY right
+# after a Thai character, so English text with these letters is never touched.
+IPA_AFTER_THAI_MAP = {
+    0x0269: 0x0E34,  # ɩ -> ิ sara i
+    0x026D: 0x0E36,  # ɭ -> ึ sara ue
+}
+_IPA_AFTER_THAI_RE = re.compile(
+    '(?<=[' + chr(0x0E01) + '-' + chr(0x0E5B) + '])[' + ''.join(chr(k) for k in IPA_AFTER_THAI_MAP) + ']')
+
+
+def fix_thai_ipa(text):
+    """ɩ / ɭ directly after a Thai character -> ิ / ึ."""
+    return _IPA_AFTER_THAI_RE.sub(lambda m: chr(IPA_AFTER_THAI_MAP[ord(m.group())]), text) if text else text
+
+
 def fix_thai_text(text):
-    """Every known Thai repair, in order: PUA glyph variants, then sara am.
-    Used for fresh extractions and for text already sitting in the cache."""
-    return fix_sara_am(fix_thai_pua(text)) if text else text
+    """Every known Thai repair, in order: PUA glyph variants, IPA look-alikes
+    after a Thai character, then sara am. Used for fresh extractions and for
+    text already sitting in the cache."""
+    return fix_sara_am(fix_thai_ipa(fix_thai_pua(text))) if text else text
 
 
 def clean_text(raw):
@@ -250,7 +267,7 @@ def clean_text(raw):
     # Other SET PDFs break it differently (" ำ" / "ํา") - fix_sara_am()
     # covers those, run again at the end since the whitespace collapse
     # below can turn a line break before ำ into a space.
-    text = fix_sara_am(fix_thai_pua(raw).replace(' า', 'ำ'))
+    text = fix_sara_am(fix_thai_ipa(fix_thai_pua(raw)).replace(' า', 'ำ'))
     text = CONTROL_CHARS_RE.sub(' ', text)
     text = PAGE_NUM_RE.sub(' ', text)
     text = re.sub(r'[ \t\r\n]+', ' ', text).strip()
