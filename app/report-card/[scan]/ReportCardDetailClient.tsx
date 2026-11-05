@@ -4,10 +4,22 @@ import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { TableWrap, Th, Td, stageCls } from '@/components/StrategyTable';
+import { TableWrap, Td, stageCls } from '@/components/StrategyTable';
 import ReportCardChart from '@/components/ReportCardChart';
 import { GivebackRange, MfeScatter, MonthlyChart, ReturnHistogram } from '@/components/reportCard/ReportCardCharts';
 import { TS, READABLE } from '@/lib/typeScale';
+import {
+  PRESETS,
+  SORT_LABELS,
+  SortKey,
+  SortState,
+  dirLabel,
+  nextSort,
+  parseSort,
+  presetFor,
+  sortParams,
+  sortSetups,
+} from '@/lib/reportCardSort';
 import {
   BestWorstEntry,
   FLAT_COLOR,
@@ -384,35 +396,10 @@ function BestWorst({ data }: { data: ScanReport }) {
   );
 }
 
-/* ---------- รายการไม้ (sort / status in the URL) ---------- */
+/* ---------- รายการไม้ (sort / dir / status in the URL) ---------- */
 
-const SORTS = {
-  latest: 'วันที่เข้าล่าสุดก่อน',
-  best: 'ผลตอบแทนมากสุดก่อน',
-  worst: 'ผลตอบแทนน้อยสุดก่อน',
-  giveback: 'หลุดมือมากสุดก่อน (MFE − ผล)',
-} as const;
-type SortKey = keyof typeof SORTS;
 const STATUSES = { all: 'ทั้งหมด', open: 'ยังถือ', closed: 'ปิดแล้ว' } as const;
 type StatusKey = keyof typeof STATUSES;
-
-function sortSetups(list: SetupEntry[], key: SortKey): SetupEntry[] {
-  const byLatest = (a: SetupEntry, b: SetupEntry) => b.entry_date.localeCompare(a.entry_date) || a.ticker.localeCompare(b.ticker);
-  const gb = (s: SetupEntry) => (isNum(s.mfe_pct) ? s.mfe_pct - s.return_pct : null);
-  const out = [...list];
-  if (key === 'best') out.sort((a, b) => b.return_pct - a.return_pct || byLatest(a, b));
-  else if (key === 'worst') out.sort((a, b) => a.return_pct - b.return_pct || byLatest(a, b));
-  else if (key === 'giveback')
-    out.sort((a, b) => {
-      const ga = gb(a), gbb = gb(b);
-      if (ga == null && gbb == null) return byLatest(a, b);
-      if (ga == null) return 1;
-      if (gbb == null) return -1;
-      return gbb - ga || byLatest(a, b);
-    });
-  else out.sort(byLatest);
-  return out;
-}
 
 function Pager({ page, total, count, label, onPage }: { page: number; total: number; count: number; label: string; onPage: (p: number) => void }) {
   if (total <= 1) return null;
@@ -437,13 +424,45 @@ function Pager({ page, total, count, label, onPage }: { page: number; total: num
   );
 }
 
+const TH_BASE = `px-3 py-2.5 text-label font-semibold uppercase tracking-wider whitespace-nowrap`;
+
+function SortTh({ label, sortKey, sort, onSort, right, wrap }: {
+  label: React.ReactNode; sortKey: SortKey; sort: SortState; onSort: (k: SortKey) => void; right?: boolean; wrap?: boolean;
+}) {
+  const active = sort.key === sortKey;
+  const arrow = active ? (sort.dir === 'asc' ? '▲' : '▼') : '▼';
+  return (
+    <th
+      scope="col"
+      aria-sort={active ? (sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}
+      className={`${TH_BASE} ${right ? 'text-right' : 'text-left'} ${wrap ? '!whitespace-normal leading-tight' : ''} ${active ? 'text-white' : 'text-white/35'}`}
+    >
+      <button
+        type="button"
+        onClick={() => onSort(sortKey)}
+        title={`เรียงตาม ${SORT_LABELS[sortKey]}`}
+        className={`group inline-flex items-center gap-1 uppercase tracking-wider font-semibold rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 hover:text-white/80 ${right ? 'flex-row-reverse' : ''} ${active ? 'text-white' : ''}`}
+      >
+        <span>{label}</span>
+        <span
+          aria-hidden="true"
+          className={`text-[9px] leading-none ${active ? 'opacity-100' : 'opacity-0 group-hover:opacity-40 group-focus-visible:opacity-40'}`}
+        >
+          {arrow}
+        </span>
+      </button>
+    </th>
+  );
+}
+
 function SetupTables({ setups }: { setups: SetupEntry[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const rawSort = searchParams.get('sort');
   const rawStatus = searchParams.get('status');
-  const sort: SortKey = rawSort && rawSort in SORTS ? (rawSort as SortKey) : 'latest';
+  const rawSort = searchParams.get('sort');
+  const rawDir = searchParams.get('dir');
+  const sort = useMemo(() => parseSort(rawSort, rawDir), [rawSort, rawDir]);
   const status: StatusKey = rawStatus && rawStatus in STATUSES ? (rawStatus as StatusKey) : 'all';
 
   const [openPage, setOpenPage] = useState(1);
@@ -452,15 +471,27 @@ function SetupTables({ setups }: { setups: SetupEntry[] }) {
   useEffect(() => {
     setOpenPage(1);
     setClosedPage(1);
-  }, [sort, status]);
+  }, [sort.key, sort.dir, status]);
 
-  const setParam = (key: 'sort' | 'status', value: string, dflt: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (value === dflt) params.delete(key);
-    else params.set(key, value);
+  const replaceUrl = (params: URLSearchParams) => {
     const qs = params.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
+  const setStatus = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value === 'all') params.delete('status');
+    else params.set('status', value);
+    replaceUrl(params);
+  };
+  // The single sort state: header click and dropdown both end up here.
+  const setSort = (next: SortState) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const p = sortParams(next);
+    if (p.sort) params.set('sort', p.sort); else params.delete('sort');
+    if (p.dir) params.set('dir', p.dir); else params.delete('dir');
+    replaceUrl(params);
+  };
+  const onHeaderSort = (key: SortKey) => setSort(nextSort(sort, key));
 
   const showStage = setups.some(s => s.stage_at_entry != null);
 
@@ -484,15 +515,15 @@ function SetupTables({ setups }: { setups: SetupEntry[] }) {
   const head = (exitLabel: string) => (
     <thead className="border-b border-white/[0.06] bg-white/[0.015]">
       <tr>
-        <Th>หุ้น</Th>
-        <Th className="!whitespace-normal leading-tight">ซื้อ<br />(วันถัดจากติดสแกน)</Th>
-        <Th>{exitLabel}</Th>
-        <Th right>ถือ (วัน)</Th>
-        <Th right>ผลตอบแทน</Th>
-        <Th right>ขึ้นสูงสุด</Th>
-        <Th right>ลงต่ำสุด</Th>
-        {showStage && <Th>stage ตอนเข้า</Th>}
-        <Th>ปิดเพราะ</Th>
+        <SortTh label="หุ้น" sortKey="ticker" sort={sort} onSort={onHeaderSort} />
+        <SortTh label={<>ซื้อ<br />(วันถัดจากติดสแกน)</>} sortKey="entry" sort={sort} onSort={onHeaderSort} wrap />
+        <SortTh label={exitLabel} sortKey="exit" sort={sort} onSort={onHeaderSort} />
+        <SortTh label="ถือ (วัน)" sortKey="hold" sort={sort} onSort={onHeaderSort} right />
+        <SortTh label="ผลตอบแทน" sortKey="ret" sort={sort} onSort={onHeaderSort} right />
+        <SortTh label="ขึ้นสูงสุด" sortKey="mfe" sort={sort} onSort={onHeaderSort} right />
+        <SortTh label="ลงต่ำสุด" sortKey="mae" sort={sort} onSort={onHeaderSort} right />
+        {showStage && <SortTh label="stage ตอนเข้า" sortKey="stage" sort={sort} onSort={onHeaderSort} />}
+        <SortTh label="ปิดเพราะ" sortKey="reason" sort={sort} onSort={onHeaderSort} />
       </tr>
     </thead>
   );
@@ -593,23 +624,35 @@ function SetupTables({ setups }: { setups: SetupEntry[] }) {
     );
   };
 
+  const preset = presetFor(sort);
   const sel = `bg-[#13161e] border border-white/[0.1] rounded-lg px-2 py-1.5 ${TS.body} text-white/85`;
   return (
     <div className="space-y-4">
       <div className={`flex items-center gap-3 flex-wrap ${TS.body} text-white/55`}>
         <label className="inline-flex items-center gap-2">
           เรียงตาม
-          <select className={sel} value={sort} onChange={e => setParam('sort', e.target.value, 'latest')}>
-            {(Object.keys(SORTS) as SortKey[]).map(k => <option key={k} value={k}>{SORTS[k]}</option>)}
+          <select
+            className={sel}
+            value={preset ? preset.value : 'column'}
+            onChange={e => {
+              const p = PRESETS.find(x => x.value === e.target.value);
+              if (p) setSort(p.sort);
+            }}
+          >
+            {!preset && <option value="column">{`ตามคอลัมน์: ${SORT_LABELS[sort.key]} (${dirLabel(sort)})`}</option>}
+            {PRESETS.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
           </select>
         </label>
         <label className="inline-flex items-center gap-2">
           แสดง
-          <select className={sel} value={status} onChange={e => setParam('status', e.target.value, 'all')}>
+          <select className={sel} value={status} onChange={e => setStatus(e.target.value)}>
             {(Object.keys(STATUSES) as StatusKey[]).map(k => <option key={k} value={k}>{STATUSES[k]}</option>)}
           </select>
         </label>
       </div>
+      <p className={`${TS.caption} text-white/45 px-1 -mt-1`} aria-live="polite">
+        เรียงตาม <b className="text-white/75 font-semibold">{SORT_LABELS[sort.key]}</b> {dirLabel(sort)}
+      </p>
       {status !== 'closed' && openList.length > 0 &&
         block('ยังถืออยู่', openList, openPage, setOpenPage, 'ล่าสุด', 'ยังถือ', 'ไม่มีไม้ที่ยังถือ')}
       {status !== 'open' &&
