@@ -9,7 +9,7 @@ import TableSkeleton from '@/components/TableSkeleton';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
 import { classifyQoQ } from '@/lib/qoqBucket';
 import {
-  fixSaraAm, reasonPreview, meaningfulYoY, isTurnaround, isAccelerating, isPead, peadRanked,
+  fixThaiText, reasonPreview, meaningfulYoY, isTurnaround, isAccelerating, isPead, peadRanked,
   isImproved, isWorsened, priorQuarterImproved, pricePath, compareProfit, type ProfitChange,
 } from '@/lib/earningsMetrics';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
@@ -95,7 +95,7 @@ function QoQCell({ a }: { a: EarningsAnnouncement }) {
 }
 
 function reasonOf(a: EarningsAnnouncement): string {
-  return a.reason ? fixSaraAm(a.reason) : '';
+  return a.reason ? fixThaiText(a.reason) : '';
 }
 function rowKey(a: EarningsAnnouncement): string {
   return a.f45Url || `${a.ticker}|${a.announceDate}`;

@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { parseF45Detail, type F45Data } from '@/lib/parseF45';
 import { classifyBucket } from '@/lib/earningsBucket';
+import { fixThaiText } from '@/lib/earningsMetrics';
 import type { EarningsFeed } from '@/app/api/earnings/route';
 
 const FEED_PATH = path.join(process.cwd(), 'public', 'data', 'earnings', 'earnings_feed.json');
@@ -13,7 +14,8 @@ function lookupReason(ticker: string, quarter: string | null): { reason: string;
   try {
     const feed: EarningsFeed = JSON.parse(fs.readFileSync(FEED_PATH, 'utf-8'));
     const match = feed.announcements.find(a => a.ticker === ticker && (!quarter || a.quarter === quarter));
-    if (match) return { reason: match.reason, reason_source: match.reason_source };
+    // Thai PUA / sara-am repair at read time too - text cached before the batch fix still shows correctly
+    if (match) return { reason: match.reason ? fixThaiText(match.reason) : '', reason_source: match.reason_source };
   } catch {
     // batch file missing/unreadable - fall through to the "not extracted yet" default
   }

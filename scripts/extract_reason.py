@@ -188,6 +188,58 @@ def fix_sara_am(text):
     return re.sub(r'\s+\u0e33', '\u0e33', text)
 
 
+# Thai glyph variants in the Private Use Area. Some SET MD&A PDFs (Thai fonts
+# such as Angsana/Cordia/Tahoma in Adobe/Microsoft encodings) map the shifted
+# positions of the tone marks and upper/lower vowels - and the descender-less
+# ฐ / ญ - to U+F700-U+F71A instead of the real Thai code points, so PyMuPDF
+# returns e.g. "รายได" + U+F70B ("ได้" with a lowered mai tho). The page shows
+# those as empty boxes. Standard table (same as libthai / pdf.js): each PUA
+# glyph is only a positional variant of one real character, so the mapping is
+# exact - nothing is guessed. U+FFFD (data really lost) is NOT touched here.
+# Kept in sync with fixThaiPua() in lib/earningsMetrics.ts.
+THAI_PUA_MAP = {
+    0xF700: 0x0E10,  # ฐ without descender
+    0xF701: 0x0E34,  # ิ  sara i (left-shifted)
+    0xF702: 0x0E35,  # ี  sara ii
+    0xF703: 0x0E36,  # ึ  sara ue
+    0xF704: 0x0E37,  # ื  sara uee
+    0xF705: 0x0E48,  # ่  mai ek (low-left)
+    0xF706: 0x0E49,  # ้  mai tho
+    0xF707: 0x0E4A,  # ๊  mai tri
+    0xF708: 0x0E4B,  # ๋  mai chattawa
+    0xF709: 0x0E4C,  # ์  thanthakhat
+    0xF70A: 0x0E48,  # ่  mai ek (low)
+    0xF70B: 0x0E49,  # ้  mai tho (low)
+    0xF70C: 0x0E4A,  # ๊  mai tri (low)
+    0xF70D: 0x0E4B,  # ๋  mai chattawa (low)
+    0xF70E: 0x0E4C,  # ์  thanthakhat (low)
+    0xF70F: 0x0E0D,  # ญ without descender
+    0xF710: 0x0E31,  # ั  mai han-akat (left)
+    0xF711: 0x0E4D,  # ํ  nikhahit (left)
+    0xF712: 0x0E47,  # ็  mai taikhu (left)
+    0xF713: 0x0E48,  # ่  mai ek (left)
+    0xF714: 0x0E49,  # ้  mai tho (left)
+    0xF715: 0x0E4A,  # ๊  mai tri (left)
+    0xF716: 0x0E4B,  # ๋  mai chattawa (left)
+    0xF717: 0x0E4C,  # ์  thanthakhat (left)
+    0xF718: 0x0E38,  # ุ  sara u (low)
+    0xF719: 0x0E39,  # ู  sara uu (low)
+    0xF71A: 0x0E3A,  # ฺ  phinthu (low)
+}
+_THAI_PUA_TABLE = {k: chr(v) for k, v in THAI_PUA_MAP.items()}
+
+
+def fix_thai_pua(text):
+    """Thai PUA glyph variants (U+F700-U+F71A) -> the real Thai characters."""
+    return text.translate(_THAI_PUA_TABLE) if text else text
+
+
+def fix_thai_text(text):
+    """Every known Thai repair, in order: PUA glyph variants, then sara am.
+    Used for fresh extractions and for text already sitting in the cache."""
+    return fix_sara_am(fix_thai_pua(text)) if text else text
+
+
 def clean_text(raw):
     # SET's PDF generator emits the sara-am vowel (ำ) as a stray space
     # followed by า (e.g. "จ ากัด" for "จำกัด" - confirmed against real
@@ -198,7 +250,7 @@ def clean_text(raw):
     # Other SET PDFs break it differently (" ำ" / "ํา") - fix_sara_am()
     # covers those, run again at the end since the whitespace collapse
     # below can turn a line break before ำ into a space.
-    text = fix_sara_am(raw.replace(' า', 'ำ'))
+    text = fix_sara_am(fix_thai_pua(raw).replace(' า', 'ำ'))
     text = CONTROL_CHARS_RE.sub(' ', text)
     text = PAGE_NUM_RE.sub(' ', text)
     text = re.sub(r'[ \t\r\n]+', ' ', text).strip()
@@ -327,6 +379,9 @@ def main():
     if os.path.exists(cache_path):
         with open(cache_path, 'r', encoding='utf-8') as f:
             cache = json.load(f)
+        for entry in cache.values():
+            if isinstance(entry, dict) and entry.get('reason'):
+                entry['reason'] = fix_thai_text(entry['reason'])
 
     announcements = feed.get('announcements', [])
     print(f"Announcements in feed: {len(announcements)}")
@@ -343,13 +398,13 @@ def main():
         key = cache_key(a)
         cached = cache.get(key)
         if cached and cached.get('reason_source') == 'mda_extract':
-            # Cached before fix_sara_am() existed -> normalize on the way out
-            # (and in the cache itself, written back below).
-            cached['reason'] = fix_sara_am(cached['reason'])
+            # Cached before fix_sara_am() / fix_thai_pua() existed -> normalize
+            # on the way out (and in the cache itself, written back below).
+            cached['reason'] = fix_thai_text(cached['reason'])
             a['reason'] = cached['reason']
             a['reason_source'] = cached['reason_source']
         elif a.get('reason_source') == 'mda_extract' and a.get('reason'):
-            a['reason'] = fix_sara_am(a['reason'])
+            a['reason'] = fix_thai_text(a['reason'])
             # fetch_earnings.py's own merge-on-write already restored this
             # one from the previous file (our cache.json is missing/behind)
             # - trust it and backfill the cache, instead of attempting a

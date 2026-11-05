@@ -33,6 +33,33 @@ export function fixSaraAm(text: string): string {
   return text.replace(NIKHAHIT_AA, SARA_AM).replace(SPACE_SARA_AM, SARA_AM);
 }
 
+// ── Thai PUA glyph variants ──────────────────────────────────────────────────
+// Some MD&A PDFs put the shifted tone marks / upper-lower vowels (and the
+// descender-less ฐ ญ) in the Private Use Area U+F700-U+F71A, which the page
+// draws as empty boxes ("รายได" + U+F70B = "ได้"). Each one is a positional
+// variant of exactly one real character - standard table, nothing guessed.
+// U+FFFD (really lost) is left alone. Twin of fix_thai_pua() in
+// scripts/extract_reason.py - keep both tables in sync by hand.
+const THAI_PUA_PAIRS: [number, number][] = [
+  [0xf700, 0x0e10], [0xf701, 0x0e34], [0xf702, 0x0e35], [0xf703, 0x0e36], [0xf704, 0x0e37],
+  [0xf705, 0x0e48], [0xf706, 0x0e49], [0xf707, 0x0e4a], [0xf708, 0x0e4b], [0xf709, 0x0e4c],
+  [0xf70a, 0x0e48], [0xf70b, 0x0e49], [0xf70c, 0x0e4a], [0xf70d, 0x0e4b], [0xf70e, 0x0e4c],
+  [0xf70f, 0x0e0d], [0xf710, 0x0e31], [0xf711, 0x0e4d], [0xf712, 0x0e47], [0xf713, 0x0e48],
+  [0xf714, 0x0e49], [0xf715, 0x0e4a], [0xf716, 0x0e4b], [0xf717, 0x0e4c], [0xf718, 0x0e38],
+  [0xf719, 0x0e39], [0xf71a, 0x0e3a],
+];
+const THAI_PUA = new Map(THAI_PUA_PAIRS.map(([p, t]) => [String.fromCharCode(p), String.fromCharCode(t)]));
+const THAI_PUA_RE = new RegExp(`[${String.fromCharCode(0xf700)}-${String.fromCharCode(0xf71a)}]`, 'g');
+
+export function fixThaiPua(text: string): string {
+  return text.replace(THAI_PUA_RE, ch => THAI_PUA.get(ch) ?? ch);
+}
+
+/** Every Thai repair the page applies to MD&A text: PUA glyph variants, then sara am. */
+export function fixThaiText(text: string): string {
+  return fixSaraAm(fixThaiPua(text));
+}
+
 // ── MD&A reason preview ──────────────────────────────────────────────────────
 // extract_reason.py sometimes lands on a financial table instead of a sentence
 // ("รวมรายได้ ... 4,604.7 4,112.0 12.0 3,821.4 ..."). That reads as noise under a
@@ -62,7 +89,7 @@ export function isTableLikeReason(text: string | null | undefined): boolean {
 /** The line shown under a ticker: the fixed reason text, or '' when there is none
  *  or it is table-like. Never a placeholder. */
 export function reasonPreview(reason: string | null | undefined): string {
-  const fixed = reason ? fixSaraAm(reason) : '';
+  const fixed = reason ? fixThaiText(reason) : '';
   return isTableLikeReason(fixed) ? '' : fixed;
 }
 
