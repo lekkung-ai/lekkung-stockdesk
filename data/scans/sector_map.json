@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06",
+  "updated": "2026-11-05",
   "note": "SET + MAI sector list — อัปเดตจาก TradingView 23 มิ.ย. 2569 + patched 10 tickers missing after universe update to 875 (2026-07-11, verified via web search against SET/Settrade company classification pages)",
   "sectors": [
     {
@@ -358,6 +358,7 @@
         "TCOAT",
         "TFI",
         "THIP",
+        "TIPAK",
         "TMD",
         "TOPP",
         "TPAC",
@@ -365,7 +366,7 @@
         "TPP",
         "UNIX"
       ],
-      "count": 21
+      "count": 22
     },
     {
       "sector": "Industrials",
@@ -935,6 +936,7 @@
         "DOD",
         "EFORL",
         "EURO",
+        "HPT",
         "ITTHI",
         "JSP",
         "JUBILE",
@@ -950,7 +952,7 @@
         "WARRIX",
         "WINMED"
       ],
-      "count": 19
+      "count": 20
     },
     {
       "sector": "Financials",
@@ -5729,6 +5731,16 @@
     },
     "PHAT": {
       "sector": "Agro",
+      "subsector": "",
+      "market": "MAI"
+    },
+    "TIPAK": {
+      "sector": "Industrials",
+      "subsector": "Packaging",
+      "market": "SET"
+    },
+    "HPT": {
+      "sector": "Consumer",
       "subsector": "",
       "market": "MAI"
     }
