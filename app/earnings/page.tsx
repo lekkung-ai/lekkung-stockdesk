@@ -10,8 +10,9 @@ import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@
 import { classifyQoQ } from '@/lib/qoqBucket';
 import {
   fixThaiText, reasonPreview, meaningfulYoY, isTurnaround, isAccelerating, isPead, peadRanked,
-  isImproved, isWorsened, priorQuarterImproved, pricePath, compareProfit, type ProfitChange,
+  priorQuarterImproved, pricePath, compareProfit, type ProfitChange,
 } from '@/lib/earningsMetrics';
+import { fmtMoney, pageBucket, seasonCounts } from '@/lib/earningsView';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
 
 // ── Formatting ───────────────────────────────────────────────────────────────
@@ -54,15 +55,6 @@ function fullDateTime(iso: string | null): string {
   const d = new Date(iso);
   const p = bangkokParts(d);
   return `${p.day} ${MONTHS[p.month - 1]} ${p.year + 543} ${bangkokHHMM(d)} น.`;
-}
-
-function fmtMoney(n: number | null | undefined): string {
-  if (n == null) return '—';
-  const abs = Math.abs(n);
-  const sign = n < 0 ? '-' : '';
-  if (abs >= 1e9) return `${sign}${(abs / 1e9).toFixed(2)} พันล.`;
-  if (abs >= 1e6) return `${sign}${(abs / 1e6).toFixed(1)} ล.`;
-  return `${sign}${abs.toLocaleString('th-TH')}`;
 }
 
 function Pct({ v, digits = 1, cap = true }: { v: number | null | undefined; digits?: number; cap?: boolean }) {
@@ -142,29 +134,29 @@ function PriceChart({ a, w, h, label = true }: { a: EarningsAnnouncement; w: num
 
 // ── Header stats ─────────────────────────────────────────────────────────────
 
-function Stat({ k, children, color }: { k: string; children: React.ReactNode; color?: string }) {
+function Stat({ k, children, color, note }: { k: string; children: React.ReactNode; color?: string; note?: string }) {
   return (
     <div>
       <div className="text-[12px] md:text-[13px] text-meta mb-0.5 whitespace-nowrap">{k}</div>
       <div className="text-[26px] md:text-[32px] font-bold leading-tight tabular-nums whitespace-nowrap" style={{ color }}>{children}</div>
+      {note && <div className="text-[12px] text-meta whitespace-nowrap">{note}</div>}
     </div>
   );
 }
 
 function SeasonStats({ rows }: { rows: EarningsAnnouncement[] }) {
-  const n = rows.length;
-  const up = rows.filter(a => isImproved(a.bucket)).length;
-  const dn = rows.filter(a => isWorsened(a.bucket)).length;
+  // "ประกาศแล้ว" = every filing; the improved/worse split and its % leave out the
+  // filings with no profit figure at all (funds / REITs) - they have nothing to compare.
+  const { n, noProfit, base, up, down: dn, upPct } = seasonCounts(rows);
   const acc = rows.filter(isAccelerating).length;
   // Last quarter, same companies: of those with back-to-back figures, how many improved then.
   const prev = rows.map(priorQuarterImproved).filter((v): v is boolean => v != null);
   const prevPct = prev.length ? Math.round((prev.filter(Boolean).length / prev.length) * 100) : null;
-  const upPct = n ? Math.round((up / n) * 100) : 0;
 
   return (
     <div>
       <div className="grid grid-cols-4 gap-2 md:flex md:gap-x-12 items-end">
-        <Stat k="ประกาศแล้ว">{n}</Stat>
+        <Stat k="ประกาศแล้ว" note={noProfit ? `ไม่มีข้อมูลกำไร ${noProfit}` : undefined}>{n}</Stat>
         <Stat k="กำไรดีขึ้น" color={UP}>
           {up}<span className="text-[13px] md:text-[15px] font-medium text-meta ml-1">{upPct}%</span>
         </Stat>
@@ -173,12 +165,12 @@ function SeasonStats({ rows }: { rows: EarningsAnnouncement[] }) {
       </div>
       <div className="mt-3.5">
         <div className="h-1.5 rounded-full bg-white/[0.06] flex overflow-hidden">
-          <i style={{ width: `${n ? (up / n) * 100 : 0}%`, background: UP }} />
-          <i style={{ width: `${n ? ((n - up - dn) / n) * 100 : 0}%`, background: BUCKET_COLOR.no_base }} />
-          <i style={{ width: `${n ? (dn / n) * 100 : 0}%`, background: DOWN, opacity: 0.8 }} />
+          <i style={{ width: `${base ? (up / base) * 100 : 0}%`, background: UP }} />
+          <i style={{ width: `${base ? ((base - up - dn) / base) * 100 : 0}%`, background: BUCKET_COLOR.no_base }} />
+          <i style={{ width: `${base ? (dn / base) * 100 : 0}%`, background: DOWN, opacity: 0.8 }} />
         </div>
         <div className="flex justify-between text-[12px] text-meta mt-1">
-          <span>สัดส่วนบริษัทที่กำไรดีขึ้น (กำไรโต · พลิกกำไร · ขาดทุนลดลง)</span>
+          <span>สัดส่วนบริษัทที่กำไรดีขึ้น (กำไรโต · พลิกกำไร · ขาดทุนลดลง){noProfit ? ` · จาก ${base} บริษัทที่มีข้อมูลกำไร` : ''}</span>
           <span title={prevPct != null ? `บริษัทชุดเดียวกัน ${prev.length} แห่งที่มีงบไตรมาสก่อนให้เทียบ` : 'ยังไม่มีข้อมูลไตรมาสก่อน'}>
             ไตรมาสก่อน {prevPct != null ? `${prevPct}%` : '—'}
           </span>
@@ -670,7 +662,7 @@ export default function EarningsPage() {
     [...chips].every(k => k === skip || chipPass(a, k, today));
 
   const filtered = useMemo(() => {
-    const list = searched.filter(a => (!tab || a.bucket === tab) && passChips(a));
+    const list = searched.filter(a => (!tab || pageBucket(a) === tab) && passChips(a));
     const dir = sort.asc ? 1 : -1;
     return list.sort((x, y) => {
       const [tx, vx] = sortValue(x, sort.key);
@@ -777,7 +769,7 @@ export default function EarningsPage() {
             {/* Tabs - one at a time, never wrap (scroll sideways on a narrow screen) */}
             <div className="flex flex-nowrap overflow-x-auto [scrollbar-width:none] gap-1 border-b border-white/[0.07] mb-4">
               {[null, ...BUCKET_ORDER].map(k => {
-                const n = k ? searched.filter(a => a.bucket === k).length : searched.length;
+                const n = k ? searched.filter(a => pageBucket(a) === k).length : searched.length;
                 const on = tab === k;
                 return (
                   <button key={k ?? 'all'} onClick={() => { setTab(k); resetPage(); }}
@@ -797,7 +789,7 @@ export default function EarningsPage() {
               <span className="text-[13px] text-meta mr-0.5">กรองเพิ่ม</span>
               {CHIPS.map(c => {
                 const on = chips.has(c.key);
-                const n = searched.filter(a => (!tab || a.bucket === tab) && passChips(a, c.key) && chipPass(a, c.key, today)).length;
+                const n = searched.filter(a => (!tab || pageBucket(a) === tab) && passChips(a, c.key) && chipPass(a, c.key, today)).length;
                 return (
                   <button key={c.key} onClick={() => toggleChip(c.key)}
                     className={`px-3.5 py-1.5 rounded-full border text-[14px] ${
@@ -937,7 +929,7 @@ export default function EarningsPage() {
             <summary className="cursor-pointer text-[14px] hover:text-white/80">วิธีอ่านหน้านี้</summary>
             <ul className="mt-3 pl-5 list-disc text-[14px] leading-8 text-white/75 max-w-[90ch]">
               <li><b className="text-ink">กำไรโต</b> กำไรเป็นบวกและมากกว่าปีก่อน · <b className="text-ink">พลิกกำไร</b> ปีก่อนขาดทุน (หรือ 0) ไตรมาสนี้กำไร — ไม่คิด % เพราะฐานติดลบ และไม่ถูกนับในอันดับ % โต</li>
-              <li><b className="text-ink">กำไรหด</b> ยังกำไรแต่น้อยกว่าปีก่อน · <b className="text-ink">ขาดทุนลดลง / ขาดทุนหนักขึ้น</b> เทียบกับไตรมาสเดียวกันปีก่อน (ปีก่อนกำไรแต่ปีนี้ขาดทุนนับเป็นขาดทุนหนักขึ้น) · <b className="text-ink">ไม่มีฐานเทียบ</b> ไม่มีตัวเลขปีก่อน เช่น หุ้นเข้าตลาดใหม่</li>
+              <li><b className="text-ink">กำไรหด</b> ยังกำไรแต่น้อยกว่าปีก่อน · <b className="text-ink">ขาดทุนลดลง / ขาดทุนหนักขึ้น</b> เทียบกับไตรมาสเดียวกันปีก่อน (ปีก่อนกำไรแต่ปีนี้ขาดทุนนับเป็นขาดทุนหนักขึ้น) · <b className="text-ink">ไม่มีฐานเทียบ</b> ไม่มีตัวเลขปีก่อน เช่น หุ้นเข้าตลาดใหม่ หรือไม่มีตัวเลขกำไรเลย เช่น กองทุน / REIT (ไม่นับในสัดส่วนกำไรดีขึ้น)</li>
               <li><b className="text-ink">⚡ เร่งตัว</b> % เทียบปีก่อนของไตรมาสนี้เป็นบวก และสูงกว่า % เทียบปีก่อนของไตรมาสที่แล้ว (โตเร็วขึ้น ไม่ใช่แค่โต) · ถ้าไม่มีงบไตรมาสที่แล้วให้เทียบ จะไม่ติดป้าย</li>
               <li><b className="text-ink">ราคาหลังงบ</b> เทียบกับราคาปิดก่อนประกาศ: วันแรก = ราคาแรกที่ตลาดรับรู้งบ, +1 / +2 / +5 = ราคาปิดหลังวันแรก 1 / 2 / 5 วันทำการ · <b className="text-ink">🔥 PEAD</b> = งบดี (โต ≥ 20% หรือพลิกกำไร) และราคา +2 วันยังเป็นบวก เรียงจาก +2 วันมากไปน้อย</li>
               <li><b className="text-ink">กำไรดีขึ้น</b> = กำไรโต + พลิกกำไร + ขาดทุนลดลง · <b className="text-ink">กำไรแย่ลง</b> = กำไรหด + ขาดทุนหนักขึ้น · ตัวเลข &quot;ไตรมาสก่อน&quot; ใต้แถบสัดส่วน คิดจากบริษัทชุดเดียวกันที่มีงบไตรมาสก่อนให้เทียบ</li>
