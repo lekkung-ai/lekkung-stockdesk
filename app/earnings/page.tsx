@@ -326,7 +326,7 @@ function PeadSection({ rows, onPick, onShowAll }: {
         // sidebar open still has 912px). md-1179px drops the chart; the box scrolls on its own if a
         // row is still too wide, so the page itself never scrolls sideways.
         <div className={`${TS.tableCell} overflow-x-auto [scrollbar-width:thin]`}>
-          <div className="grid grid-cols-[1fr_84px_70px] md:grid-cols-[minmax(140px,1fr)_96px_64px_64px_70px_64px] min-[1180px]:grid-cols-[minmax(170px,1.4fr)_96px_250px_64px_64px_70px_64px] gap-3 items-center py-1.5 text-[12px] text-meta border-b border-white/[0.07]">
+          <div className="grid grid-cols-[1fr_84px_70px] md:max-[1179px]:grid-cols-[minmax(140px,1fr)_96px_64px_64px_70px_64px] min-[1180px]:grid-cols-[minmax(170px,1.4fr)_96px_250px_64px_64px_70px_64px] gap-3 items-center py-1.5 text-[12px] text-meta border-b border-white/[0.07]">
             <span />
             <span className="text-right">เทียบปีก่อน</span>
             <span className="hidden min-[1180px]:block">ราคา 5 วันก่อน → 5 วันหลังงบ</span>
@@ -337,7 +337,7 @@ function PeadSection({ rows, onPick, onShowAll }: {
           </div>
           {top.map(a => (
             <button key={rowKey(a)} onClick={() => onPick(a)}
-              className="w-full text-left grid grid-cols-[1fr_84px_70px] md:grid-cols-[minmax(140px,1fr)_96px_64px_64px_70px_64px] min-[1180px]:grid-cols-[minmax(170px,1.4fr)_96px_250px_64px_64px_70px_64px] gap-3 items-center py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025]">
+              className="w-full text-left grid grid-cols-[1fr_84px_70px] md:max-[1179px]:grid-cols-[minmax(140px,1fr)_96px_64px_64px_70px_64px] min-[1180px]:grid-cols-[minmax(170px,1.4fr)_96px_250px_64px_64px_70px_64px] gap-3 items-center py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025]">
               <span className="min-w-0">
                 <b className="text-ink text-[16px]">{a.ticker}</b>
                 {reasonPreview(a.reason) && <span className="block text-[13px] text-meta truncate">{reasonPreview(a.reason)}</span>}
