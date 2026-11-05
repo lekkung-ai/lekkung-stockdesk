@@ -81,7 +81,7 @@ export interface EarningsFeed {
 const FEED_PATH = path.join(process.cwd(), 'public', 'data', 'earnings', 'earnings_feed.json');
 
 // Static snapshot written by scripts/fetch_earnings.py (batch pipeline, runs
-// ~09:45 and ~17:30 ICT) - read from disk, never fetched live, same pattern
+// ~09:45, ~18:00 and ~20:00 ICT) - read from disk, never fetched live, same pattern
 // as public/data/sec/*.json. Read at request time (not a static import) so a
 // fresh pipeline commit shows up without a redeploy.
 export async function GET() {

@@ -787,7 +787,12 @@ def main():
     parser.add_argument('--limit', type=int, default=None, help='only process the first N tickers (universe order)')
     parser.add_argument('--tickers', default=None, help='comma-separated explicit ticker list (overrides --limit/universe)')
     parser.add_argument('--workers', type=int, default=WORKERS, help='concurrent request workers')
+    parser.add_argument('--history-budget', type=int, default=HISTORY_PAGE_BUDGET,
+                        help=f'max older F45 pages requested this run (default {HISTORY_PAGE_BUDGET}); '
+                             'current-quarter F45s are never limited. The light 20:00 run passes a small value.')
     args = parser.parse_args()
+    if args.history_budget < 0:
+        parser.error('--history-budget must be >= 0')
 
     out_dir = args.out if args.out else OUTPUT_DIR
     if args.out:
@@ -860,11 +865,11 @@ def main():
           f"{current_pages} pages requested (never limited)")
 
     hist_started = time.time()
-    hist_done, hist = fetch_history(history_jobs, cookie)
+    hist_done, hist = fetch_history(history_jobs, cookie, budget=args.history_budget)
     for job in history_jobs:
         if job['ticker'] in hist_done:
             apply_history(job['announcement'], job['parsed'], hist_done[job['ticker']])
-    stop_note = {'budget': f" - stopped at the {HISTORY_PAGE_BUDGET}-page budget",
+    stop_note = {'budget': f" - stopped at the {args.history_budget}-page budget",
                  'blank': f" - stopped after {HISTORY_BLANK_STREAK_STOP} blank pages in a row (SET throttling)"}.get(hist['stopped'], '')
     print(f"History: {hist['fetched']} pages requested in {time.time() - hist_started:.1f}s{stop_note}; "
           f"{len(hist_done)} tickers complete, {len(hist['pending'])} pending for the next run"

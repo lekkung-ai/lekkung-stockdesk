@@ -743,7 +743,7 @@ export default function EarningsPage() {
         <h1 className={`${TS.pageTitle} text-ink`}>ประกาศงบ{seasonQuarter ? ` · ${seasonQuarter}` : ''}</h1>
         <div className="flex items-center gap-2 text-[13px] text-meta">
           {!loading && (
-            <span title={`ข้อมูล ณ ${fullDateTime(feed.generatedAt || null)}\nอัปเดตจากรอบ batch 09:45 / 17:30 / 18:00 น. (ไม่ใช่ real-time)\nF45 / งบการเงิน / MD&A ทั้งตลาด (SET + mai) · ย้อนหลัง ${feed.windowDays} วัน`}
+            <span title={`ข้อมูล ณ ${fullDateTime(feed.generatedAt || null)}\nอัปเดตจากรอบ batch 09:45 / 18:00 / 20:00 น. (ไม่ใช่ real-time)\nF45 / งบการเงิน / MD&A ทั้งตลาด (SET + mai) · ย้อนหลัง ${feed.windowDays} วัน`}
               className="cursor-help border-b border-dotted border-white/25">
               {feed.generatedAt ? `อัปเดต ${shortDateTime(feed.generatedAt)} น.` : 'ยังไม่มีข้อมูล — รอรอบ batch ถัดไป'}
             </span>
