@@ -1,8 +1,506 @@
 {
-  "generated_at": "2026-11-04T18:08:14+07:00",
+  "generated_at": "2026-11-05T16:54:20+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "e7f88e68-771d-4586-b565-977428443b26",
+      "title": "BUY โดย PI | บริษัท ไมเนอร์ อินเตอร์เนชั่นแนล จำกัด (มหาชน) (MINT) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127599-buy-pi-mint",
+      "tickers": [
+        "MINT"
+      ],
+      "symbolId": "343",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ไมเนอร์ อินเตอร์เนชั่นแนล จำกัด (มหาชน)",
+      "date": "2026-11-05T16:00:58+07:00",
+      "ts": 1793869258000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/MINT-261105.pdf"
+    },
+    {
+      "uuid": "44f25ca0-ef52-42d6-9829-b40ae407258f",
+      "title": "BUY by KSS | BERLI JUCKER PUBLIC COMPANY LIMITED (BJC) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127595-buy-kss-bjc",
+      "tickers": [
+        "BJC"
+      ],
+      "symbolId": "4",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "BERLI JUCKER PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T14:46:01+07:00",
+      "ts": 1793864761000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261105_BJC_EP-(E).pdf"
+    },
+    {
+      "uuid": "2d724009-a9c6-4649-97d6-41e40c020223",
+      "title": "BUY by KSS | PLAN B MEDIA PUBLIC COMPANY LIMITED (PLANB) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127594-buy-kss-planb",
+      "tickers": [
+        "PLANB"
+      ],
+      "symbolId": "26086",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "PLAN B MEDIA PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T14:45:58+07:00",
+      "ts": 1793864758000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261105_PLANB_QC-(E).pdf"
+    },
+    {
+      "uuid": "1a0c4898-fdc7-47e9-93fd-709c95906ed1",
+      "title": "TRINITY | Block Trade AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127590-trinity-block-trade-afternoon-stock",
+      "tickers": [
+        "AOT"
+      ],
+      "symbolId": "4473",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade AFTERNOON Stock",
+      "date": "2026-11-05T13:58:21+07:00",
+      "ts": 1793861901000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BlockTrade-Afternoon-05NOV26-AOT.pdf"
+    },
+    {
+      "uuid": "1fa5f0ed-f6c9-401c-b255-1dc691cb6908",
+      "title": "TRINITY | QUICK WIN AFTERNOON Stock | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127591-trinity-quick-win-afternoon-stock",
+      "tickers": [
+        "CENTEL"
+      ],
+      "symbolId": "506",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN AFTERNOON Stock",
+      "date": "2026-11-05T13:58:20+07:00",
+      "ts": 1793861900000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/AFTERNOON-STOCK105NOV26-CENTEL.pdf"
+    },
+    {
+      "uuid": "29cceffe-9c58-441d-bd07-f378f0d473f9",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127587-lhs-trading-ideas",
+      "tickers": [
+        "GULF",
+        "NER"
+      ],
+      "symbolId": "126614,89374",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-11-05T13:52:10+07:00",
+      "ts": 1793861530000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Trading-Ideas_20261105.pdf"
+    },
+    {
+      "uuid": "bc7499c0-947f-45e5-a4ec-24e9f266996b",
+      "title": "BUY โดย PI | บริษัท ช.การช่าง จำกัด (มหาชน) (CK) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127585-buy-pi-ck",
+      "tickers": [
+        "CK"
+      ],
+      "symbolId": "1357",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ช.การช่าง จำกัด (มหาชน)",
+      "date": "2026-11-05T13:52:09+07:00",
+      "ts": 1793861529000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Technical_and_TFEX_Afternoon_20261105.pdf"
+    },
+    {
+      "uuid": "430f4917-bb5f-4692-8911-f30ca563c1a4",
+      "title": "BUY โดย TRINITY | บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน) (BAM) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127581-buy-trinity-bam",
+      "tickers": [
+        "BAM"
+      ],
+      "symbolId": "94830",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน)",
+      "date": "2026-11-05T13:39:45+07:00",
+      "ts": 1793860785000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BAM_Thai_20261105.pdf"
+    },
+    {
+      "uuid": "47badd95-1b91-429c-9a48-6c9025822bbe",
+      "title": "Not Rated โดย KGI | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127579-not-rated-kgi-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KGI",
+      "rating": "Not Rated",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-11-05T13:19:37+07:00",
+      "ts": 1793859577000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_BCPG_2026_11_05_th.pdf"
+    },
+    {
+      "uuid": "1ddf86d8-857f-489d-a490-78338621d2f2",
+      "title": "Not Rated by KGI | BCPG PUBLIC COMPANY LIMITED (BCPG) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127578-not-rated-kgi-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KGI",
+      "rating": "Not Rated",
+      "companyName": "BCPG PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T13:19:37+07:00",
+      "ts": 1793859577000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_BCPG_2026_11_05_e_th.pdf"
+    },
+    {
+      "uuid": "24f59d3e-2fbf-4ebb-9b26-9d75bc4fe5b6",
+      "title": "Outperform (Maintained) by KGI | BBGI PUBLIC COMPANY LIMITED (BBGI) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127576-outperform-maintained-kgi-bbgi",
+      "tickers": [
+        "BBGI"
+      ],
+      "symbolId": "109257",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "BBGI PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T13:19:36+07:00",
+      "ts": 1793859576000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_BBGI_2026_11_05_e_th.pdf"
+    },
+    {
+      "uuid": "1d36d5a2-162c-4dee-91e2-cae922948fbf",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท บีบีจีไอ จำกัด (มหาชน) (BBGI) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127577-outperform-maintained-kgi-bbgi",
+      "tickers": [
+        "BBGI"
+      ],
+      "symbolId": "109257",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท บีบีจีไอ จำกัด (มหาชน)",
+      "date": "2026-11-05T13:08:36+07:00",
+      "ts": 1793858916000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_BBGI_2026_11_05_th.pdf"
+    },
+    {
+      "uuid": "6c6668a6-1a3e-4c70-bf36-32156dc56cf5",
+      "title": "Outperform (Maintained) by KGI | BBGI PUBLIC COMPANY LIMITED (BBGI) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127575-outperform-maintained-kgi-bbgi",
+      "tickers": [
+        "BBGI"
+      ],
+      "symbolId": "109257",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "BBGI PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T13:08:35+07:00",
+      "ts": 1793858915000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_BBGI_2026_11_05_e_th.pdf"
+    },
+    {
+      "uuid": "41d4863b-aae6-4cb9-9790-8fb577f4234a",
+      "title": "Outperform (Maintained) by KGI | NTF INTERGROUP (THAILAND) PUBLIC COMPANY LIMITED (NTF) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127573-outperform-maintained-kgi-ntf",
+      "tickers": [
+        "NTF"
+      ],
+      "symbolId": "129137",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "NTF INTERGROUP (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T13:08:35+07:00",
+      "ts": 1793858915000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_NTF_2026_11_05_e_th.pdf"
+    },
+    {
+      "uuid": "02f381f2-0339-47af-bccd-7a288287cb82",
+      "title": "Outperform (Maintained) by KGI | AP (THAILAND) PUBLIC COMPANY LIMITED (AP) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127571-outperform-maintained-kgi-ap",
+      "tickers": [
+        "AP"
+      ],
+      "symbolId": "852",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "AP (THAILAND) PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T12:55:29+07:00",
+      "ts": 1793858129000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_AP_2026_11_05_e_th.pdf"
+    },
+    {
+      "uuid": "7646eb02-47ce-411c-b0e8-82006c6837c1",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน) (AP) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127570-outperform-maintained-kgi-ap",
+      "tickers": [
+        "AP"
+      ],
+      "symbolId": "852",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน)",
+      "date": "2026-11-05T12:55:28+07:00",
+      "ts": 1793858128000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_AP_2026_11_04_th.pdf"
+    },
+    {
+      "uuid": "57d0e64e-5f02-4bf6-8656-ed68a16ef785",
+      "title": "Outperform (Maintained) โดย KGI | บริษัท เอ็มเค เรสโตรองต์ กรุ๊ป จำกัด (มหาชน) (M) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127569-outperform-maintained-kgi-m",
+      "tickers": [
+        "M"
+      ],
+      "symbolId": "19017",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "บริษัท เอ็มเค เรสโตรองต์ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-05T12:55:28+07:00",
+      "ts": 1793858128000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_M_2026_11_05_th.pdf"
+    },
+    {
+      "uuid": "f1f8aa8b-b53f-416c-bde6-27ff73a7c6bb",
+      "title": "Outperform (Maintained) by KGI | MK RESTAURANT GROUP PUBLIC COMPANY LIMITED (M) | Research as of 5 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127568-outperform-maintained-kgi-m",
+      "tickers": [
+        "M"
+      ],
+      "symbolId": "19017",
+      "broker": "KGI",
+      "rating": "Outperform (Maintained)",
+      "companyName": "MK RESTAURANT GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-11-05T12:55:28+07:00",
+      "ts": 1793858128000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_M_2026_11_05_e_th.pdf"
+    },
+    {
+      "uuid": "f4e98b27-4641-462a-ba10-67eafc218cdd",
+      "title": "TRADING (Downgrade) โดย YUANTA | บริษัท ไทย โคโคนัท จำกัด (มหาชน) (COCOCO) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127561-trading-downgrade-yuanta-cococo",
+      "tickers": [
+        "COCOCO"
+      ],
+      "symbolId": "118213",
+      "broker": "YUANTA",
+      "rating": "TRADING (Downgrade)",
+      "companyName": "บริษัท ไทย โคโคนัท จำกัด (มหาชน)",
+      "date": "2026-11-05T12:34:02+07:00",
+      "ts": 1793856842000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/COCOCO_Update_051126.pdf"
+    },
+    {
+      "uuid": "e9bc5863-c1b9-4de6-b224-09f3d84b9460",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน) (CRC) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127560-buy-maintain-yuanta-crc",
+      "tickers": [
+        "CRC"
+      ],
+      "symbolId": "95745",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท เซ็นทรัล รีเทล คอร์ปอเรชั่น จำกัด (มหาชน)",
+      "date": "2026-11-05T12:34:02+07:00",
+      "ts": 1793856842000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CRC_Company-Update_051126.pdf"
+    },
+    {
+      "uuid": "5cf66689-a816-4bb4-916b-26fa07d77dd2",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127559-buy-maintain-yuanta-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-11-05T12:34:02+07:00",
+      "ts": 1793856842000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BCPG_Company_Update_051126.pdf"
+    },
+    {
+      "uuid": "59fcb540-ab65-4ac1-a00b-b0b1522d0863",
+      "title": "Neutral โดย KSS | บริษัท เบอร์ลี่ ยุคเกอร์ จำกัด (มหาชน) (BJC) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127547-neutral-kss-bjc",
+      "tickers": [
+        "BJC"
+      ],
+      "symbolId": "4",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท เบอร์ลี่ ยุคเกอร์ จำกัด (มหาชน)",
+      "date": "2026-11-05T11:39:15+07:00",
+      "ts": 1793853555000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261105_BJC_EP.pdf"
+    },
+    {
+      "uuid": "558165b1-440a-469a-bb21-bba47f0335ac",
+      "title": "Neutral โดย KSS | บริษัท แพลน บี มีเดีย จำกัด (มหาชน) (PLANB) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127546-neutral-kss-planb",
+      "tickers": [
+        "PLANB"
+      ],
+      "symbolId": "26086",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท แพลน บี มีเดีย จำกัด (มหาชน)",
+      "date": "2026-11-05T11:39:15+07:00",
+      "ts": 1793853555000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261105_PLANB_QC.pdf"
+    },
+    {
+      "uuid": "3350d1b0-7760-41ac-8c74-05b0d79de686",
+      "title": "Earning Result โดย SBITO | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127537-earning-result--sbito-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "SBITO",
+      "rating": "Earning Result",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-11-05T11:01:22+07:00",
+      "ts": 1793851282000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Earning-Result-051169--BCPG.pdf"
+    },
+    {
+      "uuid": "3d85f220-c2e1-4f0b-9e2a-34e8b991051c",
+      "title": "TRINITY | QUICK WIN - MORING Stock | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127527-trinity-quick-win---moring-stock",
+      "tickers": [
+        "GPSC",
+        "SCC"
+      ],
+      "symbolId": "51704,9",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "QUICK WIN - MORING Stock",
+      "date": "2026-11-05T10:43:18+07:00",
+      "ts": 1793850198000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/MORNING-STOCKs05NOV26-gpsc;scc.pdf"
+    },
+    {
+      "uuid": "f8f719d9-e7ef-4d9b-a60d-0124f671384a",
+      "title": "BUY โดย ASL | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127525-buy-asl-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-11-05T10:43:17+07:00",
+      "ts": 1793850197000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/HMPRO-Company-Report-3Q26-05112026.pdf"
+    },
+    {
+      "uuid": "69380c91-585a-4854-ba20-d6e6c9751e7b",
+      "title": "BUY โดย PST | บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน) (HMPRO) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127516-buy-pst-hmpro",
+      "tickers": [
+        "HMPRO"
+      ],
+      "symbolId": "2574",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท โฮม โปรดักส์ เซ็นเตอร์ จำกัด (มหาชน)",
+      "date": "2026-11-05T10:41:04+07:00",
+      "ts": 1793850064000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/HMPRO110526_t.pdf"
+    },
+    {
+      "uuid": "dfb1d6e4-6a1f-4567-98c0-74b728b45ce0",
+      "title": "BUY โดย PST | บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน) (SCGP) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127515-buy-pst-scgp",
+      "tickers": [
+        "SCGP"
+      ],
+      "symbolId": "98012",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท เอสซีจี แพคเกจจิ้ง จำกัด (มหาชน)",
+      "date": "2026-11-05T10:37:17+07:00",
+      "ts": 1793849837000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SCGP110526_t.pdf"
+    },
+    {
+      "uuid": "f99d7558-90f9-480f-b01b-dd8e3a2c2168",
+      "title": "BUY โดย BEYOND | บริษัท เอ็นทีเอฟ อินเตอร์กรุ๊ป (ประเทศไทย) จำกัด (มหาชน) (NTF) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127505-buy-beyond-ntf",
+      "tickers": [
+        "NTF"
+      ],
+      "symbolId": "129137",
+      "broker": "BEYOND",
+      "rating": "BUY",
+      "companyName": "บริษัท เอ็นทีเอฟ อินเตอร์กรุ๊ป (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-11-05T10:22:33+07:00",
+      "ts": 1793848953000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/NTF-20261105-Earnings-Results-3Q69.pdf"
+    },
+    {
+      "uuid": "b960b631-a129-4588-a849-96e7f53aabdc",
+      "title": "Neutral โดย KSS | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127503-neutral-kss-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-11-05T10:05:27+07:00",
+      "ts": 1793847927000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261105_BCPG_ER.pdf"
+    },
+    {
+      "uuid": "09fc4821-1dbc-4c67-83d9-96e441baae62",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127502-trinity-block-trade--moring-stock",
+      "tickers": [
+        "COM7",
+        "WHA"
+      ],
+      "symbolId": "76340,17351",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-11-05T10:05:27+07:00",
+      "ts": 1793847927000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BlockTrade-Morning-05NOV26;WHA;COM7.pdf"
+    },
+    {
+      "uuid": "75e37604-d651-4201-b3c4-322c2159467a",
+      "title": "TBUY โดย LHS | บริษัท บีซีพีจี จำกัด (มหาชน) (BCPG) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127501-tbuy-lhs-bcpg",
+      "tickers": [
+        "BCPG"
+      ],
+      "symbolId": "79994",
+      "broker": "LHS",
+      "rating": "TBUY",
+      "companyName": "บริษัท บีซีพีจี จำกัด (มหาชน)",
+      "date": "2026-11-05T10:05:26+07:00",
+      "ts": 1793847926000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BCPG_20261105.pdf"
+    },
+    {
+      "uuid": "c7919380-579a-473c-a243-2c225ca44541",
+      "title": "HOLD โดย PI | บริษัท เบอร์ลี่ ยุคเกอร์ จำกัด (มหาชน) (BJC) | บทวิเคราะห์ประจำวันที่ 5 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127496-hold-pi-bjc",
+      "tickers": [
+        "BJC"
+      ],
+      "symbolId": "4",
+      "broker": "PI",
+      "rating": "HOLD",
+      "companyName": "บริษัท เบอร์ลี่ ยุคเกอร์ จำกัด (มหาชน)",
+      "date": "2026-11-05T09:47:58+07:00",
+      "ts": 1793846878000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BJC-261005.pdf"
+    },
     {
       "uuid": "bb37a823-7894-4d45-b4b5-33e9ee1b4561",
       "title": "BUY by ASP | ADVANCED INFO SERVICE PUBLIC COMPANY LIMITED (ADVANC) | Research as of 4 November 2026",
