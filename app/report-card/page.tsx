@@ -1,133 +1,101 @@
 import Link from 'next/link';
 import rawReportCard from '@/data/scans/report_card.json';
 import { formatThaiDate } from '@/lib/utils';
-import { winFlatLoss } from '@/lib/winFlatLoss';
-import { WinFlatLossBar, WinFlatLossText } from '@/components/WinFlatLossBar';
 import { TS, READABLE } from '@/lib/typeScale';
-
-interface HorizonMetric {
-  n: number;
-  avg_return_pct: number | null;
-  median_return_pct: number | null;
-  win_rate_pct: number | null;
-  avg_set_return_pct: number | null;
-  excess_return_pct: number | null;
-  n_win?: number;
-  n_flat?: number;
-  n_loss?: number;
-  flat_pct?: number | null;
-}
-interface ScanCard {
-  total_picks: number;
-  horizons: Record<string, HorizonMetric>;
-}
-interface ReportCardFile {
-  generated_at: string | null;
-  assumptions: Record<string, string>;
-  history_range: { first_date: string; last_date: string; n_dates: number };
-  scans: Record<string, ScanCard>;
-}
+import HorizonSpark from '@/components/reportCard/HorizonSpark';
+import {
+  NEUTRAL,
+  ReportCardFile,
+  SCAN_COLORS,
+  SCAN_LABELS,
+  SCAN_ORDER,
+  ScanReport,
+  fmtInt,
+  fmtPct,
+  isNum,
+  returnColor,
+} from '@/lib/reportCard';
 
 const data = rawReportCard as unknown as ReportCardFile;
 
-const SCAN_ORDER = ['sepa', 'kell', 'breakout', 'lekkung_growth', 'ppbp', 'oneil'];
-const SCAN_LABELS: Record<string, string> = {
-  sepa: 'SEPA',
-  kell: 'Oliver Kell',
-  breakout: 'Breakout',
-  lekkung_growth: 'Lekkung Growth',
-  ppbp: 'PPBP',
-  oneil: "CAN SLIM (O'Neil)",
-};
-const SCAN_COLORS: Record<string, string> = {
-  sepa: '#1D9E75',
-  kell: '#378ADD',
-  breakout: '#EF9F27',
-  lekkung_growth: '#7F77DD',
-  ppbp: '#E24B4A',
-  oneil: '#06B6D4',
-};
 const HORIZONS = ['5', '10', '20'];
 
 const SHORT_HISTORY_THRESHOLD = 30;
 
-function fmtPct(n: number | null, showSign = true): string {
-  if (n == null) return '—';
-  const sign = showSign && n > 0 ? '+' : '';
-  return `${sign}${n.toFixed(2)}%`;
+function Measure({ kind }: { kind: 'setup' | 'dn' }) {
+  return (
+    <span className={`${TS.caption} font-medium px-1.5 py-0.5 rounded border border-white/[0.1] bg-white/[0.04] text-white/55 whitespace-nowrap`}>
+      {kind === 'setup' ? 'ตามไม้' : 'D+N'}
+    </span>
+  );
 }
 
-function returnColor(n: number | null): string {
-  if (n == null) return 'rgba(255,255,255,0.3)';
-  if (n > 0) return '#1D9E75';
-  if (n < 0) return '#E24B4A';
-  return 'rgba(255,255,255,0.5)';
+function CardStat({ value, label, color }: { value: string; label: string; color: string }) {
+  return (
+    <div className="min-w-0">
+      <div className="text-[22px] font-bold tabular-nums leading-tight" style={{ color }}>{value}</div>
+      <div className={`${TS.caption} text-white/45 mt-0.5`}>{label}</div>
+    </div>
+  );
 }
 
-function winRateColor(winRate: number | null): string {
-  if (winRate == null) return 'rgba(255,255,255,0.4)';
-  if (winRate > 50) return '#1D9E75';
-  if (winRate >= 45) return 'rgba(255,255,255,0.85)';
-  return '#E24B4A';
-}
-
-function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanCard }) {
-  const headline = card.horizons['5'];
-  const winRate = headline?.win_rate_pct;
-  const avgReturn = headline?.avg_return_pct;
-  const color = winRateColor(winRate);
-  const isSmallSample = headline?.n > 0 && headline.n < 30;
-  const wfl = winFlatLoss(headline);
+function ScanSummaryCard({ scanKey, card }: { scanKey: string; card: ScanReport }) {
+  const sum = card.setup_summary;
+  const d5 = card.horizons['5'];
+  const color = SCAN_COLORS[scanKey] ?? '#7F77DD';
+  const hasD5 = d5 && d5.n > 0;
+  const isSmallSample = sum != null && sum.n_closed > 0 && sum.n_closed < 30;
 
   return (
     <Link
       href={`/report-card/${scanKey}`}
-      className="bg-[#13161e] border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.025] rounded-xl p-4 transition-all block group"
+      className="bg-[#13161e] border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.025] rounded-xl p-4 transition-all block group border-t-[3px]"
+      style={{ borderTopColor: color }}
     >
-      <div className="flex items-center justify-between gap-2 mb-3">
-        <div className="flex items-center gap-2 min-w-0">
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
           <h3 className={`${TS.sectionTitle} text-white group-hover:text-[#378ADD] transition-colors truncate`}>
             {SCAN_LABELS[scanKey] ?? scanKey}
           </h3>
+          <p className={`${TS.caption} text-white/45 mt-0.5 tabular-nums`}>
+            {sum ? <>{fmtInt(sum.n_closed)} ไม้ที่ปิดแล้ว · ยังถือ {fmtInt(sum.n_open)}</> : <>{fmtInt(card.total_picks)} picks สะสม</>}
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5 flex-shrink-0">
           {isSmallSample && (
             <span
-              className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0"
-              title={`ข้อมูลย้อนหลังที่ครบ D+5 มีเพียง ${headline.n} ตัว (< 30)`}
+              className={`${TS.caption} font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20`}
+              title={`ไม้ที่ปิดแล้วมีเพียง ${sum!.n_closed} ไม้ (< 30) ตัวเลขยังไม่นิ่ง`}
             >
-              n={headline.n}
+              ไม้น้อย
             </span>
           )}
+          <Measure kind="setup" />
         </div>
-        <span className={`${TS.caption} text-white/30 tabular-nums flex-shrink-0`}>{card.total_picks} picks สะสม</span>
       </div>
 
-      <div className="flex items-baseline gap-1.5 mb-2">
-        <span className="text-[28px] font-bold tabular-nums leading-none" style={{ color }}>
-          {winRate != null ? `${winRate.toFixed(0)}%` : '—'}
-        </span>
-        <span className={`${TS.caption} font-medium text-white/35`}>win rate</span>
-      </div>
-
-      {wfl ? (
-        <div className="mb-3 space-y-1.5">
-          <WinFlatLossBar p={wfl} />
-          <WinFlatLossText p={wfl} className={`block ${TS.caption}`} />
-        </div>
-      ) : (
-        <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden mb-3">
-          <div
-            className="h-full rounded-full transition-all duration-300"
-            style={{ width: `${Math.min(100, Math.max(0, winRate ?? 0))}%`, backgroundColor: color }}
-          />
+      {sum && (
+        <div className="grid grid-cols-3 gap-3 mt-3.5">
+          <CardStat value={fmtPct(sum.avg_return_pct)} label="ผลเฉลี่ยต่อไม้" color={returnColor(sum.avg_return_pct)} />
+          <CardStat value={isNum(sum.win_rate_pct) ? `${sum.win_rate_pct.toFixed(0)}%` : '—'} label="ไม้ที่กำไร" color={NEUTRAL} />
+          <CardStat value={isNum(sum.payoff_ratio) ? sum.payoff_ratio.toFixed(2) : '—'} label="ได้ ÷ เสีย ต่อไม้" color={NEUTRAL} />
         </div>
       )}
 
-      <div className={`flex items-center justify-between ${TS.body} pt-2 border-t border-white/[0.05]`}>
-        <span className="text-white/35">D+5 avg return</span>
-        <span className="font-semibold tabular-nums" style={{ color: returnColor(avgReturn) }}>
-          {fmtPct(avgReturn)}
-        </span>
-      </div>
+      {hasD5 && (
+        <div className="flex items-center justify-between gap-3 mt-3.5 pt-3 border-t border-white/[0.06]">
+          <div className={`${TS.body} text-white/55 min-w-0`}>
+            <div className="whitespace-nowrap">
+              ชนะ SET ที่ D+5{' '}
+              <b className="tabular-nums" style={{ color: returnColor(d5.excess_return_pct) }}>{fmtPct(d5.excess_return_pct)}</b>
+            </div>
+            <div className={`${TS.caption} text-white/40 mt-1 flex items-center gap-1.5 whitespace-nowrap`}>
+              <Measure kind="dn" /> ถือตายตัว
+            </div>
+          </div>
+          <HorizonSpark horizons={card.horizons} color={color} />
+        </div>
+      )}
     </Link>
   );
 }
@@ -178,6 +146,7 @@ function ComparisonTable({ horizon }: { horizon: string }) {
             const card = data.scans[key];
             if (!card) return null;
             const m = card.horizons[horizon];
+            if (!m) return null;
             const isSmallSample = m.n > 0 && m.n < 30;
             return (
               <tr key={key}>
@@ -225,10 +194,37 @@ export default function ReportCardPage() {
     <div className="p-4 md:p-6 space-y-5">
       <div>
         <h1 className={`${TS.pageTitle} text-white`}>Report Card</h1>
-        <p className={`${TS.body} text-meta mt-0.5`}>
-          ผลตอบแทนย้อนหลังของแต่ละ scan · ข้อมูล {data.history_range.first_date} ถึง {data.history_range.last_date} ({data.history_range.n_dates} วัน)
+        <p className={`${TS.tableCell} text-white/75 mt-1 ${READABLE}`}>
+          ผลย้อนหลังของแต่ละสแกน ถ้าซื้อทุกตัวที่สแกนเจอ ตัวเลขบนการ์ดนับ <b className="text-white">ตามไม้</b>{' '}
+          (ซื้อวันถัดจากติดสแกน ขายวันถัดจากหลุดสแกน) สีเขียว/แดงใช้กับผลตอบแทนเท่านั้น
+        </p>
+        <p className={`${TS.body} text-meta mt-1`}>
+          ข้อมูล {data.history_range.first_date} ถึง {data.history_range.last_date} ({data.history_range.n_dates} วัน)
         </p>
       </div>
+
+      {isShortHistory && (
+        <div className={`flex items-start gap-2.5 px-4 py-3 rounded-xl bg-[#EF9F27]/10 border border-[#EF9F27]/25 ${TS.body} text-[#EF9F27]`}>
+          <span className="flex-shrink-0 mt-0.5">⚠️</span>
+          <span>
+            ข้อมูลย้อนหลังยังสะสมได้แค่ {data.history_range.n_dates} วัน (เพิ่งเริ่มสะสม) — สถิติโดยเฉพาะ D+10/D+20 ยังไม่นิ่ง
+            ตัวเลขจะแม่นยำขึ้นเรื่อยๆ เมื่อสะสมประวัติได้นานขึ้น
+          </span>
+        </div>
+      )}
+
+      {/* ── Scan cards (ตามไม้) ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+        {SCAN_ORDER.map(key => {
+          const card = data.scans[key];
+          if (!card) return null;
+          return <ScanSummaryCard key={key} scanKey={key} card={card} />;
+        })}
+      </div>
+      <p className={`${TS.body} text-white/45 leading-relaxed ${READABLE}`}>
+        &ldquo;ได้ ÷ เสีย&rdquo; = กำไรเฉลี่ยของไม้ที่ชนะ ÷ ขาดทุนเฉลี่ยของไม้ที่แพ้ ถ้ามากกว่า 1 แปลว่าชนะทีได้มากกว่าแพ้ทีเสีย win rate ต่ำก็ยังคุ้มได้
+        · เส้นเล็กมุมขวา = ผลเฉลี่ยถ้าถือตายตัว 5 / 10 / 20 วันทำการ (วิธีวัดแบบ D+N) · กดการ์ดเพื่อดูรายละเอียดของสแกนนั้น
+      </p>
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-2">
         <p className={`${TS.tableCell} font-semibold text-ink leading-relaxed ${READABLE}`}>
@@ -245,29 +241,12 @@ export default function ReportCardPage() {
         </p>
       </div>
 
-      {isShortHistory && (
-        <div className={`flex items-start gap-2.5 px-4 py-3 rounded-xl bg-[#EF9F27]/10 border border-[#EF9F27]/25 ${TS.body} text-[#EF9F27]`}>
-          <span className="flex-shrink-0 mt-0.5">⚠️</span>
-          <span>
-            ข้อมูลย้อนหลังยังสะสมได้แค่ {data.history_range.n_dates} วัน (เพิ่งเริ่มสะสม) — สถิติโดยเฉพาะ D+10/D+20 ยังไม่นิ่ง
-            ตัวเลขจะแม่นยำขึ้นเรื่อยๆ เมื่อสะสมประวัติได้นานขึ้น
-          </span>
-        </div>
-      )}
-
-      {/* ── Slim Option A Summary cards ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-        {SCAN_ORDER.map(key => {
-          const card = data.scans[key];
-          if (!card) return null;
-          return <ScanSummaryCard key={key} scanKey={key} card={card} />;
-        })}
-      </div>
-
-      {/* ── Comparison tables per horizon ── */}
+      {/* ── Comparison tables per horizon (D+N) ── */}
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
         <div className="px-5 py-4 border-b border-white/[0.06]">
-          <h2 className={`${TS.sectionTitle} text-white`}>เทียบทุก Scan</h2>
+          <h2 className={`${TS.sectionTitle} text-white flex items-center gap-2`}>
+            เทียบทุก Scan <Measure kind="dn" />
+          </h2>
         </div>
         <div className="divide-y divide-white/[0.06]">
           {HORIZONS.map(h => (
