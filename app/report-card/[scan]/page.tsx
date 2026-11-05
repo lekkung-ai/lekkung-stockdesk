@@ -2,29 +2,12 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import rawReportCard from '@/data/scans/report_card.json';
 import ReportCardDetailClient from './ReportCardDetailClient';
+import { ReportCardFile, SCAN_COLORS, SCAN_DESC, SCAN_LABELS, SCAN_ORDER } from '@/lib/reportCard';
 
-const SCAN_KEYS = ['sepa', 'kell', 'breakout', 'lekkung_growth', 'ppbp', 'oneil'];
-
-const SCAN_LABELS: Record<string, string> = {
-  sepa: 'SEPA',
-  kell: 'Oliver Kell',
-  breakout: 'Breakout',
-  lekkung_growth: 'Lekkung Growth',
-  ppbp: 'PPBP',
-  oneil: "CAN SLIM (O'Neil)",
-};
-
-const SCAN_COLORS: Record<string, string> = {
-  sepa: '#1D9E75',
-  kell: '#378ADD',
-  breakout: '#EF9F27',
-  lekkung_growth: '#7F77DD',
-  ppbp: '#E24B4A',
-  oneil: '#06B6D4',
-};
+const data = rawReportCard as unknown as ReportCardFile;
 
 export async function generateStaticParams() {
-  return SCAN_KEYS.map(scan => ({ scan }));
+  return SCAN_ORDER.map(scan => ({ scan }));
 }
 
 export async function generateMetadata({
@@ -45,7 +28,7 @@ export default async function ScanDetailPage({
   const { scan } = await params;
   if (!SCAN_LABELS[scan]) notFound();
 
-  const scanData = (rawReportCard as any).scans?.[scan];
+  const scanData = data.scans?.[scan];
   if (!scanData) notFound();
 
   return (
@@ -53,7 +36,14 @@ export default async function ScanDetailPage({
       scanKey={scan}
       scanLabel={SCAN_LABELS[scan]}
       scanColor={SCAN_COLORS[scan] ?? '#7F77DD'}
+      scanDesc={SCAN_DESC[scan]}
       scanData={scanData}
+      meta={{
+        generated_at: data.generated_at,
+        assumptions: data.assumptions ?? {},
+        history_range: data.history_range,
+        price_range: data.price_range,
+      }}
     />
   );
 }
