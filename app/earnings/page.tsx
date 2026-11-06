@@ -260,7 +260,7 @@ type PeadView = 'table' | 'card';
 
 function D({ v, bold }: { v: number | null | undefined; bold?: boolean }) {
   if (v == null) return <Wait />;
-  return <span className={bold ? 'font-bold' : ''}><Pct v={v} /></span>;
+  return <span className={bold ? 'font-bold' : 'font-semibold'}><Pct v={v} /></span>;
 }
 
 const TAG_AMBER = 'text-orange-200 bg-orange-300/10';
@@ -325,7 +325,7 @@ function PeadLegend() {
 function PeadCompare({ cur, base, title }: { cur: number | null | undefined; base: number | null | undefined; title?: string }) {
   return (
     <div title={title}>
-      <div className="leading-5"><ChangeLine cur={cur} base={base} /></div>
+      <div className="leading-5 font-semibold"><ChangeLine cur={cur} base={base} /></div>
       <div className="text-[12.5px] leading-4 tabular-nums text-white/45">{fmtMoney(base)}</div>
     </div>
   );
@@ -336,10 +336,11 @@ function PeadCompare({ cur, base, title }: { cur: number | null | undefined; bas
 // the md: rule can never win over a wider one.
 const PEAD_GRID = [
   'grid-cols-[minmax(0,1fr)_84px_76px]',
-  'md:max-[1179px]:grid-cols-[minmax(200px,1fr)_92px_74px_74px_54px_54px_54px_54px]',
-  'min-[1180px]:max-[1279px]:grid-cols-[minmax(220px,1fr)_92px_74px_74px_74px_74px_54px_54px_54px_54px]',
-  'min-[1280px]:grid-cols-[minmax(220px,1fr)_92px_74px_74px_74px_74px_128px_54px_54px_54px_54px]',
-  'gap-x-1.5 items-center',
+  'md:max-[1179px]:grid-cols-[minmax(200px,1fr)_80px_78px_78px_58px_58px_58px_58px]',
+  'min-[1180px]:max-[1279px]:grid-cols-[minmax(320px,1fr)_80px_78px_78px_78px_58px_58px_58px_58px]',
+  'min-[1280px]:max-[1439px]:grid-cols-[minmax(320px,1fr)_80px_84px_78px_78px_78px_58px_58px_58px_58px]',
+  'min-[1440px]:grid-cols-[minmax(320px,1fr)_80px_84px_78px_78px_78px_128px_58px_58px_58px_58px]',
+  'gap-x-1 items-center',
 ].join(' ');
 
 function PeadStockCell({ a, extra, today }: { a: EarningsAnnouncement; extra: PeadExtra | undefined; today: string }) {
@@ -434,17 +435,17 @@ function PeadSection({ rows, extras, today, onPick, onShowAll }: {
             {/* group header (md and up) */}
             <div className={`hidden md:grid ${PEAD_GRID} pt-1 text-[12px] text-white/60`}>
               <span />
-              <span className="col-span-3 min-[1180px]:col-span-5 border-b border-[#33507f]/60 pb-0.5 px-1">งบไตรมาสนี้</span>
-              <span className="col-span-4 min-[1280px]:col-span-5 border-b border-white/15 pb-0.5 px-1">ราคาหลังงบ <span className="text-meta">(เทียบราคาปิดก่อนประกาศ)</span></span>
+              <span className="col-span-3 min-[1180px]:col-span-4 min-[1280px]:col-span-5 border-b border-[#33507f]/60 pb-0.5 px-1">งบไตรมาสนี้</span>
+              <span className="col-span-4 min-[1440px]:col-span-5 border-b border-white/15 pb-0.5 px-1">ราคาหลังงบ <span className="text-meta">(เทียบราคาปิดก่อนประกาศ)</span></span>
             </div>
             <div className={`grid ${PEAD_GRID} py-1.5 text-[12px] text-meta border-b border-white/[0.07]`}>
               <span />
               <span className="hidden md:block text-right pr-1">5 ไตรมาส</span>
-              <span className="hidden min-[1180px]:block text-right">กำไร{hdr.now && <span className="block text-[11px] text-white/40">{hdr.now}</span>}</span>
+              <span className="hidden min-[1280px]:block text-right">กำไร{hdr.now && <span className="block text-[11px] text-white/40">{hdr.now}</span>}</span>
               <span className="text-right">เทียบปีก่อน{hdr.yearAgo && <span className="block text-[11px] text-white/40">{hdr.yearAgo}</span>}</span>
               <span className="hidden md:block text-right">ไตรมาสก่อน{hdr.prevQ && <span className="block text-[11px] text-white/40">{hdr.prevQ}</span>}</span>
               <span className="hidden min-[1180px]:block text-right">{hdr.cum ? `${hdr.cum} เดือน` : 'สะสม'}<span className="block text-[11px] text-white/40">สะสมต้นปี</span></span>
-              <span className="hidden min-[1280px]:block">5 วันก่อน → 5 วันหลังงบ</span>
+              <span className="hidden min-[1440px]:block">5 วันก่อน → 5 วันหลังงบ</span>
               <span className="hidden md:block text-right">วันแรก</span>
               <span className="hidden md:block text-right">+1</span>
               <span className="text-right font-semibold text-white/80"><span className="md:hidden">+2 วัน</span><span className="hidden md:inline">+2</span></span>
@@ -452,18 +453,18 @@ function PeadSection({ rows, extras, today, onPick, onShowAll }: {
             </div>
             {top.map(a => (
               <div key={rowKey(a)} {...onActivate(() => onPick(a))}
-                className={`grid ${PEAD_GRID} py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025] cursor-pointer focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#33507f]`}>
+                className={`grid ${PEAD_GRID} text-[16px] py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025] cursor-pointer focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#33507f]`}>
                 <PeadStockCell a={a} extra={extras?.[a.ticker]} today={today} />
                 <span className="hidden md:block text-right">
-                  {a.profitHistory?.length ? <ProfitBars history={a.profitHistory} w={92} h={32} /> : <span className="text-meta">—</span>}
+                  {a.profitHistory?.length ? <ProfitBars history={a.profitHistory} w={80} h={32} /> : <span className="text-meta">—</span>}
                 </span>
-                <span className="hidden min-[1180px]:block text-right tabular-nums font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>{fmtMoney(a.netProfit)}</span>
-                <span className="text-right whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPrior} title={quarterShort(a.quarter, 4) ?? 'งวดเดียวกันปีก่อน'} /></span>
+                <span className="hidden min-[1280px]:block text-right tabular-nums font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>{fmtMoney(a.netProfit)}</span>
+                <span className="text-right whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPrior} title={`${quarterShort(a.quarter) ?? 'ไตรมาสนี้'} กำไร ${fmtMoney(a.netProfit)} · ${quarterShort(a.quarter, 4) ?? 'ปีก่อน'} ${fmtMoney(a.netProfitPrior)}`} /></span>
                 <span className="hidden md:block text-right whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPriorQ} title={a.priorQuarter ?? undefined} /></span>
                 <span className="hidden min-[1180px]:block text-right whitespace-nowrap">
                   {a.netProfitCum != null ? <PeadCompare cur={a.netProfitCum} base={a.netProfitCumPrior} title={cumTitle(a)} /> : <span className="text-meta">—</span>}
                 </span>
-                <span className="hidden min-[1280px]:block"><PriceChart a={a} w={128} h={36} label={false} /></span>
+                <span className="hidden min-[1440px]:block"><PriceChart a={a} w={128} h={36} label={false} /></span>
                 <span className="hidden md:block text-right"><D v={a.gap_pct} /></span>
                 <span className="hidden md:block text-right"><D v={a.drift_d1_pct} /></span>
                 <span className="text-right"><D v={a.drift_d2_pct} bold /></span>
@@ -494,23 +495,23 @@ function PeadSection({ rows, extras, today, onPick, onShowAll }: {
                         {group && <>{group} · </>}ประกาศ {shortDateTime(a.announceDate)}{ago && <> ({ago})</>}
                       </div>
                     </div>
-                    <div className="flex-none">{a.profitHistory?.length ? <ProfitBars history={a.profitHistory} w={92} h={32} /> : null}</div>
+                    <div className="flex-none">{a.profitHistory?.length ? <ProfitBars history={a.profitHistory} w={80} h={32} /> : null}</div>
                   </div>
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 empty:hidden"><PeadBadges a={a} extra={extra} /></div>
                   <div className="grid grid-cols-4 gap-1.5 text-[12px] text-meta">
                     <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">กำไร</i>
-                      <span className="block text-[14px] tabular-nums font-semibold whitespace-nowrap" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>{fmtMoney(a.netProfit)}</span></div>
+                      <span className="block text-[15px] tabular-nums font-semibold whitespace-nowrap" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>{fmtMoney(a.netProfit)}</span></div>
                     <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">ปีก่อน</i>
-                      <div className="text-[14px] whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPrior} /></div></div>
+                      <div className="text-[15px] whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPrior} /></div></div>
                     <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">ไตรมาสก่อน</i>
-                      <div className="text-[14px] whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPriorQ} /></div></div>
+                      <div className="text-[15px] whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPriorQ} /></div></div>
                     <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">{a.cumMonths ? `${a.cumMonths} เดือน` : 'สะสม'}</i>
-                      <div className="text-[14px] whitespace-nowrap">{a.netProfitCum != null ? <PeadCompare cur={a.netProfitCum} base={a.netProfitCumPrior} title={cumTitle(a)} /> : <span className="text-meta">—</span>}</div></div>
+                      <div className="text-[15px] whitespace-nowrap">{a.netProfitCum != null ? <PeadCompare cur={a.netProfitCum} base={a.netProfitCumPrior} title={cumTitle(a)} /> : <span className="text-meta">—</span>}</div></div>
                   </div>
                   {reason && <div className="text-[13px] text-white/55 line-clamp-2" title={reason}>{reason}</div>}
                   <div className="grid grid-cols-4 gap-0.5 bg-black/25 rounded-lg py-2 text-center text-[15px] whitespace-nowrap mt-auto">
                     {([['วันแรก', a.gap_pct], ['+1', a.drift_d1_pct], ['+2', a.drift_d2_pct], ['+5', a.drift_d5_pct]] as const).map(([k, v]) => (
-                      <div key={k} className={k === '+2' ? 'font-bold' : ''}>
+                      <div key={k} className={k === '+2' ? 'font-bold' : 'font-semibold'}>
                         <i className="not-italic block text-meta text-[11px] mb-0.5">{k}</i>
                         {v == null ? <Wait /> : <Pct v={v} />}
                       </div>
