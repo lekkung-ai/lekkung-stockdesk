@@ -8,12 +8,14 @@ import { TS } from '@/lib/typeScale';
 import TableSkeleton from '@/components/TableSkeleton';
 import FullWidthPage from '@/components/FullWidthPage';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
-import { classifyQoQ } from '@/lib/qoqBucket';
 import {
-  fixThaiText, reasonPreview, meaningfulYoY, isTurnaround, isAccelerating, isPead, peadRanked,
+  fixThaiText, reasonPreview, isAccelerating, isPead, peadRanked,
   priorQuarterImproved, pricePath, compareProfit, type ProfitChange,
 } from '@/lib/earningsMetrics';
 import { fmtMoney, pageBucket, seasonCounts } from '@/lib/earningsView';
+import {
+  SCAN_META, STAGE_COLORS, LOW_LIQUIDITY_ADTV, peadWarnings, groupLabel, type PeadExtra,
+} from '@/lib/peadExtras';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
 
 // ── Formatting ───────────────────────────────────────────────────────────────
@@ -76,16 +78,6 @@ function Tag({ children, cls, title }: { children: React.ReactNode; cls: string;
 const TAG_TURN = 'text-sky-300 bg-sky-400/10';
 const TAG_LOSS = 'text-rose-300 bg-rose-500/10';
 const TAG_ACC = 'text-amber-300 bg-amber-400/10';
-
-/** เทียบไตรมาสก่อน: % off a profit base, else the QoQ state in words. */
-function QoQCell({ a }: { a: EarningsAnnouncement }) {
-  if (a.netProfitPriorQ != null && a.netProfitPriorQ > 0 && a.netProfit != null && a.netProfit > 0) {
-    return <Pct v={a.netProfitQoQ ?? ((a.netProfit - a.netProfitPriorQ) / a.netProfitPriorQ) * 100} />;
-  }
-  const q = classifyQoQ(a.netProfit, a.netProfitPriorQ, a.netProfitQoQ);
-  if (q.category === 'no_base') return <span className="text-meta">—</span>;
-  return <span className="text-[13px]" style={{ color: q.color }}>{q.label}</span>;
-}
 
 function reasonOf(a: EarningsAnnouncement): string {
   return a.reason ? fixThaiText(a.reason) : '';
@@ -271,8 +263,115 @@ function D({ v, bold }: { v: number | null | undefined; bold?: boolean }) {
   return <span className={bold ? 'font-bold' : ''}><Pct v={v} /></span>;
 }
 
-function PeadSection({ rows, onPick, onShowAll }: {
+const TAG_AMBER = 'text-orange-200 bg-orange-300/10';
+const TAG_WARN_RED = 'text-rose-300 bg-rose-500/15';
+const TAG_SCAN = 'text-[#8fb4ff] bg-[#5B93FF]/10 hover:bg-[#5B93FF]/20';
+
+/** Pill that may wrap onto its own line but never grows past its cell. */
+function PTag({ children, cls, title }: { children: React.ReactNode; cls: string; title?: string }) {
+  return <span title={title} className={`inline-block max-w-full truncate align-middle text-[12px] leading-5 px-2 rounded-full font-medium ${cls}`}>{children}</span>;
+}
+
+/** "วันนี้" / "N วันก่อน" counted in calendar days (Bangkok date of the filing vs today). */
+function daysBeforeLabel(announceDate: string | null | undefined, today: string): string {
+  const d = (announceDate ?? '').slice(0, 10);
+  const n = d && today ? Math.round((Date.parse(today) - Date.parse(d)) / 86400000) : NaN;
+  if (!Number.isFinite(n) || n < 0) return '';
+  return n === 0 ? 'วันนี้' : `${n} วันก่อน`;
+}
+
+/** Badges of one PEAD stock: market stage · RS · scans it sits in · warnings.
+ *  Every badge has a title with the real value; no data → no badge. */
+function PeadBadges({ a, extra }: { a: EarningsAnnouncement; extra: PeadExtra | undefined }) {
+  const warns = peadWarnings(a.auditorOpinion, extra);
+  return (
+    <>
+      {extra?.stage && (
+        <span title={`Market Stage: ${extra.stage}`} className="inline-flex items-center gap-1 text-[12px] leading-5 text-white/75 whitespace-nowrap">
+          <i className="inline-block w-2 h-2 rounded-full" style={{ background: STAGE_COLORS[extra.stage] ?? '#424242' }} />{extra.stage}
+        </span>
+      )}
+      {extra?.rs != null && (
+        <span title={`RS Rating ${extra.rs}`} className="text-[12px] leading-5 text-white/75 whitespace-nowrap tabular-nums">RS {extra.rs}</span>
+      )}
+      {extra?.scans?.map(k => (
+        <Link key={k} href={SCAN_META[k].href} onClick={e => e.stopPropagation()}
+          title={`ติดสแกน ${SCAN_META[k].label} อยู่ตอนนี้ — เปิดหน้าสแกน`} className="max-w-full">
+          <PTag cls={TAG_SCAN}>{SCAN_META[k].label}</PTag>
+        </Link>
+      ))}
+      {warns.map(w => <PTag key={w.key} cls={w.level === 'red' ? TAG_WARN_RED : TAG_AMBER} title={w.title}>{w.text}</PTag>)}
+    </>
+  );
+}
+
+/** แถบคำอธิบายป้าย above the PEAD table / cards. */
+function PeadLegend() {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] text-meta mb-2">
+      <span className="text-white/70">ป้ายหลังชื่อหุ้น:</span>
+      <span className="inline-flex items-center gap-1"><i className="inline-block w-2 h-2 rounded-full bg-[#4caf50]" />Market Stage</span>
+      <span>RS = RS Rating</span>
+      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_SCAN}>SEPA</PTag>สแกนที่ติดอยู่ตอนนี้</span>
+      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_ACC}>⚡ เร่งตัว</PTag>โตเร็วขึ้นกว่าไตรมาสก่อน</span>
+      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_AMBER}>สภาพคล่องต่ำ</PTag>ซื้อขายเฉลี่ย &lt; {LOW_LIQUIDITY_ADTV} ล./วัน</span>
+      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_AMBER}>Weinstein 3 ทำยอด</PTag></span>
+      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_WARN_RED}>ผู้สอบบัญชี</PTag>แดง = มีเงื่อนไข / ไม่แสดงความเห็น · ส้ม = มีข้อสังเกต</span>
+    </div>
+  );
+}
+
+/** Change on top (same size as the price figures), the base amount underneath. */
+function PeadCompare({ cur, base, title }: { cur: number | null | undefined; base: number | null | undefined; title?: string }) {
+  return (
+    <div title={title}>
+      <div className="leading-5"><ChangeLine cur={cur} base={base} /></div>
+      <div className="text-[12.5px] leading-4 tabular-nums text-white/45">{fmtMoney(base)}</div>
+    </div>
+  );
+}
+
+// Column tracks per width. md-1179 drops profit / N months / price chart; 1180-1279 adds
+// profit + N months; 1280+ adds the price chart. Each tier has its own max-/min- pair so
+// the md: rule can never win over a wider one.
+const PEAD_GRID = [
+  'grid-cols-[minmax(0,1fr)_84px_76px]',
+  'md:max-[1179px]:grid-cols-[minmax(200px,1fr)_92px_74px_74px_54px_54px_54px_54px]',
+  'min-[1180px]:max-[1279px]:grid-cols-[minmax(220px,1fr)_92px_74px_74px_74px_74px_54px_54px_54px_54px]',
+  'min-[1280px]:grid-cols-[minmax(220px,1fr)_92px_74px_74px_74px_74px_128px_54px_54px_54px_54px]',
+  'gap-x-1.5 items-center',
+].join(' ');
+
+function PeadStockCell({ a, extra, today }: { a: EarningsAnnouncement; extra: PeadExtra | undefined; today: string }) {
+  const reason = reasonPreview(a.reason);
+  const group = groupLabel(a);
+  const ago = daysBeforeLabel(a.announceDate, today);
+  return (
+    <span className="block min-w-0">
+      <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <b className="text-ink text-[16px]">{a.ticker}</b>
+        {isAccelerating(a) && <PTag cls={TAG_ACC} title="% เทียบปีก่อนของไตรมาสนี้ สูงกว่าของไตรมาสที่แล้ว">⚡ เร่งตัว</PTag>}
+        <PeadBadges a={a} extra={extra} />
+      </span>
+      <span className="block text-[12.5px] text-meta mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
+        {group && <>{group} · </>}ประกาศ {shortDateTime(a.announceDate)}{ago && <> ({ago})</>}
+      </span>
+      {reason && <span className="block text-[13px] text-white/55 truncate" title={reason}>{reason}</span>}
+    </span>
+  );
+}
+
+function onActivate(fn: () => void) {
+  return {
+    role: 'button' as const, tabIndex: 0, onClick: fn,
+    onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } },
+  };
+}
+
+function PeadSection({ rows, extras, today, onPick, onShowAll }: {
   rows: EarningsAnnouncement[];
+  extras: Record<string, PeadExtra> | undefined;
+  today: string;
   onPick: (a: EarningsAnnouncement) => void;
   onShowAll: () => void;
 }) {
@@ -294,9 +393,15 @@ function PeadSection({ rows, onPick, onShowAll }: {
   const top = useMemo(() => peadRanked(rows).slice(0, 5), [rows]);
   const total = useMemo(() => rows.filter(isPead).length, [rows]);
 
-  const yoyOf = (a: EarningsAnnouncement) => isTurnaround(a)
-    ? <Tag cls={TAG_TURN}>พลิกกำไร</Tag>
-    : <Pct v={meaningfulYoY(a.netProfit, a.netProfitPrior)} />;
+  // Column sub-labels name the real quarters (of the shown rows) - never hard-coded.
+  const hdr = useMemo(() => {
+    const q = top[0]?.quarter ?? null;
+    const months = top.map(a => a.cumMonths).filter((m): m is number => m != null);
+    const cum = months.length && months.every(m => m === months[0]) ? months[0] : null;
+    return { now: quarterShort(q), yearAgo: quarterShort(q, 4), prevQ: quarterShort(q, 1), cum };
+  }, [top]);
+
+  const cumTitle = (a: EarningsAnnouncement) => `${a.cumMonths} เดือน ปีนี้ ${fmtMoney(a.netProfitCum)} · ปีก่อน ${fmtMoney(a.netProfitCumPrior)}`;
 
   return (
     <section>
@@ -322,61 +427,100 @@ function PeadSection({ rows, onPick, onShowAll }: {
           ยังไม่มีหุ้นเข้าเกณฑ์ (งบโต ≥ 20% หรือพลิกกำไร และราคาหลังงบ 2 วันยังเป็นบวก)
         </div>
       ) : view === 'table' ? (
-        // 7 columns (with the price chart) need ~850px: only from 1180px wide (iPad landscape with the
-        // sidebar open still has 912px). md-1179px drops the chart; the box scrolls on its own if a
-        // row is still too wide, so the page itself never scrolls sideways.
-        <div className={`${TS.tableCell} overflow-x-auto [scrollbar-width:thin]`}>
-          <div className="grid grid-cols-[1fr_84px_70px] md:max-[1179px]:grid-cols-[minmax(140px,1fr)_96px_64px_64px_70px_64px] min-[1180px]:grid-cols-[minmax(170px,1.4fr)_96px_250px_64px_64px_70px_64px] gap-3 items-center py-1.5 text-[12px] text-meta border-b border-white/[0.07]">
-            <span />
-            <span className="text-right">เทียบปีก่อน</span>
-            <span className="hidden min-[1180px]:block">ราคา 5 วันก่อน → 5 วันหลังงบ</span>
-            <span className="hidden md:block text-right">วันแรก</span>
-            <span className="hidden md:block text-right">+1 วัน</span>
-            <span className="text-right">+2 วัน</span>
-            <span className="hidden md:block text-right">+5 วัน</span>
+        <>
+          <PeadLegend />
+          {/* Tracks above: the page never scrolls sideways - the box scrolls on its own if a row is still too wide. */}
+          <div className={`${TS.tableCell} overflow-x-auto [scrollbar-width:thin]`}>
+            {/* group header (md and up) */}
+            <div className={`hidden md:grid ${PEAD_GRID} pt-1 text-[12px] text-white/60`}>
+              <span />
+              <span className="col-span-3 min-[1180px]:col-span-5 border-b border-[#33507f]/60 pb-0.5 px-1">งบไตรมาสนี้</span>
+              <span className="col-span-4 min-[1280px]:col-span-5 border-b border-white/15 pb-0.5 px-1">ราคาหลังงบ <span className="text-meta">(เทียบราคาปิดก่อนประกาศ)</span></span>
+            </div>
+            <div className={`grid ${PEAD_GRID} py-1.5 text-[12px] text-meta border-b border-white/[0.07]`}>
+              <span />
+              <span className="hidden md:block text-right pr-1">5 ไตรมาส</span>
+              <span className="hidden min-[1180px]:block text-right">กำไร{hdr.now && <span className="block text-[11px] text-white/40">{hdr.now}</span>}</span>
+              <span className="text-right">เทียบปีก่อน{hdr.yearAgo && <span className="block text-[11px] text-white/40">{hdr.yearAgo}</span>}</span>
+              <span className="hidden md:block text-right">ไตรมาสก่อน{hdr.prevQ && <span className="block text-[11px] text-white/40">{hdr.prevQ}</span>}</span>
+              <span className="hidden min-[1180px]:block text-right">{hdr.cum ? `${hdr.cum} เดือน` : 'สะสม'}<span className="block text-[11px] text-white/40">สะสมต้นปี</span></span>
+              <span className="hidden min-[1280px]:block">5 วันก่อน → 5 วันหลังงบ</span>
+              <span className="hidden md:block text-right">วันแรก</span>
+              <span className="hidden md:block text-right">+1</span>
+              <span className="text-right font-semibold text-white/80"><span className="md:hidden">+2 วัน</span><span className="hidden md:inline">+2</span></span>
+              <span className="hidden md:block text-right">+5</span>
+            </div>
+            {top.map(a => (
+              <div key={rowKey(a)} {...onActivate(() => onPick(a))}
+                className={`grid ${PEAD_GRID} py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025] cursor-pointer focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#33507f]`}>
+                <PeadStockCell a={a} extra={extras?.[a.ticker]} today={today} />
+                <span className="hidden md:block text-right">
+                  {a.profitHistory?.length ? <ProfitBars history={a.profitHistory} w={92} h={32} /> : <span className="text-meta">—</span>}
+                </span>
+                <span className="hidden min-[1180px]:block text-right tabular-nums font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>{fmtMoney(a.netProfit)}</span>
+                <span className="text-right whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPrior} title={quarterShort(a.quarter, 4) ?? 'งวดเดียวกันปีก่อน'} /></span>
+                <span className="hidden md:block text-right whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPriorQ} title={a.priorQuarter ?? undefined} /></span>
+                <span className="hidden min-[1180px]:block text-right whitespace-nowrap">
+                  {a.netProfitCum != null ? <PeadCompare cur={a.netProfitCum} base={a.netProfitCumPrior} title={cumTitle(a)} /> : <span className="text-meta">—</span>}
+                </span>
+                <span className="hidden min-[1280px]:block"><PriceChart a={a} w={128} h={36} label={false} /></span>
+                <span className="hidden md:block text-right"><D v={a.gap_pct} /></span>
+                <span className="hidden md:block text-right"><D v={a.drift_d1_pct} /></span>
+                <span className="text-right"><D v={a.drift_d2_pct} bold /></span>
+                <span className="hidden md:block text-right"><D v={a.drift_d5_pct} /></span>
+              </div>
+            ))}
           </div>
-          {top.map(a => (
-            <button key={rowKey(a)} onClick={() => onPick(a)}
-              className="w-full text-left grid grid-cols-[1fr_84px_70px] md:max-[1179px]:grid-cols-[minmax(140px,1fr)_96px_64px_64px_70px_64px] min-[1180px]:grid-cols-[minmax(170px,1.4fr)_96px_250px_64px_64px_70px_64px] gap-3 items-center py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025]">
-              <span className="min-w-0">
-                <b className="text-ink text-[16px]">{a.ticker}</b>
-                {reasonPreview(a.reason) && <span className="block text-[13px] text-meta truncate">{reasonPreview(a.reason)}</span>}
-              </span>
-              <span className="text-right">{yoyOf(a)}</span>
-              <span className="hidden min-[1180px]:block"><PriceChart a={a} w={250} h={40} /></span>
-              <span className="hidden md:block text-right"><D v={a.gap_pct} /></span>
-              <span className="hidden md:block text-right"><D v={a.drift_d1_pct} /></span>
-              <span className="text-right"><D v={a.drift_d2_pct} bold /></span>
-              <span className="hidden md:block text-right"><D v={a.drift_d5_pct} /></span>
-            </button>
-          ))}
-        </div>
+        </>
       ) : (
-        <div className="flex gap-3 overflow-x-auto pb-1 mt-2.5 [scrollbar-width:thin]">
-          {top.map(a => (
-            <button key={rowKey(a)} onClick={() => onPick(a)}
-              className="text-left flex-1 min-w-[200px] border border-white/[0.07] hover:border-[#33507f] rounded-xl p-3.5 bg-[#13161e]">
-              <div className="min-h-[96px]">
-                <b className="text-ink text-[17px]">{a.ticker}</b>
-                {reasonPreview(a.reason) && <div className="text-[13px] text-meta truncate">{reasonPreview(a.reason)}</div>}
-                <div className="flex flex-wrap gap-x-3 gap-y-1 items-center text-[13px] mt-2">
-                  <span><i className="not-italic text-meta text-[11px] mr-1">ปีก่อน</i>{yoyOf(a)}</span>
-                  <span><i className="not-italic text-meta text-[11px] mr-1">ไตรมาสก่อน</i><QoQCell a={a} /></span>
-                  {isAccelerating(a) && <Tag cls={TAG_ACC}>⚡ เร่งตัว</Tag>}
-                </div>
-              </div>
-              <div className="my-2.5"><PriceChart a={a} w={220} h={60} /></div>
-              <div className="grid grid-cols-4 gap-0.5 bg-black/25 rounded-lg py-2 text-center text-[12.5px] whitespace-nowrap">
-                {([['วันแรก', a.gap_pct], ['+1', a.drift_d1_pct], ['+2', a.drift_d2_pct], ['+5', a.drift_d5_pct]] as const).map(([k, v]) => (
-                  <div key={k} className={k === '+2' ? 'font-bold' : ''}>
-                    <i className="not-italic block text-meta text-[11px] mb-0.5">{k}</i>
-                    {v == null ? <Wait /> : <Pct v={v} />}
+        <>
+          <PeadLegend />
+          <div className="flex gap-3 overflow-x-auto pb-1 mt-2.5 [scrollbar-width:thin]">
+            {top.map(a => {
+              const extra = extras?.[a.ticker];
+              const reason = reasonPreview(a.reason);
+              const group = groupLabel(a);
+              const ago = daysBeforeLabel(a.announceDate, today);
+              return (
+                <div key={rowKey(a)} {...onActivate(() => onPick(a))}
+                  className="cursor-pointer flex-1 min-w-[340px] border border-white/[0.07] hover:border-[#33507f] rounded-xl p-3.5 bg-[#13161e] flex flex-col gap-2.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <b className="text-ink text-[17px]">{a.ticker}</b>
+                        {isAccelerating(a) && <PTag cls={TAG_ACC} title="% เทียบปีก่อนของไตรมาสนี้ สูงกว่าของไตรมาสที่แล้ว">⚡ เร่งตัว</PTag>}
+                      </div>
+                      <div className="text-[12.5px] text-meta mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
+                        {group && <>{group} · </>}ประกาศ {shortDateTime(a.announceDate)}{ago && <> ({ago})</>}
+                      </div>
+                    </div>
+                    <div className="flex-none">{a.profitHistory?.length ? <ProfitBars history={a.profitHistory} w={92} h={32} /> : null}</div>
                   </div>
-                ))}
-              </div>
-            </button>
-          ))}
-        </div>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 empty:hidden"><PeadBadges a={a} extra={extra} /></div>
+                  <div className="grid grid-cols-4 gap-1.5 text-[12px] text-meta">
+                    <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">กำไร</i>
+                      <span className="block text-[14px] tabular-nums font-semibold whitespace-nowrap" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>{fmtMoney(a.netProfit)}</span></div>
+                    <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">ปีก่อน</i>
+                      <div className="text-[14px] whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPrior} /></div></div>
+                    <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">ไตรมาสก่อน</i>
+                      <div className="text-[14px] whitespace-nowrap"><PeadCompare cur={a.netProfit} base={a.netProfitPriorQ} /></div></div>
+                    <div className="min-w-0"><i className="not-italic block text-[11px] mb-0.5">{a.cumMonths ? `${a.cumMonths} เดือน` : 'สะสม'}</i>
+                      <div className="text-[14px] whitespace-nowrap">{a.netProfitCum != null ? <PeadCompare cur={a.netProfitCum} base={a.netProfitCumPrior} title={cumTitle(a)} /> : <span className="text-meta">—</span>}</div></div>
+                  </div>
+                  {reason && <div className="text-[13px] text-white/55 line-clamp-2" title={reason}>{reason}</div>}
+                  <div className="grid grid-cols-4 gap-0.5 bg-black/25 rounded-lg py-2 text-center text-[15px] whitespace-nowrap mt-auto">
+                    {([['วันแรก', a.gap_pct], ['+1', a.drift_d1_pct], ['+2', a.drift_d2_pct], ['+5', a.drift_d5_pct]] as const).map(([k, v]) => (
+                      <div key={k} className={k === '+2' ? 'font-bold' : ''}>
+                        <i className="not-italic block text-meta text-[11px] mb-0.5">{k}</i>
+                        {v == null ? <Wait /> : <Pct v={v} />}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
       )}
     </section>
   );
@@ -767,7 +911,7 @@ export default function EarningsPage() {
         <div className="space-y-7">
           <SeasonStats rows={seasonRows} />
           <WeekLine feed={feed} />
-          <PeadSection rows={seasonRows} onPick={pick} onShowAll={showAllPead} />
+          <PeadSection rows={seasonRows} extras={feed.peadExtras} today={today} onPick={pick} onShowAll={showAllPead} />
 
           <div ref={tableRef} className="scroll-mt-20">
             {/* Tabs - one at a time, never wrap (scroll sideways on a narrow screen) */}
