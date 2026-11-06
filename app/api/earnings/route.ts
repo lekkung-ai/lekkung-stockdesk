@@ -1,6 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import type { EarningsBucket } from '@/lib/earningsBucket';
+import { isPead } from '@/lib/earningsMetrics';
+import { peadExtrasFor } from '@/lib/peadExtrasData';
+import type { PeadExtra } from '@/lib/peadExtras';
 
 export interface EarningsAnnouncement {
   ticker: string;
@@ -76,6 +79,8 @@ export interface EarningsFeed {
   buckets: Record<EarningsBucket, EarningsBucketSummary>;
   announcements: EarningsAnnouncement[];
   calendar: EarningsCalendarEntry[];
+  /** badges for the PEAD stocks only (lib/peadExtras.ts); absent on an old/empty feed */
+  peadExtras?: Record<string, PeadExtra>;
 }
 
 const FEED_PATH = path.join(process.cwd(), 'public', 'data', 'earnings', 'earnings_feed.json');
@@ -90,7 +95,10 @@ export async function GET() {
     // f45Cache is the batch script's parsed-F45 store - never sent to the page.
     const { f45Cache: _cache, ...data } = JSON.parse(raw) as EarningsFeed & { f45Cache?: unknown };
     void _cache;
-    return Response.json(data, {
+    // Small lookup for the PEAD section only (stage / liquidity / RS / scans of the
+    // stocks that pass the PEAD rule) - never the whole scan files.
+    const peadExtras = peadExtrasFor(data.announcements.filter(isPead).map(a => a.ticker));
+    return Response.json({ ...data, peadExtras }, {
       headers: { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' },
     });
   } catch {
