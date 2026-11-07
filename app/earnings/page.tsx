@@ -310,8 +310,8 @@ function StockBadges({ a, extra }: { a: EarningsAnnouncement; extra: PeadExtra |
   );
 }
 
-/** แถบคำอธิบายป้าย above the PEAD table / cards. */
-function PeadLegend() {
+/** แถบคำอธิบายป้าย above the PEAD table / cards and the main table. */
+function BadgeLegend() {
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] text-meta mb-2">
       <span className="text-white/70">ป้ายหลังชื่อหุ้น:</span>
@@ -464,7 +464,7 @@ function PeadSection({ rows, extras, today, onPick, onShowAll }: {
         <div className="py-5 text-[14px] text-meta border-b border-white/[0.07]">ยังไม่มีหุ้นเข้าเกณฑ์</div>
       ) : view === 'table' ? (
         <>
-          <PeadLegend />
+          <BadgeLegend />
           {/* Tracks above: the page never scrolls sideways - the box scrolls on its own if a row is still too wide. */}
           <div className={`${TS.tableCell} overflow-x-auto [scrollbar-width:thin]`}>
             <div className={`grid ${PEAD_GRID} py-1.5 text-[12px] text-meta border-b border-white/[0.07]`}>
@@ -492,7 +492,7 @@ function PeadSection({ rows, extras, today, onPick, onShowAll }: {
         </>
       ) : (
         <>
-          <PeadLegend />
+          <BadgeLegend />
           <div className="flex gap-3 overflow-x-auto pb-1 mt-2.5 [scrollbar-width:thin]">
             {top.map(a => {
               const extra = extras?.[a.ticker];
@@ -790,6 +790,7 @@ export default function EarningsPage() {
   useEffect(() => { fetchFeed(); }, []);
 
   const today = bangkokDateKey();
+  const extras = feed.extras;
 
   const quarters = useMemo(() => {
     const s = new Set(feed.announcements.map(a => a.quarter?.trim()).filter((q): q is string => !!q));
@@ -969,6 +970,7 @@ export default function EarningsPage() {
               </select>
             </div>
 
+            <BadgeLegend />
             <BarsLegend />
             <div className="overflow-x-auto">
               <table className={`w-full ${TS.tableCell}`}>
@@ -1005,17 +1007,18 @@ export default function EarningsPage() {
                       <Fragment key={key}>
                         <tr id={`row-${key}`} onClick={() => setOpenKey(open ? null : key)}
                           className={`cursor-pointer border-b border-white/[0.07] ${open ? 'bg-white/[0.03]' : 'hover:bg-white/[0.025]'}`}>
-                          <td className="px-1.5 md:px-3 py-3 max-w-[112px] md:max-w-[420px]">
+                          <td className="px-1.5 md:px-3 py-3 max-w-[112px] md:max-w-[240px] min-[1280px]:max-w-[420px]">
                             <div className="flex flex-wrap md:flex-nowrap items-center gap-x-2 gap-y-0.5 whitespace-nowrap">
                               <b className="text-ink text-[16px]">{a.ticker}</b>
                               {isToday && <span className="w-[7px] h-[7px] rounded-full bg-[#5B93FF]" title="ประกาศวันนี้" />}
-                              {isAccelerating(a) && <Tag cls={TAG_ACC} title="% เทียบปีก่อนของไตรมาสนี้ สูงกว่าของไตรมาสที่แล้ว">⚡ เร่งตัว</Tag>}
                               {a.isCorrection && <span className="text-[12px] text-[#EF9F27]">แก้ไข</span>}
                             </div>
                             <div className="text-[12.5px] text-meta truncate mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
                               {(a.subsector || a.sector) && <>{a.subsector || a.sector} · </>}ประกาศ {shortDateTime(a.announceDate)}
                               {activeQuarter === ALL_QUARTERS && a.quarter && <> · {a.quarter}</>}
                             </div>
+                            {/* same badges as the PEAD section (StockBadges); none at all → no row */}
+                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 empty:hidden"><StockBadges a={a} extra={extras?.[a.ticker]} /></div>
                             {reason && <div className="text-[13px] text-white/55 truncate" title={reason}>{reason}</div>}
                           </td>
                           <td className="px-1.5 md:px-3 py-3 text-right tabular-nums whitespace-nowrap md:text-[16px] font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>
