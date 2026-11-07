@@ -16,6 +16,10 @@ import { fmtMoney, pageBucket, seasonCounts } from '@/lib/earningsView';
 import {
   SCAN_META, STAGE_COLORS, LOW_LIQUIDITY_ADTV, peadWarnings, groupLabel, type PeadExtra,
 } from '@/lib/peadExtras';
+import {
+  parseView, withView, groupByDay, summarizeDay, announceDay, dayLabel,
+  DAYS_OPEN_BY_DEFAULT, DAY_CARDS, type EarningsView, type DaySummary,
+} from '@/lib/earningsDays';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
 
 // ── Formatting ───────────────────────────────────────────────────────────────
@@ -758,6 +762,65 @@ function SortLink({ k, sort, onSort, children }: {
   );
 }
 
+// ── รายวัน view: bucket bar, day cards, day header ─────────────────────────
+
+/** Thin bar split by bucket share (BUCKET_ORDER), widths of the day's rows. */
+function BucketBar({ s, className }: { s: DaySummary; className: string }) {
+  return (
+    <span className={`flex overflow-hidden rounded-full bg-white/[0.06] ${className}`}>
+      {BUCKET_ORDER.map(k => s.counts[k] ? (
+        <i key={k} className="block h-full" style={{ width: `${(s.counts[k]! / s.n) * 100}%`, background: BUCKET_COLOR[k] }} />
+      ) : null)}
+    </span>
+  );
+}
+
+/** The newest DAY_CARDS days with a filing - click = jump to that day (opened). */
+function DayCards({ groups, onPick }: { groups: { day: string; s: DaySummary }[]; onPick: (day: string) => void }) {
+  if (!groups.length) return null;
+  return (
+    <div className="flex gap-2 overflow-x-auto pb-2 mb-2 [scrollbar-width:thin]" aria-label="วันที่มีประกาศงบ">
+      {groups.slice(0, DAY_CARDS).map(({ day, s }) => (
+        <button key={day} type="button" onClick={() => onPick(day)}
+          title={BUCKET_ORDER.filter(k => s.counts[k]).map(k => `${TAB_LABEL[k]} ${s.counts[k]}`).join(' · ')}
+          className="flex-none min-w-[96px] text-left bg-[#13161e] border border-white/[0.07] hover:border-white/20 rounded-[10px] px-2.5 py-1.5">
+          <span className="block text-[12px] text-meta whitespace-nowrap">{dayLabel(day)}</span>
+          <span className="block text-[16px] font-semibold text-ink tabular-nums">{s.n} <span className="text-[12px] font-normal text-meta">บริษัท</span></span>
+          <BucketBar s={s} className="h-1 mt-1" />
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/** หัวกลุ่มของวัน: วัน · N บริษัท · bar · กำไรดีขึ้น X (Y%) · each bucket · โตสุดของวัน. */
+function DayHeader({ day, s, open, onToggle }: { day: string; s: DaySummary; open: boolean; onToggle: () => void }) {
+  return (
+    <button type="button" onClick={onToggle} aria-expanded={open}
+      className="w-full flex flex-wrap items-center gap-x-4 gap-y-1.5 px-3 md:px-4 py-3 text-left bg-[#13161e] hover:bg-[#171b25]">
+      <span className={`text-white/40 text-[12px] transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
+      <span className="text-[15px] font-semibold text-ink whitespace-nowrap min-w-[88px] md:min-w-[110px]">{dayLabel(day)}</span>
+      <span className="text-[13px] text-meta whitespace-nowrap">{s.n} บริษัท</span>
+      <BucketBar s={s} className="h-1.5 w-[120px] md:w-[160px]" />
+      <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] text-meta">
+        {s.improvedPct != null && (
+          <span className="whitespace-nowrap">กำไรดีขึ้น <b className="font-semibold" style={{ color: UP }}>{s.improved}</b> ({s.improvedPct}%)</span>
+        )}
+        {BUCKET_ORDER.filter(k => s.counts[k]).map(k => (
+          <span key={k} className="whitespace-nowrap">
+            <i className="inline-block w-2 h-2 rounded-[2px] mr-1 align-[0px]" style={{ background: BUCKET_COLOR[k] }} />{TAB_LABEL[k]} {s.counts[k]}
+          </span>
+        ))}
+      </span>
+      {s.best && (
+        <span className="ml-auto text-[12.5px] text-meta whitespace-nowrap">
+          โตสุดของวัน <b className="text-ink font-semibold">{s.best.ticker}</b> <Pct v={s.best.yoy} digits={0} />
+        </span>
+      )}
+    </button>
+  );
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 const EMPTY_FEED: EarningsFeed = {
@@ -779,6 +842,13 @@ export default function EarningsPage() {
   const [openKey, setOpenKey] = useState<string | null>(null);
   const scrollTarget = useRef<string | null>(null);
   const tableRef = useRef<HTMLDivElement>(null);
+  // รายวัน / รายการเดียว, bound to ?view=. Read from the URL in the initializer: the table
+  // only renders after the feed loads (never on the server), so this can't mismatch.
+  const [view, setViewState] = useState<EarningsView>(() =>
+    typeof window === 'undefined' ? 'day' : parseView(new URLSearchParams(window.location.search).get('view')));
+  // Day groups the user opened / closed; others follow the default (the newest 2 open).
+  const [dayToggled, setDayToggled] = useState<Map<string, boolean>>(new Map());
+  const scrollDay = useRef<string | null>(null);
 
   const fetchFeed = () =>
     fetch('/api/earnings')
@@ -838,6 +908,13 @@ export default function EarningsPage() {
     return { now: quarterShort(label), yearAgo: quarterShort(label, 4), prevQ: quarterShort(label, 1), cumMonths };
   }, [activeQuarter, filtered]);
 
+  // Filter first, then group - a day the filters empty is not shown, headers count filtered rows.
+  const dayGroups = useMemo(
+    () => groupByDay(filtered).map(g => ({ ...g, s: summarizeDay(g.rows) })),
+    [filtered]
+  );
+  const isDayOpen = (day: string, i: number) => dayToggled.get(day) ?? i < DAYS_OPEN_BY_DEFAULT;
+
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
   const pageRows = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
@@ -849,6 +926,27 @@ export default function EarningsPage() {
     if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
     scrollTarget.current = null;
   }, [openKey, pageRows]);
+
+  useEffect(() => {
+    if (!scrollDay.current) return;
+    const el = document.getElementById(`day-${scrollDay.current}`);
+    if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    scrollDay.current = null;
+  }, [view, dayToggled]);
+
+  const setView = (v: EarningsView) => {
+    setViewState(v);
+    try {
+      const { pathname, search, hash } = window.location;
+      window.history.replaceState(window.history.state, '', `${pathname}${withView(search, v)}${hash}`);
+    } catch { /* ignore */ }
+  };
+  const openDay = (day: string) => {
+    if (view !== 'day') setView('day');
+    setDayToggled(m => new Map(m).set(day, true));
+    scrollDay.current = day;
+  };
+  const toggleDay = (day: string, open: boolean) => setDayToggled(m => new Map(m).set(day, !open));
 
   const resetPage = () => setPage(1);
   const onSort = (k: SortKey) => {
@@ -876,6 +974,7 @@ export default function EarningsPage() {
       .sort((x, y) => (y.announceDate || '').localeCompare(x.announceDate || ''));
     setPage(Math.floor(Math.max(0, list.findIndex(x => rowKey(x) === key)) / PAGE_SIZE) + 1);
     setOpenKey(key);
+    setDayToggled(m => new Map(m).set(announceDay(a), true));
     scrollTarget.current = key;
   };
   const showAllPead = () => {
@@ -883,7 +982,75 @@ export default function EarningsPage() {
     setQuarter(null);
     setChips(new Set(['pead']));
     resetPage();
+    // รายวัน: open every day that holds a PEAD stock, so all N show (not just the newest 2 days)
+    setDayToggled(m => {
+      const next = new Map(m);
+      for (const a of seasonRows) if (isPead(a, extras?.[a.ticker]?.adtv)) next.set(announceDay(a), true);
+      return next;
+    });
     tableRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
+
+  // One table row (+ its expanded detail) - used by both รายการเดียว and รายวัน.
+  const renderRow = (a: EarningsAnnouncement) => {
+    const key = rowKey(a);
+    const open = openKey === key;
+    const reason = reasonPreview(a.reason);
+    const isToday = a.announceDate?.startsWith(today);
+    return (
+      <Fragment key={key}>
+        <tr id={`row-${key}`} onClick={() => setOpenKey(open ? null : key)}
+          className={`cursor-pointer border-b border-white/[0.07] ${open ? 'bg-white/[0.03]' : 'hover:bg-white/[0.025]'}`}>
+          <td className="px-1.5 md:px-3 py-3 max-w-[112px] md:max-w-[240px] min-[1280px]:max-w-[420px]">
+            <div className="flex flex-wrap md:flex-nowrap items-center gap-x-2 gap-y-0.5 whitespace-nowrap">
+              <b className="text-ink text-[16px]">{a.ticker}</b>
+              {isToday && <span className="w-[7px] h-[7px] rounded-full bg-[#5B93FF]" title="ประกาศวันนี้" />}
+              {a.isCorrection && <span className="text-[12px] text-[#EF9F27]">แก้ไข</span>}
+            </div>
+            <div className="text-[12.5px] text-meta truncate mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
+              {(a.subsector || a.sector) && <>{a.subsector || a.sector} · </>}ประกาศ {shortDateTime(a.announceDate)}
+              {activeQuarter === ALL_QUARTERS && a.quarter && <> · {a.quarter}</>}
+            </div>
+            {/* same badges as the PEAD section (StockBadges); none at all → no row */}
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 empty:hidden"><StockBadges a={a} extra={extras?.[a.ticker]} /></div>
+            {reason && <div className="text-[13px] text-white/55 truncate" title={reason}>{reason}</div>}
+          </td>
+          <td className="px-1.5 md:px-3 py-3 text-right tabular-nums whitespace-nowrap md:text-[16px] font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>
+            {fmtMoney(a.netProfit)}
+          </td>
+          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap">
+            <CompareCell cur={a.netProfit} base={a.netProfitPrior} title={quarterShort(a.quarter, 4) ?? 'งวดเดียวกันปีก่อน'} />
+          </td>
+          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap hidden md:table-cell">
+            <CompareCell cur={a.netProfit} base={a.netProfitPriorQ} title={a.priorQuarter ?? undefined} />
+          </td>
+          <td className="px-1.5 md:px-3 py-2 text-right whitespace-nowrap hidden min-[1440px]:table-cell">
+            {a.profitHistory?.length ? <ProfitBars history={a.profitHistory} /> : <span className="text-meta">—</span>}
+          </td>
+          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap hidden min-[1680px]:table-cell">
+            {a.netProfitCum != null ? (
+              <div title={`${a.cumMonths} เดือน ปีนี้ ${fmtMoney(a.netProfitCum)} · ปีก่อน ${fmtMoney(a.netProfitCumPrior)}`}>
+                <div className="tabular-nums text-white/60">{fmtMoney(a.netProfitCum)}</div>
+                <div className="text-[13px] leading-5"><ChangeLine cur={a.netProfitCum} base={a.netProfitCumPrior} /></div>
+              </div>
+            ) : <span className="text-meta">—</span>}
+          </td>
+          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap">
+            {a.gap_pct == null ? <Wait title="รอครบวันทำการ" /> : (
+              <>
+                <span className="text-[13px] text-meta tabular-nums hidden md:inline">{a.gap_pct >= 0 ? '+' : ''}{a.gap_pct.toFixed(1)} → </span>
+                {a.drift_d2_pct == null ? <Wait title="รอครบ 2 วันทำการ" /> : <Pct v={a.drift_d2_pct} />}
+              </>
+            )}
+          </td>
+        </tr>
+        {open && (
+          <tr className="border-b border-white/[0.07] bg-[#13161e]">
+            <td colSpan={7} className="px-3 md:px-5 pt-4 pb-5"><DetailRow a={a} /></td>
+          </tr>
+        )}
+      </Fragment>
+    );
   };
 
   const filterLabel = [tab && TAB_LABEL[tab], ...[...chips].map(k => CHIPS.find(c => c.key === k)!.label)].filter(Boolean).join(' + ');
@@ -921,6 +1088,20 @@ export default function EarningsPage() {
           <PeadSection rows={seasonRows} extras={feed.extras} today={today} onPick={pick} onShowAll={showAllPead} />
 
           <div ref={tableRef} className="scroll-mt-20">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 text-[14px] text-meta">
+              <span><b className="text-ink text-[16px] font-semibold">ทุกบริษัทที่ประกาศ</b> · {quarterRows.length} บริษัท</span>
+              <span className="inline-flex border border-white/[0.08] rounded-lg overflow-hidden" role="group" aria-label="มุมมองตาราง">
+                {(['day', 'list'] as const).map(v => (
+                  <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v}
+                    className={`text-[13px] px-3 py-1 ${view === v ? 'bg-[#1b2640] text-[#dbe7ff]' : 'text-meta hover:text-white/80'}`}>
+                    {v === 'day' ? 'รายวัน' : 'รายการเดียว'}
+                  </button>
+                ))}
+              </span>
+            </div>
+            <p className="text-[12.5px] text-meta mt-1 mb-2">
+              ส่วนนี้ดู<b className="text-white/80 font-medium">ตัวเลขงบ</b>ครบชุด · ป้ายใต้ชื่อหุ้นชุดเดียวกับส่วนบน · มุมมอง &quot;รายวัน&quot; จัดกลุ่มตามวันประกาศ
+            </p>
             {/* Tabs - one at a time, never wrap (scroll sideways on a narrow screen) */}
             <div className="flex flex-nowrap overflow-x-auto [scrollbar-width:none] gap-1 border-b border-white/[0.07] mb-4">
               {[null, ...BUCKET_ORDER].map(k => {
@@ -970,6 +1151,7 @@ export default function EarningsPage() {
               </select>
             </div>
 
+            <DayCards groups={dayGroups} onPick={openDay} />
             <BadgeLegend />
             <BarsLegend />
             <div className="overflow-x-auto">
@@ -997,80 +1179,37 @@ export default function EarningsPage() {
                     </SortTh>
                   </tr>
                 </thead>
-                <tbody>
-                  {pageRows.map(a => {
-                    const key = rowKey(a);
-                    const open = openKey === key;
-                    const reason = reasonPreview(a.reason);
-                    const isToday = a.announceDate?.startsWith(today);
-                    return (
-                      <Fragment key={key}>
-                        <tr id={`row-${key}`} onClick={() => setOpenKey(open ? null : key)}
-                          className={`cursor-pointer border-b border-white/[0.07] ${open ? 'bg-white/[0.03]' : 'hover:bg-white/[0.025]'}`}>
-                          <td className="px-1.5 md:px-3 py-3 max-w-[112px] md:max-w-[240px] min-[1280px]:max-w-[420px]">
-                            <div className="flex flex-wrap md:flex-nowrap items-center gap-x-2 gap-y-0.5 whitespace-nowrap">
-                              <b className="text-ink text-[16px]">{a.ticker}</b>
-                              {isToday && <span className="w-[7px] h-[7px] rounded-full bg-[#5B93FF]" title="ประกาศวันนี้" />}
-                              {a.isCorrection && <span className="text-[12px] text-[#EF9F27]">แก้ไข</span>}
-                            </div>
-                            <div className="text-[12.5px] text-meta truncate mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
-                              {(a.subsector || a.sector) && <>{a.subsector || a.sector} · </>}ประกาศ {shortDateTime(a.announceDate)}
-                              {activeQuarter === ALL_QUARTERS && a.quarter && <> · {a.quarter}</>}
-                            </div>
-                            {/* same badges as the PEAD section (StockBadges); none at all → no row */}
-                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 empty:hidden"><StockBadges a={a} extra={extras?.[a.ticker]} /></div>
-                            {reason && <div className="text-[13px] text-white/55 truncate" title={reason}>{reason}</div>}
-                          </td>
-                          <td className="px-1.5 md:px-3 py-3 text-right tabular-nums whitespace-nowrap md:text-[16px] font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>
-                            {fmtMoney(a.netProfit)}
-                          </td>
-                          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap">
-                            <CompareCell cur={a.netProfit} base={a.netProfitPrior} title={quarterShort(a.quarter, 4) ?? 'งวดเดียวกันปีก่อน'} />
-                          </td>
-                          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap hidden md:table-cell">
-                            <CompareCell cur={a.netProfit} base={a.netProfitPriorQ} title={a.priorQuarter ?? undefined} />
-                          </td>
-                          <td className="px-1.5 md:px-3 py-2 text-right whitespace-nowrap hidden min-[1440px]:table-cell">
-                            {a.profitHistory?.length ? <ProfitBars history={a.profitHistory} /> : <span className="text-meta">—</span>}
-                          </td>
-                          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap hidden min-[1680px]:table-cell">
-                            {a.netProfitCum != null ? (
-                              <div title={`${a.cumMonths} เดือน ปีนี้ ${fmtMoney(a.netProfitCum)} · ปีก่อน ${fmtMoney(a.netProfitCumPrior)}`}>
-                                <div className="tabular-nums text-white/60">{fmtMoney(a.netProfitCum)}</div>
-                                <div className="text-[13px] leading-5"><ChangeLine cur={a.netProfitCum} base={a.netProfitCumPrior} /></div>
-                              </div>
-                            ) : <span className="text-meta">—</span>}
-                          </td>
-                          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap">
-                            {a.gap_pct == null ? <Wait title="รอครบวันทำการ" /> : (
-                              <>
-                                <span className="text-[13px] text-meta tabular-nums hidden md:inline">{a.gap_pct >= 0 ? '+' : ''}{a.gap_pct.toFixed(1)} → </span>
-                                {a.drift_d2_pct == null ? <Wait title="รอครบ 2 วันทำการ" /> : <Pct v={a.drift_d2_pct} />}
-                              </>
-                            )}
-                          </td>
-                        </tr>
-                        {open && (
-                          <tr className="border-b border-white/[0.07] bg-[#13161e]">
-                            <td colSpan={7} className="px-3 md:px-5 pt-4 pb-5"><DetailRow a={a} /></td>
-                          </tr>
-                        )}
-                      </Fragment>
-                    );
-                  })}
-                  {pageRows.length === 0 && (
-                    <tr><td colSpan={7} className="py-7 text-center text-meta text-[14px]">ไม่มีหุ้นที่ตรงเงื่อนไข</td></tr>
-                  )}
-                </tbody>
+                {view === 'list' ? (
+                  <tbody>
+                    {pageRows.map(a => renderRow(a))}
+                    {pageRows.length === 0 && (
+                      <tr><td colSpan={7} className="py-7 text-center text-meta text-[14px]">ไม่มีหุ้นที่ตรงเงื่อนไข</td></tr>
+                    )}
+                  </tbody>
+                ) : dayGroups.length === 0 ? (
+                  <tbody><tr><td colSpan={7} className="py-7 text-center text-meta text-[14px]">ไม่มีหุ้นที่ตรงเงื่อนไข</td></tr></tbody>
+                ) : dayGroups.map(({ day, rows, s }, i) => {
+                  const open = isDayOpen(day, i);
+                  return (
+                    <tbody key={day} id={`day-${day}`} className="scroll-mt-20">
+                      <tr><td colSpan={7} className="p-0 pt-3">
+                        <div className={`border border-white/[0.07] overflow-hidden ${open ? 'rounded-t-xl' : 'rounded-xl'}`}>
+                          <DayHeader day={day} s={s} open={open} onToggle={() => toggleDay(day, open)} />
+                        </div>
+                      </td></tr>
+                      {open && rows.map(a => renderRow(a))}
+                    </tbody>
+                  );
+                })}
               </table>
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2 text-[13px] text-meta px-1 py-3.5">
               <span>
-                {filtered.length} บริษัท{filterLabel ? ` · ${filterLabel}` : ''}
+                {filtered.length} บริษัท{view === 'day' ? ` · ${dayGroups.length} วัน` : ''}{filterLabel ? ` · ${filterLabel}` : ''}
                 {activeQuarter !== seasonQuarter && ` · ${activeQuarter}`}
               </span>
-              {totalPages > 1 ? (
+              {view === 'list' && totalPages > 1 ? (
                 <span className="flex items-center gap-2">
                   <button disabled={safePage <= 1} onClick={() => setPage(p => p - 1)} className="px-2.5 py-1 rounded-lg border border-white/[0.08] disabled:opacity-30">‹ ก่อนหน้า</button>
                   <span className="tabular-nums">หน้า {safePage}/{totalPages}</span>
