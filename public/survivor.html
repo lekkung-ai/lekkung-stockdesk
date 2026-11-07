@@ -416,6 +416,14 @@ html.embed .homelink,html.standalone .homelink{display:none}
 .meta .pend{border:1px dashed var(--wait);color:var(--wait);background:var(--wait-bg);border-radius:6px;padding:1px 8px;font-weight:600}
 .kbody blockquote{margin:12px 0;padding:10px 14px;border-left:4px solid var(--wait);background:var(--wait-bg);border-radius:0 10px 10px 0;color:var(--ink)}
 .kbody blockquote p{margin:0 0 6px}.kbody blockquote p:last-child{margin:0}
+.sfig .rr-zg{fill:var(--go-bg)} .sfig .rr-zl{fill:var(--exit-bg)}
+.sfig .rr-lg{stroke:var(--go);stroke-width:1.4;stroke-dasharray:5 3} .sfig .rr-ls{stroke:var(--exit);stroke-width:1.4;stroke-dasharray:5 3} .sfig .rr-le{stroke:var(--ink);stroke-width:1.8}
+.sfig .rr-t{font-size:11px;font-weight:700} .sfig .rr-lg-t{fill:var(--go)} .sfig .rr-ls-t{fill:var(--exit)} .sfig .rr-le-t{fill:var(--ink)}
+.sfig .rr-bg{fill:var(--go)} .sfig .rr-bl{fill:var(--exit)}
+.sfig .rr-bt{font-size:11px;font-weight:700;fill:var(--surface)}
+.sfig .rr-v{font-size:11px;font-weight:700} .sfig .rr-vg{fill:var(--go)} .sfig .rr-vl{fill:var(--exit)}
+.sfig .rr-pg{fill:var(--go-bg);stroke:var(--go)} .sfig .rr-pl{fill:var(--exit-bg);stroke:var(--exit)}
+.sfig .rr-pt{font-size:11px;font-weight:700} .sfig .rr-ptg{fill:var(--go)} .sfig .rr-ptl{fill:var(--exit)}
 /* embed mode */
 html.embed body{background:var(--bg)}
 html.embed header.top{display:none}
@@ -687,10 +695,40 @@ const FIG_ORDER=['wrapOpen','dryBase','gapGo','gapDip','gapConsole','gapFade','p
 FIGS.earnGoodHold={...FIGS.gapGo,t:'งบดีกว่าคาด (ถืออยู่)',sec:['16.5'],cap:'ห่อมาจากโซนล่าง เปิดโดดตึงโซนบน แบ่งขายปาพีค'};
 FIGS.earnGood={...FIGS.gapDipLate,t:'งบดีกว่าคาด (ยังไม่มีของ)',sec:['16.5'],cap:'ห้ามไล่ราคาเปิด รอย่อยืนวอลุ่มแห้งชิดเย็น'};
 FIGS.earnBadWait={...FIGS.closeV,t:'งบแย่กว่าคาด (ยังไม่มีของ)',sec:['16.5'],cap:'ห้ามรับมีดเช้า รอหยุดไหล ม้วนกลับยืนแสกหน้าชิดเย็น'};
+FIGS.rr4={t:'R:R ผ่านเกณฑ์ (1:4)',sec:['15.8.4'],groups:[],rr:{entry:10,stop:9.8,target:10.8,lo:9.7,hi:10.9,ok:true},cap:'เสีย 0.20 เพื่อลุ้น 0.80 — คุ้มที่จะเคาะ'};
+FIGS.rr2={t:'R:R ไม่ผ่านเกณฑ์ (1:2)',sec:['15.8.5'],groups:[],rr:{entry:10,stop:9.8,target:10.4,lo:9.7,hi:10.9,ok:false},cap:'เสีย 0.20 เพื่อลุ้นแค่ 0.40 — ทับมือ อย่าเคาะ'};
+FIG_ORDER.push('rr4','rr2');
 FIG_ORDER.push('earnGoodHold','earnGood','earnBadWait');
 const SIT_FIG={0:'wrapOpen',1:'wrapOpen',2:'wrapOpen',3:'wrapSupport',4:'noWrapPanic',5:'lateSpike',6:'morningNoRun',7:'gapDip',8:'gapGo',9:'gapDip',10:'gapFade',11:'gapStuck',12:'gapFade',13:'gapDipLate',14:'panic',15:'panicLate',16:'bearMarket',17:'panic',18:'legN',19:'legN',20:'peak',21:'peakNo',22:'upperClear',23:'overlap',24:'overlapShort',25:'overlapFail',26:'overlapStuck',27:'overlapFail',28:'range',29:'rangeHold',30:'dryBase',31:'smallBottom',32:'middayBreak',100:'gapDip',101:'gapGo',102:'overlap',103:'peak',104:'peak',105:'peakNo',33:'dryBase',34:'upperClear',35:'legN',36:'gapConsole',37:'baseBox',38:'overlap',39:'dryBase',40:'restTooLong',41:'overlapFail',42:'overlapStuck',43:'thirdRest',44:'smallRest',45:'bw1',46:'bw1h',47:'bw2',48:'bw2',49:'bw3',50:'closeHold',51:'dryBase',52:'closeV',53:'closeRun',54:'accumWatch',55:'accumBig',56:'wc1',57:'wc2',58:'wc3',59:'wc4',60:'wc5',61:'wc6',62:'wc7',63:'lateSpike',72:'dryBase',73:'dryBase',74:'closeRun',75:'closeV',76:'closeHold',77:'accumWatch',78:'wc7',79:'wc1',80:'idxTop',81:'idxSup',82:'idxBreak',85:'gapConsole',86:'smallRest',64:'earnPre',65:'earnGoodHold',66:'earnGood',67:'earnBad',68:'earnBadWait',69:'earnFlat',70:'foreignOpen',71:'dowNoFollow'};
 
+
+function drawRR(f){
+  const W=300,H=200,L=14,R=286,top=22,bot=168, {entry,stop,target,lo,hi,ok}=f.rr;
+  const y=p=>bot-(p-lo)/(hi-lo)*(bot-top);
+  const fx=v=>v.toFixed(2), risk=entry-stop, gain=target-entry, ratio=gain/risk;
+  const bx=176,bw=28, gx=bx, rx=bx+bw+8;
+  let s='';
+  // zones
+  s+=`<rect x="${L}" y="${y(target)}" width="${R-L}" height="${y(entry)-y(target)}" class="rr-zg"/>`;
+  s+=`<rect x="${L}" y="${y(entry)}" width="${R-L}" height="${y(stop)-y(entry)}" class="rr-zl"/>`;
+  // lines + labels
+  [[target,'เป้า','rr-lg'],[entry,'จุดเข้า','rr-le'],[stop,'Stop','rr-ls']].forEach(([p,l,c])=>{
+    s+=`<line x1="${L}" x2="${R}" y1="${y(p)}" y2="${y(p)}" class="${c}"/>`;
+    s+=`<text x="${L+4}" y="${y(p)-5}" class="rr-t ${c}-t">${l} ${fx(p)}</text>`;});
+  // bars
+  s+=`<rect x="${gx}" y="${y(target)}" width="${bw}" height="${y(entry)-y(target)}" rx="3" class="rr-bg"/>`;
+  s+=`<text x="${gx+bw/2}" y="${(y(target)+y(entry))/2+4}" text-anchor="middle" class="rr-bt">ได้</text>`;
+  s+=`<text x="${gx-6}" y="${(y(target)+y(entry))/2+4}" text-anchor="end" class="rr-v rr-vg">+${fx(gain)}</text>`;
+  s+=`<rect x="${rx}" y="${y(entry)}" width="${bw}" height="${y(stop)-y(entry)}" rx="3" class="rr-bl"/>`;
+  s+=`<text x="${rx+bw/2}" y="${(y(entry)+y(stop))/2+4}" text-anchor="middle" class="rr-bt">เสีย</text>`;
+  s+=`<text x="${rx+bw+5}" y="${(y(entry)+y(stop))/2+4}" class="rr-v rr-vl">−${fx(risk)}</text>`;
+  // verdict
+  const lab=`R:R 1 : ${Math.round(ratio)} · ${ok?'ผ่านเกณฑ์ ≥ 1:4':'ไม่ผ่านเกณฑ์ (ต้อง ≥ 1:4)'}`;
+  s+=`<rect x="${L}" y="${H-24}" width="${R-L}" height="20" rx="6" class="${ok?'rr-pg':'rr-pl'}"/>`;
+  s+=`<text x="${W/2}" y="${H-10}" text-anchor="middle" class="rr-pt ${ok?'rr-ptg':'rr-ptl'}">${lab}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${f.t}">${s}</svg>`;}
 function drawFig(f){
+  if(f.rr) return drawRR(f);
   const W=300,H=200,pt=30,pb=118,vt=132,vb=160,L=14,R=f.branch?120:212;
   const C=f.c, ps=C.filter(Boolean).flat().concat((f.lines||[]).map(x=>x.p),f.ext||[]);
   let lo=Math.min(...ps),hi=Math.max(...ps); const pad=(hi-lo)*.08; lo-=pad; hi+=pad;
