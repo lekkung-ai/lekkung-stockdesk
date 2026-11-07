@@ -9,7 +9,7 @@ import TableSkeleton from '@/components/TableSkeleton';
 import FullWidthPage from '@/components/FullWidthPage';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
 import {
-  fixThaiText, reasonPreview, isAccelerating, isPead, peadRanked,
+  fixThaiText, reasonPreview, isAccelerating, isPead, peadRanked, PEAD_MIN_YOY, PEAD_MIN_D2_PCT, PEAD_MIN_ADTV_MB,
   priorQuarterImproved, pricePath, compareProfit, type ProfitChange,
 } from '@/lib/earningsMetrics';
 import { fmtMoney, pageBucket, seasonCounts } from '@/lib/earningsView';
@@ -256,6 +256,9 @@ function WeekLine({ feed }: { feed: EarningsFeed }) {
 // ── PEAD: "ราคาวิ่งต่อหลังงบ" top 5 ─────────────────────────────────────────
 
 const PEAD_VIEW_KEY = 'earnings.peadView';
+
+/** The PEAD rule in words - numbers come from the constants in earningsMetrics.ts. */
+const PEAD_CRITERIA = `กำไรโต ≥ ${PEAD_MIN_YOY}% หรือพลิกกำไร และราคา +2 วันหลังงบ ≥ +${PEAD_MIN_D2_PCT}% และสภาพคล่อง ≥ ${PEAD_MIN_ADTV_MB} ล./วัน`;
 type PeadView = 'table' | 'card';
 
 function D({ v, bold }: { v: number | null | undefined; bold?: boolean }) {
@@ -391,8 +394,8 @@ function PeadSection({ rows, extras, today, onPick, onShowAll }: {
     try { localStorage.setItem(PEAD_VIEW_KEY, v); } catch { /* ignore */ }
   };
 
-  const top = useMemo(() => peadRanked(rows).slice(0, 5), [rows]);
-  const total = useMemo(() => rows.filter(isPead).length, [rows]);
+  const top = useMemo(() => peadRanked(rows, a => extras?.[a.ticker]?.adtv).slice(0, 5), [rows, extras]);
+  const total = useMemo(() => rows.filter(a => isPead(a, extras?.[a.ticker]?.adtv)).length, [rows, extras]);
 
   // Column sub-labels name the real quarters (of the shown rows) - never hard-coded.
   const hdr = useMemo(() => {
@@ -425,7 +428,7 @@ function PeadSection({ rows, extras, today, onPick, onShowAll }: {
 
       {top.length === 0 ? (
         <div className="py-5 text-[14px] text-meta border-b border-white/[0.07]">
-          ยังไม่มีหุ้นเข้าเกณฑ์ (งบโต ≥ 20% หรือพลิกกำไร และราคาหลังงบ 2 วันยังเป็นบวก)
+          ยังไม่มีหุ้นเข้าเกณฑ์ ({PEAD_CRITERIA})
         </div>
       ) : view === 'table' ? (
         <>
@@ -542,9 +545,9 @@ const CHIPS: { key: ChipKey; label: string }[] = [
 const PAGE_SIZE = 50;
 const ALL_QUARTERS = 'ทุกไตรมาส';
 
-function chipPass(a: EarningsAnnouncement, k: ChipKey, today: string): boolean {
+function chipPass(a: EarningsAnnouncement, k: ChipKey, today: string, extras: EarningsFeed['extras']): boolean {
   if (k === 'acc') return isAccelerating(a);
-  if (k === 'pead') return isPead(a);
+  if (k === 'pead') return isPead(a, extras?.[a.ticker]?.adtv);
   if (k === 'mda') return !!a.reason;
   return !!a.announceDate?.startsWith(today);
 }
@@ -808,7 +811,7 @@ export default function EarningsPage() {
   }, [quarterRows, query]);
 
   const passChips = (a: EarningsAnnouncement, skip?: ChipKey) =>
-    [...chips].every(k => k === skip || chipPass(a, k, today));
+    [...chips].every(k => k === skip || chipPass(a, k, today, feed.extras));
 
   const filtered = useMemo(() => {
     const list = searched.filter(a => (!tab || pageBucket(a) === tab) && passChips(a));
@@ -821,7 +824,7 @@ export default function EarningsPage() {
       return (vx > vy ? 1 : -1) * dir;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searched, tab, chips, sort, today]);
+  }, [searched, tab, chips, sort, today, feed.extras]);
 
   // Column sub-labels name the real quarters (from the selected quarter, else
   // the newest row's) - never hard-coded.
@@ -912,7 +915,7 @@ export default function EarningsPage() {
         <div className="space-y-7">
           <SeasonStats rows={seasonRows} />
           <WeekLine feed={feed} />
-          <PeadSection rows={seasonRows} extras={feed.peadExtras} today={today} onPick={pick} onShowAll={showAllPead} />
+          <PeadSection rows={seasonRows} extras={feed.extras} today={today} onPick={pick} onShowAll={showAllPead} />
 
           <div ref={tableRef} className="scroll-mt-20">
             {/* Tabs - one at a time, never wrap (scroll sideways on a narrow screen) */}
@@ -938,7 +941,7 @@ export default function EarningsPage() {
               <span className="text-[13px] text-meta mr-0.5">กรองเพิ่ม</span>
               {CHIPS.map(c => {
                 const on = chips.has(c.key);
-                const n = searched.filter(a => (!tab || pageBucket(a) === tab) && passChips(a, c.key) && chipPass(a, c.key, today)).length;
+                const n = searched.filter(a => (!tab || pageBucket(a) === tab) && passChips(a, c.key) && chipPass(a, c.key, today, feed.extras)).length;
                 return (
                   <button key={c.key} onClick={() => toggleChip(c.key)}
                     className={`px-3.5 py-1.5 rounded-full border text-[14px] ${
@@ -1080,7 +1083,7 @@ export default function EarningsPage() {
               <li><b className="text-ink">กำไรโต</b> กำไรเป็นบวกและมากกว่าปีก่อน · <b className="text-ink">พลิกกำไร</b> ปีก่อนขาดทุน (หรือ 0) ไตรมาสนี้กำไร — ไม่คิด % เพราะฐานติดลบ และไม่ถูกนับในอันดับ % โต</li>
               <li><b className="text-ink">กำไรหด</b> ยังกำไรแต่น้อยกว่าปีก่อน · <b className="text-ink">ขาดทุนลดลง / ขาดทุนหนักขึ้น</b> เทียบกับไตรมาสเดียวกันปีก่อน (ปีก่อนกำไรแต่ปีนี้ขาดทุนนับเป็นขาดทุนหนักขึ้น) · <b className="text-ink">ไม่มีฐานเทียบ</b> ไม่มีตัวเลขปีก่อน เช่น หุ้นเข้าตลาดใหม่ หรือไม่มีตัวเลขกำไรเลย เช่น กองทุน / REIT (ไม่นับในสัดส่วนกำไรดีขึ้น)</li>
               <li><b className="text-ink">⚡ เร่งตัว</b> % เทียบปีก่อนของไตรมาสนี้เป็นบวก และสูงกว่า % เทียบปีก่อนของไตรมาสที่แล้ว (โตเร็วขึ้น ไม่ใช่แค่โต) · ถ้าไม่มีงบไตรมาสที่แล้วให้เทียบ จะไม่ติดป้าย</li>
-              <li><b className="text-ink">ราคาหลังงบ</b> เทียบกับราคาปิดก่อนประกาศ: วันแรก = ราคาแรกที่ตลาดรับรู้งบ, +1 / +2 / +5 = ราคาปิดหลังวันแรก 1 / 2 / 5 วันทำการ · <b className="text-ink">🔥 PEAD</b> = งบดี (โต ≥ 20% หรือพลิกกำไร) และราคา +2 วันยังเป็นบวก เรียงจาก +2 วันมากไปน้อย</li>
+              <li><b className="text-ink">ราคาหลังงบ</b> เทียบกับราคาปิดก่อนประกาศ: วันแรก = ราคาแรกที่ตลาดรับรู้งบ, +1 / +2 / +5 = ราคาปิดหลังวันแรก 1 / 2 / 5 วันทำการ · <b className="text-ink">🔥 PEAD</b> = {PEAD_CRITERIA} · เรียงจาก +2 วันมากไปน้อย</li>
               <li><b className="text-ink">กำไรดีขึ้น</b> = กำไรโต + พลิกกำไร + ขาดทุนลดลง · <b className="text-ink">กำไรแย่ลง</b> = กำไรหด + ขาดทุนหนักขึ้น · ตัวเลข &quot;ไตรมาสก่อน&quot; ใต้แถบสัดส่วน คิดจากบริษัทชุดเดียวกันที่มีงบไตรมาสก่อนให้เทียบ</li>
               <li><span className="inline-block w-[7px] h-[7px] rounded-full bg-[#5B93FF] mr-1.5 align-middle" />จุดสีฟ้าข้างชื่อ = ประกาศวันนี้ · ข้อมูลอัปเดตเป็นรอบ ไม่ใช่ real-time</li>
             </ul>

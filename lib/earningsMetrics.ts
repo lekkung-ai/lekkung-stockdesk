@@ -3,6 +3,8 @@
 // twin of each rule in scripts/fetch_earnings.py (meaningful_yoy,
 // is_previous_quarter, classify_profit_acceleration) and
 // scripts/extract_reason.py (fix_sara_am) - keep both in sync by hand.
+// PEAD has no Python twin: scripts/enrich_earnings_pead.py only writes the price
+// fields (gap / D+1 / D+2 / D+5 / price_path); the rule itself lives only here.
 
 import type { EarningsBucket } from './earningsBucket';
 
@@ -167,18 +169,27 @@ export function isAccelerating(a: EarningsFigures): boolean {
 }
 
 export const PEAD_MIN_YOY = 20;
+// ค่าทดลอง 7 พ.ย. 2569 - the one place these two thresholds live (the page's
+// criteria line, the PEAD section and the "PEAD" filter all read them from here).
+/** D+2 must be at least this % (was "> 0"). */
+export const PEAD_MIN_D2_PCT = 1;
+/** Average daily traded value, million baht (market_stage.json "ADTV(MB)"). */
+export const PEAD_MIN_ADTV_MB = 5;
 
-/** PEAD: good results (YoY ≥ 20% or turnaround) and the price still up 2
- *  trading days later (D+2 > 0). */
-export function isPead(a: EarningsFigures): boolean {
+/** PEAD: good results (YoY ≥ 20% or turnaround), the price still up at least
+ *  PEAD_MIN_D2_PCT 2 trading days later, and liquid enough (ADTV ≥
+ *  PEAD_MIN_ADTV_MB). No ADTV (stock not in market_stage) → not PEAD. */
+export function isPead(a: EarningsFigures, adtvMb: number | null | undefined): boolean {
   const yoy = meaningfulYoY(a.netProfit, a.netProfitPrior);
   const good = (yoy != null && yoy >= PEAD_MIN_YOY) || isTurnaround(a);
-  return good && a.drift_d2_pct != null && a.drift_d2_pct > 0;
+  return good
+    && a.drift_d2_pct != null && a.drift_d2_pct >= PEAD_MIN_D2_PCT
+    && adtvMb != null && Number.isFinite(adtvMb) && adtvMb >= PEAD_MIN_ADTV_MB;
 }
 
-/** PEAD list, best D+2 first. */
-export function peadRanked<T extends EarningsFigures>(list: T[]): T[] {
-  return list.filter(isPead).sort((x, y) => (y.drift_d2_pct ?? 0) - (x.drift_d2_pct ?? 0));
+/** PEAD list, best D+2 first. `adtvOf` gives a stock's ADTV (million baht). */
+export function peadRanked<T extends EarningsFigures>(list: T[], adtvOf: (a: T) => number | null | undefined): T[] {
+  return list.filter(a => isPead(a, adtvOf(a))).sort((x, y) => (y.drift_d2_pct ?? 0) - (x.drift_d2_pct ?? 0));
 }
 
 // ── Summary buckets ──────────────────────────────────────────────────────────

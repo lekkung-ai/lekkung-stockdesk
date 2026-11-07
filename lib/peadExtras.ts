@@ -1,8 +1,9 @@
-// Per-stock extras for the /earnings PEAD section ("ราคาวิ่งต่อหลังงบ"): market stage,
-// liquidity, RS, Weinstein stage and the scans a stock currently sits in. Built on the
-// server for the few PEAD stocks only (never ship the 860-row scan files to the client);
+// Per-stock extras for /earnings (the PEAD section and the badges under every ticker in
+// the main table): market stage, liquidity (ADTV - also part of the PEAD rule), RS,
+// Weinstein stage and the scans a stock currently sits in. Built on the server for the
+// stocks in the earnings feed only (never ship the 860-row scan files to the client);
 // every source is optional - a missing file or a missing stock simply gives no badge.
-// Display only: ⚡ / PEAD / bucket rules stay in earningsMetrics.ts.
+// ⚡ / PEAD / bucket rules stay in earningsMetrics.ts.
 
 export interface PeadExtra {
   /** market_stage.json Stage (S.Bull, Bull, ...) */

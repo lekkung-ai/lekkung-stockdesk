@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   fixSaraAm, meaningfulYoY, isTurnaround, isPreviousQuarter, isAccelerating,
-  isPead, peadRanked, priorQuarterImproved, pricePath, isTableLikeReason, reasonPreview, compareProfit, type EarningsFigures,
+  isPead, peadRanked, PEAD_MIN_D2_PCT, PEAD_MIN_ADTV_MB, priorQuarterImproved, pricePath, isTableLikeReason, reasonPreview, compareProfit, type EarningsFigures,
 } from './earningsMetrics';
 
 const AM = String.fromCharCode(0x0e33);
@@ -47,7 +47,7 @@ describe('turnaround (พลิกกำไร)', () => {
       f({ netProfit: 2385, netProfitPrior: -669, drift_d2_pct: 1 }),   // turnaround, +456% "growth"
       f({ netProfit: 130, netProfitPrior: 100, drift_d2_pct: 5 }),      // +30%
     ];
-    expect(peadRanked(list).map(a => a.drift_d2_pct)).toEqual([5, 1]);
+    expect(peadRanked(list, () => 20).map(a => a.drift_d2_pct)).toEqual([5, 1]);
   });
 });
 
@@ -82,22 +82,45 @@ describe('⚡ acceleration', () => {
 });
 
 describe('PEAD', () => {
-  it('YoY ≥ 20% and D+2 > 0', () => {
-    expect(isPead(f({ netProfit: 120, netProfitPrior: 100, drift_d2_pct: 0.5 }))).toBe(true);
+  const LIQ = 20; // ADTV ล./วัน, comfortably liquid
+  it('thresholds (ค่าทดลอง 7 พ.ย. 2569)', () => {
+    expect(PEAD_MIN_D2_PCT).toBe(1);
+    expect(PEAD_MIN_ADTV_MB).toBe(5);
   });
-  it('turnaround and D+2 > 0', () => {
-    expect(isPead(f({ netProfit: 10, netProfitPrior: -5, drift_d2_pct: 2 }))).toBe(true);
+  it('YoY ≥ 20% and D+2 ≥ 1% and ADTV ≥ 5', () => {
+    expect(isPead(f({ netProfit: 120, netProfitPrior: 100, drift_d2_pct: 3 }), LIQ)).toBe(true);
+  });
+  it('D+2 exactly 1.0 is in, 0.99 / 0.5 are out (was "> 0")', () => {
+    expect(isPead(f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: 1.0 }), LIQ)).toBe(true);
+    expect(isPead(f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: 0.99 }), LIQ)).toBe(false);
+    expect(isPead(f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: 0.5 }), LIQ)).toBe(false);
+  });
+  it('ADTV exactly 5 is in, below 5 is out', () => {
+    const a = f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: 4 });
+    expect(isPead(a, 5)).toBe(true);
+    expect(isPead(a, 4.99)).toBe(false);
+    expect(isPead(a, 2.5)).toBe(false); // SPVI 7 พ.ย.: +7.88% but ADTV 2.5
+  });
+  it('no ADTV (not in market_stage) → out', () => {
+    const a = f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: 4 });
+    expect(isPead(a, undefined)).toBe(false);
+    expect(isPead(a, null)).toBe(false);
+    expect(isPead(a, NaN)).toBe(false);
+  });
+  it('turnaround and D+2 ≥ 1 and liquid', () => {
+    expect(isPead(f({ netProfit: 10, netProfitPrior: -5, drift_d2_pct: 2 }), LIQ)).toBe(true);
+    expect(isPead(f({ netProfit: 10, netProfitPrior: -5, drift_d2_pct: 2 }), 1)).toBe(false);
   });
   it('YoY below 20% → out', () => {
-    expect(isPead(f({ netProfit: 119, netProfitPrior: 100, drift_d2_pct: 3 }))).toBe(false);
+    expect(isPead(f({ netProfit: 119, netProfitPrior: 100, drift_d2_pct: 3 }), LIQ)).toBe(false);
   });
   it('D+2 ≤ 0 or not yet known → out', () => {
-    expect(isPead(f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: 0 }))).toBe(false);
-    expect(isPead(f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: null }))).toBe(false);
+    expect(isPead(f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: 0 }), LIQ)).toBe(false);
+    expect(isPead(f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: null }), LIQ)).toBe(false);
   });
-  it('sorted by D+2, highest first', () => {
-    const list = [1, 9, 4].map(d => f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: d }));
-    expect(peadRanked(list).map(a => a.drift_d2_pct)).toEqual([9, 4, 1]);
+  it('sorted by D+2, highest first; illiquid ones dropped', () => {
+    const list = [1, 9, 4, 7].map(d => ({ ...f({ netProfit: 200, netProfitPrior: 100, drift_d2_pct: d }), adtv: d === 7 ? 2 : LIQ }));
+    expect(peadRanked(list, a => a.adtv).map(a => a.drift_d2_pct)).toEqual([9, 4, 1]);
   });
 });
 
