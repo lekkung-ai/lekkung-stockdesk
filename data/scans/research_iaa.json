@@ -1,8 +1,907 @@
 {
-  "generated_at": "2026-11-06T18:07:10+07:00",
+  "generated_at": "2026-11-09T18:10:01+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "ac79662f-2bb8-47f8-9209-d01b717e1893",
+      "title": "A โดย TRIS | บริษัท ศุภาลัย จำกัด (มหาชน) (SPALI) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127920-a-tris-spali",
+      "tickers": [
+        "SPALI"
+      ],
+      "symbolId": "1012",
+      "broker": "TRIS",
+      "rating": "A",
+      "companyName": "บริษัท ศุภาลัย จำกัด (มหาชน)",
+      "date": "2026-11-09T17:27:00+07:00",
+      "ts": 1794220020000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SPALI9Nov26-t.pdf"
+    },
+    {
+      "uuid": "e4bc968c-47ac-4aae-a301-18d2f03de838",
+      "title": "A by TRIS | SUPALAI PUBLIC COMPANY LIMITED (SPALI) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127919-a-tris-spali",
+      "tickers": [
+        "SPALI"
+      ],
+      "symbolId": "1012",
+      "broker": "TRIS",
+      "rating": "A",
+      "companyName": "SUPALAI PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T17:26:56+07:00",
+      "ts": 1794220016000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SPALI9Nov26-e.pdf"
+    },
+    {
+      "uuid": "96339e59-76dc-44ea-8ead-961f59e8b6b5",
+      "title": "BUY by GLOBLEX | CENTRAL PATTANA PUBLIC COMPANY LIMITED (CPN) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127912-buy-globlex-cpn",
+      "tickers": [
+        "CPN"
+      ],
+      "symbolId": "1316",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "CENTRAL PATTANA PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T16:37:45+07:00",
+      "ts": 1794217065000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/research_36530_1_20261109-CPN_R_EN.pdf"
+    },
+    {
+      "uuid": "c72ddf30-789b-4834-a1bd-5184c3d9211f",
+      "title": "BUY by ASP | TIDLOR HOLDINGS PUBLIC COMPANY LIMITED (TIDLOR) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127905-buy-asp-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "TIDLOR HOLDINGS PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T16:09:41+07:00",
+      "ts": 1794215381000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TIDLOR2601109.pdf"
+    },
+    {
+      "uuid": "0edc894e-c393-4bfc-bdb0-09d8bccd931d",
+      "title": "BUY by KSS | INDORAMA VENTURES PUBLIC COMPANY LIMITED (IVL) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127904-buy-kss-ivl",
+      "tickers": [
+        "IVL"
+      ],
+      "symbolId": "12722",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "INDORAMA VENTURES PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:53:39+07:00",
+      "ts": 1794214419000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109-IVL_ER-(E).pdf"
+    },
+    {
+      "uuid": "80c110c5-bd7e-4089-a68c-613dff8e8aa1",
+      "title": "BUY by GLOBLEX | CP AXTRA PUBLIC COMPANY LIMITED (c) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127903-buy-globlex-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "CP AXTRA PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:53:38+07:00",
+      "ts": 1794214418000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/research_36529_1_20261109-CPAXT_R_EN.pdf"
+    },
+    {
+      "uuid": "66698208-d2e7-4dd9-ad16-980c3f9d9579",
+      "title": "BUY by GLOBLEX | BBGI PUBLIC COMPANY LIMITED (BBGI) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127902-buy-globlex-bbgi",
+      "tickers": [
+        "BBGI"
+      ],
+      "symbolId": "109257",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "BBGI PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:53:37+07:00",
+      "ts": 1794214417000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/research_36526_1_20261109-BBGI_R_EN.pdf"
+    },
+    {
+      "uuid": "b14806c4-3ed4-43e5-805d-28cb15766493",
+      "title": "BUY by GLOBLEX | NORTH EAST RUBBER PUBLIC COMPANY LIMITED (NER) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127901-buy-globlex-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "GLOBLEX",
+      "rating": "BUY",
+      "companyName": "NORTH EAST RUBBER PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:53:37+07:00",
+      "ts": 1794214417000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/research_36528_1_20261109-NER_R_EN.pdf"
+    },
+    {
+      "uuid": "0469762e-17ee-4012-8733-7fc06a26f18c",
+      "title": "BUY by ASP | KRUNG THAI BANK PUBLIC COMPANY LIMITED (KTB) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127900-buy-asp-ktb",
+      "tickers": [
+        "KTB"
+      ],
+      "symbolId": "422",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "KRUNG THAI BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:53:37+07:00",
+      "ts": 1794214417000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/KTB20261109.pdf"
+    },
+    {
+      "uuid": "93e11f24-4df8-4539-bc75-911ee09c3b91",
+      "title": "BUY by KSS | MINOR INTERNATIONAL PUBLIC COMPANY LIMITED (MINT) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127899-buy-kss-mint",
+      "tickers": [
+        "MINT"
+      ],
+      "symbolId": "343",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "MINOR INTERNATIONAL PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:53:36+07:00",
+      "ts": 1794214416000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_MINT_EP-(E).pdf"
+    },
+    {
+      "uuid": "4d93e270-9ffe-4abe-97af-a436952ba961",
+      "title": "BUY by KSS | CENTRAL PLAZA HOTEL PUBLIC COMPANY LIMITED (CENTEL) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127898-buy-kss-centel",
+      "tickers": [
+        "CENTEL"
+      ],
+      "symbolId": "506",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "CENTRAL PLAZA HOTEL PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:48:58+07:00",
+      "ts": 1794214138000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_CENTEL_EP-(E).pdf"
+    },
+    {
+      "uuid": "9bdf537a-fdf6-4297-94ab-d6dae09293a7",
+      "title": "BUY by KSS | CP AXTRA PUBLIC COMPANY LIMITED (CPAXT) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127897-buy-kss-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "CP AXTRA PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:48:57+07:00",
+      "ts": 1794214137000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_CPAXT_ER-(E).pdf"
+    },
+    {
+      "uuid": "55b7ad67-ed47-4882-883c-79348b6b3d8f",
+      "title": "Trading by ASP | CP AXTRA PUBLIC COMPANY LIMITED (CPAXT) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127896-trading-asp-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "ASP",
+      "rating": "Trading",
+      "companyName": "CP AXTRA PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:48:57+07:00",
+      "ts": 1794214137000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CPAXT261109.pdf"
+    },
+    {
+      "uuid": "5e840e47-59cd-457f-b98a-a21b4cbac8cb",
+      "title": "BUY by KSS | CENTRAL PATTANA PUBLIC COMPANY LIMITED (CPN) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127894-buy-kss-cpn",
+      "tickers": [
+        "CPN"
+      ],
+      "symbolId": "1316",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "CENTRAL PATTANA PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:48:53+07:00",
+      "ts": 1794214133000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_CPN_ER-(E).pdf"
+    },
+    {
+      "uuid": "f2381bbd-3639-446c-9d17-4431c5777ee2",
+      "title": "BUY by KSS | KRUNG THAI BANK PUBLIC COMPANY LIMITED (KTB) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127893-buy-kss-ktb",
+      "tickers": [
+        "KTB"
+      ],
+      "symbolId": "422",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "KRUNG THAI BANK PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T15:48:53+07:00",
+      "ts": 1794214133000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_KTB_QC-(E).pdf"
+    },
+    {
+      "uuid": "8e666257-293d-483c-a662-76886b458a9f",
+      "title": "BUY โดย KSS | บริษัท อินโดรามา เวนเจอร์ส จำกัด (มหาชน) (IVL) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127892-buy-kss-ivl",
+      "tickers": [
+        "IVL"
+      ],
+      "symbolId": "12722",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท อินโดรามา เวนเจอร์ส จำกัด (มหาชน)",
+      "date": "2026-11-09T15:48:23+07:00",
+      "ts": 1794214103000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109-IVL_ER.pdf"
+    },
+    {
+      "uuid": "bd8d686c-569a-4749-9efa-e03c88287d72",
+      "title": "BUY โดย PI | บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน) (TIDLOR) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127887-buy-pi-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "PI",
+      "rating": "BUY",
+      "companyName": "บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T12:55:29+07:00",
+      "ts": 1794203729000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TIDLOR-261109.pdf"
+    },
+    {
+      "uuid": "b18159c8-8e9a-4a28-a097-b753ad8094c1",
+      "title": "BUY โดย ASL | บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน) (NER) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127886-buy-asl-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน)",
+      "date": "2026-11-09T12:55:28+07:00",
+      "ts": 1794203728000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/NER-Result-3Q26-09112026.pdf"
+    },
+    {
+      "uuid": "b30da80e-de54-4d9a-98b7-815f44170035",
+      "title": "LHS | Trading Ideas | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127885-lhs-trading-ideas",
+      "tickers": [
+        "CPN",
+        "PR9"
+      ],
+      "symbolId": "1316,89402",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Trading Ideas",
+      "date": "2026-11-09T12:55:28+07:00",
+      "ts": 1794203728000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Trading-Ideas_20261109.pdf"
+    },
+    {
+      "uuid": "a68aa754-0e1c-4e9b-a43d-61ccac4ee52c",
+      "title": "BUY โดย LHS | บริษัท เซ็นทรัลพัฒนา จำกัด (มหาชน) (CPN) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127884-buy-lhs-cpn",
+      "tickers": [
+        "CPN"
+      ],
+      "symbolId": "1316",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท เซ็นทรัลพัฒนา จำกัด (มหาชน)",
+      "date": "2026-11-09T12:55:28+07:00",
+      "ts": 1794203728000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CPN_3Q69_20261109_งบ.pdf"
+    },
+    {
+      "uuid": "c2eb9125-84fd-452c-b0c4-13d973118fe3",
+      "title": "BUY โดย KSS | บริษัท เซ็นทรัลพัฒนา จำกัด (มหาชน) (CPN) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127874-buy-kss-cpn",
+      "tickers": [
+        "CPN"
+      ],
+      "symbolId": "1316",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เซ็นทรัลพัฒนา จำกัด (มหาชน)",
+      "date": "2026-11-09T11:32:28+07:00",
+      "ts": 1794198748000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_CPN_ER.pdf"
+    },
+    {
+      "uuid": "ecadf6ea-6378-4bca-9a0d-eefe13fb173e",
+      "title": "Neutral (Maintained) โดย KGI | บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน) (KCE) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127873-neutral-maintained-kgi-kce",
+      "tickers": [
+        "KCE"
+      ],
+      "symbolId": "330",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:32:08+07:00",
+      "ts": 1794198728000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_KCE_2026_11_09_th_THAI.pdf"
+    },
+    {
+      "uuid": "2963a627-a998-4dd9-b901-7a55dce071d6",
+      "title": "Neutral (Maintained) by KGI | KCE ELECTRONICS PUBLIC COMPANY LIMITED (KCE) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127871-neutral-maintained-kgi-kce",
+      "tickers": [
+        "KCE"
+      ],
+      "symbolId": "330",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "KCE ELECTRONICS PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:31:23+07:00",
+      "ts": 1794198683000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_KCE_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "3f789ef0-6942-4dfd-b049-578fe07e1038",
+      "title": "Neutral (Reinitiate) โดย KGI | บริษัท เจ เอ็ม ที เน็ทเวอร์ค เซอร์วิสเซ็ส จำกัด (มหาชน) (JMT) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127869-neutral-reinitiate-kgi-jmt",
+      "tickers": [
+        "JMT"
+      ],
+      "symbolId": "17272",
+      "broker": "KGI",
+      "rating": "Neutral (Reinitiate)",
+      "companyName": "บริษัท เจ เอ็ม ที เน็ทเวอร์ค เซอร์วิสเซ็ส จำกัด (มหาชน)",
+      "date": "2026-11-09T11:30:12+07:00",
+      "ts": 1794198612000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_JMT_2026_11_09_th-thai.pdf"
+    },
+    {
+      "uuid": "c6bac5cc-ba6f-4eb0-b65b-1cb8167a8da3",
+      "title": "Neutral (Reinitiate) by KGI | JMT NETWORK SERVICES PUBLIC COMPANY LIMITED (JMT) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127867-neutral-reinitiate-kgi-jmt",
+      "tickers": [
+        "JMT"
+      ],
+      "symbolId": "17272",
+      "broker": "KGI",
+      "rating": "Neutral (Reinitiate)",
+      "companyName": "JMT NETWORK SERVICES PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:29:14+07:00",
+      "ts": 1794198554000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_JMT_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "42484bdd-6433-4dd8-b290-57562bd724a6",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท อาร์ แอนด์ บี ฟู้ด ซัพพลาย จำกัด (มหาชน) (RBF) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127868-buy-maintain-yuanta-rbf",
+      "tickers": [
+        "RBF"
+      ],
+      "symbolId": "94264",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท อาร์ แอนด์ บี ฟู้ด ซัพพลาย จำกัด (มหาชน)",
+      "date": "2026-11-09T11:28:57+07:00",
+      "ts": 1794198537000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/RBF_Earnings_Result_091126.pdf"
+    },
+    {
+      "uuid": "e00930a9-83a8-4a0d-91b1-170e632c6492",
+      "title": "Outperforml (Maintained) โดย KGI | บริษัท โกลบอล เพาเวอร์ ซินเนอร์ยี่ จำกัด (มหาชน) (GPSC) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127865-outperforml-maintained-kgi-gpsc",
+      "tickers": [
+        "GPSC"
+      ],
+      "symbolId": "51704",
+      "broker": "KGI",
+      "rating": "Outperforml (Maintained)",
+      "companyName": "บริษัท โกลบอล เพาเวอร์ ซินเนอร์ยี่ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:27:46+07:00",
+      "ts": 1794198466000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_GPSC_2026_11_09_th.pdf"
+    },
+    {
+      "uuid": "7f2fcd75-4119-4c05-b720-a3f2fa824049",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน) (TIDLOR) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127866-buy-maintain-yuanta-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:27:16+07:00",
+      "ts": 1794198436000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TIDLOR-Earnings-Results-09112026.pdf"
+    },
+    {
+      "uuid": "9619536b-6a5a-477d-80b0-ba6e3d991f3b",
+      "title": "Outperforml (Maintained) by KGI | GLOBAL POWER SYNERGY PUBLIC COMPANY LIMITED (GPSC) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127863-outperforml-maintained-kgi-gpsc",
+      "tickers": [
+        "GPSC"
+      ],
+      "symbolId": "51704",
+      "broker": "KGI",
+      "rating": "Outperforml (Maintained)",
+      "companyName": "GLOBAL POWER SYNERGY PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:26:45+07:00",
+      "ts": 1794198405000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_GPSC_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "c759b174-5830-4941-b90d-78a29b253208",
+      "title": "Non-rated โดย YUANTA | บริษัท โปร อินไซด์ จำกัด (มหาชน) (PIS) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127862-non-rated-yuanta-pis",
+      "tickers": [
+        "PIS"
+      ],
+      "symbolId": "123829",
+      "broker": "YUANTA",
+      "rating": "Non-rated",
+      "companyName": "บริษัท โปร อินไซด์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:26:09+07:00",
+      "ts": 1794198369000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PIS_Earnings_Results_091126.pdf"
+    },
+    {
+      "uuid": "28338574-3220-4597-b776-f0f755b4c426",
+      "title": "Neutral (Maintained) โดย KGI | บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน) (CPAXT) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127859-neutral-maintained-kgi-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน)",
+      "date": "2026-11-09T11:25:28+07:00",
+      "ts": 1794198328000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_CPAXT_2026_11_09_th_THAI.pdf"
+    },
+    {
+      "uuid": "349b120f-1c9a-4aa9-bef2-a47414d45644",
+      "title": "BUY โดย KSS | ธนาคารกรุงไทย จำกัด (มหาชน) (KTB) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127860-buy-kss-ktb",
+      "tickers": [
+        "KTB"
+      ],
+      "symbolId": "422",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "ธนาคารกรุงไทย จำกัด (มหาชน)",
+      "date": "2026-11-09T11:25:10+07:00",
+      "ts": 1794198310000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_KTB_QC.pdf"
+    },
+    {
+      "uuid": "1ca0a5cc-8441-4428-891b-ba338b88f2c9",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท สตาร์ส ไมโครอิเล็กทรอนิกส์ (ประเทศไทย) จำกัด (มหาชน) (SMT) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127858-buy-maintain-yuanta-smt",
+      "tickers": [
+        "SMT"
+      ],
+      "symbolId": "12285",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท สตาร์ส ไมโครอิเล็กทรอนิกส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-11-09T11:24:27+07:00",
+      "ts": 1794198267000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SMT_Analyst_Note_091126.pdf"
+    },
+    {
+      "uuid": "369d60cd-8ae8-460d-9454-a0167802b854",
+      "title": "Neutral (Maintained) by KGI | CP AXTRA PUBLIC COMPANY LIMITED (CPAXT) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127857-neutral-maintained-kgi-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "CP AXTRA PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:23:57+07:00",
+      "ts": 1794198237000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_CPAXT_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "27229792-8da8-4c3d-bb60-ae85ee58d152",
+      "title": "BUY โดย KSS | บริษัท โกลบอล เพาเวอร์ ซินเนอร์ยี่ จำกัด (มหาชน) (GPSC) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127856-buy-kss-gpsc",
+      "tickers": [
+        "GPSC"
+      ],
+      "symbolId": "51704",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท โกลบอล เพาเวอร์ ซินเนอร์ยี่ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:23:33+07:00",
+      "ts": 1794198213000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_GPSC_QC.pdf"
+    },
+    {
+      "uuid": "410bc8eb-23d6-47bb-99df-cb94a75462c7",
+      "title": "BUY (Upgrade) โดย YUANTA | บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน) (CPAXT) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127855-buy-upgrade-yuanta-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "YUANTA",
+      "rating": "BUY (Upgrade)",
+      "companyName": "บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน)",
+      "date": "2026-11-09T11:23:17+07:00",
+      "ts": 1794198197000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CPAXT_Company_Update_091126.pdf"
+    },
+    {
+      "uuid": "661083de-b124-4cf2-ad06-3e8df5b3bf63",
+      "title": "Neutral (Maintained) โดย KGI | บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน) (BAM) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127853-neutral-maintained-kgi-bam",
+      "tickers": [
+        "BAM"
+      ],
+      "symbolId": "94830",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "บริษัทบริหารสินทรัพย์ กรุงเทพพาณิชย์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:22:59+07:00",
+      "ts": 1794198179000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_BAM_2026_11_09_th-thai.pdf"
+    },
+    {
+      "uuid": "9c724217-6214-43dc-9eaf-d633874bad7b",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ไทยอีสเทิร์น กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน) (TEGH) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127852-buy-maintain-yuanta-tegh",
+      "tickers": [
+        "TEGH"
+      ],
+      "symbolId": "112047",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ไทยอีสเทิร์น กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:22:05+07:00",
+      "ts": 1794198125000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TEGH_Update_091126.pdf"
+    },
+    {
+      "uuid": "3c34c61e-8204-4cd1-88be-4018a6f4ed13",
+      "title": "Neutral (Maintained) by KGI | BANGKOK COMMERCIAL ASSET MANAGEMENT PUBLIC COMPANY LIMITED (BAM) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127851-neutral-maintained-kgi-bam",
+      "tickers": [
+        "BAM"
+      ],
+      "symbolId": "94830",
+      "broker": "KGI",
+      "rating": "Neutral (Maintained)",
+      "companyName": "BANGKOK COMMERCIAL ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:21:45+07:00",
+      "ts": 1794198105000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_BAM_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "216b44be-4724-468f-87d2-1c41d6f6a464",
+      "title": "Neutral by KGI | ASIA METAL PUBLIC COMPANY LIMITED (AMC) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127848-neutral-kgi-amc",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "KGI",
+      "rating": "Neutral",
+      "companyName": "ASIA METAL PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:20:11+07:00",
+      "ts": 1794198011000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_AMC_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "880a8ec4-a1bf-4744-a408-a264f2c042cd",
+      "title": "BUY (Upgrade) โดย YUANTA | บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน) (KCE) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127850-buy-upgrade-yuanta-kce",
+      "tickers": [
+        "KCE"
+      ],
+      "symbolId": "330",
+      "broker": "YUANTA",
+      "rating": "BUY (Upgrade)",
+      "companyName": "บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:19:58+07:00",
+      "ts": 1794197998000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/KCE_Company_Update_091126.pdf"
+    },
+    {
+      "uuid": "f2f7f5ba-0437-49c1-b04d-48ac6383e4fa",
+      "title": "Neutral(Maintained) โดย KGI | บริษัท เอเชีย เอวิเอชั่น จำกัด (มหาชน) (AAV) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127845-neutralmaintained-kgi-aav",
+      "tickers": [
+        "AAV"
+      ],
+      "symbolId": "16399",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "บริษัท เอเชีย เอวิเอชั่น จำกัด (มหาชน)",
+      "date": "2026-11-09T11:18:45+07:00",
+      "ts": 1794197925000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_AAV_2026_11_09_th.pdf"
+    },
+    {
+      "uuid": "777f3475-ec6e-4915-b49b-cb44e233e917",
+      "title": "Neutral(Maintained) by KGI | ASIA AVIATION PUBLIC COMPANY LIMITED (AAV) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127844-neutralmaintained-kgi-aav",
+      "tickers": [
+        "AAV"
+      ],
+      "symbolId": "16399",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "ASIA AVIATION PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:17:57+07:00",
+      "ts": 1794197877000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_AAV_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "d8cfb424-3a99-4974-a7d8-49d7c43e44ad",
+      "title": "TBUY โดย LHS | บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน) (CPAXT) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127846-tbuy-lhs-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "LHS",
+      "rating": "TBUY",
+      "companyName": "บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน)",
+      "date": "2026-11-09T11:16:59+07:00",
+      "ts": 1794197819000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CPAXT_20261109.pdf"
+    },
+    {
+      "uuid": "b3c7c82b-7656-4de4-aee5-c5343cc52663",
+      "title": "Neutral(Maintained) โดย KGI | บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน) (TIDLOR) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127843-neutralmaintained-kgi-tidlor",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:16:25+07:00",
+      "ts": 1794197785000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_PTTEP_2026_11_09_th.pdf"
+    },
+    {
+      "uuid": "965e1e5b-2b07-4b86-949f-2f9e1d50fdd6",
+      "title": "Neutral(Maintained) by KGI | TIDLOR HOLDINGS PUBLIC COMPANY LIMITED (TIDLOR) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127840-neutralmaintained-kgi-tidlor",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "TIDLOR HOLDINGS PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:15:23+07:00",
+      "ts": 1794197723000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_TIDLOR_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "15036168-71da-4c3c-96ab-708ec9f218c2",
+      "title": "Neutral(Maintained) โดย KGI | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127839-neutralmaintained-kgi-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-09T11:14:11+07:00",
+      "ts": 1794197651000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_PTTEP_2026_11_09_th.pdf"
+    },
+    {
+      "uuid": "2a0ffabd-b3b8-44c6-a905-acc5e5091ac9",
+      "title": "Neutral(Maintained) by KGI | PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED (PTTEP) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127837-neutralmaintained-kgi-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "KGI",
+      "rating": "Neutral(Maintained)",
+      "companyName": "PTT EXPLORATION AND PRODUCTION PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T11:12:12+07:00",
+      "ts": 1794197532000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_PTTEP_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "53d6cfe3-f2ad-42d0-994f-579fc4b1a51c",
+      "title": "Under Review โดย KGI | บริษัท เอแอลที เทเลคอม จำกัด (มหาชน) (ALT) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127834-under-review-kgi-alt",
+      "tickers": [
+        "ALT"
+      ],
+      "symbolId": "78934",
+      "broker": "KGI",
+      "rating": "Under Review",
+      "companyName": "บริษัท เอแอลที เทเลคอม จำกัด (มหาชน)",
+      "date": "2026-11-09T11:10:38+07:00",
+      "ts": 1794197438000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_ALT_2026_11_09_th-thai.pdf"
+    },
+    {
+      "uuid": "6f27c513-7846-4071-b469-904a21095c4f",
+      "title": "LHS | Weekly Picks | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127835-lhs-weekly-picks",
+      "tickers": [
+        "CPN",
+        "GULF",
+        "STECON"
+      ],
+      "symbolId": "1316,126614,124457",
+      "broker": "LHS",
+      "rating": null,
+      "companyName": "Weekly Picks",
+      "date": "2026-11-09T11:10:35+07:00",
+      "ts": 1794197435000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Weekly-Picks_20261109.pdf"
+    },
+    {
+      "uuid": "a043d7fa-5cee-424b-a64a-18387752a81d",
+      "title": "BUY โดย LHS | บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน) (NER) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127826-buy-lhs-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:05:16+07:00",
+      "ts": 1794197116000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/NER_20261107_AM3Q69.pdf"
+    },
+    {
+      "uuid": "6f193751-7763-42a6-acfe-1a609edc3ca0",
+      "title": "BUY โดย KSS | บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน) (KCE) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127824-buy-kss-kce",
+      "tickers": [
+        "KCE"
+      ],
+      "symbolId": "330",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T11:04:07+07:00",
+      "ts": 1794197047000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/QC_KCE_261109.pdf"
+    },
+    {
+      "uuid": "7a36096a-2380-4cba-90be-ef0f1f0bc743",
+      "title": "Under Review by KGI | ALT TELECOM PUBLIC COMPANY LIMITED (ALT) | Research as of 9 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127833-under-review-kgi-alt",
+      "tickers": [
+        "ALT"
+      ],
+      "symbolId": "78934",
+      "broker": "KGI",
+      "rating": "Under Review",
+      "companyName": "ALT TELECOM PUBLIC COMPANY LIMITED",
+      "date": "2026-11-09T10:57:08+07:00",
+      "ts": 1794196628000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_ALT_2026_11_09_e_th.pdf"
+    },
+    {
+      "uuid": "9c838c7f-51b9-43dc-a106-61aba5a11d0b",
+      "title": "BUY โดย KSS | บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน) (CPAXT) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127812-buy-kss-cpaxt",
+      "tickers": [
+        "CPAXT"
+      ],
+      "symbolId": "124162",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ซีพี แอ็กซ์ตร้า จำกัด (มหาชน)",
+      "date": "2026-11-09T10:51:06+07:00",
+      "ts": 1794196266000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261109_CPAXT_ER.pdf"
+    },
+    {
+      "uuid": "136245fd-7488-4e9c-b932-8ab06c75d57b",
+      "title": "TRINITY | Block Trade  MORING Stock | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127806-trinity-block-trade--moring-stock",
+      "tickers": [
+        "HANA"
+      ],
+      "symbolId": "902",
+      "broker": "TRINITY",
+      "rating": null,
+      "companyName": "Block Trade  MORING Stock",
+      "date": "2026-11-09T10:44:25+07:00",
+      "ts": 1794195865000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BlockTrade-Morning-09NOV26;HANA.pdf"
+    },
+    {
+      "uuid": "20f469fe-8eb9-43ba-8b8e-56f40f33ddb3",
+      "title": "Trading Buy โดย TRINITY | บริษัท โกลบอล เพาเวอร์ ซินเนอร์ยี่ จำกัด (มหาชน) (GPSC) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127798-buy-trinity-gpsc",
+      "tickers": [
+        "GPSC"
+      ],
+      "symbolId": "51704",
+      "broker": "TRINITY",
+      "rating": "Trading Buy",
+      "companyName": "บริษัท โกลบอล เพาเวอร์ ซินเนอร์ยี่ จำกัด (มหาชน)",
+      "date": "2026-11-09T10:41:19+07:00",
+      "ts": 1794195679000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/GPSC_Thai_20261109.pdf"
+    },
+    {
+      "uuid": "306ae274-e41d-48d0-9350-3302ecbc1f62",
+      "title": "BUY โดย PST | บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน) (TIDLOR) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127796-buy-pst-tidlor",
+      "tickers": [
+        "TIDLOR"
+      ],
+      "symbolId": "127110",
+      "broker": "PST",
+      "rating": "BUY",
+      "companyName": "บริษัท ติดล้อ โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T10:38:54+07:00",
+      "ts": 1794195534000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TIDLOR110926_t.pdf"
+    },
+    {
+      "uuid": "4ea47682-0f67-40fe-95cb-1274f3ad27f3",
+      "title": "BUY โดย TRINITY | บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน) (KCE) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127795-buy-trinity-kce",
+      "tickers": [
+        "KCE"
+      ],
+      "symbolId": "330",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัท เคซีอี อีเลคโทรนิคส์ จำกัด (มหาชน)",
+      "date": "2026-11-09T10:38:22+07:00",
+      "ts": 1794195502000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/KCE_Thai_20261109.pdf"
+    },
+    {
+      "uuid": "cfeb7e16-5d2b-4bc1-956b-0be98e180f5d",
+      "title": "BUY โดย TRINITY | บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน) (NER) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127790-buy-trinity-ner",
+      "tickers": [
+        "NER"
+      ],
+      "symbolId": "89374",
+      "broker": "TRINITY",
+      "rating": "BUY",
+      "companyName": "บริษัท นอร์ทอีส รับเบอร์ จำกัด (มหาชน)",
+      "date": "2026-11-09T10:36:23+07:00",
+      "ts": 1794195383000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/NER_Thai_20261109.pdf"
+    },
+    {
+      "uuid": "ff2a7aab-9016-425a-8a43-c2e03bd404f7",
+      "title": "GRADUAL BUYING โดย PST | บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน) (PTTEP) | บทวิเคราะห์ประจำวันที่ 9 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/127788-gradual-buying-pst-pttep",
+      "tickers": [
+        "PTTEP"
+      ],
+      "symbolId": "957",
+      "broker": "PST",
+      "rating": "GRADUAL BUYING",
+      "companyName": "บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน)",
+      "date": "2026-11-09T10:35:53+07:00",
+      "ts": 1794195353000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/pttep110926_t.pdf"
+    },
     {
       "uuid": "f97ee5c5-0c60-4f73-9d01-f29a88d887e7",
       "title": "BUY โดย TRINITY | บริษัท ไทยอีสเทิร์น กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน) (TEGH) | บทวิเคราะห์ประจำวันที่ 6 พฤศจิกายน 2569",
