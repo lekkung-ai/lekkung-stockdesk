@@ -1,19 +1,11 @@
 {
-  "generated_at": "2026-11-09T18:05:28.582884+07:00",
+  "generated_at": "2026-11-10T18:07:13.999848+07:00",
   "method": "median_stock_rs",
   "sectors": {
     "SET": {
       "Technology": {
-        "rsScore": 53,
-        "count": 44
-      },
-      "Services": {
         "rsScore": 50,
-        "count": 127
-      },
-      "Financials": {
-        "rsScore": 64,
-        "count": 67
+        "count": 44
       },
       "Resources": {
         "rsScore": 68,
@@ -21,52 +13,60 @@
       },
       "Property": {
         "rsScore": 46,
-        "count": 108
+        "count": 109
+      },
+      "Financials": {
+        "rsScore": 66,
+        "count": 67
+      },
+      "Services": {
+        "rsScore": 49,
+        "count": 127
       },
       "Industrials": {
-        "rsScore": 65,
+        "rsScore": 61,
         "count": 93
       },
       "Agro": {
-        "rsScore": 47,
+        "rsScore": 45,
         "count": 71
       },
       "Consump": {
-        "rsScore": 46,
+        "rsScore": 48,
         "count": 46
       }
     },
     "MAI": {
+      "Resources": {
+        "rsScore": 55,
+        "count": 11
+      },
       "Industrials": {
         "rsScore": 65,
         "count": 46
       },
       "Services": {
-        "rsScore": 32,
+        "rsScore": 30,
         "count": 62
       },
-      "Consumer": {
-        "rsScore": 28,
-        "count": 20
-      },
       "Property": {
-        "rsScore": 27,
+        "rsScore": 23,
         "count": 36
       },
-      "Resources": {
-        "rsScore": 48,
-        "count": 11
+      "Consumer": {
+        "rsScore": 26,
+        "count": 20
       },
       "Technology": {
-        "rsScore": 42,
+        "rsScore": 46,
         "count": 24
       },
       "Financials": {
-        "rsScore": 52,
+        "rsScore": 58,
         "count": 10
       },
       "Agro": {
-        "rsScore": 58,
+        "rsScore": 56,
         "count": 13
       }
     }
