@@ -678,7 +678,7 @@ function DetailRow({ a, extra }: { a: EarningsAnnouncement; extra: PeadExtra | u
       <div className="contents @min-[520px]:hidden">
         <K>ซื้อขาย</K><span className="tabular-nums">{fmtAdtv(extra?.adtv)} ล./วัน</span>
       </div>
-      <div className="contents @min-[772px]:hidden">
+      <div className="contents @min-[880px]:hidden">
         <K>ไตรมาสก่อน{a.priorQuarter ? ` (${quarterShort(a.priorQuarter)})` : ''}</K>
         <span className="tabular-nums">{fmtMoney(a.netProfitPriorQ)} · <ChangeLine cur={a.netProfit} base={a.netProfitPriorQ} lowBase /></span>
       </div>
@@ -727,18 +727,18 @@ function DetailRow({ a, extra }: { a: EarningsAnnouncement; extra: PeadExtra | u
 
 // Table tracks per container width (the layer-3 section is the container):
 // ≥1332: หุ้น | กำไรสุทธิ | ปีก่อน | ไตรมาสก่อน | 5 ไตรมาส | 9 เดือน | ล./วัน | ราคาหลังงบ
-// 772-1331: no 5 ไตรมาส / 9 เดือน · 520-771: no ไตรมาสก่อน / ราคาหลังงบ · <520: no ล./วัน
+// 880-1331: no 5 ไตรมาส / 9 เดือน · 520-879: no ไตรมาสก่อน / ราคาหลังงบ · <520: no ล./วัน
 const T_GRID = [
   'grid items-center gap-x-2.5 @min-[520px]:gap-x-3.5',
   'grid-cols-[minmax(0,1fr)_78px_96px]',
   '@min-[520px]:grid-cols-[minmax(180px,1fr)_88px_104px_58px]',
-  '@min-[772px]:grid-cols-[minmax(280px,1fr)_100px_112px_112px_74px_90px]',
+  '@min-[880px]:grid-cols-[minmax(280px,1fr)_100px_112px_112px_74px_90px]',
   '@min-[1332px]:grid-cols-[minmax(330px,1fr)_104px_118px_118px_86px_118px_78px_96px]',
 ].join(' ');
-const C_Q = 'hidden @min-[772px]:block';
+const C_Q = 'hidden @min-[880px]:block';
 const C_5 = 'hidden @min-[1332px]:block';
 const C_L = 'hidden @min-[520px]:block';
-const C_X = 'hidden @min-[772px]:block';
+const C_X = 'hidden @min-[880px]:block';
 const ROW_PAD = 'px-2.5 @min-[520px]:px-3.5';
 
 /** หัววัน: วัน · N บริษัท · แสดง X · bar · กำไรดีขึ้น Y% · เปิดดู / พับ. */
