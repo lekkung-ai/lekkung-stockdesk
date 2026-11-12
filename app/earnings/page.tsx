@@ -17,14 +17,15 @@ import {
   SCAN_META, STAGE_COLORS, peadWarnings, type PeadExtra,
 } from '@/lib/peadExtras';
 import {
-  parseView, withView, groupByDay, summarizeDay, announceDay, dayLabel,
+  groupByDay, summarizeDay, announceDay, dayLabel,
   type EarningsView, type DaySummary,
 } from '@/lib/earningsDays';
 import {
   isLiquid, sectorBoard, SECTOR_MIN, dayHighlights, boardGroup, foldRows, boardComparator, FOLD_NAMES,
   INTEREST_WEIGHTS, INTEREST_YOY_MIN, INTEREST_MAX_SCANS, INTEREST_RS_MIN, INTEREST_UP_STAGES,
-  BOARD_SORTS, BOARD_FILTERS, SORT_LABEL, DEFAULT_SORT, ALL_QUARTERS_PARAM,
-  type SectorScope, type SectorRow, type BoardSort, type BoardFilter,
+  BOARD_SORTS, BOARD_FILTERS, SORT_LABEL, ALL_QUARTERS_PARAM,
+  parseBoardQuery, boardQueryString, DEFAULT_QUERY,
+  type SectorScope, type SectorRow, type BoardSort, type BoardFilter, type BoardQuery,
 } from '@/lib/earningsBoard';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
 
@@ -786,18 +787,20 @@ export default function EarningsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const [tab, setTab] = useState<EarningsBucket | null>(null);
-  const [filters, setFilters] = useState<BoardFilter[]>([]);
-  const [quarter, setQuarter] = useState<string | null>(null); // null = season quarter, ALL_QUARTERS_PARAM = every quarter
-  const [query, setQuery] = useState('');
-  const [sort, setSort] = useState<BoardSort>(DEFAULT_SORT);
-  const [hideIlliquid, setHideIlliquid] = useState(true);
-  // รายวัน / รายการเดียว, bound to ?view=. Read from the URL in the initializer: the table
-  // only renders after the feed loads (never on the server), so this can't mismatch.
-  const [view, setViewState] = useState<EarningsView>(() =>
-    typeof window === 'undefined' ? 'day' : parseView(new URLSearchParams(window.location.search).get('view')));
-  const [daySel, setDaySel] = useState<string | null>(null); // null = newest day with a filing
-  const [scope, setScope] = useState<SectorScope>('day');
+  // Every control below is bound to the URL (lib/earningsBoard.ts parseBoardQuery /
+  // boardQueryString). Read once in an initializer: everything that depends on it only
+  // renders after the feed loads (never on the server), so this can't mismatch.
+  const [init] = useState<BoardQuery>(() =>
+    typeof window === 'undefined' ? DEFAULT_QUERY : parseBoardQuery(window.location.search));
+  const [tab, setTab] = useState<EarningsBucket | null>(init.tab);
+  const [filters, setFilters] = useState<BoardFilter[]>(init.filters);
+  const [quarter, setQuarter] = useState<string | null>(init.quarter); // null = season quarter, ALL_QUARTERS_PARAM = every quarter
+  const [query, setQuery] = useState(init.q);
+  const [sort, setSort] = useState<BoardSort>(init.sort);
+  const [hideIlliquid, setHideIlliquid] = useState(init.hideIlliquid);
+  const [view, setView] = useState<EarningsView>(init.view);
+  const [daySel, setDaySel] = useState<string | null>(init.day); // null = newest day with a filing
+  const [scope, setScope] = useState<SectorScope>(init.scope);
   const [openKey, setOpenKey] = useState<string | null>(null);
   // Day groups the user opened / closed; the others follow the selected day (only it is open).
   const [dayToggled, setDayToggled] = useState<Map<string, boolean>>(new Map());
@@ -881,13 +884,20 @@ export default function EarningsPage() {
     scrollTarget.current = null;
   }, [openKey, dayToggled]);
 
-  const setView = (v: EarningsView) => {
-    setViewState(v);
+  // State → URL (replaceState, no history entries). Defaults are left out; a day / quarter
+  // the data doesn't have was already replaced by its default above, so the URL is cleaned too.
+  const newestDay = seasonDays[0]?.day ?? null;
+  useEffect(() => {
+    if (loading || error || !newestDay) return;
     try {
       const { pathname, search, hash } = window.location;
-      window.history.replaceState(window.history.state, '', `${pathname}${withView(search, v)}${hash}`);
+      const qs = boardQueryString({
+        day: selDay && selDay !== newestDay ? selDay : null, scope, hideIlliquid, sort, filters, tab, view,
+        q: query.trim().toUpperCase(), quarter: activeQuarter === seasonQuarter ? null : activeQuarter,
+      }, search);
+      if (qs !== search) window.history.replaceState(window.history.state, '', `${pathname}${qs}${hash}`);
     } catch { /* ignore */ }
-  };
+  }, [loading, error, newestDay, selDay, scope, hideIlliquid, sort, filters, tab, view, query, activeQuarter, seasonQuarter]);
   // Day card: the day the whole page looks at - sector box, เด่นของวัน, and only that
   // day opened in the table (รายวัน).
   const pickDay = (day: string) => {
