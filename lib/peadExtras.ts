@@ -5,6 +5,8 @@
 // every source is optional - a missing file or a missing stock simply gives no badge.
 // ⚡ / PEAD / bucket rules stay in earningsMetrics.ts.
 
+import { PEAD_MIN_ADTV_MB } from './earningsMetrics';
+
 export interface PeadExtra {
   /** market_stage.json Stage (S.Bull, Bull, ...) */
   stage?: string;
@@ -84,7 +86,8 @@ export function buildPeadExtras(tickers: string[], src: PeadSources): Record<str
 
 // ── Warning badges ───────────────────────────────────────────────────────────
 
-export const LOW_LIQUIDITY_ADTV = 5; // million baht per day
+/** Million baht per day - the same line as the PEAD rule (one constant, earningsMetrics.ts). */
+export const LOW_LIQUIDITY_ADTV = PEAD_MIN_ADTV_MB;
 
 export interface Warn {
   key: 'liquidity' | 'weinstein' | 'auditor';
