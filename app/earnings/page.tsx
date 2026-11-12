@@ -18,21 +18,26 @@ import {
 } from '@/lib/peadExtras';
 import {
   parseView, withView, groupByDay, summarizeDay, announceDay, dayLabel,
-  DAYS_OPEN_BY_DEFAULT, DAY_CARDS, type EarningsView, type DaySummary,
+  type EarningsView, type DaySummary,
 } from '@/lib/earningsDays';
+import {
+  isLiquid, sectorBoard, SECTOR_MIN, type SectorScope, type SectorRow,
+} from '@/lib/earningsBoard';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
 
 // ── Formatting ───────────────────────────────────────────────────────────────
 
 const UP = '#1D9E75';
+const ACC_GREEN = '#6ee7b7'; // ⚡ เร่งตัว = good news (emerald-300, same as its badge)
 const DOWN = '#E24B4A';
 
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
-const WEEKDAY_SHORT = ['จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.'];
 
 // The page's own wording for the 6 buckets - loss_worse reads "ขาดทุนหนักขึ้น" here
 // (the shared BUCKET_LABEL used by /calendar and /stock stays as it is).
 const TAB_LABEL: Record<EarningsBucket, string> = { ...BUCKET_LABEL, loss_worse: 'ขาดทุนหนักขึ้น' };
+/** Day cards in layer 1: the newest 14 days that have a filing. */
+const DAY_STRIP = 14;
 
 function addDaysISO(iso: string, n: number): string {
   const d = new Date(iso + 'T00:00:00Z');
@@ -141,24 +146,28 @@ function Stat({ k, children, color, note }: { k: string; children: React.ReactNo
   );
 }
 
-function SeasonStats({ rows }: { rows: EarningsAnnouncement[] }) {
+function SeasonStats({ rows, extras }: { rows: EarningsAnnouncement[]; extras: Record<string, PeadExtra> | undefined }) {
   // "ประกาศแล้ว" = every filing; the improved/worse split and its % leave out the
   // filings with no profit figure at all (funds / REITs) - they have nothing to compare.
   const { n, noProfit, base, up, down: dn, upPct } = seasonCounts(rows);
   const acc = rows.filter(isAccelerating).length;
+  const liquid = rows.filter(a => isLiquid(extras?.[a.ticker]?.adtv)).length;
   // Last quarter, same companies: of those with back-to-back figures, how many improved then.
   const prev = rows.map(priorQuarterImproved).filter((v): v is boolean => v != null);
   const prevPct = prev.length ? Math.round((prev.filter(Boolean).length / prev.length) * 100) : null;
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-2 md:flex md:gap-x-12 items-end">
+      <div className="flex flex-wrap gap-x-8 md:gap-x-10 gap-y-3 items-end">
         <Stat k="ประกาศแล้ว" note={noProfit ? `ไม่มีข้อมูลกำไร ${noProfit}` : undefined}>{n}</Stat>
         <Stat k="กำไรดีขึ้น" color={UP}>
           {up}<span className="text-[13px] md:text-[15px] font-medium text-meta ml-1">{upPct}%</span>
         </Stat>
         <Stat k="กำไรแย่ลง" color={DOWN}>{dn}</Stat>
-        <Stat k="กำไรเร่งตัว" color="#FBBF24">{acc}</Stat>
+        <Stat k="กำไรเร่งตัว" color={ACC_GREEN}>{acc}</Stat>
+        <Stat k={`ซื้อขาย ≥ ${PEAD_MIN_ADTV_MB} ล./วัน`}>
+          {liquid}<span className="text-[13px] md:text-[15px] font-medium text-meta ml-1">จาก {n}</span>
+        </Stat>
       </div>
       <div className="mt-3.5">
         <div className="h-1.5 rounded-full bg-white/[0.06] flex overflow-hidden">
@@ -177,83 +186,109 @@ function SeasonStats({ rows }: { rows: EarningsAnnouncement[] }) {
   );
 }
 
-// ── Week line (one line, expands to 5 days) ─────────────────────────────────
+// ── Layer 1: day cards + "รออีก N บริษัท" + sector box ──────────────────────
 
-function WeekLine({ feed }: { feed: EarningsFeed }) {
-  const [open, setOpen] = useState(false);
-  const today = bangkokDateKey();
-  const monday = mondayOf(today);
-  const week = [0, 1, 2, 3, 4].map(i => addDaysISO(monday, i));
-  const friday = week[4];
+/** Companies still expected this week (Mon-Fri): predicted dates from today on, minus
+ *  every ticker already filed or confirmed. */
+function waitingThisWeek(feed: EarningsFeed, today: string): number {
+  const friday = addDaysISO(mondayOf(today), 4);
+  const known = new Set(feed.announcements.map(a => a.ticker));
+  for (const c of feed.calendar) if (c.status === 'confirmed') known.add(c.ticker);
+  const seen = new Set<string>();
+  for (const c of feed.calendar) {
+    if (c.status !== 'predicted' || known.has(c.ticker) || seen.has(c.ticker)) continue;
+    const raw = c.date.slice(0, 10);
+    if (raw < today) continue;
+    if (rollToWeekday(raw) <= friday) seen.add(c.ticker);
+  }
+  return seen.size;
+}
 
-  // ~900 calendar rows - cheap enough to rebuild each render (only re-renders on open/close)
-  const byDate = (() => {
-    const map = new Map<string, { confirmed: string[]; predicted: string[] }>();
-    const confirmed = new Set<string>();
-    const slot = (d: string) => {
-      if (!map.has(d)) map.set(d, { confirmed: [], predicted: [] });
-      return map.get(d)!;
-    };
-    for (const a of feed.announcements) {
-      if (!a.announceDate || confirmed.has(a.ticker)) continue;
-      slot(a.announceDate.slice(0, 10)).confirmed.push(a.ticker);
-      confirmed.add(a.ticker);
-    }
-    for (const c of feed.calendar) {
-      if (c.status === 'confirmed' && !confirmed.has(c.ticker)) {
-        slot(c.date.slice(0, 10)).confirmed.push(c.ticker);
-        confirmed.add(c.ticker);
-      }
-    }
-    for (const c of feed.calendar) {
-      if (c.status !== 'predicted' || confirmed.has(c.ticker)) continue;
-      const raw = c.date.slice(0, 10);
-      if (raw < today) continue;
-      slot(rollToWeekday(raw)).predicted.push(c.ticker);
-    }
-    return map;
-  })();
+const PANEL = 'bg-[#13161e] border border-white/[0.07] rounded-xl p-3.5 md:px-[18px] md:py-4 min-w-0';
+const SEG_BTN = (on: boolean) => `text-[13px] px-3 py-1 whitespace-nowrap ${on ? 'bg-[#1b2640] text-[#dbe7ff]' : 'text-meta hover:text-white/80'}`;
 
-  const todayTickers = byDate.get(today)?.confirmed ?? [];
-  const waiting = week
-    .filter(d => d >= today && d <= friday)
-    .reduce((s, d) => s + (byDate.get(d)?.predicted.length ?? 0), 0);
-
+/** Thin bar split by bucket (BUCKET_ORDER), widths = share of `n`. */
+function CountsBar({ counts, n, className }: { counts: Partial<Record<EarningsBucket, number>>; n: number; className: string }) {
   return (
-    <div className="border-y border-white/[0.07] py-3.5 text-[14px] text-meta">
-      <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
-        <span>วันนี้ประกาศ <b className="text-ink font-semibold">{todayTickers.length}</b></span>
-        {todayTickers.length > 0 && <span className="text-[13px] text-emerald-300">{todayTickers.join(' · ')}</span>}
-        <span>·</span>
-        <span>รออีก <b className="text-ink font-semibold">{waiting}</b> บริษัทในสัปดาห์นี้</span>
-        <span className="ml-auto flex items-center gap-4">
-          <button onClick={() => setOpen(o => !o)} className="text-[#5B93FF] hover:text-blue-300">
-            {open ? 'ซ่อน ▴' : 'ดูรายวัน ▾'}
+    <span className={`flex overflow-hidden rounded-full bg-white/[0.06] ${className}`}>
+      {BUCKET_ORDER.map(k => counts[k] ? (
+        <i key={k} className="block h-full" style={{ width: `${(counts[k]! / n) * 100}%`, background: BUCKET_COLOR[k] }} />
+      ) : null)}
+    </span>
+  );
+}
+
+/** The newest DAY_STRIP days with a filing - the page's "วันที่กำลังดู" picker. */
+function DayStrip({ groups, selected, onPick }: { groups: { day: string; s: DaySummary }[]; selected: string; onPick: (day: string) => void }) {
+  if (!groups.length) return null;
+  return (
+    <div className="flex gap-2 overflow-x-auto pb-1.5 [scrollbar-width:thin]" role="group" aria-label="เลือกวันประกาศ">
+      {groups.slice(0, DAY_STRIP).map(({ day, s }) => {
+        const on = day === selected;
+        return (
+          <button key={day} type="button" onClick={() => onPick(day)} aria-pressed={on}
+            title={BUCKET_ORDER.filter(k => s.counts[k]).map(k => `${TAB_LABEL[k]} ${s.counts[k]}`).join(' · ')}
+            className={`flex-none min-w-[92px] text-left border rounded-[10px] px-2.5 py-1.5 ${
+              on ? 'border-[#5B93FF] bg-[#172038]' : 'bg-[#181c26] border-white/[0.07] hover:border-white/20'}`}>
+            <span className="block text-[12px] text-meta whitespace-nowrap">{dayLabel(day)}</span>
+            <span className="block text-[16px] font-semibold text-ink tabular-nums">{s.n} <span className="text-[12px] font-normal text-meta">บริษัท</span></span>
+            <CountsBar counts={s.counts} n={s.n} className="h-1 mt-1" />
           </button>
-          <Link href="/calendar" className="text-[#5B93FF] hover:text-blue-300 whitespace-nowrap">ดูปฏิทินเต็ม →</Link>
+        );
+      })}
+    </div>
+  );
+}
+
+function SectorList({ title, rows }: { title: string; rows: SectorRow[] }) {
+  return (
+    <div className="min-w-0">
+      <h3 className="text-[12.5px] font-medium text-meta mb-1">{title}</h3>
+      {rows.length ? rows.map(x => (
+        <div key={x.group} className="py-1">
+          <div className="grid grid-cols-[minmax(0,1fr)_34px_46px] gap-2 items-center text-[13.5px]">
+            <span className="truncate text-white/85" title={x.group}>{x.group}</span>
+            <span className="text-right text-[12px] text-meta tabular-nums" title={`${x.n} บริษัทที่มีฐานเทียบ`}>{x.n}</span>
+            <span className="text-right font-semibold tabular-nums" style={{ color: x.pct >= 50 ? UP : DOWN }}>{x.pct}%</span>
+          </div>
+          <CountsBar counts={x.counts} n={x.n} className="h-[3px] mt-0.5" />
+        </div>
+      )) : <span className="text-[13px] text-meta">—</span>}
+    </div>
+  );
+}
+
+/** กลุ่มไหนงบดี / แย่: subsector (mai → "<sector> (mai)"), % improved of the companies
+ *  with a base, for the selected day or the whole quarter. */
+function SectorBox({ rows, day, scope, onScope }: {
+  rows: EarningsAnnouncement[]; day: string; scope: SectorScope; onScope: (s: SectorScope) => void;
+}) {
+  const minN = SECTOR_MIN[scope];
+  const { best, worst } = useMemo(
+    () => sectorBoard(scope === 'day' ? rows.filter(a => announceDay(a) === day) : rows, minN),
+    [rows, day, scope, minN]);
+  return (
+    <section className={PANEL} aria-label="กลุ่มไหนงบดี / แย่">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-[16px] font-semibold text-ink">กลุ่มไหนงบดี / แย่</h2>
+        <span className="inline-flex border border-white/[0.12] rounded-lg overflow-hidden" role="group" aria-label="ช่วงที่สรุป">
+          <button type="button" aria-pressed={scope === 'day'} onClick={() => onScope('day')} className={SEG_BTN(scope === 'day')}>{day ? dayLabel(day) : 'วันนี้'}</button>
+          <button type="button" aria-pressed={scope === 'q'} onClick={() => onScope('q')} className={SEG_BTN(scope === 'q')}>ทั้งไตรมาส</button>
         </span>
       </div>
-      {open && (
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mt-3">
-          {week.map((d, i) => {
-            const s = byDate.get(d);
-            const names = [...(s?.confirmed ?? []).map(t => `✓ ${t}`), ...(s?.predicted ?? [])];
-            const p = d.split('-');
-            return (
-              <div key={d} className={d === today ? 'text-ink' : ''}>
-                <div className="text-[13px] mb-1">
-                  <b className="text-ink font-semibold">{WEEKDAY_SHORT[i]} {parseInt(p[2])} {MONTHS[parseInt(p[1]) - 1]}</b> · {names.length}
-                </div>
-                <div className="text-[13px] leading-7 text-white/70">
-                  {names.length ? names.join(' · ') : '—'}
-                </div>
-              </div>
-            );
-          })}
-          <div className="sm:col-span-5 text-[12px] text-meta">✓ = ประกาศแล้ว · ที่เหลือคาดการณ์จากวันประกาศงวดเดียวกันปีก่อน</div>
+      <p className="text-[12.5px] text-meta mt-1">% บริษัทที่กำไรดีขึ้นเทียบปีก่อน · ไม่นับบริษัทที่ไม่มีฐานเทียบ · เฉพาะกลุ่มที่มี {minN} บริษัทขึ้นไป</p>
+      {best.length ? (
+        <div className="grid grid-cols-1 min-[480px]:grid-cols-2 gap-x-5 gap-y-3 mt-2.5">
+          <SectorList title="งบดีสุด" rows={best} />
+          <SectorList title="งบแย่สุด" rows={worst} />
         </div>
+      ) : (
+        <p className="text-[13.5px] text-meta mt-3">
+          วันนี้มีบริษัทไม่พอจะสรุปเป็นกลุ่ม ลองดู{' '}
+          <button type="button" onClick={() => onScope('q')} className="text-[#5B93FF] hover:text-blue-300">ทั้งไตรมาส</button>
+        </p>
       )}
-    </div>
+    </section>
   );
 }
 
@@ -775,24 +810,6 @@ function BucketBar({ s, className }: { s: DaySummary; className: string }) {
   );
 }
 
-/** The newest DAY_CARDS days with a filing - click = jump to that day (opened). */
-function DayCards({ groups, onPick }: { groups: { day: string; s: DaySummary }[]; onPick: (day: string) => void }) {
-  if (!groups.length) return null;
-  return (
-    <div className="flex gap-2 overflow-x-auto pb-2 mb-2 [scrollbar-width:thin]" aria-label="วันที่มีประกาศงบ">
-      {groups.slice(0, DAY_CARDS).map(({ day, s }) => (
-        <button key={day} type="button" onClick={() => onPick(day)}
-          title={BUCKET_ORDER.filter(k => s.counts[k]).map(k => `${TAB_LABEL[k]} ${s.counts[k]}`).join(' · ')}
-          className="flex-none min-w-[96px] text-left bg-[#13161e] border border-white/[0.07] hover:border-white/20 rounded-[10px] px-2.5 py-1.5">
-          <span className="block text-[12px] text-meta whitespace-nowrap">{dayLabel(day)}</span>
-          <span className="block text-[16px] font-semibold text-ink tabular-nums">{s.n} <span className="text-[12px] font-normal text-meta">บริษัท</span></span>
-          <BucketBar s={s} className="h-1 mt-1" />
-        </button>
-      ))}
-    </div>
-  );
-}
-
 /** หัวกลุ่มของวัน: วัน · N บริษัท · bar · กำไรดีขึ้น X (Y%) · each bucket · โตสุดของวัน. */
 function DayHeader({ day, s, open, onToggle }: { day: string; s: DaySummary; open: boolean; onToggle: () => void }) {
   return (
@@ -848,7 +865,6 @@ export default function EarningsPage() {
     typeof window === 'undefined' ? 'day' : parseView(new URLSearchParams(window.location.search).get('view')));
   // Day groups the user opened / closed; others follow the default (the newest 2 open).
   const [dayToggled, setDayToggled] = useState<Map<string, boolean>>(new Map());
-  const scrollDay = useRef<string | null>(null);
 
   const fetchFeed = () =>
     fetch('/api/earnings')
@@ -862,6 +878,9 @@ export default function EarningsPage() {
   const today = bangkokDateKey();
   const extras = feed.extras;
 
+  const [daySel, setDaySel] = useState<string | null>(null); // null = newest day with a filing
+  const [scope, setScope] = useState<SectorScope>('day');
+
   const quarters = useMemo(() => {
     const s = new Set(feed.announcements.map(a => a.quarter?.trim()).filter((q): q is string => !!q));
     return [...s].sort((x, y) => parseQuarterScore(y) - parseQuarterScore(x));
@@ -874,6 +893,12 @@ export default function EarningsPage() {
     () => feed.announcements.filter(a => a.quarter === seasonQuarter),
     [feed.announcements, seasonQuarter]
   );
+  // Day cards / "วันที่กำลังดู": the season's filing days, newest first.
+  const seasonDays = useMemo(
+    () => groupByDay(seasonRows).map(g => ({ day: g.day, s: summarizeDay(g.rows) })),
+    [seasonRows]
+  );
+  const selDay = daySel && seasonDays.some(g => g.day === daySel) ? daySel : seasonDays[0]?.day ?? '';
   const quarterRows = useMemo(
     () => feed.announcements.filter(a => activeQuarter === ALL_QUARTERS || a.quarter === activeQuarter),
     [feed.announcements, activeQuarter]
@@ -913,7 +938,7 @@ export default function EarningsPage() {
     () => groupByDay(filtered).map(g => ({ ...g, s: summarizeDay(g.rows) })),
     [filtered]
   );
-  const isDayOpen = (day: string, i: number) => dayToggled.get(day) ?? i < DAYS_OPEN_BY_DEFAULT;
+  const isDayOpen = (day: string) => dayToggled.get(day) ?? day === selDay;
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -927,13 +952,6 @@ export default function EarningsPage() {
     scrollTarget.current = null;
   }, [openKey, pageRows]);
 
-  useEffect(() => {
-    if (!scrollDay.current) return;
-    const el = document.getElementById(`day-${scrollDay.current}`);
-    if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    scrollDay.current = null;
-  }, [view, dayToggled]);
-
   const setView = (v: EarningsView) => {
     setViewState(v);
     try {
@@ -941,10 +959,12 @@ export default function EarningsPage() {
       window.history.replaceState(window.history.state, '', `${pathname}${withView(search, v)}${hash}`);
     } catch { /* ignore */ }
   };
-  const openDay = (day: string) => {
+  // Day card: the day the whole page looks at - sector box, เด่นของวัน, and only that
+  // day opened in the table (รายวัน).
+  const pickDay = (day: string) => {
+    setDaySel(day);
     if (view !== 'day') setView('day');
-    setDayToggled(m => new Map(m).set(day, true));
-    scrollDay.current = day;
+    setDayToggled(new Map());
   };
   const toggleDay = (day: string, open: boolean) => setDayToggled(m => new Map(m).set(day, !open));
 
@@ -1082,9 +1102,21 @@ export default function EarningsPage() {
           </button>
         </div>
       ) : (
-        <div className="space-y-7">
-          <SeasonStats rows={seasonRows} />
-          <WeekLine feed={feed} />
+        <div className="@container space-y-7">
+          <div className="grid grid-cols-1 @min-[1052px]:grid-cols-[minmax(0,1fr)_440px] @min-[1332px]:grid-cols-[minmax(0,1fr)_560px] gap-3.5">
+            <section className={PANEL} aria-label="สรุปฤดูงบ">
+              <SeasonStats rows={seasonRows} extras={extras} />
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 mt-4 mb-1.5">
+                <h2 className="text-[13.5px] font-medium text-white/80">ประกาศรายวัน <span className="text-[12.5px] font-normal text-meta">· กดเพื่อเลือกวัน · แถบสี = สัดส่วนผลงบของวันนั้น</span></h2>
+                <span className="text-[13px] text-meta">
+                  รออีก <b className="text-ink font-semibold">{waitingThisWeek(feed, today)}</b> บริษัทในสัปดาห์นี้ ·{' '}
+                  <Link href="/calendar" className="text-[#5B93FF] hover:text-blue-300 whitespace-nowrap">ดูปฏิทินเต็ม →</Link>
+                </span>
+              </div>
+              <DayStrip groups={seasonDays} selected={selDay} onPick={pickDay} />
+            </section>
+            <SectorBox rows={seasonRows} day={selDay} scope={scope} onScope={setScope} />
+          </div>
           <PeadSection rows={seasonRows} extras={feed.extras} today={today} onPick={pick} onShowAll={showAllPead} />
 
           <div ref={tableRef} className="scroll-mt-20">
@@ -1151,7 +1183,6 @@ export default function EarningsPage() {
               </select>
             </div>
 
-            <DayCards groups={dayGroups} onPick={openDay} />
             <BadgeLegend />
             <BarsLegend />
             <div className="overflow-x-auto">
@@ -1188,8 +1219,8 @@ export default function EarningsPage() {
                   </tbody>
                 ) : dayGroups.length === 0 ? (
                   <tbody><tr><td colSpan={7} className="py-7 text-center text-meta text-[14px]">ไม่มีหุ้นที่ตรงเงื่อนไข</td></tr></tbody>
-                ) : dayGroups.map(({ day, rows, s }, i) => {
-                  const open = isDayOpen(day, i);
+                ) : dayGroups.map(({ day, rows, s }) => {
+                  const open = isDayOpen(day);
                   return (
                     <tbody key={day} id={`day-${day}`} className="scroll-mt-20">
                       <tr><td colSpan={7} className="p-0 pt-3">
