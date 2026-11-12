@@ -80,6 +80,7 @@ DETAIL_MATCH_DAYS = 3  # statement/MD&A items are matched to their F45 anchor if
 
 SCRIPT_DIR = os.path.dirname(__file__)
 SECTOR_MAP_PATH = os.path.join(SCRIPT_DIR, '..', 'data', 'scans', 'sector_map.json')
+MARKET_STAGE_PATH = os.path.join(SCRIPT_DIR, '..', 'data', 'scans', 'market_stage.json')
 OUTPUT_DIR = os.path.join(SCRIPT_DIR, '..', 'public', 'data', 'earnings')
 
 BUCKET_LABELS = {
@@ -511,8 +512,36 @@ def build_profit_history(filings, end_year, end_q, n=HISTORY_QUARTERS):
     return out[::-1]
 
 
-def fetch_history(jobs, cookie, budget=None, pause=None, sleep=time.sleep):
-    """Fetch the older F45s for each job, newest announcement first.
+def load_adtv(path=None):
+    """{ticker: ADTV in million baht} from market_stage.json ("ADTV(MB)"). Returns None
+    when the file is missing / unreadable (the caller keeps the old queue order)."""
+    path = MARKET_STAGE_PATH if path is None else path
+    try:
+        with open(path, encoding='utf-8') as f:
+            rows = json.load(f)
+    except (OSError, ValueError):
+        return None
+    out = {}
+    for r in rows if isinstance(rows, list) else []:
+        t, v = r.get('Ticker'), r.get('ADTV(MB)')
+        if isinstance(t, str) and isinstance(v, (int, float)) and not isinstance(v, bool) and v == v:
+            out[t] = float(v)
+    return out
+
+
+def order_history_jobs(jobs, adtv=None):
+    """Queue order for the history fetch. Old order = newest announcement first. With an
+    `adtv` map: most traded first, equal ADTV keeps the old order, a ticker without ADTV goes
+    after every ticker that has one (again in the old order). adtv None = old order."""
+    base = sorted(jobs, key=lambda j: j.get('announceDate') or '', reverse=True)
+    if adtv is None:
+        return base
+    return sorted(base, key=lambda j: (j['ticker'] not in adtv, -adtv.get(j['ticker'], 0.0)))  # stable
+
+
+def fetch_history(jobs, cookie, budget=None, pause=None, sleep=time.sleep, adtv=None):
+    """Fetch the older F45s for each job, in order_history_jobs() order (adtv=None: newest
+    announcement first).
 
     jobs: [{'ticker', 'announceDate', 'items': [news items]}]. Cached pages
     are free; at most `budget` real requests (HISTORY_PAGE_BUDGET), each
@@ -524,7 +553,7 @@ def fetch_history(jobs, cookie, budget=None, pause=None, sleep=time.sleep):
     done, pending = {}, []
     fetched = blank_streak = 0
     stopped = None
-    for job in sorted(jobs, key=lambda j: j.get('announceDate') or '', reverse=True):
+    for job in order_history_jobs(jobs, adtv):
         parsed_list, complete = [], True
         for item in job['items']:
             hit = cached_f45(item)
@@ -865,7 +894,16 @@ def main():
           f"{current_pages} pages requested (never limited)")
 
     hist_started = time.time()
-    hist_done, hist = fetch_history(history_jobs, cookie, budget=args.history_budget)
+    adtv = load_adtv()
+    if adtv is None:
+        print(f"WARNING: {os.path.normpath(MARKET_STAGE_PATH)} missing/unreadable - history queue keeps the "
+              f"newest-announcement-first order")
+    queue = [j for j in order_history_jobs(history_jobs, adtv)
+             if any(cached_f45(it) is None for it in j['items'])]
+    print(f"History queue: {len(queue)} companies with pages to fetch (budget {args.history_budget} pages"
+          f"{', ADTV order' if adtv is not None else ''}); first 10: "
+          + ', '.join(f"{j['ticker']}" + (f" ({adtv[j['ticker']]:.0f})" if adtv and j['ticker'] in adtv else '') for j in queue[:10]))
+    hist_done, hist = fetch_history(history_jobs, cookie, budget=args.history_budget, adtv=adtv)
     for job in history_jobs:
         if job['ticker'] in hist_done:
             apply_history(job['announcement'], job['parsed'], hist_done[job['ticker']])
