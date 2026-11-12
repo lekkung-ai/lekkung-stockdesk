@@ -14,14 +14,14 @@ import {
 } from '@/lib/earningsMetrics';
 import { fmtMoney, pageBucket, seasonCounts } from '@/lib/earningsView';
 import {
-  SCAN_META, STAGE_COLORS, LOW_LIQUIDITY_ADTV, peadWarnings, groupLabel, type PeadExtra,
+  SCAN_META, STAGE_COLORS, LOW_LIQUIDITY_ADTV, peadWarnings, type PeadExtra,
 } from '@/lib/peadExtras';
 import {
   parseView, withView, groupByDay, summarizeDay, announceDay, dayLabel,
   type EarningsView, type DaySummary,
 } from '@/lib/earningsDays';
 import {
-  isLiquid, sectorBoard, SECTOR_MIN, type SectorScope, type SectorRow,
+  isLiquid, sectorBoard, SECTOR_MIN, dayHighlights, boardGroup, type SectorScope, type SectorRow,
 } from '@/lib/earningsBoard';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
 
@@ -86,7 +86,7 @@ function Tag({ children, cls, title }: { children: React.ReactNode; cls: string;
 }
 const TAG_TURN = 'text-sky-300 bg-sky-400/10';
 const TAG_LOSS = 'text-rose-300 bg-rose-500/10';
-const TAG_ACC = 'text-amber-300 bg-amber-400/10';
+const TAG_ACC = 'text-emerald-300 bg-emerald-400/10'; // ⚡ เร่งตัว = good news
 
 function reasonOf(a: EarningsAnnouncement): string {
   return a.reason ? fixThaiText(a.reason) : '';
@@ -292,13 +292,12 @@ function SectorBox({ rows, day, scope, onScope }: {
   );
 }
 
-// ── PEAD: "ราคาวิ่งต่อหลังงบ" top 5 ─────────────────────────────────────────
-
-const PEAD_VIEW_KEY = 'earnings.peadView';
+// ── Layer 2: เด่นของวัน + ราคาวิ่งต่อหลังงบ (PEAD) ────────────────────────────
 
 /** The PEAD rule in words - numbers come from the constants in earningsMetrics.ts. */
-const PEAD_CRITERIA = `กำไรโต ≥ ${PEAD_MIN_YOY}% หรือพลิกกำไร และราคา +2 วันหลังงบ ≥ +${PEAD_MIN_D2_PCT}% และสภาพคล่อง ≥ ${PEAD_MIN_ADTV_MB} ล./วัน`;
-type PeadView = 'table' | 'card';
+const PEAD_CRITERIA = `กำไรโต ≥ ${PEAD_MIN_YOY}% หรือพลิกกำไร · ราคา +2 วันหลังงบ ≥ +${PEAD_MIN_D2_PCT}% · ซื้อขาย ≥ ${PEAD_MIN_ADTV_MB} ล./วัน`;
+/** Rows shown in each layer-2 box. */
+const BOX_TOP = 6;
 
 function D({ v, bold }: { v: number | null | undefined; bold?: boolean }) {
   if (v == null) return <Wait />;
@@ -314,22 +313,14 @@ function PTag({ children, cls, title }: { children: React.ReactNode; cls: string
   return <span title={title} className={`inline-block max-w-full truncate align-middle text-[12px] leading-5 px-2 rounded-full font-medium ${cls}`}>{children}</span>;
 }
 
-/** "วันนี้" / "N วันก่อน" counted in calendar days (Bangkok date of the filing vs today). */
-function daysBeforeLabel(announceDate: string | null | undefined, today: string): string {
-  const d = (announceDate ?? '').slice(0, 10);
-  const n = d && today ? Math.round((Date.parse(today) - Date.parse(d)) / 86400000) : NaN;
-  if (!Number.isFinite(n) || n < 0) return '';
-  return n === 0 ? 'วันนี้' : `${n} วันก่อน`;
-}
-
-/** Badges after a ticker - one component for the PEAD section and every row of the
- *  main table: ⚡ เร่งตัว · market stage · RS · scans it sits in · warnings.
- *  Every badge has a title with the real value; no data → no badge. */
+/** Badges after a ticker - one component for every list on the page: ⚡ เร่งตัว · market
+ *  stage · RS · scans it sits in · warnings (auditor, Weinstein 3). Liquidity has its own
+ *  ล./วัน column, so no "สภาพคล่องต่ำ" badge here. No data → no badge. */
 function StockBadges({ a, extra }: { a: EarningsAnnouncement; extra: PeadExtra | undefined }) {
-  const warns = peadWarnings(a.auditorOpinion, extra);
+  const warns = peadWarnings(a.auditorOpinion, extra).filter(w => w.key !== 'liquidity');
   return (
     <>
-      {isAccelerating(a) && <PTag cls={TAG_ACC} title="% เทียบปีก่อนของไตรมาสนี้ สูงกว่าของไตรมาสที่แล้ว">⚡ เร่งตัว</PTag>}
+      {isAccelerating(a) && <PTag cls={TAG_ACC} title="% เทียบปีก่อนของไตรมาสนี้ สูงกว่าของไตรมาสที่แล้ว (กำไรโตเร็วขึ้น)">⚡ เร่งตัว</PTag>}
       {extra?.stage && (
         <span title={`Market Stage: ${extra.stage}`} className="inline-flex items-center gap-1 text-[12px] leading-5 text-white/75 whitespace-nowrap">
           <i className="inline-block w-2 h-2 rounded-full" style={{ background: STAGE_COLORS[extra.stage] ?? '#424242' }} />{extra.stage}
@@ -349,6 +340,173 @@ function StockBadges({ a, extra }: { a: EarningsAnnouncement; extra: PeadExtra |
   );
 }
 
+/** ADTV, million baht/day: ≥ 100 whole numbers, else 1 decimal. */
+function fmtAdtv(v: number | null | undefined): string {
+  if (v == null || !Number.isFinite(v)) return '—';
+  return v >= 100 ? String(Math.round(v)) : v.toFixed(1);
+}
+
+/** เทียบปีก่อน (layer 2): "พลิกกำไร" or the %YoY, with "ปีก่อน → ไตรมาสนี้" underneath. */
+function YoYBig({ a }: { a: EarningsAnnouncement }) {
+  const c = compareProfit(a.netProfit, a.netProfitPrior);
+  const sub = <span className="block text-[11.5px] font-normal text-meta tabular-nums whitespace-nowrap">{fmtMoney(a.netProfitPrior)} → {fmtMoney(a.netProfit)}</span>;
+  const title = `${quarterShort(a.quarter, 4) ?? 'ปีก่อน'} ${fmtMoney(a.netProfitPrior)} → ${quarterShort(a.quarter) ?? 'ไตรมาสนี้'} ${fmtMoney(a.netProfit)}`;
+  if (c?.kind === 'turnaround') return <span className="font-semibold" style={{ color: UP }} title={title}>พลิกกำไร{sub}</span>;
+  if (c?.kind === 'pct') return <span className="font-semibold" title={title}><Pct v={c.pct} digits={0} />{sub}</span>;
+  return <span className="text-meta" title={title}>—</span>;
+}
+
+/** ไตรมาสก่อน (layer 2): % vs last quarter, or a short label. */
+function QoQSmall({ a }: { a: EarningsAnnouncement }) {
+  const c = compareProfit(a.netProfit, a.netProfitPriorQ);
+  const title = a.priorQuarter ? `${a.priorQuarter} ${fmtMoney(a.netProfitPriorQ)}` : 'ยังไม่มีงบไตรมาสก่อน';
+  if (!c) return <span className="text-meta" title={title}>—</span>;
+  if (c.kind === 'pct') return <span title={title}><Pct v={c.pct} digits={0} /></span>;
+  if (c.kind === 'turnaround') return <span title={title}><Tag cls={TAG_TURN}>พลิก</Tag></span>;
+  if (c.kind === 'to_loss') return <span title={title}><Tag cls={TAG_LOSS}>พลิกขาดทุน</Tag></span>;
+  return <span className="text-[13px]" title={title} style={{ color: c.kind === 'loss_less' ? BUCKET_COLOR.loss_shrink : DOWN }}>{c.kind === 'loss_less' ? 'ขาดทุนลดลง' : 'ขาดทุนเพิ่ม'}</span>;
+}
+
+/** 5 days before → 5 days after the announcement: line at the announcement, the days after
+ *  it shaded, dashed 0% line. Stretches with its cell (strokes don't scale). */
+function PeadPriceChart({ a, height = 34 }: { a: EarningsAnnouncement; height?: number }) {
+  const { pre, post } = pricePath(a);
+  if (!post.length) return <span className="text-meta text-[12.5px]">ยังไม่มีราคา</span>;
+  const W = 160, H = height, PAD = 3;
+  const ys = [...pre, ...post].map(p => p.y).concat(0);
+  const lo = Math.min(...ys) - 0.5;
+  const hi = Math.max(...ys, 1) + 0.5;
+  const X = (x: number) => PAD + ((x + 5) / 10) * (W - 2 * PAD);
+  const Y = (y: number) => H - PAD - ((y - lo) / (hi - lo)) * (H - 2 * PAD);
+  const line = (pts: PricePoint[]) => pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.x).toFixed(1)} ${Y(p.y).toFixed(1)}`).join('');
+  const base = pre[pre.length - 1];
+  const last = post[post.length - 1];
+  const col = last.y >= 0 ? UP : DOWN;
+  const ann = X(-1);
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="block w-full" style={{ height: H }} role="img"
+      aria-label={`${a.ticker} ราคา 5 วันก่อนถึง 5 วันหลังประกาศงบ`}>
+      <title>ราคา 5 วันก่อน → 5 วันหลังประกาศ (เทียบราคาปิดก่อนประกาศ)</title>
+      <rect x={ann} y={0} width={W - PAD - ann} height={H} fill="rgba(91,147,255,0.06)" />
+      <line x1={PAD} x2={W - PAD} y1={Y(0)} y2={Y(0)} stroke="rgba(255,255,255,0.14)" strokeDasharray="2 3" vectorEffect="non-scaling-stroke" />
+      <line x1={ann} x2={ann} y1={0} y2={H} stroke="rgba(91,147,255,0.55)" vectorEffect="non-scaling-stroke" />
+      {pre.length > 1 && <path d={line(pre)} fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth={1.4} vectorEffect="non-scaling-stroke" />}
+      <path d={line([base, ...post])} fill="none" stroke={col} strokeWidth={2} vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
+
+/** หุ้น cell of the layer-2 boxes: ticker + badges, then group · time / date. */
+function StockCell({ a, extra, sub }: { a: EarningsAnnouncement; extra: PeadExtra | undefined; sub: string }) {
+  return (
+    <span className="block min-w-0">
+      <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <b className="text-ink text-[16px]">{a.ticker}</b>
+        <StockBadges a={a} extra={extra} />
+      </span>
+      <span className="block truncate text-[12.5px] text-meta mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>{sub}</span>
+    </span>
+  );
+}
+
+function onActivate(fn: () => void) {
+  return {
+    role: 'button' as const, tabIndex: 0, onClick: fn,
+    onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } },
+  };
+}
+
+const BOX_ROW = 'border-b border-white/[0.07] last:border-b-0 hover:bg-white/[0.025] cursor-pointer focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#33507f]';
+// Tracks per box width (container query on the box): หุ้น | กำไร | เทียบปีก่อน | ไตรมาสก่อน | ล./วัน.
+const HL_GRID = [
+  'grid gap-x-3 items-center grid-cols-[minmax(0,1fr)_136px_44px]',
+  '@min-[400px]:grid-cols-[minmax(0,1fr)_84px_150px_56px]',
+  '@min-[600px]:grid-cols-[minmax(0,1fr)_92px_158px_78px_62px]',
+].join(' ');
+const HL_N = 'hidden @min-[400px]:block';
+const HL_Q = 'hidden @min-[600px]:block';
+// หุ้น | เทียบปีก่อน | กราฟราคา | วันแรก | +2 | +5.
+const PD_GRID = [
+  'grid gap-x-3 items-center grid-cols-[minmax(0,1fr)_132px_54px]',
+  '@min-[400px]:grid-cols-[minmax(0,1fr)_150px_60px]',
+  '@min-[640px]:grid-cols-[minmax(0,1fr)_140px_minmax(100px,140px)_58px_58px_58px]',
+].join(' ');
+const PD_X = 'hidden @min-[640px]:block';
+const BOX_HEAD = 'py-2 text-[12px] text-meta border-b border-white/[0.07] [&>span:not(:first-child)]:text-right';
+
+function HighlightsBox({ rows, day, extras, onPick }: {
+  rows: EarningsAnnouncement[]; day: string; extras: Record<string, PeadExtra> | undefined; onPick: (a: EarningsAnnouncement) => void;
+}) {
+  const { passed, total } = useMemo(() => dayHighlights(rows, day, a => extras?.[a.ticker]), [rows, day, extras]);
+  return (
+    <section className={`${PANEL} @container`} aria-label="เด่นของวัน">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-[16px] font-semibold text-ink">เด่นของวัน <span className="text-[13px] font-normal text-meta">{day ? dayLabel(day) : ''}</span></h2>
+        <span className="text-[12.5px] text-meta">ผ่านเกณฑ์ <b className="text-ink font-semibold tabular-nums">{passed.length}</b> จาก {total} บริษัท</span>
+      </div>
+      <p className="text-[12.5px] text-meta mt-1">
+        กำไรโต หรือพลิกกำไร + ซื้อขาย ≥ {PEAD_MIN_ADTV_MB} ล./วัน · เรียงตามคะแนนน่าสนใจ (เร่งตัว · ติดสแกน · stage · RS) · ตัวที่ควรจับตาวันถัดไป ยังไม่ใช่ PEAD เพราะต้องรอราคา 2 วัน
+      </p>
+      {passed.length === 0 ? (
+        <p className="py-5 text-[13.5px] text-meta">ไม่มีตัวที่ผ่านเกณฑ์ในวันนี้</p>
+      ) : (
+        <div className="text-[15px]">
+          <div className={`${HL_GRID} ${BOX_HEAD}`}>
+            <span>หุ้น</span><span className={HL_N}>กำไร</span><span>เทียบปีก่อน</span><span className={HL_Q}>ไตรมาสก่อน</span><span>ล./วัน</span>
+          </div>
+          {passed.slice(0, BOX_TOP).map(a => (
+            <div key={rowKey(a)} {...onActivate(() => onPick(a))} className={`${HL_GRID} py-2.5 ${BOX_ROW}`}>
+              <StockCell a={a} extra={extras?.[a.ticker]} sub={`${boardGroup(a)} · ${bangkokHHMM(new Date(a.announceDate))} น.`} />
+              <span className={`${HL_N} text-right tabular-nums font-semibold`} style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>{fmtMoney(a.netProfit)}</span>
+              <span className="text-right"><YoYBig a={a} /></span>
+              <span className={`${HL_Q} text-right font-semibold`}><QoQSmall a={a} /></span>
+              <span className="text-right tabular-nums font-medium">{fmtAdtv(extras?.[a.ticker]?.adtv)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function PeadBox({ rows, extras, onPick, onShowAll }: {
+  rows: EarningsAnnouncement[]; extras: Record<string, PeadExtra> | undefined;
+  onPick: (a: EarningsAnnouncement) => void; onShowAll: () => void;
+}) {
+  const ranked = useMemo(() => peadRanked(rows, a => extras?.[a.ticker]?.adtv), [rows, extras]);
+  return (
+    <section className={`${PANEL} @container`} aria-label="ราคาวิ่งต่อหลังงบ">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-[16px] font-semibold text-ink">ราคาวิ่งต่อหลังงบ <span className="text-[13px] font-normal text-meta">(PEAD)</span></h2>
+        {ranked.length > 0 && (
+          <button type="button" onClick={onShowAll} className="text-[13px] text-[#5B93FF] hover:text-blue-300">ดูทั้ง {ranked.length} ตัวในตาราง →</button>
+        )}
+      </div>
+      <p className="text-[12.5px] text-meta mt-1">{PEAD_CRITERIA} · เรียงตาม +2 วัน</p>
+      {ranked.length === 0 ? (
+        <p className="py-5 text-[13.5px] text-meta">ยังไม่มีหุ้นเข้าเกณฑ์</p>
+      ) : (
+        <div className="text-[15px]">
+          <div className={`${PD_GRID} ${BOX_HEAD}`}>
+            <span>หุ้น</span><span>เทียบปีก่อน</span><span className={`${PD_X} text-center!`}>5 วันก่อน → 5 วันหลัง</span>
+            <span className={PD_X}>วันแรก</span><span className="font-semibold text-white/80">+2 วัน</span><span className={PD_X}>+5 วัน</span>
+          </div>
+          {ranked.slice(0, BOX_TOP).map(a => (
+            <div key={rowKey(a)} {...onActivate(() => onPick(a))} className={`${PD_GRID} py-2.5 ${BOX_ROW}`}>
+              <StockCell a={a} extra={extras?.[a.ticker]} sub={`${boardGroup(a)} · ประกาศ ${dayLabel(announceDay(a))}`} />
+              <span className="text-right"><YoYBig a={a} /></span>
+              <span className={`${PD_X} min-w-0`}><PeadPriceChart a={a} /></span>
+              <span className={`${PD_X} text-right`}><D v={a.gap_pct} /></span>
+              <span className="text-right"><D v={a.drift_d2_pct} bold /></span>
+              <span className={`${PD_X} text-right`}><D v={a.drift_d5_pct} /></span>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 /** แถบคำอธิบายป้าย above the PEAD table / cards and the main table. */
 function BadgeLegend() {
   return (
@@ -362,212 +520,6 @@ function BadgeLegend() {
       <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_AMBER}>Weinstein 3 ทำยอด</PTag></span>
       <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_WARN_RED}>ผู้สอบบัญชี</PTag>แดง = มีเงื่อนไข / ไม่แสดงความเห็น · ส้ม = มีข้อสังเกต</span>
     </div>
-  );
-}
-
-// Column tracks per width: หุ้น | กำไรเทียบปีก่อน | กราฟราคา | วันแรก | +1 | +2 | +5.
-// < md: หุ้น · เทียบปีก่อน · +2 only; md-1023 adds วันแรก / +1 / +5; 1024+ adds the chart.
-// Each tier has its own max-/min- pair so the md: rule can never win over a wider one.
-const PEAD_GRID = [
-  'grid-cols-[minmax(0,1fr)_76px_64px]',
-  'md:max-[1023px]:grid-cols-[minmax(200px,1fr)_84px_60px_60px_60px_60px]',
-  'min-[1024px]:max-[1279px]:grid-cols-[minmax(200px,1fr)_80px_minmax(140px,240px)_60px_60px_60px_60px] min-[1024px]:max-[1279px]:gap-x-2',
-  'min-[1280px]:grid-cols-[minmax(300px,1fr)_92px_minmax(260px,360px)_70px_70px_70px_70px]',
-  'gap-x-3 items-center',
-].join(' ');
-
-/** กำไรเทียบปีก่อน: "พลิกกำไร" (never a %) or the %YoY, whole numbers. */
-function PeadYoY({ a }: { a: EarningsAnnouncement }) {
-  const c = compareProfit(a.netProfit, a.netProfitPrior);
-  const title = `${quarterShort(a.quarter) ?? 'ไตรมาสนี้'} กำไร ${fmtMoney(a.netProfit)} · ${quarterShort(a.quarter, 4) ?? 'ปีก่อน'} ${fmtMoney(a.netProfitPrior)}`;
-  if (c?.kind === 'turnaround') return <span className="font-semibold whitespace-nowrap" style={{ color: UP }} title={title}>พลิกกำไร</span>;
-  if (c?.kind === 'pct') return <span className="font-semibold" title={title}><Pct v={c.pct} digits={0} /></span>;
-  return <span className="text-meta" title={title}>—</span>;
-}
-
-/** 5 days before → 5 days after: dashed 0% line, a line at the announcement with the
- *  days after it shaded, labels −5 / ประกาศ / +5 underneath. Stretches with its cell
- *  (strokes don't scale; the labels are HTML so they never stretch). */
-function PeadPriceChart({ a }: { a: EarningsAnnouncement }) {
-  const { pre, post } = pricePath(a);
-  if (!post.length) return <span className="text-meta text-[13px]">ยังไม่มีราคาหลังงบ</span>;
-  const W = 340, H = 44, PAD = 4;
-  const ys = [...pre, ...post].map(p => p.y).concat(0);
-  const lo = Math.min(...ys) - 0.5;
-  const hi = Math.max(...ys, 1) + 0.5;
-  // x: -5..-1 = closes before (the last one is the base, 0%), 0 = วันแรก, 1..5 = D+1..D+5
-  const fx = (x: number) => (x + 5) / 10;
-  const X = (x: number) => PAD + fx(x) * (W - 2 * PAD);
-  const Y = (y: number) => H - PAD - ((y - lo) / (hi - lo)) * (H - 2 * PAD);
-  const line = (pts: PricePoint[]) => pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.x).toFixed(1)} ${Y(p.y).toFixed(1)}`).join('');
-  const base = pre[pre.length - 1];
-  const last = post[post.length - 1];
-  const col = last.y >= 0 ? UP : DOWN;
-  const ann = X(-1);
-  const hasD5 = post.some(p => p.x === 5);
-  return (
-    <div className="relative w-full" role="img" aria-label={`${a.ticker} ราคา 5 วันก่อนถึง 5 วันหลังประกาศงบ`}>
-      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="block w-full" style={{ height: H }}>
-        <rect x={ann} y={0} width={W - PAD - ann} height={H} fill="rgba(91,147,255,0.06)" />
-        <line x1={PAD} x2={W - PAD} y1={Y(0)} y2={Y(0)} stroke="rgba(255,255,255,0.14)" strokeDasharray="2 3" vectorEffect="non-scaling-stroke" />
-        <line x1={ann} x2={ann} y1={0} y2={H} stroke="rgba(91,147,255,0.6)" vectorEffect="non-scaling-stroke" />
-        {pre.length > 1 && <path d={line(pre)} fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth={1.5} vectorEffect="non-scaling-stroke" />}
-        <path d={line([base, ...post])} fill="none" stroke={col} strokeWidth={2} vectorEffect="non-scaling-stroke" />
-        {post.map(p => (
-          <line key={p.x} x1={X(p.x)} x2={X(p.x)} y1={Y(p.y)} y2={Y(p.y)} stroke={col} strokeWidth={5} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-        ))}
-      </svg>
-      <div className="relative h-4 text-[11px] leading-4 text-white/40">
-        <span className="absolute left-0">−5</span>
-        <span className="absolute -translate-x-1/2 text-meta" style={{ left: `${(ann / W) * 100}%` }}>ประกาศ</span>
-        <span className="absolute right-0">+5</span>
-      </div>
-      {!hasD5 && <span className="absolute right-0 top-0 text-[11px] text-white/45">รอ D+5</span>}
-    </div>
-  );
-}
-
-/** หุ้น cell: ticker + badges, then group · ประกาศ date time (N วันก่อน). No reason line here. */
-function PeadStockCell({ a, extra, today }: { a: EarningsAnnouncement; extra: PeadExtra | undefined; today: string }) {
-  const group = groupLabel(a);
-  const ago = daysBeforeLabel(a.announceDate, today);
-  return (
-    <span className="block min-w-0">
-      <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <b className="text-ink text-[16px]">{a.ticker}</b>
-        <StockBadges a={a} extra={extra} />
-      </span>
-      <span className="block text-[12.5px] text-meta mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
-        {group && <>{group} · </>}ประกาศ {shortDateTime(a.announceDate)}{ago && <> ({ago})</>}
-      </span>
-    </span>
-  );
-}
-
-function onActivate(fn: () => void) {
-  return {
-    role: 'button' as const, tabIndex: 0, onClick: fn,
-    onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } },
-  };
-}
-
-function PeadSection({ rows, extras, today, onPick, onShowAll }: {
-  rows: EarningsAnnouncement[];
-  extras: Record<string, PeadExtra> | undefined;
-  today: string;
-  onPick: (a: EarningsAnnouncement) => void;
-  onShowAll: () => void;
-}) {
-  // Only mounted on the client after the feed has loaded (never server-rendered),
-  // so reading storage in the initializer can't cause a hydration mismatch.
-  const [view, setView] = useState<PeadView>(() => {
-    try {
-      const v = localStorage.getItem(PEAD_VIEW_KEY);
-      return v === 'card' ? 'card' : 'table';
-    } catch {
-      return 'table'; // storage blocked - default
-    }
-  });
-  const choose = (v: PeadView) => {
-    setView(v);
-    try { localStorage.setItem(PEAD_VIEW_KEY, v); } catch { /* ignore */ }
-  };
-
-  const top = useMemo(() => peadRanked(rows, a => extras?.[a.ticker]?.adtv).slice(0, 5), [rows, extras]);
-  const total = useMemo(() => rows.filter(a => isPead(a, extras?.[a.ticker]?.adtv)).length, [rows, extras]);
-  const yearAgo = quarterShort(top[0]?.quarter, 4);
-
-  return (
-    <section>
-      <div className="flex flex-wrap items-baseline justify-between gap-2 text-[14px] text-meta">
-        <span>🔥 <b className="text-ink text-[16px] font-semibold">ราคาวิ่งต่อหลังงบ</b> · หุ้นที่งบดี และราคายังขึ้นต่อหลังประกาศ</span>
-        <span className="flex items-center gap-4">
-          <span className="inline-flex border border-white/[0.08] rounded-lg overflow-hidden">
-            {(['table', 'card'] as const).map(v => (
-              <button key={v} onClick={() => choose(v)}
-                className={`text-[13px] px-2.5 py-1 ${view === v ? 'bg-[#1b2640] text-[#dbe7ff]' : 'text-meta hover:text-white/80'}`}>
-                {v === 'table' ? '☰ ตาราง' : '⊞ การ์ด'}
-              </button>
-            ))}
-          </span>
-          {total > 0 && (
-            <button onClick={onShowAll} className="text-[#5B93FF] hover:text-blue-300">ดูทั้ง {total} ตัวในตาราง →</button>
-          )}
-        </span>
-      </div>
-      <p className="text-[12.5px] text-meta mt-1 mb-2">
-        เกณฑ์: {PEAD_CRITERIA} · เรียงตาม +2 วัน · ส่วนนี้ดู<b className="text-white/80 font-medium">จังหวะราคา</b> ตัวเลขงบละเอียดอยู่ในตารางข้างล่าง
-      </p>
-
-      {top.length === 0 ? (
-        <div className="py-5 text-[14px] text-meta border-b border-white/[0.07]">ยังไม่มีหุ้นเข้าเกณฑ์</div>
-      ) : view === 'table' ? (
-        <>
-          <BadgeLegend />
-          {/* Tracks above: the page never scrolls sideways - the box scrolls on its own if a row is still too wide. */}
-          <div className={`${TS.tableCell} overflow-x-auto [scrollbar-width:thin]`}>
-            <div className={`grid ${PEAD_GRID} py-1.5 text-[12px] text-meta border-b border-white/[0.07]`}>
-              <span>หุ้น</span>
-              <span className="text-right">เทียบปีก่อน{yearAgo && <span className="block text-[11px] text-white/40">กำไร vs {yearAgo}</span>}</span>
-              <span className="hidden min-[1024px]:block text-center">ราคา 5 วันก่อน → 5 วันหลังงบ</span>
-              <span className="hidden md:block text-right">วันแรก</span>
-              <span className="hidden md:block text-right">+1 วัน</span>
-              <span className="text-right font-semibold text-white/80">+2 วัน</span>
-              <span className="hidden md:block text-right">+5 วัน</span>
-            </div>
-            {top.map(a => (
-              <div key={rowKey(a)} {...onActivate(() => onPick(a))}
-                className={`grid ${PEAD_GRID} text-[16px] py-2.5 border-b border-white/[0.07] hover:bg-white/[0.025] cursor-pointer focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#33507f]`}>
-                <PeadStockCell a={a} extra={extras?.[a.ticker]} today={today} />
-                <span className="text-right"><PeadYoY a={a} /></span>
-                <span className="hidden min-[1024px]:block min-w-0"><PeadPriceChart a={a} /></span>
-                <span className="hidden md:block text-right"><D v={a.gap_pct} /></span>
-                <span className="hidden md:block text-right"><D v={a.drift_d1_pct} /></span>
-                <span className="text-right"><D v={a.drift_d2_pct} bold /></span>
-                <span className="hidden md:block text-right"><D v={a.drift_d5_pct} /></span>
-              </div>
-            ))}
-          </div>
-        </>
-      ) : (
-        <>
-          <BadgeLegend />
-          <div className="flex gap-3 overflow-x-auto pb-1 mt-2.5 [scrollbar-width:thin]">
-            {top.map(a => {
-              const extra = extras?.[a.ticker];
-              const group = groupLabel(a);
-              const ago = daysBeforeLabel(a.announceDate, today);
-              return (
-                <div key={rowKey(a)} {...onActivate(() => onPick(a))}
-                  className="cursor-pointer flex-1 min-w-[300px] border border-white/[0.07] hover:border-[#33507f] rounded-xl p-3.5 bg-[#13161e] flex flex-col gap-2.5">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0">
-                      <b className="text-ink text-[17px]">{a.ticker}</b>
-                      <div className="text-[12.5px] text-meta mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
-                        {group && <>{group} · </>}ประกาศ {shortDateTime(a.announceDate)}{ago && <> ({ago})</>}
-                      </div>
-                    </div>
-                    <div className="flex-none text-right">
-                      <i className="not-italic block text-[11px] text-meta">กำไรเทียบปีก่อน</i>
-                      <span className="text-[16px]"><PeadYoY a={a} /></span>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 empty:hidden"><StockBadges a={a} extra={extra} /></div>
-                  <div className="grid grid-cols-4 gap-0.5 bg-black/25 rounded-lg py-2 text-center text-[15px] whitespace-nowrap mt-auto">
-                    {([['วันแรก', a.gap_pct], ['+1', a.drift_d1_pct], ['+2', a.drift_d2_pct], ['+5', a.drift_d5_pct]] as const).map(([k, v]) => (
-                      <div key={k} className={k === '+2' ? 'font-bold' : 'font-semibold'}>
-                        <i className="not-italic block text-meta text-[11px] mb-0.5">{k}</i>
-                        {v == null ? <Wait /> : <Pct v={v} />}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
-    </section>
   );
 }
 
@@ -1117,7 +1069,10 @@ export default function EarningsPage() {
             </section>
             <SectorBox rows={seasonRows} day={selDay} scope={scope} onScope={setScope} />
           </div>
-          <PeadSection rows={seasonRows} extras={feed.extras} today={today} onPick={pick} onShowAll={showAllPead} />
+          <div className="grid grid-cols-1 @min-[1400px]:grid-cols-2 gap-3.5 mt-3.5!">
+            <HighlightsBox rows={seasonRows} day={selDay} extras={extras} onPick={pick} />
+            <PeadBox rows={seasonRows} extras={extras} onPick={pick} onShowAll={showAllPead} />
+          </div>
 
           <div ref={tableRef} className="scroll-mt-20">
             <div className="flex flex-wrap items-baseline justify-between gap-2 text-[14px] text-meta">
