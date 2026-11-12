@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef, Fragment } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback, Fragment } from 'react';
 import Link from 'next/link';
-import { RefreshCw, Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { RefreshCw, Search } from 'lucide-react';
 import { bangkokParts, bangkokHHMM, bangkokDateKey } from '@/lib/utils';
 import { TS } from '@/lib/typeScale';
 import TableSkeleton from '@/components/TableSkeleton';
@@ -10,18 +10,21 @@ import FullWidthPage from '@/components/FullWidthPage';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
 import {
   fixThaiText, reasonPreview, isAccelerating, isPead, peadRanked, PEAD_MIN_YOY, PEAD_MIN_D2_PCT, PEAD_MIN_ADTV_MB,
-  priorQuarterImproved, pricePath, compareProfit, type ProfitChange, type PricePoint,
+  priorQuarterImproved, pricePath, compareProfit, type PricePoint,
 } from '@/lib/earningsMetrics';
-import { fmtMoney, pageBucket, seasonCounts } from '@/lib/earningsView';
+import { fmtMoney, pageBucket, seasonCounts, hasNoProfit } from '@/lib/earningsView';
 import {
-  SCAN_META, STAGE_COLORS, LOW_LIQUIDITY_ADTV, peadWarnings, type PeadExtra,
+  SCAN_META, STAGE_COLORS, peadWarnings, type PeadExtra,
 } from '@/lib/peadExtras';
 import {
   parseView, withView, groupByDay, summarizeDay, announceDay, dayLabel,
   type EarningsView, type DaySummary,
 } from '@/lib/earningsDays';
 import {
-  isLiquid, sectorBoard, SECTOR_MIN, dayHighlights, boardGroup, type SectorScope, type SectorRow,
+  isLiquid, sectorBoard, SECTOR_MIN, dayHighlights, boardGroup, foldRows, boardComparator, FOLD_NAMES,
+  INTEREST_WEIGHTS, INTEREST_YOY_MIN, INTEREST_MAX_SCANS, INTEREST_RS_MIN, INTEREST_UP_STAGES,
+  BOARD_SORTS, BOARD_FILTERS, SORT_LABEL, DEFAULT_SORT, ALL_QUARTERS_PARAM,
+  type SectorScope, type SectorRow, type BoardSort, type BoardFilter,
 } from '@/lib/earningsBoard';
 import type { EarningsFeed, EarningsAnnouncement } from '@/app/api/earnings/route';
 
@@ -507,63 +510,15 @@ function PeadBox({ rows, extras, onPick, onShowAll }: {
   );
 }
 
-/** แถบคำอธิบายป้าย above the PEAD table / cards and the main table. */
-function BadgeLegend() {
-  return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] text-meta mb-2">
-      <span className="text-white/70">ป้ายหลังชื่อหุ้น:</span>
-      <span className="inline-flex items-center gap-1"><i className="inline-block w-2 h-2 rounded-full bg-[#4caf50]" />Market Stage</span>
-      <span>RS = RS Rating</span>
-      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_SCAN}>SEPA</PTag>สแกนที่ติดอยู่ตอนนี้</span>
-      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_ACC}>⚡ เร่งตัว</PTag>โตเร็วขึ้นกว่าไตรมาสก่อน</span>
-      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_AMBER}>สภาพคล่องต่ำ</PTag>ซื้อขายเฉลี่ย &lt; {LOW_LIQUIDITY_ADTV} ล./วัน</span>
-      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_AMBER}>Weinstein 3 ทำยอด</PTag></span>
-      <span className="inline-flex items-center gap-1.5"><PTag cls={TAG_WARN_RED}>ผู้สอบบัญชี</PTag>แดง = มีเงื่อนไข / ไม่แสดงความเห็น · ส้ม = มีข้อสังเกต</span>
-    </div>
-  );
-}
-
 // ── Main table ───────────────────────────────────────────────────────────────
 
-type ChipKey = 'acc' | 'pead' | 'mda' | 'today';
-type SortKey = 'ticker' | 'netProfit' | 'yoy' | 'qoq' | 'cum' | 'price' | 'announceDate';
+const FILTER_LABEL: Record<BoardFilter, string> = { acc: '⚡ เร่งตัว', scan: 'ติดสแกน', pead: 'PEAD' };
+const ALL_QUARTERS_LABEL = 'ทุกไตรมาส';
 
-const CHIPS: { key: ChipKey; label: string }[] = [
-  { key: 'acc', label: '⚡ เร่งตัว' },
-  { key: 'pead', label: '🔥 PEAD' },
-  { key: 'mda', label: 'มีสรุป MD&A' },
-  { key: 'today', label: 'ประกาศวันนี้' },
-];
-
-const PAGE_SIZE = 50;
-const ALL_QUARTERS = 'ทุกไตรมาส';
-
-function chipPass(a: EarningsAnnouncement, k: ChipKey, today: string, extras: EarningsFeed['extras']): boolean {
+function filterPass(a: EarningsAnnouncement, k: BoardFilter, extra: PeadExtra | undefined): boolean {
   if (k === 'acc') return isAccelerating(a);
-  if (k === 'pead') return isPead(a, extras?.[a.ticker]?.adtv);
-  if (k === 'mda') return !!a.reason;
-  return !!a.announceDate?.startsWith(today);
-}
-
-// Sort value tiers: real % first, then the labelled cases (พลิกกำไร, ขาดทุนลดลง,
-// then the bad ones), then nothing - a label never outranks a real % in
-// either direction.
-const CHANGE_TIER: Record<ProfitChange['kind'], number> = { pct: 0, turnaround: 1, loss_less: 2, to_loss: 3, loss_more: 3 };
-function changeSortValue(cur: number | null | undefined, base: number | null | undefined): [number, number] {
-  const c = compareProfit(cur, base);
-  if (!c) return [4, 0];
-  return [CHANGE_TIER[c.kind], c.kind === 'pct' ? c.pct : cur ?? 0];
-}
-function sortValue(a: EarningsAnnouncement, k: SortKey): [number, number | string] {
-  switch (k) {
-    case 'ticker': return [0, a.ticker];
-    case 'netProfit': return a.netProfit == null ? [2, 0] : [0, a.netProfit];
-    case 'yoy': return changeSortValue(a.netProfit, a.netProfitPrior);
-    case 'qoq': return changeSortValue(a.netProfit, a.netProfitPriorQ);
-    case 'cum': return changeSortValue(a.netProfitCum, a.netProfitCumPrior);
-    case 'price': return a.drift_d2_pct == null ? [2, 0] : [0, a.drift_d2_pct];
-    default: return [0, a.announceDate || ''];
-  }
+  if (k === 'scan') return (extra?.scans?.length ?? 0) > 0;
+  return isPead(a, extra?.adtv);
 }
 
 /** 'ไตรมาส 3/2569' -> 'Q3/69' (offset = quarters back), annual/unknown -> null. */
@@ -576,23 +531,33 @@ function quarterShort(label: string | null | undefined, back = 0): string | null
   return `Q${q}/${String(y).slice(-2)}`;
 }
 
-/** บรรทัดล่างของช่องเทียบ: % or the label for a sign flip / loss-vs-loss. */
-function ChangeLine({ cur, base }: { cur: number | null | undefined; base: number | null | undefined }) {
+/** Above this % the year-ago / last-quarter base was tiny - "ฐานต่ำ" next to the %. */
+const LOW_BASE_PCT = 300;
+
+/** บรรทัดล่างของช่องเทียบ: % (+ "ฐานต่ำ" when asked) or the label for a sign flip / loss-vs-loss. */
+function ChangeLine({ cur, base, lowBase }: { cur: number | null | undefined; base: number | null | undefined; lowBase?: boolean }) {
   const c = compareProfit(cur, base);
   if (!c) return <span className="text-meta">—</span>;
-  if (c.kind === 'pct') return <Pct v={c.pct} />;
+  if (c.kind === 'pct') return (
+    <span className="whitespace-nowrap"><Pct v={c.pct} />
+      {lowBase && c.pct > LOW_BASE_PCT && <> <Tag cls={TAG_LOWBASE} title="กำไรโตเกิน 300% เพราะฐานกำไรเดิมน้อยมาก ดูจำนวนเงินประกอบ">ฐานต่ำ</Tag></>}
+    </span>
+  );
   if (c.kind === 'turnaround') return <Tag cls={TAG_TURN} title="ฐานขาดทุน ตอนนี้กำไร (ไม่คิด %)">พลิกกำไร</Tag>;
   if (c.kind === 'to_loss') return <Tag cls={TAG_LOSS} title="ฐานกำไร ตอนนี้ขาดทุน">พลิกขาดทุน</Tag>;
   if (c.kind === 'loss_more') return <span style={{ color: DOWN }}>ขาดทุนเพิ่มขึ้น</span>;
   return <span style={{ color: BUCKET_COLOR.loss_shrink }}>ขาดทุนลดลง</span>;
 }
 
+const TAG_LOWBASE = 'text-white/55 bg-white/[0.07]';
+const TAG_FIX = 'text-amber-200 bg-amber-400/10';
+
 /** ช่องเทียบ: amount on top (dim), change underneath. */
-function CompareCell({ cur, base, title }: { cur: number | null | undefined; base: number | null | undefined; title?: string }) {
+function CompareCell({ cur, base, title, lowBase }: { cur: number | null | undefined; base: number | null | undefined; title?: string; lowBase?: boolean }) {
   return (
     <div title={title}>
       <div className="tabular-nums text-white/60">{fmtMoney(base)}</div>
-      <div className="text-[13px] leading-5"><ChangeLine cur={cur} base={base} /></div>
+      <div className="text-[12.5px] leading-5"><ChangeLine cur={cur} base={base} lowBase={lowBase} /></div>
     </div>
   );
 }
@@ -606,7 +571,7 @@ const BAR_LOSS_DIM = '#7f2a2a';
 /** กำไร 5 ไตรมาส: last bar = this quarter (blue), first = same quarter last year
  *  (outline), others dark grey; losses point down in red. A quarter without a
  *  figure is left empty - never drawn as 0. Hover = quarter + amount. */
-function ProfitBars({ history, w = 112, h = 36 }: { history: { q: string; np: number | null }[]; w?: number; h?: number }) {
+function ProfitBars({ history, w = 84, h = 30 }: { history: { q: string; np: number | null }[]; w?: number; h?: number }) {
   const vals = history.map(x => x.np).filter((v): v is number => v != null);
   if (!vals.length) return <span className="text-meta text-[13px]">—</span>;
   const max = Math.max(...vals.map(Math.abs)) || 1;
@@ -614,7 +579,7 @@ function ProfitBars({ history, w = 112, h = 36 }: { history: { q: string; np: nu
   const zero = hasNeg ? h / 2 : h - 2;
   const scale = (hasNeg ? h / 2 - 2 : h - 4) / max;
   const slot = w / history.length;
-  const bw = Math.min(14, slot - 6);
+  const bw = Math.min(12, slot - 5);
   const last = history.length - 1;
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="inline-block align-middle" role="img"
@@ -645,19 +610,56 @@ function ProfitBars({ history, w = 112, h = 36 }: { history: { q: string; np: nu
 }
 
 function Sw({ style }: { style: React.CSSProperties }) {
-  return <i className="inline-block w-2.5 h-2.5 rounded-[2px] mr-1.5 align-[-1px]" style={style} />;
+  return <i className="inline-block w-2.5 h-2.5 rounded-[2px] mr-1 align-[-1px]" style={style} />;
 }
 
-function BarsLegend() {
+/** "วิธีอ่าน": every legend of the page in one popover - badges, the 5-quarter bars, the
+ *  "น่าสนใจ" score (read from INTEREST_WEIGHTS), buckets and PEAD. */
+function HowToRead() {
+  const W = INTEREST_WEIGHTS;
+  const sign = (n: number) => (n > 0 ? `+${n}` : String(n));
   return (
-    <div className="hidden min-[1440px]:flex flex-wrap gap-4 text-[12px] text-meta mb-2">
-      <span className="text-white/70">กำไร 5 ไตรมาส:</span>
-      <span><Sw style={{ background: BAR_NOW }} />ไตรมาสนี้</span>
-      <span><Sw style={{ border: `1.5px solid ${BAR_YEAR_AGO}` }} />ไตรมาสเดียวกันปีก่อน</span>
-      <span><Sw style={{ background: BAR_OTHER }} />ไตรมาสอื่น</span>
-      <span><Sw style={{ background: BAR_LOSS }} />ขาดทุน (แท่งชี้ลง)</span>
-      <span>ช่องว่าง = ไม่มีข้อมูล · ชี้ที่แท่งเพื่อดูตัวเลข</span>
-    </div>
+    <details className="group">
+      <summary className="list-none [&::-webkit-details-marker]:hidden cursor-pointer text-[13px] text-[#5B93FF] hover:text-blue-300 border border-white/[0.12] rounded-full px-3 py-1 select-none">วิธีอ่าน</summary>
+      <div className="absolute z-20 right-0 left-0 @min-[560px]:left-auto @min-[560px]:w-[480px] top-full mt-2 bg-[#1a1f2b] border border-white/[0.14] rounded-xl px-4 py-3.5 shadow-[0_12px_40px_rgba(0,0,0,0.5)] text-[13px] leading-7 text-white/75">
+        <div className="text-white/90 font-medium">ป้ายหลังชื่อหุ้น</div>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span><PTag cls={TAG_ACC}>⚡ เร่งตัว</PTag> กำไรโตเร็วขึ้นกว่าไตรมาสก่อน</span>
+          <span className="inline-flex items-center gap-1"><i className="inline-block w-2 h-2 rounded-full" style={{ background: STAGE_COLORS['Bull'] }} />Market Stage</span>
+          <span>RS = RS Rating</span>
+          <span><PTag cls={TAG_SCAN}>SEPA</PTag> ติดสแกนนี้อยู่ตอนนี้</span>
+          <span><PTag cls={TAG_AMBER}>Weinstein 3 ทำยอด</PTag></span>
+          <span><PTag cls={TAG_AMBER}>ผู้สอบบัญชีมีข้อสังเกต</PTag></span>
+          <span><PTag cls={TAG_WARN_RED}>ผู้สอบบัญชี: มีเงื่อนไข</PTag></span>
+          <span><Tag cls={TAG_LOWBASE}>ฐานต่ำ</Tag> โตเกิน {LOW_BASE_PCT}% เพราะฐานเดิมน้อยมาก ดูจำนวนเงินประกอบ</span>
+          <span><Tag cls={TAG_FIX}>แก้ไข</Tag> งบฉบับแก้ไข</span>
+        </div>
+        <div className="text-white/90 font-medium mt-2">กราฟกำไร 5 ไตรมาส</div>
+        <div className="flex flex-wrap gap-x-3">
+          <span><Sw style={{ border: `1.5px solid ${BAR_YEAR_AGO}` }} />ไตรมาสเดียวกันปีก่อน</span>
+          <span><Sw style={{ background: BAR_NOW }} />ไตรมาสนี้</span>
+          <span><Sw style={{ background: BAR_OTHER }} />ไตรมาสอื่น</span>
+          <span><Sw style={{ background: BAR_LOSS }} />ขาดทุน (ชี้ลง)</span>
+          <span>ช่องว่าง = ไม่มีข้อมูล</span>
+        </div>
+        <div className="text-white/90 font-medium mt-2">เรียง &quot;น่าสนใจก่อน&quot; <span className="text-meta font-normal">(ค่าทดลอง)</span></div>
+        <div>
+          กำไรโต / พลิกกำไร {sign(W.growth)} · ขาดทุนลดลง {sign(W.lossShrink)} · โต ≥ {INTEREST_YOY_MIN}% {sign(W.bigYoY)} · ⚡ เร่งตัว {sign(W.accel)} ·
+          ติดสแกน {sign(W.perScan)} ต่อสแกน (สูงสุด {INTEREST_MAX_SCANS}) · Stage {INTEREST_UP_STAGES.join(' / ')} {sign(W.stageUp)} · RS ≥ {INTEREST_RS_MIN} {sign(W.rs)} ·
+          ซื้อขาย &lt; {PEAD_MIN_ADTV_MB} ล./วัน หรือไม่มีข้อมูล {sign(W.illiquid)} · ผู้สอบบัญชีมีเงื่อนไข / ไม่แสดงความเห็น {sign(W.auditorRed)} · Weinstein 3 {sign(W.weinstein3)}
+        </div>
+        <div className="text-white/90 font-medium mt-2">ผลงบ</div>
+        <div>
+          กำไรดีขึ้น = กำไรโต + พลิกกำไร + ขาดทุนลดลง · กำไรแย่ลง = กำไรหด + ขาดทุนหนักขึ้น · พลิกกำไร = ปีก่อนขาดทุน (หรือ 0) ไม่คิด % ·
+          ไม่มีฐานเทียบ = ไม่มีตัวเลขปีก่อน (ไม่นับในสัดส่วน) · ⚡ เร่งตัว = % เทียบปีก่อนเป็นบวกและสูงกว่าของไตรมาสที่แล้ว
+        </div>
+        <div className="text-white/90 font-medium mt-2">ราคาหลังงบ · ซื้อขาย</div>
+        <div>
+          เทียบราคาปิดก่อนประกาศ: วันแรก → หลัง 2 วันทำการ · PEAD = {PEAD_CRITERIA} · ล./วัน = มูลค่าซื้อขายเฉลี่ยต่อวัน
+          (<span className="text-orange-300">สีส้ม</span> = ต่ำกว่า {PEAD_MIN_ADTV_MB} ล./วัน) · ข้อมูลอัปเดตเป็นรอบ ไม่ใช่ real-time
+        </div>
+      </div>
+    </details>
   );
 }
 
@@ -665,19 +667,22 @@ function K({ children }: { children: React.ReactNode }) {
   return <span className="text-meta">{children}</span>;
 }
 
-// Expanded row: only what the table row doesn't already show. Columns that
-// drop out on narrower screens (ไตรมาสก่อน / 5 ไตรมาส / สะสม) come back here
-// at exactly those widths, so nothing is ever shown twice or lost.
-function DetailRow({ a }: { a: EarningsAnnouncement }) {
+// Expanded row: only what the row doesn't already show. Columns that drop out on
+// narrower boxes (ไตรมาสก่อน / 5 ไตรมาส / 9 เดือน / ล./วัน) come back here at exactly
+// those container widths (same breakpoints as T_GRID).
+function DetailRow({ a, extra }: { a: EarningsAnnouncement; extra: PeadExtra | undefined }) {
   const reason = reasonOf(a);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-x-6 gap-y-1.5 text-[14px] whitespace-normal">
-      <div className="contents md:hidden">
+    <div className="grid grid-cols-1 @min-[520px]:grid-cols-[160px_1fr] gap-x-6 gap-y-1.5 text-[14px] whitespace-normal">
+      <div className="contents @min-[520px]:hidden">
+        <K>ซื้อขาย</K><span className="tabular-nums">{fmtAdtv(extra?.adtv)} ล./วัน</span>
+      </div>
+      <div className="contents @min-[772px]:hidden">
         <K>ไตรมาสก่อน{a.priorQuarter ? ` (${quarterShort(a.priorQuarter)})` : ''}</K>
-        <span className="tabular-nums">{fmtMoney(a.netProfitPriorQ)} · <ChangeLine cur={a.netProfit} base={a.netProfitPriorQ} /></span>
+        <span className="tabular-nums">{fmtMoney(a.netProfitPriorQ)} · <ChangeLine cur={a.netProfit} base={a.netProfitPriorQ} lowBase /></span>
       </div>
       {a.profitHistory?.length ? (
-        <div className="contents min-[1440px]:hidden">
+        <div className="contents @min-[1332px]:hidden">
           <K>กำไร 5 ไตรมาส</K>
           <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <ProfitBars history={a.profitHistory} w={150} h={40} />
@@ -688,7 +693,7 @@ function DetailRow({ a }: { a: EarningsAnnouncement }) {
         </div>
       ) : null}
       {a.netProfitCum != null && (
-        <div className="contents min-[1680px]:hidden">
+        <div className="contents @min-[1332px]:hidden">
           <K>กำไร {a.cumMonths} เดือน</K>
           <span className="tabular-nums">{fmtMoney(a.netProfitCum)} <span className="text-meta">ปีก่อน {fmtMoney(a.netProfitCumPrior)}</span> · <ChangeLine cur={a.netProfitCum} base={a.netProfitCumPrior} /></span>
         </div>
@@ -704,10 +709,10 @@ function DetailRow({ a }: { a: EarningsAnnouncement }) {
             <span>+5 วัน {a.drift_d5_pct == null ? <Wait /> : <Pct v={a.drift_d5_pct} />}</span>
           </span>
         )}
-        {a.gap_pct != null && <span className="block mt-1.5"><PriceChart a={a} w={320} h={60} /></span>}
+        {a.gap_pct != null && <span className="block mt-1.5 max-w-full overflow-hidden"><PriceChart a={a} w={300} h={60} /></span>}
       </span>
       <K>ข้อความจาก MD&amp;A</K>
-      <span className="text-white/75 leading-relaxed">{reason || <span className="text-meta">ยังไม่มีข้อความสรุปจาก MD&amp;A</span>}</span>
+      <span className="text-white/75 leading-relaxed break-words">{reason || <span className="text-meta">ยังไม่มีข้อความสรุปจาก MD&amp;A</span>}</span>
       <K>เอกสาร</K>
       <span className="flex flex-wrap gap-x-4 gap-y-1">
         {a.statementUrl && <a href={a.statementUrl} target="_blank" rel="noopener noreferrer" className="text-[#5B93FF] hover:text-blue-300">งบการเงิน ↗</a>}
@@ -719,74 +724,53 @@ function DetailRow({ a }: { a: EarningsAnnouncement }) {
   );
 }
 
-function SortTh({ k, sort, onSort, children, sub, className = '', title }: {
-  k: SortKey; sort: { key: SortKey; asc: boolean }; onSort: (k: SortKey) => void;
-  children: React.ReactNode; sub?: React.ReactNode; className?: string; title?: string;
+// Table tracks per container width (the layer-3 section is the container):
+// ≥1332: หุ้น | กำไรสุทธิ | ปีก่อน | ไตรมาสก่อน | 5 ไตรมาส | 9 เดือน | ล./วัน | ราคาหลังงบ
+// 772-1331: no 5 ไตรมาส / 9 เดือน · 520-771: no ไตรมาสก่อน / ราคาหลังงบ · <520: no ล./วัน
+const T_GRID = [
+  'grid items-center gap-x-2.5 @min-[520px]:gap-x-3.5',
+  'grid-cols-[minmax(0,1fr)_78px_96px]',
+  '@min-[520px]:grid-cols-[minmax(180px,1fr)_88px_104px_58px]',
+  '@min-[772px]:grid-cols-[minmax(280px,1fr)_100px_112px_112px_74px_90px]',
+  '@min-[1332px]:grid-cols-[minmax(330px,1fr)_104px_118px_118px_86px_118px_78px_96px]',
+].join(' ');
+const C_Q = 'hidden @min-[772px]:block';
+const C_5 = 'hidden @min-[1332px]:block';
+const C_L = 'hidden @min-[520px]:block';
+const C_X = 'hidden @min-[772px]:block';
+const ROW_PAD = 'px-2.5 @min-[520px]:px-3.5';
+
+/** หัววัน: วัน · N บริษัท · แสดง X · bar · กำไรดีขึ้น Y% · เปิดดู / พับ. */
+function DayHeader({ day, s, shown, hiding, open, onToggle }: {
+  day: string; s: DaySummary; shown: number; hiding: boolean; open: boolean; onToggle: () => void;
 }) {
-  const on = sort.key === k;
-  return (
-    <th onClick={() => onSort(k)} title={title}
-      className={`px-1.5 md:px-3 py-2.5 text-[13px] font-medium text-meta whitespace-nowrap cursor-pointer select-none hover:text-white/80 align-bottom ${className}`}>
-      <span className="inline-flex items-center gap-0.5">
-        {children}
-        {on && (sort.asc ? <ChevronUp size={12} /> : <ChevronDown size={12} />)}
-      </span>
-      {sub && <span className="block text-[11.5px] font-normal text-white/40">{sub}</span>}
-    </th>
-  );
-}
-
-function SortLink({ k, sort, onSort, children }: {
-  k: SortKey; sort: { key: SortKey; asc: boolean }; onSort: (k: SortKey) => void; children: React.ReactNode;
-}) {
-  const on = sort.key === k;
-  return (
-    <button type="button" onClick={() => onSort(k)}
-      className={`inline-flex items-center gap-0.5 hover:text-white/80 ${on ? 'text-white/80' : ''}`}>
-      {children}
-      {on && (sort.asc ? <ChevronUp size={12} /> : <ChevronDown size={12} />)}
-    </button>
-  );
-}
-
-// ── รายวัน view: bucket bar, day cards, day header ─────────────────────────
-
-/** Thin bar split by bucket share (BUCKET_ORDER), widths of the day's rows. */
-function BucketBar({ s, className }: { s: DaySummary; className: string }) {
-  return (
-    <span className={`flex overflow-hidden rounded-full bg-white/[0.06] ${className}`}>
-      {BUCKET_ORDER.map(k => s.counts[k] ? (
-        <i key={k} className="block h-full" style={{ width: `${(s.counts[k]! / s.n) * 100}%`, background: BUCKET_COLOR[k] }} />
-      ) : null)}
-    </span>
-  );
-}
-
-/** หัวกลุ่มของวัน: วัน · N บริษัท · bar · กำไรดีขึ้น X (Y%) · each bucket · โตสุดของวัน. */
-function DayHeader({ day, s, open, onToggle }: { day: string; s: DaySummary; open: boolean; onToggle: () => void }) {
   return (
     <button type="button" onClick={onToggle} aria-expanded={open}
-      className="w-full flex flex-wrap items-center gap-x-4 gap-y-1.5 px-3 md:px-4 py-3 text-left bg-[#13161e] hover:bg-[#171b25]">
-      <span className={`text-white/40 text-[12px] transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
-      <span className="text-[15px] font-semibold text-ink whitespace-nowrap min-w-[88px] md:min-w-[110px]">{dayLabel(day)}</span>
-      <span className="text-[13px] text-meta whitespace-nowrap">{s.n} บริษัท</span>
-      <BucketBar s={s} className="h-1.5 w-[120px] md:w-[160px]" />
-      <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] text-meta">
-        {s.improvedPct != null && (
-          <span className="whitespace-nowrap">กำไรดีขึ้น <b className="font-semibold" style={{ color: UP }}>{s.improved}</b> ({s.improvedPct}%)</span>
-        )}
-        {BUCKET_ORDER.filter(k => s.counts[k]).map(k => (
-          <span key={k} className="whitespace-nowrap">
-            <i className="inline-block w-2 h-2 rounded-[2px] mr-1 align-[0px]" style={{ background: BUCKET_COLOR[k] }} />{TAB_LABEL[k]} {s.counts[k]}
-          </span>
-        ))}
+      className={`w-full flex flex-wrap items-center gap-x-4 gap-y-1.5 ${ROW_PAD} py-2.5 text-left bg-[#13161e] hover:bg-[#171b25]`}>
+      <span className={`text-white/40 text-[11px] transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
+      <span className="text-[15px] font-semibold text-ink whitespace-nowrap min-w-[88px]">{dayLabel(day)}</span>
+      <span className="text-[13px] text-meta whitespace-nowrap">
+        <b className="text-ink font-semibold tabular-nums">{s.n}</b> บริษัท{hiding && <> · แสดง <b className="text-ink font-semibold tabular-nums">{shown}</b></>}
       </span>
-      {s.best && (
-        <span className="ml-auto text-[12.5px] text-meta whitespace-nowrap">
-          โตสุดของวัน <b className="text-ink font-semibold">{s.best.ticker}</b> <Pct v={s.best.yoy} digits={0} />
-        </span>
+      <CountsBar counts={s.counts} n={s.n} className="h-[5px] w-[90px] md:w-[150px]" />
+      {s.improvedPct != null && (
+        <span className="text-[13px] text-meta whitespace-nowrap">กำไรดีขึ้น <b className="font-semibold tabular-nums" style={{ color: s.improvedPct >= 50 ? UP : DOWN }}>{s.improvedPct}%</b></span>
       )}
+      <span className="ml-auto text-[13px] text-meta">{open ? 'พับ' : 'เปิดดู'}</span>
     </button>
+  );
+}
+
+/** Folded line at the end of a day / the list: "<label> N · names … [แสดง]". */
+function FoldLine({ label, unit, rows, open, onToggle }: {
+  label: string; unit: string; rows: EarningsAnnouncement[]; open: boolean; onToggle: () => void;
+}) {
+  return (
+    <div className={`${ROW_PAD} py-2.5 border-t border-white/[0.07] bg-white/[0.015] text-[13px] text-meta`}>
+      {label} <b className="text-white/80 font-medium tabular-nums">{rows.length}</b> {unit}
+      {!open && <> · {rows.slice(0, FOLD_NAMES).map(a => a.ticker).join(' · ')}{rows.length > FOLD_NAMES ? ' …' : ''}</>}
+      <button type="button" onClick={onToggle} className="ml-2 text-[#5B93FF] hover:text-blue-300">{open ? 'ซ่อน' : 'แสดง'}</button>
+    </div>
   );
 }
 
@@ -803,20 +787,24 @@ export default function EarningsPage() {
   const [error, setError] = useState(false);
 
   const [tab, setTab] = useState<EarningsBucket | null>(null);
-  const [chips, setChips] = useState<Set<ChipKey>>(new Set());
-  const [quarter, setQuarter] = useState<string | null>(null); // null = season quarter (set once data arrives)
+  const [filters, setFilters] = useState<BoardFilter[]>([]);
+  const [quarter, setQuarter] = useState<string | null>(null); // null = season quarter, ALL_QUARTERS_PARAM = every quarter
   const [query, setQuery] = useState('');
-  const [sort, setSort] = useState<{ key: SortKey; asc: boolean }>({ key: 'announceDate', asc: false });
-  const [page, setPage] = useState(1);
-  const [openKey, setOpenKey] = useState<string | null>(null);
-  const scrollTarget = useRef<string | null>(null);
-  const tableRef = useRef<HTMLDivElement>(null);
+  const [sort, setSort] = useState<BoardSort>(DEFAULT_SORT);
+  const [hideIlliquid, setHideIlliquid] = useState(true);
   // รายวัน / รายการเดียว, bound to ?view=. Read from the URL in the initializer: the table
   // only renders after the feed loads (never on the server), so this can't mismatch.
   const [view, setViewState] = useState<EarningsView>(() =>
     typeof window === 'undefined' ? 'day' : parseView(new URLSearchParams(window.location.search).get('view')));
-  // Day groups the user opened / closed; others follow the default (the newest 2 open).
+  const [daySel, setDaySel] = useState<string | null>(null); // null = newest day with a filing
+  const [scope, setScope] = useState<SectorScope>('day');
+  const [openKey, setOpenKey] = useState<string | null>(null);
+  // Day groups the user opened / closed; the others follow the selected day (only it is open).
   const [dayToggled, setDayToggled] = useState<Map<string, boolean>>(new Map());
+  // Folds the user opened: "ill:<day|all>" / "fund:<day|all>".
+  const [unfolded, setUnfolded] = useState<Set<string>>(new Set());
+  const scrollTarget = useRef<string | null>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
 
   const fetchFeed = () =>
     fetch('/api/earnings')
@@ -829,9 +817,8 @@ export default function EarningsPage() {
 
   const today = bangkokDateKey();
   const extras = feed.extras;
-
-  const [daySel, setDaySel] = useState<string | null>(null); // null = newest day with a filing
-  const [scope, setScope] = useState<SectorScope>('day');
+  const extraOf = useCallback((a: EarningsAnnouncement) => extras?.[a.ticker], [extras]);
+  const adtvOf = useCallback((a: EarningsAnnouncement) => extras?.[a.ticker]?.adtv, [extras]);
 
   const quarters = useMemo(() => {
     const s = new Set(feed.announcements.map(a => a.quarter?.trim()).filter((q): q is string => !!q));
@@ -839,7 +826,9 @@ export default function EarningsPage() {
   }, [feed.announcements]);
   // The season = the newest quarterly filing (an annual filing never names the season).
   const seasonQuarter = useMemo(() => quarters.find(q => q.startsWith('ไตรมาส')) ?? quarters[0] ?? null, [quarters]);
-  const activeQuarter = quarter ?? seasonQuarter ?? ALL_QUARTERS;
+  // A quarter the data doesn't have (old link, typo) → the season.
+  const activeQuarter = quarter === ALL_QUARTERS_PARAM ? ALL_QUARTERS_PARAM
+    : quarter && quarters.includes(quarter) ? quarter : seasonQuarter ?? ALL_QUARTERS_PARAM;
 
   const seasonRows = useMemo(
     () => feed.announcements.filter(a => a.quarter === seasonQuarter),
@@ -852,7 +841,7 @@ export default function EarningsPage() {
   );
   const selDay = daySel && seasonDays.some(g => g.day === daySel) ? daySel : seasonDays[0]?.day ?? '';
   const quarterRows = useMemo(
-    () => feed.announcements.filter(a => activeQuarter === ALL_QUARTERS || a.quarter === activeQuarter),
+    () => feed.announcements.filter(a => activeQuarter === ALL_QUARTERS_PARAM || a.quarter === activeQuarter),
     [feed.announcements, activeQuarter]
   );
   const searched = useMemo(() => {
@@ -860,26 +849,18 @@ export default function EarningsPage() {
     return q ? quarterRows.filter(a => a.ticker.includes(q)) : quarterRows;
   }, [quarterRows, query]);
 
-  const passChips = (a: EarningsAnnouncement, skip?: ChipKey) =>
-    [...chips].every(k => k === skip || chipPass(a, k, today, feed.extras));
+  const passFilters = useCallback((a: EarningsAnnouncement, skip?: BoardFilter) =>
+    filters.every(k => k === skip || filterPass(a, k, extraOf(a))), [filters, extraOf]);
 
-  const filtered = useMemo(() => {
-    const list = searched.filter(a => (!tab || pageBucket(a) === tab) && passChips(a));
-    const dir = sort.asc ? 1 : -1;
-    return list.sort((x, y) => {
-      const [tx, vx] = sortValue(x, sort.key);
-      const [ty, vy] = sortValue(y, sort.key);
-      if (tx !== ty) return tx - ty;
-      if (vx === vy) return (y.announceDate || '').localeCompare(x.announceDate || '');
-      return (vx > vy ? 1 : -1) * dir;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searched, tab, chips, sort, today, feed.extras]);
+  const filtered = useMemo(
+    () => searched.filter(a => (!tab || pageBucket(a) === tab) && passFilters(a)).sort(boardComparator(sort, extraOf)),
+    [searched, tab, passFilters, sort, extraOf]
+  );
+  const folded = useMemo(() => foldRows(filtered, hideIlliquid, adtvOf), [filtered, hideIlliquid, adtvOf]);
 
-  // Column sub-labels name the real quarters (from the selected quarter, else
-  // the newest row's) - never hard-coded.
+  // Column sub-labels name the real quarters (from the selected quarter) - never hard-coded.
   const hdr = useMemo(() => {
-    const label = activeQuarter !== ALL_QUARTERS ? activeQuarter : null;
+    const label = activeQuarter !== ALL_QUARTERS_PARAM ? activeQuarter : null;
     const months = filtered.map(a => a.cumMonths).filter((m): m is number => m != null);
     const cumMonths = months.length && months.every(m => m === months[0]) ? months[0] : null;
     return { now: quarterShort(label), yearAgo: quarterShort(label, 4), prevQ: quarterShort(label, 1), cumMonths };
@@ -892,17 +873,13 @@ export default function EarningsPage() {
   );
   const isDayOpen = (day: string) => dayToggled.get(day) ?? day === selDay;
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const safePage = Math.min(page, totalPages);
-  const pageRows = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
-
-  // Scroll the row the PEAD strip asked for into view once it has rendered open.
+  // Scroll the row a layer-2 box asked for into view once it has rendered open.
   useEffect(() => {
     if (!scrollTarget.current) return;
     const el = document.getElementById(`row-${scrollTarget.current}`);
     if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
     scrollTarget.current = null;
-  }, [openKey, pageRows]);
+  }, [openKey, dayToggled]);
 
   const setView = (v: EarningsView) => {
     setViewState(v);
@@ -919,47 +896,33 @@ export default function EarningsPage() {
     setDayToggled(new Map());
   };
   const toggleDay = (day: string, open: boolean) => setDayToggled(m => new Map(m).set(day, !open));
+  const toggleFold = (key: string) => setUnfolded(s => {
+    const next = new Set(s);
+    if (next.has(key)) next.delete(key); else next.add(key);
+    return next;
+  });
+  const toggleFilter = (k: BoardFilter) =>
+    setFilters(prev => (prev.includes(k) ? prev.filter(x => x !== k) : [...prev, k]));
 
-  const resetPage = () => setPage(1);
-  const onSort = (k: SortKey) => {
-    resetPage();
-    setSort(s => (s.key === k ? { key: k, asc: !s.asc } : { key: k, asc: k === 'ticker' }));
-  };
-  const toggleChip = (k: ChipKey) => {
-    resetPage();
-    setChips(prev => {
-      const next = new Set(prev);
-      if (next.has(k)) next.delete(k); else next.add(k);
-      return next;
-    });
-  };
+  // A row in a layer-2 box: show it in the table (season, no filters), its day open, expanded.
   const pick = (a: EarningsAnnouncement) => {
     const key = rowKey(a);
     setTab(null);
-    setChips(new Set());
+    setFilters([]);
     setQuery('');
-    setQuarter(a.quarter ?? ALL_QUARTERS);
-    setSort({ key: 'announceDate', asc: false });
-    // find the page the row lands on with those filters
-    const list = feed.announcements
-      .filter(x => x.quarter === a.quarter)
-      .sort((x, y) => (y.announceDate || '').localeCompare(x.announceDate || ''));
-    setPage(Math.floor(Math.max(0, list.findIndex(x => rowKey(x) === key)) / PAGE_SIZE) + 1);
-    setOpenKey(key);
+    setQuarter(a.quarter === seasonQuarter ? null : a.quarter ?? ALL_QUARTERS_PARAM);
+    if (view !== 'day') setView('day');
     setDayToggled(m => new Map(m).set(announceDay(a), true));
+    if (!isLiquid(adtvOf(a))) setUnfolded(s => new Set(s).add(`ill:${announceDay(a)}`));
+    setOpenKey(key);
     scrollTarget.current = key;
   };
   const showAllPead = () => {
     setTab(null);
     setQuarter(null);
-    setChips(new Set(['pead']));
-    resetPage();
-    // รายวัน: open every day that holds a PEAD stock, so all N show (not just the newest 2 days)
-    setDayToggled(m => {
-      const next = new Map(m);
-      for (const a of seasonRows) if (isPead(a, extras?.[a.ticker]?.adtv)) next.set(announceDay(a), true);
-      return next;
-    });
+    setQuery('');
+    setFilters(['pead']);
+    setView('list');
     tableRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
 
@@ -967,65 +930,94 @@ export default function EarningsPage() {
   const renderRow = (a: EarningsAnnouncement) => {
     const key = rowKey(a);
     const open = openKey === key;
+    const extra = extraOf(a);
     const reason = reasonPreview(a.reason);
-    const isToday = a.announceDate?.startsWith(today);
+    const when = `${view === 'list' ? `${dayLabel(announceDay(a))} ` : ''}${a.announceDate ? bangkokHHMM(new Date(a.announceDate)) : '—'} น.`;
+    const adtv = extra?.adtv;
     return (
       <Fragment key={key}>
-        <tr id={`row-${key}`} onClick={() => setOpenKey(open ? null : key)}
-          className={`cursor-pointer border-b border-white/[0.07] ${open ? 'bg-white/[0.03]' : 'hover:bg-white/[0.025]'}`}>
-          <td className="px-1.5 md:px-3 py-3 max-w-[112px] md:max-w-[240px] min-[1280px]:max-w-[420px]">
-            <div className="flex flex-wrap md:flex-nowrap items-center gap-x-2 gap-y-0.5 whitespace-nowrap">
+        <div id={`row-${key}`} {...onActivate(() => setOpenKey(open ? null : key))} aria-expanded={open}
+          className={`${T_GRID} ${ROW_PAD} py-2 border-t border-white/[0.07] cursor-pointer scroll-mt-24 ${open ? 'bg-white/[0.03]' : 'hover:bg-white/[0.02]'}`}>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
               <b className="text-ink text-[16px]">{a.ticker}</b>
-              {isToday && <span className="w-[7px] h-[7px] rounded-full bg-[#5B93FF]" title="ประกาศวันนี้" />}
-              {a.isCorrection && <span className="text-[12px] text-[#EF9F27]">แก้ไข</span>}
+              {a.isCorrection && <Tag cls={TAG_FIX} title="งบฉบับแก้ไข">แก้ไข</Tag>}
+              <StockBadges a={a} extra={extra} />
             </div>
-            <div className="text-[12.5px] text-meta truncate mt-0.5" title={`${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
-              {(a.subsector || a.sector) && <>{a.subsector || a.sector} · </>}ประกาศ {shortDateTime(a.announceDate)}
-              {activeQuarter === ALL_QUARTERS && a.quarter && <> · {a.quarter}</>}
+            <div className="text-[12.5px] text-meta truncate mt-0.5" title={reason || `${a.subsector || a.sector || ''} · ประกาศ ${fullDateTime(a.announceDate)}`}>
+              {boardGroup(a)} · {when}
+              {activeQuarter === ALL_QUARTERS_PARAM && a.quarter && <> · {quarterShort(a.quarter) ?? a.quarter}</>}
+              {reason && <> · <span className="text-white/55">{reason}</span></>}
             </div>
-            {/* same badges as the PEAD section (StockBadges); none at all → no row */}
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 empty:hidden"><StockBadges a={a} extra={extras?.[a.ticker]} /></div>
-            {reason && <div className="text-[13px] text-white/55 truncate" title={reason}>{reason}</div>}
-          </td>
-          <td className="px-1.5 md:px-3 py-3 text-right tabular-nums whitespace-nowrap md:text-[16px] font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>
+          </div>
+          <div className="text-right tabular-nums whitespace-nowrap font-semibold" style={{ color: a.netProfit != null && a.netProfit < 0 ? DOWN : undefined }}>
             {fmtMoney(a.netProfit)}
-          </td>
-          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap">
-            <CompareCell cur={a.netProfit} base={a.netProfitPrior} title={quarterShort(a.quarter, 4) ?? 'งวดเดียวกันปีก่อน'} />
-          </td>
-          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap hidden md:table-cell">
-            <CompareCell cur={a.netProfit} base={a.netProfitPriorQ} title={a.priorQuarter ?? undefined} />
-          </td>
-          <td className="px-1.5 md:px-3 py-2 text-right whitespace-nowrap hidden min-[1440px]:table-cell">
+          </div>
+          <div className="text-right whitespace-nowrap">
+            <CompareCell cur={a.netProfit} base={a.netProfitPrior} lowBase title={quarterShort(a.quarter, 4) ?? 'งวดเดียวกันปีก่อน'} />
+          </div>
+          <div className={`${C_Q} text-right whitespace-nowrap`}>
+            <CompareCell cur={a.netProfit} base={a.netProfitPriorQ} lowBase title={a.priorQuarter ?? undefined} />
+          </div>
+          <div className={`${C_5} text-right`}>
             {a.profitHistory?.length ? <ProfitBars history={a.profitHistory} /> : <span className="text-meta">—</span>}
-          </td>
-          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap hidden min-[1680px]:table-cell">
+          </div>
+          <div className={`${C_5} text-right whitespace-nowrap`}>
             {a.netProfitCum != null ? (
               <div title={`${a.cumMonths} เดือน ปีนี้ ${fmtMoney(a.netProfitCum)} · ปีก่อน ${fmtMoney(a.netProfitCumPrior)}`}>
                 <div className="tabular-nums text-white/60">{fmtMoney(a.netProfitCum)}</div>
-                <div className="text-[13px] leading-5"><ChangeLine cur={a.netProfitCum} base={a.netProfitCumPrior} /></div>
+                <div className="text-[12.5px] leading-5"><ChangeLine cur={a.netProfitCum} base={a.netProfitCumPrior} /></div>
               </div>
             ) : <span className="text-meta">—</span>}
-          </td>
-          <td className="px-1.5 md:px-3 py-3 text-right whitespace-nowrap">
+          </div>
+          <div className={`${C_L} text-right tabular-nums font-medium ${adtv == null ? 'text-meta' : isLiquid(adtv) ? '' : 'text-orange-300'}`}
+            title={adtv == null ? 'ไม่มีข้อมูลมูลค่าซื้อขาย' : `มูลค่าซื้อขายเฉลี่ย ${adtv.toFixed(2)} ล้านบาท/วัน`}>
+            {fmtAdtv(adtv)}
+          </div>
+          <div className={`${C_X} text-right whitespace-nowrap`}>
             {a.gap_pct == null ? <Wait title="รอครบวันทำการ" /> : (
               <>
-                <span className="text-[13px] text-meta tabular-nums hidden md:inline">{a.gap_pct >= 0 ? '+' : ''}{a.gap_pct.toFixed(1)} → </span>
-                {a.drift_d2_pct == null ? <Wait title="รอครบ 2 วันทำการ" /> : <Pct v={a.drift_d2_pct} />}
+                <div className="font-medium"><Pct v={a.gap_pct} /></div>
+                <div className="text-[12.5px] leading-5 text-meta">→ {a.drift_d2_pct == null ? <Wait title="รอครบ 2 วันทำการ" /> : <Pct v={a.drift_d2_pct} />}</div>
               </>
             )}
-          </td>
-        </tr>
+          </div>
+        </div>
         {open && (
-          <tr className="border-b border-white/[0.07] bg-[#13161e]">
-            <td colSpan={7} className="px-3 md:px-5 pt-4 pb-5"><DetailRow a={a} /></td>
-          </tr>
+          <div className="border-t border-white/[0.07] bg-[#13161e] px-3 md:px-5 pt-4 pb-5"><DetailRow a={a} extra={extra} /></div>
         )}
       </Fragment>
     );
   };
 
-  const filterLabel = [tab && TAB_LABEL[tab], ...[...chips].map(k => CHIPS.find(c => c.key === k)!.label)].filter(Boolean).join(' + ');
+  // Rows of one day (or the whole list): shown rows, then the low-liquidity fold, then funds.
+  const renderBody = (rows: EarningsAnnouncement[], key: string) => {
+    const f = foldRows(rows, hideIlliquid, adtvOf);
+    const illOpen = unfolded.has(`ill:${key}`);
+    const fundOpen = unfolded.has(`fund:${key}`);
+    return (
+      <>
+        {f.shown.map(renderRow)}
+        {!f.shown.length && (
+          <div className={`${ROW_PAD} py-4 border-t border-white/[0.07] text-[13.5px] text-meta`}>
+            {f.illiquid.length ? `ไม่มีหุ้นที่ซื้อขาย ≥ ${PEAD_MIN_ADTV_MB} ล./วัน ในกลุ่มนี้` : f.funds.length ? 'มีแต่กองทุน / REIT' : 'ไม่มีหุ้นที่ตรงเงื่อนไข'}
+          </div>
+        )}
+        {f.illiquid.length > 0 && (
+          <>
+            <FoldLine label="สภาพคล่องต่ำ" unit="บริษัท" rows={f.illiquid} open={illOpen} onToggle={() => toggleFold(`ill:${key}`)} />
+            {illOpen && f.illiquid.map(renderRow)}
+          </>
+        )}
+        {f.funds.length > 0 && (
+          <>
+            <FoldLine label="กองทุน / REIT (ไม่มีข้อมูลกำไร)" unit="รายการ" rows={f.funds} open={fundOpen} onToggle={() => toggleFold(`fund:${key}`)} />
+            {fundOpen && f.funds.map(renderRow)}
+          </>
+        )}
+      </>
+    );
+  };
 
   return (
     <FullWidthPage>
@@ -1054,7 +1046,7 @@ export default function EarningsPage() {
           </button>
         </div>
       ) : (
-        <div className="@container space-y-7">
+        <div className="@container">
           <div className="grid grid-cols-1 @min-[1052px]:grid-cols-[minmax(0,1fr)_440px] @min-[1332px]:grid-cols-[minmax(0,1fr)_560px] gap-3.5">
             <section className={PANEL} aria-label="สรุปฤดูงบ">
               <SeasonStats rows={seasonRows} extras={extras} />
@@ -1069,34 +1061,37 @@ export default function EarningsPage() {
             </section>
             <SectorBox rows={seasonRows} day={selDay} scope={scope} onScope={setScope} />
           </div>
-          <div className="grid grid-cols-1 @min-[1400px]:grid-cols-2 gap-3.5 mt-3.5!">
+
+          <div className="grid grid-cols-1 @min-[1400px]:grid-cols-2 gap-3.5 mt-3.5">
             <HighlightsBox rows={seasonRows} day={selDay} extras={extras} onPick={pick} />
             <PeadBox rows={seasonRows} extras={extras} onPick={pick} onShowAll={showAllPead} />
           </div>
 
-          <div ref={tableRef} className="scroll-mt-20">
-            <div className="flex flex-wrap items-baseline justify-between gap-2 text-[14px] text-meta">
-              <span><b className="text-ink text-[16px] font-semibold">ทุกบริษัทที่ประกาศ</b> · {quarterRows.length} บริษัท</span>
-              <span className="inline-flex border border-white/[0.08] rounded-lg overflow-hidden" role="group" aria-label="มุมมองตาราง">
+          <section ref={tableRef} className="@container mt-7 scroll-mt-20" aria-label="ทุกบริษัทที่ประกาศ">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h2 className="text-[16px] font-semibold text-ink">
+                ทุกบริษัทที่ประกาศ{' '}
+                <span className="text-[13px] font-normal text-meta">
+                  · แสดง {folded.shown.length} จาก {filtered.length} บริษัท{hideIlliquid && folded.illiquid.length ? ` (ซ่อนสภาพคล่องต่ำ ${folded.illiquid.length})` : ''}
+                </span>
+              </h2>
+              <span className="inline-flex border border-white/[0.12] rounded-lg overflow-hidden" role="group" aria-label="มุมมองตาราง">
                 {(['day', 'list'] as const).map(v => (
-                  <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v}
-                    className={`text-[13px] px-3 py-1 ${view === v ? 'bg-[#1b2640] text-[#dbe7ff]' : 'text-meta hover:text-white/80'}`}>
+                  <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v} className={SEG_BTN(view === v)}>
                     {v === 'day' ? 'รายวัน' : 'รายการเดียว'}
                   </button>
                 ))}
               </span>
             </div>
-            <p className="text-[12.5px] text-meta mt-1 mb-2">
-              ส่วนนี้ดู<b className="text-white/80 font-medium">ตัวเลขงบ</b>ครบชุด · ป้ายใต้ชื่อหุ้นชุดเดียวกับส่วนบน · มุมมอง &quot;รายวัน&quot; จัดกลุ่มตามวันประกาศ
-            </p>
+
             {/* Tabs - one at a time, never wrap (scroll sideways on a narrow screen) */}
-            <div className="flex flex-nowrap overflow-x-auto [scrollbar-width:none] gap-1 border-b border-white/[0.07] mb-4">
+            <div className="flex flex-nowrap overflow-x-auto [scrollbar-width:none] gap-1 border-b border-white/[0.07] mt-2" role="tablist">
               {[null, ...BUCKET_ORDER].map(k => {
                 const n = k ? searched.filter(a => pageBucket(a) === k).length : searched.length;
                 const on = tab === k;
                 return (
-                  <button key={k ?? 'all'} onClick={() => { setTab(k); resetPage(); }}
-                    className={`flex-none flex items-center gap-2 whitespace-nowrap text-[15px] px-3.5 pt-2.5 pb-3 border-b-2 -mb-px ${
+                  <button key={k ?? 'all'} role="tab" aria-selected={on} onClick={() => setTab(k)}
+                    className={`flex-none flex items-center gap-2 whitespace-nowrap text-[14px] px-3 pt-2 pb-2.5 border-b-2 -mb-px ${
                       on ? 'text-ink border-[#5B93FF]' : 'text-meta border-transparent hover:text-white/80'
                     } ${n === 0 && !on ? 'opacity-45' : ''}`}>
                     {k && <span className="w-2 h-2 rounded-full" style={{ background: BUCKET_COLOR[k] }} />}
@@ -1107,119 +1102,87 @@ export default function EarningsPage() {
               })}
             </div>
 
-            {/* กรองเพิ่ม (AND with the tab) + search + quarter */}
-            <div className="flex flex-wrap items-center gap-2.5 mb-3">
-              <span className="text-[13px] text-meta mr-0.5">กรองเพิ่ม</span>
-              {CHIPS.map(c => {
-                const on = chips.has(c.key);
-                const n = searched.filter(a => (!tab || pageBucket(a) === tab) && passChips(a, c.key) && chipPass(a, c.key, today, feed.extras)).length;
+            {/* Liquidity switch · sort · filters (AND with the tab) · search · quarter · วิธีอ่าน */}
+            <div className="relative flex flex-wrap items-center gap-2 my-3">
+              <button type="button" onClick={() => setHideIlliquid(h => !h)} aria-pressed={hideIlliquid}
+                className="inline-flex items-center gap-2 text-[13px] text-ink bg-[#181c26] border border-white/[0.12] rounded-full pl-1.5 pr-3 py-1">
+                <span className={`relative w-[30px] h-4 rounded-full transition-colors ${hideIlliquid ? 'bg-[#5B93FF]' : 'bg-[#39415a]'}`}>
+                  <span className={`absolute top-0.5 w-3 h-3 rounded-full transition-all ${hideIlliquid ? 'left-4 bg-white' : 'left-0.5 bg-[#cfd6e4]'}`} />
+                </span>
+                ซ่อนสภาพคล่องต่ำ <span className="text-meta">(&lt; {PEAD_MIN_ADTV_MB} ล./วัน)</span>
+              </button>
+              <label className="inline-flex items-center gap-1.5 text-[13px] text-meta">
+                เรียง
+                <select value={sort} onChange={e => setSort(e.target.value as BoardSort)}
+                  className="px-2 py-1 bg-[#181c26] border border-white/[0.12] rounded-lg text-[13px] text-ink outline-none focus:border-white/25">
+                  {BOARD_SORTS.map(k => <option key={k} value={k}>{SORT_LABEL[k]}</option>)}
+                </select>
+              </label>
+              {BOARD_FILTERS.map(k => {
+                const on = filters.includes(k);
+                const n = searched.filter(a => (!tab || pageBucket(a) === tab) && passFilters(a, k) && filterPass(a, k, extraOf(a))).length;
                 return (
-                  <button key={c.key} onClick={() => toggleChip(c.key)}
-                    className={`px-3.5 py-1.5 rounded-full border text-[14px] ${
-                      on ? 'bg-[#1b2640] border-[#33507f] text-[#dbe7ff]' : 'border-white/[0.08] text-white/75 hover:border-white/20'
-                    } ${n === 0 && !on ? 'opacity-40' : ''}`}>
-                    {on ? '✓ ' : ''}{c.label} <span className="text-[12px] text-meta ml-0.5 tabular-nums">{n}</span>
+                  <button key={k} type="button" onClick={() => toggleFilter(k)} aria-pressed={on}
+                    className={`px-3 py-1 rounded-full border text-[13px] ${
+                      on ? 'bg-[#1b2640] border-[#5B93FF] text-[#dbe7ff]' : 'bg-[#181c26] border-white/[0.12] text-white/75 hover:border-white/25'
+                    } ${n === 0 && !on ? 'opacity-45' : ''}`}>
+                    {FILTER_LABEL[k]} <span className="text-[12px] text-meta ml-0.5 tabular-nums">{n}</span>
                   </button>
                 );
               })}
-              {chips.size > 0 && (
-                <button onClick={() => { setChips(new Set()); resetPage(); }} className="text-[13px] text-[#5B93FF] hover:text-blue-300">ล้าง</button>
-              )}
               <span className="flex-1" />
               <label className="relative">
                 <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-meta" />
-                <input value={query} onChange={e => { setQuery(e.target.value); resetPage(); }} placeholder="ค้นหาหุ้น"
-                  className="w-32 pl-7 pr-2.5 py-1.5 bg-transparent border border-white/[0.08] rounded-lg text-[14px] text-ink outline-none focus:border-white/25" />
+                <input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ค้นหาหุ้น" aria-label="ค้นหาหุ้น"
+                  className="w-32 pl-7 pr-2 py-1 bg-[#181c26] border border-white/[0.12] rounded-lg text-[13px] text-ink outline-none focus:border-white/25" />
               </label>
-              <select value={activeQuarter} onChange={e => { setQuarter(e.target.value); resetPage(); }}
-                className="px-2.5 py-1.5 bg-[#13161e] border border-white/[0.08] rounded-lg text-[14px] text-ink outline-none focus:border-white/25">
+              <select value={activeQuarter} onChange={e => setQuarter(e.target.value === seasonQuarter ? null : e.target.value)} aria-label="ไตรมาส"
+                className="px-2 py-1 bg-[#181c26] border border-white/[0.12] rounded-lg text-[13px] text-ink outline-none focus:border-white/25">
                 {quarters.map(q => <option key={q} value={q}>{q}</option>)}
-                <option value={ALL_QUARTERS}>{ALL_QUARTERS}</option>
+                <option value={ALL_QUARTERS_PARAM}>{ALL_QUARTERS_LABEL}</option>
               </select>
+              <HowToRead />
             </div>
 
-            <BadgeLegend />
-            <BarsLegend />
-            <div className="overflow-x-auto">
-              <table className={`w-full ${TS.tableCell}`}>
-                <thead className="border-b border-white/[0.07]">
-                  <tr className="text-right">
-                    <th className="px-1.5 md:px-3 py-2.5 text-[13px] font-medium text-meta whitespace-nowrap text-left align-bottom">
-                      <SortLink k="ticker" sort={sort} onSort={onSort}>หุ้น</SortLink>
-                      <span className="block text-[11.5px] font-normal text-white/40">
-                        <span className="hidden md:inline">เรียง: </span><SortLink k="announceDate" sort={sort} onSort={onSort}>เวลาประกาศ</SortLink>
-                      </span>
-                    </th>
-                    <SortTh k="netProfit" sort={sort} onSort={onSort} sub={hdr.now ? <><span className="hidden md:inline">ไตรมาสนี้ </span>{hdr.now}</> : 'งวดนี้'}>กำไร<span className="hidden md:inline">สุทธิ</span></SortTh>
-                    <SortTh k="yoy" sort={sort} onSort={onSort} sub={<>{hdr.yearAgo ?? 'งวดเดียวกัน'}<span className="hidden md:inline"> · เปลี่ยน</span></>}>ปีก่อน</SortTh>
-                    <SortTh k="qoq" sort={sort} onSort={onSort} className="hidden md:table-cell" sub={hdr.prevQ ? `${hdr.prevQ} · เปลี่ยน` : 'เปลี่ยน'}>ไตรมาสก่อน</SortTh>
-                    <th className="px-1.5 md:px-3 py-2.5 text-[13px] font-medium text-meta whitespace-nowrap align-bottom hidden min-[1440px]:table-cell">
-                      กำไร 5 ไตรมาส
-                      <span className="block text-[11.5px] font-normal text-white/40">{hdr.yearAgo && hdr.now ? `${hdr.yearAgo} → ${hdr.now}` : 'ย้อนหลัง 5 ไตรมาส'}</span>
-                    </th>
-                    <SortTh k="cum" sort={sort} onSort={onSort} className="hidden min-[1680px]:table-cell" sub="สะสมต้นปี · เทียบปีก่อน">
-                      {hdr.cumMonths ? `กำไร ${hdr.cumMonths} เดือน` : 'กำไรสะสม'}
-                    </SortTh>
-                    <SortTh k="price" sort={sort} onSort={onSort} title="ราคาวันแรกหลังงบ → หลัง 2 วันทำการ (เทียบราคาปิดก่อนประกาศ)" sub={<span className="hidden md:inline">วันแรก → 2 วัน</span>}>
-                      <span className="border-b border-dotted border-white/30"><span className="md:hidden">หลังงบ</span><span className="hidden md:inline">ราคาหลังงบ</span></span>
-                    </SortTh>
-                  </tr>
-                </thead>
-                {view === 'list' ? (
-                  <tbody>
-                    {pageRows.map(a => renderRow(a))}
-                    {pageRows.length === 0 && (
-                      <tr><td colSpan={7} className="py-7 text-center text-meta text-[14px]">ไม่มีหุ้นที่ตรงเงื่อนไข</td></tr>
-                    )}
-                  </tbody>
-                ) : dayGroups.length === 0 ? (
-                  <tbody><tr><td colSpan={7} className="py-7 text-center text-meta text-[14px]">ไม่มีหุ้นที่ตรงเงื่อนไข</td></tr></tbody>
-                ) : dayGroups.map(({ day, rows, s }) => {
-                  const open = isDayOpen(day);
-                  return (
-                    <tbody key={day} id={`day-${day}`} className="scroll-mt-20">
-                      <tr><td colSpan={7} className="p-0 pt-3">
-                        <div className={`border border-white/[0.07] overflow-hidden ${open ? 'rounded-t-xl' : 'rounded-xl'}`}>
-                          <DayHeader day={day} s={s} open={open} onToggle={() => toggleDay(day, open)} />
-                        </div>
-                      </td></tr>
-                      {open && rows.map(a => renderRow(a))}
-                    </tbody>
-                  );
-                })}
-              </table>
+            <div className={`${TS.tableCell}`}>
+              <div className={`${T_GRID} ${ROW_PAD} py-2 text-[12px] text-meta border-b border-white/[0.07] [&>span:not(:first-child)]:text-right`}>
+                <span>หุ้น</span>
+                <span>กำไรสุทธิ<small className="block text-[11px] text-white/40">{hdr.now ?? 'งวดนี้'}</small></span>
+                <span>ปีก่อน<small className="block text-[11px] text-white/40">{hdr.yearAgo ?? 'งวดเดียวกัน'} · เปลี่ยน</small></span>
+                <span className={C_Q}>ไตรมาสก่อน<small className="block text-[11px] text-white/40">{hdr.prevQ ? `${hdr.prevQ} · ` : ''}เปลี่ยน</small></span>
+                <span className={C_5}>5 ไตรมาส<small className="block text-[11px] text-white/40">{hdr.yearAgo && hdr.now ? `${hdr.yearAgo} → ${hdr.now}` : 'ย้อนหลัง'}</small></span>
+                <span className={C_5}>{hdr.cumMonths ? `${hdr.cumMonths} เดือน` : 'กำไรสะสม'}<small className="block text-[11px] text-white/40">เทียบปีก่อน</small></span>
+                <span className={C_L}>ซื้อขาย<small className="block text-[11px] text-white/40">ล./วัน</small></span>
+                <span className={C_X}>ราคาหลังงบ<small className="block text-[11px] text-white/40">วันแรก → 2 วัน</small></span>
+              </div>
+              {view === 'list' ? (
+                <div className="mt-2.5 border border-white/[0.07] rounded-xl overflow-hidden [&>:first-child]:border-t-0">
+                  {renderBody(filtered, 'all')}
+                </div>
+              ) : dayGroups.length === 0 ? (
+                <div className="py-7 text-center text-meta text-[14px]">ไม่มีหุ้นที่ตรงเงื่อนไข</div>
+              ) : dayGroups.map(({ day, rows, s }) => {
+                const open = isDayOpen(day);
+                return (
+                  <div key={day} id={`day-${day}`} className="mt-2.5 border border-white/[0.07] rounded-xl overflow-hidden scroll-mt-20">
+                    <DayHeader day={day} s={s} open={open} onToggle={() => toggleDay(day, open)}
+                      hiding={hideIlliquid} shown={rows.filter(a => !hasNoProfit(a) && (!hideIlliquid || isLiquid(adtvOf(a)))).length} />
+                    {open && renderBody(rows, day)}
+                  </div>
+                );
+              })}
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2 text-[13px] text-meta px-1 py-3.5">
               <span>
-                {filtered.length} บริษัท{view === 'day' ? ` · ${dayGroups.length} วัน` : ''}{filterLabel ? ` · ${filterLabel}` : ''}
-                {activeQuarter !== seasonQuarter && ` · ${activeQuarter}`}
+                {filtered.length} บริษัท{view === 'day' ? ` · ${dayGroups.length} วัน` : ''}
+                {activeQuarter !== seasonQuarter && ` · ${activeQuarter === ALL_QUARTERS_PARAM ? ALL_QUARTERS_LABEL : activeQuarter}`}
               </span>
-              {view === 'list' && totalPages > 1 ? (
-                <span className="flex items-center gap-2">
-                  <button disabled={safePage <= 1} onClick={() => setPage(p => p - 1)} className="px-2.5 py-1 rounded-lg border border-white/[0.08] disabled:opacity-30">‹ ก่อนหน้า</button>
-                  <span className="tabular-nums">หน้า {safePage}/{totalPages}</span>
-                  <button disabled={safePage >= totalPages} onClick={() => setPage(p => p + 1)} className="px-2.5 py-1 rounded-lg border border-white/[0.08] disabled:opacity-30">ถัดไป ›</button>
-                </span>
-              ) : (
-                <span>กดที่แถวเพื่อดูรายละเอียด</span>
-              )}
+              <span>กดที่แถวเพื่อดูรายละเอียด</span>
             </div>
-          </div>
+          </section>
 
-          <details className="text-meta group">
-            <summary className="cursor-pointer text-[14px] hover:text-white/80">วิธีอ่านหน้านี้</summary>
-            <ul className="mt-3 pl-5 list-disc text-[14px] leading-8 text-white/75 max-w-[90ch]">
-              <li><b className="text-ink">กำไรโต</b> กำไรเป็นบวกและมากกว่าปีก่อน · <b className="text-ink">พลิกกำไร</b> ปีก่อนขาดทุน (หรือ 0) ไตรมาสนี้กำไร — ไม่คิด % เพราะฐานติดลบ และไม่ถูกนับในอันดับ % โต</li>
-              <li><b className="text-ink">กำไรหด</b> ยังกำไรแต่น้อยกว่าปีก่อน · <b className="text-ink">ขาดทุนลดลง / ขาดทุนหนักขึ้น</b> เทียบกับไตรมาสเดียวกันปีก่อน (ปีก่อนกำไรแต่ปีนี้ขาดทุนนับเป็นขาดทุนหนักขึ้น) · <b className="text-ink">ไม่มีฐานเทียบ</b> ไม่มีตัวเลขปีก่อน เช่น หุ้นเข้าตลาดใหม่ หรือไม่มีตัวเลขกำไรเลย เช่น กองทุน / REIT (ไม่นับในสัดส่วนกำไรดีขึ้น)</li>
-              <li><b className="text-ink">⚡ เร่งตัว</b> % เทียบปีก่อนของไตรมาสนี้เป็นบวก และสูงกว่า % เทียบปีก่อนของไตรมาสที่แล้ว (โตเร็วขึ้น ไม่ใช่แค่โต) · ถ้าไม่มีงบไตรมาสที่แล้วให้เทียบ จะไม่ติดป้าย</li>
-              <li><b className="text-ink">ราคาหลังงบ</b> เทียบกับราคาปิดก่อนประกาศ: วันแรก = ราคาแรกที่ตลาดรับรู้งบ, +1 / +2 / +5 = ราคาปิดหลังวันแรก 1 / 2 / 5 วันทำการ · <b className="text-ink">🔥 PEAD</b> = {PEAD_CRITERIA} · เรียงจาก +2 วันมากไปน้อย</li>
-              <li><b className="text-ink">กำไรดีขึ้น</b> = กำไรโต + พลิกกำไร + ขาดทุนลดลง · <b className="text-ink">กำไรแย่ลง</b> = กำไรหด + ขาดทุนหนักขึ้น · ตัวเลข &quot;ไตรมาสก่อน&quot; ใต้แถบสัดส่วน คิดจากบริษัทชุดเดียวกันที่มีงบไตรมาสก่อนให้เทียบ</li>
-              <li><span className="inline-block w-[7px] h-[7px] rounded-full bg-[#5B93FF] mr-1.5 align-middle" />จุดสีฟ้าข้างชื่อ = ประกาศวันนี้ · ข้อมูลอัปเดตเป็นรอบ ไม่ใช่ real-time</li>
-            </ul>
-          </details>
-
-          <p className="text-[12px] text-meta text-right">
+          <p className="text-[12px] text-meta text-right mt-4">
             แหล่งข้อมูล: SET (ผ่าน Settrade) · ราคา: Yahoo Finance · ลิงก์เอกสารเปิดที่ set.or.th โดยตรง · ครอบคลุม {feed.universeSize} หลักทรัพย์
           </p>
         </div>
@@ -1227,4 +1190,3 @@ export default function EarningsPage() {
     </FullWidthPage>
   );
 }
-
