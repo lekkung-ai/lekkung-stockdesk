@@ -74,6 +74,24 @@ export interface SetupEntry {
   status: 'open' | 'closed';
   stage_at_entry?: string | null;
   exit_reason?: ExitReason;
+  // added 2026-11-13 (scripts/scan_setups.py: a setup ends after 5 scan days out)
+  days_out?: number; // open: scan days since the last hit (0 = in the scan today); closed: 5
+  setup_seq?: number;
+  first_hit?: string;
+  last_hit?: string;
+  exit_date_confirmed?: string; // (ข) close on the day the 5th out day is reached
+  exit_price_confirmed?: number;
+  holding_days_confirmed?: number;
+  return_pct_confirmed?: number;
+  mfe_pct_confirmed?: number | null;
+  mae_pct_confirmed?: number | null;
+}
+
+/** Days an OPEN setup has been out of the scan (1-4 = still held, "หลุดมา N วัน"); 0 otherwise. */
+export function openDaysOut(s: Pick<SetupEntry, 'status' | 'days_out'>): number {
+  if (s.status !== 'open') return 0;
+  const n = s.days_out;
+  return typeof n === 'number' && Number.isFinite(n) && n > 0 ? n : 0;
 }
 
 export interface StageRow {
@@ -95,6 +113,7 @@ export interface MonthRow {
 export interface SetupSummary {
   n_closed: number;
   n_open: number;
+  n_pending?: number; // open setups that are out of the scan 1-4 days
   avg_return_pct: number | null;
   win_rate_pct: number | null;
   avg_holding_days: number | null;

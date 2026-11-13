@@ -37,6 +37,7 @@ import {
   fmtShortDate,
   formatGenerated,
   isNum,
+  openDaysOut,
   returnColor,
 } from '@/lib/reportCard';
 
@@ -135,6 +136,13 @@ function TickerChip({ entry, occurrenceCount }: { entry: BestWorstEntry; occurre
 
 function ExitTag({ s }: { s: SetupEntry }) {
   const reason = s.exit_reason ?? (s.status === 'open' ? 'open' : s.holding_days === 0 ? 'single_day' : 'left_scan');
+  const out = openDaysOut(s);
+  if (reason === 'open' && out > 0)
+    return (
+      <span title="หลุดสแกนแล้วแต่ยังไม่ครบ 5 วันทำการ ไม้ยังไม่จบ" className={`px-2 py-0.5 rounded ${TS.caption} font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/25 whitespace-nowrap`}>
+        หลุดมา {out} วัน
+      </span>
+    );
   if (reason === 'open')
     return (
       <span className={`px-2 py-0.5 rounded ${TS.caption} font-semibold bg-[#378ADD]/15 text-[#378ADD] border border-[#378ADD]/30 whitespace-nowrap`}>
