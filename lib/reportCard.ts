@@ -79,12 +79,13 @@ export interface SetupEntry {
   setup_seq?: number;
   first_hit?: string;
   last_hit?: string;
-  exit_date_confirmed?: string; // (ข) close on the day the 5th out day is reached
-  exit_price_confirmed?: number;
-  holding_days_confirmed?: number;
-  return_pct_confirmed?: number;
-  mfe_pct_confirmed?: number | null;
-  mae_pct_confirmed?: number | null;
+  n_hits?: number;
+  // v3 (2026-11-13): the main exit is the 5th out day; the old next-day exit is kept
+  // as *_drop for reference only (it needs future data) - never shown as a main number
+  exit_date_drop?: string;
+  exit_price_drop?: number;
+  holding_days_drop?: number;
+  return_pct_drop?: number;
 }
 
 /** Days an OPEN setup has been out of the scan (1-4 = still held, "หลุดมา N วัน"); 0 otherwise. */
@@ -138,11 +139,52 @@ export interface SetupSummary {
   scatter_sampled?: boolean;
 }
 
+export interface WhatIfRow {
+  n: number;
+  avg_return_pct: number | null;
+  win_rate_pct: number | null;
+}
+
+export type WhatIfKey = 'current' | 'exit_on_drop' | 'hold_5' | 'hold_10' | 'hold_20' | 'tp_3' | 'tp_5' | 'sl_3';
+
+export interface ClosedBrief {
+  ticker: string;
+  entry_date: string;
+  exit_date: string;
+  holding_days: number;
+  return_pct: number;
+  mfe_pct: number | null;
+  exit_reason?: ExitReason;
+}
+
+export interface Last30 {
+  days: number;
+  since: string | null;
+  n: number;
+  avg_return_pct: number | null;
+  n_win: number;
+  n_flat: number;
+  n_loss: number;
+}
+
+export interface DateRange {
+  first_date: string | null;
+  last_date: string | null;
+  n_days?: number;
+}
+
 export interface ScanReport {
   total_picks: number;
   horizons: Record<string, HorizonMetric>;
   setups?: SetupEntry[];
   setup_summary?: SetupSummary;
+  // v3
+  scan_range?: DateRange;
+  what_if?: Partial<Record<WhatIfKey, WhatIfRow>>;
+  recent_closed?: ClosedBrief[];
+  best3?: ClosedBrief[];
+  worst3?: ClosedBrief[];
+  last30?: Last30;
 }
 
 export interface ReportMeta {
@@ -150,6 +192,8 @@ export interface ReportMeta {
   assumptions: Record<string, string>;
   history_range: { first_date: string; last_date: string; n_dates: number };
   price_range?: { first_date: string; first_signal_date: string };
+  scan_range?: DateRange;
+  setup_formula_version?: number;
 }
 
 export interface ReportCardFile extends ReportMeta {
