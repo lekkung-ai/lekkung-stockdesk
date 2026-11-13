@@ -189,6 +189,9 @@ function ComparisonTable({ horizon }: { horizon: string }) {
 
 export default function ReportCardPage() {
   const isShortHistory = data.history_range.n_dates < SHORT_HISTORY_THRESHOLD;
+  // the days the scans really have data (history_range counts every snapshot folder, from 1 Jan)
+  const scanFirst = data.scan_range?.first_date ?? data.history_range.first_date;
+  const scanLast = data.scan_range?.last_date ?? data.history_range.last_date;
 
   return (
     <div className="p-4 md:p-6 space-y-5">
@@ -196,10 +199,10 @@ export default function ReportCardPage() {
         <h1 className={`${TS.pageTitle} text-white`}>Report Card</h1>
         <p className={`${TS.tableCell} text-white/75 mt-1 ${READABLE}`}>
           ผลย้อนหลังของแต่ละสแกน ถ้าซื้อทุกตัวที่สแกนเจอ ตัวเลขบนการ์ดนับ <b className="text-white">ตามไม้</b>{' '}
-          (ซื้อวันถัดจากติดสแกน ขายวันถัดจากหลุดสแกน) สีเขียว/แดงใช้กับผลตอบแทนเท่านั้น
+          (ซื้อวันถัดจากติดสแกน ขายวันที่หลุดสแกนครบ 5 วันทำการ) สีเขียว/แดงใช้กับผลตอบแทนเท่านั้น
         </p>
         <p className={`${TS.body} text-meta mt-1`}>
-          ข้อมูล {data.history_range.first_date} ถึง {data.history_range.last_date} ({data.history_range.n_dates} วัน)
+          ข้อมูลสแกน {scanFirst} ถึง {scanLast}
         </p>
       </div>
 
