@@ -6,7 +6,8 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { TableWrap, Td, stageCls } from '@/components/StrategyTable';
 import ReportCardChart from '@/components/ReportCardChart';
-import { GivebackRange, MfeScatter, MonthlyChart, ReturnHistogram } from '@/components/reportCard/ReportCardCharts';
+import { MfeScatter, MonthlyChart, ReturnHistogram } from '@/components/reportCard/ReportCardCharts';
+import ReportCardTop from '@/components/reportCard/ReportCardTop';
 import { TS, READABLE } from '@/lib/typeScale';
 import {
   PRESETS,
@@ -22,7 +23,6 @@ import {
 } from '@/lib/reportCardSort';
 import {
   BestWorstEntry,
-  FLAT_COLOR,
   GIVEBACK_MFE_DEFAULT,
   NEG,
   NEUTRAL,
@@ -63,7 +63,7 @@ function Measure({ kind }: { kind: 'setup' | 'dn' }) {
   return (
     <span
       className={`${TS.caption} font-medium px-1.5 py-0.5 rounded border border-white/[0.1] bg-white/[0.04] text-white/55 whitespace-nowrap`}
-      title={kind === 'setup' ? 'นับตามไม้: ซื้อวันถัดจากติดสแกน ขายวันถัดจากหลุดสแกน' : 'นับแบบถือตายตัว N วันทำการ ทุกครั้งที่ติดสแกน'}
+      title={kind === 'setup' ? 'นับตามไม้: ซื้อวันถัดจากติดสแกน ขายวันที่หลุดสแกนครบ 5 วันทำการ' : 'นับแบบถือตายตัว N วันทำการ ทุกครั้งที่ติดสแกน'}
     >
       {kind === 'setup' ? 'ตามไม้' : 'D+N'}
     </span>
@@ -163,108 +163,6 @@ function ExitTag({ s }: { s: SetupEntry }) {
 }
 
 /* ---------- sections ---------- */
-
-function KpiCard({ label, value, valueColor, foot, children }: {
-  label: string; value: string; valueColor: string; foot: React.ReactNode; children?: React.ReactNode;
-}) {
-  return (
-    <div className={`${CARD} p-4`}>
-      <div className="flex items-center justify-between gap-2">
-        <span className={`${TS.body} text-white/55`}>{label}</span>
-        <Measure kind="setup" />
-      </div>
-      <div className={`${TS.numberMain} tabular-nums mt-1.5`} style={{ color: valueColor }}>{value}</div>
-      {children}
-      <div className={`${TS.caption} text-white/45 mt-1.5 leading-relaxed`}>{foot}</div>
-    </div>
-  );
-}
-
-function Kpis({ sum }: { sum: SetupSummary }) {
-  const n = sum.n_closed;
-  const hasWfl = isNum(sum.n_win) && isNum(sum.n_flat) && isNum(sum.n_loss) && n > 0 && sum.n_win! + sum.n_flat! + sum.n_loss! === n;
-  const cards: React.ReactNode[] = [];
-  if (isNum(sum.avg_return_pct))
-    cards.push(
-      <KpiCard
-        key="avg"
-        label="ผลเฉลี่ยต่อไม้"
-        value={fmtPct(sum.avg_return_pct)}
-        valueColor={returnColor(sum.avg_return_pct)}
-        foot={<>{isNum(sum.median_return_pct) && <>ค่ากลาง <span style={{ color: returnColor(sum.median_return_pct) }}>{fmtPct(sum.median_return_pct)}</span> · </>}จาก {fmtInt(n)} ไม้ที่ปิดแล้ว</>}
-      />,
-    );
-  if (isNum(sum.win_rate_pct))
-    cards.push(
-      <KpiCard
-        key="win"
-        label="ไม้ที่กำไร"
-        value={`${sum.win_rate_pct.toFixed(1)}%`}
-        valueColor={NEUTRAL}
-        foot={
-          hasWfl ? (
-            <>กำไร {fmtInt(sum.n_win!)} · เสมอ {fmtInt(sum.n_flat!)}{isNum(sum.n_single_day) && <> (ติดวันเดียว {fmtInt(sum.n_single_day)})</>} · ขาดทุน {fmtInt(sum.n_loss!)}</>
-          ) : (
-            <>{fmtInt(Math.round((sum.win_rate_pct / 100) * n))} / {fmtInt(n)} ไม้</>
-          )
-        }
-      >
-        {hasWfl && (
-          <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden flex mt-2.5" aria-hidden="true">
-            <div style={{ width: `${(sum.n_win! / n) * 100}%`, backgroundColor: POS }} />
-            <div style={{ width: `${(sum.n_flat! / n) * 100}%`, backgroundColor: FLAT_COLOR }} />
-            <div style={{ width: `${(sum.n_loss! / n) * 100}%`, backgroundColor: NEG }} />
-          </div>
-        )}
-      </KpiCard>,
-    );
-  if (isNum(sum.payoff_ratio))
-    cards.push(
-      <KpiCard
-        key="payoff"
-        label="ได้ ÷ เสีย ต่อไม้"
-        value={sum.payoff_ratio.toFixed(2)}
-        valueColor={NEUTRAL}
-        foot={<>ชนะได้เฉลี่ย <b className="tabular-nums" style={{ color: POS }}>{fmtPct(sum.avg_win_pct)}</b> · แพ้เสียเฉลี่ย <b className="tabular-nums" style={{ color: NEG }}>{fmtPct(sum.avg_loss_pct)}</b></>}
-      />,
-    );
-  if (isNum(sum.avg_holding_days))
-    cards.push(
-      <KpiCard key="hold" label="ถือเฉลี่ย" value={`${sum.avg_holding_days.toFixed(1)} วัน`} valueColor={NEUTRAL} foot="นับวันทำการ ตั้งแต่วันซื้อถึงวันขาย" />,
-    );
-  if (cards.length === 0) return null;
-  return <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">{cards}</div>;
-}
-
-function Giveback({ sum }: { sum: SetupSummary }) {
-  const { avg_mae_pct: mae, avg_return_pct: avg, avg_mfe_pct: mfe } = sum;
-  if (!isNum(mae) || !isNum(avg) || !isNum(mfe)) return null;
-  const line = sum.giveback_mfe_pct ?? GIVEBACK_MFE_DEFAULT;
-  const lead =
-    avg <= 0 || mfe <= 0
-      ? `หุ้นที่สแกนเลือกขึ้นไปเฉลี่ย ${fmtPct(mfe)} แต่กว่าจะขายตอนหลุดสแกน ผลเหลือ ${fmtPct(avg)}`
-      : `หุ้นที่สแกนเลือกขึ้นไปเฉลี่ย ${fmtPct(mfe)} และขายจริงได้ ${fmtPct(avg)} เก็บได้ราว ${Math.round((avg / mfe) * 100)}% ของจุดสูงสุด`;
-  return (
-    <div className={`${CARD} p-5 border-l-[3px]`} style={{ borderLeftColor: 'rgba(255,255,255,0.25)' }}>
-      <div className="flex items-center gap-2">
-        <span className={`${TS.body} text-white/55`}>กำไรที่หลุดมือ</span>
-        <Measure kind="setup" />
-      </div>
-      <p className={`text-[18px] font-bold text-white leading-snug mt-1 mb-3 ${READABLE}`}>{lead}</p>
-      <GivebackRange mae={mae} avg={avg} mfe={mfe} />
-      <div className={`flex gap-4 flex-wrap ${TS.caption} text-white/50`}>
-        <span className="inline-flex items-center gap-1.5"><i className="w-2 h-2 rounded-full" style={{ background: NEG }} />ลงต่ำสุดเฉลี่ยระหว่างถือ</span>
-        <span className="inline-flex items-center gap-1.5"><i className="w-2 h-2 rounded-full bg-white" />ผลตอนขาย</span>
-        <span className="inline-flex items-center gap-1.5"><i className="w-2 h-2 rounded-full" style={{ background: POS }} />ขึ้นสูงสุดเฉลี่ยระหว่างถือ</span>
-      </div>
-      {isNum(sum.giveback_n) && (
-        <Note>
-          {fmtInt(sum.giveback_n)} จาก {fmtInt(sum.n_closed)} ไม้ เคยกำไรเกิน +{line}% แต่ขายเท่าทุนหรือขาดทุน · ห่างจากจุดสูงสุดเฉลี่ย {(mfe - avg).toFixed(2)} จุด% ต่อไม้
-        </Note>
-      )}
-    </div>
-  );
-}
 
 function StageTable({ sum }: { sum: SetupSummary }) {
   const rows = sum.by_stage;
@@ -587,7 +485,7 @@ function SetupTables({ setups }: { setups: SetupEntry[] }) {
               <div className={`${CARD} p-4 m-1`}>
                 <SetupStatStrip s={s} />
                 {s.holding_days === 0 ? (
-                  <div className={`${TS.body} text-white/50 py-6 text-center`}>ซื้อและขายวันเดียวกัน (D+1) — ไม่มีช่วงราคาให้แสดง</div>
+                  <div className={`${TS.body} text-white/50 py-6 text-center`}>เพิ่งซื้อวันล่าสุด — ยังไม่มีช่วงราคาให้แสดง</div>
                 ) : (
                   <ReportCardChart
                     ticker={s.ticker}
@@ -669,7 +567,7 @@ function SetupTables({ setups }: { setups: SetupEntry[] }) {
         <p className={`${TS.body} text-white/40 px-1`}>ตอนนี้ไม่มีไม้ที่ยังถือ</p>
       )}
       <Note>
-        ขึ้นสูงสุด (MFE) / ลงต่ำสุด (MAE) = ราคาสูงสุด/ต่ำสุดระหว่างถือ เทียบราคาซื้อ วันแรกนับราคาสูง–ต่ำระหว่างวันด้วย ไม้ที่ถือ 0 วันจึงยังมีค่านี้ได้
+        ขึ้นสูงสุด (MFE) / ลงต่ำสุด (MAE) = ราคาสูงสุด/ต่ำสุดระหว่างถือ เทียบราคาซื้อ นับตั้งแต่วันหลังวันซื้อถึงวันขาย (ไม่นับระหว่างวันของวันซื้อ)
         · กดแถวเพื่อดูกราฟราคาช่วงถือของไม้นั้น
       </Note>
     </div>
@@ -699,8 +597,8 @@ export default function ReportCardDetailClient({
     avg_holding_days: null, avg_mfe_pct: null, avg_mae_pct: null,
   };
   const a = meta.assumptions ?? {};
-  const firstDate = meta.price_range?.first_signal_date ?? meta.history_range.first_date;
-  const lastDate = meta.history_range.last_date;
+  const firstDate = scanData.scan_range?.first_date ?? meta.scan_range?.first_date ?? meta.price_range?.first_signal_date ?? meta.history_range.first_date;
+  const lastDate = scanData.scan_range?.last_date ?? meta.scan_range?.last_date ?? meta.history_range.last_date;
   const hasHist = Array.isArray(sum.hist) && Array.isArray(sum.hist_labels) && sum.hist.length === sum.hist_labels.length && sum.hist.some(c => c > 0);
   const hasScatter = Array.isArray(sum.scatter) && sum.scatter.length > 0;
   const hasMonthly = Array.isArray(sum.monthly) && sum.monthly.length > 0;
@@ -730,67 +628,16 @@ export default function ReportCardDetailClient({
           <p className={`${TS.body} text-white/45 mt-1`}>
             ข้อมูลสแกน {fmtShortDate(firstDate)}
             {beYear(firstDate) !== beYear(lastDate) ? ` ${beYear(firstDate)}` : ''} – {fmtShortDate(lastDate)} {beYear(lastDate)}
+            {' · '}{fmtInt(sum.n_closed)} ไม้ที่ปิดแล้ว · ยังถือ {fmtInt(sum.n_open)}
             {meta.generated_at && <> · คำนวณล่าสุด {formatGenerated(meta.generated_at)}</>}
           </p>
         </div>
       </div>
 
-      {/* 2. วิธีนับ + ปิดไม้เพราะอะไร */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-3">
-        <div className={`${CARD} p-5`}>
-          <SectionTitle>หน้านี้นับ &ldquo;ตามไม้&rdquo;</SectionTitle>
-          <p className={`${TS.body} text-white/65 leading-relaxed mt-1 ${READABLE}`}>
-            ซื้อที่ราคาปิดวันถัดจากวันที่ติดสแกน ถือไปเรื่อย ๆ แล้วขายที่ราคาปิดวันถัดจากวันที่หลุดสแกน ถ้าหลุดไม่ถึง 5 วันทำการแล้วกลับมา
-            นับเป็นไม้เดิม ตัวเลขจึงต่างจากหน้าแรกที่วัดแบบถือตายตัว D+5 โดยตั้งใจ
-          </p>
-          <div className="grid grid-cols-4 sm:flex sm:items-stretch gap-1.5 mt-3">
-            {[
-              [scanData.total_picks, 'ครั้งที่ติดสแกน'],
-              [setups.length, 'รวมเป็นไม้'],
-              [sum.n_closed, 'ปิดแล้ว'],
-              [sum.n_open, 'ยังถือ'],
-            ].map(([v, k], i) => (
-              <React.Fragment key={k as string}>
-                {i > 0 && (
-                  <span className="hidden sm:inline self-center text-white/25 px-0.5" aria-hidden="true">
-                    {i === 3 ? '/' : '→'}
-                  </span>
-                )}
-                <div className="px-2 sm:px-3.5 py-2 bg-white/[0.03] border border-white/[0.07] rounded-lg min-w-0">
-                  <div className="text-[17px] sm:text-[20px] font-bold tabular-nums text-white">{fmtInt(v as number)}</div>
-                  <div className={`${TS.caption} text-white/45 leading-tight`}>{k}</div>
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-        <div className={`${CARD} p-5`}>
-          <SectionTitle>ปิดไม้เพราะอะไร</SectionTitle>
-          <p className={`${TS.body} text-white/65 leading-relaxed mt-1`}>
-            กฎเดียว: <b className="text-white">หลุดสแกน</b> ไม่มีจุดคัทหรือเป้าขาย
-          </p>
-          {isNum(sum.n_single_day) && (
-            <p className={`${TS.body} text-white/65 leading-relaxed mt-2 ${READABLE}`}>
-              {fmtInt(sum.n_single_day)} ไม้ติดสแกนวันเดียวแล้วหลุด เลยซื้อและขายวันเดียวกัน ผล 0% นับเป็น &ldquo;เสมอ&rdquo; และอยู่ในตัวหารของ win rate
-            </p>
-          )}
-        </div>
-      </div>
+      {/* 2-6. สรุปผล · 3 คำถาม · ถืออะไรอยู่ / ปิดแล้ว · ถ้าเปลี่ยนวิธีขาย · วิธีวัด */}
+      <ReportCardTop scan={scanData} sum={sum} setups={setups} color={scanColor} />
 
-      {sum.n_closed > 0 && sum.n_closed < 30 && (
-        <div className={`flex items-start gap-2.5 px-4 py-3 rounded-xl bg-[#EF9F27]/10 border border-[#EF9F27]/25 ${TS.body} text-[#EF9F27]`}>
-          <span className="flex-shrink-0">⚠️</span>
-          <span>ไม้ที่ปิดแล้วมีแค่ {fmtInt(sum.n_closed)} ไม้ ตัวเลขทุกส่วนในหน้านี้ยังไม่นิ่ง ไม้เดียวก็เปลี่ยนค่าเฉลี่ยได้มาก</span>
-        </div>
-      )}
-
-      {/* 3. KPI */}
-      <Kpis sum={sum} />
-
-      {/* 4. กำไรที่หลุดมือ */}
-      <Giveback sum={sum} />
-
-      {/* 5. กราฟจุด + การกระจาย */}
+      {/* 7. กราฟจุด + การกระจาย */}
       {(hasScatter || hasHist) && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {hasScatter && (
@@ -808,13 +655,13 @@ export default function ReportCardDetailClient({
               <SectionTitle kind="setup">ผลตอบแทนกระจายตัวยังไง</SectionTitle>
               <p className={`${TS.body} text-white/45 mt-0.5 mb-2`}>จำนวนไม้ในแต่ละช่วงผลตอบแทน (%)</p>
               <ReturnHistogram counts={sum.hist!} labels={sum.hist_labels!} />
-              <Note>ค่าเฉลี่ยถูกไม้ใหญ่ไม้เดียวดึงได้ กราฟนี้ให้เห็นว่าไม้ส่วนใหญ่จบตรงไหน แท่ง 0 ส่วนใหญ่คือไม้ที่ติดสแกนวันเดียว</Note>
+              <Note>ค่าเฉลี่ยถูกไม้ใหญ่ไม้เดียวดึงได้ กราฟนี้ให้เห็นว่าไม้ส่วนใหญ่จบตรงไหน</Note>
             </div>
           )}
         </div>
       )}
 
-      {/* 6. stage + รายเดือน */}
+      {/* 8. stage + รายเดือน */}
       {(hasStage || hasMonthly) && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {hasStage && <StageTable sum={sum} />}
@@ -829,10 +676,10 @@ export default function ReportCardDetailClient({
         </div>
       )}
 
-      {/* 7. D+5/10/20 */}
+      {/* 9. D+5/10/20 */}
       <HorizonTable data={scanData} />
 
-      {/* 8. รายการไม้ */}
+      {/* 10. รายการไม้ */}
       <div className="pt-1">
         <div className="mb-3 px-1">
           <SectionTitle kind="setup">รายการไม้</SectionTitle>
@@ -842,13 +689,13 @@ export default function ReportCardDetailClient({
         </Suspense>
       </div>
 
-      {/* 9. คำศัพท์ */}
+      {/* 11. คำศัพท์ */}
       <details className={`${CARD} p-5`}>
         <summary className={`cursor-pointer ${TS.sectionTitle} text-white/80`}>คำศัพท์และวิธีคำนวณ</summary>
         <dl className={`grid grid-cols-1 md:grid-cols-[max-content_1fr] gap-x-5 gap-y-2 mt-4 ${TS.body}`}>
           {(
             [
-              ['ไม้ (setup)', 'ช่วงที่หุ้นอยู่ในสแกนต่อเนื่อง หลุดไม่ถึง 5 วันทำการยังนับเป็นไม้เดิม'],
+              ['ไม้ (setup)', 'ช่วงที่หุ้นอยู่ในสแกนต่อเนื่อง หลุดไม่ถึง 5 วันทำการยังนับเป็นไม้เดิม หลุดครบ 5 วันจึงปิดไม้และขายที่ราคาปิดวันนั้น'],
               ['ครั้งที่ติดสแกน (pick)', a.dedup],
               ['ราคาซื้อ', a.entry_price],
               ['D+N', a.horizons_measured_from],
