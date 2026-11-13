@@ -49,8 +49,12 @@ describe('summary sentence', () => {
   it('positive average', () => {
     const v = verdictFor(scan(hz(0.1, 0.2, 0.3), sum({ avg_return_pct: 0.71, avg_win_pct: 4.5, avg_loss_pct: -2 })));
     expect(v.head).toBe('เลือกหุ้นได้ดีกว่าตลาด และทำกำไรเฉลี่ย +0.71% ต่อไม้');
-    expect(v.why).toContain('ชนะทีได้เฉลี่ย +4.50% แพ้ทีเสีย -2.00%');
+    expect(v.why).toBe('ชนะทีได้เฉลี่ย +4.50% แพ้ทีเสีย -2.00% จึงยังคุ้มแม้ไม้ที่กำไรมีแค่ 44% ของไม้ที่มีผล');
     expect(v.smallSample).toBe(false);
+  });
+  it('positive average with most setups winning', () => {
+    const v = verdictFor(scan(hz(0.1, 0.2, 0.3), sum({ avg_return_pct: 2.35, n_win: 16, n_loss: 9, avg_win_pct: 6.68, avg_loss_pct: -5.34 })));
+    expect(v.why).toBe('ชนะทีได้เฉลี่ย +6.68% แพ้ทีเสีย -5.34% และไม้ที่กำไรมี 64% ของไม้ที่มีผล');
   });
   it('negative average but picks beat SET', () => {
     const v = verdictFor(scan(hz(0.1, -0.2, 0.3), sum({ avg_return_pct: -0.87, payoff_ratio: 1.22, n_win: 34, n_loss: 66 })));

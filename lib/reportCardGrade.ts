@@ -89,7 +89,9 @@ export function verdictFor(scan: Pick<ScanReport, 'horizons' | 'setup_summary'>,
   const be = g.breakEven == null ? '–' : `${Math.round(g.breakEven)}%`;
   let why: string;
   if (g.avg > 0) {
-    why = `ชนะทีได้เฉลี่ย ${fmtPct(sum?.avg_win_pct)} แพ้ทีเสีย ${fmtPct(sum?.avg_loss_pct)} จึงยังคุ้มแม้ไม้ที่กำไรมีแค่ ${ws} ของไม้ที่มีผล`;
+    const tail =
+      g.winShare != null && g.winShare >= 50 ? `และไม้ที่กำไรมี ${ws} ของไม้ที่มีผล` : `จึงยังคุ้มแม้ไม้ที่กำไรมีแค่ ${ws} ของไม้ที่มีผล`;
+    why = `ชนะทีได้เฉลี่ย ${fmtPct(sum?.avg_win_pct)} แพ้ทีเสีย ${fmtPct(sum?.avg_loss_pct)} ${tail}`;
   } else if (g.pick !== 'b' && total > 0) {
     why =
       `หุ้นที่สแกนเลือกชนะ SET ${g.nUp} จาก ${total} ระยะถือ แต่ถือตามสแกนแล้วผลเฉลี่ยยังติดลบ ` +
