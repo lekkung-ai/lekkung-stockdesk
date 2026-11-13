@@ -11,7 +11,10 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from compute_scan_history import build_transitions, trading_snapshots  # noqa: E402
+import json  # noqa: E402
+import tempfile  # noqa: E402
+
+from compute_scan_history import build_transitions, setup_starts_by_ticker, trading_snapshots  # noqa: E402
 
 
 def snap(d, *rows):
@@ -99,6 +102,28 @@ class TradingSnapshotsTest(unittest.TestCase):
             snap("2026-10-02", ("AAA", "Bull", 10), ("BBB", "Bear", 5.1)),
         ]
         self.assertEqual(len(trading_snapshots(snaps)), 2)
+
+
+class SetupStartsTest(unittest.TestCase):
+    def test_starts_follow_the_5_day_rule_and_window(self):
+        # weekdays 2026-09-01..: AAA hit d0, d1 | out 5 | hit d7 (new setup) | out 4 | hit d12 (same)
+        from datetime import date, timedelta
+        days, d = [], date(2026, 9, 1)
+        while len(days) < 14:
+            if d.weekday() < 5:
+                days.append(d.isoformat())
+            d += timedelta(days=1)
+        hit_idx = {0, 1, 7, 12}
+        with tempfile.TemporaryDirectory() as tmp:
+            for i, day in enumerate(days):
+                os.makedirs(os.path.join(tmp, day))
+                rows = [{"Ticker": "AAA", "Close": 1}] if i in hit_idx else []
+                with open(os.path.join(tmp, day, "sepa.json"), "w") as f:
+                    json.dump(rows, f)
+            got = setup_starts_by_ticker(tmp, "sepa", days, days[0])
+            self.assertEqual(got, {"AAA": [days[0], days[7]]})
+            # setup #1 ended before the window start -> only setup #2
+            self.assertEqual(setup_starts_by_ticker(tmp, "sepa", days, days[5]), {"AAA": [days[7]]})
 
 
 if __name__ == "__main__":

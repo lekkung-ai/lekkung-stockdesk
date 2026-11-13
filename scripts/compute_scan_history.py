@@ -19,11 +19,17 @@ Output: data/scans/{scanName}_history.json
           "lastSeen": "2026-07-14",
           "firstClose": 8.5,
           "lastClose": 9.1,
-          "pctChange": 7.06
+          "pctChange": 7.06,
+          "setupStarts": ["2026-07-10"]
         },
         ...
       ]
     }
+
+"setupStarts" (scans in scan_setups.SETUP_RULE_SCANS only): start date of every
+setup that is still in the window, from scan_setups.split_setups over the FULL
+snapshot history (a setup ends after 5 scan days out in a row). The chart's
+"เจอครั้งแรก" / "เจอใหม่" markers read these - the web never re-derives them.
 
 "pctChange"/"lastClose" are as of the most recent day this ticker appeared in
 the scan within the window - a batch-time figure, not a live intraday price
@@ -38,9 +44,12 @@ Usage:
     python -X utf8 compute_scan_history.py
 """
 
+import argparse
 import json
 import os
 from datetime import datetime, timedelta, timezone
+
+from scan_setups import SETUP_RULE_SCANS, scan_calendar, split_setups
 
 # page key -> history/scan filename (without .json) - same convention as
 # compute_scan_days.py. Add an entry here to extend this to another scan;
@@ -167,7 +176,27 @@ def _is_weekday(dstr: str) -> bool:
         return False
 
 
-def main():
+def setup_starts_by_ticker(hist_dir: str, fname: str, all_dates: list, window_start: str) -> dict:
+    """ticker -> [start of each setup whose last hit is on/after window_start]."""
+    cal = scan_calendar(hist_dir, fname, all_dates)
+    hits: dict[str, list] = {}
+    for d in cal:
+        for r in rows_of(load_json(os.path.join(hist_dir, d, f"{fname}.json"))):
+            t = r.get("Ticker") or r.get("ticker")
+            if t:
+                hits.setdefault(t, []).append(d)
+    out = {}
+    for t, hd in hits.items():
+        starts = [s["start"] for s in split_setups(hd, cal) if s["last_hit"] >= window_start]
+        if starts:
+            out[t] = starts
+    return out
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out-dir", default=None, help="write the files here instead of data/scans (testing)")
+    args = ap.parse_args(argv)
     script_dir = os.path.dirname(os.path.abspath(__file__))
     stockdesk_dir = os.path.dirname(script_dir)
     hist_dir = os.path.join(stockdesk_dir, "data", "history")
@@ -184,7 +213,8 @@ def main():
     dates = [d for d in all_dates if d >= cutoff]
     print(f"  History dates in window: {len(dates)}/{len(all_dates)} (cutoff {cutoff})")
 
-    scans_dir = os.path.join(stockdesk_dir, "data", "scans")
+    scans_dir = args.out_dir or os.path.join(stockdesk_dir, "data", "scans")
+    os.makedirs(scans_dir, exist_ok=True)
     generated_at = datetime.now(BANGKOK_TZ).strftime("%Y-%m-%dT%H:%M:%S+07:00")
 
     for key, fname in SCANNERS.items():
@@ -194,6 +224,9 @@ def main():
             rows = rows_of(load_json(os.path.join(hist_dir, d, f"{fname}.json")))
             for ticker, close in close_by_ticker(rows).items():
                 by_ticker.setdefault(ticker, {})[d] = close
+
+        starts = (setup_starts_by_ticker(hist_dir, fname, all_dates, dates[0])
+                  if fname in SETUP_RULE_SCANS and dates else None)
 
         tickers_out = []
         for ticker, close_by_date in by_ticker.items():
@@ -205,7 +238,7 @@ def main():
                 (last_close - first_close) / first_close * 100
                 if first_close else None
             )
-            tickers_out.append({
+            rec = {
                 "ticker": ticker,
                 "hitDates": hit_dates,
                 "hitCount": len(hit_dates),
@@ -215,7 +248,11 @@ def main():
                 "firstClose": first_close,
                 "lastClose": last_close,
                 "pctChange": round(pct_change, 2) if pct_change is not None else None,
-            })
+            }
+            if starts is not None:
+                # hits on non-scan days (weekend leftovers) have no setup -> fall back to the first hit
+                rec["setupStarts"] = starts.get(ticker) or [first_seen]
+            tickers_out.append(rec)
 
         tickers_out.sort(key=lambda t: t["lastSeen"], reverse=True)
 

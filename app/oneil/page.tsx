@@ -26,7 +26,7 @@ import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import { oneilHistory } from '@/lib/scanHistoryData/oneil';
-import { computeScanMarkers } from '@/lib/scanMarkers';
+import { markersFromSetupStarts } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 
@@ -78,7 +78,7 @@ export default function OneilPage() {
   const scanMarkers = useMemo(() => {
     if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = oneilHistory.tickers.find(t => t.ticker === activeTicker);
-    return computeScanMarkers(match?.hitDates);
+    return markersFromSetupStarts(match);
   }, [activeTicker]);
 
   return (

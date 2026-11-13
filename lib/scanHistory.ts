@@ -19,6 +19,9 @@ export interface ScanHistoryTicker {
   firstClose: number;
   lastClose: number;
   pctChange: number | null;
+  // lekkung/sepa/kell/breakout/oneil only: start of each setup (scripts/scan_setups.py),
+  // may be before hitDates[0] when the setup began before the 90-day window
+  setupStarts?: string[];
 }
 
 export interface ScanHistoryData {

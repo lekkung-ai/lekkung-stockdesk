@@ -27,7 +27,7 @@ import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 import { getScanDiff } from '@/lib/scanDiff';
 import { lekkungHistory } from '@/lib/scanHistoryData/lekkung';
-import { computeScanMarkers } from '@/lib/scanMarkers';
+import { markersFromSetupStarts } from '@/lib/scanMarkers';
 import { quarterShort, fyShort } from '@/lib/growthPeriod';
 import rawIncomplete from '@/data/scans/lekkung_incomplete.json';
 import React from 'react';
@@ -93,7 +93,7 @@ export default function LekkungPage() {
   const scanMarkers = useMemo(() => {
     if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = lekkungHistory.tickers.find(t => t.ticker === activeTicker);
-    return computeScanMarkers(match?.hitDates);
+    return markersFromSetupStarts(match);
   }, [activeTicker]);
 
   return (

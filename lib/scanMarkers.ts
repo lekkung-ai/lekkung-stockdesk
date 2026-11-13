@@ -3,9 +3,9 @@ export interface ScanMarkers {
   reentries: string[];
 }
 
-// hitDates = ISO ascending (from getScanHistory)
-// re-entry = scan hit date after a gap of >7 calendar days from previous hit (dropped for >1 week then returned)
-// firstSeen = hitDates[0] always
+// Old rule, kept ONLY for /lekkung-daytrade (it is not on the 5-day setup rule):
+// re-entry = a hit more than 7 calendar days after the previous hit.
+// hitDates = ISO ascending.
 export function computeScanMarkers(hitDates: string[] | undefined): ScanMarkers {
   if (!hitDates || hitDates.length === 0) return { firstSeen: null, reentries: [] };
   const firstSeen = hitDates[0];
@@ -19,4 +19,16 @@ export function computeScanMarkers(hitDates: string[] | undefined): ScanMarkers 
     }
   }
   return { firstSeen, reentries };
+}
+
+// lekkung / sepa / kell / breakout / oneil: the setups are decided in Python
+// (scripts/scan_setups.py -> setupStarts in *_history.json). This only reads them:
+// first start = "เจอครั้งแรก", every later start = "เจอใหม่". No date math here.
+// A file written before setupStarts existed falls back to the first hit, no re-entries.
+export function markersFromSetupStarts(
+  rec: { setupStarts?: string[]; hitDates?: string[] } | undefined,
+): ScanMarkers {
+  const starts = rec?.setupStarts;
+  if (starts && starts.length > 0) return { firstSeen: starts[0], reentries: starts.slice(1) };
+  return { firstSeen: rec?.hitDates?.[0] ?? null, reentries: [] };
 }

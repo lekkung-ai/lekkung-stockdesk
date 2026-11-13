@@ -28,7 +28,7 @@ import DroppedTickersList from '@/components/DroppedTickersList';
 import NewBadge from '@/components/NewBadge';
 import { getScanDiff } from '@/lib/scanDiff';
 import { kellHistory } from '@/lib/scanHistoryData/kell';
-import { computeScanMarkers } from '@/lib/scanMarkers';
+import { markersFromSetupStarts } from '@/lib/scanMarkers';
 import ReportCardBar from '@/components/ReportCardBar';
 import ReportCardButton from '@/components/ReportCardButton';
 import { scanData } from '@/lib/scanData';
@@ -211,7 +211,7 @@ function KellContent() {
   const scanMarkers = useMemo(() => {
     if (!activeTicker) return { firstSeen: null, reentries: [] };
     const match = kellHistory.tickers.find(t => t.ticker === activeTicker);
-    return computeScanMarkers(match?.hitDates);
+    return markersFromSetupStarts(match);
   }, [activeTicker]);
 
   return (
