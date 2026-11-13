@@ -78,16 +78,41 @@ describe('summary sentence', () => {
 });
 
 describe('what-if rows', () => {
-  const row = (avg: number, n = 100) => ({ n, avg_return_pct: avg, win_rate_pct: 40 });
-  it('only the top row ≥ 0.2 points better is ดีสุด', () => {
-    const l = whatIfLines({ current: row(-0.87), exit_on_drop: row(-0.35, 246), hold_10: row(0.59), tp_5: row(0.32), sl_3: row(-0.61) });
-    expect(l.map(x => x.key)).toEqual(['current', 'exit_on_drop', 'hold_10', 'tp_5', 'sl_3']);
-    expect(l.filter(x => x.best).map(x => x.key)).toEqual(['hold_10']);
-    expect(l[0].diff).toBeNull();
-    expect(l[2].diff).toBeCloseTo(1.46);
+  const row = (avg: number, diff: number | null, n = 100, extra: object = {}) => ({
+    n, avg_return_pct: avg, win_rate_pct: 40, current_same_avg_pct: diff == null ? avg : avg - diff, diff_pct: diff, ...extra,
   });
-  it('no badge when nothing beats current by 0.2', () => {
-    expect(whatIfLines({ current: row(1), hold_5: row(1.1) }).some(x => x.best)).toBe(false);
+  it('diff comes from diff_pct (same setups), not from the whole-set average', () => {
+    // hold_20 looks +1.5 better than the whole set (avg −0.5), but on its own setups the main rule is −0.2 → diff 0.1 → no badge
+    const l = whatIfLines({ current: row(-0.5, null), hold_20: row(1.0, 0.1) });
+    const h = l.find(x => x.key === 'hold_20')!;
+    expect(h.diff).toBe(0.1);
+    expect(h.sameAvg).toBeCloseTo(0.9);
+    expect(h.best).toBe(false);
+  });
+  it('only the top row with diff_pct ≥ 0.2 and n ≥ 30 is ดีสุด', () => {
+    const l = whatIfLines({ current: row(-0.87, null), hold_10: row(0.59, 1.49), tp_5: row(0.32, 1.2), sl_3: row(-0.61, 0.26) });
+    expect(l.filter(x => x.best).map(x => x.key)).toEqual(['hold_10']);
+  });
+  it('exactly 0.2 counts, 0.19 does not', () => {
+    expect(whatIfLines({ current: row(0, null), hold_5: row(0.2, 0.2) }).some(x => x.best)).toBe(true);
+    expect(whatIfLines({ current: row(0, null), hold_5: row(0.19, 0.19) }).some(x => x.best)).toBe(false);
+  });
+  it('n < 30 never gets the badge and is flagged as a small sample', () => {
+    const l = whatIfLines({ current: row(1, null, 25), hold_20: row(6.42, 2.89, 22), hold_10: row(2, 0.3, 30) });
+    const h20 = l.find(x => x.key === 'hold_20')!;
+    expect([h20.best, h20.lowSample]).toEqual([false, true]);
+    // next best (n = 30) gets it instead
+    expect(l.find(x => x.key === 'hold_10')!.best).toBe(true);
+  });
+  it('a different-set row (exit_on_drop) never gets ดีสุด even with a big diff', () => {
+    const l = whatIfLines({ current: row(0, null), exit_on_drop: row(3, 3, 900, { different_set: true }), hold_5: row(0.5, 0.5) });
+    expect(l.find(x => x.key === 'exit_on_drop')!.differentSet).toBe(true);
+    expect(l.filter(x => x.best).map(x => x.key)).toEqual(['hold_5']);
+  });
+  it('old file without diff_pct: no diff, no badge', () => {
+    const l = whatIfLines({ current: { n: 100, avg_return_pct: 0, win_rate_pct: 40 }, hold_5: { n: 100, avg_return_pct: 2, win_rate_pct: 50 } });
+    expect(l[1].diff).toBeNull();
+    expect(l.some(x => x.best)).toBe(false);
   });
   it('missing what_if', () => expect(whatIfLines(undefined)).toEqual([]));
 });

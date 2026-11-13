@@ -137,6 +137,12 @@ function TickerChip({ entry, occurrenceCount }: { entry: BestWorstEntry; occurre
 function ExitTag({ s }: { s: SetupEntry }) {
   const reason = s.exit_reason ?? (s.status === 'open' ? 'open' : s.holding_days === 0 ? 'single_day' : 'left_scan');
   const out = openDaysOut(s);
+  if (s.excluded_outlier)
+    return (
+      <span title="ผลเกิน ±40% และมีวันไม่มีการซื้อขายระหว่างถือ ราคาไม่ใช่ราคาที่ซื้อขายได้จริง จึงไม่นับในตัวเลขสรุป" className={`px-2 py-0.5 rounded ${TS.caption} font-semibold bg-[#E24B4A]/10 text-[#f07a79] border border-[#E24B4A]/30 whitespace-nowrap`}>
+        ตัดออก: ผิดปกติ
+      </span>
+    );
   if (reason === 'open' && out > 0)
     return (
       <span title="หลุดสแกนแล้วแต่ยังไม่ครบ 5 วันทำการ ไม้ยังไม่จบ" className={`px-2 py-0.5 rounded ${TS.caption} font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/25 whitespace-nowrap`}>

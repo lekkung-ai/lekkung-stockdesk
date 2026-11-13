@@ -17,8 +17,10 @@ export const GRADE_RULES = {
   smallSample: 30,
   /** monthly bars with fewer setups than this are drawn faded */
   monthFaintN: 10,
-  /** a what-if row must beat the current rule by at least this many points to be marked "ดีสุด" */
+  /** a what-if row must beat the current rule (on the same setups) by at least this many points to be marked "ดีสุด" */
   whatIfBestMin: 0.2,
+  /** ...and have at least this many setups; fewer -> faded numbers + "ตัวอย่างน้อย", never ดีสุด */
+  whatIfMinN: 30,
 } as const;
 
 export interface ScanGrade {
@@ -118,23 +120,40 @@ export const WHAT_IF_LABEL: Record<WhatIfKey, string> = {
 export interface WhatIfLine extends WhatIfRow {
   key: WhatIfKey;
   label: string;
-  /** avg − current avg (null for the current row or when either is missing) */
+  /** diff_pct from the script: avg − the main rule on the SAME setups (null for the current row / an old file) */
   diff: number | null;
+  /** the main rule's average on the same setups as this row */
+  sameAvg: number | null;
+  /** fewer than GRADE_RULES.whatIfMinN setups */
+  lowSample: boolean;
+  /** exit_on_drop: its own setups, not comparable setup by setup */
+  differentSet: boolean;
   best: boolean;
 }
 
-/** Rows in WHAT_IF_ORDER; only the single best row that beats "current" by ≥ whatIfBestMin gets best. */
+/**
+ * Rows in WHAT_IF_ORDER. "ดีสุด" goes to the single row with the biggest diff_pct when that diff is
+ * ≥ whatIfBestMin and n ≥ whatIfMinN. A row on a different set of setups (exit_on_drop) never gets it.
+ */
 export function whatIfLines(whatIf: ScanReport['what_if']): WhatIfLine[] {
   if (!whatIf) return [];
-  const cur = whatIf.current?.avg_return_pct;
   const lines: WhatIfLine[] = WHAT_IF_ORDER.filter(k => whatIf[k]).map(k => {
     const r = whatIf[k]!;
-    const diff = k !== 'current' && isNum(cur) && isNum(r.avg_return_pct) ? r.avg_return_pct - cur : null;
-    return { ...r, key: k, label: WHAT_IF_LABEL[k], diff, best: false };
+    return {
+      ...r,
+      key: k,
+      label: WHAT_IF_LABEL[k],
+      diff: k !== 'current' && isNum(r.diff_pct) ? r.diff_pct : null,
+      sameAvg: isNum(r.current_same_avg_pct) ? r.current_same_avg_pct : null,
+      lowSample: r.n < GRADE_RULES.whatIfMinN,
+      differentSet: r.different_set === true,
+      best: false,
+    };
   });
   let best: WhatIfLine | null = null;
   for (const l of lines) {
-    if (l.diff != null && l.n > 0 && l.diff >= GRADE_RULES.whatIfBestMin - 1e-9 && (!best || l.diff > best.diff!)) best = l;
+    if (l.diff == null || l.lowSample || l.differentSet) continue;
+    if (l.diff >= GRADE_RULES.whatIfBestMin - 1e-9 && (!best || l.diff > best.diff!)) best = l;
   }
   if (best) best.best = true;
   return lines;

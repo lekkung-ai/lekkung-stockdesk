@@ -80,6 +80,8 @@ export interface SetupEntry {
   first_hit?: string;
   last_hit?: string;
   n_hits?: number;
+  /** v4: closed setup that fails the outlier guard (>40% and a no-trade day while held): listed, but in no number */
+  excluded_outlier?: boolean;
   // v3 (2026-11-13): the main exit is the 5th out day; the old next-day exit is kept
   // as *_drop for reference only (it needs future data) - never shown as a main number
   exit_date_drop?: string;
@@ -115,6 +117,8 @@ export interface SetupSummary {
   n_closed: number;
   n_open: number;
   n_pending?: number; // open setups that are out of the scan 1-4 days
+  n_excluded_outlier?: number;
+  excluded_outliers?: ExcludedOutlier[];
   avg_return_pct: number | null;
   win_rate_pct: number | null;
   avg_holding_days: number | null;
@@ -143,6 +147,20 @@ export interface WhatIfRow {
   n: number;
   avg_return_pct: number | null;
   win_rate_pct: number | null;
+  // v4: the main rule on exactly the setups this row has a value for
+  current_same_avg_pct?: number | null;
+  current_same_win_pct?: number | null;
+  diff_pct?: number | null;
+  /** exit_on_drop cuts its own setups: compared with the whole main set, not setup by setup */
+  different_set?: boolean;
+}
+
+export interface ExcludedOutlier {
+  ticker: string;
+  entry_date: string;
+  exit_date: string;
+  return_pct: number;
+  reason: string;
 }
 
 export type WhatIfKey = 'current' | 'exit_on_drop' | 'hold_5' | 'hold_10' | 'hold_20' | 'tp_3' | 'tp_5' | 'sl_3';

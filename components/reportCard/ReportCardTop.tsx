@@ -192,6 +192,13 @@ function ProfitCard({ sum, g }: { sum: SetupSummary; g: ScanGrade }) {
           </div>
         </>
       )}
+      {(sum.n_excluded_outlier ?? 0) > 0 && (
+        <p className={`${TS.caption} text-white/40 mt-2.5`}>
+          ไม่นับ {fmtInt(sum.n_excluded_outlier!)} ไม้ผิดปกติ
+          {sum.excluded_outliers?.length ? ` เช่น ${sum.excluded_outliers.slice(0, 2).map(o => o.ticker).join(', ')}` : ''}
+          {' '}(ผลเกิน ±40% และมีวันไม่มีการซื้อขายระหว่างถือ)
+        </p>
+      )}
       {be != null && ws != null && (
         <>
           <div className="relative h-7 mt-5" aria-hidden="true">
@@ -440,26 +447,35 @@ function WhatIfTable({ scan }: { scan: ScanReport }) {
     <div className={`${CARD} p-5 min-w-0`}>
       <h2 className={`${TS.sectionTitle} text-white`}>ถ้าเปลี่ยนวิธีขาย ผลจะเป็นยังไง</h2>
       <p className={`${SUB} mt-0.5`}>เทียบกฎขายแบบต่าง ๆ กับไม้ที่ปิดแล้วชุดเดียวกัน ราคาเข้าเดียวกัน เพื่อบอกว่าควรปรับตรงไหน</p>
+      <p className={`${TS.caption} text-white/55 mt-1`}>เทียบกับกฎตอนนี้บนไม้ชุดเดียวกัน</p>
       <div className="overflow-x-auto mt-2">
         <table className="w-full max-w-[860px]">
           <thead>
             <tr className="border-b border-white/[0.07]">
               <th className={TH}>กฎขาย</th><th className={TH}>ผลเฉลี่ย</th><th className={TH}>ไม้ที่กำไร</th>
+              <th className={`${TH} hidden md:table-cell`}>กฎตอนนี้ บนไม้ชุดเดียวกัน</th>
               <th className={`${TH} hidden sm:table-cell`}>เทียบกับตอนนี้</th>
             </tr>
           </thead>
           <tbody>
             {lines.map(l => (
-              <tr key={l.key} className={`border-b border-white/[0.05] ${l.key === 'current' ? 'bg-white/[0.03]' : ''}`}>
+              <tr key={l.key} className={`border-b border-white/[0.05] ${l.key === 'current' ? 'bg-white/[0.03]' : ''} ${l.lowSample ? 'opacity-55' : ''}`}>
                 <td className={`${TD} !whitespace-normal`}>
                   <span className={l.key === 'current' ? 'text-white font-semibold' : 'text-white/80'}>{l.label}</span>
                   {l.n !== nCur && <span className={`${TS.caption} text-white/40 ml-1.5`}>({fmtInt(l.n)} ไม้)</span>}
+                  {l.differentSet && (
+                    <span className={`${TS.caption} text-white/40 ml-1.5`} title="ไม้คนละชุดกับกฎหลัก (ถ้ากลับมาติดสแกนนับเป็นไม้ใหม่) เทียบกับค่าหลักทั้งชุด">· ไม้คนละชุด</span>
+                  )}
+                  {l.lowSample && l.key !== 'current' && (
+                    <span className={`${TS.caption} ml-1.5 px-1.5 rounded-full border border-white/[0.14] text-white/55 whitespace-nowrap`}>ตัวอย่างน้อย</span>
+                  )}
                   {l.best && (
                     <span className={`${TS.caption} ml-2 px-1.5 rounded-full border border-[#1D9E75]/50 text-[#3fd39b] whitespace-nowrap`}>ดีสุด</span>
                   )}
                 </td>
                 <td className={TD}><Num v={l.avg_return_pct} /></td>
                 <td className={`${TD} text-white/75`}>{isNum(l.win_rate_pct) ? `${l.win_rate_pct.toFixed(0)}%` : '—'}</td>
+                <td className={`${TD} hidden md:table-cell`}>{l.key === 'current' || l.sameAvg == null ? <span className="text-white/30">–</span> : <Num v={l.sameAvg} />}</td>
                 <td className={`${TD} hidden sm:table-cell`}>{l.diff == null ? <span className="text-white/30">–</span> : <Num v={l.diff} />}</td>
               </tr>
             ))}
@@ -467,8 +483,9 @@ function WhatIfTable({ scan }: { scan: ScanReport }) {
         </table>
       </div>
       <p className={`${TS.caption} text-white/40 mt-2.5 leading-relaxed ${READABLE}`}>
-        ไม้ที่ยังไม่จบไม่นับ · &ldquo;ขายทันทีที่หลุดสแกน&rdquo; ขายราคาปิดวันแรกที่หลุด ถ้ากลับมาติดนับเป็นไม้ใหม่ จำนวนไม้จึงต่างจากชุดหลัก
-        · &ldquo;ถือตายตัว&rdquo; นับ N วันทำการจากวันเข้าซื้อของไม้ ไม้ที่ยังมีข้อมูลไม่ครบ N วันไม่นับ
+        ไม้ที่ยังไม่จบไม่นับ · &ldquo;เทียบกับตอนนี้&rdquo; = ผลของกฎนั้น ลบ ผลของกฎตอนนี้ บนไม้ชุดเดียวกันพอดี (ไม้ที่ข้อมูลยังไม่ครบ N วันตัดออกทั้งสองฝั่ง)
+        · &ldquo;ขายทันทีที่หลุดสแกน&rdquo; ขายราคาปิดวันแรกที่หลุด ถ้ากลับมาติดนับเป็นไม้ใหม่ จึงเป็นไม้คนละชุด เทียบกับค่าหลักทั้งชุดและไม่ได้ป้าย ดีสุด
+        · &ldquo;ถือตายตัว&rdquo; นับ N วันทำการจากวันเข้าซื้อของไม้ · แถวที่ไม้น้อยกว่า 30 ไม่ได้ป้าย ดีสุด
         · ขายทำกำไร/คัทขาดทุน ดูราคาสูง/ต่ำระหว่างวันตั้งแต่วันหลังวันเข้าซื้อ แตะแล้วขายที่ระดับนั้น ไม่แตะขายตามกฎหลัก
         · ผลย้อนหลังใช้ดูทิศทาง ไม่ใช่รับประกันอนาคต
       </p>
@@ -484,6 +501,7 @@ function MethodBox({ scan, sum, nSetups }: { scan: ScanReport; sum: SetupSummary
     [nSetups, 'รวมเป็นไม้'],
     [sum.n_closed, 'ปิดแล้ว'],
     [sum.n_open, 'ยังถือ'],
+    ...((sum.n_excluded_outlier ?? 0) > 0 ? ([[sum.n_excluded_outlier!, 'ตัดออก (ผิดปกติ)']] as [number, string][]) : []),
   ];
   const r = GRADE_RULES;
   return (
@@ -518,7 +536,20 @@ function MethodBox({ scan, sum, nSetups }: { scan: ScanReport; sum: SetupSummary
         <dt className="text-white font-medium">ตัวอย่างน้อย</dt>
         <dd className="text-white/60">ไม้ที่ปิดแล้วน้อยกว่า {r.smallSample} ไม้ · แท่งรายเดือนที่จางคือเดือนที่มีไม้น้อยกว่า {r.monthFaintN} ไม้</dd>
         <dt className="text-white font-medium">ดีสุด (ตารางเปลี่ยนวิธีขาย)</dt>
-        <dd className="text-white/60">แถวที่ผลเฉลี่ยดีกว่าตอนนี้อย่างน้อย {r.whatIfBestMin} จุด เฉพาะอันดับ 1</dd>
+        <dd className="text-white/60">
+          แถวที่ผลเฉลี่ยดีกว่ากฎตอนนี้บนไม้ชุดเดียวกันอย่างน้อย {r.whatIfBestMin} จุด และมีไม้ตั้งแต่ {r.whatIfMinN} ไม้ขึ้นไป เฉพาะอันดับ 1 ·
+          &ldquo;ขายทันทีที่หลุด&rdquo; เป็นไม้คนละชุด จึงไม่ได้ป้ายนี้
+        </dd>
+        <dt className="text-white font-medium">ไม้ผิดปกติ</dt>
+        <dd className="text-white/60">
+          ไม้ที่ปิดแล้ว ผลเกิน ±40% และมีวันที่ไม่มีการซื้อขายเลยระหว่างถือ (เกณฑ์เดียวกับตาราง D+N) ราคาที่ใช้คำนวณไม่ใช่ราคาที่ซื้อขายได้จริง
+          จึงไม่นับในตัวเลขสรุป กราฟ และตารางเปลี่ยนวิธีขาย แต่ยังอยู่ในรายการไม้พร้อมป้าย &ldquo;ตัดออก: ผิดปกติ&rdquo;
+          {(scan.setup_summary?.excluded_outliers?.length ?? 0) > 0 && (
+            <>
+              {' '}ตอนนี้มี {scan.setup_summary!.excluded_outliers!.map(o => `${o.ticker} (${fmtShortDate(o.entry_date)} ${fmtPct(o.return_pct, 0)})`).join(', ')}
+            </>
+          )}
+        </dd>
       </dl>
     </details>
   );
