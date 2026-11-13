@@ -386,6 +386,11 @@ def compute_setups(hitDates, series, valid_scan_dates=None):
             continue
 
         mfe, mae = _mfe_mae(series, entry_i, exit_i, entry_p)
+        what_if = None
+        if closed:
+            what_if = {f"hold_{n}": hold_return(series, entry_i, n, entry_p) for n in WHAT_IF_HOLDS}
+            for key, tp, sl in WHAT_IF_LEVELS:
+                what_if[key] = simulate_exit(series, entry_i, exit_i, entry_p, tp_pct=tp, sl_pct=sl)
 
         seg = series[entry_i : exit_i + 1]
         closes_seg = [x[1] for x in seg if len(x) > 1 and x[1] is not None and math.isfinite(x[1])]
@@ -422,8 +427,129 @@ def compute_setups(hitDates, series, valid_scan_dates=None):
             "exit_price_drop": round(drop_p, 2),
             "holding_days_drop": drop_i - entry_i,
             "return_pct_drop": round(ret_drop, 2),
+            "_what_if": what_if,
         })
     return out
+
+
+# ---------------------------------------------------------------------------
+# "ถ้าเปลี่ยนวิธีขาย" - other exit rules on the same closed setups (same entry).
+# ---------------------------------------------------------------------------
+
+WHAT_IF_HOLDS = (5, 10, 20)
+# (key, take-profit %, stop-loss %) - a level is touched by the day's high/low,
+# sold at that level; never touched -> the main exit (5th out day).
+WHAT_IF_LEVELS = (("tp_3", 3.0, None), ("tp_5", 5.0, None), ("sl_3", None, 3.0))
+WHAT_IF_KEYS = ("current", "exit_on_drop", "hold_5", "hold_10", "hold_20", "tp_3", "tp_5", "sl_3")
+
+
+def hold_return(series, entry_i, n, entry_p):
+    """Close n trading days after the entry day vs entry, or None (not enough data yet)."""
+    i = entry_i + n
+    if i >= len(series):
+        return None
+    c = series[i][1]
+    if c is None or not math.isfinite(c):
+        return None
+    r = (c / entry_p - 1.0) * 100.0
+    return r if math.isfinite(r) else None
+
+
+def simulate_exit(series, entry_i, exit_i, entry_p, tp_pct=None, sl_pct=None):
+    """Walk the days AFTER the entry day up to exit_i. The first day whose low
+    touches entry*(1-sl) or whose high touches entry*(1+tp) sells at that level.
+    Both on the same day -> the stop (conservative). Neither -> close at exit_i."""
+    tp_px = entry_p * (1 + tp_pct / 100.0) if tp_pct is not None else None
+    sl_px = entry_p * (1 - sl_pct / 100.0) if sl_pct is not None else None
+    for i in range(entry_i + 1, exit_i + 1):
+        row = series[i]
+        hi = row[3] if len(row) > 3 else None
+        lo = row[4] if len(row) > 4 else None
+        if sl_px is not None and lo is not None and math.isfinite(lo) and lo <= sl_px:
+            return -sl_pct
+        if tp_px is not None and hi is not None and math.isfinite(hi) and hi >= tp_px:
+            return tp_pct
+    c = series[exit_i][1]
+    r = (c / entry_p - 1.0) * 100.0
+    return r if math.isfinite(r) else None
+
+
+def exit_on_drop_returns(hit_dates, series, calendar):
+    """Returns of the "sell as soon as it leaves the scan" rule. Its own setups:
+    a run of consecutive scan days (any day out ends it, coming back = a new
+    setup); entry = close the day after the first hit, exit = close on the first
+    day out. Runs still in the scan on the last day are not counted."""
+    if not hit_dates or not series:
+        return []
+    date_to_idx = {r[0]: i for i, r in enumerate(series)}
+    sdates = [r[0] for r in series]
+    out = []
+    for st in split_setups(hit_dates, sorted(calendar), gap=1):
+        if st["status"] != "closed":
+            continue
+        fi = date_to_idx.get(st["start"])
+        if fi is None or fi + 1 >= len(series):
+            continue
+        entry_i = fi + 1
+        entry_p = series[entry_i][1]
+        xi = _idx_on_or_before(sdates, st["closed_on"])
+        if xi is None or not entry_p or entry_p <= 0:
+            continue
+        xi = max(xi, entry_i)
+        r = (series[xi][1] / entry_p - 1.0) * 100.0
+        if math.isfinite(r):
+            out.append(r)
+    return out
+
+
+def what_if_row(returns):
+    vals = [r for r in returns if _finite(r)]
+    return {
+        "n": len(vals),
+        "avg_return_pct": _r2(_mean(vals)),
+        "win_rate_pct": _r2(_win_rate(vals)),
+    }
+
+
+def what_if_summary(setups, drop_returns):
+    """{rule: {n, avg_return_pct, win_rate_pct}} over the CLOSED setups."""
+    closed = [s for s in setups if s.get("status") == "closed" and _finite(s.get("return_pct"))]
+    out = {"current": what_if_row([s["return_pct"] for s in closed]),
+           "exit_on_drop": what_if_row(drop_returns)}
+    for key in WHAT_IF_KEYS[2:]:
+        out[key] = what_if_row([(s.get("_what_if") or {}).get(key) for s in closed])
+    return out
+
+
+RECENT_CLOSED_N = 8
+BEST_WORST_N = 3
+LAST_DAYS = 30
+
+
+def _brief(s):
+    return {k: s.get(k) for k in ("ticker", "entry_date", "exit_date", "holding_days", "return_pct",
+                                  "mfe_pct", "exit_reason")}
+
+
+def closed_highlights(setups, last_day):
+    """recent_closed (latest exits first), best3 / worst3 (single-day setups left
+    out) and last30 (setups that closed within LAST_DAYS calendar days of last_day)."""
+    closed = [s for s in setups if s.get("status") == "closed" and _finite(s.get("return_pct"))]
+    recent = sorted(closed, key=lambda s: (s["exit_date"], s["entry_date"], s["ticker"]), reverse=True)
+    multi = [s for s in closed if not is_single_day(s)]
+    ranked = sorted(multi, key=lambda s: (s["return_pct"], s["entry_date"], s["ticker"]))
+    best = [s for s in ranked[::-1] if s["return_pct"] > 0][:BEST_WORST_N]
+    worst = [s for s in ranked if s["return_pct"] < 0][:BEST_WORST_N]
+    since = (date.fromisoformat(last_day) - timedelta(days=LAST_DAYS)).isoformat() if last_day else None
+    last = [s["return_pct"] for s in closed if since and s["exit_date"] > since]
+    n_win, n_flat, n_loss = win_flat_loss(last)
+    return {
+        "recent_closed": [_brief(s) for s in recent[:RECENT_CLOSED_N]],
+        "best3": [_brief(s) for s in best],
+        "worst3": [_brief(s) for s in worst],
+        "last30": {"days": LAST_DAYS, "since": since, "n": len(last), "avg_return_pct": _r2(_mean(last)),
+                   "n_win": n_win, "n_flat": n_flat, "n_loss": n_loss},
+    }
 
 
 def summarize_setups(all_setups):
@@ -553,7 +679,7 @@ def _finite(v):
 
 
 def _r2(v):
-    return round(v, 2) if _finite(v) else None
+    return round(v, 2) + 0.0 if _finite(v) else None  # + 0.0 turns -0.0 into 0.0
 
 
 def _mean(values):
@@ -859,6 +985,7 @@ def main(argv=None):
 
         # Compute setup-based history for this scan
         scan_setups = []
+        drop_returns = []
         for ticker, hit_dates in ticker_hits:
             if not ticker or not hit_dates:
                 continue
@@ -866,12 +993,16 @@ def main(argv=None):
             if not series:
                 continue
             t_setups = compute_setups(hit_dates, series, valid_scan_dates=cal)
+            drop_returns += exit_on_drop_returns(hit_dates, series, cal)
             for st in t_setups:
                 st["stage_at_entry"] = stage_on(stage_lookup, ticker, st["entry_date"])
                 st["exit_reason"] = exit_reason(st)
                 scan_setups.append({"ticker": ticker, **st})
 
         scan_setups.sort(key=lambda s: (s["entry_date"], s["ticker"]))
+        what_if = what_if_summary(scan_setups, drop_returns)
+        for st in scan_setups:
+            st.pop("_what_if", None)
 
         result_scans[scan_key] = {
             "total_picks": len(entries),
@@ -883,6 +1014,8 @@ def main(argv=None):
                 **summarize_setups(scan_setups),
                 **setup_extras(scan_setups, stage_available=stage_lookup is not None),
             },
+            "what_if": what_if,
+            **closed_highlights(scan_setups, cal[-1] if cal else None),
         }
         n5 = result_scans[scan_key]["horizons"]["5"]["n"]
         n_closed = result_scans[scan_key]["setup_summary"]["n_closed"]
@@ -915,6 +1048,12 @@ def main(argv=None):
                 f"ราคาขาย = ราคาปิดวันที่หลุดสแกนครบ {SETUP_GAP_DAYS} วัน (วันแรกที่รู้ว่าไม้จบ) · "
                 "exit_price_drop = ราคาปิดวันถัดจากวันสุดท้ายที่ติดสแกน (เก็บไว้อ้างอิง ต้องรู้อนาคตจึงใช้จริงไม่ได้) · "
                 "MFE/MAE นับราคาสูง/ต่ำตั้งแต่วันหลังวันเข้าซื้อถึงวันขาย"
+            ),
+            "what_if": (
+                "เทียบวิธีขายแบบอื่นกับไม้ที่ปิดแล้วชุดเดียวกัน ราคาเข้าเดียวกัน · hold_N = ราคาปิดวันที่ N หลังวันเข้าซื้อ · "
+                "tp/sl = ราคาสูง/ต่ำระหว่างวันแตะระดับ ขายที่ระดับนั้น (ไม่นับวันเข้าซื้อ · แตะทั้งคู่วันเดียวถือว่าโดนคัท) "
+                "ไม่แตะ = ขายตามกฎหลัก · exit_on_drop = ขายราคาปิดวันแรกที่หลุดสแกน กลับมาติด = ไม้ใหม่ (จำนวนไม้ต่างจากชุดหลัก) · "
+                "ไม้ที่ยังไม่จบไม่นับ"
             ),
             "win_flat_loss": "ชนะ = ผลตอบแทน > 0 · เสมอ = ราคาออกเท่าราคาเข้า · แพ้ = ผลตอบแทน < 0 · win rate = ชนะ ÷ ทั้งหมด (นับเสมอในตัวหาร)",
             "outlier_guard": (

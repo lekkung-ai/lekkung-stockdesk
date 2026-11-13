@@ -19,7 +19,13 @@ from calculate_report_card import (  # noqa: E402
     STAGE_NO_DATA,
     STAGE_ORDER,
     build_date_index,
+    closed_highlights,
     compute_setups,
+    exit_on_drop_returns,
+    hold_return,
+    scan_range_of,
+    simulate_exit,
+    what_if_summary,
     drop_dates,
     drop_guard_ok,
     exit_reason,
@@ -368,6 +374,109 @@ class FormulaVersionGuardTest(unittest.TestCase):
     def test_version_3_vs_2_is_a_formula_change(self):
         self.assertTrue(drop_guard_ok(self.rep(60, 50, 3), self.rep(100, 50, 2))[0])
         self.assertFalse(drop_guard_ok(self.rep(60, 50, 3), self.rep(100, 50, 3))[0])
+
+
+class SimulateExitTest(unittest.TestCase):
+    # entry at index 0, close 10
+    def ser(self, *bars):
+        return [bar("2026-09-01", 10.0, 10.0, 10.0)] + [bar(f"2026-09-{i + 2:02d}", c, h, l) for i, (c, h, l) in enumerate(bars)]
+
+    def test_take_profit_touched(self):
+        series = self.ser((10.1, 10.2, 9.9), (10.2, 10.35, 10.0), (9.0, 9.0, 8.0))
+        self.assertEqual(simulate_exit(series, 0, 3, 10.0, tp_pct=3.0), 3.0)
+
+    def test_stop_touched(self):
+        series = self.ser((10.0, 10.1, 9.69), (12.0, 12.0, 11.0))
+        self.assertEqual(simulate_exit(series, 0, 2, 10.0, sl_pct=3.0), -3.0)
+
+    def test_both_on_the_same_day_is_the_stop(self):
+        series = self.ser((10.0, 10.6, 9.6))
+        self.assertEqual(simulate_exit(series, 0, 1, 10.0, tp_pct=5.0, sl_pct=3.0), -3.0)
+
+    def test_not_touched_sells_at_the_main_exit(self):
+        series = self.ser((10.1, 10.2, 9.9), (10.2, 10.25, 10.0))
+        self.assertAlmostEqual(simulate_exit(series, 0, 2, 10.0, tp_pct=3.0, sl_pct=3.0), 2.0)
+
+    def test_entry_day_is_not_counted(self):
+        series = self.ser((10.1, 10.2, 9.9))
+        series[0] = bar("2026-09-01", 10.0, 12.0, 8.0)  # entry day touches both - ignored
+        self.assertAlmostEqual(simulate_exit(series, 0, 1, 10.0, tp_pct=3.0, sl_pct=3.0), 1.0)
+
+    def test_hold_n(self):
+        series = self.ser((11.0, 11, 11), (12.0, 12, 12))
+        self.assertAlmostEqual(hold_return(series, 0, 2, 10.0), 20.0)
+        self.assertIsNone(hold_return(series, 0, 5, 10.0))
+
+
+class WhatIfTest(unittest.TestCase):
+    def test_rows_use_the_same_closed_setups(self):
+        days = wd(30)
+        # rises 1%/day; hit days 0..2, then out -> closes on days[7]
+        series = [bar(d, 10.0 * (1 + 0.01 * i), 10.0 * (1 + 0.01 * i) + 0.05, 10.0 * (1 + 0.01 * i) - 0.05)
+                  for i, d in enumerate(days)]
+        setups = compute_setups(days[:3], series, valid_scan_dates=days)
+        setups += compute_setups(days[25:30], series, valid_scan_dates=days)  # open at the end: not counted
+        wi = what_if_summary(setups, exit_on_drop_returns(days[:3], series, days))
+        self.assertEqual(wi["current"]["n"], 1)
+        self.assertEqual(wi["tp_3"], {"n": 1, "avg_return_pct": 3.0, "win_rate_pct": 100.0})
+        self.assertEqual(wi["sl_3"]["avg_return_pct"], wi["current"]["avg_return_pct"])  # stop never touched
+        self.assertEqual(wi["hold_5"]["n"], 1)
+        self.assertEqual(wi["exit_on_drop"]["n"], 1)
+        self.assertEqual(set(wi), {"current", "exit_on_drop", "hold_5", "hold_10", "hold_20", "tp_3", "tp_5", "sl_3"})
+
+    def test_exit_on_drop_counts_a_new_setup_after_each_drop(self):
+        days = wd(15)
+        series = [bar(d, 10.0 + i, 10.0 + i, 10.0 + i) for i, d in enumerate(days)]
+        # in on 0,1 | out 2 | in 3 | out 4.. -> two closed runs (main rule: one setup)
+        hits = [days[0], days[1], days[3]]
+        r = exit_on_drop_returns(hits, series, days)
+        self.assertEqual(len(r), 2)
+        self.assertAlmostEqual(r[0], (12.0 / 11.0 - 1) * 100)   # entry days[1], exit first out day days[2]
+        self.assertAlmostEqual(r[1], (14.0 / 14.0 - 1) * 100)   # entry days[4] = first out day
+        self.assertEqual(len(compute_setups(hits, series, valid_scan_dates=days)), 1)
+        # still in the scan on the last day -> not counted
+        self.assertEqual(exit_on_drop_returns(days[10:15], series, days), [])
+
+
+class HighlightsTest(unittest.TestCase):
+    def mk(self, t, entry, exit_, r, single=False):
+        return {"ticker": t, "entry_date": entry, "exit_date": exit_, "holding_days": 5, "return_pct": r,
+                "mfe_pct": 1.0, "exit_reason": "left_scan", "status": "closed",
+                "first_hit": entry, "last_hit": entry if single else "2026-12-31"}
+
+    def test_recent_best_worst_last30(self):
+        rows = [self.mk(f"T{i}", f"2026-09-{i + 1:02d}", f"2026-10-{i + 1:02d}", float(i - 5)) for i in range(10)]
+        rows.append(self.mk("ONE", "2026-10-20", "2026-10-27", 50.0, single=True))
+        rows.append({**self.mk("OPEN", "2026-10-20", "2026-11-12", 99.0), "status": "open"})
+        h = closed_highlights(rows, "2026-11-12")
+        self.assertEqual(len(h["recent_closed"]), 8)
+        self.assertEqual(h["recent_closed"][0]["ticker"], "ONE")
+        self.assertNotIn("OPEN", [x["ticker"] for x in h["recent_closed"]])
+        self.assertEqual([x["ticker"] for x in h["best3"]], ["T9", "T8", "T7"])   # single-day left out
+        self.assertEqual([x["ticker"] for x in h["worst3"]], ["T0", "T1", "T2"])
+        # exits T0..T9 = 10-01..10-10 are before the 30-day line; only ONE (10-27) is inside
+        self.assertEqual(h["last30"]["since"], "2026-10-13")
+        self.assertEqual((h["last30"]["n"], h["last30"]["n_win"]), (1, 1))
+
+    def test_no_closed(self):
+        h = closed_highlights([], None)
+        self.assertEqual((h["recent_closed"], h["best3"], h["last30"]["n"]), ([], [], 0))
+
+
+class ScanRangeTest(unittest.TestCase):
+    def test_range_spans_all_scans(self):
+        r = scan_range_of({"a": {"scan_range": {"first_date": "2026-06-24", "last_date": "2026-11-12"}},
+                           "b": {"scan_range": {"first_date": "2026-07-01", "last_date": "2026-11-13"}},
+                           "c": {"scan_range": {"first_date": None, "last_date": None}}})
+        self.assertEqual(r, {"first_date": "2026-06-24", "last_date": "2026-11-13"})
+
+    def test_all_data_is_used(self):
+        # a setup from long ago is still listed (no 90-day window)
+        days = wd(150, "2026-01-05")
+        series = [bar(d, 10.0, 10.0, 10.0) for d in days]
+        out = compute_setups([days[0], days[140]], series, valid_scan_dates=days)
+        self.assertEqual(out[0]["first_hit"], days[0])
+        self.assertEqual(len(out), 2)
 
 
 if __name__ == "__main__":
