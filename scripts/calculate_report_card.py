@@ -238,6 +238,17 @@ def _has_volume_halt(series, entry_idx: int, exit_idx: int) -> bool:
     return False
 
 
+def is_outlier_return(series, entry_idx: int, exit_idx: int, ret_pct) -> bool:
+    """The D+N outlier_guard rule: |return| > OUTLIER_RETURN_THRESHOLD_PCT and a day
+    with no trading between entry and exit (halt / suspension), so the price used
+    is not one you could trade at."""
+    return (
+        ret_pct is not None and math.isfinite(ret_pct)
+        and abs(ret_pct) > OUTLIER_RETURN_THRESHOLD_PCT
+        and _has_volume_halt(series, entry_idx, exit_idx)
+    )
+
+
 def forward_return(series, date_index, signal_date: str, horizon: int):
     if signal_date not in date_index:
         return None, False
@@ -251,7 +262,7 @@ def forward_return(series, date_index, signal_date: str, horizon: int):
     if entry_price <= 0:
         return None, False
     ret = (exit_price / entry_price - 1.0) * 100.0
-    is_outlier = abs(ret) > OUTLIER_RETURN_THRESHOLD_PCT and _has_volume_halt(series, entry_idx, exit_idx)
+    is_outlier = is_outlier_return(series, entry_idx, exit_idx, ret)
     return ret, is_outlier
 
 
@@ -386,6 +397,7 @@ def compute_setups(hitDates, series, valid_scan_dates=None):
             continue
 
         mfe, mae = _mfe_mae(series, entry_i, exit_i, entry_p)
+        outlier = closed and is_outlier_return(series, entry_i, exit_i, ret_pct)
         what_if = None
         if closed:
             what_if = {f"hold_{n}": hold_return(series, entry_i, n, entry_p) for n in WHAT_IF_HOLDS}
@@ -427,6 +439,7 @@ def compute_setups(hitDates, series, valid_scan_dates=None):
             "exit_price_drop": round(drop_p, 2),
             "holding_days_drop": drop_i - entry_i,
             "return_pct_drop": round(ret_drop, 2),
+            **({"excluded_outlier": True} if outlier else {}),
             "_what_if": what_if,
         })
     return out
@@ -452,7 +465,9 @@ def hold_return(series, entry_i, n, entry_p):
     if c is None or not math.isfinite(c):
         return None
     r = (c / entry_p - 1.0) * 100.0
-    return r if math.isfinite(r) else None
+    if not math.isfinite(r) or is_outlier_return(series, entry_i, i, r):
+        return None
+    return r
 
 
 def simulate_exit(series, entry_i, exit_i, entry_p, tp_pct=None, sl_pct=None):
@@ -497,7 +512,7 @@ def exit_on_drop_returns(hit_dates, series, calendar):
             continue
         xi = max(xi, entry_i)
         r = (series[xi][1] / entry_p - 1.0) * 100.0
-        if math.isfinite(r):
+        if math.isfinite(r) and not is_outlier_return(series, entry_i, xi, r):
             out.append(r)
     return out
 
@@ -511,14 +526,52 @@ def what_if_row(returns):
     }
 
 
+def what_if_paired(pairs):
+    """pairs = [(main-rule return, this rule's return)] over the setups the rule
+    has a value for. The row is this rule's result; current_same_* is the main
+    rule on exactly those setups, and diff_pct = avg - current_same_avg."""
+    pairs = [(c, r) for c, r in pairs if _finite(c) and _finite(r)]
+    row = what_if_row([r for _, r in pairs])
+    same = what_if_row([c for c, _ in pairs])
+    avg = _mean([r for _, r in pairs])
+    cur = _mean([c for c, _ in pairs])
+    row["current_same_avg_pct"] = same["avg_return_pct"]
+    row["current_same_win_pct"] = same["win_rate_pct"]
+    row["diff_pct"] = _r2(avg - cur) if avg is not None and cur is not None else None
+    row["different_set"] = False
+    return row
+
+
 def what_if_summary(setups, drop_returns):
-    """{rule: {n, avg_return_pct, win_rate_pct}} over the CLOSED setups."""
-    closed = [s for s in setups if s.get("status") == "closed" and _finite(s.get("return_pct"))]
-    out = {"current": what_if_row([s["return_pct"] for s in closed]),
-           "exit_on_drop": what_if_row(drop_returns)}
+    """{rule: {n, avg_return_pct, win_rate_pct, current_same_avg_pct,
+    current_same_win_pct, diff_pct, different_set}} over the CLOSED, non-outlier setups.
+
+    A rule that has no value for some setups (hold_N before N days have passed)
+    is compared with the main rule on the same setups only. exit_on_drop cuts
+    its own setups (a comeback is a new one) so it cannot be matched setup by
+    setup: it is compared with the whole main set and flagged different_set."""
+    closed = [s for s in setups
+              if s.get("status") == "closed" and _finite(s.get("return_pct")) and not s.get("excluded_outlier")]
+    cur_all = what_if_row([s["return_pct"] for s in closed])
+    out = {"current": {**cur_all, "current_same_avg_pct": cur_all["avg_return_pct"],
+                       "current_same_win_pct": cur_all["win_rate_pct"], "diff_pct": None, "different_set": False}}
+    drop = what_if_row(drop_returns)
+    d_avg = drop["avg_return_pct"]
+    c_avg = cur_all["avg_return_pct"]
+    out["exit_on_drop"] = {**drop, "current_same_avg_pct": c_avg, "current_same_win_pct": cur_all["win_rate_pct"],
+                           "diff_pct": _r2(d_avg - c_avg) if d_avg is not None and c_avg is not None else None,
+                           "different_set": True}
     for key in WHAT_IF_KEYS[2:]:
-        out[key] = what_if_row([(s.get("_what_if") or {}).get(key) for s in closed])
+        out[key] = what_if_paired([(s["return_pct"], (s.get("_what_if") or {}).get(key)) for s in closed])
     return out
+
+
+def outlier_brief(s):
+    return {
+        "ticker": s["ticker"], "entry_date": s["entry_date"], "exit_date": s["exit_date"],
+        "return_pct": s["return_pct"],
+        "reason": f"ผลเกิน ±{OUTLIER_RETURN_THRESHOLD_PCT:.0f}% และมีวันที่ไม่มีการซื้อขายระหว่างถือ",
+    }
 
 
 RECENT_CLOSED_N = 8
@@ -813,7 +866,9 @@ DROP_GUARD_MAX_SHARE = 0.30
 # 1 = old rule (closed the day it left the scan, merged back within 5 days)
 # 2 = scan_setups.split_setups (ends after 5 scan days out), MFE from entry+1
 # 3 = exit on the 5th out day is the main number; all data (no 90-day window)
-SETUP_FORMULA_VERSION = 3
+# 4 = closed setups that fail the D+N outlier_guard are excluded from every number
+#     (still listed, tagged excluded_outlier); what_if rows carry same-set comparisons
+SETUP_FORMULA_VERSION = 4
 
 
 def total_setups(report):
@@ -1000,7 +1055,10 @@ def main(argv=None):
                 scan_setups.append({"ticker": ticker, **st})
 
         scan_setups.sort(key=lambda s: (s["entry_date"], s["ticker"]))
-        what_if = what_if_summary(scan_setups, drop_returns)
+        # outliers stay in the setup list (tagged) but are not in any number
+        counted = [s for s in scan_setups if not s.get("excluded_outlier")]
+        excluded = [s for s in scan_setups if s.get("excluded_outlier")]
+        what_if = what_if_summary(counted, drop_returns)
         for st in scan_setups:
             st.pop("_what_if", None)
 
@@ -1011,11 +1069,13 @@ def main(argv=None):
             "scan_range": {"first_date": cal[0] if cal else None, "last_date": cal[-1] if cal else None,
                            "n_days": len(cal)},
             "setup_summary": {
-                **summarize_setups(scan_setups),
-                **setup_extras(scan_setups, stage_available=stage_lookup is not None),
+                **summarize_setups(counted),
+                **setup_extras(counted, stage_available=stage_lookup is not None),
+                "n_excluded_outlier": len(excluded),
+                "excluded_outliers": [outlier_brief(s) for s in excluded],
             },
             "what_if": what_if,
-            **closed_highlights(scan_setups, cal[-1] if cal else None),
+            **closed_highlights(counted, cal[-1] if cal else None),
         }
         n5 = result_scans[scan_key]["horizons"]["5"]["n"]
         n_closed = result_scans[scan_key]["setup_summary"]["n_closed"]

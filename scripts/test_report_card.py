@@ -23,6 +23,8 @@ from calculate_report_card import (  # noqa: E402
     compute_setups,
     exit_on_drop_returns,
     hold_return,
+    is_outlier_return,
+    outlier_brief,
     scan_range_of,
     simulate_exit,
     what_if_summary,
@@ -418,11 +420,13 @@ class WhatIfTest(unittest.TestCase):
         setups += compute_setups(days[25:30], series, valid_scan_dates=days)  # open at the end: not counted
         wi = what_if_summary(setups, exit_on_drop_returns(days[:3], series, days))
         self.assertEqual(wi["current"]["n"], 1)
-        self.assertEqual(wi["tp_3"], {"n": 1, "avg_return_pct": 3.0, "win_rate_pct": 100.0})
+        self.assertEqual((wi["tp_3"]["n"], wi["tp_3"]["avg_return_pct"], wi["tp_3"]["win_rate_pct"]), (1, 3.0, 100.0))
         self.assertEqual(wi["sl_3"]["avg_return_pct"], wi["current"]["avg_return_pct"])  # stop never touched
         self.assertEqual(wi["hold_5"]["n"], 1)
         self.assertEqual(wi["exit_on_drop"]["n"], 1)
         self.assertEqual(set(wi), {"current", "exit_on_drop", "hold_5", "hold_10", "hold_20", "tp_3", "tp_5", "sl_3"})
+        for row in wi.values():
+            self.assertTrue({"current_same_avg_pct", "current_same_win_pct", "diff_pct", "different_set"} <= set(row))
 
     def test_exit_on_drop_counts_a_new_setup_after_each_drop(self):
         days = wd(15)
@@ -477,6 +481,102 @@ class ScanRangeTest(unittest.TestCase):
         out = compute_setups([days[0], days[140]], series, valid_scan_dates=days)
         self.assertEqual(out[0]["first_hit"], days[0])
         self.assertEqual(len(out), 2)
+
+
+def mk_setup(ret, what_if, **kw):
+    return {"status": "closed", "return_pct": ret, "_what_if": what_if, **kw}
+
+
+class SameSetWhatIfTest(unittest.TestCase):
+    def setUp(self):
+        # hold_20 exists only for the two OLDER setups; the main rule is much worse on those
+        self.setups = [
+            mk_setup(-2.0, {"hold_5": 1.0, "hold_10": 1.0, "hold_20": 4.0, "tp_3": 0.0, "tp_5": 0.0, "sl_3": 0.0}),
+            mk_setup(-4.0, {"hold_5": 0.0, "hold_10": 2.0, "hold_20": 2.0, "tp_3": 0.0, "tp_5": 0.0, "sl_3": 0.0}),
+            mk_setup(6.0, {"hold_5": 2.0, "hold_10": None, "hold_20": None, "tp_3": 3.0, "tp_5": 5.0, "sl_3": 6.0}),
+            mk_setup(8.0, {"hold_5": 3.0, "hold_10": None, "hold_20": None, "tp_3": 3.0, "tp_5": 5.0, "sl_3": 8.0}),
+        ]
+        self.wi = what_if_summary(self.setups, [1.0, -1.0, 3.0])
+
+    def test_current_is_the_whole_set(self):
+        c = self.wi["current"]
+        self.assertEqual((c["n"], c["avg_return_pct"], c["diff_pct"]), (4, 2.0, None))
+
+    def test_rule_on_a_subset_is_compared_on_that_subset(self):
+        h = self.wi["hold_20"]
+        self.assertEqual((h["n"], h["avg_return_pct"]), (2, 3.0))
+        self.assertEqual((h["current_same_avg_pct"], h["diff_pct"]), (-3.0, 6.0))   # not 2.0 / 1.0
+        self.assertEqual(h["different_set"], False)
+        h10 = self.wi["hold_10"]
+        self.assertEqual((h10["n"], h10["current_same_avg_pct"], h10["diff_pct"]), (2, -3.0, 4.5))
+
+    def test_full_set_rule(self):
+        t = self.wi["hold_5"]
+        self.assertEqual((t["n"], t["avg_return_pct"], t["current_same_avg_pct"], t["diff_pct"]), (4, 1.5, 2.0, -0.5))
+
+    def test_current_same_win_rate_uses_the_same_rows(self):
+        h = self.wi["hold_20"]
+        self.assertEqual((h["win_rate_pct"], h["current_same_win_pct"]), (100.0, 0.0))
+
+    def test_exit_on_drop_is_a_different_set_compared_with_the_whole(self):
+        d = self.wi["exit_on_drop"]
+        self.assertEqual((d["n"], d["different_set"]), (3, True))
+        self.assertEqual((d["current_same_avg_pct"], d["diff_pct"]), (2.0, round(1.0 - 2.0, 2)))
+
+    def test_outlier_setups_are_not_counted_anywhere_in_the_table(self):
+        extra = mk_setup(-75.0, {"hold_5": -75.0, "hold_10": -75.0, "hold_20": -75.0, "tp_3": -75.0, "tp_5": -75.0, "sl_3": -3.0},
+                         excluded_outlier=True)
+        wi = what_if_summary(self.setups + [extra], [])
+        self.assertEqual(wi["current"]["n"], 4)
+        self.assertEqual(wi["hold_5"]["avg_return_pct"], 1.5)
+
+
+class OutlierGuardTest(unittest.TestCase):
+    def series(self, closes, vols):
+        days = wd(len(closes))
+        return [(d, c, v, c, c) for d, c, v in zip(days, closes, vols)]
+
+    def test_rule(self):
+        ser = self.series([10, 10, 5, 5], [1, 1, 0, 1])
+        self.assertTrue(is_outlier_return(ser, 1, 3, -50.0))       # big move + a zero-volume day
+        self.assertFalse(is_outlier_return(ser, 1, 3, -39.9))      # not big enough
+        self.assertFalse(is_outlier_return(ser, 1, 3, 40.0))       # the rule is strictly more than 40
+        self.assertTrue(is_outlier_return(ser, 1, 3, 40.01))
+        self.assertFalse(is_outlier_return(self.series([10, 10, 5, 5], [1, 1, 1, 1]), 1, 3, -50.0))  # traded every day
+        self.assertFalse(is_outlier_return(ser, 0, 3, None))
+
+    def test_halt_outside_the_holding_window_does_not_count(self):
+        ser = self.series([10, 10, 10, 5, 5], [0, 1, 1, 1, 1])
+        self.assertFalse(is_outlier_return(ser, 1, 4, -50.0))
+
+    def test_setup_is_flagged_when_it_fails_the_guard(self):
+        days = wd(14)
+        closes = [10.0] * 3 + [5.0] * 11                     # -50% after entry
+        vols = [1.0] * 3 + [0.0] + [1.0] * 10                # a day with no trading while held
+        series = [(d, c, v, c, c) for d, c, v in zip(days, closes, vols)]
+        out = compute_setups([days[0]], series, valid_scan_dates=days)
+        self.assertEqual(len(out), 1)
+        self.assertTrue(out[0].get("excluded_outlier"))
+        self.assertEqual(out[0]["status"], "closed")
+
+    def test_big_move_that_traded_every_day_is_kept(self):
+        days = wd(14)
+        closes = [10.0] * 3 + [5.0] * 11
+        series = [(d, c, 1.0, c, c) for d, c in zip(days, closes)]
+        out = compute_setups([days[0]], series, valid_scan_dates=days)
+        self.assertNotIn("excluded_outlier", out[0])
+
+    def test_open_setups_are_never_excluded(self):
+        days = wd(6)
+        series = [(d, 10.0 if i < 3 else 5.0, 0.0 if i == 4 else 1.0, 5.0, 5.0) for i, d in enumerate(days)]
+        out = compute_setups(days[:4], series, valid_scan_dates=days)
+        self.assertEqual(out[0]["status"], "open")
+        self.assertNotIn("excluded_outlier", out[0])
+
+    def test_brief_has_the_reason(self):
+        b = outlier_brief({"ticker": "INGRS", "entry_date": "2026-10-01", "exit_date": "2026-10-09", "return_pct": -75.0})
+        self.assertEqual((b["ticker"], b["return_pct"]), ("INGRS", -75.0))
+        self.assertIn("40%", b["reason"])
 
 
 if __name__ == "__main__":
