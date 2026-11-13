@@ -43,6 +43,7 @@ Usage:
 """
 
 import argparse
+import bisect
 import csv
 import json
 import math
@@ -55,6 +56,7 @@ import urllib.request
 from datetime import date, datetime, timezone, timedelta
 
 from scan_calendar import valid_dates
+from scan_setups import SETUP_GAP_DAYS, history_dates, scan_calendar, split_setups
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -307,79 +309,83 @@ def summarize_horizon(rows):
     }
 
 
-def compute_setups(hitDates, series, valid_scan_dates=None):
-    """valid_scan_dates = เซ็ตวันที่สแกนตัวนี้ได้ผลออกมาจริง (ไฟล์ snapshot มีอยู่)
+def _idx_on_or_before(dates, day):
+    """Index of the last series date <= day, or None."""
+    i = bisect.bisect_right(dates, day) - 1
+    return i if i >= 0 else None
 
-    ถ้าส่งมา ช่องว่างระหว่าง hit จะนับเฉพาะวันทำการที่สแกน "ได้รันจริง" เท่านั้น
-    วันที่ pipeline ขาด (ไฟล์หาย) ไม่ถือเป็นวันที่หุ้นหลุดจากลิสต์ จึงไม่ควรกิน
-    โควตา GAP - ไม่งั้น pipeline ล่มยาว 5 วันทำการจะแตก setup ที่ยังถืออยู่ทิ้ง
-    แล้วสร้าง exit ปลอมขึ้นมาโดยที่หุ้นไม่ได้หลุดไปไหน
-    วันที่ไฟล์มีอยู่แต่หุ้นไม่อยู่ในลิสต์ = หลุดจริง ยังนับเป็น gap ตามเดิม
+
+def _mfe_mae(series, entry_i, exit_i, entry_p):
+    """Best high / worst low from the day AFTER entry to the exit day, vs the entry
+    close. The entry day's own high/low are not counted (the fill is at its close).
+    Held 0 days -> (0.0, 0.0)."""
+    if exit_i <= entry_i:
+        return 0.0, 0.0
+    seg = series[entry_i + 1 : exit_i + 1]
+    highs = [x[3] for x in seg if len(x) > 3 and x[3] is not None and math.isfinite(x[3])]
+    lows = [x[4] for x in seg if len(x) > 4 and x[4] is not None and math.isfinite(x[4])]
+    mfe = (max(highs) / entry_p - 1.0) * 100.0 if highs else None
+    mae = (min(lows) / entry_p - 1.0) * 100.0 if lows else None
+    if mfe is not None and not math.isfinite(mfe):
+        mfe = None
+    if mae is not None and not math.isfinite(mae):
+        mae = None
+    return mfe, mae
+
+
+def compute_setups(hitDates, series, valid_scan_dates=None):
+    """Setups of one ticker, split by scan_setups.split_setups (the shared rule:
+    a setup ends after SETUP_GAP_DAYS scan days out in a row; out 1-4 days it is
+    still open, with days_out = N).
+
+    valid_scan_dates: the scan's calendar (days the scan produced a file, minus
+    non-trading days). None -> every price date counts as a scan day.
+
+    Prices: entry = close of the day after the setup's first hit.
+      exit_price (ก, main)         = close of the day after the last hit
+      exit_price_confirmed (ข)     = close on the day the 5th out day is reached
+      open setups (incl. out 1-4)  = latest close for both (an estimate)
     """
     if not hitDates or not series:
         return []
     date_to_idx = {s[0]: i for i, s in enumerate(series)}
-    GAP = 5  # gap >= 5 trading days = แตก setup
+    sdates = [s[0] for s in series]
+    calendar = sorted(valid_scan_dates) if valid_scan_dates is not None else sdates
 
-    def gap_between(pi, ci):
-        if valid_scan_dates is None:
-            return ci - pi - 1
-        return sum(1 for k in range(pi + 1, ci) if series[k][0] in valid_scan_dates)
-
-    # 1. แบ่ง setup
-    setups_dates = []
-    cur = [hitDates[0]]
-    for prev, curr in zip(hitDates, hitDates[1:]):
-        pi = date_to_idx.get(prev)
-        ci = date_to_idx.get(curr)
-        gap = 99 if (pi is None or ci is None) else gap_between(pi, ci)
-        if gap >= GAP:
-            setups_dates.append(cur)
-            cur = [curr]
-        else:
-            cur.append(curr)
-    setups_dates.append(cur)
-
-    # 2. คำนวณต่อ setup
     out = []
-    for s in setups_dates:
-        first_hit, last_hit = s[0], s[-1]
-        fi = date_to_idx.get(first_hit)
+    for st in split_setups(hitDates, calendar):
+        fi = date_to_idx.get(st["start"])
         if fi is None or fi + 1 >= len(series):
             continue  # ไม่มี D+1
         entry_i = fi + 1
         entry_d, entry_p = series[entry_i][0], series[entry_i][1]
         if entry_p is None or entry_p <= 0 or not math.isfinite(entry_p):
             continue
-        li = date_to_idx.get(last_hit)
-        is_open = (last_hit == hitDates[-1] and last_hit == series[-1][0])
-        if is_open:
-            exit_i = len(series) - 1
-            status = "open"
-        else:
+        closed = st["status"] == "closed"
+        if closed:
+            li = _idx_on_or_before(sdates, st["last_hit"])
             exit_i = li + 1 if (li is not None and li + 1 < len(series)) else li
-            status = "closed"
-        if exit_i is None or exit_i >= len(series):
+            conf_i = _idx_on_or_before(sdates, st["closed_on"])
+        else:
+            exit_i = conf_i = len(series) - 1
+        if exit_i is None or conf_i is None:
             continue
+        exit_i = max(exit_i, entry_i)
+        conf_i = max(conf_i, entry_i)
         exit_d, exit_p = series[exit_i][0], series[exit_i][1]
-        if exit_p is None or not math.isfinite(exit_p):
+        conf_d, conf_p = series[conf_i][0], series[conf_i][1]
+        if exit_p is None or not math.isfinite(exit_p) or conf_p is None or not math.isfinite(conf_p):
             continue
 
         ret_pct = (exit_p / entry_p - 1.0) * 100.0
-        if not math.isfinite(ret_pct):
+        ret_conf = (conf_p / entry_p - 1.0) * 100.0
+        if not math.isfinite(ret_pct) or not math.isfinite(ret_conf):
             continue
 
+        mfe, mae = _mfe_mae(series, entry_i, exit_i, entry_p)
+        mfe_c, mae_c = _mfe_mae(series, entry_i, conf_i, entry_p)
+
         seg = series[entry_i : exit_i + 1]
-        highs = [x[3] for x in seg if len(x) > 3 and x[3] is not None and math.isfinite(x[3])]
-        lows = [x[4] for x in seg if len(x) > 4 and x[4] is not None and math.isfinite(x[4])]
-
-        mfe = (max(highs) / entry_p - 1.0) * 100.0 if highs else None
-        mae = (min(lows) / entry_p - 1.0) * 100.0 if lows else None
-        if mfe is not None and not math.isfinite(mfe):
-            mfe = None
-        if mae is not None and not math.isfinite(mae):
-            mae = None
-
         closes_seg = [x[1] for x in seg if len(x) > 1 and x[1] is not None and math.isfinite(x[1])]
         if len(closes_seg) >= 2:
             N = 10
@@ -404,8 +410,31 @@ def compute_setups(hitDates, series, valid_scan_dates=None):
             "mfe_pct": round(mfe, 2) if mfe is not None else None,
             "mae_pct": round(mae, 2) if mae is not None else None,
             "price_path": path,
-            "status": status,
+            "status": "closed" if closed else "open",
+            "days_out": st["days_out"],
+            "setup_seq": st["seq"],
+            "first_hit": st["start"],
+            "last_hit": st["last_hit"],
+            "exit_date_confirmed": conf_d,
+            "exit_price_confirmed": round(conf_p, 2),
+            "holding_days_confirmed": conf_i - entry_i,
+            "return_pct_confirmed": round(ret_conf, 2),
+            "mfe_pct_confirmed": round(mfe_c, 2) if mfe_c is not None else None,
+            "mae_pct_confirmed": round(mae_c, 2) if mae_c is not None else None,
         })
+    return out
+
+
+def confirmed_view(setups):
+    """The same setups with the (ข) exit (5th out day) swapped into the main
+    fields, so summarize_setups / setup_extras can build the (ข) summary."""
+    out = []
+    for s in setups:
+        c = dict(s)
+        for k in ("return_pct", "holding_days", "mfe_pct", "mae_pct", "exit_date", "exit_price"):
+            if f"{k}_confirmed" in s:
+                c[k] = s[f"{k}_confirmed"]
+        out.append(c)
     return out
 
 
@@ -413,11 +442,13 @@ def summarize_setups(all_setups):
     closed = [s for s in all_setups if s.get("status") == "closed"]
     n_closed = len(closed)
     n_open = sum(1 for s in all_setups if s.get("status") == "open")
+    n_pending = sum(1 for s in all_setups if s.get("status") == "open" and (s.get("days_out") or 0) >= 1)
 
     if n_closed == 0:
         return {
             "n_closed": 0,
             "n_open": n_open,
+            "n_pending": n_pending,
             "avg_return_pct": None,
             "win_rate_pct": None,
             "avg_holding_days": None,
@@ -442,6 +473,7 @@ def summarize_setups(all_setups):
     return {
         "n_closed": n_closed,
         "n_open": n_open,
+        "n_pending": n_pending,
         "avg_return_pct": round(avg_return, 2) if avg_return is not None and math.isfinite(avg_return) else None,
         "win_rate_pct": round(win_rate, 2) if win_rate is not None and math.isfinite(win_rate) else None,
         "avg_holding_days": round(avg_holding, 1) if avg_holding is not None and math.isfinite(avg_holding) else None,
@@ -655,6 +687,13 @@ def setup_extras(all_setups, stage_available=True):
 DROP_GUARD_MAX_SHARE = 0.30
 
 
+# Bump when the way setups are split/priced changes. The drop guard then compares
+# a formula-independent count (tickers with a setup) instead of the setup total.
+# 1 = old rule (closed the day it left the scan, merged back within 5 days)
+# 2 = scan_setups.split_setups (ends after 5 scan days out), MFE from entry+1
+SETUP_FORMULA_VERSION = 2
+
+
 def total_setups(report):
     if not isinstance(report, dict):
         return 0
@@ -662,10 +701,29 @@ def total_setups(report):
     return sum(len(s.get("setups") or []) for s in scans.values() if isinstance(s, dict))
 
 
+def total_setup_tickers(report):
+    """Distinct (scan, ticker) pairs with at least one setup - does not depend on
+    how a ticker's hits are split into setups."""
+    if not isinstance(report, dict):
+        return 0
+    scans = report.get("scans") or {}
+    return sum(
+        len({r.get("ticker") for r in (s.get("setups") or [])})
+        for s in scans.values() if isinstance(s, dict)
+    )
+
+
 def drop_guard_ok(new_report, prev_report):
-    """(ok, prev_total, new_total). ok is False when setups fell by > DROP_GUARD_MAX_SHARE."""
-    prev_total = total_setups(prev_report)
-    new_total = total_setups(new_report)
+    """(ok, prev_total, new_total). ok is False when the count fell by > DROP_GUARD_MAX_SHARE.
+    Same formula version -> counts setups. Different version (a formula change) ->
+    counts tickers with a setup, which a formula change should not move much."""
+    same_formula = (
+        isinstance(prev_report, dict)
+        and prev_report.get("setup_formula_version", 1) == (new_report or {}).get("setup_formula_version", 1)
+    )
+    count = total_setups if same_formula else total_setup_tickers
+    prev_total = count(prev_report)
+    new_total = count(new_report)
     if prev_total <= 0:
         return True, prev_total, new_total
     return new_total >= prev_total * (1 - DROP_GUARD_MAX_SHARE), prev_total, new_total
@@ -679,6 +737,17 @@ def write_json_atomic(path, obj):
     with open(tmp, "w", encoding="utf-8") as f:
         f.write(text)
     os.replace(tmp, path)
+
+
+def history_window_start(hist_data):
+    """First day of a *_history.json window (generatedAt - windowDays), or None."""
+    if not isinstance(hist_data, dict):
+        return None
+    try:
+        gen = datetime.fromisoformat(str(hist_data["generatedAt"]))
+        return (gen.date() - timedelta(days=int(hist_data["windowDays"]))).isoformat()
+    except (KeyError, TypeError, ValueError):
+        return None
 
 
 def parse_args(argv=None):
@@ -704,6 +773,8 @@ def main(argv=None):
 
     print(f"[report-card] History dates available: {len(dates)} ({dates[0]}..{dates[-1]})")
 
+    weekday_dates = history_dates(HIST_DIR)
+
     # Pass 1: signals per scan (no prices yet) — the price window and the
     # trading calendar both need the whole ticker set up front.
     scan_inputs = {}
@@ -717,23 +788,26 @@ def main(argv=None):
         for d in vdates:
             date_sets[d] = tickers_of(load_json(os.path.join(HIST_DIR, d, f"{fname}.json")))
 
-        hist_file = os.path.join(SCANS_DIR, f"{fname}_history.json")
-        hist_data = load_json(hist_file)
-        if hist_data and "tickers" in hist_data and isinstance(hist_data["tickers"], list):
-            ticker_hits = [(rec.get("ticker"), rec.get("hitDates", [])) for rec in hist_data["tickers"] if rec.get("ticker")]
-        else:
-            all_scan_tickers = sorted(set(t for d_set in date_sets.values() for t in d_set))
-            ticker_hits = [(t, sorted(d for d in vdates if t in date_sets[d])) for t in all_scan_tickers]
+        # Setups: the scan calendar (weekday + file exists) and hits over the FULL
+        # snapshot history, split by scan_setups.split_setups - the same input
+        # compute_scan_days / compute_scan_history use, so DAYS, the chart's
+        # setupStarts and these rows agree. Scans that have a *_history.json keep
+        # that file's window: only setups whose last hit is inside it are listed.
+        cal = scan_calendar(HIST_DIR, fname, weekday_dates)
+        hits_by_ticker = {}
+        for d in cal:
+            for t in date_sets.get(d, ()):
+                hits_by_ticker.setdefault(t, []).append(d)
+        ticker_hits = sorted(hits_by_ticker.items())
+        window_start = history_window_start(load_json(os.path.join(SCANS_DIR, f"{fname}_history.json")))
 
-        scan_inputs[scan_key] = (vdates, date_sets, ticker_hits)
+        scan_inputs[scan_key] = (vdates, date_sets, ticker_hits, cal, window_start)
 
-    signal_dates = [d for vdates, _, _ in scan_inputs.values() for d in vdates]
-    signal_dates += [d for _, _, hits in scan_inputs.values() for _, hd in hits for d in hd]
+    signal_dates = [d for vdates, *_ in scan_inputs.values() for d in vdates]
     first_signal = min(signal_dates) if signal_dates else dates[0]
     price_start = (date.fromisoformat(first_signal) - timedelta(days=PRICE_LOOKBACK_BUFFER_DAYS)).isoformat()
     tickers = sorted(
-        {t for _, date_sets, _ in scan_inputs.values() for d_set in date_sets.values() for t in d_set}
-        | {t for _, _, hits in scan_inputs.values() for t, hd in hits if t and hd}
+        {t for _, date_sets, *_ in scan_inputs.values() for d_set in date_sets.values() for t in d_set}
     )
     print(f"[report-card] First signal {first_signal} - fetching prices from {price_start} for {len(tickers)} tickers")
 
@@ -767,12 +841,12 @@ def main(argv=None):
     total_missing_price_file = 0
     total_excluded_outliers = 0
 
-    for scan_key, (vdates, date_sets, ticker_hits) in scan_inputs.items():
+    for scan_key, (vdates, date_sets, ticker_hits, cal, window_start) in scan_inputs.items():
         # Snapshots written on a non-trading day were scanned off Yahoo's
         # holiday bar — not a scan day: a pick that is still listed on the next
         # trading day gets that day as D (entry = its D+1 close).
         vdates = [d for d in vdates if d not in holidays]
-        ticker_hits = [(t, [d for d in hd if d not in holidays]) for t, hd in ticker_hits]
+        cal = [d for d in cal if d not in holidays]
         entries = first_appearances(vdates, date_sets)
         horizon_rows = {h: [] for h in HORIZONS}
 
@@ -802,21 +876,30 @@ def main(argv=None):
             series, _ = get_price_series(ticker)
             if not series:
                 continue
-            t_setups = compute_setups(hit_dates, series, valid_scan_dates=set(vdates))
+            t_setups = compute_setups(hit_dates, series, valid_scan_dates=cal)
             for st in t_setups:
+                if window_start and st["last_hit"] < window_start:
+                    continue
                 st["stage_at_entry"] = stage_on(stage_lookup, ticker, st["entry_date"])
                 st["exit_reason"] = exit_reason(st)
                 scan_setups.append({"ticker": ticker, **st})
 
         scan_setups.sort(key=lambda s: (s["entry_date"], s["ticker"]))
 
+        conf = confirmed_view(scan_setups)
         result_scans[scan_key] = {
             "total_picks": len(entries),
             "horizons": {str(h): summarize_horizon(horizon_rows[h]) for h in HORIZONS},
             "setups": scan_setups,
+            "setup_window_start": window_start,
             "setup_summary": {
                 **summarize_setups(scan_setups),
                 **setup_extras(scan_setups, stage_available=stage_lookup is not None),
+            },
+            # (ข) same setups, exit = close on the day the 5th out day is reached
+            "setup_summary_confirmed": {
+                **summarize_setups(conf),
+                **setup_extras(conf, stage_available=stage_lookup is not None),
             },
         }
         n5 = result_scans[scan_key]["horizons"]["5"]["n"]
@@ -844,6 +927,12 @@ def main(argv=None):
                 "นับ D+N เฉพาะวันทำการ: วันที่หุ้นมีปริมาณซื้อขายไม่ถึงครึ่งของหุ้นที่มีข้อมูลวันนั้น (วันหยุดที่ Yahoo ใส่แถวราคาเดิมมาให้) "
                 f"ถูกตัดออกก่อนคำนวณ — ตัด {len(holidays)} วัน"
             ),
+            "setups": (
+                f"ไม้ = เริ่มวันแรกที่ติดสแกน จบเมื่อหลุดสแกนครบ {SETUP_GAP_DAYS} วันทำการติดกัน (นับเฉพาะวันที่สแกนมีข้อมูล) · "
+                f"หลุด 1–{SETUP_GAP_DAYS - 1} วันยังถืออยู่ (days_out) · กลับมาหลังจบ = ไม้ใหม่ · "
+                "exit_price = ราคาปิดวันถัดจากวันสุดท้ายที่ติดสแกน · exit_price_confirmed = ราคาปิดวันที่หลุดครบ "
+                f"{SETUP_GAP_DAYS} วัน · MFE/MAE นับราคาสูง/ต่ำตั้งแต่วันหลังวันเข้าซื้อถึงวันขาย"
+            ),
             "win_flat_loss": "ชนะ = ผลตอบแทน > 0 · เสมอ = ราคาออกเท่าราคาเข้า · แพ้ = ผลตอบแทน < 0 · win rate = ชนะ ÷ ทั้งหมด (นับเสมอในตัวหาร)",
             "outlier_guard": (
                 f"รายการที่ผลตอบแทนเกิน ±{OUTLIER_RETURN_THRESHOLD_PCT:.0f}% และในช่วงเวลานั้นหุ้นมีวันที่ไม่มีการซื้อขายเลย "
@@ -851,6 +940,7 @@ def main(argv=None):
                 f"ตัดรายการผิดปกติ {total_excluded_outliers} รายการ"
             ),
         },
+        "setup_formula_version": SETUP_FORMULA_VERSION,
         "history_range": {"first_date": dates[0], "last_date": dates[-1], "n_dates": len(dates)},
         "price_range": {"first_date": price_start, "first_signal_date": first_signal},
         "non_trading_dates": sorted(holidays),

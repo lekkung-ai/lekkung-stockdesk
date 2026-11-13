@@ -20,9 +20,11 @@ from calculate_report_card import (  # noqa: E402
     STAGE_ORDER,
     build_date_index,
     compute_setups,
+    confirmed_view,
     drop_dates,
     drop_guard_ok,
     exit_reason,
+    history_window_start,
     first_appearances,
     forward_return,
     load_stage_lookup,
@@ -251,6 +253,114 @@ class DropGuardAndWriteTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             write_json_atomic(path, {"x": float("nan")})
         self.assertFalse(os.path.exists(path))
+
+
+def bar(d, close, high, low):
+    return (d, close, 1.0, high, low)
+
+
+def wd(n, start="2026-09-01"):
+    from datetime import date, timedelta
+    out, d = [], date.fromisoformat(start)
+    while len(out) < n:
+        if d.weekday() < 5:
+            out.append(d.isoformat())
+        d += timedelta(days=1)
+    return out
+
+
+class MfeMaeTest(unittest.TestCase):
+    def test_zero_day_hold_is_zero_even_with_a_wide_entry_day(self):
+        days = wd(12)
+        # entry day (days[1]) has a huge intraday range - must not count
+        series = [bar(d, 10.0, 10.0, 10.0) for d in days]
+        series[1] = bar(days[1], 10.0, 13.0, 8.0)
+        out = compute_setups([days[0]], series, valid_scan_dates=days)
+        self.assertEqual(out[0]["holding_days"], 0)
+        self.assertEqual((out[0]["mfe_pct"], out[0]["mae_pct"]), (0.0, 0.0))
+
+    def test_entry_day_range_is_excluded_later_days_count(self):
+        days = wd(12)
+        series = [bar(d, 10.0, 10.0, 10.0) for d in days]
+        series[1] = bar(days[1], 10.0, 15.0, 5.0)   # entry day: ignored
+        series[2] = bar(days[2], 10.0, 11.0, 9.5)   # counted
+        out = compute_setups([days[0], days[1]], series, valid_scan_dates=days)
+        s = out[0]
+        self.assertEqual((s["entry_date"], s["exit_date"], s["holding_days"]), (days[1], days[2], 1))
+        self.assertEqual((s["mfe_pct"], s["mae_pct"]), (10.0, -5.0))
+
+
+class SetupRuleInReportCardTest(unittest.TestCase):
+    def test_out_3_days_is_open_with_days_out_and_latest_price(self):
+        days = wd(8)
+        series = [bar(d, 10.0 + i, 10.0 + i, 10.0 + i) for i, d in enumerate(days)]
+        out = compute_setups(days[:5], series, valid_scan_dates=days)  # out on days 5,6,7
+        self.assertEqual(len(out), 1)
+        s = out[0]
+        self.assertEqual((s["status"], s["days_out"], s["exit_date"]), ("open", 3, days[-1]))
+        self.assertEqual(s["exit_price_confirmed"], s["exit_price"])
+        self.assertEqual(exit_reason(s), "open")
+
+    def test_closed_has_both_exits(self):
+        days = wd(12)
+        series = [bar(d, 10.0 + i, 10.0 + i, 10.0 + i) for i, d in enumerate(days)]
+        out = compute_setups(days[:3], series, valid_scan_dates=days)  # last hit days[2]
+        s = out[0]
+        self.assertEqual(s["status"], "closed")
+        self.assertEqual((s["exit_date"], s["exit_price"]), (days[3], 13.0))          # day after last hit
+        self.assertEqual((s["exit_date_confirmed"], s["exit_price_confirmed"]), (days[7], 17.0))  # 5th out day
+        self.assertEqual((s["holding_days"], s["holding_days_confirmed"]), (2, 6))
+        c = confirmed_view(out)[0]
+        self.assertEqual((c["return_pct"], c["exit_price"]), (s["return_pct_confirmed"], 17.0))
+
+    def test_back_within_4_days_is_one_setup_back_after_5_is_two(self):
+        days = wd(20)
+        series = [bar(d, 10.0, 10.0, 10.0) for d in days]
+        self.assertEqual(len(compute_setups([days[0], days[5]], series, valid_scan_dates=days)), 1)
+        self.assertEqual(len(compute_setups([days[0], days[6]], series, valid_scan_dates=days)), 2)
+
+    def test_closed_never_reopens_day_by_day(self):
+        days = wd(30)
+        series = [bar(d, 10.0 + i * 0.1, 10.0 + i * 0.1, 10.0 + i * 0.1) for i, d in enumerate(days)]
+        hits = [days[i] for i in (0, 1, 2, 4, 9, 10, 11, 17, 18, 25)]
+        closed = {}
+        for k in range(2, len(days) + 1):
+            for s in compute_setups([h for h in hits if h <= days[k - 1]], series[:k], valid_scan_dates=days[:k]):
+                if s["entry_date"] in closed:
+                    self.assertEqual(s["status"], "closed")
+                    self.assertEqual(s["exit_price"], closed[s["entry_date"]]["exit_price"])
+                elif s["status"] == "closed":
+                    closed[s["entry_date"]] = s
+
+    def test_no_nan_in_numbers(self):
+        import math
+        days = wd(12)
+        series = [bar(d, 10.0, None, None) for d in days]
+        for s in compute_setups(days[:2], series, valid_scan_dates=days):
+            for k, v in s.items():
+                if isinstance(v, float):
+                    self.assertTrue(math.isfinite(v), k)
+
+
+class FormulaVersionGuardTest(unittest.TestCase):
+    def rep(self, n_setups, n_tickers, version=None):
+        r = {"scans": {"a": {"setups": [{"ticker": f"T{i % n_tickers}"} for i in range(n_setups)]}}}
+        if version is not None:
+            r["setup_formula_version"] = version
+        return r
+
+    def test_formula_change_compares_tickers_not_setups(self):
+        # 100 setups over 50 tickers -> 60 setups over the same 50 tickers: ok after a formula change
+        self.assertTrue(drop_guard_ok(self.rep(60, 50, 2), self.rep(100, 50))[0])
+        # ...but blocked when the formula did not change
+        self.assertFalse(drop_guard_ok(self.rep(60, 50, 2), self.rep(100, 50, 2))[0])
+        # a formula change still blocks losing most tickers (broken fetch)
+        self.assertFalse(drop_guard_ok(self.rep(30, 30, 2), self.rep(100, 50))[0])
+
+    def test_history_window_start(self):
+        self.assertEqual(history_window_start({"generatedAt": "2026-11-13T18:30:00+07:00", "windowDays": 90}), "2026-08-15")
+        self.assertIsNone(history_window_start(None))
+        self.assertIsNone(history_window_start({"windowDays": 90}))
 
 
 if __name__ == "__main__":
