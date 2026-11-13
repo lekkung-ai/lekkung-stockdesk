@@ -122,7 +122,7 @@ export default function OneilPage() {
             <SortableTh sortKey="Ticker" currentSort={sortConfig} onSort={handleSort}>Symbol</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <Th right>Trend</Th>
-            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
+            <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="__days" currentSort={sortConfig} onSort={handleSort} title="วันทำการตั้งแต่เริ่มไม้นี้ · หลุดไม่ถึง 5 วันยังนับต่อ">Days</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W H/L</SortableTh>
             <SortableTh right sortKey="%_From_52W_High" currentSort={sortConfig} onSort={handleSort}>% From 52W High</SortableTh>
             <SortableTh right sortKey="PE_Ratio" currentSort={sortConfig} onSort={handleSort}>P/E</SortableTh>

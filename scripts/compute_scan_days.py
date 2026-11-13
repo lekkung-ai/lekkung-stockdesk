@@ -5,16 +5,24 @@ in a given scanner's list, using the daily snapshots under data/history/.
 Output: data/scans/scan_days.json
     { "lekkung": {"AAA": 3, ...}, "oneil": {...}, "sepa": {...}, "kell": {...} }
 
+lekkung / oneil / sepa / kell / breakout: DAYS = scan days since the start of the
+CURRENT setup (scan_setups.py: a setup ends only after 5 scan days out in a row,
+so 1-4 days out still count). lekkung_daytrade / market-stage / stage-analysis
+keep the old rule (consecutive days, any day out resets to 1).
+
 Run AFTER the daily snapshot step so today's snapshot is included.
 Usage:
     python -X utf8 compute_scan_days.py
+    python -X utf8 compute_scan_days.py --out <scratch>/scan_days.json   # testing
 """
 
+import argparse
 import json
 import os
 from datetime import datetime
 
 from scan_calendar import valid_dates
+from scan_setups import SETUP_RULE_SCANS, current_setup
 
 # page key -> history/scan filename (without .json)
 SCANNERS = {
@@ -56,7 +64,10 @@ def _is_weekday(dstr: str) -> bool:
         return False
 
 
-def main():
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default=None, help="output path (default data/scans/scan_days.json)")
+    args = ap.parse_args(argv)
     script_dir = os.path.dirname(os.path.abspath(__file__))
     stockdesk_dir = os.path.dirname(script_dir)
     hist_dir = os.path.join(stockdesk_dir, "data", "history")
@@ -85,6 +96,19 @@ def main():
 
         current = tickers_of(load_json(os.path.join(scans_dir, f"{fname}.json")))
         streaks = {}
+        if fname in SETUP_RULE_SCANS:
+            # weekday + file exists = a scan day (vdates already is exactly that)
+            hits_by_ticker = {}
+            for d in vdates:
+                for t in date_sets[d]:
+                    hits_by_ticker.setdefault(t, []).append(d)
+            for ticker in current:
+                cs = current_setup(hits_by_ticker.get(ticker, []), vdates)
+                streaks[ticker] = max(cs["days"] if cs else 1, 1)
+            result[key] = streaks
+            print(f"    {key}: {len(streaks)} tickers, {len(vdates)}/{len(dates)} valid dates, "
+                  f"max days = {max(streaks.values(), default=0)} (setup rule)")
+            continue
         for ticker in current:
             streak = 0
             for d in reversed(vdates):
@@ -97,7 +121,7 @@ def main():
         print(f"    {key}: {len(streaks)} tickers, {len(vdates)}/{len(dates)} valid dates, "
               f"max streak = {max(streaks.values(), default=0)}")
 
-    out_file = os.path.join(scans_dir, "scan_days.json")
+    out_file = args.out or os.path.join(scans_dir, "scan_days.json")
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, separators=(",", ":"))
     print(f"  Saved: {out_file}")

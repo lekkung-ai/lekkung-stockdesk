@@ -472,7 +472,7 @@ function SepaContent() {
             <SortableTh right sortKey="__score" currentSort={sortConfig} onSort={handleSort}>Score</SortableTh>
             <SortableTh right sortKey="Price" currentSort={sortConfig} onSort={handleSort} title={livePriceTitle(pricesAt)}>Price</SortableTh>
             <Th right>Trend</Th>
-            <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort}>Days</SortableTh>
+            <SortableTh right sortKey="__days" currentSort={sortConfig} onSort={handleSort} title="วันทำการตั้งแต่เริ่มไม้นี้ · หลุดไม่ถึง 5 วันยังนับต่อ">Days</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="SMA_50" currentSort={sortConfig} onSort={handleSort}>SMA 50</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="SMA_200" currentSort={sortConfig} onSort={handleSort}>SMA 200</SortableTh>
             <SortableTh right className="hidden min-[1201px]:table-cell" sortKey="52W_High" currentSort={sortConfig} onSort={handleSort}>52W High</SortableTh>
