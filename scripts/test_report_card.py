@@ -20,11 +20,10 @@ from calculate_report_card import (  # noqa: E402
     STAGE_ORDER,
     build_date_index,
     compute_setups,
-    confirmed_view,
     drop_dates,
     drop_guard_ok,
     exit_reason,
-    history_window_start,
+    is_single_day,
     first_appearances,
     forward_return,
     load_stage_lookup,
@@ -164,16 +163,25 @@ class StageLookupTest(unittest.TestCase):
 class ExitReasonTest(unittest.TestCase):
     def test_reasons(self):
         self.assertEqual(exit_reason({"status": "open", "holding_days": 0}), "open")
+        self.assertEqual(exit_reason({"status": "closed", "first_hit": "2026-09-01", "last_hit": "2026-09-01",
+                                      "holding_days": 4}), "single_day")
+        self.assertEqual(exit_reason({"status": "closed", "first_hit": "2026-09-01", "last_hit": "2026-09-03",
+                                      "holding_days": 6}), "left_scan")
+        # old rows without first/last hit: 0-day hold
         self.assertEqual(exit_reason({"status": "closed", "holding_days": 0}), "single_day")
-        self.assertEqual(exit_reason({"status": "closed", "holding_days": 4}), "left_scan")
 
-    def test_zero_day_setup_is_still_flat_and_closed(self):
-        # hit once on D, entry = D+1 close, exit = day after last hit = the same D+1 bar
+    def test_single_day_setup_sells_on_the_5th_out_day(self):
+        # hit once on D (09-01): entry = D+1 close, main exit = close on the 5th out day
         series = [row(f"2026-09-{d:02d}", 10 + d, 1) for d in range(1, 12)]
         out = compute_setups(["2026-09-01"], series)
         self.assertEqual(len(out), 1)
-        self.assertEqual((out[0]["holding_days"], out[0]["return_pct"], out[0]["status"]), (0, 0.0, "closed"))
-        self.assertEqual(exit_reason(out[0]), "single_day")
+        s = out[0]
+        self.assertEqual((s["entry_date"], s["exit_date"], s["holding_days"], s["status"]),
+                         ("2026-09-02", "2026-09-06", 4, "closed"))
+        self.assertEqual(s["return_pct"], round((16 / 12 - 1) * 100, 2))
+        self.assertEqual((s["exit_date_drop"], s["holding_days_drop"], s["return_pct_drop"]), ("2026-09-02", 0, 0.0))
+        self.assertTrue(is_single_day(s))
+        self.assertEqual(exit_reason(s), "single_day")
 
 
 class SetupExtrasTest(unittest.TestCase):
@@ -271,8 +279,8 @@ def wd(n, start="2026-09-01"):
 
 class MfeMaeTest(unittest.TestCase):
     def test_zero_day_hold_is_zero_even_with_a_wide_entry_day(self):
-        days = wd(12)
-        # entry day (days[1]) has a huge intraday range - must not count
+        days = wd(2)
+        # entry day (days[1]) is the latest bar and has a huge intraday range - must not count
         series = [bar(d, 10.0, 10.0, 10.0) for d in days]
         series[1] = bar(days[1], 10.0, 13.0, 8.0)
         out = compute_setups([days[0]], series, valid_scan_dates=days)
@@ -286,7 +294,8 @@ class MfeMaeTest(unittest.TestCase):
         series[2] = bar(days[2], 10.0, 11.0, 9.5)   # counted
         out = compute_setups([days[0], days[1]], series, valid_scan_dates=days)
         s = out[0]
-        self.assertEqual((s["entry_date"], s["exit_date"], s["holding_days"]), (days[1], days[2], 1))
+        # main exit = 5th out day after days[1] = days[6]
+        self.assertEqual((s["entry_date"], s["exit_date"], s["holding_days"]), (days[1], days[6], 5))
         self.assertEqual((s["mfe_pct"], s["mae_pct"]), (10.0, -5.0))
 
 
@@ -298,7 +307,7 @@ class SetupRuleInReportCardTest(unittest.TestCase):
         self.assertEqual(len(out), 1)
         s = out[0]
         self.assertEqual((s["status"], s["days_out"], s["exit_date"]), ("open", 3, days[-1]))
-        self.assertEqual(s["exit_price_confirmed"], s["exit_price"])
+        self.assertEqual(s["exit_price_drop"], s["exit_price"])
         self.assertEqual(exit_reason(s), "open")
 
     def test_closed_has_both_exits(self):
@@ -307,11 +316,10 @@ class SetupRuleInReportCardTest(unittest.TestCase):
         out = compute_setups(days[:3], series, valid_scan_dates=days)  # last hit days[2]
         s = out[0]
         self.assertEqual(s["status"], "closed")
-        self.assertEqual((s["exit_date"], s["exit_price"]), (days[3], 13.0))          # day after last hit
-        self.assertEqual((s["exit_date_confirmed"], s["exit_price_confirmed"]), (days[7], 17.0))  # 5th out day
-        self.assertEqual((s["holding_days"], s["holding_days_confirmed"]), (2, 6))
-        c = confirmed_view(out)[0]
-        self.assertEqual((c["return_pct"], c["exit_price"]), (s["return_pct_confirmed"], 17.0))
+        self.assertEqual((s["exit_date"], s["exit_price"]), (days[7], 17.0))            # main: 5th out day
+        self.assertEqual((s["exit_date_drop"], s["exit_price_drop"]), (days[3], 13.0))  # day after last hit
+        self.assertEqual((s["holding_days"], s["holding_days_drop"]), (6, 2))
+        self.assertEqual((s["first_hit"], s["last_hit"], s["n_hits"]), (days[0], days[2], 3))
 
     def test_back_within_4_days_is_one_setup_back_after_5_is_two(self):
         days = wd(20)
@@ -357,10 +365,9 @@ class FormulaVersionGuardTest(unittest.TestCase):
         # a formula change still blocks losing most tickers (broken fetch)
         self.assertFalse(drop_guard_ok(self.rep(30, 30, 2), self.rep(100, 50))[0])
 
-    def test_history_window_start(self):
-        self.assertEqual(history_window_start({"generatedAt": "2026-11-13T18:30:00+07:00", "windowDays": 90}), "2026-08-15")
-        self.assertIsNone(history_window_start(None))
-        self.assertIsNone(history_window_start({"windowDays": 90}))
+    def test_version_3_vs_2_is_a_formula_change(self):
+        self.assertTrue(drop_guard_ok(self.rep(60, 50, 3), self.rep(100, 50, 2))[0])
+        self.assertFalse(drop_guard_ok(self.rep(60, 50, 3), self.rep(100, 50, 3))[0])
 
 
 if __name__ == "__main__":
