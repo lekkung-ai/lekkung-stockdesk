@@ -1,8 +1,906 @@
 {
-  "generated_at": "2026-11-16T09:46:22+07:00",
+  "generated_at": "2026-11-16T18:10:01+07:00",
   "source": "SETTrade IAA (ศูนย์รวมบทวิเคราะห์)",
   "note": "ข้อมูลจาก settrade.com/th/research/analyst-research - ไม่มีการดาวน์โหลด/เก็บไฟล์ PDF ใดๆ มีแค่ลิงก์ไปต้นทาง",
   "items": [
+    {
+      "uuid": "0b81cffb-419f-4a29-8c1d-19f561fc6a67",
+      "title": "Buy the Dip โดย SBITO | บริษัท ดูโฮม จำกัด (มหาชน) (DOHOME) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128705-buy-the-dip-sbito-dohome",
+      "tickers": [
+        "DOHOME"
+      ],
+      "symbolId": "92839",
+      "broker": "SBITO",
+      "rating": "Buy the Dip",
+      "companyName": "บริษัท ดูโฮม จำกัด (มหาชน)",
+      "date": "2026-11-16T15:32:43+07:00",
+      "ts": 1794817963000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Fundamental-161169---DOHOME.pdf"
+    },
+    {
+      "uuid": "54d5de1a-9c30-4cd1-84b1-1f38bc62c629",
+      "title": "BUY โดย SBITO | บริษัท เมก้า ไลฟ์ไซแอ็นซ์ จำกัด (มหาชน) (MEGA) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128704-buy-sbito-mega",
+      "tickers": [
+        "MEGA"
+      ],
+      "symbolId": "19619",
+      "broker": "SBITO",
+      "rating": "BUY",
+      "companyName": "บริษัท เมก้า ไลฟ์ไซแอ็นซ์ จำกัด (มหาชน)",
+      "date": "2026-11-16T15:29:54+07:00",
+      "ts": 1794817794000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Fundamental-161169---MEGA.pdf"
+    },
+    {
+      "uuid": "fb9eb090-e3d0-4c0c-ab75-804221cb7ebc",
+      "title": "HOLD โดย SBITO | บริษัท แพลน บี มีเดีย จำกัด (มหาชน) (PLANB) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128703-hold-sbito-planb",
+      "tickers": [
+        "PLANB"
+      ],
+      "symbolId": "26086",
+      "broker": "SBITO",
+      "rating": "HOLD",
+      "companyName": "บริษัท แพลน บี มีเดีย จำกัด (มหาชน)",
+      "date": "2026-11-16T15:28:47+07:00",
+      "ts": 1794817727000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Fundamental-161169---PLANB.pdf"
+    },
+    {
+      "uuid": "492d9460-27da-4d4b-9457-5ba59c1eb3cc",
+      "title": "Earnig Result โดย Sbito | บริษัท ที.เอ.ซี. คอนซูเมอร์ จำกัด (มหาชน) (TACC) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128702-earnig-result-sbito-tacc",
+      "tickers": [
+        "TACC"
+      ],
+      "symbolId": "77370",
+      "broker": "SBITO",
+      "rating": "Earnig Result",
+      "companyName": "บริษัท ที.เอ.ซี. คอนซูเมอร์ จำกัด (มหาชน)",
+      "date": "2026-11-16T15:27:30+07:00",
+      "ts": 1794817650000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Earning-Result-161169-TACC.pdf"
+    },
+    {
+      "uuid": "4f37f508-0e01-49e9-9e2d-d7004f4e11f8",
+      "title": "Earnig Result โดย Sbito | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128701-earnig-result-sbito-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "SBITO",
+      "rating": "Earnig Result",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-11-16T15:26:29+07:00",
+      "ts": 1794817589000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Earning-Result-161169--SPRC.pdf"
+    },
+    {
+      "uuid": "555dff43-ff68-466a-ab86-49827b7f4d04",
+      "title": "Earnig Result โดย Sbito | บริษัท เซ็ปเป้ จำกัด (มหาชน) (SAPPE) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128699-earnig-result-sbito-sappe",
+      "tickers": [
+        "SAPPE"
+      ],
+      "symbolId": "21233",
+      "broker": "SBITO",
+      "rating": "Earnig Result",
+      "companyName": "บริษัท เซ็ปเป้ จำกัด (มหาชน)",
+      "date": "2026-11-16T15:25:23+07:00",
+      "ts": 1794817523000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Earning-Result-161169--SAPPE.pdf"
+    },
+    {
+      "uuid": "6c12ce00-ce4d-4cdb-a9ec-d37d478465ac",
+      "title": "BUY โดย SBITO | บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน) (PR9) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128700-buy-sbito-pr9",
+      "tickers": [
+        "PR9"
+      ],
+      "symbolId": "89402",
+      "broker": "SBITO",
+      "rating": "BUY",
+      "companyName": "บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน)",
+      "date": "2026-11-16T15:25:06+07:00",
+      "ts": 1794817506000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Fundamental-161169---PR9.pdf"
+    },
+    {
+      "uuid": "5f931153-edc7-4e28-9871-dbf4183a2e56",
+      "title": "Earnig Result โดย Sbito | บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน) (BCH) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128698-earnig-result-sbito-bch",
+      "tickers": [
+        "BCH"
+      ],
+      "symbolId": "5271",
+      "broker": "SBITO",
+      "rating": "Earnig Result",
+      "companyName": "บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน)",
+      "date": "2026-11-16T15:21:15+07:00",
+      "ts": 1794817275000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Earning-Result-161169--BCH.pdf"
+    },
+    {
+      "uuid": "3c58d15d-479c-4771-81b1-26ebc17c1d68",
+      "title": "BUY โดย KSS | บริษัท ซีพี ออลล์ จำกัด (มหาชน) (CPALL) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128693-buy-kss-cpall",
+      "tickers": [
+        "CPALL"
+      ],
+      "symbolId": "4086",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ซีพี ออลล์ จำกัด (มหาชน)",
+      "date": "2026-11-16T13:57:54+07:00",
+      "ts": 1794812274000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_CPALL_QC.pdf"
+    },
+    {
+      "uuid": "87412105-5242-4330-9bdd-a786f9b986b1",
+      "title": "Neutral โดย KSS | บริษัท แพลน บี มีเดีย จำกัด (มหาชน) (PLANB) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128691-neutral-kss-planb",
+      "tickers": [
+        "PLANB"
+      ],
+      "symbolId": "26086",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท แพลน บี มีเดีย จำกัด (มหาชน)",
+      "date": "2026-11-16T13:51:25+07:00",
+      "ts": 1794811885000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_PLANB_ER.pdf"
+    },
+    {
+      "uuid": "7ccfd604-08bc-4cbe-8a37-056b2502be78",
+      "title": "BUY โดย KSS | บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน) (CENTEL) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128690-buy-kss-centel",
+      "tickers": [
+        "CENTEL"
+      ],
+      "symbolId": "506",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน)",
+      "date": "2026-11-16T13:44:17+07:00",
+      "ts": 1794811457000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_CENTEL_ER.pdf"
+    },
+    {
+      "uuid": "5580b997-30ab-4311-929a-3961d274287c",
+      "title": "Neutral โดย KSS | บริษัท วีจีไอ จำกัด (มหาชน) (VGI) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128689-neutral-kss-vgi",
+      "tickers": [
+        "VGI"
+      ],
+      "symbolId": "17056",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท วีจีไอ จำกัด (มหาชน)",
+      "date": "2026-11-16T13:41:58+07:00",
+      "ts": 1794811318000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_VGI_ER.pdf"
+    },
+    {
+      "uuid": "3b9e34e6-abc4-4a36-9e61-f076b000d144",
+      "title": "BUY โดย KSS | บริษัท ปตท. น้ำมันและการค้าปลีก จำกัด (มหาชน) (OR) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128688-buy-kss-or",
+      "tickers": [
+        "OR"
+      ],
+      "symbolId": "99543",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ปตท. น้ำมันและการค้าปลีก จำกัด (มหาชน)",
+      "date": "2026-11-16T13:39:04+07:00",
+      "ts": 1794811144000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116-OR_QC.pdf"
+    },
+    {
+      "uuid": "0f486625-67bf-4b71-9193-26efb7ba0bbb",
+      "title": "BUY โดย KSS | บริษัท ทุนธนชาต จำกัด (มหาชน) (TCAP) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128686-buy-kss-tcap",
+      "tickers": [
+        "TCAP"
+      ],
+      "symbolId": "23",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ทุนธนชาต จำกัด (มหาชน)",
+      "date": "2026-11-16T13:22:35+07:00",
+      "ts": 1794810155000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_TCAP_QC.pdf"
+    },
+    {
+      "uuid": "e34a3ad3-4b50-40fd-9b05-f64f6e51aa8a",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ทีคิวเอ็ม อัลฟา จำกัด (มหาชน) (TQM) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128683-buy-maintain-yuanta-tqm",
+      "tickers": [
+        "TQM"
+      ],
+      "symbolId": "89817",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ทีคิวเอ็ม อัลฟา จำกัด (มหาชน)",
+      "date": "2026-11-16T13:03:52+07:00",
+      "ts": 1794809032000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TQM_SMID_Earnings_Results_16112026.pdf"
+    },
+    {
+      "uuid": "6a154e79-eb9d-4941-a136-b9eb1e124f94",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ไทยประกันชีวิต จำกัด (มหาชน) (TLI) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128682-buy-maintain-yuanta-tli",
+      "tickers": [
+        "TLI"
+      ],
+      "symbolId": "109680",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ไทยประกันชีวิต จำกัด (มหาชน)",
+      "date": "2026-11-16T13:02:59+07:00",
+      "ts": 1794808979000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TLI-Earning-Result-16112026.pdf"
+    },
+    {
+      "uuid": "97058774-aea2-4a8d-9d8c-7a4841bf0922",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ไทยอีสเทิร์น กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน) (TEGH) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128681-buy-maintain-yuanta-tegh",
+      "tickers": [
+        "TEGH"
+      ],
+      "symbolId": "112047",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ไทยอีสเทิร์น กรุ๊ป โฮลดิ้งส์ จำกัด (มหาชน)",
+      "date": "2026-11-16T13:00:46+07:00",
+      "ts": 1794808846000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TEGH_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "80697691-9443-4b7d-9100-7ba2336763d0",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ที.เอ.ซี. คอนซูเมอร์ จำกัด (มหาชน) (TACC) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128680-buy-maintain-yuanta-tacc",
+      "tickers": [
+        "TACC"
+      ],
+      "symbolId": "77370",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ที.เอ.ซี. คอนซูเมอร์ จำกัด (มหาชน)",
+      "date": "2026-11-16T12:59:34+07:00",
+      "ts": 1794808774000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/TACC_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "b17ff790-3bcc-4c64-a6d6-679dc84938fb",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ซิมโฟนี่ คอมมูนิเคชั่น จำกัด (มหาชน) (SYMC) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128679-buy-maintain-yuanta-symc",
+      "tickers": [
+        "SYMC"
+      ],
+      "symbolId": "13717",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ซิมโฟนี่ คอมมูนิเคชั่น จำกัด (มหาชน)",
+      "date": "2026-11-16T12:58:30+07:00",
+      "ts": 1794808710000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SYMC_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "cfccddbc-d197-43fd-a9db-45d8fd96366d",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท สเตคอน กรุ๊ป จำกัด (มหาชน) (STECON) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128678-buy-maintain-yuanta-stecon",
+      "tickers": [
+        "STECON"
+      ],
+      "symbolId": "124457",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท สเตคอน กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-16T12:57:22+07:00",
+      "ts": 1794808642000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/STECON_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "2ca4d0b9-049a-410a-b276-e6bd4a8e6958",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128677-trading-maintain-yuanta-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-11-16T12:56:14+07:00",
+      "ts": 1794808574000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SPRC_3Q26_Result_161126.pdf"
+    },
+    {
+      "uuid": "d3607e91-501b-489b-af1a-93fa73a99d6d",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท สเปเชี่ยลตี้ เนเชอรัล โปรดักส์ จำกัด (มหาชน) (SNPS) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128676-buy-maintain-yuanta-snps",
+      "tickers": [
+        "SNPS"
+      ],
+      "symbolId": "122235",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท สเปเชี่ยลตี้ เนเชอรัล โปรดักส์ จำกัด (มหาชน)",
+      "date": "2026-11-16T12:55:04+07:00",
+      "ts": 1794808504000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SNPS_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "eac5322c-72c3-404a-8a87-3ec05de24326",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท แสนสิริ จำกัด (มหาชน) (SIRI) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128675-trading-maintain-yuanta-siri",
+      "tickers": [
+        "SIRI"
+      ],
+      "symbolId": "1530",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท แสนสิริ จำกัด (มหาชน)",
+      "date": "2026-11-16T12:54:12+07:00",
+      "ts": 1794808452000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SIRI_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "937a36fb-7991-40d7-ba47-af1ed9bba62c",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ราช กรุ๊ป จำกัด (มหาชน) (RATCH) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128674-buy-maintain-yuanta-ratch",
+      "tickers": [
+        "RATCH"
+      ],
+      "symbolId": "2050",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ราช กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-16T12:53:11+07:00",
+      "ts": 1794808391000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/RATCH_3Q26_Result_161126.pdf"
+    },
+    {
+      "uuid": "6c6110fa-b50b-4ee0-9cfc-32585a072cd8",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน) (PSH) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128673-trading-maintain-yuanta-psh",
+      "tickers": [
+        "PSH"
+      ],
+      "symbolId": "80396",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท พฤกษา โฮลดิ้ง จำกัด (มหาชน)",
+      "date": "2026-11-16T12:51:05+07:00",
+      "ts": 1794808265000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PSH_Company_Update_161126.pdf"
+    },
+    {
+      "uuid": "5095cd58-c369-4097-a5ac-3af41aaedf90",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน) (PR9) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128672-buy-maintain-yuanta-pr9",
+      "tickers": [
+        "PR9"
+      ],
+      "symbolId": "89402",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน)",
+      "date": "2026-11-16T12:48:55+07:00",
+      "ts": 1794808135000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PR9_AnalystNote_161126.pdf"
+    },
+    {
+      "uuid": "202d7d3b-b8e6-426e-9c04-5c16a6c96a37",
+      "title": "TRADING (Maintain) โดย YUANTA | บริษัท มาสเตอร์ สไตล์ จำกัด (มหาชน) (MASTER) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128671-trading-maintain-yuanta-master",
+      "tickers": [
+        "MASTER"
+      ],
+      "symbolId": "114671",
+      "broker": "YUANTA",
+      "rating": "TRADING (Maintain)",
+      "companyName": "บริษัท มาสเตอร์ สไตล์ จำกัด (มหาชน)",
+      "date": "2026-11-16T12:47:29+07:00",
+      "ts": 1794808049000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/MASTER_3Q26_Results_161126.pdf"
+    },
+    {
+      "uuid": "7d39fd27-4549-4fab-ae25-2012a9a550ba",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน) (CENTEL) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128670-buy-maintain-yuanta-centel",
+      "tickers": [
+        "CENTEL"
+      ],
+      "symbolId": "506",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน)",
+      "date": "2026-11-16T12:46:33+07:00",
+      "ts": 1794807993000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CENTEL_Company_Update_161126.pdf"
+    },
+    {
+      "uuid": "fddfaef5-55bc-499e-ac25-f8cbbdbd2e50",
+      "title": "TRADING (Downgrade) โดย YUANTA | บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน) (CCET) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128669-trading-downgrade-yuanta-ccet",
+      "tickers": [
+        "CCET"
+      ],
+      "symbolId": "2071",
+      "broker": "YUANTA",
+      "rating": "TRADING (Downgrade)",
+      "companyName": "บริษัท แคล-คอมพ์ อีเล็คโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-11-16T12:45:07+07:00",
+      "ts": 1794807907000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CCET_Company_Update_161126.pdf"
+    },
+    {
+      "uuid": "85f59cf9-b194-4207-8f4b-dc74728216b9",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน) (CBG) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128668-buy-maintain-yuanta-cbg",
+      "tickers": [],
+      "symbolId": null,
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-16T12:44:01+07:00",
+      "ts": 1794807841000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CBG_Earnings_Result_161126.pdf"
+    },
+    {
+      "uuid": "c4c4d63c-f3b5-4d47-9810-f435143e3b3d",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท ทางด่วนและรถไฟฟ้ากรุงเทพ จำกัด (มหาชน) (BEM) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128667-buy-maintain-yuanta-bem",
+      "tickers": [
+        "BEM"
+      ],
+      "symbolId": "77582",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท ทางด่วนและรถไฟฟ้ากรุงเทพ จำกัด (มหาชน)",
+      "date": "2026-11-16T12:42:55+07:00",
+      "ts": 1794807775000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BEM_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "90fb4d7a-7e10-486c-bfe5-58d90b5cd6d5",
+      "title": "BUY (Maintain) โดย YUANTA | บริษัท บ้านปู จำกัด (มหาชน) (BANPU) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128666-buy-maintain-yuanta-banpu",
+      "tickers": [
+        "BANPU"
+      ],
+      "symbolId": "133031",
+      "broker": "YUANTA",
+      "rating": "BUY (Maintain)",
+      "companyName": "บริษัท บ้านปู จำกัด (มหาชน)",
+      "date": "2026-11-16T12:41:49+07:00",
+      "ts": 1794807709000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BANPU_Analyst_Note_161126.pdf"
+    },
+    {
+      "uuid": "17c947ce-6925-4ba1-bbf3-e0ecd0448295",
+      "title": "BUY โดย YUANTA | บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน) (ADVICE) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128665-buy-yuanta-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "YUANTA",
+      "rating": "BUY",
+      "companyName": "บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน)",
+      "date": "2026-11-16T12:39:55+07:00",
+      "ts": 1794807595000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/ADVICE_Earnings_Results_161126.pdf"
+    },
+    {
+      "uuid": "2b87f7f0-74a9-4bc1-9910-79297c6a8d63",
+      "title": "BUY โดย LHS | บริษัท ดิ เอราวัณ กรุ๊ป จำกัด (มหาชน) (ERW) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128662-buy-lhs-erw",
+      "tickers": [
+        "ERW"
+      ],
+      "symbolId": "324",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ดิ เอราวัณ กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-16T12:35:39+07:00",
+      "ts": 1794807339000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/ERW_20261116.pdf"
+    },
+    {
+      "uuid": "4eef6425-6202-48c7-a867-dca028f977bf",
+      "title": "BUY โดย LHS | บริษัท ผลิตไฟฟ้า จำกัด (มหาชน) (EGCO) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128661-buy-lhs-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ผลิตไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-11-16T12:34:06+07:00",
+      "ts": 1794807246000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/EGCO_20261116.pdf"
+    },
+    {
+      "uuid": "c12d42f5-600e-46a9-9295-9b05f23278ab",
+      "title": "BUY โดย ASL | บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน) (PR9) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128658-buy-asl-pr9",
+      "tickers": [
+        "PR9"
+      ],
+      "symbolId": "89402",
+      "broker": "ASL",
+      "rating": "BUY",
+      "companyName": "บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน)",
+      "date": "2026-11-16T12:29:51+07:00",
+      "ts": 1794806991000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/PR9-Earnings-Result-3Q26-16112026.pdf"
+    },
+    {
+      "uuid": "35cccf36-2858-49f4-9a13-8556bc3ae259",
+      "title": "Trading buy โดย KSS | บริษัท เอสไอเอส ดิสทริบิวชั่น (ประเทศไทย) จำกัด (มหาชน) (SIS) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128657-trading-buy-kss-sis",
+      "tickers": [
+        "SIS"
+      ],
+      "symbolId": "4757",
+      "broker": "KSS",
+      "rating": "Trading buy",
+      "companyName": "บริษัท เอสไอเอส ดิสทริบิวชั่น (ประเทศไทย) จำกัด (มหาชน)",
+      "date": "2026-11-16T12:28:03+07:00",
+      "ts": 1794806883000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_SIS_ER.pdf"
+    },
+    {
+      "uuid": "6dc7775f-fb35-4450-b409-ee5554c5d105",
+      "title": "TBUY โดย LHS | บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน) (BCH) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128652-tbuy-lhs-bch",
+      "tickers": [
+        "BCH"
+      ],
+      "symbolId": "5271",
+      "broker": "LHS",
+      "rating": "TBUY",
+      "companyName": "บริษัท บางกอก เชน ฮอสปิทอล จำกัด (มหาชน)",
+      "date": "2026-11-16T12:23:54+07:00",
+      "ts": 1794806634000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/BCH_20261116.pdf"
+    },
+    {
+      "uuid": "a6395543-0d2a-4936-8448-c8092ff52e6d",
+      "title": "BUY โดย LHS | บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน) (CBG) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128651-buy-lhs-cbg",
+      "tickers": [
+        "CBG"
+      ],
+      "symbolId": "21988",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท คาราบาวกรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-16T12:22:39+07:00",
+      "ts": 1794806559000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CBG_20261113-งบ-3Q69.pdf"
+    },
+    {
+      "uuid": "c7688c66-6ed3-47b8-bcba-ce01bcce22a3",
+      "title": "BUY โดย LHS | บริษัท เซ็ปเป้ จำกัด (มหาชน) (SAPPE) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128650-buy-lhs-sappe",
+      "tickers": [
+        "SAPPE"
+      ],
+      "symbolId": "21233",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท เซ็ปเป้ จำกัด (มหาชน)",
+      "date": "2026-11-16T11:52:50+07:00",
+      "ts": 1794804770000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SAPPE_20261114.pdf"
+    },
+    {
+      "uuid": "5de0b8b5-a4b5-4af4-84b5-06527d658d82",
+      "title": "BUY โดย LHS | บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน) (AP) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128648-buy-lhs-ap",
+      "tickers": [
+        "AP"
+      ],
+      "symbolId": "852",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน)",
+      "date": "2026-11-16T11:51:50+07:00",
+      "ts": 1794804710000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/AP_20261113.pdf"
+    },
+    {
+      "uuid": "b1529085-ac2c-4d89-91e7-6634b4a506de",
+      "title": "BUY โดย KSS | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128649-buy-kss-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-11-16T11:51:37+07:00",
+      "ts": 1794804697000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116-SPRC_ER.pdf"
+    },
+    {
+      "uuid": "ef446c0f-0735-4ed5-95fb-3bd1f386a8cc",
+      "title": "BUY โดย LHS | บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน) (ADVICE) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128647-buy-lhs-advice",
+      "tickers": [
+        "ADVICE"
+      ],
+      "symbolId": "119022",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท แอดไวซ์ ไอที อินฟินิท จำกัด (มหาชน)",
+      "date": "2026-11-16T11:50:43+07:00",
+      "ts": 1794804643000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/ADVICE_20261116.pdf"
+    },
+    {
+      "uuid": "77f45c80-1c8c-4451-88cb-79e8a42deb65",
+      "title": "BUY โดย LHS | บริษัท คอมเซเว่น จำกัด (มหาชน) (COM7) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128645-buy-lhs-com7",
+      "tickers": [
+        "COM7"
+      ],
+      "symbolId": "76340",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท คอมเซเว่น จำกัด (มหาชน)",
+      "date": "2026-11-16T11:49:34+07:00",
+      "ts": 1794804574000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/COM7_20261116.pdf"
+    },
+    {
+      "uuid": "5ecae66d-365c-4087-ab57-606dcbf3e8fb",
+      "title": "BUY โดย LHS | บริษัท ซีพี ออลล์ จำกัด (มหาชน) (CPALL) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128644-buy-lhs-cpall",
+      "tickers": [
+        "CPALL"
+      ],
+      "symbolId": "4086",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ซีพี ออลล์ จำกัด (มหาชน)",
+      "date": "2026-11-16T11:48:26+07:00",
+      "ts": 1794804506000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CPALL_20261116.pdf"
+    },
+    {
+      "uuid": "7af45264-ef2c-4435-b8dd-788338a07cee",
+      "title": "TBUY โดย LHS | บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน) (SPRC) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128643-tbuy-lhs-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "LHS",
+      "rating": "TBUY",
+      "companyName": "บริษัท สตาร์ ปิโตรเลียม รีไฟน์นิ่ง จำกัด (มหาชน)",
+      "date": "2026-11-16T11:47:09+07:00",
+      "ts": 1794804429000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/SPRC_20261116.pdf"
+    },
+    {
+      "uuid": "4253ee67-4929-48af-b9cb-33fa8434d213",
+      "title": "BUY โดย LHS | บริษัท ราช กรุ๊ป จำกัด (มหาชน) (RATCH) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128642-buy-lhs-ratch",
+      "tickers": [
+        "RATCH"
+      ],
+      "symbolId": "2050",
+      "broker": "LHS",
+      "rating": "BUY",
+      "companyName": "บริษัท ราช กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-16T11:46:11+07:00",
+      "ts": 1794804371000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/RATCH_20261116.pdf"
+    },
+    {
+      "uuid": "cabf0a84-d7e5-4daf-98d0-03ea2245377a",
+      "title": "BUY โดย KSS | บริษัท ผลิตไฟฟ้า จำกัด (มหาชน) (EGCO) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128646-buy-kss-egco",
+      "tickers": [
+        "EGCO"
+      ],
+      "symbolId": "1283",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท ผลิตไฟฟ้า จำกัด (มหาชน)",
+      "date": "2026-11-16T11:42:51+07:00",
+      "ts": 1794804171000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_EGCO_ER.pdf"
+    },
+    {
+      "uuid": "de033391-52ae-4552-9383-de9976144283",
+      "title": "BUY โดย KSS | บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน) (PR9) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128638-buy-kss-pr9",
+      "tickers": [
+        "PR9"
+      ],
+      "symbolId": "89402",
+      "broker": "KSS",
+      "rating": "BUY",
+      "companyName": "บริษัท โรงพยาบาลพระรามเก้า จำกัด (มหาชน)",
+      "date": "2026-11-16T11:38:52+07:00",
+      "ts": 1794803932000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_PR9_QC.pdf"
+    },
+    {
+      "uuid": "f829c102-4070-4058-a5ae-1a730bed4d82",
+      "title": "Outperform(Maintained) by KGI | WHA UTILITIES AND POWER PUBLIC COMPANY LIMITED (WHAUP) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128632-outperformmaintained-kgi-whaup",
+      "tickers": [
+        "WHAUP"
+      ],
+      "symbolId": "81644",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "WHA UTILITIES AND POWER PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:27:24+07:00",
+      "ts": 1794803244000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_WHAUP_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "1ad8d704-d1a1-4097-8194-0b2f1c0e5325",
+      "title": "Outperform(Maintained) by KGI | WHA CORPORATION PUBLIC COMPANY LIMITED (WHA) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128631-outperformmaintained-kgi-wha",
+      "tickers": [
+        "WHA"
+      ],
+      "symbolId": "17351",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "WHA CORPORATION PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:26:36+07:00",
+      "ts": 1794803196000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_WHA_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "4af3384a-ecc5-4c44-aed6-e9cbff07006d",
+      "title": "Outperform(Maintained) by KGI | STECON GROUP PUBLIC COMPANY LIMITED (STECON) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128630-outperformmaintained-kgi-stecon",
+      "tickers": [
+        "STECON"
+      ],
+      "symbolId": "124457",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "STECON GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:25:45+07:00",
+      "ts": 1794803145000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_STECON_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "da8ed14a-8b8d-450a-9321-1f5863024d13",
+      "title": "BUY โดย ASP | บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน) (CENTEL) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128629-buy-asp-centel",
+      "tickers": [
+        "CENTEL"
+      ],
+      "symbolId": "506",
+      "broker": "ASP",
+      "rating": "BUY",
+      "companyName": "บริษัท โรงแรมเซ็นทรัลพลาซา จำกัด (มหาชน)",
+      "date": "2026-11-16T11:25:12+07:00",
+      "ts": 1794803112000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/CENTEL261116.pdf"
+    },
+    {
+      "uuid": "763e64b9-3aa5-4aad-82b1-23754c2bb80d",
+      "title": "Outperform(Maintained) by KGI | PRARAM 9 HOSPITAL PUBLIC COMPANY LIMITED (PR9) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128628-outperformmaintained-kgi-pr9",
+      "tickers": [
+        "PR9"
+      ],
+      "symbolId": "89402",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "PRARAM 9 HOSPITAL PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:24:56+07:00",
+      "ts": 1794803096000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_PR9_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "db05d166-63b6-498d-898e-11ed1636f6ec",
+      "title": "Outperform(Maintained) by KGI | LAND AND HOUSES PUBLIC COMPANY LIMITED (LH) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128627-outperformmaintained-kgi-lh",
+      "tickers": [
+        "LH"
+      ],
+      "symbolId": "392",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "LAND AND HOUSES PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:23:54+07:00",
+      "ts": 1794803034000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_LH_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "6216ac45-176e-4104-a94c-7e915777be55",
+      "title": "Outperform(Maintained) by KGI | CP ALL PUBLIC COMPANY LIMITED (CPALL) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128625-outperformmaintained-kgi-cpall",
+      "tickers": [
+        "CPALL"
+      ],
+      "symbolId": "4086",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "CP ALL PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:22:54+07:00",
+      "ts": 1794802974000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_CPALL_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "8dbb6216-c54f-4430-95a3-2a1be6c3b993",
+      "title": "Neutral โดย KSS | บริษัท ราช กรุ๊ป จำกัด (มหาชน) (RATCH) | บทวิเคราะห์ประจำวันที่ 16 พฤศจิกายน 2569",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128624-neutral-kss-ratch",
+      "tickers": [
+        "RATCH"
+      ],
+      "symbolId": "2050",
+      "broker": "KSS",
+      "rating": "Neutral",
+      "companyName": "บริษัท ราช กรุ๊ป จำกัด (มหาชน)",
+      "date": "2026-11-16T11:21:58+07:00",
+      "ts": 1794802918000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/261116_RATCH_ER.pdf"
+    },
+    {
+      "uuid": "5c94ac77-1cae-42e4-86aa-35af5589809e",
+      "title": "Outperform(Maintained) by KGI | CENTRAL PLAZA HOTEL PUBLIC COMPANY LIMITED (CENTEL) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128622-outperformmaintained-kgi-centel",
+      "tickers": [
+        "CENTEL"
+      ],
+      "symbolId": "506",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "CENTRAL PLAZA HOTEL PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:21:55+07:00",
+      "ts": 1794802915000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Daily-Story_CENTEL_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "99edda2e-25e1-4e74-8141-9f51ae0dd110",
+      "title": "Outperform(Maintained) by KGI | STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED (SPRC) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128621-outperformmaintained-kgi-sprc",
+      "tickers": [
+        "SPRC"
+      ],
+      "symbolId": "77321",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "STAR PETROLEUM REFINING PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:21:00+07:00",
+      "ts": 1794802860000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_SPRC_2026_11_16_e_th.pdf"
+    },
+    {
+      "uuid": "762e05c4-18a9-452b-8587-bc4d28964438",
+      "title": "Outperform(Maintained) by KGI | SIAM WELLNESS GROUP PUBLIC COMPANY LIMITED (SPA) | Research as of 16 November 2026",
+      "url": "https://www.settrade.com/th/research/analyst-research/stock/quote/128618-outperformmaintained-kgi-spa",
+      "tickers": [
+        "SPA"
+      ],
+      "symbolId": "22269",
+      "broker": "KGI",
+      "rating": "Outperform(Maintained)",
+      "companyName": "SIAM WELLNESS GROUP PUBLIC COMPANY LIMITED",
+      "date": "2026-11-16T11:20:04+07:00",
+      "ts": 1794802804000,
+      "fileUrl": "https://media.settrade.com/settrade/Documents/2026/Nov/Alert_SPA_2026_11_16_e_th.pdf"
+    },
     {
       "uuid": "2f9ffc99-6784-49a4-94a8-10e2b191a2e9",
       "title": "BUY โดย ASP | บริษัท แสนสิริ จำกัด (มหาชน) (SIRI) | บทวิเคราะห์ประจำวันที่ 13 พฤศจิกายน 2569",
