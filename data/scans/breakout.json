@@ -1,143 +1,153 @@
 [
   {
-    "Ticker": "CPALL",
-    "Price": 49.8,
-    "Box_Low": 42.25,
-    "Box_High(Break)": 49.8,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 1704.6,
-    "Box_Width": "17.87%",
-    "SMA150_Chg": 0.139
-  },
-  {
     "Ticker": "BDMS",
-    "Price": 20.45,
+    "Price": 20.95,
     "Box_Low": 17.59,
-    "Box_High(Break)": 20.45,
+    "Box_High(Break)": 20.95,
     "To_Break": "0.0%",
-    "ADTV(MB)": 1310.6,
-    "Box_Width": "16.24%",
-    "SMA150_Chg": 0.192
+    "ADTV(MB)": 1299.2,
+    "Box_Width": "19.08%",
+    "SMA150_Chg": 0.201
   },
   {
     "Ticker": "CHG",
-    "Price": 1.65,
+    "Price": 1.67,
     "Box_Low": 1.31,
-    "Box_High(Break)": 1.65,
+    "Box_High(Break)": 1.67,
     "To_Break": "0.0%",
-    "ADTV(MB)": 74.1,
-    "Box_Width": "25.66%",
-    "SMA150_Chg": 0.023
+    "ADTV(MB)": 76.4,
+    "Box_Width": "27.18%",
+    "SMA150_Chg": 0.025
   },
   {
     "Ticker": "MAJOR",
-    "Price": 8.9,
+    "Price": 8.98,
     "Box_Low": 6.5,
-    "Box_High(Break)": 8.95,
-    "To_Break": "0.56%",
-    "ADTV(MB)": 13.1,
-    "Box_Width": "37.69%",
-    "SMA150_Chg": 0.071
+    "Box_High(Break)": 8.98,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 13.7,
+    "Box_Width": "38.15%",
+    "SMA150_Chg": 0.084
   },
   {
-    "Ticker": "SCB",
-    "Price": 155.5,
-    "Box_Low": 127.8,
-    "Box_High(Break)": 158.0,
-    "To_Break": "1.58%",
-    "ADTV(MB)": 2037.5,
-    "Box_Width": "23.63%",
-    "SMA150_Chg": 2.313
-  },
-  {
-    "Ticker": "TISCO",
-    "Price": 128.5,
-    "Box_Low": 106.13,
-    "Box_High(Break)": 130.91,
-    "To_Break": "1.84%",
-    "ADTV(MB)": 334.3,
-    "Box_Width": "23.35%",
-    "SMA150_Chg": 2.53
-  },
-  {
-    "Ticker": "OR",
-    "Price": 12.6,
-    "Box_Low": 11.62,
-    "Box_High(Break)": 12.9,
-    "To_Break": "2.33%",
-    "ADTV(MB)": 188.9,
-    "Box_Width": "11.01%",
-    "SMA150_Chg": 0.168
+    "Ticker": "CPALL",
+    "Price": 50.0,
+    "Box_Low": 42.25,
+    "Box_High(Break)": 50.0,
+    "To_Break": "0.0%",
+    "ADTV(MB)": 1768.5,
+    "Box_Width": "18.34%",
+    "SMA150_Chg": 0.198
   },
   {
     "Ticker": "CPAXT",
-    "Price": 15.1,
+    "Price": 15.15,
     "Box_Low": 14.0,
     "Box_High(Break)": 15.46,
-    "To_Break": "2.35%",
-    "ADTV(MB)": 90.9,
+    "To_Break": "2.03%",
+    "ADTV(MB)": 94.1,
     "Box_Width": "10.46%",
     "SMA150_Chg": 0.002
   },
   {
+    "Ticker": "PR9",
+    "Price": 19.45,
+    "Box_Low": 15.63,
+    "Box_High(Break)": 19.9,
+    "To_Break": "2.26%",
+    "ADTV(MB)": 34.2,
+    "Box_Width": "27.31%",
+    "SMA150_Chg": 0.333
+  },
+  {
+    "Ticker": "ICHI",
+    "Price": 14.3,
+    "Box_Low": 11.82,
+    "Box_High(Break)": 14.63,
+    "To_Break": "2.29%",
+    "ADTV(MB)": 50.0,
+    "Box_Width": "23.77%",
+    "SMA150_Chg": 0.203
+  },
+  {
+    "Ticker": "SCB",
+    "Price": 154.0,
+    "Box_Low": 127.8,
+    "Box_High(Break)": 158.0,
+    "To_Break": "2.53%",
+    "ADTV(MB)": 2055.1,
+    "Box_Width": "23.63%",
+    "SMA150_Chg": 2.367
+  },
+  {
+    "Ticker": "AP",
+    "Price": 8.18,
+    "Box_Low": 6.95,
+    "Box_High(Break)": 8.4,
+    "To_Break": "2.62%",
+    "ADTV(MB)": 52.4,
+    "Box_Width": "20.86%",
+    "SMA150_Chg": -0.004
+  },
+  {
+    "Ticker": "TISCO",
+    "Price": 127.0,
+    "Box_Low": 106.13,
+    "Box_High(Break)": 130.91,
+    "To_Break": "2.98%",
+    "ADTV(MB)": 338.6,
+    "Box_Width": "23.35%",
+    "SMA150_Chg": 2.54
+  },
+  {
     "Ticker": "TTW",
-    "Price": 10.0,
+    "Price": 9.98,
     "Box_Low": 8.89,
     "Box_High(Break)": 10.3,
-    "To_Break": "2.91%",
-    "ADTV(MB)": 24.3,
+    "To_Break": "3.11%",
+    "ADTV(MB)": 25.2,
     "Box_Width": "15.91%",
     "SMA150_Chg": 0.147
   },
   {
-    "Ticker": "ITC",
-    "Price": 17.15,
-    "Box_Low": 14.33,
-    "Box_High(Break)": 17.8,
-    "To_Break": "3.65%",
-    "ADTV(MB)": 106.7,
-    "Box_Width": "24.17%",
-    "SMA150_Chg": 0.373
-  },
-  {
-    "Ticker": "ICHI",
-    "Price": 14.1,
-    "Box_Low": 11.82,
-    "Box_High(Break)": 14.63,
-    "To_Break": "3.65%",
-    "ADTV(MB)": 50.8,
-    "Box_Width": "23.77%",
-    "SMA150_Chg": 0.195
-  },
-  {
-    "Ticker": "PR9",
-    "Price": 19.15,
-    "Box_Low": 15.63,
-    "Box_High(Break)": 19.9,
-    "To_Break": "3.77%",
-    "ADTV(MB)": 35.5,
-    "Box_Width": "27.31%",
-    "SMA150_Chg": 0.329
-  },
-  {
-    "Ticker": "AP",
-    "Price": 8.08,
-    "Box_Low": 6.95,
-    "Box_High(Break)": 8.4,
-    "To_Break": "3.81%",
-    "ADTV(MB)": 50.2,
-    "Box_Width": "20.86%",
-    "SMA150_Chg": -0.007
+    "Ticker": "OR",
+    "Price": 12.45,
+    "Box_Low": 11.62,
+    "Box_High(Break)": 12.9,
+    "To_Break": "3.49%",
+    "ADTV(MB)": 190.0,
+    "Box_Width": "11.01%",
+    "SMA150_Chg": 0.159
   },
   {
     "Ticker": "BCH",
-    "Price": 11.2,
+    "Price": 11.25,
     "Box_Low": 8.87,
     "Box_High(Break)": 11.7,
-    "To_Break": "4.27%",
-    "ADTV(MB)": 111.2,
+    "To_Break": "3.85%",
+    "ADTV(MB)": 111.1,
     "Box_Width": "31.92%",
-    "SMA150_Chg": 0.223
+    "SMA150_Chg": 0.229
+  },
+  {
+    "Ticker": "ITC",
+    "Price": 17.05,
+    "Box_Low": 14.33,
+    "Box_High(Break)": 17.8,
+    "To_Break": "4.21%",
+    "ADTV(MB)": 106.0,
+    "Box_Width": "24.17%",
+    "SMA150_Chg": 0.365
+  },
+  {
+    "Ticker": "TVO",
+    "Price": 28.0,
+    "Box_Low": 23.36,
+    "Box_High(Break)": 29.25,
+    "To_Break": "4.27%",
+    "ADTV(MB)": 33.7,
+    "Box_Width": "25.19%",
+    "SMA150_Chg": 0.633
   },
   {
     "Ticker": "CPN",
@@ -145,9 +155,19 @@
     "Box_Low": 61.5,
     "Box_High(Break)": 69.25,
     "To_Break": "4.33%",
-    "ADTV(MB)": 496.3,
+    "ADTV(MB)": 500.0,
     "Box_Width": "12.6%",
-    "SMA150_Chg": 0.225
+    "SMA150_Chg": 0.248
+  },
+  {
+    "Ticker": "LH",
+    "Price": 3.6,
+    "Box_Low": 3.36,
+    "Box_High(Break)": 3.77,
+    "To_Break": "4.57%",
+    "ADTV(MB)": 81.3,
+    "Box_Width": "12.21%",
+    "SMA150_Chg": 0.003
   },
   {
     "Ticker": "SIRI",
@@ -155,7 +175,7 @@
     "Box_Low": 1.34,
     "Box_High(Break)": 1.49,
     "To_Break": "4.66%",
-    "ADTV(MB)": 44.4,
+    "ADTV(MB)": 44.5,
     "Box_Width": "10.79%",
     "SMA150_Chg": 0.009
   }
