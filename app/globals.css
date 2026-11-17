@@ -40,6 +40,22 @@
   box-sizing: border-box;
 }
 
+/* The whole app is dark. Without color-scheme the browser draws native
+   controls with light defaults, and a <select> popup is painted by the OS
+   rather than by the select's own (often translucent, e.g. bg-white/5)
+   background - so its <option>s came out as white-ish text on a white list
+   (Edge/Chrome on Windows). Declare the scheme once here and give every
+   option an opaque card background + the page ink color; per-select classes
+   (e.g. option className="bg-[#13161e]") still override this. */
+html {
+  color-scheme: dark;
+}
+select option,
+select optgroup {
+  background-color: #13161e; /* the site's card background */
+  color: var(--color-ink);
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;

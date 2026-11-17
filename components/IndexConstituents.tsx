@@ -458,7 +458,7 @@ export default function IndexConstituents({ index }: { index: string }) {
           <select
             value={filterStage}
             onChange={e => setFilterStage(e.target.value)}
-            className={`${inputCls} bg-[#0d0f16]`}
+            className={inputCls}
             aria-label="Stage"
           >
             <option value="">Stage: ทั้งหมด</option>
