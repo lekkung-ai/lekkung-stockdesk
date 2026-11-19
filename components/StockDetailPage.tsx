@@ -20,6 +20,7 @@ import type { ShareholderData } from '@/app/api/shareholder/[ticker]/route';
 import NewsFlagBadges from '@/components/NewsFlagBadges';
 import NewListingBadge from '@/components/NewListingBadge';
 import { thaiDateLabel, type ListingStatus } from '@/lib/listingStatus';
+import { sepaChecklistItems, type SepaChecklistRow } from '@/lib/sepaChecklist';
 
 // ── Prop types (all from server component) ─────────────────────────────────
 interface StageEntry {
@@ -121,6 +122,11 @@ interface Props {
   sectorInfo: SectorInfo | null;
   isPpbp?: boolean;
   listingStatus?: ListingStatus | null;
+  /** sepa_checklist.json แถวของหุ้นนี้ (null = ไม่มีในไฟล์ / ไฟล์ยังไม่มี) */
+  sepaChecklist?: SepaChecklistRow | null;
+  /** อ่าน sepa_checklist.json ได้ไหม — false = ไฟล์ยังไม่มี → การ์ด SEPA แบบเดิมทุกอย่าง */
+  sepaChecklistLoaded?: boolean;
+  isFund?: boolean;
 }
 
 // ── Stage style helper ──────────────────────────────────────────────────────
@@ -228,6 +234,30 @@ function SepaChecklist({ entry }: { entry: SepaEntry }) {
   );
 }
 
+// ── SEPA 8 ข้อ (sepa_checklist.json) ─────────────────────────────────────────
+// ระยะห่างแถวแคบกว่า SepaChecklist เดิม (8 แถว) ให้ความสูงใกล้การ์ด Market Stage + Kell ทางขวา
+function SepaChecklist8({ row }: { row: SepaChecklistRow }) {
+  return (
+    <div data-testid="sepa-checklist-8">
+      {sepaChecklistItems(row).map(item => (
+        <div
+          key={item.n}
+          className="flex items-center justify-between gap-3 py-1 border-b border-white/[0.04] last:border-0"
+          data-pass={item.pass ? 'true' : 'false'}
+        >
+          <div className="flex items-center gap-2 min-w-0">
+            <span className={`flex-shrink-0 text-label font-bold ${item.pass ? 'text-[#1D9E75]' : 'text-[#E24B4A]'}`}>
+              {item.pass ? '✓' : '✗'}
+            </span>
+            <span className="text-label text-white/65 leading-snug">{item.n}. {item.label}</span>
+          </div>
+          <span className={`text-label tabular-nums flex-shrink-0 ${item.pass ? 'text-meta' : 'text-[#E24B4A]'}`}>{item.detail}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ── Listing status banner (delisted / renamed · active / unknown → nothing) ──
 function ListingStatusBanner({ status }: { status: ListingStatus | null }) {
   if (status?.status === 'delisted') {
@@ -284,8 +314,18 @@ export default function StockDetailPage({
   sectorInfo,
   isPpbp = false,
   listingStatus = null,
+  sepaChecklist = null,
+  sepaChecklistLoaded = false,
+  isFund = false,
 }: Props) {
   const router = useRouter();
+
+  // ป้ายผ่าน/ไม่ผ่านเชื่อ sepa.json เสมอ · sepa_checklist ไม่ตรง (เช่นไฟล์คนละรอบ) → เตือนใน console เท่านั้น
+  useEffect(() => {
+    if (sepaChecklist && sepaChecklist.All_Pass !== !!sepaEntry) {
+      console.warn(`[SEPA] ${ticker}: sepa_checklist All_Pass=${sepaChecklist.All_Pass} but sepa.json ${sepaEntry ? 'has' : 'does not have'} it - showing sepa.json's verdict`);
+    }
+  }, [ticker, sepaChecklist, sepaEntry]);
   const [chartHeight, setChartHeight] = useState(350);
   const [quote, setQuote] = useState<{ price: number; change1d: number; shortName: string } | null>(null);
   const [fundamental, setFundamental] = useState<FundamentalData | null>(null);
@@ -735,11 +775,18 @@ export default function StockDetailPage({
               ) : (
                 <span className="px-2 py-0.5 rounded text-label font-bold bg-[#E24B4A]/10 text-[#E24B4A]">ไม่ผ่าน</span>
               )}
+              {!sepaEntry && sepaChecklist && (
+                <span className="text-label text-meta tabular-nums" data-testid="sepa-pass-count">ผ่าน {sepaChecklist.Pass_Count}/8</span>
+              )}
             </div>
-            {sepaEntry ? (
+            {sepaChecklist ? (
+              <SepaChecklist8 row={sepaChecklist} />
+            ) : sepaEntry ? (
               <SepaChecklist entry={sepaEntry} />
             ) : (
-              <p className="text-label text-meta text-center py-6">ไม่ผ่าน SEPA Trend Template</p>
+              <p className="text-label text-meta text-center py-6">
+                {sepaChecklistLoaded && !isFund ? 'ข้อมูลราคาไม่พอคำนวณ' : 'ไม่ผ่าน SEPA Trend Template'}
+              </p>
             )}
           </div>
 

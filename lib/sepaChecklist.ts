@@ -1,0 +1,66 @@
+// SEPA Trend Template 8 ข้อของหุ้นตัวเดียว (data/scans/sepa_checklist.json จาก data_engine scan_sepa.py)
+// pure — ไม่แตะ I/O · ตัวโหลดไฟล์อยู่ที่ lib/sepaChecklistData.ts (server เท่านั้น)
+// T1..T8 เรียงตาม Minervini: T1–T7 = cond_1..cond_7 ของ scan_sepa.py, T8 = RS ≥ 70 (RS ไม่มี = ไม่ผ่าน)
+// ผ่าน/ไม่ผ่านของแต่ละข้อเชื่อค่า T ในไฟล์ (คำนวณจากราคาเต็มความละเอียด) ไม่คำนวณซ้ำจากตัวเลขที่ปัดแล้ว
+
+export interface SepaChecklistRow {
+  Ticker: string;
+  Price: number;
+  SMA_50: number;
+  SMA_150: number;
+  SMA_200: number;
+  SMA_200_1M_Ago: number;
+  '52W_Low': number;
+  '52W_High': number;
+  RS_Rating: number | null;
+  T1: boolean;
+  T2: boolean;
+  T3: boolean;
+  T4: boolean;
+  T5: boolean;
+  T6: boolean;
+  T7: boolean;
+  T8: boolean;
+  Pass_Count: number;
+  All_Pass: boolean;
+}
+
+export interface SepaChecklistItem {
+  n: number;
+  label: string;
+  pass: boolean;
+  detail: string;
+}
+
+const NUM_FIELDS = ['Price', 'SMA_50', 'SMA_150', 'SMA_200', 'SMA_200_1M_Ago', '52W_Low', '52W_High', 'Pass_Count'] as const;
+const BOOL_FIELDS = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'All_Pass'] as const;
+
+/** แถวจากไฟล์ → SepaChecklistRow · รูปไม่ครบ/ชนิดผิด → null (หน้าใช้การ์ดแบบเดิม) */
+export function parseSepaChecklistRow(raw: unknown): SepaChecklistRow | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const r = raw as Record<string, unknown>;
+  if (typeof r.Ticker !== 'string') return null;
+  for (const f of NUM_FIELDS) if (typeof r[f] !== 'number' || !Number.isFinite(r[f])) return null;
+  for (const f of BOOL_FIELDS) if (typeof r[f] !== 'boolean') return null;
+  if (r.RS_Rating !== null && (typeof r.RS_Rating !== 'number' || !Number.isFinite(r.RS_Rating))) return null;
+  return r as unknown as SepaChecklistRow;
+}
+
+const f2 = (v: number) => v.toFixed(2);
+const pct = (v: number) => `${v > 0 ? '+' : ''}${v.toFixed(1)}%`;
+
+/** 8 แถวของการ์ด SEPA ตามลำดับ Minervini พร้อมตัวเลขจริงด้านขวา */
+export function sepaChecklistItems(row: SepaChecklistRow): SepaChecklistItem[] {
+  const fromLow = row['52W_Low'] > 0 ? (row.Price / row['52W_Low'] - 1) * 100 : NaN;
+  const fromHigh = row['52W_High'] > 0 ? (row.Price / row['52W_High'] - 1) * 100 : NaN;
+  return [
+    { n: 1, label: 'ราคา > SMA150 และ SMA200', pass: row.T1, detail: `${f2(row.Price)} > ${f2(row.SMA_150)} / ${f2(row.SMA_200)}` },
+    { n: 2, label: 'SMA150 > SMA200', pass: row.T2, detail: `${f2(row.SMA_150)} > ${f2(row.SMA_200)}` },
+    { n: 3, label: 'SMA200 ขาขึ้น (เทียบ 1 เดือน)', pass: row.T3, detail: `${f2(row.SMA_200)} > ${f2(row.SMA_200_1M_Ago)}` },
+    { n: 4, label: 'SMA50 > SMA150 และ SMA200', pass: row.T4, detail: `${f2(row.SMA_50)} > ${f2(row.SMA_150)} / ${f2(row.SMA_200)}` },
+    { n: 5, label: 'ราคา > SMA50', pass: row.T5, detail: `${f2(row.Price)} > ${f2(row.SMA_50)}` },
+    { n: 6, label: 'ราคาเหนือจุดต่ำ 52 สัปดาห์ ≥ 30%', pass: row.T6, detail: Number.isFinite(fromLow) ? `${pct(fromLow)} จากจุดต่ำ` : '—' },
+    { n: 7, label: 'ห่างจุดสูง 52 สัปดาห์ ≤ 25%', pass: row.T7, detail: Number.isFinite(fromHigh) ? `${pct(fromHigh)} จากจุดสูง` : '—' },
+    { n: 8, label: 'RS ≥ 70', pass: row.T8, detail: row.RS_Rating == null ? 'RS —' : `RS ${Math.round(row.RS_Rating)}` },
+  ];
+}

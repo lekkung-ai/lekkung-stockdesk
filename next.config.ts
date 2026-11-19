@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
       './data/history/**/*',
       './public/data/history/**/*',
       './public/data/earnings/**/*',
+      // lib/sepaChecklistData.ts อ่านตอน request (ไฟล์อาจยังไม่มี → การ์ด SEPA แบบเดิม)
+      './data/scans/sepa_checklist.json',
     ],
   },
 };

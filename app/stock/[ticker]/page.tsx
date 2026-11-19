@@ -8,6 +8,8 @@ import rawSectorMap from '@/data/scans/sector_map.json';
 import rawPpbp from '@/data/scans/ppbp.json';
 import StockDetailPage from '@/components/StockDetailPage';
 import { listingStatusWithTrading } from '@/lib/listingStatusData';
+import { sepaChecklistFor } from '@/lib/sepaChecklistData';
+import { isFundTicker } from '@/lib/sectorData';
 
 interface SectorMap {
   sectors: unknown[];
@@ -79,6 +81,8 @@ export default async function StockPage({
   const sectorInfo = sectorMap.ticker_to_sector[t] ?? null;
   const isPpbp = (rawPpbp as { Ticker: string }[]).some(r => r.Ticker === t);
   const listingStatus = await listingStatusWithTrading(t);
+  // SEPA 8 ข้อของทุกหุ้น (sepa_checklist.json) · ไฟล์ยังไม่มี → loaded=false → การ์ดแบบเดิม
+  const sepaChecklist = sepaChecklistFor(t);
 
   return (
     <StockDetailPage
@@ -91,6 +95,9 @@ export default async function StockPage({
       sectorInfo={sectorInfo}
       isPpbp={isPpbp}
       listingStatus={listingStatus}
+      sepaChecklist={sepaChecklist.row}
+      sepaChecklistLoaded={sepaChecklist.loaded}
+      isFund={isFundTicker(t)}
     />
   );
 }
