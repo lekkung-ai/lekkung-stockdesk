@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-11-18T18:06:05.978889+07:00",
+  "generated_at": "2026-11-19T18:15:09.020717+07:00",
   "method": "median_stock_rs",
   "sectors": {
     "SET": {
+      "Agro": {
+        "rsScore": 45,
+        "count": 71
+      },
       "Property": {
         "rsScore": 46,
         "count": 110
       },
-      "Resources": {
-        "rsScore": 69,
-        "count": 55
-      },
-      "Technology": {
-        "rsScore": 49,
-        "count": 44
-      },
-      "Agro": {
-        "rsScore": 46,
-        "count": 71
-      },
       "Financials": {
-        "rsScore": 60,
+        "rsScore": 62,
         "count": 67
       },
+      "Technology": {
+        "rsScore": 50,
+        "count": 44
+      },
+      "Resources": {
+        "rsScore": 71,
+        "count": 55
+      },
       "Industrials": {
-        "rsScore": 62,
+        "rsScore": 63,
         "count": 93
       },
       "Services": {
-        "rsScore": 56,
+        "rsScore": 54,
         "count": 129
       },
       "Consump": {
-        "rsScore": 48,
+        "rsScore": 49,
         "count": 46
       }
     },
@@ -41,32 +41,32 @@
         "rsScore": 34,
         "count": 62
       },
-      "Resources": {
-        "rsScore": 56,
-        "count": 11
-      },
-      "Industrials": {
-        "rsScore": 60,
-        "count": 46
-      },
-      "Property": {
-        "rsScore": 23,
-        "count": 36
-      },
       "Consumer": {
-        "rsScore": 22,
+        "rsScore": 21,
         "count": 20
       },
+      "Industrials": {
+        "rsScore": 59,
+        "count": 46
+      },
+      "Resources": {
+        "rsScore": 45,
+        "count": 11
+      },
+      "Property": {
+        "rsScore": 24,
+        "count": 36
+      },
       "Technology": {
-        "rsScore": 50,
+        "rsScore": 52,
         "count": 24
       },
       "Agro": {
-        "rsScore": 43,
+        "rsScore": 42,
         "count": 13
       },
       "Financials": {
-        "rsScore": 52,
+        "rsScore": 56,
         "count": 10
       }
     }
