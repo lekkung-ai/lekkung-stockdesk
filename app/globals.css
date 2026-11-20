@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-plex-sans-thai), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 
   /* ---- Central type scale (2026-07-17) --------------------------------
