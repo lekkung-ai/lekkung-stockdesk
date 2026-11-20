@@ -497,7 +497,7 @@ export default function FairValueCompare({ fv }: { fv: FairValueResult }) {
 
   const header = (chip?: ReactNode) => (
     <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
-      <h3 className="text-[14px] font-semibold text-[#eceef3]">ราคาเหมาะสม</h3>
+      <h3 className="text-[16px] font-semibold text-[#eceef3]">ราคาเหมาะสม</h3>
       {chip}
     </div>
   );

@@ -371,7 +371,7 @@ function SepaContent() {
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <PageHeader
           title="SEPA Trend Template"
-          subtitle="Stan Weinstein + O'Neil SEPA criteria"
+          subtitle="Minervini Trend Template 8 ข้อ"
           count={filtered.length}
           updatedAt={formatThaiDate(getScanGeneratedAt('sepa'))}
           total={sepaData.length}

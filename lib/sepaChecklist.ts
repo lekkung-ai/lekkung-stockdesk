@@ -3,6 +3,8 @@
 // T1..T8 เรียงตาม Minervini: T1–T7 = cond_1..cond_7 ของ scan_sepa.py, T8 = RS ≥ 70 (RS ไม่มี = ไม่ผ่าน)
 // ผ่าน/ไม่ผ่านของแต่ละข้อเชื่อค่า T ในไฟล์ (คำนวณจากราคาเต็มความละเอียด) ไม่คำนวณซ้ำจากตัวเลขที่ปัดแล้ว
 
+import { compareParts, partsText, priceLead, signedPct1, valLead, type DetailPart } from './checklistDisplay';
+
 export interface SepaChecklistRow {
   Ticker: string;
   Price: number;
@@ -29,7 +31,10 @@ export interface SepaChecklistItem {
   n: number;
   label: string;
   pass: boolean;
+  /** ข้อความล้วน (รวมเครื่องหมายจริงและคำกำกับ) */
   detail: string;
+  /** ชิ้นส่วนสำหรับระบายสี (ราคา = ฟ้า, เครื่องหมายที่ตก = แดง) */
+  parts: DetailPart[];
 }
 
 const NUM_FIELDS = ['Price', 'SMA_50', 'SMA_150', 'SMA_200', 'SMA_200_1M_Ago', '52W_Low', '52W_High', 'Pass_Count'] as const;
@@ -46,21 +51,27 @@ export function parseSepaChecklistRow(raw: unknown): SepaChecklistRow | null {
   return r as unknown as SepaChecklistRow;
 }
 
-const f2 = (v: number) => v.toFixed(2);
-const pct = (v: number) => `${v > 0 ? '+' : ''}${v.toFixed(1)}%`;
+const mk = (n: number, label: string, pass: boolean, parts: DetailPart[]): SepaChecklistItem => ({ n, label, pass, detail: partsText(parts), parts });
 
-/** 8 แถวของการ์ด SEPA ตามลำดับ Minervini พร้อมตัวเลขจริงด้านขวา */
+/** ข้อที่เทียบ % กับเกณฑ์: ผ่าน = ค่าปกติ · ไม่ผ่าน = ค่าแดงหนา + เกณฑ์กำกับสีจาง */
+const pctParts = (text: string, pass: boolean, rule: string): DetailPart[] => [
+  { text, kind: pass ? 'val' : 'fail' },
+  ...(pass ? [] : [{ text: ` (เกณฑ์ ${rule})`, kind: 'note' as const }]),
+];
+
+/** 8 แถวของการ์ด SEPA ตามลำดับ Minervini พร้อมตัวเลขจริงด้านขวา (เครื่องหมาย > < = ตามค่าจริง) */
 export function sepaChecklistItems(row: SepaChecklistRow): SepaChecklistItem[] {
   const fromLow = row['52W_Low'] > 0 ? (row.Price / row['52W_Low'] - 1) * 100 : NaN;
   const fromHigh = row['52W_High'] > 0 ? (row.Price / row['52W_High'] - 1) * 100 : NaN;
+  const dash: DetailPart[] = [{ text: '—', kind: 'val' }];
   return [
-    { n: 1, label: 'ราคา > SMA150 และ SMA200', pass: row.T1, detail: `${f2(row.Price)} > ${f2(row.SMA_150)} / ${f2(row.SMA_200)}` },
-    { n: 2, label: 'SMA150 > SMA200', pass: row.T2, detail: `${f2(row.SMA_150)} > ${f2(row.SMA_200)}` },
-    { n: 3, label: 'SMA200 ขาขึ้น (เทียบ 1 เดือน)', pass: row.T3, detail: `${f2(row.SMA_200)} > ${f2(row.SMA_200_1M_Ago)}` },
-    { n: 4, label: 'SMA50 > SMA150 และ SMA200', pass: row.T4, detail: `${f2(row.SMA_50)} > ${f2(row.SMA_150)} / ${f2(row.SMA_200)}` },
-    { n: 5, label: 'ราคา > SMA50', pass: row.T5, detail: `${f2(row.Price)} > ${f2(row.SMA_50)}` },
-    { n: 6, label: 'ราคาเหนือจุดต่ำ 52 สัปดาห์ ≥ 30%', pass: row.T6, detail: Number.isFinite(fromLow) ? `${pct(fromLow)} จากจุดต่ำ` : '—' },
-    { n: 7, label: 'ห่างจุดสูง 52 สัปดาห์ ≤ 25%', pass: row.T7, detail: Number.isFinite(fromHigh) ? `${pct(fromHigh)} จากจุดสูง` : '—' },
-    { n: 8, label: 'RS ≥ 70', pass: row.T8, detail: row.RS_Rating == null ? 'RS —' : `RS ${Math.round(row.RS_Rating)}` },
+    mk(1, 'ราคา > SMA150 และ SMA200', row.T1, compareParts(priceLead(row.Price), [row.SMA_150, row.SMA_200], row.T1)),
+    mk(2, 'SMA150 > SMA200', row.T2, compareParts(valLead(row.SMA_150), [row.SMA_200], row.T2)),
+    mk(3, 'SMA200 ขาขึ้น (เทียบ 1 เดือน)', row.T3, compareParts(valLead(row.SMA_200), [row.SMA_200_1M_Ago], row.T3, '1 เดือนก่อน')),
+    mk(4, 'SMA50 > SMA150 และ SMA200', row.T4, compareParts(valLead(row.SMA_50), [row.SMA_150, row.SMA_200], row.T4)),
+    mk(5, 'ราคา > SMA50', row.T5, compareParts(priceLead(row.Price), [row.SMA_50], row.T5)),
+    mk(6, 'ราคาเหนือจุดต่ำ 52 สัปดาห์ ≥ 30%', row.T6, Number.isFinite(fromLow) ? pctParts(`${signedPct1(fromLow)} จากจุดต่ำ`, row.T6, '≥ 30%') : dash),
+    mk(7, 'ห่างจุดสูง 52 สัปดาห์ ≤ 25%', row.T7, Number.isFinite(fromHigh) ? pctParts(`${signedPct1(fromHigh)} จากจุดสูง`, row.T7, '≤ 25%') : dash),
+    mk(8, 'RS ≥ 70', row.T8, pctParts(row.RS_Rating == null ? 'RS —' : `RS ${Math.round(row.RS_Rating)}`, row.T8, '≥ 70')),
   ];
 }

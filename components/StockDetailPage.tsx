@@ -25,6 +25,7 @@ import type { ShareholderData } from '@/app/api/shareholder/[ticker]/route';
 import NewsFlagBadges from '@/components/NewsFlagBadges';
 import NewListingBadge from '@/components/NewListingBadge';
 import { thaiDateLabel, type ListingStatus } from '@/lib/listingStatus';
+import { isNewline, type DetailKind, type DetailPart } from '@/lib/checklistDisplay';
 import { sepaChecklistItems, type SepaChecklistRow } from '@/lib/sepaChecklist';
 import { kellChecklistItems, type KellChecklistRow } from '@/lib/kellChecklist';
 import { macroCommoditiesForTicker } from '@/lib/macroData';
@@ -149,7 +150,7 @@ interface Props {
 }
 
 // ── type scale / colors (หน้านี้เท่านั้น) ─────────────────────────────────────
-const META = 'text-[#848ca0]';
+const META = 'text-[#a3aabb]'; // 2026-11-20: สว่างขึ้นจาก #848ca0 (อ่านง่ายขึ้น) — ใช้เฉพาะไฟล์นี้
 const INK2 = 'text-[#b4bac8]';
 const INK = 'text-[#eceef3]';
 const UP_TXT = 'text-[#1D9E75]';
@@ -263,7 +264,7 @@ function SectionHeading({ children, color, right }: { children: ReactNode; color
 function SubHeading({ children, right, first = false }: { children: ReactNode; right?: ReactNode; first?: boolean }) {
   return (
     <div className={`flex items-center justify-between gap-3 flex-wrap mb-2 ${first ? '' : 'mt-5'}`}>
-      <h3 className={`text-[14px] font-semibold ${INK}`}>{children}</h3>
+      <h3 className={`text-[16px] font-semibold ${INK}`}>{children}</h3>
       {right}
     </div>
   );
@@ -272,7 +273,7 @@ function SubHeading({ children, right, first = false }: { children: ReactNode; r
 function Tile({ label, value, sub, valueCls = INK, subCls = META, testId }: { label: string; value: ReactNode; sub?: ReactNode; valueCls?: string; subCls?: string; testId?: string }) {
   return (
     <div className={TILE} data-testid={testId}>
-      <div className={`text-[12px] font-medium ${META}`}>{label}</div>
+      <div className={`text-[13px] font-medium ${META}`}>{label}</div>
       <div className={`text-[18px] font-semibold leading-snug mt-0.5 break-words ${valueCls}`}>{value}</div>
       {sub != null && <div className={`text-[12px] mt-0.5 break-words ${subCls}`}>{sub}</div>}
     </div>
@@ -306,16 +307,32 @@ function SepaChecklist({ entry }: { entry: SepaEntry }) {
   );
 }
 
-function CheckRow({ pass, label, detail, failDetailRed = false }: { pass: boolean; label: string; detail: string; failDetailRed?: boolean }) {
+const DETAIL_CLS: Record<DetailKind, string> = {
+  price: 'text-[#7dd3fc] font-semibold', // สีฟ้า = ราคาปัจจุบันเท่านั้น
+  val: '',
+  op: '',
+  opfail: `${DOWN_TXT} font-bold`,
+  fail: `${DOWN_TXT} font-bold`,
+  note: 'text-[#9aa1b2]',
+};
+
+function CheckRow({ pass, num, label, detail, parts }: { pass: boolean; num?: number; label: string; detail?: string; parts?: DetailPart[] }) {
   return (
-    <div className="flex items-center justify-between gap-3 py-1.5 border-b border-white/[0.05] last:border-0" data-pass={pass ? 'true' : 'false'}>
+    <div className="flex items-center justify-between gap-3 py-2 border-b border-white/[0.05] last:border-0" data-pass={pass ? 'true' : 'false'}>
       <div className="flex items-start gap-2.5 min-w-0">
-        <span className={`mt-0.5 grid h-[18px] w-[18px] flex-none place-items-center rounded-full text-[12px] font-bold ${pass ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]'}`}>
+        <span className={`mt-[3px] grid h-[18px] w-[18px] flex-none place-items-center rounded-full text-[12px] font-bold ${pass ? 'bg-[#1D9E75]/15 text-[#1D9E75]' : 'bg-[#E24B4A]/15 text-[#E24B4A]'}`}>
           {pass ? '✓' : '✗'}
         </span>
-        <span className={`text-[14px] ${INK} leading-snug`}>{label}</span>
+        <span className={`text-[14.5px] ${INK} leading-[1.6]`}>
+          {num != null && <span className="text-[#6f778a] font-medium mr-1">{num}.</span>}
+          {label}
+        </span>
       </div>
-      <span className={`text-[12px] flex-shrink-0 text-right ${detail.includes('\n') ? 'whitespace-pre-line leading-snug ' : ''}${!pass && failDetailRed ? DOWN_TXT : INK2}`}>{detail}</span>
+      <span className={`text-[13.5px] leading-[1.6] flex-shrink-0 text-right tabular-nums text-[#c3c8d4] ${parts?.some(p => isNewline(p)) ? 'whitespace-pre-line' : ''}`}>
+        {parts
+          ? parts.map((p, i) => (isNewline(p) ? <br key={i} /> : <span key={i} className={DETAIL_CLS[p.kind]}>{p.text}</span>))
+          : detail}
+      </span>
     </div>
   );
 }
@@ -325,7 +342,7 @@ function SepaChecklist8({ row }: { row: SepaChecklistRow }) {
   return (
     <div data-testid="sepa-checklist-8">
       {sepaChecklistItems(row).map(item => (
-        <CheckRow key={item.n} pass={item.pass} label={`${item.n}. ${item.label}`} detail={item.detail} failDetailRed />
+        <CheckRow key={item.n} pass={item.pass} num={item.n} label={item.label} parts={item.parts} />
       ))}
     </div>
   );
@@ -336,7 +353,7 @@ function KellChecklist7({ row }: { row: KellChecklistRow }) {
   return (
     <div data-testid="kell-checklist-7">
       {kellChecklistItems(row).map(item => (
-        <CheckRow key={item.n} pass={item.pass} label={`${item.n}. ${item.label}`} detail={item.detail} failDetailRed />
+        <CheckRow key={item.n} pass={item.pass} num={item.n} label={item.label} parts={item.parts} />
       ))}
     </div>
   );
@@ -393,7 +410,7 @@ function Pager({ page, total, onPrev, onNext }: { page: number; total: number; o
   return (
     <div className="flex items-center justify-between pt-3 mt-1 border-t border-white/[0.06]">
       <button onClick={onPrev} disabled={page === 1} className={btn}><ChevronLeft size={14} /> ก่อนหน้า</button>
-      <span className={`text-[12px] ${META} font-medium`}>หน้า {page} จาก {total}</span>
+      <span className={`text-[13px] ${META} font-medium`}>หน้า {page} จาก {total}</span>
       <button onClick={onNext} disabled={page >= total} className={btn}>ถัดไป <ChevronRight size={14} /></button>
     </div>
   );
@@ -636,7 +653,7 @@ export default function StockDetailPage({
       <div className="space-y-3">
         <button
           onClick={() => router.back()}
-          className={`flex items-center gap-1.5 text-[12px] ${META} hover:text-[#b4bac8] transition-colors`}
+          className={`flex items-center gap-1.5 text-[13px] ${META} hover:text-[#b4bac8] transition-colors`}
         >
           <ArrowLeft size={13} />
           กลับ
@@ -669,9 +686,9 @@ export default function StockDetailPage({
               {combinedEntry?.Low_Liquidity && (
                 <Chip tone="amber" title="ADTV ต่ำกว่า floor (10 ลบ./วัน) ในสแกนที่ผ่าน — ผ่านเกณฑ์เทรนด์/สัญญาณ แต่เข้า-ออกยาก">ADTV ต่ำ</Chip>
               )}
-              {isPpbp && !hasAnyScan && <span className={`text-[12px] ${META}`}>หุ้นนี้ยังไม่อยู่ในชุดสแกน</span>}
+              {isPpbp && !hasAnyScan && <span className={`text-[13px] ${META}`}>หุ้นนี้ยังไม่อยู่ในชุดสแกน</span>}
               <NewListingBadge ticker={ticker} />
-              <NewsFlagBadges ticker={ticker} />
+              <NewsFlagBadges ticker={ticker} large />
             </div>
           </div>
           <div className="text-right">
@@ -688,7 +705,7 @@ export default function StockDetailPage({
                 ({signedPct(quote.change1d, 2)})
               </div>
             )}
-            <div className={`text-[12px] ${META}`}>
+            <div className={`text-[13px] ${META}`}>
               {quote && quoteAt
                 ? `ล่าช้าราว 15 นาที · ดึงเมื่อ ${thShortDateTime(quoteAt)}`
                 : combinedEntry ? `ราคาปิด ณ วันสแกน${scanAt ? ` ${thShortDateTime(scanAt)}` : ''}` : null}
@@ -719,8 +736,8 @@ export default function StockDetailPage({
       <div className="grid grid-cols-1 @4xl:grid-cols-2 gap-4">
         <div className={`${CARD} p-4`} data-testid="summary-card" data-kind="tech">
           <div className="flex items-center justify-between gap-3 mb-3">
-            <span className="text-[14px] font-semibold text-[#93c5fd]">เทคนิค</span>
-            {scanAt && <span className={`text-[12px] ${META}`}>สแกน {thShortDateTime(scanAt)}</span>}
+            <span className="text-[16px] font-semibold text-[#93c5fd]">เทคนิค</span>
+            {scanAt && <span className={`text-[13px] ${META}`}>สแกน {thShortDateTime(scanAt)}</span>}
           </div>
           {!hasAnyScan ? (
             <p className={`text-[14px] ${META} py-6 text-center`}>หุ้นนี้ยังไม่อยู่ในชุดสแกน — ไม่มีข้อมูล SEPA / Stage / Kell</p>
@@ -737,9 +754,9 @@ export default function StockDetailPage({
                 />
                 <Tile
                   label="SEPA"
-                  value={sepaPassCount != null ? `${sepaEntry ? 8 : sepaPassCount}/8` : sepaEntry ? 'ผ่าน' : '—'}
+                  value={sepaEntry ? '8/8' : sepaPassCount != null ? 'ไม่ผ่าน' : '—'}
                   valueCls={sepaEntry ? UP_TXT : INK}
-                  sub={sepaEntry ? 'ผ่าน' : 'ไม่ผ่าน'}
+                  sub={sepaEntry ? 'ผ่าน' : sepaPassCount != null ? `${sepaPassCount}/8` : undefined}
                   testId="sum-sepa"
                 />
                 <Tile
@@ -775,7 +792,7 @@ export default function StockDetailPage({
         <div className={`${CARD} p-4`} data-testid="summary-card" data-kind="fund">
           <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
             <span className="text-[14px] font-semibold text-[#d8b4fe]">พื้นฐาน</span>
-            <span className={`text-[12px] ${META}`}>
+            <span className={`text-[13px] ${META}`}>
               {[f45Found?.quarter ? `งบ ${f45Found.quarter}` : null, groupLabel && grp ? `เทียบ ${groupLabel} ${Math.max(grp.nPe, grp.nPb)} ตัว` : null].filter(Boolean).join(' · ')}
             </span>
           </div>
@@ -795,7 +812,7 @@ export default function StockDetailPage({
             />
             <Tile
               label="ราคาเหมาะสม"
-              value={fv.medianFair != null ? <>{fv.medianFair >= 100 ? Math.round(fv.medianFair).toLocaleString('en-US') : fv.medianFair.toFixed(2)} <span className={`text-[12px] font-normal ${META}`}>บาท</span></> : '—'}
+              value={fv.medianFair != null ? <>{fv.medianFair >= 100 ? Math.round(fv.medianFair).toLocaleString('en-US') : fv.medianFair.toFixed(2)} <span className={`text-[13px] font-normal ${META}`}>บาท</span></> : '—'}
               sub={fv.medianUpside != null ? (fv.medianUpside < 0 ? `ต่ำกว่าราคา ${Math.abs(fv.medianUpside).toFixed(0)}%` : fv.medianUpside > 0 ? `สูงกว่าราคา ${fv.medianUpside.toFixed(0)}%` : 'เท่าราคา') : undefined}
               subCls={fv.medianUpside == null ? META : fv.medianUpside < -VALUE_BAND_PCT ? DOWN_TXT : fv.medianUpside > VALUE_BAND_PCT ? UP_TXT : META}
               testId="sum-fair"
@@ -833,7 +850,7 @@ export default function StockDetailPage({
             {!hasAnyScan ? (
               <div className="py-6 text-center">
                 <p className={`text-[14px] ${META}`}>หุ้นนี้ยังไม่อยู่ในชุดสแกน</p>
-                <p className={`text-[12px] ${META} mt-1`}>ไม่มีข้อมูล SEPA / Stage / Kell สำหรับ {ticker}</p>
+                <p className={`text-[13px] ${META} mt-1`}>ไม่มีข้อมูล SEPA / Stage / Kell สำหรับ {ticker}</p>
               </div>
             ) : (
               <>
@@ -843,7 +860,7 @@ export default function StockDetailPage({
                   right={
                     <span className="flex items-center gap-2">
                       {!sepaEntry && sepaChecklist && (
-                        <span className={`text-[12px] ${META}`} data-testid="sepa-pass-count">ผ่าน {sepaChecklist.Pass_Count}/8</span>
+                        <span className={`text-[13px] ${META}`} data-testid="sepa-pass-count">ผ่าน {sepaChecklist.Pass_Count}/8</span>
                       )}
                       {sepaEntry ? <Chip tone="good">ผ่าน</Chip> : <Chip tone="bad">ไม่ผ่าน</Chip>}
                     </span>
@@ -856,7 +873,7 @@ export default function StockDetailPage({
                 ) : sepaEntry ? (
                   <SepaChecklist entry={sepaEntry} />
                 ) : (
-                  <p className={`text-[12px] ${META} text-center py-4`}>
+                  <p className={`text-[13px] ${META} text-center py-4`}>
                     {sepaChecklistLoaded && !isFund ? 'ข้อมูลราคาไม่พอคำนวณ' : 'ไม่ผ่าน SEPA Trend Template'}
                   </p>
                 )}
@@ -873,7 +890,7 @@ export default function StockDetailPage({
                 </SubHeading>
                 {stageEntry ? (
                   <>
-                    <p className={`text-[12px] ${META} mb-2`}>
+                    <p className={`text-[13px] ${META} mb-2`}>
                       {stageEntry.Stage === 'IPO'
                         ? 'หุ้นจดทะเบียนใหม่ — ข้อมูลราคายังไม่พอคำนวณ stage (ต้องมี EMA200)'
                         : <>อยู่ใน {stageEntry.Stage} มา <span className={`${INK2} font-medium`}>{stageEntry.Bar_Count}</span> วัน</>}
@@ -887,7 +904,7 @@ export default function StockDetailPage({
                     </div>
                   </>
                 ) : (
-                  <p className={`text-[12px] ${META} text-center py-3`}>ไม่มีข้อมูล Stage</p>
+                  <p className={`text-[13px] ${META} text-center py-3`}>ไม่มีข้อมูล Stage</p>
                 )}
 
                 {/* Oliver Kell */}
@@ -896,7 +913,7 @@ export default function StockDetailPage({
                   right={
                     <span className="flex items-center gap-2">
                       {!kellEntry && kellChecklist && (
-                        <span className={`text-[12px] ${META}`} data-testid="kell-pass-count">ผ่าน {kellChecklist.Pass_Count}/7</span>
+                        <span className={`text-[13px] ${META}`} data-testid="kell-pass-count">ผ่าน {kellChecklist.Pass_Count}/7</span>
                       )}
                       {kellEntry ? <Chip tone="info">ผ่าน · {kellEntry.Signal}</Chip> : <Chip>ไม่ผ่าน</Chip>}
                     </span>
@@ -912,7 +929,7 @@ export default function StockDetailPage({
                     <Tile label="สถานะ" value={<span className="text-[14px]">{kellEntry.Status}</span>} />
                   </div>
                 ) : !kellChecklist && (
-                  <p className={`text-[12px] ${META} text-center py-3`}>
+                  <p className={`text-[13px] ${META} text-center py-3`}>
                     {kellChecklistLoaded && !isFund ? 'ข้อมูลราคาไม่พอคำนวณ' : 'ไม่ผ่าน Oliver Kell EMAC'}
                   </p>
                 )}
@@ -943,22 +960,22 @@ export default function StockDetailPage({
             </SubHeading>
             {f45 === null ? (
               f45Failed
-                ? <p className={`text-[12px] ${META} text-center py-4`}>ไม่มีข้อมูล</p>
-                : <p className={`text-[12px] ${META} text-center py-4 animate-pulse`}>กำลังโหลด...</p>
+                ? <p className={`text-[13px] ${META} text-center py-4`}>ไม่มีข้อมูล</p>
+                : <p className={`text-[13px] ${META} text-center py-4 animate-pulse`}>กำลังโหลด...</p>
             ) : !f45.found ? (
-              <p className={`text-[12px] ${META} text-center py-4`}>ไม่มีรายงานล่าสุด</p>
+              <p className={`text-[13px] ${META} text-center py-4`}>ไม่มีรายงานล่าสุด</p>
             ) : (
               <>
                 <div className="grid grid-cols-2 @lg:grid-cols-3 gap-2">
                   <Tile
                     label="กำไร (ขาดทุน) สุทธิ"
-                    value={f45.netProfit != null ? <>{fmtMoney(f45.netProfit)} <span className={`text-[12px] font-normal ${META}`}>บาท</span></> : '—'}
+                    value={f45.netProfit != null ? <>{fmtMoney(f45.netProfit)} <span className={`text-[13px] font-normal ${META}`}>บาท</span></> : '—'}
                     sub={f45.netProfitYoY != null ? `${signedPct(f45.netProfitYoY)} YoY` : undefined}
                     subCls={f45.netProfitYoY == null ? META : f45.netProfitYoY >= 0 ? UP_TXT : DOWN_TXT}
                   />
                   <Tile
                     label="กำไรต่อหุ้น (EPS)"
-                    value={f45.eps != null ? <>{f45.eps.toFixed(2)} <span className={`text-[12px] font-normal ${META}`}>บาท</span></> : '—'}
+                    value={f45.eps != null ? <>{f45.eps.toFixed(2)} <span className={`text-[13px] font-normal ${META}`}>บาท</span></> : '—'}
                     sub={f45.epsYoY != null ? `${signedPct(f45.epsYoY)} YoY` : undefined}
                     subCls={f45.epsYoY == null ? META : f45.epsYoY >= 0 ? UP_TXT : DOWN_TXT}
                   />
@@ -966,11 +983,11 @@ export default function StockDetailPage({
                 </div>
                 {f45.reason && (
                   <div className={`mt-2 ${TILE}`}>
-                    <div className={`text-[12px] ${META} mb-0.5`}>สาเหตุ</div>
+                    <div className={`text-[13px] ${META} mb-0.5`}>สาเหตุ</div>
                     <div className={`text-[14px] ${INK2} leading-relaxed`}>{f45.reason}</div>
                   </div>
                 )}
-                <p className={`text-[12px] ${META} mt-2`}>
+                <p className={`text-[13px] ${META} mt-2`}>
                   {f45.quarter ?? ''}{f45.periodEnd ? `${f45.quarter ? ' · ' : ''}สิ้นสุด ${f45.periodEnd}` : ''}
                   {(f45.quarter || f45.periodEnd) ? ' · ' : ''}ที่มา: SET (ผ่าน Settrade) · อัปเดตทุก 6 ชม.
                   {f45.newsUrl && (
@@ -986,11 +1003,11 @@ export default function StockDetailPage({
             {/* ตัวเลขสำคัญ */}
             {fundamental && (
               <>
-                <SubHeading right={<span className={`text-[12px] ${META}`}>SETTrade · อัปเดตทุก 5 นาที</span>}>ตัวเลขสำคัญ</SubHeading>
+                <SubHeading right={<span className={`text-[13px] ${META}`}>SETTrade · อัปเดตทุก 5 นาที</span>}>ตัวเลขสำคัญ</SubHeading>
                 <div className={`grid grid-cols-2 gap-2 ${keyNumbers.length === 9 ? '@lg:grid-cols-3' : '@lg:grid-cols-4'}`} data-testid="key-numbers">
                   {keyNumbers.map(item => (
                     <div key={item.label} className={TILE} title={item.color ? item.tooltip : undefined}>
-                      <div className={`text-[12px] font-medium ${META}`}>{item.label}</div>
+                      <div className={`text-[13px] font-medium ${META}`}>{item.label}</div>
                       <div className={`text-[18px] font-semibold mt-0.5 break-words ${INK}`} style={item.color ? { color: item.color } : undefined}>
                         {item.value}
                       </div>
@@ -998,7 +1015,7 @@ export default function StockDetailPage({
                   ))}
                 </div>
                 {isFinancials && (
-                  <p className={`text-[12px] ${META} mt-2`}>D/E ไม่แสดงสำหรับกลุ่มการเงิน (หนี้สินคือเงินฝาก/เงินกู้ยืมที่เป็นวัตถุดิบของธุรกิจ เทียบกับกลุ่มอื่นไม่ได้)</p>
+                  <p className={`text-[13px] ${META} mt-2`}>D/E ไม่แสดงสำหรับกลุ่มการเงิน (หนี้สินคือเงินฝาก/เงินกู้ยืมที่เป็นวัตถุดิบของธุรกิจ เทียบกับกลุ่มอื่นไม่ได้)</p>
                 )}
               </>
             )}
@@ -1011,14 +1028,14 @@ export default function StockDetailPage({
             {/* ตัวเลขการเงินย้อนหลัง (ตารางเดิม) */}
             {financials && financials.length > 0 && (
               <>
-                <SubHeading right={<span className={`text-[12px] ${META}`}>Yahoo Finance · งบการเงินรายปี</span>}>ตัวเลขการเงินย้อนหลัง</SubHeading>
+                <SubHeading right={<span className={`text-[13px] ${META}`}>Yahoo Finance · งบการเงินรายปี</span>}>ตัวเลขการเงินย้อนหลัง</SubHeading>
                 <div className="overflow-x-auto -mx-1 px-1">
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="border-b border-white/[0.06]">
-                        <th className={`pb-2 pr-3 text-[12px] font-medium ${META} whitespace-nowrap`}>รายการ</th>
+                        <th className={`pb-2 pr-3 text-[13px] font-medium ${META} whitespace-nowrap`}>รายการ</th>
                         {financials.map(y => (
-                          <th key={y.year} className={`pb-2 px-2 text-[12px] font-medium ${META} text-right whitespace-nowrap`}>{y.year}</th>
+                          <th key={y.year} className={`pb-2 px-2 text-[13px] font-medium ${META} text-right whitespace-nowrap`}>{y.year}</th>
                         ))}
                       </tr>
                     </thead>
@@ -1080,7 +1097,7 @@ export default function StockDetailPage({
                   className={`whitespace-nowrap px-3.5 py-2.5 text-[14px] border-b-2 -mb-px transition-colors ${activeTab === t.key ? `${INK} border-[#8b9cff]` : `${META} border-transparent hover:text-[#b4bac8]`}`}
                 >
                   {t.label}
-                  {t.count != null && <span className={`ml-1.5 text-[12px] ${META}`}>{t.count}</span>}
+                  {t.count != null && <span className={`ml-1.5 text-[13px] ${META}`}>{t.count}</span>}
                 </button>
               ))}
             </div>
@@ -1089,12 +1106,12 @@ export default function StockDetailPage({
               {/* ข่าวแจ้งตลาด (set.or.th) */}
               {activeTab === 'set' && (
                 news === null ? (
-                  <p className={`text-[12px] ${META} text-center py-6 animate-pulse`}>กำลังโหลดข่าวแจ้งตลาด...</p>
+                  <p className={`text-[13px] ${META} text-center py-6 animate-pulse`}>กำลังโหลดข่าวแจ้งตลาด...</p>
                 ) : (
                   <>
                     <div className="flex items-center justify-between gap-2 flex-wrap mb-1">
                       <Chip tone="info">SET (ตลาดหลักทรัพย์) · set.or.th</Chip>
-                      <span className={`text-[12px] ${META}`}>ทั้งหมด {setNewsList.length} ข่าว</span>
+                      <span className={`text-[13px] ${META}`}>ทั้งหมด {setNewsList.length} ข่าว</span>
                     </div>
                     <div className="divide-y divide-white/[0.04] -mx-4">
                       {currentSetNews.map((item, i) => <NewsCard key={(item.link || '') + i} item={item} />)}
@@ -1108,7 +1125,7 @@ export default function StockDetailPage({
               {activeTab === 'news' && (
                 <div className="space-y-5">
                   {news === null && research === null && (
-                    <p className={`text-[12px] ${META} text-center py-6 animate-pulse`}>กำลังโหลด...</p>
+                    <p className={`text-[13px] ${META} text-center py-6 animate-pulse`}>กำลังโหลด...</p>
                   )}
                   {researchList.length > 0 && (
                     <div>
@@ -1132,7 +1149,7 @@ export default function StockDetailPage({
                           <h3 className={`text-[14px] font-semibold ${INK}`}>{newsIsGeneral ? 'ข่าวตลาดรวม' : 'ข่าวทั่วไป & บทวิเคราะห์สื่อ'}</h3>
                           {newsIsGeneral && <Chip tone="amber">ไม่มีข่าวเจาะจง {ticker} · ข่าวรวมตลาด</Chip>}
                         </div>
-                        <span className={`text-[12px] ${META}`}>ทั้งหมด {generalNewsList.length} ข่าว</span>
+                        <span className={`text-[13px] ${META}`}>ทั้งหมด {generalNewsList.length} ข่าว</span>
                       </div>
                       <div className="divide-y divide-white/[0.04] -mx-4">
                         {currentGenNews.map((item, i) => <NewsCard key={(item.link || '') + i} item={item} />)}
@@ -1146,18 +1163,18 @@ export default function StockDetailPage({
               {/* ปฏิทินหลักทรัพย์ */}
               {activeTab === 'calendar' && (
                 fullCA === null ? (
-                  <p className={`text-[12px] ${META} text-center py-6 animate-pulse`}>กำลังโหลด...</p>
+                  <p className={`text-[13px] ${META} text-center py-6 animate-pulse`}>กำลังโหลด...</p>
                 ) : (
                   <>
-                    <p className={`text-[12px] ${META} mb-1`}>ปฏิทินสิทธิประโยชน์หุ้น {ticker} (Corporate Action Calendar)</p>
+                    <p className={`text-[13px] ${META} mb-1`}>ปฏิทินสิทธิประโยชน์หุ้น {ticker} (Corporate Action Calendar)</p>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left">
                         <thead>
                           <tr className="border-b border-white/[0.06]">
-                            <th className={`px-3 py-2.5 text-[12px] font-medium ${META} whitespace-nowrap`}>วันที่ขึ้นเครื่องหมาย (X-Date)</th>
-                            <th className={`px-3 py-2.5 text-[12px] font-medium ${META} whitespace-nowrap`}>เครื่องหมาย</th>
-                            <th className={`px-3 py-2.5 text-[12px] font-medium ${META}`}>รายละเอียด</th>
-                            <th className={`px-3 py-2.5 text-[12px] font-medium ${META} whitespace-nowrap text-right`}>วันจ่ายเงิน / ประชุม</th>
+                            <th className={`px-3 py-2.5 text-[13px] font-medium ${META} whitespace-nowrap`}>วันที่ขึ้นเครื่องหมาย (X-Date)</th>
+                            <th className={`px-3 py-2.5 text-[13px] font-medium ${META} whitespace-nowrap`}>เครื่องหมาย</th>
+                            <th className={`px-3 py-2.5 text-[13px] font-medium ${META}`}>รายละเอียด</th>
+                            <th className={`px-3 py-2.5 text-[13px] font-medium ${META} whitespace-nowrap text-right`}>วันจ่ายเงิน / ประชุม</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-white/[0.03]">
@@ -1175,7 +1192,7 @@ export default function StockDetailPage({
                                   <span className={`inline-flex items-center px-2 py-0.5 rounded text-[12px] font-bold ${badgeCls}`}>{ca.caType}</span>
                                 </td>
                                 <td className={`px-3 py-2.5 text-[12px] ${INK2} leading-relaxed`}>{ca.detail || '—'}</td>
-                                <td className={`px-3 py-2.5 text-[12px] ${META} whitespace-nowrap text-right`}>{ca.payDate ? thDate(ca.payDate) : '—'}</td>
+                                <td className={`px-3 py-2.5 text-[13px] ${META} whitespace-nowrap text-right`}>{ca.payDate ? thDate(ca.payDate) : '—'}</td>
                               </tr>
                             );
                           })}
@@ -1189,11 +1206,11 @@ export default function StockDetailPage({
               {/* ผู้ถือหุ้นรายใหญ่ */}
               {activeTab === 'holders' && (
                 shareholders === null ? (
-                  <p className={`text-[12px] ${META} text-center py-6 animate-pulse`}>กำลังโหลดผู้ถือหุ้นรายใหญ่...</p>
+                  <p className={`text-[13px] ${META} text-center py-6 animate-pulse`}>กำลังโหลดผู้ถือหุ้นรายใหญ่...</p>
                 ) : (
                   <div className="space-y-3">
                     {shareholders.bookCloseDate && (
-                      <p className={`text-[12px] ${META}`}>
+                      <p className={`text-[13px] ${META}`}>
                         ผู้ถือหุ้นรายใหญ่ (Major Shareholders) · ข้อมูล ณ วันปิดสมุดทะเบียน: <span className={`${INK} font-medium`}>{thDate(shareholders.bookCloseDate)}</span>
                       </p>
                     )}
@@ -1212,22 +1229,22 @@ export default function StockDetailPage({
                       <Tile label="Scriptless (หุ้นไร้ใบ)" value={shareholders.percentScriptless != null ? `${shareholders.percentScriptless.toFixed(1)}%` : '—'} />
                     </div>
                     {shareholders.majorShareholders.length === 0 ? (
-                      <p className={`text-[12px] ${META} text-center py-4`}>ไม่พบข้อมูลผู้ถือหุ้นรายใหญ่</p>
+                      <p className={`text-[13px] ${META} text-center py-4`}>ไม่พบข้อมูลผู้ถือหุ้นรายใหญ่</p>
                     ) : (
                       <div className="overflow-x-auto rounded-lg border border-white/[0.06]">
                         <table className="w-full text-left">
                           <thead>
                             <tr className="border-b border-white/[0.06] bg-white/[0.02]">
-                              <th className={`px-3 py-2.5 text-[12px] font-medium ${META} w-14 text-center`}>ลำดับ</th>
-                              <th className={`px-3 py-2.5 text-[12px] font-medium ${META}`}>ชื่อผู้ถือหุ้น</th>
-                              <th className={`px-3 py-2.5 text-[12px] font-medium ${META} text-right`}>จำนวนหุ้น</th>
-                              <th className={`px-3 py-2.5 text-[12px] font-medium ${META} text-right w-24`}>สัดส่วน (%)</th>
+                              <th className={`px-3 py-2.5 text-[13px] font-medium ${META} w-14 text-center`}>ลำดับ</th>
+                              <th className={`px-3 py-2.5 text-[13px] font-medium ${META}`}>ชื่อผู้ถือหุ้น</th>
+                              <th className={`px-3 py-2.5 text-[13px] font-medium ${META} text-right`}>จำนวนหุ้น</th>
+                              <th className={`px-3 py-2.5 text-[13px] font-medium ${META} text-right w-24`}>สัดส่วน (%)</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-white/[0.03]">
                             {shareholders.majorShareholders.map(item => (
                               <tr key={item.sequence} className="hover:bg-white/[0.02] transition-colors">
-                                <td className={`px-3 py-2 text-[12px] ${META} text-center font-medium`}>{item.sequence}</td>
+                                <td className={`px-3 py-2 text-[13px] ${META} text-center font-medium`}>{item.sequence}</td>
                                 <td className={`px-3 py-2 text-[12px] font-medium ${INK}`}>
                                   <span className="inline-flex items-center gap-2 flex-wrap">
                                     <span>{item.name}</span>
@@ -1251,7 +1268,7 @@ export default function StockDetailPage({
               {/* 59-2 / 246-2 */}
               {activeTab === 'sec' && (
                 sec59 === null && sec246 === null ? (
-                  <p className={`text-[12px] ${META} text-center py-6 animate-pulse`}>กำลังโหลด...</p>
+                  <p className={`text-[13px] ${META} text-center py-6 animate-pulse`}>กำลังโหลด...</p>
                 ) : (
                   <div className="space-y-5">
                     {sec59 && sec59.rows.length > 0 && (
@@ -1261,7 +1278,7 @@ export default function StockDetailPage({
                       <SecReportTable title="รายงาน 246-2 · ผู้ถือหุ้นรายใหญ่ (ประวัติได้มา/จำหน่ายหุ้น 3 ปีย้อนหลัง)" data={sec246} />
                     )}
                     {(sec59 === null || sec246 === null) && (
-                      <p className={`text-[12px] ${META} text-center py-2 animate-pulse`}>กำลังโหลด...</p>
+                      <p className={`text-[13px] ${META} text-center py-2 animate-pulse`}>กำลังโหลด...</p>
                     )}
                   </div>
                 )
@@ -1284,13 +1301,13 @@ function SecReportTable({ title, data }: { title: string; data: { headers: strin
   return (
     <div>
       <h3 className={`text-[14px] font-semibold ${INK}`}>{title}</h3>
-      <p className={`text-[12px] ${META} mt-0.5 mb-1`}>ที่มา: สำนักงาน ก.ล.ต.</p>
+      <p className={`text-[13px] ${META} mt-0.5 mb-1`}>ที่มา: สำนักงาน ก.ล.ต.</p>
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
             <tr className="border-b border-white/[0.06]">
               {data.headers.map(h => (
-                <th key={h} className={`px-3 py-2.5 text-[12px] font-medium ${META} whitespace-nowrap`}>{h}</th>
+                <th key={h} className={`px-3 py-2.5 text-[13px] font-medium ${META} whitespace-nowrap`}>{h}</th>
               ))}
             </tr>
           </thead>

@@ -29,16 +29,31 @@ describe('kellChecklistItems', () => {
     const items = kellChecklistItems(base);
     expect(items.map(i => i.n)).toEqual([1, 2, 3, 4, 5, 6, 7]);
     expect(items[0].detail).toBe('250.00 > 244.22');
-    expect(items[2].detail).toBe('210.50 > 205.10');
-    expect(items[3].detail).toBe('250.00 > 249.41 / 247.10');
+    expect(items[2].detail).toBe('210.50 > 205.10 (20 วันก่อน)');
+    expect(items[3].detail).toBe('250.00 > 249.41 / > 247.10');
     expect(items[4].detail).toBe('249.41 > 247.10');
-    expect(items[5].detail).toBe('EMA10 249.41 > 246.30\nEMA20 247.10 > 244.90');
+    expect(items[5].detail).toBe('EMA10 249.41 > 246.30 (5 วันก่อน)\nEMA20 247.10 > 244.90 (5 วันก่อน)');
     expect(items[6].detail).toBe('EMA10 0.2% · EMA20 1.2%');
     expect(items.every(i => i.pass)).toBe(true);
   });
   it('pass comes from K1..K7, not recomputed', () => {
     const items = kellChecklistItems({ ...base, K3: false, K7: false, Pass_Count: 5, All_Pass: false });
     expect(items.filter(i => !i.pass).map(i => i.n)).toEqual([3, 7]);
+  });
+  it('failing rows show the real operator, red only on the failed comparison', () => {
+    const row = { ...base, Price: 50.5, EMA_10: 56.85, EMA_20: 55, EMA_10_5D_Ago: 60.84, K1: false, K4: false, K6: false, K7: false,
+      Dist_EMA10_Pct: 5.06, Dist_EMA20_Pct: 4.2, Pass_Count: 3, All_Pass: false };
+    const items = kellChecklistItems(row);
+    expect(items[3].detail).toBe('50.50 < 56.85 / < 55.00');
+    expect(items[3].parts.filter(p => p.kind === 'opfail')).toHaveLength(2);
+    expect(items[3].parts[0].kind).toBe('price');
+    expect(items[5].detail.split(String.fromCharCode(10))[0]).toBe('EMA10 56.85 < 60.84 (5 วันก่อน)');
+    expect(items[6].detail).toBe('EMA10 5.1% · EMA20 4.2% (เกณฑ์ ≤ 3.5%)');
+    expect(items[6].parts.filter(p => p.kind === 'fail')).toHaveLength(2);
+  });
+  it('K7 passing with one wide EMA never goes red', () => {
+    const items = kellChecklistItems({ ...base, Dist_EMA10_Pct: 6, Dist_EMA20_Pct: 1 });
+    expect(items[6].parts.some(p => p.kind === 'fail' || p.text.includes('เกณฑ์'))).toBe(false);
   });
   it('a failing distance never shows as 3.5%', () => {
     expect(fmtDist(3.54)).toBe('3.54');

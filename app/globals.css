@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme inline {
+  /* ฟอนต์หลักของทั้งแอปตั้งที่นี่ที่เดียว (ผ่าน next/font ใน app/layout.tsx -> --font-plex-sans-thai)
+     จะเปลี่ยนเป็น "IBM Plex Sans Thai Looped": เปลี่ยน import IBM_Plex_Sans_Thai เป็น IBM_Plex_Sans_Thai_Looped ใน layout.tsx
+     (คงชื่อตัวแปร --font-plex-sans-thai ไว้) — บรรทัดนี้ไม่ต้องแก้ · ยังไม่เปลี่ยนฟอนต์ */
   --font-sans: var(--font-plex-sans-thai), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 

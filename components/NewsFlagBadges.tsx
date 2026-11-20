@@ -27,15 +27,15 @@ function tip(f: NewsFlag): string {
   return [f.title, f.date].filter(Boolean).join(' · ');
 }
 
-function Badge({ flag }: { flag: NewsFlag }) {
+function Badge({ flag, large = false }: { flag: NewsFlag; large?: boolean }) {
   const href = safeLink(flag.link);
-  const cls = `group/flag relative inline-flex items-center px-1.5 py-px rounded border text-[10px] font-semibold leading-tight whitespace-nowrap focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 ${STYLE[flag.severity] ?? STYLE.gray}`;
+  const cls = `group/flag relative inline-flex items-center px-1.5 py-px rounded border ${large ? 'text-[12px]' : 'text-[10px]'} font-semibold leading-tight whitespace-nowrap focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 ${STYLE[flag.severity] ?? STYLE.gray}`;
   const body = (
     <>
       {flag.label}
       <span
         role="tooltip"
-        className="pointer-events-none absolute left-0 top-full z-30 mt-1 hidden w-max max-w-[320px] whitespace-normal rounded-md border border-white/15 bg-[#1b1f2a] px-2 py-1.5 text-[11px] font-normal text-white/85 shadow-lg group-hover/flag:block group-focus/flag:block"
+        className={`pointer-events-none absolute left-0 top-full z-30 mt-1 hidden w-max max-w-[320px] whitespace-normal rounded-md border border-white/15 bg-[#1b1f2a] px-2 py-1.5 ${large ? 'text-[12px]' : 'text-[11px]'} font-normal text-white/85 shadow-lg group-hover/flag:block group-focus/flag:block`}
       >
         {tip(flag)}
       </span>
@@ -53,8 +53,9 @@ function Badge({ flag }: { flag: NewsFlag }) {
   );
 }
 
-/** Small news flags next to a ticker: red first, max 3 + "+n". Nothing renders when there are none. */
-export default function NewsFlagBadges({ ticker, className = '' }: { ticker: string; className?: string }) {
+/** Small news flags next to a ticker: red first, max 3 + "+n". Nothing renders when there are none.
+ *  large = 12px text (หน้า /stock: ห้ามมีข้อความไทยเล็กกว่า 12px) · ค่าเริ่มต้นเหมือนเดิม */
+export default function NewsFlagBadges({ ticker, className = '', large = false }: { ticker: string; className?: string; large?: boolean }) {
   const [file, setFile] = useState<NewsFlagsFile | null>(null);
   useEffect(() => {
     let alive = true;
@@ -72,12 +73,12 @@ export default function NewsFlagBadges({ ticker, className = '' }: { ticker: str
   return (
     <span className={`inline-flex flex-wrap items-center gap-1 align-middle ${className}`} data-testid="news-flags">
       {shown.map(f => (
-        <Badge key={f.type} flag={f} />
+        <Badge key={f.type} flag={f} large={large} />
       ))}
       {more.length > 0 && (
         <span
           tabIndex={0}
-          className="text-[10px] text-white/45 px-1 rounded border border-white/15"
+          className={`${large ? 'text-[12px]' : 'text-[10px]'} text-white/45 px-1 rounded border border-white/15`}
           title={more.map(f => `${f.label} · ${tip(f)}`).join('\n')}
           onClick={e => e.stopPropagation()}
         >

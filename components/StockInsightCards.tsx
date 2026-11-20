@@ -22,7 +22,7 @@ import {
 } from '@/lib/stockInsights';
 import { STAGE_COLORS } from '@/lib/peadExtras';
 
-const META = 'text-[#848ca0]';
+const META = 'text-[#a3aabb]'; // 2026-11-20: สว่างขึ้นจาก #848ca0 — ใช้เฉพาะไฟล์นี้
 const INK2 = 'text-[#b4bac8]';
 const INK = 'text-[#eceef3]';
 const UP_TXT = 'text-[#1D9E75]';
@@ -43,10 +43,10 @@ function CardHead({ title, right, question }: { title: string; right?: ReactNode
   return (
     <>
       <div className="flex items-center justify-between gap-3 flex-wrap mb-1">
-        <h3 className={`text-[14px] font-semibold ${INK}`}>{title}</h3>
+        <h3 className={`text-[16px] font-semibold ${INK}`}>{title}</h3>
         {right}
       </div>
-      <p className={`text-[12px] ${META} mb-3`}>{question}</p>
+      <p className={`text-[13px] ${META} mb-3`}>{question}</p>
     </>
   );
 }
@@ -62,7 +62,7 @@ function Hint({ text, testId }: { text: string; testId: string }) {
 function MiniTile({ label, value, sub, valueCls = INK, subCls = META, testId }: { label: string; value: ReactNode; sub?: ReactNode; valueCls?: string; subCls?: string; testId?: string }) {
   return (
     <div className={TILE} data-testid={testId}>
-      <div className={`text-[12px] font-medium ${META}`}>{label}</div>
+      <div className={`text-[13px] font-medium ${META}`}>{label}</div>
       <div className={`text-[14px] font-semibold leading-snug mt-0.5 break-words ${valueCls}`}>{value}</div>
       {sub != null && <div className={`text-[12px] mt-0.5 break-words ${subCls}`}>{sub}</div>}
     </div>
@@ -137,11 +137,11 @@ function PriceLevels({ markers, sl, price, tp }: { markers: Marker[]; sl: number
               {row === 0 ? (
                 <>
                   <b className={`text-[14px] font-semibold ${m.valueCls}`}>{m.label}</b>
-                  <span className={`text-[12px] ${META} mt-4`}>{m.caption}</span>
+                  <span className={`text-[13px] ${META} mt-4`}>{m.caption}</span>
                 </>
               ) : (
                 <>
-                  <span className={`text-[12px] ${META}`}>{m.caption}</span>
+                  <span className={`text-[13px] ${META}`}>{m.caption}</span>
                   <b className={`text-[14px] font-semibold ${m.valueCls}`}>{m.label}</b>
                 </>
               )}
@@ -159,8 +159,8 @@ export function EntryPlanCard({ plan, livePrice, isFund }: { plan: EntryPlan | n
     return (
       <div className={`${CARD} p-4 mt-4`} data-testid="card-entry" data-state="none">
         <div className="flex items-center justify-between gap-3 flex-wrap">
-          <h3 className={`text-[14px] font-semibold ${INK}`}>จุดเข้า &amp; แผนเทรด</h3>
-          <span className={`text-[12px] ${META}`}>ยังไม่มีฐาน VCP (ไม่ผ่าน SEPA)</span>
+          <h3 className={`text-[16px] font-semibold ${INK}`}>จุดเข้า &amp; แผนเทรด</h3>
+          <span className={`text-[13px] ${META}`}>ยังไม่มีฐาน VCP (ไม่ผ่าน SEPA)</span>
         </div>
       </div>
     );
@@ -216,7 +216,7 @@ export function EntryPlanCard({ plan, livePrice, isFund }: { plan: EntryPlan | n
         </div>
       )}
       <Hint text={entrySummary(plan, price)} testId="entry-summary" />
-      <p className={`text-[12px] ${META} mt-2`}>
+      <p className={`text-[13px] ${META} mt-2`}>
         SL / เป้า คำนวณจากราคาปิด ณ วันสแกน ({fmtPrice(plan.scanPrice)}){livePrice == null ? ' · ดึงราคาสดไม่ได้ ใช้ราคาปิดวันสแกน' : ''}
       </p>
     </div>
@@ -234,7 +234,7 @@ function StripRow({ label, cells, right, testId, onHover }: { label: string; cel
   };
   return (
     <div className="grid grid-cols-[64px_minmax(0,1fr)_64px] items-center gap-2 mb-1.5" data-testid={testId}>
-      <span className={`text-[12px] ${META} truncate`}>{label}</span>
+      <span className={`text-[13px] ${META} truncate`}>{label}</span>
       <div
         className="grid gap-[2px] cursor-crosshair [&>i]:block [&>i]:h-3 [&>i]:rounded-[2px] [&>i]:bg-white/5"
         style={{ gridTemplateColumns: `repeat(${cells.length}, minmax(0, 1fr))` }}
@@ -277,9 +277,9 @@ export function ScanHistoryCard({ data }: { data: ScanHistoryData | null }) {
   if (empty) {
     return (
       <div className={`${CARD} p-4 mt-4`} data-testid="card-history" data-state="empty">
-        <CardHead title="ประวัติในสแกน" question="สัญญาณนี้ต่อเนื่องและเชื่อได้แค่ไหน?" right={<span className={`text-[12px] ${META}`}>30 วันทำการล่าสุด</span>} />
+        <CardHead title="ประวัติในสแกน" question="สัญญาณนี้ต่อเนื่องและเชื่อได้แค่ไหน?" right={<span className={`text-[13px] ${META}`}>30 วันทำการล่าสุด</span>} />
         {stageRow}
-        <p className={`text-[12px] ${META} ${hasStage ? 'mt-2' : ''}`} data-testid="strip-hover">{hoverText ?? `ไม่ติดสแกนใดใน 30 วันล่าสุด${range ? ` (${range})` : ''}`}</p>
+        <p className={`text-[13px] ${META} ${hasStage ? 'mt-2' : ''}`} data-testid="strip-hover">{hoverText ?? `ไม่ติดสแกนใดใน 30 วันล่าสุด${range ? ` (${range})` : ''}`}</p>
       </div>
     );
   }
@@ -289,7 +289,7 @@ export function ScanHistoryCard({ data }: { data: ScanHistoryData | null }) {
 
   return (
     <div className={`${CARD} p-4 mt-4`} data-testid="card-history" data-state="full">
-      <CardHead title="ประวัติในสแกน" question="สัญญาณนี้ต่อเนื่องและเชื่อได้แค่ไหน?" right={<span className={`text-[12px] ${META}`}>30 วันทำการล่าสุด</span>} />
+      <CardHead title="ประวัติในสแกน" question="สัญญาณนี้ต่อเนื่องและเชื่อได้แค่ไหน?" right={<span className={`text-[13px] ${META}`}>30 วันทำการล่าสุด</span>} />
       {stageRow}
       {rows.map(r => (
         <StripRow
@@ -301,7 +301,7 @@ export function ScanHistoryCard({ data }: { data: ScanHistoryData | null }) {
           right={r.days != null ? <span data-testid={`days-${r.key}`}>ติด {r.days} วัน</span> : undefined}
         />
       ))}
-      <div className={`flex gap-3 flex-wrap text-[12px] ${META} mt-1 mb-3`}>
+      <div className={`flex gap-3 flex-wrap text-[13px] ${META} mt-1 mb-3`}>
         {stagesShown.map(s => (
           <span key={s} className="inline-flex items-center gap-1"><i className="inline-block w-2.5 h-2.5 rounded-[2px]" style={{ background: STAGE_COLORS[s] ?? '#9e9e9e' }} />{s}</span>
         ))}
@@ -339,7 +339,7 @@ export function ScanHistoryCard({ data }: { data: ScanHistoryData | null }) {
               })}
             </tbody>
           </table>
-          <p className={`text-[12px] ${META} mt-1`}>ตอนนี้ = ผลถึงวันสแกนล่าสุด (แถวที่ปิดแล้ว = ผลตอนปิด) · สูงสุด/ลึกสุด นับจากราคาเข้า</p>
+          <p className={`text-[13px] ${META} mt-1`}>ตอนนี้ = ผลถึงวันสแกนล่าสุด (แถวที่ปิดแล้ว = ผลตอนปิด) · สูงสุด/ลึกสุด นับจากราคาเข้า</p>
         </div>
       )}
 
@@ -419,7 +419,7 @@ export function MoneyFlowCard({ data }: { data: MoneyFlowData | null }) {
   const arrow = rsDelta == null ? '' : rsDelta >= 3 ? ' ↑' : rsDelta <= -3 ? ' ↓' : ' →';
   const tileCount = (today ? 1 : 0) + (d5 ? 1 : 0) + (rs ? 1 : 0);
   const sparkColor = rs?.latest == null ? '#b4bac8' : rs.latest >= 70 ? '#1D9E75' : rs.latest <= 40 ? '#E24B4A' : '#b4bac8';
-  const unit = <span className={`text-[12px] font-normal ${META}`}>ลบ.</span>;
+  const unit = <span className={`text-[13px] font-normal ${META}`}>ลบ.</span>;
   const fmtRs = (v: number) => (v % 1 === 0 ? v.toFixed(0) : v.toFixed(1));
 
   return (
@@ -427,7 +427,7 @@ export function MoneyFlowCard({ data }: { data: MoneyFlowData | null }) {
       <CardHead
         title="แรงเงิน & กลุ่ม"
         question="เงินไหลเข้าหรือออก?"
-        right={nvdrDate ? <span className={`text-[12px] ${META}`} data-testid="nvdr-date">NVDR ถึง {thShort(nvdrDate)}</span> : undefined}
+        right={nvdrDate ? <span className={`text-[13px] ${META}`} data-testid="nvdr-date">NVDR ถึง {thShort(nvdrDate)}</span> : undefined}
       />
       <div className={`grid gap-2 ${tileCount >= 3 ? 'grid-cols-2 @md:grid-cols-3' : tileCount === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {today && (
@@ -460,15 +460,15 @@ export function MoneyFlowCard({ data }: { data: MoneyFlowData | null }) {
       </div>
       {rs && (
         <div className="grid grid-cols-[minmax(0,auto)_minmax(0,1fr)] items-center gap-3 mt-3">
-          <span className={`text-[12px] ${META}`}>RS {rs.group} 20 วัน</span>
+          <span className={`text-[13px] ${META}`}>RS {rs.group} 20 วัน</span>
           <Sparkline series={rs.series} color={sparkColor} />
         </div>
       )}
       {rs?.level === 'sector' && (
-        <p className={`text-[12px] ${META} mt-1`}>ไม่มีข้อมูล RS กลุ่มย่อย ใช้ทั้งกลุ่ม {rs.group} แทน</p>
+        <p className={`text-[13px] ${META} mt-1`}>ไม่มีข้อมูล RS กลุ่มย่อย ใช้ทั้งกลุ่ม {rs.group} แทน</p>
       )}
       {summary && <Hint text={summary.text} testId="flow-summary" />}
-      <p className={`text-[12px] ${META} mt-2`}>
+      <p className={`text-[13px] ${META} mt-2`}>
         {today || d5 ? 'NVDR = ซื้อขายผ่าน Thai NVDR (มักใช้แทนแรงต่างชาติ) · ' : ''}RS กลุ่ม = ค่ากลาง RS ของหุ้นในกลุ่ม
       </p>
     </div>
