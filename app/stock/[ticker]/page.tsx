@@ -10,9 +10,10 @@ import StockDetailPage from '@/components/StockDetailPage';
 import { listingStatusWithTrading } from '@/lib/listingStatusData';
 import { sepaChecklistFor } from '@/lib/sepaChecklistData';
 import { isFundTicker } from '@/lib/sectorData';
+import { rsRankInGroup } from '@/lib/stockSummary';
 
 interface SectorMap {
-  sectors: unknown[];
+  sectors: { sector: string; subsector: string; market: string; tickers: string[] }[];
   ticker_to_sector: Record<string, { sector: string; subsector: string }>;
 }
 
@@ -79,6 +80,19 @@ export default async function StockPage({
   const combinedEntry = combinedArr.find(s => s.ticker === t) ?? null;
 
   const sectorInfo = sectorMap.ticker_to_sector[t] ?? null;
+  // อันดับ RS ในกลุ่ม: กลุ่มเดียวกับตาราง "เทียบกลุ่ม" (PeerComparisonTable — subsector, < 3 ตัว → sector)
+  const rsRank = (() => {
+    if (!sectorInfo) return null;
+    let peers = [...new Set(sectorMap.sectors.filter(s => s.sector === sectorInfo.sector && s.subsector === sectorInfo.subsector).flatMap(s => s.tickers))];
+    let group = sectorInfo.subsector || sectorInfo.sector;
+    if (peers.length < 3) {
+      peers = [...new Set(sectorMap.sectors.filter(s => s.sector === sectorInfo.sector).flatMap(s => s.tickers))];
+      group = sectorInfo.sector;
+    }
+    const rsOf = new Map(combinedArr.map(c => [c.ticker, c.rs_score]));
+    const r = rsRankInGroup(t, peers.map(p => ({ ticker: p, rs: rsOf.get(p) ?? null })));
+    return r ? { ...r, group } : null;
+  })();
   const isPpbp = (rawPpbp as { Ticker: string }[]).some(r => r.Ticker === t);
   const listingStatus = await listingStatusWithTrading(t);
   // SEPA 8 ข้อของทุกหุ้น (sepa_checklist.json) · ไฟล์ยังไม่มี → loaded=false → การ์ดแบบเดิม
@@ -98,6 +112,7 @@ export default async function StockPage({
       sepaChecklist={sepaChecklist.row}
       sepaChecklistLoaded={sepaChecklist.loaded}
       isFund={isFundTicker(t)}
+      rsRank={rsRank}
     />
   );
 }

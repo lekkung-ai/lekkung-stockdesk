@@ -197,8 +197,8 @@ export default function PeerComparisonTable({
       <th
         onClick={() => handleSort(k)}
         title={title}
-        className={`px-3 py-2 text-label font-semibold cursor-pointer select-none whitespace-nowrap transition-colors ${
-          active ? 'text-white/70' : 'text-meta hover:text-white/70'
+        className={`px-3 py-2 text-[12px] font-semibold cursor-pointer select-none whitespace-nowrap transition-colors ${
+          active ? 'text-white/70' : 'text-[#848ca0] hover:text-white/70'
         } ${className}`}
       >
         {label}{active && <span className="ml-1">{sortDir === 'asc' ? '▲' : '▼'}</span>}
@@ -214,54 +214,54 @@ export default function PeerComparisonTable({
       <tr
         onClick={() => !isCurrent && router.push(`/stock/${r.ticker}`)}
         className={`transition-colors ${
-          isCurrent ? 'bg-[#7F77DD]/[0.10] cursor-default' : 'hover:bg-white/[0.03] cursor-pointer'
+          isCurrent ? 'bg-[#7F77DD]/[0.08] cursor-default' : 'hover:bg-white/[0.03] cursor-pointer'
         }`}
       >
-        <td className="px-3 py-2.5 text-body font-bold whitespace-nowrap" style={{ color: isCurrent ? '#7F77DD' : 'var(--color-ink)' }}>
+        <td className={`px-3 py-2.5 text-[14px] font-bold whitespace-nowrap ${isCurrent ? 'shadow-[inset_3px_0_0_#7F77DD]' : ''}`} style={{ color: isCurrent ? '#7F77DD' : 'var(--color-ink)' }} data-current={isCurrent ? 'true' : undefined}>
           {r.ticker}
         </td>
-        <td className="px-3 py-2.5 text-label tabular-nums whitespace-nowrap">
+        <td className="px-3 py-2.5 text-[12px] tabular-nums whitespace-nowrap">
           <span className="text-ink">{r.price != null ? r.price.toFixed(2) : '—'}</span>
           {r.change1d != null && (
-            <span className={`ml-1.5 ${r.change1d > 0 ? 'text-[#1D9E75]' : r.change1d < 0 ? 'text-[#E24B4A]' : 'text-meta'}`}>
+            <span className={`ml-1.5 ${r.change1d > 0 ? 'text-[#1D9E75]' : r.change1d < 0 ? 'text-[#E24B4A]' : 'text-[#848ca0]'}`}>
               {r.change1d > 0 ? '+' : ''}{r.change1d.toFixed(2)}%
             </span>
           )}
         </td>
-        <td className="px-3 py-2.5 text-label tabular-nums font-semibold" style={{ color: r.rs != null ? (r.rs >= 80 ? '#1D9E75' : r.rs >= 50 ? '#BA7517' : '#E24B4A') : 'var(--color-meta)' }}>
+        <td className="px-3 py-2.5 text-[12px] tabular-nums font-semibold" style={{ color: r.rs != null ? (r.rs >= 80 ? '#1D9E75' : r.rs >= 50 ? '#BA7517' : '#E24B4A') : 'var(--color-meta)' }}>
           {r.rs ?? '—'}
         </td>
         <td className="px-3 py-2.5">
           {r.stage ? (
             <span
-              className="inline-flex items-center px-2 py-0.5 rounded text-label font-semibold"
+              className="inline-flex items-center px-2 py-0.5 rounded text-[12px] font-semibold"
               style={{ background: STAGE_COLORS[r.stage] ?? '#424242', color: ['Warning', 'Accumulation', 'Recovery', 'Bull'].includes(r.stage) ? 'black' : 'white' }}
             >
               {r.stage}
             </span>
-          ) : <span className="text-meta text-label">—</span>}
+          ) : <span className="text-[#848ca0] text-[12px]">—</span>}
         </td>
-        <td className="px-3 py-2.5 text-label tabular-nums text-meta whitespace-nowrap">{fmt(r.dist52wh, 1, '%')}</td>
-        <td className="px-3 py-2.5 text-label tabular-nums text-meta hidden md:table-cell">{fmt(r.pe, 1)}</td>
-        <td className="px-3 py-2.5 text-label tabular-nums text-meta hidden md:table-cell">{fmt(r.roe, 1, '%')}</td>
+        <td className="px-3 py-2.5 text-[12px] tabular-nums text-[#848ca0] whitespace-nowrap">{fmt(r.dist52wh, 1, '%')}</td>
+        <td className="px-3 py-2.5 text-[12px] tabular-nums text-[#848ca0] hidden md:table-cell">{fmt(r.pe, 1)}</td>
+        <td className="px-3 py-2.5 text-[12px] tabular-nums text-[#848ca0] hidden md:table-cell">{fmt(r.roe, 1, '%')}</td>
         <td
-          className={`px-3 py-2.5 text-label tabular-nums whitespace-nowrap ${r.revGrowth != null ? (r.revGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-meta'}`}
+          className={`px-3 py-2.5 text-[12px] tabular-nums whitespace-nowrap ${r.revGrowth != null ? (r.revGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-[#848ca0]'}`}
           title={rev.title}
         >
           {rev.text}
         </td>
         <td
-          className={`px-3 py-2.5 text-label tabular-nums whitespace-nowrap ${r.npGrowth != null ? (r.npGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-meta'}`}
+          className={`px-3 py-2.5 text-[12px] tabular-nums whitespace-nowrap ${r.npGrowth != null ? (r.npGrowth > 0 ? 'text-[#1D9E75]' : 'text-[#E24B4A]') : 'text-[#848ca0]'}`}
           title={np.title}
         >
           {np.text}
         </td>
         <td className="px-3 py-2.5">
           <div className="flex items-center gap-1 flex-wrap">
-            {r.sepa && <span className="px-1.5 py-0.5 rounded text-label font-bold bg-[#1D9E75]/15 text-[#1D9E75]">SEPA</span>}
-            {r.kell && <span className="px-1.5 py-0.5 rounded text-label font-bold bg-[#378ADD]/15 text-[#378ADD]">Kell</span>}
-            {r.breakout && <span className="px-1.5 py-0.5 rounded text-label font-bold bg-[#EF9F27]/15 text-[#EF9F27]">BO</span>}
-            {!r.sepa && !r.kell && !r.breakout && <span className="text-meta text-label">—</span>}
+            {r.sepa && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold bg-[#1D9E75]/15 text-[#1D9E75]">SEPA</span>}
+            {r.kell && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold bg-[#378ADD]/15 text-[#378ADD]">Kell</span>}
+            {r.breakout && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold bg-[#EF9F27]/15 text-[#EF9F27]">BO</span>}
+            {!r.sepa && !r.kell && !r.breakout && <span className="text-[#848ca0] text-[12px]">—</span>}
           </div>
         </td>
       </tr>
@@ -274,8 +274,8 @@ export default function PeerComparisonTable({
     <div className="bg-[#13161e] border border-white/[0.07] rounded-xl overflow-hidden">
       <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-section text-ink">เทียบกลุ่ม {groupLabel}</h2>
-          <p className="text-label text-meta mt-0.5">
+          <h2 className="text-[18px] font-semibold text-ink">เทียบกลุ่ม {groupLabel}</h2>
+          <p className="text-[12px] text-[#848ca0] mt-0.5">
             {usedFallback
               ? `กลุ่ม ${subsector} มีน้อยกว่า 3 ตัว แสดงระดับ sector "${sector}" แทน (${peers.length} ตัว)`
               : `${peers.length} หุ้นใน subsector เดียวกัน`}
@@ -284,7 +284,7 @@ export default function PeerComparisonTable({
         {!expanded && scanned.length > DEFAULT_WINDOW && (
           <button
             onClick={() => setExpanded(true)}
-            className="flex-shrink-0 px-3 py-1.5 rounded-lg text-label font-semibold bg-white/[0.06] text-white/70 hover:bg-white/[0.1] hover:text-white transition-colors"
+            className="flex-shrink-0 px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-white/[0.06] text-white/70 hover:bg-white/[0.1] hover:text-white transition-colors"
           >
             ดูทั้งหมด ({scanned.length})
           </button>
@@ -303,7 +303,7 @@ export default function PeerComparisonTable({
               <SortTh label="ROE" k="roe" className="hidden md:table-cell" />
               <SortTh label="RevGrowth" k="revGrowth" />
               <SortTh label="NPGrowth" k="npGrowth" />
-              <th className="px-3 py-2 text-label font-semibold text-meta">Signals</th>
+              <th className="px-3 py-2 text-[12px] font-semibold text-[#848ca0]">Signals</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/[0.04]">
@@ -313,7 +313,7 @@ export default function PeerComparisonTable({
       </div>
       {unscanned.length > 0 && (
         <details className="border-t border-white/[0.06]">
-          <summary className="px-5 py-2.5 text-label text-meta cursor-pointer hover:text-white/70 transition-colors select-none">
+          <summary className="px-5 py-2.5 text-[12px] text-[#848ca0] cursor-pointer hover:text-white/70 transition-colors select-none">
             ไม่มีข้อมูลสแกน ({unscanned.length} ตัว) — กองทุนอสังหา/REIT ที่ไม่อยู่ในชุดสแกน
           </summary>
           <div className="overflow-x-auto">

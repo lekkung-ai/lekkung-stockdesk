@@ -155,3 +155,81 @@ export function getSectorSpread(ticker: string): SectorSpread | null {
     nPb: pb.length,
   };
 }
+
+// ── กลุ่มเทียบของ "ราคาเหมาะสม" บนหน้า /stock/[ticker] ─────────────────────────
+// ใช้กลุ่มย่อย (subsector) ก่อน เพราะ sector กว้างเกิน (เช่น Financials รวมแบงก์+ลีสซิ่ง+ประกัน n=55)
+// ใช้ได้เมื่อมีสมาชิกที่มีทั้ง P/E และ P/BV ผ่านเกณฑ์กรองเดียวกับ median (PE 0–100, PBV 0–20) ≥ 5 ตัว
+// ไม่ถึง → fallback เป็น sector แบบเดิม (peerGroup) · กองทุน/REIT ใช้กลุ่มกองทุนเหมือนเดิม
+// getSectorMedians / getSectorSpread ด้านบนคงเดิม เพราะหน้า /valuation/pe-pbv ยังใช้แบบ sector
+export const MIN_SUBSECTOR_COMPLETE_PEERS = 5;
+
+export interface ValuationGroup {
+  /** ชื่อกลุ่มที่โชว์ (subsector / sector / กองทุน & REIT) */
+  label: string;
+  level: 'subsector' | 'sector' | 'fund';
+  tickers: string[];
+}
+
+function hasValidPe(t: string): boolean {
+  const v = peMap.get(t);
+  return typeof v === 'number' && !isNaN(v) && v > 0 && v <= 100;
+}
+function hasValidPb(t: string): boolean {
+  const v = pbMap.get(t);
+  return typeof v === 'number' && !isNaN(v) && v > 0 && v <= 20;
+}
+
+export function getValuationGroup(ticker: string): ValuationGroup | null {
+  const t = ticker.toUpperCase().trim();
+  const base = peerGroup(t);
+  if (!base) return null;
+  if (isFundTicker(t)) return { label: base.sector, level: 'fund', tickers: base.tickers };
+  const info = tickerToSector[t];
+  if (info?.subsector) {
+    const subTickers = stockSectorEntries
+      .filter(e => e.sector === info.sector && e.subsector === info.subsector && e.market === info.market)
+      .flatMap(e => e.tickers);
+    const complete = subTickers.filter(x => hasValidPe(x) && hasValidPb(x)).length;
+    if (complete >= MIN_SUBSECTOR_COMPLETE_PEERS) {
+      return { label: info.subsector, level: 'subsector', tickers: subTickers };
+    }
+  }
+  return { label: base.sector, level: 'sector', tickers: base.tickers };
+}
+
+export interface ValuationGroupMedians {
+  sector: string;
+  level: ValuationGroup['level'];
+  secPe: number | null;
+  secPb: number | null;
+  n: number;
+  nPe: number;
+  nPb: number;
+}
+
+export function getValuationGroupMedians(ticker: string): ValuationGroupMedians | null {
+  const g = getValuationGroup(ticker);
+  if (!g) return null;
+  const { median: secPe, n: nPe } = medianPE(g.tickers);
+  const { median: secPb, n: nPb } = medianPBV(g.tickers);
+  return { sector: g.label, level: g.level, secPe, secPb, n: Math.max(nPe, nPb), nPe, nPb };
+}
+
+export function getValuationGroupSpread(ticker: string): SectorSpread | null {
+  const t = ticker.toUpperCase().trim();
+  const g = getValuationGroup(t);
+  if (!g) return null;
+  const pe = collectSorted(g.tickers, peMap, 100);
+  const pb = collectSorted(g.tickers, pbMap, 20);
+  return {
+    sector: g.label,
+    peMin: pe.length ? pe[0] : null,
+    peMax: pe.length ? pe[pe.length - 1] : null,
+    pePctile: pctileOf(pe, peMap.get(t)),
+    nPe: pe.length,
+    pbMin: pb.length ? pb[0] : null,
+    pbMax: pb.length ? pb[pb.length - 1] : null,
+    pbPctile: pctileOf(pb, pbMap.get(t)),
+    nPb: pb.length,
+  };
+}
