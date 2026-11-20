@@ -19,6 +19,18 @@ const nextConfig: NextConfig = {
       './public/data/earnings/**/*',
       // lib/sepaChecklistData.ts อ่านตอน request (ไฟล์อาจยังไม่มี → การ์ด SEPA แบบเดิม)
       './data/scans/sepa_checklist.json',
+      // lib/stockInsightsData.ts อ่านตอน request (การ์ด จุดเข้า / ประวัติในสแกน / แรงเงิน ของหน้า /stock)
+      './data/scans/sepa.json',
+      './data/scans/scan_days.json',
+      './data/scans/sepa_history.json',
+      './data/scans/oliver_kell_history.json',
+      './data/scans/breakout_history.json',
+      './data/scans/lekkung_history.json',
+      './data/scans/oneil_history.json',
+      './data/scans/market_stage_transitions.json',
+      './data/scans/report_card.json',
+      './data/scans/nvdr.json',
+      './data/scans/sector_rs_history.json',
     ],
   },
 };

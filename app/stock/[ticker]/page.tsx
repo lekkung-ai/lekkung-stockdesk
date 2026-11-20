@@ -11,6 +11,7 @@ import { listingStatusWithTrading } from '@/lib/listingStatusData';
 import { sepaChecklistFor } from '@/lib/sepaChecklistData';
 import { isFundTicker } from '@/lib/sectorData';
 import { rsRankInGroup } from '@/lib/stockSummary';
+import { stockInsightsFor } from '@/lib/stockInsightsData';
 
 interface SectorMap {
   sectors: { sector: string; subsector: string; market: string; tickers: string[] }[];
@@ -97,6 +98,10 @@ export default async function StockPage({
   const listingStatus = await listingStatusWithTrading(t);
   // SEPA 8 ข้อของทุกหุ้น (sepa_checklist.json) · ไฟล์ยังไม่มี → loaded=false → การ์ดแบบเดิม
   const sepaChecklist = sepaChecklistFor(t);
+  // การ์ด จุดเข้า / ประวัติในสแกน / แรงเงิน & กลุ่ม — ตัดเฉพาะส่วนของหุ้นนี้ฝั่ง server
+  const fund = isFundTicker(t);
+  const market = sectorInfo ? (sectorMap.sectors.find(s => s.sector === sectorInfo.sector && s.subsector === sectorInfo.subsector && s.tickers.includes(t))?.market ?? null) : null;
+  const insights = stockInsightsFor(t, { market, sector: sectorInfo?.sector ?? null, subsector: sectorInfo?.subsector || null }, { isFund: fund });
 
   return (
     <StockDetailPage
@@ -111,8 +116,9 @@ export default async function StockPage({
       listingStatus={listingStatus}
       sepaChecklist={sepaChecklist.row}
       sepaChecklistLoaded={sepaChecklist.loaded}
-      isFund={isFundTicker(t)}
+      isFund={fund}
       rsRank={rsRank}
+      insights={insights}
     />
   );
 }

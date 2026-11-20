@@ -28,6 +28,8 @@ import { thaiDateLabel, type ListingStatus } from '@/lib/listingStatus';
 import { sepaChecklistItems, type SepaChecklistRow } from '@/lib/sepaChecklist';
 import { macroCommoditiesForTicker } from '@/lib/macroData';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
+import { EntryPlanCard, ScanHistoryCard, MoneyFlowCard } from './StockInsightCards';
+import type { StockInsights } from '@/lib/stockInsights';
 import { techSummary, fundSummary, VALUE_BAND_PCT, type SummaryLine } from '@/lib/stockSummary';
 
 // ── Prop types (all from server component) ─────────────────────────────────
@@ -137,6 +139,8 @@ interface Props {
   isFund?: boolean;
   /** อันดับ RS ในกลุ่มเดียวกับตารางเทียบกลุ่ม (null = คำนวณไม่ได้ → ไม่โชว์อันดับ) */
   rsRank?: { rank: number; n: number; group: string } | null;
+  /** การ์ด จุดเข้า / ประวัติในสแกน / แรงเงิน & กลุ่ม (ตัดเฉพาะหุ้นนี้ฝั่ง server · ไม่ส่ง → ไม่โชว์การ์ด) */
+  insights?: StockInsights | null;
 }
 
 // ── type scale / colors (หน้านี้เท่านั้น) ─────────────────────────────────────
@@ -396,6 +400,7 @@ export default function StockDetailPage({
   sepaChecklistLoaded = false,
   isFund = false,
   rsRank = null,
+  insights = null,
 }: Props) {
   const router = useRouter();
 
@@ -877,6 +882,12 @@ export default function StockDetailPage({
               </>
             )}
           </div>
+          {insights && (
+            <>
+              <EntryPlanCard plan={insights.entryPlan} livePrice={quote?.price ?? null} isFund={isFund} />
+              <ScanHistoryCard data={insights.history} />
+            </>
+          )}
         </section>
 
         <section>
@@ -1004,6 +1015,7 @@ export default function StockDetailPage({
               </>
             )}
           </div>
+          {insights && <MoneyFlowCard data={insights.moneyFlow} />}
         </section>
       </div>
 
