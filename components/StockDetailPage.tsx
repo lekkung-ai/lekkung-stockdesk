@@ -26,6 +26,7 @@ import NewsFlagBadges from '@/components/NewsFlagBadges';
 import NewListingBadge from '@/components/NewListingBadge';
 import { thaiDateLabel, type ListingStatus } from '@/lib/listingStatus';
 import { sepaChecklistItems, type SepaChecklistRow } from '@/lib/sepaChecklist';
+import { kellChecklistItems, type KellChecklistRow } from '@/lib/kellChecklist';
 import { macroCommoditiesForTicker } from '@/lib/macroData';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
 import { EntryPlanCard, ScanHistoryCard, MoneyFlowCard } from './StockInsightCards';
@@ -136,6 +137,10 @@ interface Props {
   sepaChecklist?: SepaChecklistRow | null;
   /** อ่าน sepa_checklist.json ได้ไหม — false = ไฟล์ยังไม่มี → การ์ด SEPA แบบเดิมทุกอย่าง */
   sepaChecklistLoaded?: boolean;
+  /** kell_checklist.json แถวของหุ้นนี้ (null = ไม่มีในไฟล์ / ไฟล์ยังไม่มี) */
+  kellChecklist?: KellChecklistRow | null;
+  /** อ่าน kell_checklist.json ได้ไหม — false = ไฟล์ยังไม่มี → การ์ด Kell แบบเดิมทุกอย่าง */
+  kellChecklistLoaded?: boolean;
   isFund?: boolean;
   /** อันดับ RS ในกลุ่มเดียวกับตารางเทียบกลุ่ม (null = คำนวณไม่ได้ → ไม่โชว์อันดับ) */
   rsRank?: { rank: number; n: number; group: string } | null;
@@ -310,7 +315,7 @@ function CheckRow({ pass, label, detail, failDetailRed = false }: { pass: boolea
         </span>
         <span className={`text-[14px] ${INK} leading-snug`}>{label}</span>
       </div>
-      <span className={`text-[12px] flex-shrink-0 text-right ${!pass && failDetailRed ? DOWN_TXT : INK2}`}>{detail}</span>
+      <span className={`text-[12px] flex-shrink-0 text-right ${detail.includes('\n') ? 'whitespace-pre-line leading-snug ' : ''}${!pass && failDetailRed ? DOWN_TXT : INK2}`}>{detail}</span>
     </div>
   );
 }
@@ -320,6 +325,17 @@ function SepaChecklist8({ row }: { row: SepaChecklistRow }) {
   return (
     <div data-testid="sepa-checklist-8">
       {sepaChecklistItems(row).map(item => (
+        <CheckRow key={item.n} pass={item.pass} label={`${item.n}. ${item.label}`} detail={item.detail} failDetailRed />
+      ))}
+    </div>
+  );
+}
+
+// ── Oliver Kell 7 ข้อ (kell_checklist.json) — style แถวเดียวกับ SEPA 8 ข้อ ─────────
+function KellChecklist7({ row }: { row: KellChecklistRow }) {
+  return (
+    <div data-testid="kell-checklist-7">
+      {kellChecklistItems(row).map(item => (
         <CheckRow key={item.n} pass={item.pass} label={`${item.n}. ${item.label}`} detail={item.detail} failDetailRed />
       ))}
     </div>
@@ -398,6 +414,8 @@ export default function StockDetailPage({
   listingStatus = null,
   sepaChecklist = null,
   sepaChecklistLoaded = false,
+  kellChecklist = null,
+  kellChecklistLoaded = false,
   isFund = false,
   rsRank = null,
   insights = null,
@@ -410,6 +428,12 @@ export default function StockDetailPage({
       console.warn(`[SEPA] ${ticker}: sepa_checklist All_Pass=${sepaChecklist.All_Pass} but sepa.json ${sepaEntry ? 'has' : 'does not have'} it - showing sepa.json's verdict`);
     }
   }, [ticker, sepaChecklist, sepaEntry]);
+  // ป้าย Kell เชื่อ oliver_kell.json เสมอ · kell_checklist ไม่ตรง → เตือนใน console เท่านั้น
+  useEffect(() => {
+    if (kellChecklist && kellChecklist.All_Pass !== !!kellEntry) {
+      console.warn(`[Kell] ${ticker}: kell_checklist All_Pass=${kellChecklist.All_Pass} but oliver_kell.json ${kellEntry ? 'has' : 'does not have'} it - showing oliver_kell.json's verdict`);
+    }
+  }, [ticker, kellChecklist, kellEntry]);
   const [chartHeight, setChartHeight] = useState(350);
   const [quote, setQuote] = useState<{ price: number; change1d: number; shortName: string } | null>(null);
   const [quoteAt, setQuoteAt] = useState<number | null>(null);
@@ -564,7 +588,7 @@ export default function StockDetailPage({
     : sepaEntry ? { pct: sepaEntry['%_From_High'], high: sepaEntry['52W_High'] } : null;
   const adtv = stageEntry?.['ADTV(MB)'] ?? null;
   const techLine = hasAnyScan
-    ? techSummary({ sepaPassCount, sepaPass: !!sepaEntry, kellPass: !!kellEntry, stage })
+    ? techSummary({ sepaPassCount, sepaPass: !!sepaEntry, kellPass: !!kellEntry, kellPassCount: kellChecklist?.Pass_Count ?? null, stage })
     : null;
   const f45Found = f45?.found ? f45 : null;
   const fundLine = fundSummary({ fairUpsidePct: fv.loading ? null : fv.medianUpside, profitYoYPct: f45Found?.netProfitYoY ?? null });
@@ -722,7 +746,7 @@ export default function StockDetailPage({
                   label="Oliver Kell"
                   value={kellEntry ? kellEntry.Signal : 'ไม่ผ่าน'}
                   valueCls={kellEntry ? UP_TXT : META}
-                  sub={kellEntry ? `ห่าง EMA10 ${kellEntry['Dist_EMA10_%'].toFixed(1)}%` : '—'}
+                  sub={kellEntry ? `ห่าง EMA10 ${kellEntry['Dist_EMA10_%'].toFixed(1)}%` : kellChecklist ? `${kellChecklist.Pass_Count}/7` : '—'}
                   testId="sum-kell"
                 />
                 <Tile
@@ -867,17 +891,30 @@ export default function StockDetailPage({
                 )}
 
                 {/* Oliver Kell */}
-                <SubHeading right={kellEntry ? <Chip tone="info">ผ่าน · {kellEntry.Signal}</Chip> : <Chip>ไม่ผ่าน</Chip>}>
+                {/* Kell: ป้ายเชื่อ oliver_kell.json · 7 ข้อ (kell_checklist) → ช่องเดิม → ข้อความ (แบบเดียวกับ SEPA) */}
+                <SubHeading
+                  right={
+                    <span className="flex items-center gap-2">
+                      {!kellEntry && kellChecklist && (
+                        <span className={`text-[12px] ${META}`} data-testid="kell-pass-count">ผ่าน {kellChecklist.Pass_Count}/7</span>
+                      )}
+                      {kellEntry ? <Chip tone="info">ผ่าน · {kellEntry.Signal}</Chip> : <Chip>ไม่ผ่าน</Chip>}
+                    </span>
+                  }
+                >
                   Oliver Kell EMAC
                 </SubHeading>
+                {kellChecklist && <KellChecklist7 row={kellChecklist} />}
                 {kellEntry ? (
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className={`grid grid-cols-3 gap-2${kellChecklist ? ' mt-2' : ''}`}>
                     <Tile label="EMA 10" value={kellEntry.EMA10.toFixed(2)} />
                     <Tile label="ห่าง EMA10" value={`${kellEntry['Dist_EMA10_%'].toFixed(1)}%`} />
                     <Tile label="สถานะ" value={<span className="text-[14px]">{kellEntry.Status}</span>} />
                   </div>
-                ) : (
-                  <p className={`text-[12px] ${META} text-center py-3`}>ไม่ผ่าน Oliver Kell EMAC</p>
+                ) : !kellChecklist && (
+                  <p className={`text-[12px] ${META} text-center py-3`}>
+                    {kellChecklistLoaded && !isFund ? 'ข้อมูลราคาไม่พอคำนวณ' : 'ไม่ผ่าน Oliver Kell EMAC'}
+                  </p>
                 )}
               </>
             )}

@@ -15,6 +15,8 @@ export interface TechSummaryInput {
   /** ผ่าน SEPA ตาม sepa.json (ป้ายหัวหน้าเชื่ออันนี้เสมอ) */
   sepaPass: boolean;
   kellPass: boolean;
+  /** จำนวนข้อ Kell ที่ผ่าน (0–7) จาก kell_checklist · null/ไม่ส่ง = ไม่มีข้อมูล */
+  kellPassCount?: number | null;
   stage: string | null;
 }
 
@@ -22,7 +24,7 @@ const BAD_STAGES = new Set(['Bear', 'Distribution']);
 
 /**
  * SEPA 8/8 และ Kell ผ่าน → "แนวโน้มขาขึ้นครบ · ผ่าน SEPA 8/8 และ Kell"
- * ไม่งั้น → "ผ่าน SEPA N/8 · Stage {stage}" (+ " · Kell ผ่าน")
+ * ไม่งั้น → "ผ่าน SEPA N/8 · Stage {stage}" (+ " · Kell ผ่าน" หรือ " · Kell N/7" เมื่อไม่ผ่านแต่มีข้อมูล)
  * สี: ผ่าน SEPA = ดี · Stage Bear/Distribution = แย่ · อื่น ๆ = กลาง
  */
 export function techSummary(input: TechSummaryInput): SummaryLine | null {
@@ -36,6 +38,7 @@ export function techSummary(input: TechSummaryInput): SummaryLine | null {
   if (n != null) parts.push(`ผ่าน SEPA ${n}/8`);
   if (stage) parts.push(`Stage ${stage}`);
   if (kellPass) parts.push('Kell ผ่าน');
+  else if (input.kellPassCount != null) parts.push(`Kell ${input.kellPassCount}/7`);
   if (parts.length === 0) return null;
   const tone: SummaryTone = sepaPass ? 'good' : stage && BAD_STAGES.has(stage) ? 'bad' : 'neutral';
   return { text: parts.join(' · '), tone };

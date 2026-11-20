@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
       './public/data/earnings/**/*',
       // lib/sepaChecklistData.ts อ่านตอน request (ไฟล์อาจยังไม่มี → การ์ด SEPA แบบเดิม)
       './data/scans/sepa_checklist.json',
+      './data/scans/kell_checklist.json',
       // lib/stockInsightsData.ts อ่านตอน request (การ์ด จุดเข้า / ประวัติในสแกน / แรงเงิน ของหน้า /stock)
       './data/scans/sepa.json',
       './data/scans/scan_days.json',
