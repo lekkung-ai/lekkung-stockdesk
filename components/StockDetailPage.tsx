@@ -604,6 +604,11 @@ export default function StockDetailPage({
     ? { pct: (sepaChecklist.Price / sepaChecklist['52W_High'] - 1) * 100, high: sepaChecklist['52W_High'] }
     : sepaEntry ? { pct: sepaEntry['%_From_High'], high: sepaEntry['52W_High'] } : null;
   const adtv = stageEntry?.['ADTV(MB)'] ?? null;
+  // การ์ด "แรงเงิน & กลุ่ม" render จุดเดียว: ไม่ผ่าน SEPA (ตัวแปรเดียวกับป้ายหัวการ์ด/การ์ดสรุป = sepaEntry จาก sepa.json,
+  // รวมกรณีไม่มีข้อมูล SEPA เลย) → ท้ายคอลัมน์ซ้าย (ซ้ายสั้นกว่าขวามาก) · ผ่าน SEPA → ท้ายคอลัมน์ขวาเหมือนเดิม
+  // จอคอลัมน์เดียว: การ์ดตามไปอยู่ท้ายส่วนเทคนิค (ก่อนส่วนพื้นฐาน)
+  const flowInLeft = !sepaEntry;
+  const flowCard = insights ? <MoneyFlowCard data={insights.moneyFlow} /> : null;
   const techLine = hasAnyScan
     ? techSummary({ sepaPassCount, sepaPass: !!sepaEntry, kellPass: !!kellEntry, kellPassCount: kellChecklist?.Pass_Count ?? null, stage })
     : null;
@@ -942,6 +947,7 @@ export default function StockDetailPage({
               <ScanHistoryCard data={insights.history} />
             </>
           )}
+          {flowInLeft && flowCard}
         </section>
 
         <section>
@@ -1069,7 +1075,7 @@ export default function StockDetailPage({
               </>
             )}
           </div>
-          {insights && <MoneyFlowCard data={insights.moneyFlow} />}
+          {!flowInLeft && flowCard}
         </section>
       </div>
 
