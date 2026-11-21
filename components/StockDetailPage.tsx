@@ -27,6 +27,7 @@ import NewListingBadge from '@/components/NewListingBadge';
 import { thaiDateLabel, type ListingStatus } from '@/lib/listingStatus';
 import { isNewline, type DetailKind, type DetailPart } from '@/lib/checklistDisplay';
 import { sepaChecklistItems, type SepaChecklistRow } from '@/lib/sepaChecklist';
+import { kellStatusLabel, KELL_LEADER_TITLE } from '@/lib/kellLeader';
 import { kellChecklistItems, type KellChecklistRow } from '@/lib/kellChecklist';
 import { macroCommoditiesForTicker } from '@/lib/macroData';
 import { getScanGeneratedAt } from '@/lib/scanGeneratedAt';
@@ -931,7 +932,7 @@ export default function StockDetailPage({
                   <div className={`grid grid-cols-3 gap-2${kellChecklist ? ' mt-2' : ''}`}>
                     <Tile label="EMA 10" value={kellEntry.EMA10.toFixed(2)} />
                     <Tile label="ห่าง EMA10" value={`${kellEntry['Dist_EMA10_%'].toFixed(1)}%`} />
-                    <Tile label="สถานะ" value={<span className="text-[14px]">{kellEntry.Status}</span>} />
+                    <Tile label="สถานะ" value={(() => { const st = kellStatusLabel(kellEntry.Status, rs); return <span className="text-[14px]" title={st.leader ? KELL_LEADER_TITLE : undefined}>{st.text}</span>; })()} />
                   </div>
                 ) : !kellChecklist && (
                   <p className={`text-[13px] ${META} text-center py-3`}>

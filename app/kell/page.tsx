@@ -1,5 +1,6 @@
 'use client';
 
+import { kellStatusLabel, KELL_LEADER_TITLE } from '@/lib/kellLeader';
 import React, { useState, useMemo, Suspense } from 'react';
 import { LIQ_DEFAULT, LIQ_LABELS, LIQ_SETS, inLiqSet, type LiqSet } from '@/lib/liquidity';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -368,13 +369,21 @@ function KellContent() {
                   )}
                 </Td>
                 <Td>
-                  <span className={`text-label ${
-                    s.Status === 'ชิด EMA' ? 'text-[#1D9E75]'
-                    : s.Status === 'Trend OK' ? 'text-[#EF9F27]'
-                    : 'text-white/35'
-                  }`}>
-                    {s.Status}
-                  </span>
+                  {(() => {
+                    const st = kellStatusLabel(s.Status, rsOf(s.Ticker));
+                    return (
+                      <span
+                        className={`text-label ${
+                          s.Status === 'ชิด EMA' ? 'text-[#1D9E75]'
+                          : s.Status === 'Trend OK' ? 'text-[#EF9F27]'
+                          : 'text-white/35'
+                        }`}
+                        title={st.leader ? KELL_LEADER_TITLE : undefined}
+                      >
+                        {st.text}
+                      </span>
+                    );
+                  })()}
                 </Td>
               </tr>
               {activeTicker === s.Ticker && (
