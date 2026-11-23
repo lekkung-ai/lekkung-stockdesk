@@ -156,7 +156,7 @@ export default function Sidebar({ open, desktopOpen, onClose }: SidebarProps) {
       <nav className="flex-1 overflow-y-auto py-3 px-1 md:px-2 space-y-4">
         {NAV_GROUPS.map(group => (
           <div key={group.section}>
-            <p className={`px-2 mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/25 whitespace-nowrap ${labelCls}`}>
+            <p className={`px-2 mb-1 text-[12px] font-semibold uppercase tracking-widest text-white/25 whitespace-nowrap ${labelCls}`}>
               {group.section}
             </p>
             <div className="space-y-0.5">
