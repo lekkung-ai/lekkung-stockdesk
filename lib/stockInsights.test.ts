@@ -7,9 +7,11 @@ import {
   fmtMillion,
   groupRs,
   hitsOnDates,
+  isNvdrStale,
   lastTradingDates,
   moneyFlowSummary,
   nvdrForTicker,
+  nvdrLagDays,
   setupsForTicker,
   stageByDates,
   statForSetup,
@@ -194,5 +196,26 @@ describe('money flow (card 3)', () => {
     expect(moneyFlowSummary({ nvdrDate: null, today: null, d5: null, rs: rs(55, null) })?.text).toBe('กลุ่ม Banking กลาง ๆ');
     expect(moneyFlowSummary({ nvdrDate: null, today: null, d5: sell, rs: null })?.text).toBe('ต่างชาติขายสุทธิ 5 วัน');
     expect(moneyFlowSummary({ nvdrDate: null, today: null, d5: null, rs: null })).toBeNull();
+  });
+});
+
+describe('NVDR lag label', () => {
+  it('counts calendar days to the Bangkok scan date', () => {
+    expect(nvdrLagDays('2026-11-19', '2026-11-20T18:05:07+07:00')).toBe(1);
+    expect(nvdrLagDays('2026-11-20', '2026-11-23T18:05:00+07:00')).toBe(3); // Mon scan, Fri data
+    // 00:30 ICT on the 21st = 17:30 UTC on the 20th → Bangkok date is the 21st
+    expect(nvdrLagDays('2026-11-20', '2026-11-20T17:30:00Z')).toBe(1);
+  });
+  it('warns only above 4 calendar days', () => {
+    expect(isNvdrStale('2026-11-19', '2026-11-20T18:05:07+07:00')).toBe(false);
+    expect(isNvdrStale('2026-11-19', '2026-11-23T18:05:00+07:00')).toBe(false); // 4 = holiday Friday
+    expect(isNvdrStale('2026-11-18', '2026-11-23T18:05:00+07:00')).toBe(true);
+    expect(isNvdrStale('2026-07-21', '2026-11-23T18:05:00+07:00')).toBe(true);
+  });
+  it('never warns without a scan date or a valid NVDR date', () => {
+    expect(isNvdrStale('2026-07-21', null)).toBe(false);
+    expect(isNvdrStale(null, '2026-11-23T18:05:00+07:00')).toBe(false);
+    expect(isNvdrStale('2026-07-21', 'bad')).toBe(false);
+    expect(nvdrLagDays('x', '2026-11-23T18:05:00+07:00')).toBeNull();
   });
 });

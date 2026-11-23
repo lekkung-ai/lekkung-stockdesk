@@ -609,13 +609,13 @@ export default function StockDetailPage({
   // รวมกรณีไม่มีข้อมูล SEPA เลย) → ท้ายคอลัมน์ซ้าย (ซ้ายสั้นกว่าขวามาก) · ผ่าน SEPA → ท้ายคอลัมน์ขวาเหมือนเดิม
   // จอคอลัมน์เดียว: การ์ดตามไปอยู่ท้ายส่วนเทคนิค (ก่อนส่วนพื้นฐาน)
   const flowInLeft = !sepaEntry;
-  const flowCard = insights ? <MoneyFlowCard data={insights.moneyFlow} /> : null;
+  const scanAt = getScanGeneratedAt('market_stage');
+  const flowCard = insights ? <MoneyFlowCard data={insights.moneyFlow} scanAt={scanAt} /> : null;
   const techLine = hasAnyScan
     ? techSummary({ sepaPassCount, sepaPass: !!sepaEntry, kellPass: !!kellEntry, kellPassCount: kellChecklist?.Pass_Count ?? null, stage })
     : null;
   const f45Found = f45?.found ? f45 : null;
   const fundLine = fundSummary({ fairUpsidePct: fv.loading ? null : fv.medianUpside, profitYoYPct: f45Found?.netProfitYoY ?? null });
-  const scanAt = getScanGeneratedAt('market_stage');
   const grp = fv.group;
   const groupLabel = grp ? (grp.level === 'sector' ? `sector ${grp.sector}` : grp.sector) : null;
 

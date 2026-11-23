@@ -301,6 +301,26 @@ export function nvdrForTicker(nvdr: { latest_date?: unknown; today?: unknown; '5
   return { nvdrDate: (today || d5) && typeof nvdr.latest_date === 'string' ? nvdr.latest_date : null, today, d5 };
 }
 
+/** SET ออกข้อมูล NVDR ช้า 1 วันทำการเสมอ (สแกน 18:00 ได้ของวันก่อนหน้า) · ช้ากว่านี้ = ข้อมูลเก่าผิดปกติ
+ *  เกณฑ์วันปฏิทิน: ปกติ ≤ 3 (สแกนจันทร์ได้ของศุกร์) · มีวันหยุด 1 วัน = 4 · เกิน 4 → เตือน */
+export const NVDR_STALE_DAYS = 4;
+
+/** จำนวนวันปฏิทิน (เวลาไทย) จาก latest_date ของ NVDR ถึงวันสแกนล่าสุด · คำนวณไม่ได้ = null */
+export function nvdrLagDays(nvdrDate: string | null, scanAt: string | null): number | null {
+  if (!nvdrDate || !scanAt || !/^\d{4}-\d{2}-\d{2}/.test(nvdrDate)) return null;
+  const scan = new Date(scanAt);
+  if (Number.isNaN(scan.getTime())) return null;
+  const scanDay = new Date(scan.getTime() + 7 * 3600_000).toISOString().slice(0, 10); // วันที่ตามเวลาไทย
+  const diff = (Date.parse(`${scanDay}T00:00:00Z`) - Date.parse(`${nvdrDate.slice(0, 10)}T00:00:00Z`)) / 86_400_000;
+  return Number.isFinite(diff) ? Math.round(diff) : null;
+}
+
+/** true = NVDR เก่ากว่าวันสแกนล่าสุดเกิน NVDR_STALE_DAYS วันปฏิทิน · ไม่มีวันสแกน = false (ไม่เตือน) */
+export function isNvdrStale(nvdrDate: string | null, scanAt: string | null): boolean {
+  const lag = nvdrLagDays(nvdrDate, scanAt);
+  return lag != null && lag > NVDR_STALE_DAYS;
+}
+
 type RsNode = { rs_series?: unknown; subsectors?: Record<string, RsNode | undefined> };
 export type RawSectorRsHistory = { dates?: unknown; sectors?: Record<string, Record<string, RsNode | undefined> | undefined> };
 

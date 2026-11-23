@@ -14,6 +14,7 @@ import {
   fmtMillion,
   fmtPrice,
   hasVcpBase,
+  isNvdrStale,
   moneyFlowSummary,
   statsSummary,
   type EntryPlan,
@@ -410,9 +411,11 @@ function Sparkline({ series, color }: { series: (number | null)[]; color: string
   );
 }
 
-export function MoneyFlowCard({ data }: { data: MoneyFlowData | null }) {
+/** scanAt = เวลาสแกนล่าสุด (generated_at.json ที่หน้าโหลดอยู่แล้ว) · ใช้เตือนเมื่อ NVDR เก่ากว่าปกติ */
+export function MoneyFlowCard({ data, scanAt = null }: { data: MoneyFlowData | null; scanAt?: string | null }) {
   if (!data) return null;
   const { today, d5, rs, nvdrDate } = data;
+  const nvdrStale = isNvdrStale(nvdrDate, scanAt);
   const summary = moneyFlowSummary(data);
   const rsCls = rs?.latest == null ? INK : rs.latest >= 70 ? UP_TXT : rs.latest <= 40 ? DOWN_TXT : INK;
   const rsDelta = rs && rs.latest != null && rs.prev20 != null ? rs.latest - rs.prev20 : null;
@@ -427,7 +430,15 @@ export function MoneyFlowCard({ data }: { data: MoneyFlowData | null }) {
       <CardHead
         title="แรงเงิน & กลุ่ม"
         question="เงินไหลเข้าหรือออก?"
-        right={nvdrDate ? <span className={`text-[13px] ${META}`} data-testid="nvdr-date">NVDR ถึง {thShort(nvdrDate)}</span> : undefined}
+        right={nvdrDate ? (
+          <span
+            className={`text-[13px] ${nvdrStale ? WARN_TXT : META}`}
+            data-testid="nvdr-date"
+            data-stale={nvdrStale ? 'true' : undefined}
+          >
+            {nvdrStale ? `ข้อมูล NVDR เก่า · ถึง ${thShort(nvdrDate)}` : `NVDR ถึง ${thShort(nvdrDate)} · SET ออกช้า 1 วันทำการ`}
+          </span>
+        ) : undefined}
       />
       <div className={`grid gap-2 ${tileCount >= 3 ? 'grid-cols-2 @md:grid-cols-3' : tileCount === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {today && (
