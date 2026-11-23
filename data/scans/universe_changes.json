@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-16T18:06:53.385039+07:00",
+  "generated_at": "2026-11-23T18:08:11.291461+07:00",
   "summary": {
-    "total_live": 930,
+    "total_live": 929,
     "total_current": 910,
-    "new_count": 19,
+    "new_count": 18,
     "delisted_count": 3,
     "possible_delisted_count": 0,
-    "renamed_count": 0,
+    "renamed_count": 1,
     "temporary_symbols_count": 0,
     "possible_rename_count": 0
   },
@@ -117,13 +117,6 @@
       "guessed_subsector": "PROPCON"
     },
     {
-      "ticker": "TR",
-      "company_name": "บริษัท ไทยเรยอน จำกัด (มหาชน)",
-      "market": "SET",
-      "guessed_sector": "FASHION",
-      "guessed_subsector": "CONSUMP"
-    },
-    {
       "ticker": "TSR",
       "company_name": "บริษัท ทีเอสอาร์ ลิฟวิ่ง โซลูชั่น จำกัด (มหาชน)",
       "market": "SET",
@@ -166,7 +159,14 @@
     }
   ],
   "possible_delisted": [],
-  "renamed": [],
+  "renamed": [
+    {
+      "old": "KOOL",
+      "new": "CLV",
+      "company": "บริษัท ซีแอล เวนเจอร์ จำกัด (มหาชน)",
+      "reason": "Official permanent rename match"
+    }
+  ],
   "temporary_symbols": [],
   "possible_rename": []
 }
