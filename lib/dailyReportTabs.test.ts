@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { sepaCompositeScore } from './compositeScore';
 import {
   rankSepa, comparePivot, fplusLabel, fyLabel, quarterLabel, maxBy, sumStages, sepaFilterCounts, matchSepa,
-  SEPA_FILTERS, type SepaRawRow, type SepaRow,
+  SEPA_FILTERS, sepaHeadline, sepaWatch, type SepaRawRow, type SepaRow,
 } from './dailyReportTabs';
 
 const raw = (Ticker: string, RS_Rating: number, fromHigh: string, adtv: number | null, f: boolean | null = null): SepaRawRow =>
@@ -60,5 +60,40 @@ describe('sepa filter counts', () => {
     for (const f of SEPA_FILTERS) expect(c[f]).toBe(ranked.filter(x => matchSepa(x, f)).length);
     expect(c.near_high).toBe(1);
     expect(c.fplus).toBe(1);
+  });
+});
+
+describe('SEPA sentences (rule-based)', () => {
+  const row = (t: string, o: Partial<SepaRow>) =>
+    ({ Ticker: t, RS_Rating: 90, '%_From_High': '-5%', 'ADTV(MB)': 10, Fundamental_Pass: true, status: 'stay', price_stale: false, ...o }) as unknown as SepaRow;
+  const readyRow = (t: string, toPivot: number, rs = 90) =>
+    row(t, { RS_Rating: rs, VCP_Contracting: true, VCP_T: 2, VCP_ToPivot: toPivot, VCP_Pivot: 20, VCP_Footprint: '9W 13/4 2T' });
+
+  it('headline: ready count · nearest pivot among ready · rank 1 with score', () => {
+    const ranked = rankSepa([readyRow('AAA', 3.2, 99), readyRow('BBB', 1.5, 80), row('CCC', {})], 'all');
+    const h = sepaHeadline(ranked);
+    expect(h.startsWith('พร้อมยิง 2 ตัว · BBB ห่าง Pivot แค่ 1.5% · อันดับ 1 ')).toBe(true);
+    expect(h).toContain(`Score ${Math.round(ranked[0].score)}`);
+    expect(h).toContain(`อันดับ 1 ${ranked[0].row.Ticker}`);
+  });
+
+  it('headline when nothing is ready / empty view', () => {
+    const ranked = rankSepa([row('CCC', {})], 'all');
+    expect(sepaHeadline(ranked).startsWith('ยังไม่มีตัวพร้อมยิง · อันดับ 1 CCC')).toBe(true);
+    expect(sepaHeadline([])).toBe('วันนี้ไม่มีหุ้นผ่าน SEPA ในมุมมองนี้');
+  });
+
+  it('watch lines by priority (≤ 2)', () => {
+    const [r] = rankSepa([readyRow('A', 2.5)], 'all');
+    expect(sepaWatch(r)[0]).toBe('ห่าง Pivot 20.00 อีก 2.5% — เบรคพร้อมวอลุ่ม = จุดซื้อ');
+    const [at] = rankSepa([readyRow('Z', 0)], 'all');
+    expect(sepaWatch(at)[0]).toBe('อยู่ที่ Pivot 20.00 พอดี — เบรคพร้อมวอลุ่ม = จุดซื้อ');
+    expect(sepaHeadline([at])).toContain('Z อยู่ที่ Pivot พอดี');
+    const [p] = rankSepa([row('B', { VCP_ToPivot: -4, VCP_Pivot: 10, VCP_Footprint: '6W 10/3 2T' })], 'all');
+    expect(sepaWatch(p)[0]).toBe('ผ่าน Pivot ไปแล้ว 4.0% — ไม่ไล่ รอฐานใหม่');
+    const [n] = rankSepa([row('C', { VCP_Footprint: 'no base', '%_From_High': '-1%' })], 'all');
+    expect(sepaWatch(n)).toEqual(['ยังไม่มีฐาน — เฝ้าดู', 'ชิด High รอบปี']);
+    const [st] = rankSepa([row('D', { price_stale: true, VCP_Footprint: 'no base', '%_From_High': '-1%' })], 'all');
+    expect(sepaWatch(st)).toEqual(['⚠️ ราคาค้าง', 'ยังไม่มีฐาน — เฝ้าดู']);
   });
 });

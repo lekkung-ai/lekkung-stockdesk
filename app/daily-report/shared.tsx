@@ -1,25 +1,33 @@
 'use client';
 
-// ชิ้นส่วนที่ทุกแท็บของ /daily-report ใช้ร่วมกัน — ป้ายสถานะ / ราคาค้าง / อยู่ใน / ข่าว / วัน 2 แบบ / ปุ่มกรอง
+// ชิ้นส่วนที่ทุกแท็บของ /daily-report ใช้ร่วมกัน (โครงตามแบบ Muse v48)
+// ตัวเลข / ราคา / % / ticker ใช้ .num (IBM Plex Mono) · ข้อความใช้ฟอนต์หลัก (IBM Plex Sans Thai)
 
 import React from 'react';
 import Link from 'next/link';
-import { STATUS_LABEL, scanTagLabel, scanKeyOf, fmtPct, pctClass, type NewsFlag } from '@/lib/dailyReport';
-import type { SignalD10 } from '@/lib/dailyReportTabs';
-import { winFlatLoss } from '@/lib/winFlatLoss';
+import { STATUS_LABEL, scanTagLabel, scanKeyOf, fmtPct, fmtNum, pctClass, shortDate, hhmm, type NewsFlag } from '@/lib/dailyReport';
 import s from './DailyReport.module.css';
 
-export const Calc = ({ children = 'คำนวณ', title }: { children?: React.ReactNode; title?: string }) => (
-  <span className={s.calc} title={title}>{children}</span>
-);
-
-export function Pct({ v, digits = 2 }: { v: number | null | undefined; digits?: number }) {
-  return <span className={s[pctClass(v)]}>{fmtPct(v, digits)}</span>;
+/** ตัวเลขฟอนต์ Mono */
+export function N({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return <span className={`${s.num} ${className}`}>{children}</span>;
 }
 
-export function StatusTag({ status }: { status: 'new' | 'reentry' | 'stay' }) {
+export function Pct({ v, digits = 2 }: { v: number | null | undefined; digits?: number }) {
+  return <span className={`${s.num} ${s[pctClass(v)]}`}>{fmtPct(v, digits)}</span>;
+}
+
+export function Price({ v }: { v: number | null | undefined }) {
+  return <span className={`${s.num} ${s.price}`}>{fmtNum(v)}</span>;
+}
+
+export function StatusTag({ status, lastSeen }: { status: 'new' | 'reentry' | 'stay'; lastSeen?: string | null }) {
   const cls = status === 'new' ? s.tNew : status === 'reentry' ? s.tRe : s.tStay;
-  return <span className={`${s.tag} ${cls}`}>{STATUS_LABEL[status]}</span>;
+  return (
+    <span className={`${s.tag} ${cls}`}>
+      {STATUS_LABEL[status]}{status === 'reentry' && lastSeen && <> · ล่าสุด {shortDate(lastSeen)}</>}
+    </span>
+  );
 }
 
 export function StaleTag({ stale, barDate }: { stale: boolean; barDate?: string | null }) {
@@ -27,86 +35,148 @@ export function StaleTag({ stale, barDate }: { stale: boolean; barDate?: string 
   return <span className={`${s.tag} ${s.tWarn}`} title={`แท่งราคาล่าสุด ${barDate ?? '—'} ไม่ใช่วันสแกน`}>⚠️ ราคาค้าง</span>;
 }
 
-/** ป้ายข่าว (news_flags) ชุดเดียวกับแท็บ Daytrade */
 export function EventTags({ events }: { events: NewsFlag[] }) {
   if (!events.length) return null;
+  return <>{events.map((e, i) => <span key={e.type + i} className={`${s.tag} ${s.tEvent}`} title={e.title}>{e.label}</span>)}</>;
+}
+
+/** "อยู่ใน: …" — ชุดเดียวกันทุกแท็บ */
+export function InScans({ scans, exclude, asTag = false }: { scans: string[]; exclude?: string; asTag?: boolean }) {
+  const other = scans.filter(k => scanKeyOf(k) !== exclude);
+  if (!other.length) return null;
+  const text = `อยู่ใน: ${other.map(scanTagLabel).join(' · ')}`;
+  return asTag ? <span className={s.tag}>{text}</span> : <span className={s.ls}>{text}</span>;
+}
+
+export function NoData() {
+  return <div className={s.statCard} data-testid="dr-nodata">รอบนี้ไม่มีข้อมูลแท็บนี้</div>;
+}
+
+export function TabHead({ title, date, ts, compared, href }: { title: string; date: string; ts?: string | null; compared: string | null; href: string }) {
+  const t = hhmm(ts);
   return (
     <>
-      {events.map((e, i) => (
-        <span key={e.type + i} className={`${s.tag} ${s.tEvent}`} title={e.title}>{e.label}</span>
-      ))}
+      <h2 className={s.tabTitle}>{title}</h2>
+      <p className={s.tabHead}>
+        สแกน {shortDate(date)}{t && ` ${t}`} · <b>เทียบกับ: {shortDate(compared)}</b> · <Link href={href}>เปิดหน้าสแกน ↗</Link>
+      </p>
     </>
   );
 }
 
-/** "อยู่ใน: …" — ชุดเดียวกันทุกแท็บ (daytrade / growth / sepa / market_stage 4 stage) */
-export function InScans({ scans, exclude }: { scans: string[]; exclude?: string }) {
-  const other = scans.filter(k => scanKeyOf(k) !== exclude);
-  if (!other.length) return null;
-  return <span className={s.ls}>อยู่ใน: {other.map(scanTagLabel).join(' · ')}</span>;
+/** ประโยคเปิดแท็บ — ชื่อหุ้นในประโยคเป็น Mono */
+export function Verdict({ text }: { text?: string | null }) {
+  if (!text) return null;
+  return <p className={s.verdict} data-testid="dr-verdict">{monoTickers(text)}</p>;
 }
 
-export const DAYS_TITLE =
-  'รอบนี้ = จำนวนวันทำการที่อยู่ในสแกนติดกันถึงวันนี้ (หน้านี้คิดเอง · เข้า/กลับเข้าวันนี้ = 1) · ' +
-  'ไม้ = DAYS ของหน้าสแกน (กติกา 5 วัน: หลุด 1–4 วันแล้วกลับมายังนับเป็นไม้เดิม และนับวันที่หลุดรวมด้วย)';
+/** แยก ticker / ตัวเลขในประโยคไปเป็น .num (ข้อความไทยคงฟอนต์หลัก) */
+export function monoTickers(text: string): React.ReactNode[] {
+  const re = /([A-Z][A-Z0-9&.\-]{1,9}|[+−-]?\d[\d,]*(?:\.\d+)?%?)/g;
+  const out: React.ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let i = 0;
+  while ((m = re.exec(text))) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    out.push(<span key={i++} className={s.num}>{m[0]}</span>);
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
+}
 
-export function DaysCell({ streak, web }: { streak: number; web: number | null }) {
+export function StatCard({ big, label, testid, count }: { big: React.ReactNode; label: React.ReactNode; testid?: string; count?: number }) {
   return (
-    <span title={DAYS_TITLE}>
-      {streak} <span className={s.flat}>· {web ?? '—'}</span>
-    </span>
-  );
-}
-
-export function NoData() {
-  return <div className={`${s.card} ${s.placeholder}`} data-testid="dr-nodata">รอบนี้ไม่มีข้อมูลแท็บนี้</div>;
-}
-
-export function Phase2Box({ children }: { children: React.ReactNode }) {
-  return <div className={`${s.card} ${s.p2wide}`}>{children}</div>;
-}
-
-/** ผลสัญญาณย้อนหลัง (D+10) จาก report_card.json — ไม่ใช่ "สถิติ 10 วัน" */
-export function SignalCard({ sig, href }: { sig: SignalD10 | null; href: string }) {
-  const wfl = winFlatLoss(sig);
-  return (
-    <div className={`${s.card} ${s.stat}`}>
-      {sig && sig.n > 0 ? (
-        <>
-          <div className={s.bigSm}>
-            {wfl ? <>ชนะ {wfl.win.toFixed(0)}% · เสมอ {wfl.flat.toFixed(0)}%</> : <>win {sig.win_rate_pct?.toFixed(0) ?? '—'}%</>}
-            {' · '}<Pct v={sig.avg_return_pct} digits={1} />
-          </div>
-          <div className={s.lbl}>
-            ผลสัญญาณย้อนหลัง (D+10) · {sig.n} สัญญาณ · <Link href={href}>ดูรายละเอียด ↗</Link>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className={`${s.bigSm} ${s.flat}`}>—</div>
-          <div className={s.lbl}>ผลสัญญาณย้อนหลัง (D+10) · ยังไม่มีข้อมูล</div>
-        </>
-      )}
+    <div className={s.statCard} data-testid={testid} data-count={count}>
+      <div className={`${s.scBig} ${s.num}`}>{big}</div>
+      <div className={s.scLabel}>{label}</div>
     </div>
   );
 }
 
-export function FilterButton({
-  id, label, count, active, onClick, prefix,
-}: { id: string; label: string; count: number; active: boolean; onClick: () => void; prefix: string }) {
+export function ChangeBox({ title, hint, chips, note, testid }: {
+  title: string; hint?: string; chips: React.ReactNode[]; note?: React.ReactNode; testid?: string;
+}) {
   return (
-    <button
-      type="button"
-      className={s.f}
-      aria-pressed={active}
-      disabled={count === 0}
-      onClick={onClick}
-      data-testid={`${prefix}-filter-${id}`}
-      data-count={count}
-    >
-      {label} <span className={s.n}>{count}</span>
+    <div className={s.changeBox} data-testid={testid}>
+      <h3>{title} <span>{chips.length} ตัว{hint && ` · ${hint}`}</span></h3>
+      <div className={s.chips}>{chips.length ? chips : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}</div>
+      {note && <div className={s.changeNote}>{note}</div>}
+    </div>
+  );
+}
+
+export function Chip({ ticker, children }: { ticker: string; children?: React.ReactNode }) {
+  return <span className={s.chip}><b className={s.num}>{ticker}</b>{children}</span>;
+}
+
+export function FilterButton({ id, label, count, active, onClick, prefix }: {
+  id: string; label: string; count: number; active: boolean; onClick: () => void; prefix: string;
+}) {
+  return (
+    <button type="button" className={s.filter} aria-pressed={active} disabled={count === 0} onClick={onClick}
+      data-testid={`${prefix}-filter-${id}`} data-count={count}>
+      {label}<span className={`${s.cnt} ${s.num}`}>{count}</span>
     </button>
   );
+}
+
+/** การ์ดรายตัว: หัว (ticker + ป้าย + ราคา) · เนื้อ 1–2 แผง · แถบ "จับตา" */
+export function StockCard({ id, ticker, rank, tags, sub, close, chg, left, right, extra, watch, flash, testid }: {
+  id: string; ticker: string; rank?: number; tags?: React.ReactNode; sub?: React.ReactNode; close: number | null; chg: number | null;
+  left?: { title: string; rows: [React.ReactNode, React.ReactNode][] }; right?: { title: string; rows: [React.ReactNode, React.ReactNode][] };
+  extra?: React.ReactNode; watch?: string[] | null; flash?: boolean; testid?: string;
+}) {
+  const panel = (p: { title: string; rows: [React.ReactNode, React.ReactNode][] }, tech: boolean) => (
+    <div className={`${s.panel} ${tech ? s.panelTech : ''}`}>
+      <h4>{p.title}</h4>
+      <table className={s.mini}><tbody>{p.rows.map((r, i) => <tr key={i}><td>{r[0]}</td><td>{r[1]}</td></tr>)}</tbody></table>
+    </div>
+  );
+  return (
+    <article className={`${s.stock} ${flash ? s.stockFlash : ''}`} id={id} data-testid={testid} data-ticker={ticker}>
+      <div className={s.stockTop}>
+        <div>
+          <div className={s.tickerLine}>
+            {rank != null && <span className={`${s.rankBadge} ${s.num}`}>{rank}</span>}
+            <h3><Link href={`/stock/${ticker}`} className={s.num}>{ticker}</Link></h3>
+            {tags}
+          </div>
+          {sub && <div className={s.company}>{sub}</div>}
+        </div>
+        <div className={s.priceBox}>
+          <span>ราคาปิด</span>
+          <strong className={s.num}>{fmtNum(close)}</strong>
+          <small><Pct v={chg} /></small>
+        </div>
+      </div>
+      {(left || right) && (
+        <div className={s.stockBody} style={left && right ? undefined : { gridTemplateColumns: '1fr' }}>
+          {left && panel(left, false)}
+          {right && panel(right, !!left)}
+        </div>
+      )}
+      {extra}
+      {watch && watch.length > 0 && (
+        <div className={s.watch} data-testid="dr-watch"><b>จับตา</b><span>{monoTickers(watch.join(' · '))}</span></div>
+      )}
+    </article>
+  );
+}
+
+export function Fold({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <details className={s.fold}>
+      <summary>{title}</summary>
+      <div className={s.foldBody}>{children}</div>
+    </details>
+  );
+}
+
+/** ผลย้อนหลังของสแกน → Report Card (บรรทัดเดียว แทนการ์ด D+10) */
+export function ReportCardLink({ href }: { href: string }) {
+  return <p className={s.linkLine}>ผลย้อนหลังของสแกนนี้ → <Link href={href}>Report Card</Link></p>;
 }
 
 export function pctText(v: number | null | undefined, digits = 2) {

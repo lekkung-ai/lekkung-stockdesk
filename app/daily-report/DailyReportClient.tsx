@@ -1,8 +1,8 @@
 'use client';
 
-// /daily-report เฟส 1 — แถบตลาด + แท็บ Daytrade · ข้อมูลทั้งหมดมาจาก data/scans/daily_report.json
-// (scripts/build_daily_report.py) ที่ import ตอน build → หน้า static ไม่อ่านไฟล์ตอน request
-// ห้ามมีชื่อหุ้น วันที่ หรือจำนวนตายตัวในไฟล์นี้ — ทุกค่ามาจากไฟล์ข้อมูล
+// /daily-report — โครงตามแบบ Muse v48 · ทุกตัวเลขมาจาก data/scans/daily_report.json (scripts/build_daily_report.py)
+// ที่ import ตอน build → หน้า static · ประโยคอธิบายสร้างจากกติกาในสคริปต์ (SEPA: lib/dailyReportTabs) ไม่มี AI
+// ห้ามมีชื่อหุ้น วันที่ หรือจำนวนตายตัวในไฟล์นี้
 
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
@@ -11,20 +11,22 @@ import rawGeneratedAt from '@/data/scans/generated_at.json';
 import {
   type DailyReport, type CalendarItem, type DtRow, type DtFilter, type RvTier,
   DT_FILTERS, DT_FILTER_LABELS, RV_LABEL, CLOSE_POS_LABEL, TRIGGER_LABEL, scanTagLabel,
-  matchFilter, matchQuery, filterCounts, shortDate, longDate, hhmm, fmtNum, fmtPct, fmtShares, pctClass,
-  calendarFor, calendarText, splitCalendar, latestScanDate,
+  matchFilter, matchQuery, filterCounts, shortDate, longDate, hhmm, fmtNum, fmtShares,
+  calendarFor, calendarText, calendarScans, splitCalendar, latestScanDate,
 } from '@/lib/dailyReport';
-import { Calc, Pct, StatusTag, NoData } from './shared';
+import { LIQ_DEFAULT } from '@/lib/liquidity';
+import { rankSepa } from '@/lib/dailyReportTabs';
+import {
+  N, Pct, Price, StatusTag, StaleTag, EventTags, InScans, NoData, TabHead, Verdict, StatCard, ChangeBox, Chip,
+  FilterButton, StockCard, Fold, monoTickers,
+} from './shared';
 import GrowthTab from './GrowthTab';
 import SepaTab from './SepaTab';
 import StageTab from './StageTab';
-import { LIQ_DEFAULT } from '@/lib/liquidity';
-import { rankSepa } from '@/lib/dailyReportTabs';
 import s from './DailyReport.module.css';
 
 const REPORT = rawReport as unknown as DailyReport;
 const LATEST_SCAN = latestScanDate(rawGeneratedAt as Record<string, unknown>);
-// เลขบนแท็บ: Daytrade/Growth = ผ่านสแกน · SEPA = มุมมองเริ่มต้น (ชุดสภาพคล่องของ /sepa) · Stage = หุ้นสามัญ
 const TAB_COUNT: Record<string, number | null> = {
   daytrade: REPORT.daytrade?.counts.total ?? null,
   growth: REPORT.growth?.counts.total ?? null,
@@ -40,19 +42,25 @@ const TABS: { key: TabKey; label: string }[] = [
   { key: 'stage', label: 'Market Stage' },
 ];
 
-
 function rvClass(t: RvTier | null) {
   return t === 'hi' ? s.rvHi : t === 'mid' ? s.rvMid : s.rvLo;
+}
+
+function RelVol({ r }: { r: DtRow }) {
+  return (
+    <>
+      <span className={`${s.rvBar} ${rvClass(r.rv_tier)}`}><i style={{ width: `${Math.min(100, ((r.rel_vol ?? 0) / 2) * 100)}%` }} /></span>
+      <N>{fmtNum(r.rel_vol)}</N> เท่า{r.rv_tier && <span className={s.muted}> ({RV_LABEL[r.rv_tier]})</span>}
+    </>
+  );
 }
 
 function Sparkline({ closes }: { closes: DtRow['closes_7d'] }) {
   if (closes.length < 2) return null;
   const p = closes.map(c => c.close);
-  const w = 300, h = 40, pad = 3;
+  const w = 300, h = 38, pad = 3;
   const mn = Math.min(...p), mx = Math.max(...p), rg = mx - mn || 1;
-  const pts = p
-    .map((v, i) => `${(pad + (i * (w - 2 * pad)) / (p.length - 1)).toFixed(1)},${(h - pad - ((v - mn) / rg) * (h - 2 * pad)).toFixed(1)}`)
-    .join(' ');
+  const pts = p.map((v, i) => `${(pad + (i * (w - 2 * pad)) / (p.length - 1)).toFixed(1)},${(h - pad - ((v - mn) / rg) * (h - 2 * pad)).toFixed(1)}`).join(' ');
   const col = p[p.length - 1] >= p[0] ? 'var(--green)' : 'var(--red)';
   return (
     <div className={s.spark}>
@@ -60,105 +68,23 @@ function Sparkline({ closes }: { closes: DtRow['closes_7d'] }) {
         <polyline points={pts} fill="none" stroke={col} strokeWidth={2} />
       </svg>
       <div className={s.cap}>
-        ราคาปิด {p.length} วันทำการ ({shortDate(closes[0].date)} – {shortDate(closes[closes.length - 1].date)}) · {fmtNum(p[0])} → {fmtNum(p[p.length - 1])}
+        ราคาปิด <N>{p.length}</N> วันทำการ ({shortDate(closes[0].date)} – {shortDate(closes[closes.length - 1].date)}) · <N>{fmtNum(p[0])} → {fmtNum(p[p.length - 1])}</N>
       </div>
     </div>
   );
 }
 
-function PriceWarn({ r }: { r: DtRow }) {
-  if (r.price_stale) {
-    return <span className={`${s.tag} ${s.tWarn}`} title={`แท่งราคาล่าสุด ${r.bar_date ?? '—'} ไม่ใช่วันสแกน`}>⚠️ ราคาค้าง</span>;
-  }
-  if (r.price_check === 'mismatch') {
-    return <span className={`${s.tag} ${s.tWarn}`} title="ราคาจากกราฟ 30 วันไม่ตรงกับไฟล์สแกน">⚠️ ราคาไม่ตรงสแกน</span>;
-  }
-  return null;
+function XdTags({ items }: { items: CalendarItem[] }) {
+  return <>{items.map(c => <span key={c.date + c.type} className={`${s.tag} ${s.tXd}`} title={c.note}>{calendarText(c)}</span>)}</>;
 }
 
-function TriggerCell({ r }: { r: DtRow }) {
-  if (r.price_stale || r.trigger_kind == null) return <span className={s.flat}>—</span>;
-  return (
-    <>
-      {r.trigger != null ? fmtNum(r.trigger) : <span className={s.flat}>—</span>}
-      <span className={s.ls}>{TRIGGER_LABEL[r.trigger_kind]}</span>
-    </>
-  );
-}
-
-function StockCard({ r, rep, flash }: { r: DtRow; rep: DailyReport; flash: boolean }) {
-  const cal = calendarFor(rep.calendar?.items ?? [], r.ticker);
-  const vMark = r.rv_tier === 'hi' ? [s.ok, '✓'] : r.rv_tier === 'mid' ? [s.mid, '~'] : [s.bad, '✗'];
-  const pOk = (r.chg_pct ?? 0) > 0;
-  const lookback = rep.daytrade?.lookback_days;
-  return (
-    <article className={`${s.card} ${s.sc} ${flash ? s.scFlash : ''}`} id={`c-${r.ticker}`} data-testid="dr-card" data-ticker={r.ticker}>
-      <div className={s.scTop}>
-        <div>
-          <h3>
-            <Link href={`/stock/${r.ticker}`}>{r.ticker}</Link> <StatusTag status={r.status} />
-            {cal.map(c => <span key={c.date + c.type} className={`${s.tag} ${s.tXd}`} title={c.note}>{calendarText(c)}</span>)}
-            <PriceWarn r={r} />
-          </h3>
-          <div className={s.meta}>
-            {r.status === 'reentry' && <>ล่าสุดในสแกน {shortDate(r.last_seen)} · </>}
-            {r.status === 'stay' && <>อยู่ในสแกนติดกัน {r.streak_days} วัน · </>}
-            {r.status === 'new' && <>ไม่อยู่ในสแกนตลอด {lookback} วันทำการ · </>}
-            อยู่ใน: {r.in_scans.map(scanTagLabel).join(' · ')}
-          </div>
-          {r.events.length > 0 && (
-            <div className={s.meta}>ป้ายข่าว: {r.events.map(e => e.label).join(' · ')}</div>
-          )}
-        </div>
-        <div className={s.px}>
-          <b className={s.price}>{fmtNum(r.close)}</b>
-          <div><Pct v={r.chg_pct} /></div>
-        </div>
-      </div>
-      <div className={s.kpis}>
-        <span className={s.kpi}>RelVol<b>{fmtNum(r.rel_vol)}</b></span>
-        <span className={s.kpi}>มูลค่า<b>{fmtNum(r.value_mb, 1)}</b> ลบ. <Calc />{r.thin && <span className={`${s.tag} ${s.tWarn}`}>เงินบาง</span>}</span>
-        <span className={s.kpi}>วัน (รอบนี้)<b>{r.streak_days}</b></span>
-        <span className={s.kpi}>RSI7<b>{fmtNum(r.rsi7, 1)}</b></span>
-      </div>
-      {!r.price_stale && <Sparkline closes={r.closes_7d} />}
-      <div className={s.lines}>
-        <p>
-          <span className={pOk ? s.ok : s.bad}>{pOk ? '✓' : '✗'} P</span> ปิด <Pct v={r.chg_pct} />
-          {r.close_position && <> {CLOSE_POS_LABEL[r.close_position]}</>}
-          {!r.price_stale && <> (เปิด {fmtNum(r.open)} · Low {fmtNum(r.low)} · High {fmtNum(r.high)})</>}
-          {r.trigger_kind === 'close_30d_high' && <> · ปิดสูงสุดในรอบ 30 วัน</>}
-        </p>
-        <p>
-          <span className={vMark[0]}>{vMark[1]} V</span> วอลุ่ม {fmtShares(r.volume)} หุ้น = {fmtNum(r.rel_vol)} เท่าของค่าเฉลี่ย 10 วัน ({fmtShares(r.avg_vol_10d)})
-        </p>
-      </div>
-      <div className={s.plan}>
-        <p>
-          ✅ <b>สนใจเมื่อ:</b>{' '}
-          {r.price_stale ? (
-            <>ราคาค้าง — ไม่คำนวณจุดสนใจ</>
-          ) : r.trigger != null ? (
-            <>ผ่าน <span className={s.lvl}>{fmtNum(r.trigger)}</span> ({r.trigger_kind ? TRIGGER_LABEL[r.trigger_kind] : ''})</>
-          ) : (
-            <>ทำ High ใหม่เหนือ <span className={s.lvl}>{fmtNum(r.close)}</span> (ไม่มีแนวต้านใน 30 วัน)</>
-          )}
-          {' '}+ ถึง 10:30 วอลุ่ม ≥ <b>{fmtShares(r.min_vol_1030)}</b> หุ้น <Calc />
-        </p>
-        <p>
-          ❌ <b>ทิ้งเมื่อ:</b> {r.stop != null ? <>หลุด <span className={s.lvl}>{fmtNum(r.stop)}</span></> : 'ราคาค้าง — ไม่คำนวณจุดทิ้ง'} · คัท 1–2 ช่อง
-        </p>
-      </div>
-      <div className={s.p2box}>เฟส 2 · ข่าวรายตัว · คำวินิจฉัย P-V-T · ชั้น ✅/👀/⏳</div>
-    </article>
-  );
-}
+// ─── แถบตลาด + ปฏิทิน ───────────────────────────────────────────────────
 
 function CalChip({ i, strong }: { i: CalendarItem; strong: boolean }) {
   return (
     <span className={strong ? s.calIn : s.calOut} title={i.note}>
-      {i.ticker}{i.amount != null ? ` ${i.amount}` : ''}
-      {strong && i.in_scans.map(k => <span key={k} className={s.scanTag}>{scanTagLabel(k)}</span>)}
+      <span className={s.num}>{i.ticker}{i.amount != null ? ` ${i.amount}` : ''}</span>
+      {strong && calendarScans(i).map(k => <span key={k} className={s.scanTag}>{scanTagLabel(k)}</span>)}
     </span>
   );
 }
@@ -182,11 +108,11 @@ function CalendarBox({ rep }: { rep: DailyReport }) {
   const hiddenDates = [...new Set(sp.week.hidden.map(i => i.date))].sort();
   const tmCount = sp.tomorrow.inScan.length + sp.tomorrow.other.length;
   return (
-    <div className={s.mBox} data-testid="dr-calendar">
-      <h4>ปฏิทิน XD/XR (จากป้ายข่าว SET {rep.calendar.ahead_days} วันข้างหน้า) · ตัวหนา = อยู่ในสแกนของเรา</h4>
+    <div className={s.mbCal} data-testid="dr-calendar">
+      <div className={s.calHead}>ปฏิทิน XD/XR {rep.calendar.ahead_days} วันข้างหน้า · ตัวหนา = อยู่ใน Daytrade / Growth / SEPA</div>
       <div className={s.calRow}>
         <b>พรุ่งนี้ {shortDate(rep.calendar.next_trading_day)}</b>
-        {tmCount === 0 ? <span className={s.flat}> ไม่มี XD/XR</span> : (
+        {tmCount === 0 ? <span> — ไม่มี XD/XR</span> : (
           <>
             {sp.tomorrow.inScan.length > 0 && <div className={s.calDay}><CalLine items={sp.tomorrow.inScan} strong /></div>}
             {sp.tomorrow.other.length > 0 && <div className={s.calDay}><CalLine items={sp.tomorrow.other} strong={false} /></div>}
@@ -195,19 +121,15 @@ function CalendarBox({ rep }: { rep: DailyReport }) {
       </div>
       <div className={s.calRow}>
         <b>ภายในสัปดาห์</b>
-        {weekDates.length === 0 && <span className={s.flat}> ไม่มีหุ้นในสแกนที่ XD/XR</span>}
+        {weekDates.length === 0 && <span> — ไม่มีหุ้นในสแกนที่ XD/XR</span>}
         {weekDates.map(d => (
-          <div key={d} className={s.calDay}>
-            <span className={s.calDate}>{shortDate(d)}</span> <CalLine items={sp.week.shown.filter(i => i.date === d)} strong />
-          </div>
+          <div key={d} className={s.calDay}><span className={s.calDate}>{shortDate(d)}</span> <CalLine items={sp.week.shown.filter(i => i.date === d)} strong /></div>
         ))}
         {sp.week.hidden.length > 0 && (
           <details className={s.calMore} data-testid="dr-cal-more">
             <summary>+ อีก {sp.week.hidden.length} ตัวที่ไม่อยู่ในสแกน</summary>
             {hiddenDates.map(d => (
-              <div key={d} className={s.calDay}>
-                <span className={s.calDate}>{shortDate(d)}</span> <CalLine items={sp.week.hidden.filter(i => i.date === d)} strong={false} />
-              </div>
+              <div key={d} className={s.calDay}><span className={s.calDate}>{shortDate(d)}</span> <CalLine items={sp.week.hidden.filter(i => i.date === d)} strong={false} /></div>
             ))}
           </details>
         )}
@@ -218,42 +140,80 @@ function CalendarBox({ rep }: { rep: DailyReport }) {
 
 function MarketBar({ rep }: { rep: DailyReport }) {
   const m = rep.market;
-  if (!m) {
-    return <section className={`${s.card} ${s.market}`} data-testid="dr-market"><span className={s.flat}>รอบนี้ไม่มีข้อมูลแถบตลาด</span><CalendarBox rep={rep} /></section>;
-  }
   return (
-    <section className={`${s.card} ${s.market}`} data-testid="dr-market">
-      <div className={s.mTop}>
-        <span className={s.mDate}>{longDate(m.date)}</span>
-        <span className={s.mItem}>SET <b className={s.price}>{fmtNum(m.set_close)}</b> <Pct v={m.set_chg_pct} /></span>
-        <span className={s.mItem}>
-          มูลค่า <b>{fmtNum(m.value_mb, 0)}</b> ลบ.{' '}
-          <Calc title="ผลรวมมูลค่าของหุ้นในระบบ ไม่ใช่ตัวเลขทางการของ SET">รวมหุ้นในระบบ</Calc>
-        </span>
-        <span className={s.mItem} title={`ข้ามหุ้นที่ไม่มีแท่งของวันนี้ ${m.breadth.skipped_no_bar} ตัว`}>
-          บวก <b className={s.pos}>{m.breadth.up}</b> · คงที่ <b>{m.breadth.flat}</b> · ลบ <b className={s.neg}>{m.breadth.down}</b> <Calc />
-        </span>
-        <span className={s.p2}>ธีมวันนี้ · เฟส 2</span>
-      </div>
-      {m.condition && (m.condition.caution ? (
-        <div className={s.mAlert}>
-          <span>⚠️</span>
-          <span>
-            <b>สภาพตลาด: {m.condition.label}</b>
-            {m.condition.dd_count != null && <> · มีวันขายหนัก (Distribution Day) {m.condition.dd_count} วันในช่วง {m.condition.dd_window} วันทำการ</>}
-            {m.condition.advice && <> — {m.condition.advice}</>}
-          </span>
-        </div>
-      ) : (
-        <div className={s.mInfo}>
-          สภาพตลาด: <b>{m.condition.label}</b>
-          {m.condition.dd_count != null && <> · DD {m.condition.dd_window} วัน: {m.condition.dd_count}</>}
-        </div>
-      ))}
-      <div className={s.mRow}>
-        <CalendarBox rep={rep} />
-      </div>
+    <section className={s.marketbar} data-testid="dr-market">
+      {m ? (
+        <>
+          <div className={s.mbTop}>
+            <span className={s.mbDate}>{longDate(m.date)}</span>
+            <span className={s.mbItem}>SET <b className={`${s.num} ${s.price}`}>{fmtNum(m.set_close)}</b> <Pct v={m.set_chg_pct} /></span>
+            <span className={s.mbItem} title="ผลรวมมูลค่าของหุ้นในระบบ ไม่ใช่ตัวเลขทางการของ SET">
+              มูลค่า (รวมหุ้นในระบบ) <b className={s.num}>{fmtNum(m.value_mb, 0)}</b> ลบ.
+            </span>
+            <span className={s.mbItem} title={`ข้ามหุ้นที่ไม่มีแท่งของวันนี้ ${m.breadth.skipped_no_bar} ตัว`}>
+              หุ้นบวก <b className={`${s.num} ${s.pos}`}>{m.breadth.up}</b> · คงที่ <b className={s.num}>{m.breadth.flat}</b> · ลบ <b className={`${s.num} ${s.neg}`}>{m.breadth.down}</b>
+            </span>
+          </div>
+          {m.condition && (m.condition.caution ? (
+            <div className={s.mbAlert}>
+              <span>⚠️</span>
+              <span>
+                <b>สภาพตลาด: {m.condition.label}</b>
+                {m.condition.dd_count != null && <> · มีวันขายหนัก (Distribution Day) <N>{m.condition.dd_count}</N> วันในช่วง <N>{m.condition.dd_window}</N> วันทำการ</>}
+                {m.condition.advice && <> — {m.condition.advice}</>}
+              </span>
+            </div>
+          ) : (
+            <div className={s.mbInfo}>
+              สภาพตลาด: <b>{m.condition.label}</b>
+              {m.condition.dd_count != null && <> · Distribution Day <N>{m.condition.dd_count}</N> วันใน <N>{m.condition.dd_window}</N> วันทำการ</>}
+            </div>
+          ))}
+        </>
+      ) : <span>รอบนี้ไม่มีข้อมูลแถบตลาด</span>}
+      <CalendarBox rep={rep} />
     </section>
+  );
+}
+
+// ─── แท็บ Daytrade ───────────────────────────────────────────────────────
+
+function DaytradeCard({ r, rep, flash }: { r: DtRow; rep: DailyReport; flash: boolean }) {
+  const cal = calendarFor(rep.calendar?.items ?? [], r.ticker);
+  return (
+    <StockCard
+      id={`c-${r.ticker}`} testid="dr-card" ticker={r.ticker} flash={flash} close={r.close} chg={r.chg_pct}
+      tags={<>
+        <StatusTag status={r.status} lastSeen={r.last_seen} />
+        <XdTags items={cal} />
+        <StaleTag stale={r.price_stale} barDate={r.bar_date} />
+        {r.price_check === 'mismatch' && <span className={`${s.tag} ${s.tWarn}`}>⚠️ ราคาไม่ตรงสแกน</span>}
+        <InScans scans={r.in_scans} exclude="daytrade" asTag />
+        <EventTags events={r.events} />
+      </>}
+      sub={r.name}
+      left={{
+        title: 'ราคาวันนี้',
+        rows: [
+          ['เปิด · ต่ำ · สูง', r.price_stale ? <span className={s.muted}>ราคาค้าง</span> : <N>{fmtNum(r.open)} · {fmtNum(r.low)} · {fmtNum(r.high)}</N>],
+          ['ปิดที่', r.close_position ? CLOSE_POS_LABEL[r.close_position] : '—'],
+          ['ซื้อเมื่อผ่าน', r.trigger != null ? <><N>{fmtNum(r.trigger)}</N> <span className={s.muted}>({r.trigger_kind ? TRIGGER_LABEL[r.trigger_kind] : ''})</span></> : <span className={s.muted}>{r.trigger_kind ? TRIGGER_LABEL[r.trigger_kind] : '—'}</span>],
+          ['ทิ้งเมื่อหลุด', <N key="s">{fmtNum(r.stop)}</N>],
+        ],
+      }}
+      right={{
+        title: 'วอลุ่ม / สแกน',
+        rows: [
+          ['วอลุ่มวันนี้', <><N>{fmtShares(r.volume)}</N> หุ้น = <RelVol r={r} /></>],
+          ['ถึง 10:30 ควรได้', <><N>{fmtShares(r.min_vol_1030)}</N> หุ้น (30% ของเฉลี่ย 10 วัน)</>],
+          ['มูลค่าซื้อขาย', <><N>{fmtNum(r.value_mb, 1)}</N> ลบ.{r.thin && <span className={`${s.tag} ${s.tThin}`}>เงินบาง</span>}</>],
+          ['RSI7 · Tech Rating', <><N>{fmtNum(r.rsi7, 1)}</N> · {r.tech_label ?? '—'} <N>{fmtNum(r.tech_rating)}</N></>],
+          ['อยู่ในสแกนติดกัน', <><N>{r.streak_days}</N> วัน</>],
+        ],
+      }}
+      extra={!r.price_stale && <div className={s.panel}><Sparkline closes={r.closes_7d} /></div>}
+      watch={r.watch}
+    />
   );
 }
 
@@ -265,13 +225,10 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
   const rows = useMemo(() => dt?.rows ?? [], [dt]);
   const counts = useMemo(() => filterCounts(rows), [rows]);
   const shown = useMemo(() => rows.filter(r => matchFilter(r, filter) && matchQuery(r, q)), [rows, filter, q]);
-
   if (!dt) return <NoData />;
 
-  const byStatus = (st: DtRow['status']) => rows.filter(r => r.status === st);
-  const reentry = byStatus('reentry');
-  const news = byStatus('new');
-  const ts = hhmm(dt.generated_at);
+  const by = (st: DtRow['status']) => rows.filter(r => r.status === st);
+  const notes = dt.change_notes;
   const goCard = (t: string) => {
     document.getElementById(`c-${t}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setFlash(t);
@@ -280,203 +237,124 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
 
   return (
     <section data-testid="dr-daytrade">
-      <h2 className={s.tabTitle}>Lekkung Daytrade Scan</h2>
-      <p className={s.tabHead}>
-        สแกน {shortDate(dt.date)}{ts && ` ${ts}`} · <b>เทียบกับ: {shortDate(dt.compared_to)}</b> · <Link href={dt.page}>เปิดหน้าสแกน ↗</Link>
-      </p>
+      <TabHead title="Lekkung Daytrade Scan" date={dt.date} ts={dt.generated_at} compared={dt.compared_to} href={dt.page} />
+      <Verdict text={dt.headline} />
 
-      <div className={s.stats}>
-        <div className={`${s.card} ${s.stat}`}><div className={s.big}>{dt.counts.total}</div><div className={s.lbl}>ผ่านสแกนวันนี้</div></div>
-        <div className={`${s.card} ${s.stat}`}>
-          <div className={s.big}><span className={s.pos}>{dt.counts.rv_hi}</span> · <span style={{ color: 'var(--amber)' }}>{dt.counts.rv_mid}</span> · <span className={s.flat}>{dt.counts.rv_lo}</span></div>
-          <div className={s.lbl}>วอลุ่ม: มาจริง (≥1.5) · เฉียด (1.0–1.5) · ไม่มา (&lt;1.0)</div>
-        </div>
-        <div className={`${s.card} ${s.stat}`}><div className={s.big}>{dt.counts.new} · {dt.counts.reentry} · {dt.counts.stay}</div><div className={s.lbl}>เข้าใหม่ · กลับเข้า · อยู่ต่อ</div></div>
-        <div className={`${s.card} ${s.stat}`}>
-          <div className={`${s.big} ${s.neg}`}>{dt.counts.dropped}</div>
-          <div className={s.lbl}>หลุดวันนี้{dt.dropped.length > 0 && ` (${dt.dropped.map(d => d.ticker).join(', ')})`}</div>
-        </div>
+      <div className={s.statCards}>
+        <StatCard big={dt.counts.total} label="ผ่านสแกนวันนี้" />
+        <StatCard big={<><span className={s.pos}>{dt.counts.rv_hi}</span> · <span style={{ color: 'var(--yellow)' }}>{dt.counts.rv_mid}</span> · <span className={s.flat}>{dt.counts.rv_lo}</span></>}
+          label="วอลุ่ม มาจริง · เกือบมา · ยังไม่มา" />
+        <StatCard big={<>{dt.counts.new} · {dt.counts.reentry} · {dt.counts.stay}</>} label="เข้าใหม่ · กลับเข้า · อยู่ต่อ" />
+        <StatCard big={<span className={s.neg}>{dt.counts.dropped}</span>} label="หลุดวันนี้" />
       </div>
 
       <div className={s.changes}>
-        <div className={`${s.card} ${s.chg}`}>
-          <h3>เข้าใหม่ <span>{news.length} ตัว · ไม่อยู่ในสแกนตลอด {dt.lookback_days} วันทำการ</span></h3>
-          <div className={s.chips}>
-            {news.length ? news.map(r => <span key={r.ticker} className={s.chip}><b>{r.ticker}</b> <Pct v={r.chg_pct} /></span>)
-              : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}
-          </div>
-        </div>
-        <div className={`${s.card} ${s.chg}`}>
-          <h3>กลับเข้า <span>{reentry.length} ตัว · วงเล็บ = วันล่าสุดที่อยู่ในสแกน</span></h3>
-          <div className={s.chips}>
-            {reentry.length ? reentry.map(r => <span key={r.ticker} className={s.chip}><b>{r.ticker}</b> <small>({shortDate(r.last_seen)})</small></span>)
-              : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}
-          </div>
-        </div>
-        <div className={`${s.card} ${s.chg}`}>
-          <h3>หลุด <span>{dt.dropped.length} ตัว</span></h3>
-          <div className={s.chips}>
-            {dt.dropped.length ? dt.dropped.map(d => <span key={d.ticker} className={s.chip}><b>{d.ticker}</b> <Pct v={d.chg_pct} /></span>)
-              : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}
-          </div>
-        </div>
+        <ChangeBox title="เข้าใหม่" hint={`ไม่อยู่ในสแกนตลอด ${dt.lookback_days} วันทำการ`}
+          chips={by('new').map(r => <Chip key={r.ticker} ticker={r.ticker}><Pct v={r.chg_pct} /></Chip>)}
+          note={notes?.new && monoTickers(notes.new)} />
+        <ChangeBox title="กลับเข้า" chips={by('reentry').map(r => <Chip key={r.ticker} ticker={r.ticker}><Pct v={r.chg_pct} /></Chip>)}
+          note={notes?.reentry && monoTickers(notes.reentry)} />
+        <ChangeBox title="หลุด" chips={dt.dropped.map(d => <Chip key={d.ticker} ticker={d.ticker}><Pct v={d.chg_pct} /></Chip>)}
+          note={notes && Object.keys(notes.dropped_items).length > 0 && (
+            <>{Object.entries(notes.dropped_items).map(([t, why]) => <div key={t}><span className={s.num}>{t}</span>: {why || '—'}</div>)}</>
+          )} />
       </div>
 
       <div className={s.controls}>
         <input type="search" className={s.search} placeholder="ค้นหาหุ้น…" value={q} onChange={e => setQ(e.target.value)} aria-label="ค้นหาหุ้น" />
         {DT_FILTERS.map(f => (
-          <button
-            key={f}
-            type="button"
-            className={s.f}
-            aria-pressed={filter === f}
-            disabled={counts[f] === 0}
-            onClick={() => setFilter(f)}
-            data-testid={`dr-filter-${f}`}
-            data-count={counts[f]}
-          >
-            {DT_FILTER_LABELS[f]} <span className={s.n}>{counts[f]}</span>
-          </button>
+          <FilterButton key={f} prefix="dr" id={f} label={DT_FILTER_LABELS[f]} count={counts[f]} active={filter === f} onClick={() => setFilter(f)} />
         ))}
       </div>
 
-      <div className={s.tshell} data-testid="dr-table-shell">
+      <div className={s.tableShell} data-testid="dr-table-shell">
         <table className={`${s.table} ${s.clickRows}`} data-testid="dr-table">
           <thead>
             <tr>
               <th className={s.stk}>หุ้น</th>
               <th className={s.r}>ปิด</th>
               <th className={s.r}>%วันนี้</th>
-              <th>RelVol</th>
-              <th className={s.r}>มูลค่า (ลบ.)<Calc /></th>
-              <th>ปิดที่<Calc /></th>
-              <th className={s.r}>จุดสนใจ<Calc /></th>
-              <th className={s.r}>จุดทิ้ง<Calc /></th>
-              <th className={s.r}>วอลุ่มถึง 10:30<Calc>30%</Calc></th>
+              <th>วอลุ่มเทียบเฉลี่ย 10 วัน</th>
+              <th className={s.r}>มูลค่า (ลบ.)</th>
+              <th>ปิดที่</th>
+              <th className={s.r}>ซื้อเมื่อผ่าน</th>
+              <th className={s.r}>ทิ้งเมื่อหลุด</th>
+              <th className={s.r}>วอลุ่มถึง 10:30</th>
               <th>Tech Rating</th>
               <th className={s.r}>P/E</th>
               <th className={s.r}>EPS Gr YoY</th>
-              <th className={s.r}>วัน (รอบนี้)</th>
-              <th className={s.p2h}>ชั้น / ข่าว</th>
+              <th className={s.r}>อยู่ในสแกนติดกัน</th>
             </tr>
           </thead>
           <tbody>
-            {shown.map(r => {
-              const cal = calendarFor(rep.calendar?.items ?? [], r.ticker);
-              return (
-                <tr key={r.ticker} onClick={() => goCard(r.ticker)} data-testid="dr-row" data-ticker={r.ticker}>
-                  <td className={s.stk}>
-                    <span className={s.tk}>{r.ticker}</span>
-                    <StatusTag status={r.status} />
-                    {cal.map(c => <span key={c.date + c.type} className={`${s.tag} ${s.tXd}`} title={c.note}>{calendarText(c)}</span>)}
-                    <PriceWarn r={r} />
-                    {r.status === 'reentry' && <span className={s.ls}>ล่าสุดในสแกน {shortDate(r.last_seen)}</span>}
-                  </td>
-                  <td className={`${s.r} ${s.price}`}>{fmtNum(r.close)}</td>
-                  <td className={s.r}><Pct v={r.chg_pct} /></td>
-                  <td>
-                    <span className={`${s.rv} ${rvClass(r.rv_tier)}`}><i style={{ width: `${Math.min(100, ((r.rel_vol ?? 0) / 2) * 100)}%` }} /></span>
-                    {fmtNum(r.rel_vol)} {r.rv_tier && RV_LABEL[r.rv_tier]}
-                  </td>
-                  <td className={s.r}>{fmtNum(r.value_mb, 1)}{r.thin && <span className={`${s.tag} ${s.tWarn}`}>เงินบาง</span>}</td>
-                  <td>{r.close_position ? CLOSE_POS_LABEL[r.close_position] : '—'}</td>
-                  <td className={`${s.r} ${s.lvl}`}><TriggerCell r={r} /></td>
-                  <td className={`${s.r} ${s.lvl}`}>{fmtNum(r.stop)}</td>
-                  <td className={s.r}>{fmtShares(r.min_vol_1030)}</td>
-                  <td>{r.tech_label ?? '—'} {fmtNum(r.tech_rating)}</td>
-                  <td className={s.r}>{fmtNum(r.pe, 1)}</td>
-                  <td className={`${s.r} ${s[pctClass(r.eps_gr_yoy)]}`}>{fmtPct(r.eps_gr_yoy, 1)}</td>
-                  <td className={s.r}>{r.streak_days}</td>
-                  <td><span className={s.p2}>เฟส 2</span></td>
-                </tr>
-              );
-            })}
-            {shown.length === 0 && <tr><td colSpan={14} className={s.empty}>ไม่มีหุ้นตามตัวกรองนี้</td></tr>}
+            {shown.map(r => (
+              <tr key={r.ticker} onClick={() => goCard(r.ticker)} data-testid="dr-row" data-ticker={r.ticker}>
+                <td className={s.stk}>
+                  <span className={`${s.tk} ${s.num}`}>{r.ticker}</span>
+                  <StatusTag status={r.status} />
+                  <XdTags items={calendarFor(rep.calendar?.items ?? [], r.ticker)} />
+                  <StaleTag stale={r.price_stale} barDate={r.bar_date} />
+                </td>
+                <td className={s.r}><Price v={r.close} /></td>
+                <td className={s.r}><Pct v={r.chg_pct} /></td>
+                <td><RelVol r={r} /></td>
+                <td className={s.r}><N>{fmtNum(r.value_mb, 1)}</N>{r.thin && <span className={`${s.tag} ${s.tThin}`}>เงินบาง</span>}</td>
+                <td>{r.close_position ? CLOSE_POS_LABEL[r.close_position] : '—'}</td>
+                <td className={s.r}>
+                  {r.trigger != null ? <N>{fmtNum(r.trigger)}</N> : <span className={s.flat}>—</span>}
+                  {r.trigger_kind && <span className={s.ls}>{TRIGGER_LABEL[r.trigger_kind]}</span>}
+                </td>
+                <td className={s.r}><N>{fmtNum(r.stop)}</N></td>
+                <td className={s.r}><N>{fmtShares(r.min_vol_1030)}</N></td>
+                <td>{r.tech_label ?? '—'} <N>{fmtNum(r.tech_rating)}</N></td>
+                <td className={s.r}><N>{fmtNum(r.pe, 1)}</N></td>
+                <td className={s.r}><Pct v={r.eps_gr_yoy} digits={1} /></td>
+                <td className={s.r}><N>{r.streak_days}</N> วัน</td>
+              </tr>
+            ))}
+            {shown.length === 0 && <tr><td colSpan={13} className={s.empty}>ไม่มีหุ้นตามตัวกรองนี้</td></tr>}
           </tbody>
         </table>
       </div>
-      <p className={s.note}>
-        เรียงตาม RelVol มาก → น้อย · คลิกแถวเพื่อเลื่อนไปการ์ด · จุดสนใจ = High วัน ถ้าปิดต่ำกว่า High ถ้าปิดที่ High ใช้ High 5 วัน → 30 วัน ที่สูงกว่าราคาปิด ·
-        จุดทิ้ง = Low วัน หรือปิดวันก่อน ตัวที่ต่ำกว่าราคาปิดและใกล้กว่า · วอลุ่มถึง 10:30 = 30% ของค่าเฉลี่ย 10 วัน
-      </p>
+      <p className={s.tableNote}>เรียงตามวอลุ่มเทียบเฉลี่ย มาก → น้อย · คลิกแถวเพื่อเลื่อนไปการ์ด</p>
 
-      <h3 className={s.sec}>การ์ดรายตัว<small>เรียงตามตาราง</small></h3>
+      <h3 className={s.sectionH}>การ์ดรายตัว<small>เรียงตามตาราง</small></h3>
       <div className={s.cards} data-testid="dr-cards">
-        {shown.map(r => <StockCard key={r.ticker} r={r} rep={rep} flash={flash === r.ticker} />)}
+        {shown.map(r => <DaytradeCard key={r.ticker} r={r} rep={rep} flash={flash === r.ticker} />)}
       </div>
 
-      <h3 className={s.sec}>ตัวที่หลุดวันนี้</h3>
-      {dt.dropped.length === 0 ? (
-        <p className={s.note}>ไม่มีตัวที่หลุดวันนี้</p>
-      ) : (
-        <div className={s.tshell}>
+      <h3 className={s.sectionH}>ตัวที่หลุดวันนี้<small>{dt.dropped.length} ตัว</small></h3>
+      {dt.dropped.length === 0 ? <p className={s.tableNote}>ไม่มีตัวที่หลุดวันนี้</p> : (
+        <div className={s.tableShell}>
           <table className={`${s.table} ${s.tableSm}`} data-testid="dr-dropped">
-            <thead>
-              <tr>
-                <th className={s.stk}>หุ้น</th><th className={s.r}>ปิด</th><th className={s.r}>%วันนี้</th>
-                <th className={s.r}>อยู่ในสแกนมา</th><th>ตกเกณฑ์ข้อ<Calc /></th><th className={s.r}>เช็คได้</th>
-              </tr>
-            </thead>
+            <thead><tr><th className={s.stk}>หุ้น</th><th className={s.r}>ปิด</th><th className={s.r}>%วันนี้</th><th className={s.r}>อยู่ในสแกนมา</th><th>หลุดเพราะ</th></tr></thead>
             <tbody>
               {dt.dropped.map(d => (
                 <tr key={d.ticker}>
-                  <td className={`${s.stk} ${s.tk}`}>
-                    {d.ticker}
-                    {d.price_stale && <span className={`${s.tag} ${s.tWarn}`}>⚠️ ราคาค้าง</span>}
-                  </td>
-                  <td className={`${s.r} ${s.price}`}>{fmtNum(d.close)}</td>
+                  <td className={s.stk}><span className={`${s.tk} ${s.num}`}>{d.ticker}</span><StaleTag stale={d.price_stale} barDate={d.bar_date} /></td>
+                  <td className={s.r}><Price v={d.close} /></td>
                   <td className={s.r}><Pct v={d.chg_pct} /></td>
-                  <td className={s.r}>{d.days_before_drop} วัน</td>
-                  <td>{d.check.failed.length ? d.check.failed.join(' · ') : <span className={s.flat}>ไม่พบข้อที่ตก (ข้อที่เช็คได้ผ่านหมด)</span>}</td>
-                  <td className={s.r}>{d.check.checked}/{d.check.total} ข้อ</td>
+                  <td className={s.r}><N>{d.days_before_drop}</N> วัน</td>
+                  <td>
+                    {d.check.failed.length ? d.check.failed.join(' · ') : <span className={s.muted}>ข้อที่เช็คได้ผ่านหมด</span>}
+                    <span className={s.ls}>เช็คได้ <N>{d.check.checked}</N> จาก <N>{d.check.total}</N> ข้อ</span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       )}
-      <p className={s.note}>
-        &quot;ตกเกณฑ์ข้อ&quot; คิดจากเกณฑ์สแกนทีละข้อด้วยข้อมูลของวันนี้ที่หาได้ · ข้อที่ไม่มีข้อมูล (เช่น RSI7, ADX, Tech Rating ของวันนี้) ไม่เดา ·
-        บทเรียนจากตัวที่หลุด <span className={s.p2}>เฟส 2</span>
-      </p>
 
-      <h3 className={s.sec}>กฎหน้างาน</h3>
-      <div className={s.rules}>
-        <div className={s.card}>
-          <h3>กฎถาวร</h3>
-          <ul>
-            <li>เปิดโดดไม่ไล่</li>
-            <li>รอดิฟวอลุ่มแห้ง 10:15–10:30</li>
-            <li>เช้าไม่วิ่ง ขาย</li>
-            <li>เสีย 2 ได้ 8 · คัท 1–2 ช่อง</li>
-            <li>ห้ามห่อหุ้นที่บวกแรงโดยไม่มีข่าวข้ามคืน</li>
-          </ul>
-        </div>
-        <div className={s.card}>
-          <h3>ปฏิทินที่เกี่ยวกับหุ้นในแท็บนี้</h3>
-          {(() => {
-            const its = rows.flatMap(r => calendarFor(rep.calendar?.items ?? [], r.ticker));
-            return its.length ? (
-              <ul>{its.map(i => <li key={i.ticker + i.date + i.type}>{i.ticker} · {i.type} {shortDate(i.date)}{i.amount != null ? ` ${i.amount} บาท` : ` · ${i.note}`}</li>)}</ul>
-            ) : <p className={s.flat} style={{ margin: 0 }}>ไม่มี XD/XR ของหุ้นในแท็บนี้</p>;
-          })()}
-          <p className={s.note} style={{ margin: '8px 0 0' }}>ดึงจากชุดเดียวกับแถบปฏิทินด้านบน</p>
-        </div>
-      </div>
-
-      <details className={`${s.card} ${s.fold}`}>
-        <summary>วิธีอ่านแท็บนี้ + เกณฑ์สแกน</summary>
-        <div className={s.foldBody}>
-          <p><b>เกณฑ์สแกน:</b> {dt.criteria.map(c => c.label).join(' · ')}</p>
-          <p><b>สถานะ:</b> เทียบกับวันทำการก่อนหน้า · อยู่ต่อ = อยู่วันก่อนหน้าด้วย · กลับเข้า = ไม่อยู่วันก่อนหน้า แต่เคยอยู่ใน {dt.lookback_days} วันทำการ · เข้าใหม่ = ไม่อยู่เลยใน {dt.lookback_days} วันทำการ</p>
-          <p><b>RelVol:</b> วอลุ่มวันนี้ ÷ ค่าเฉลี่ย 10 วัน · ≥ 1.5 มาจริง · 1.0–1.5 เฉียด · &lt; 1.0 ไม่มา</p>
-          <p><b>ปิดที่:</b> ที่ High วัน / ชิด High (25% บนของแท่ง) / กลางแท่ง / ชิด Low (25% ล่าง)</p>
-          <p><b>มูลค่า:</b> ราคาปิด × วอลุ่ม (ประมาณ) · ต่ำกว่า 10 ลบ. ติดป้ายเงินบาง</p>
-          <p><b>วัน (รอบนี้):</b> จำนวนวันทำการที่อยู่ในสแกนติดกันถึงวันนี้ · เข้าหรือกลับเข้าวันนี้ = 1</p>
-          <p><b>Tech Rating:</b> คะแนนจาก TradingView · ≥ 0.5 Strong Buy · ≥ 0.1 Buy</p>
-          <p><b>ราคา:</b> OHLC จากกราฟ 30 วันของ StockDesk · ⚠️ ราคาค้าง = ไม่มีแท่งของวันสแกน (ไม่คำนวณจุดสนใจ/จุดทิ้ง)</p>
-        </div>
-      </details>
+      <Fold title="กฎหน้างาน · วิธีอ่าน · เกณฑ์สแกน">
+        <ul>
+          <li>เปิดโดดไม่ไล่ · รอดิฟวอลุ่มแห้ง 10:15–10:30 · เช้าไม่วิ่ง ขาย · เสีย 2 ได้ 8 คัท 1–2 ช่อง</li>
+        </ul>
+        <p><b>เกณฑ์สแกน:</b> {dt.criteria.map(c => c.label).join(' · ')}</p>
+        <p><b>วอลุ่มเทียบเฉลี่ย:</b> วอลุ่มวันนี้ ÷ ค่าเฉลี่ย 10 วัน · ≥ 1.5 เท่า = มาจริง · 1.0–1.5 = เกือบมา · ต่ำกว่า 1.0 = ยังไม่มา</p>
+        <p><b>ซื้อเมื่อผ่าน:</b> High วัน ถ้าปิดต่ำกว่า High · ปิดที่ High ใช้ High 5 วัน → 30 วัน ที่สูงกว่าราคาปิด · <b>ทิ้งเมื่อหลุด:</b> Low วัน หรือราคาปิดวันก่อน ตัวที่ต่ำกว่าราคาปิดและใกล้กว่า</p>
+        <p><b>มูลค่า:</b> ราคาปิด × วอลุ่ม (ประมาณ) · ต่ำกว่า 10 ลบ. ติดป้ายเงินบาง · <b>ราคา:</b> กราฟ 30 วันของ StockDesk · ⚠️ ราคาค้าง = ไม่มีแท่งของวันสแกน</p>
+      </Fold>
     </section>
   );
 }
@@ -489,9 +367,7 @@ export default function DailyReportClient() {
   return (
     <div className={s.root} data-testid="daily-report">
       <h1 className={s.h1}>สรุปสแกนรายวัน</h1>
-      <p className={s.sub}>
-        สแกน {longDate(rep.date)}{ts && ` · ${ts}`} · เทียบกับวันทำการก่อนหน้า {shortDate(rep.compared_to)} · ทุกตัวเลขมาจากข้อมูล StockDesk · ป้าย <Calc /> = ค่าที่หน้านี้คำนวณเพิ่มเอง
-      </p>
+      <p className={s.sub}>สแกน {longDate(rep.date)}{ts && ` · ${ts}`} · เทียบกับวันทำการก่อนหน้า {shortDate(rep.compared_to)} · ทุกตัวเลขมาจากข้อมูล StockDesk</p>
       {isOld && (
         <div className={s.staleBar} data-testid="dr-stale">
           ข้อมูลสรุปของวันที่ {longDate(rep.date)} · สแกนล่าสุดคือ {longDate(LATEST_SCAN)} (สรุปของวันล่าสุดยังไม่ถูกสร้าง)
@@ -502,17 +378,9 @@ export default function DailyReportClient() {
 
       <nav className={s.tabs} role="tablist">
         {TABS.map(t => (
-          <button
-            key={t.key}
-            type="button"
-            role="tab"
-            className={s.tab}
-            aria-selected={tab === t.key}
-            onClick={() => setTab(t.key)}
-            data-testid={`dr-tab-${t.key}`}
-          >
-            {t.label}
-            {TAB_COUNT[t.key] != null && <small>{TAB_COUNT[t.key]}</small>}
+          <button key={t.key} type="button" role="tab" className={s.tab} aria-selected={tab === t.key}
+            onClick={() => setTab(t.key)} data-testid={`dr-tab-${t.key}`}>
+            {t.label}{TAB_COUNT[t.key] != null && <small className={s.num}>{TAB_COUNT[t.key]}</small>}
           </button>
         ))}
       </nav>
@@ -521,8 +389,13 @@ export default function DailyReportClient() {
       {tab === 'growth' && <GrowthTab g={rep.growth} />}
       {tab === 'sepa' && <SepaTab sp={rep.sepa} market={rep.market} />}
       {tab === 'stage' && <StageTab ms={rep.market_stage} />}
+
+      <p className={s.foot}>
+        ค่าที่หน้านี้คิดเพิ่มจากไฟล์สแกน: มูลค่าซื้อขาย · ปิดที่ · ซื้อเมื่อ/ทิ้งเมื่อ · วอลุ่มถึง 10:30 · % ห่าง High · ระยะจาก EMA · จำนวนหุ้นบวก/ลบ ·
+        ประโยคอธิบายสร้างจากกติกาในโค้ด (ไม่ใช้ AI) · <Link href="/report-card">Report Card</Link>
+      </p>
       {rep.warnings && rep.warnings.length > 0 && (
-        <p className={s.note} data-testid="dr-warnings">บางส่วนของรอบนี้คำนวณไม่ได้: {rep.warnings.join(' · ')}</p>
+        <p className={s.tableNote} data-testid="dr-warnings">บางส่วนของรอบนี้คำนวณไม่ได้: {rep.warnings.join(' · ')}</p>
       )}
     </div>
   );

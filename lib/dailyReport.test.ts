@@ -39,6 +39,7 @@ describe('splitCalendar', () => {
   it('tomorrow: in-scan first; week: only in-scan shown, rest hidden (nothing dropped)', () => {
     const items = [ci('d2', 'A', []), ci('d2', 'B', ['sepa']), ci('d3', 'C', []), ci('d4', 'D', ['growth']), ci('d3', 'E', ['sepa']), ci('d1', 'F', [])];
     const r = splitCalendar(items, 'd2');
+    expect(splitCalendar([ci('d2', 'S', ['market_stage:Bull'])], 'd2').tomorrow.other.map(i => i.ticker)).toEqual(['S']); // Stage ไม่ทำให้ตัวหนา
     expect(r.tomorrow.inScan.map(i => i.ticker)).toEqual(['B']);
     expect(r.tomorrow.other.map(i => i.ticker)).toEqual(['A']);
     expect(r.week.shown.map(i => i.ticker)).toEqual(['E', 'D']);

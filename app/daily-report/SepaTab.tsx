@@ -1,21 +1,24 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import Link from 'next/link';
 import { LIQ_DEFAULT, LIQ_LABELS, type LiqSet } from '@/lib/liquidity';
-import { toNum, vcpFootprint, vcpTooltip, isVolumeDry } from '@/lib/sepaTier';
-import { shortDate, hhmm, fmtNum, fmtPct, type DailyReport } from '@/lib/dailyReport';
+import { toNum, vcpFootprint, vcpTooltip } from '@/lib/sepaTier';
+import { shortDate, fmtNum, type DailyReport } from '@/lib/dailyReport';
 import {
   type SepaSection, type SepaFilter, type SepaRow, type RankedSepa,
-  SEPA_FILTERS, NEAR_HIGH_PCT, rankSepa, matchSepa, sepaFilterCounts, comparePivot, fplusLabel,
+  SEPA_FILTERS, NEAR_HIGH_PCT, rankSepa, matchSepa, sepaFilterCounts, comparePivot, fplusLabel, sepaHeadline, sepaWatch,
 } from '@/lib/dailyReportTabs';
-import { Calc, Pct, StatusTag, StaleTag, EventTags, InScans, DaysCell, DAYS_TITLE, NoData, Phase2Box, SignalCard, FilterButton } from './shared';
+import {
+  N, Pct, Price, StatusTag, StaleTag, EventTags, InScans, NoData, TabHead, Verdict, StatCard, ChangeBox, Chip,
+  FilterButton, StockCard, Fold, ReportCardLink,
+} from './shared';
 import s from './DailyReport.module.css';
 
 const LABEL: Record<SepaFilter, string> = {
-  all: 'ทั้งหมด', ready: '🎯 พร้อมยิง', watch: '👀 เฝ้าดู', fplus: 'F+', new: 'เข้าใหม่', reentry: 'กลับเข้า',
+  all: 'ทั้งหมด', ready: 'พร้อมยิง', watch: 'เฝ้าดู', fplus: 'F+', new: 'เข้าใหม่', reentry: 'กลับเข้า',
   near_high: `ห่าง High ≤ ${NEAR_HIGH_PCT}%`,
 };
+const TOP_CARDS = 10;
 
 function TierTag({ tier }: { tier: RankedSepa<SepaRow>['tier'] }) {
   if (tier === 'ready') return <span className={`${s.tag} ${s.tReady}`}>🎯 พร้อมยิง</span>;
@@ -24,8 +27,18 @@ function TierTag({ tier }: { tier: RankedSepa<SepaRow>['tier'] }) {
 }
 
 function FTag({ v }: { v: boolean | null | undefined }) {
-  const cls = v === true ? s.tF : s.tStay;
-  return <span className={`${s.tag} ${cls}`}>{fplusLabel(v)}</span>;
+  return <span className={`${s.tag} ${v === true ? s.tF : s.tStay}`}>{fplusLabel(v)}</span>;
+}
+
+function PivotCell({ row }: { row: SepaRow }) {
+  const toPivot = toNum(row.VCP_ToPivot);
+  if (toPivot == null) return <span className={s.flat}>ไม่มีฐาน</span>;
+  return (
+    <>
+      <N>{fmtNum(toNum(row.VCP_Pivot))}</N>
+      <span className={s.ls}>{toPivot < 0 ? `ผ่านไปแล้ว ${Math.abs(toPivot).toFixed(1)}%` : `อีก ${toPivot.toFixed(1)}%`}</span>
+    </>
+  );
 }
 
 export default function SepaTab({ sp, market }: { sp: SepaSection | null; market: DailyReport['market'] }) {
@@ -34,7 +47,8 @@ export default function SepaTab({ sp, market }: { sp: SepaSection | null; market
   const [byPivot, setByPivot] = useState(false);
 
   const ranked = useMemo(() => (sp ? rankSepa(sp.rows, liq) : []), [sp, liq]);
-  const prevRank = useMemo(() => new Map(sp ? rankSepa(sp.prev_rows, liq).map(x => [x.row.Ticker, x.rank]) : []), [sp, liq]);
+  const prevRanked = useMemo(() => (sp ? rankSepa(sp.prev_rows, liq) : []), [sp, liq]);
+  const prevRank = useMemo(() => new Map(prevRanked.map(x => [x.row.Ticker, x.rank])), [prevRanked]);
   const counts = useMemo(() => sepaFilterCounts(ranked), [ranked]);
   const shown = useMemo(() => {
     const r = ranked.filter(x => matchSepa(x, filter));
@@ -44,10 +58,9 @@ export default function SepaTab({ sp, market }: { sp: SepaSection | null; market
 
   const allN = sp.rows.length;
   const viewSet = new Set(ranked.map(x => x.row.Ticker));
-  const prevViewSet = new Set(rankSepa(sp.prev_rows, liq).map(x => x.row.Ticker));
+  const prevViewSet = new Set(prevRanked.map(x => x.row.Ticker));
   const ready = ranked.filter(x => x.tier === 'ready').length;
   const watch = ranked.filter(x => x.tier === 'watch').length;
-  // เข้า/หลุด ตามเว็บ (sepa_diff) เป็นหลัก — นับเฉพาะตัวในมุมมองที่เลือก
   const web = sp.web_diff;
   const webNew = web ? web.new_tickers.filter(t => viewSet.has(t)) : null;
   const webDrop = web ? web.dropped_tickers.filter(t => prevViewSet.has(t)) : null;
@@ -55,97 +68,70 @@ export default function SepaTab({ sp, market }: { sp: SepaSection | null; market
   const myRe = ranked.filter(x => x.row.status === 'reentry');
   const splitOk = webNew != null && webNew.length === myNew.length + myRe.length;
   const drops = sp.dropped.filter(d => prevViewSet.has(d.ticker));
-  const ts = hhmm(sp.generated_at);
 
   return (
     <section data-testid="dr-sepa">
-      <h2 className={s.tabTitle}>SEPA Trend Template</h2>
-      <p className={s.tabHead}>
-        สแกน {shortDate(sp.date)}{ts && ` ${ts}`} · <b>เทียบกับ: {shortDate(sp.compared_to)}</b> · <Link href={sp.page}>เปิดหน้าสแกน ↗</Link>
-      </p>
+      <TabHead title="SEPA Trend Template" date={sp.date} ts={sp.generated_at} compared={sp.compared_to} href={sp.page} />
+      <Verdict text={sepaHeadline(ranked)} />
       {market?.condition && (
         <p className={s.tabHead} data-testid="sepa-market-ref">
           สภาพตลาด {market.condition.label}
-          {market.condition.dd_count != null && <> · Distribution Day {market.condition.dd_count} ครั้งใน {market.condition.dd_window} วันทำการ</>}
-          {' '}(รายละเอียดที่แถบตลาดด้านบน)
+          {market.condition.dd_count != null && <> · Distribution Day <N>{market.condition.dd_count}</N> ครั้งใน <N>{market.condition.dd_window}</N> วันทำการ</>}
+          {' '}(ดูแถบตลาดด้านบน)
         </p>
       )}
 
       <div className={s.controls}>
-        <button
-          type="button"
-          className={s.f}
-          aria-pressed={liq === 'all'}
-          onClick={() => { setLiq(liq === 'all' ? LIQ_DEFAULT : 'all'); setFilter('all'); }}
-          data-testid="sepa-liq-toggle"
-        >
+        <button type="button" className={s.filter} aria-pressed={liq === 'all'} data-testid="sepa-liq-toggle"
+          onClick={() => { setLiq(liq === 'all' ? LIQ_DEFAULT : 'all'); setFilter('all'); }}>
           {liq === 'all' ? `กลับไปชุดสภาพคล่อง ${LIQ_LABELS[LIQ_DEFAULT]}` : `แสดงทั้งหมด ${allN} ตัว`}
         </button>
-        <span className={s.flat} data-testid="sepa-view">
-          มุมมอง: {liq === 'all' ? 'ทั้งหมด' : `สภาพคล่อง ${LIQ_LABELS[liq]} (ค่าเริ่มต้นของหน้า /sepa)`} · {ranked.length} ตัว
+        <span className={s.viewNote} data-testid="sepa-view">
+          มุมมอง: {liq === 'all' ? 'ทั้งหมด' : `สภาพคล่อง ${LIQ_LABELS[liq]} (ค่าเริ่มต้นของหน้า /sepa)`} · <N>{ranked.length}</N> ตัว
         </span>
       </div>
 
-      <div className={s.stats}>
-        <div className={`${s.card} ${s.stat}`}>
-          <div className={s.big} data-testid="sepa-count">{ranked.length}<span className={s.bigOf}> / {allN}</span></div>
-          <div className={s.lbl}>ผ่านสแกน ({liq === 'all' ? 'ทั้งหมด' : 'ในชุดสภาพคล่อง'} / ทั้งหมด)</div>
-        </div>
-        <div className={`${s.card} ${s.stat}`}>
-          <div className={s.big}>{ready} · {watch}</div>
-          <div className={s.lbl}>🎯 พร้อมยิง · 👀 เฝ้าดู (เกณฑ์เดียวกับหน้า /sepa)</div>
-        </div>
-        <SignalCard sig={sp.signal_d10} href={sp.report_card_href} />
-        <div className={`${s.card} ${s.stat}`}>
-          <div className={s.big}>
-            {webNew ? <><span className={s.pos}>+{webNew.length}</span> · <span className={s.neg}>−{webDrop?.length}</span></> : '—'}
-          </div>
-          <div className={s.lbl}>
-            {webNew ? (
-              splitOk ? <>เข้า {webNew.length} ตามเว็บ = เข้าใหม่ {myNew.length} + กลับเข้า {myRe.length} · หลุด {webDrop?.length}</>
-                : <>เข้า {webNew.length} ตามเว็บ · หน้านี้นับได้ เข้าใหม่ {myNew.length} + กลับเข้า {myRe.length} (ไม่เท่ากัน: เว็บเทียบกับ {shortDate(web?.previous_date)})</>
-            ) : <>ไม่มีไฟล์เข้า/หลุดของวันนี้ (sepa_diff) · หน้านี้นับได้ เข้าใหม่ {myNew.length} + กลับเข้า {myRe.length}</>}
-          </div>
-        </div>
+      <div className={s.statCards}>
+        <StatCard testid="sepa-count" big={<>{ranked.length}<span className={s.scOf}> / {allN}</span></>}
+          label={liq === 'all' ? 'ผ่านสแกน (ทั้งหมด)' : 'ผ่านสแกน (ในชุดสภาพคล่อง / ทั้งหมด)'} />
+        <StatCard big={<>{ready} · {watch}</>} label="พร้อมยิง · เฝ้าดู" />
+        <StatCard big={webNew ? <><span className={s.pos}>+{webNew.length}</span> · <span className={s.neg}>−{webDrop?.length}</span></> : '—'}
+          label={webNew ? (splitOk ? <>เข้า = ใหม่ <N>{myNew.length}</N> + กลับเข้า <N>{myRe.length}</N> · หลุด</> : <>เข้า/หลุดตามเว็บ (หน้านี้นับได้ ใหม่ <N>{myNew.length}</N> + กลับเข้า <N>{myRe.length}</N>)</>) : 'ไม่มีไฟล์เข้า/หลุดของวันนี้'} />
+        <StatCard big={ranked[0] ? ranked[0].row.Ticker : '—'} label={ranked[0] ? <>อันดับ 1 · Score <N>{Math.round(ranked[0].score)}</N></> : 'อันดับ 1'} />
       </div>
+      <ReportCardLink href={sp.report_card_href} />
 
       <div className={s.changes}>
-        <div className={`${s.card} ${s.chg}`}>
-          <h3>เข้าใหม่ <span>{myNew.length} ตัว · ไม่อยู่ในสแกนตลอด {sp.lookback_days} วันทำการ</span></h3>
-          <div className={s.chips}>{myNew.length ? myNew.map(x => <span key={x.row.Ticker} className={s.chip}><b>{x.row.Ticker}</b> <Pct v={x.row.chg_pct} /></span>) : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}</div>
-        </div>
-        <div className={`${s.card} ${s.chg}`}>
-          <h3>กลับเข้า <span>{myRe.length} ตัว · วงเล็บ = วันล่าสุดที่อยู่ในสแกน</span></h3>
-          <div className={s.chips}>{myRe.length ? myRe.map(x => <span key={x.row.Ticker} className={s.chip}><b>{x.row.Ticker}</b> <small>({shortDate(x.row.last_seen)})</small></span>) : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}</div>
-        </div>
-        <div className={`${s.card} ${s.chg}`}>
-          <h3>หลุด <span>{drops.length} ตัว</span></h3>
-          <div className={s.chips}>{drops.length ? drops.map(d => <span key={d.ticker} className={s.chip}><b>{d.ticker}</b> <Pct v={d.chg_pct} /></span>) : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}</div>
-        </div>
+        <ChangeBox title="เข้าใหม่" hint={`ไม่อยู่ในสแกนตลอด ${sp.lookback_days} วันทำการ`}
+          chips={myNew.map(x => <Chip key={x.row.Ticker} ticker={x.row.Ticker}><Pct v={x.row.chg_pct} /></Chip>)} />
+        <ChangeBox title="กลับเข้า" chips={myRe.map(x => <Chip key={x.row.Ticker} ticker={x.row.Ticker}><Pct v={x.row.chg_pct} /></Chip>)}
+          note={myRe.length > 0 && myRe.map(x => <div key={x.row.Ticker}><span className={s.num}>{x.row.Ticker}</span> ล่าสุดอยู่ในสแกน {shortDate(x.row.last_seen)}</div>)} />
+        <ChangeBox title="หลุด" chips={drops.map(d => <Chip key={d.ticker} ticker={d.ticker}><Pct v={d.chg_pct} /></Chip>)}
+          note={drops.length > 0 && drops.map(d => <div key={d.ticker}><span className={s.num}>{d.ticker}</span>: {d.days_before_drop === 1 ? 'อยู่รอบนี้แค่วันเดียว' : <>อยู่มา <N>{d.days_before_drop}</N> วัน</>}</div>)} />
       </div>
 
       <div className={s.controls}>
         {SEPA_FILTERS.map(f => (
           <FilterButton key={f} prefix="sepa" id={f} label={LABEL[f]} count={counts[f]} active={filter === f} onClick={() => setFilter(f)} />
         ))}
-        <button type="button" className={s.f} aria-pressed={byPivot} onClick={() => setByPivot(v => !v)} data-testid="sepa-sort-pivot">
+        <button type="button" className={s.filter} aria-pressed={byPivot} onClick={() => setByPivot(v => !v)} data-testid="sepa-sort-pivot">
           {byPivot ? 'เรียงตามอันดับ' : 'เรียงตามระยะถึง Pivot'}
         </button>
       </div>
 
-      <div className={s.tshell}>
+      <div className={s.tableShell}>
         <table className={s.table} data-testid="sepa-table">
           <thead>
             <tr>
               <th className={s.r}>อันดับ</th>
               <th className={s.stk}>หุ้น</th>
-              <th className={s.r} title="Composite Score สูตรเดียวกับหน้า /sepa (RS 50% · งบ 20% · ใกล้ High 30%)">Score</th>
+              <th className={s.r} title="สูตรเดียวกับหน้า /sepa (RS 50% · งบ 20% · ใกล้ High 30%)">Score</th>
               <th className={s.r}>ราคา</th>
-              <th className={s.r}>%วันนี้<Calc /></th>
-              <th className={s.r} title={DAYS_TITLE}>วัน (รอบนี้ · ไม้)</th>
-              <th className={s.r}>% ห่าง High</th>
+              <th className={s.r}>%วันนี้</th>
+              <th className={s.r}>อยู่ในสแกนติดกัน</th>
+              <th className={s.r}>ห่าง High</th>
               <th>VCP</th>
-              <th className={s.r}>ถึง Pivot</th>
+              <th className={s.r}>Pivot</th>
               <th className={s.r}>RS</th>
               <th className={s.r}>ADTV 50 วัน (ลบ.)</th>
               <th className={s.r}>อันดับวันก่อน</th>
@@ -156,47 +142,28 @@ export default function SepaTab({ sp, market }: { sp: SepaSection | null; market
               const r = x.row;
               const prev = prevRank.get(r.Ticker);
               const toPivot = toNum(r.VCP_ToPivot);
-              const fp = vcpFootprint(r);
               return (
                 <tr key={r.Ticker} data-testid="sepa-row" data-ticker={r.Ticker} data-rank={x.rank} data-score={x.score} data-topivot={toPivot ?? ''}>
-                  <td className={s.r}>{x.rank}</td>
+                  <td className={s.r}><N>{x.rank}</N></td>
                   <td className={s.stk}>
-                    <Link href={`/stock/${r.Ticker}`} className={s.tk}>{r.Ticker}</Link>
+                    <span className={`${s.tk} ${s.num}`}>{r.Ticker}</span>
                     {r.status !== 'stay' && <StatusTag status={r.status} />}
                     <TierTag tier={x.tier} />
                     <FTag v={r.Fundamental_Pass} />
                     <StaleTag stale={r.price_stale} barDate={r.bar_date} />
-                    <EventTags events={r.events} />
-                    {r.status === 'reentry' && <span className={s.ls}>ล่าสุดในสแกน {shortDate(r.last_seen)}</span>}
-                    <InScans scans={r.in_scans} exclude="sepa" />
                   </td>
-                  <td className={s.r}>{Math.round(x.score)}</td>
-                  <td className={`${s.r} ${s.price}`}>{fmtNum(r.Price)}</td>
+                  <td className={s.r}><N>{Math.round(x.score)}</N></td>
+                  <td className={s.r}><Price v={r.Price} /></td>
                   <td className={s.r}><Pct v={r.chg_pct} /></td>
-                  <td className={s.r}><DaysCell streak={r.streak_days} web={r.days_web} /></td>
+                  <td className={s.r}><N>{r.streak_days}</N> วัน</td>
                   <td className={s.r}><Pct v={x.fromHigh} /></td>
-                  <td title={vcpTooltip(r) ?? undefined}>
-                    {fp ?? <span className={s.flat}>—</span>}
-                    {fp && isVolumeDry(r) && <span className={s.ls}>วอลุ่มแห้ง</span>}
-                  </td>
-                  <td className={s.r}>
-                    {toPivot == null ? <span className={s.flat}>—</span> : (
-                      <>
-                        {fmtNum(toNum(r.VCP_Pivot))}
-                        <span className={s.ls}>
-                          {toPivot < 0 ? <span className={s.warnTxt}>ผ่าน Pivot แล้ว {fmtPct(-toPivot, 1)}</span> : `ต่ำกว่า ${toPivot.toFixed(1)}%`}
-                        </span>
-                      </>
-                    )}
-                  </td>
-                  <td className={s.r}>{r.RS_Rating}</td>
-                  <td className={s.r}>{fmtNum(r['ADTV(MB)'], 1)}</td>
+                  <td title={vcpTooltip(r) ?? undefined}>{vcpFootprint(r) ? <N>{vcpFootprint(r)}</N> : <span className={s.flat}>—</span>}</td>
+                  <td className={s.r}><PivotCell row={r} /></td>
+                  <td className={s.r}><N>{r.RS_Rating}</N></td>
+                  <td className={s.r}><N>{fmtNum(r['ADTV(MB)'], 1)}</N></td>
                   <td className={s.r}>
                     {prev == null ? <span className={s.flat}>—</span> : (
-                      <>
-                        {prev}{' '}
-                        {prev > x.rank ? <span className={s.pos}>↑{prev - x.rank}</span> : prev < x.rank ? <span className={s.neg}>↓{x.rank - prev}</span> : <span className={s.flat}>=</span>}
-                      </>
+                      <><N>{prev}</N>{' '}{prev > x.rank ? <span className={s.pos}>↑<N>{prev - x.rank}</N></span> : prev < x.rank ? <span className={s.neg}>↓<N>{x.rank - prev}</N></span> : <span className={s.flat}>=</span>}</>
                     )}
                   </td>
                 </tr>
@@ -205,32 +172,59 @@ export default function SepaTab({ sp, market }: { sp: SepaSection | null; market
           </tbody>
         </table>
       </div>
-      <p className={s.note}>
-        อันดับ / Score / กลุ่ม คิดด้วยสูตรและเกณฑ์เดียวกับหน้า /sepa ในมุมมองเดียวกัน · อันดับวันก่อน = สูตรเดียวกันกับข้อมูลวันก่อน ·
-        ถึง Pivot: ราคา Pivot และระยะที่ราคาอยู่ต่ำกว่า · เรียงตาม Pivot: ใกล้ → ไกล แล้วตัวที่ผ่าน Pivot แล้ว แล้วตัวที่ไม่มี Pivot ·
-        {' '}F+ = ผ่านเกณฑ์งบ · ไม่มี F+ = มีงบแต่ไม่ผ่าน · ไม่มีข้อมูลงบ = ไม่มีงบให้ตรวจ
+      <p className={s.tableNote}>
+        อันดับ / Score / กลุ่ม ใช้สูตรและเกณฑ์เดียวกับหน้า /sepa ในมุมมองเดียวกัน · เรียงตาม Pivot: ใกล้ → ไกล แล้วตัวที่ผ่าน Pivot แล้ว แล้วตัวที่ไม่มีฐาน
       </p>
 
-      <h3 className={s.sec}>หลุดวันนี้<small>{drops.length} ตัว</small></h3>
+      <h3 className={s.sectionH}>การ์ดรายตัว — Top {TOP_CARDS}<small>ตามอันดับของมุมมองนี้</small></h3>
+      <div className={s.cards} data-testid="sepa-cards">
+        {ranked.slice(0, TOP_CARDS).map(x => {
+          const r = x.row;
+          return (
+            <StockCard
+              key={r.Ticker} id={`s-${r.Ticker}`} testid="sepa-card" ticker={r.Ticker} rank={x.rank} close={toNum(r.Price)} chg={r.chg_pct}
+              tags={<><TierTag tier={x.tier} /><FTag v={r.Fundamental_Pass} />{r.status !== 'stay' && <StatusTag status={r.status} lastSeen={r.last_seen} />}<StaleTag stale={r.price_stale} barDate={r.bar_date} /><InScans scans={r.in_scans} exclude="sepa" asTag /><EventTags events={r.events} /></>}
+              right={{
+                title: 'SEPA',
+                rows: [
+                  ['Score · RS', <><N>{Math.round(x.score)}</N> · <N>{r.RS_Rating}</N></>],
+                  ['VCP', vcpFootprint(r) ? <N>{vcpFootprint(r)}</N> : 'ยังไม่มีฐาน'],
+                  ['Pivot', <PivotCell key="p" row={r} />],
+                  ['ห่าง High รอบปี', <Pct key="h" v={x.fromHigh} />],
+                  ['งบ', fplusLabel(r.Fundamental_Pass)],
+                  ['อยู่ในสแกนติดกัน · ADTV 50 วัน', <><N>{r.streak_days}</N> วัน · <N>{fmtNum(r['ADTV(MB)'], 1)}</N> ลบ.</>],
+                ],
+              }}
+              watch={sepaWatch(x)}
+            />
+          );
+        })}
+      </div>
+
+      <h3 className={s.sectionH}>หลุดวันนี้<small>{drops.length} ตัว</small></h3>
       {drops.length ? (
-        <div className={s.tshell}>
+        <div className={s.tableShell}>
           <table className={`${s.table} ${s.tableSm}`} data-testid="sepa-dropped">
             <thead><tr><th className={s.stk}>หุ้น</th><th className={s.r}>ราคา</th><th className={s.r}>%วันนี้</th><th className={s.r}>อยู่ในสแกนมา</th></tr></thead>
             <tbody>
               {drops.map(d => (
                 <tr key={d.ticker}>
-                  <td className={s.stk}><span className={s.tk}>{d.ticker}</span><StaleTag stale={d.price_stale} barDate={d.bar_date} /><EventTags events={d.events} /><InScans scans={d.in_scans} /></td>
-                  <td className={`${s.r} ${s.price}`}>{fmtNum(d.close)}</td>
+                  <td className={s.stk}><span className={`${s.tk} ${s.num}`}>{d.ticker}</span><StaleTag stale={d.price_stale} barDate={d.bar_date} /><InScans scans={d.in_scans} /></td>
+                  <td className={s.r}><Price v={d.close} /></td>
                   <td className={s.r}><Pct v={d.chg_pct} /></td>
-                  <td className={s.r}>{d.days_before_drop} วัน</td>
+                  <td className={s.r}><N>{d.days_before_drop}</N> วัน</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      ) : <p className={s.note}>ไม่มีตัวที่หลุดวันนี้ในมุมมองนี้</p>}
+      ) : <p className={s.tableNote}>ไม่มีตัวที่หลุดวันนี้ในมุมมองนี้</p>}
 
-      <Phase2Box><span className={s.p2}>เฟส 2</span> การ์ดรายตัว (ข่าว · งบ · เป้าโบรก)</Phase2Box>
+      <Fold title="แหล่งข้อมูล · เกณฑ์">
+        <p><b>พร้อมยิง:</b> VCP หดตัวเป็นขั้น ≥ 2 ครั้ง และราคาต่ำกว่า Pivot 0–5% · <b>เฝ้าดู:</b> ยังไม่พร้อมยิง แต่ RS ≥ 80 และห่าง High รอบปีไม่เกิน 15%</p>
+        <p><b>งบ:</b> F+ = ผ่านเกณฑ์งบ · ไม่มี F+ = มีงบแต่ไม่ผ่าน · ไม่มีข้อมูลงบ = ไม่มีงบให้ตรวจ</p>
+        <p><b>เข้า/หลุด:</b> ตัวเลขหลักจากหน้า /sepa (sepa_diff) แยกเป็นเข้าใหม่/กลับเข้าด้วยประวัติ 10 วันทำการ</p>
+      </Fold>
     </section>
   );
 }

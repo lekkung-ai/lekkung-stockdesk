@@ -499,7 +499,8 @@ def build_daytrade(ctx, day):
     return {
         "scan": fname, "page": "/lekkung-daytrade", "date": day, "compared_to": prev,
         "generated_at": (load_json(ctx.hist_path(day, fname)) or {}).get("generated_at"),
-        "counts": {"total": len(rows), "new": count("status", "new"), "reentry": count("status", "reentry"),
+        "counts": {"total": len(rows), "prev_total": len(sets.get(prev, ())) if prev else None,
+                   "new": count("status", "new"), "reentry": count("status", "reentry"),
                    "stay": count("status", "stay"), "dropped": len(drops),
                    "rv_hi": count("rv_tier", "hi"), "rv_mid": count("rv_tier", "mid"), "rv_lo": count("rv_tier", "lo")},
         "lookback_days": LOOKBACK_DAYS,
@@ -595,7 +596,8 @@ def build_growth(ctx, day):
     return {
         "scan": fname, "page": "/lekkung", "date": day, "compared_to": prev,
         "generated_at": (load_json(os.path.join(ctx.scans, "generated_at.json")) or {}).get("lekkung"),
-        "counts": {"total": len(rows), "new": count("new"), "reentry": count("reentry"), "stay": count("stay"),
+        "counts": {"total": len(rows), "prev_total": len(sets.get(prev, ())) if prev else None,
+                   "new": count("new"), "reentry": count("reentry"), "stay": count("stay"),
                    "dropped": len(drops), "dropped_earlier": len(earlier_rows)},
         "lookback_days": LOOKBACK_DAYS,
         "signal_d10": (rc.get("horizons") or {}).get("10"),
@@ -771,6 +773,221 @@ def build_market_stage(ctx, day):
     }
 
 
+# ─── ประโยคอธิบายจากกติกา (ไม่มี AI · ไม่มีข่าว) ────────────────────────────
+# ตัวเลขในประโยคมาจากฟิลด์เดียวกับตาราง · SEPA สร้างฝั่งหน้าเว็บ (lib/dailyReportTabs) เพราะอันดับ/Score/Pivot
+# ต้องมาจาก lib ตัวเดียวกับหน้า /sepa — ห้ามคัดลอกสูตรมาไว้ใน Python
+
+TH_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+NAMES_MAX = 3
+EMA10_THIN_PCT = 1.0
+NEAR_HIGH_PCT_GROWTH = 3.0
+THIN_VALUE_GROWTH_MB = 5.0
+FLIP_WARN = 3
+
+# เกณฑ์ Daytrade ที่ตก → คำพูดธรรมดา (key ตรงกับ CRITERIA)
+DROP_REASON_TH = {
+    "common_stock": "ไม่ใช่หุ้นสามัญ",
+    "close_gt_1": "ราคาต่ำกว่า 1 บาท",
+    "close_gt_ema200": "ราคาหลุด EMA200",
+    "chg_gt_0": "ราคาวันนี้ไม่บวก",
+    "vol_gt_1m": "วอลุ่มวันนี้ไม่ถึง 1 ล้านหุ้น",
+    "rsi7_gt_50": "RSI7 ไม่ถึง 50",
+    "avgvol10_1m_50m": "วอลุ่มเฉลี่ย 10 วันไม่อยู่ในช่วง 1–50 ล้านหุ้น",
+    "adx_gt_20": "ADX ไม่ถึง 20",
+    "tech_ge_buy": "Tech Rating ต่ำกว่า Buy",
+}
+
+
+def th_date(iso):
+    """'2026-11-23' → '23 พ.ย.'"""
+    try:
+        d = Date.fromisoformat(str(iso)[:10])
+        return f"{d.day} {TH_MONTHS[d.month - 1]}"
+    except Exception:
+        return "—"
+
+
+def names(ts, n=NAMES_MAX):
+    ts = list(ts)
+    if len(ts) <= n:
+        return ", ".join(ts)
+    return ", ".join(ts[:n]) + f" + อีก {len(ts) - n} ตัว"
+
+
+def pct_txt(v, nd=2, sign=True):
+    return "—" if v is None else (f"{v:+.{nd}f}%" if sign else f"{v:.{nd}f}%")
+
+
+def price_txt(v):
+    return "—" if v is None else f"{v:,.2f}"
+
+
+def shares_txt(v):
+    return "—" if v is None else f"{v / 1e6:.2f} ล้านหุ้น"
+
+
+def count_change(n, prev, noun="สแกน"):
+    if prev is None:
+        return f"{noun} {n} ตัว"
+    if n > prev:
+        return f"{noun}เพิ่มเป็น {n} ตัว (จาก {prev})"
+    if n < prev:
+        return f"{noun}หดเหลือ {n} ตัว (จาก {prev})"
+    return f"{noun}ทรงตัวที่ {n} ตัว"
+
+
+def change_notes(rows, dropped, extra_reason=None):
+    """คำอธิบายใต้กล่องเปลี่ยนแปลง: กลับเข้า → วันล่าสุด · หลุด → อยู่รอบเดียว / หลุดเพราะ…"""
+    re_ = [r for r in rows if r["status"] == "reentry"]
+    new = [r for r in rows if r["status"] == "new"]
+    out = {"new": None, "reentry": None, "dropped": None, "dropped_items": {}}
+    if new:
+        out["new"] = f"{names(r['ticker'] for r in new)} ไม่อยู่ในสแกนเลยใน {LOOKBACK_DAYS} วันทำการก่อนหน้า"
+    if re_:
+        out["reentry"] = " · ".join(f"{r['ticker']} ล่าสุดอยู่ในสแกน {th_date(r['last_seen'])}" for r in re_)
+    parts = []
+    for d in dropped:
+        why = []
+        if extra_reason:
+            why += extra_reason(d)
+        if d.get("days_before_drop") == 1:
+            why.append("อยู่รอบนี้แค่วันเดียว")
+        elif d.get("days_before_drop"):
+            why.append(f"อยู่มา {d['days_before_drop']} วัน")
+        txt = " · ".join(why)
+        out["dropped_items"][d["ticker"]] = txt
+        parts.append(f"{d['ticker']}: {txt}" if txt else d["ticker"])
+    if parts:
+        out["dropped"] = " · ".join(parts)
+    return out
+
+
+def notes_daytrade(dt):
+    rows, c = dt["rows"], dt["counts"]
+    head = count_change(c["total"], c.get("prev_total"))
+    if not rows:
+        dt["headline"] = f"{head} — วันนี้ไม่มีหุ้นผ่านเกณฑ์ Daytrade"
+    else:
+        top = max((r for r in rows if r.get("rel_vol") is not None), key=lambda r: r["rel_vol"], default=None)
+        bits = [head]
+        if top:
+            word = {"hi": "วอลุ่มมาแรงสุด", "mid": "วอลุ่มมากสุด", "lo": "วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย"}.get(top["rv_tier"], "วอลุ่มมากสุด")
+            bits.append(f"— {top['ticker']} {word} {top['rel_vol']:.2f} เท่า")
+        # "อีก M ตัว" ไม่นับตัวที่ถูกเอ่ยชื่อแล้ว
+        lo = sum(1 for r in rows if r.get("rv_tier") == "lo" and r is not top)
+        if lo and lo == len(rows) - 1 and top and top.get("rv_tier") == "lo":
+            bits.append("· ทุกตัววอลุ่มยังไม่มา")
+        elif lo:
+            bits.append(f"· อีก {lo} ตัววอลุ่มยังไม่มา")
+        dt["headline"] = " ".join(bits)
+    for r in rows:
+        r["watch"] = watch_daytrade(r)
+    dt["change_notes"] = change_notes(
+        rows, dt["dropped"],
+        lambda d: [f"หลุดเพราะ{DROP_REASON_TH.get(k, k)}" for k, v in (d.get("check") or {}).get("criteria", {}).items() if v == "fail"])
+
+
+RV_SUFFIX = {"hi": "วอลุ่มมาจริง", "mid": "วอลุ่มเกือบมา", "lo": "วอลุ่มยังไม่มา อย่าไล่"}
+
+
+def watch_daytrade(r):
+    if r.get("price_stale"):
+        return ["⚠️ ราคาค้าง — ไม่มีจุดซื้อ/ทิ้งของวันนี้"]
+    mv = shares_txt(r.get("min_vol_1030"))
+    if r.get("trigger") is not None:
+        buy = f"ผ่าน {price_txt(r['trigger'])} + ถึง 10:30 วอลุ่ม ≥ {mv} → ลุ้นต่อ"
+    else:
+        buy = f"ทำ High ใหม่เหนือ {price_txt(r.get('close'))} + ถึง 10:30 วอลุ่ม ≥ {mv} → ลุ้นต่อ"
+    first = f"{buy} · หลุด {price_txt(r.get('stop'))} = จบรอบ"
+    return [first, RV_SUFFIX[r["rv_tier"]]] if r.get("rv_tier") in RV_SUFFIX else [first]
+
+
+def notes_growth(g):
+    rows, c = g["rows"], g["counts"]
+    bits = [count_change(c["total"], c.get("prev_total"))]
+    ins = [r["ticker"] for r in rows if r["status"] in ("new", "reentry")]
+    clauses = []
+    if ins:
+        clauses.append(f"{names(ins)} เข้ามา")
+    if g["dropped"]:
+        clauses.append(f"{names(d['ticker'] for d in g['dropped'])} หลุดไป")
+    up = max((r for r in rows if r.get("chg_pct") is not None), key=lambda r: r["chg_pct"], default=None)
+    if up and up["chg_pct"] > 0:
+        clauses.append(f"{up['ticker']} บวกแรงสุด {pct_txt(up['chg_pct'])}")
+    elif rows:
+        clauses.append("วันนี้ไม่มีตัวไหนบวก")
+    near = max((r for r in rows if r.get("pct_from_52w_high") is not None), key=lambda r: r["pct_from_52w_high"], default=None)
+    if near:
+        clauses.append(f"{near['ticker']} ใกล้ High สุด (ห่าง {abs(near['pct_from_52w_high']):.1f}%)")
+    g["headline"] = bits[0] + (" — " + " · ".join(clauses) if clauses else "")
+    for r in rows:
+        r["watch"] = watch_growth(r)
+    g["change_notes"] = change_notes(rows, g["dropped"])
+
+
+def watch_growth(r):
+    out = []
+    v = r.get("vs_ema10_pct")
+    if v is not None and v < 0:
+        out.append(f"ราคาต่ำกว่า EMA10 ({pct_txt(v)}) — เส้นถูกหลุดแล้ว ระวัง")
+    elif v is not None and v < EMA10_THIN_PCT:
+        out.append(f"เกาะ EMA10 บาง ({pct_txt(v)}) — หลุดเส้นคือสัญญาณเปลี่ยน")
+    h = r.get("pct_from_52w_high")
+    if h is not None and h >= -NEAR_HIGH_PCT_GROWTH:
+        out.append(f"ใกล้ High รอบปี {price_txt(r.get('high_52w'))} อีก {abs(h):.1f}% — จับตาเบรค")
+    if r.get("status") == "reentry":
+        out.append(f"เพิ่งกลับเข้ามา (ล่าสุดในสแกน {th_date(r.get('last_seen'))})")
+    val = r.get("value_mb_1d")
+    if val is not None and val < THIN_VALUE_GROWTH_MB:
+        out.append(f"สภาพคล่องบาง (มูลค่าวันนี้ {val:.1f} ลบ.)")
+    if r.get("price_stale"):
+        out.insert(0, "⚠️ ราคาค้าง")
+    if not out:
+        hi_txt = "—" if h is None else f"{abs(h):.1f}%"
+        out.append(f"เหนือ EMA10 {pct_txt(v)} · ห่าง High รอบปี {hi_txt} — แนวโน้มยังปกติ")
+    return out[:2]
+
+
+GROUP_SHORT = {"base": "กลุ่มสะสม/ฟื้นตัว", "strong": "กลุ่มแข็งแรง (Bull/S.Bull)",
+               "weak": "กลุ่มอ่อนแรง (Warning/Distribution)", "bear": "ขาลง (Bear)"}
+
+
+def notes_stage(ms):
+    st, prev = ms["counts"]["stock"], (ms.get("counts_prev") or {}).get("stock")
+    total = ms["total_stock"] or 0
+    grp = {g["key"]: g["stages"] for g in ms["groups"]}
+    n = lambda c, k: sum((c or {}).get(s, 0) for s in grp.get(k, []))  # noqa: E731
+    base = n(st, "base")
+    d = base - n(prev, "base") if prev else None
+    dtxt = "" if d is None else (f" ({d:+d} จากวันก่อน)" if d else " (เท่าวันก่อน)")
+    share = {k: (n(st, k) / total * 100 if total else 0) for k in grp}
+    top = max(share, key=share.get) if share else None
+    if top == "bear":
+        tail = f"ขาลงยังครอง {share['bear']:.1f}% ของหุ้นสามัญ"
+    elif top:
+        tail = f"{GROUP_SHORT.get(top, top)} มากสุด {share[top]:.1f}% ของหุ้นสามัญ"
+    else:
+        tail = ""
+    moved = f" · ย้าย stage วันนี้ {ms['transitions_total']} ตัว"
+    ms["headline"] = f"{GROUP_SHORT['base']} {base} ตัว{dtxt} — {tail}{moved}"
+    for m in ms["focus"]:
+        m["notes"] = watch_stage(m)  # "watch" ของแถวนี้คือธง น่าดู (bool) — ห้ามทับ
+
+
+def watch_stage(m):
+    out = []
+    if m.get("price_stale"):
+        out.append("⚠️ ราคาค้าง")
+    if (m.get("flips_5d") or 0) >= FLIP_WARN:
+        out.append(f"เหวี่ยง {m['flips_5d']} รอบใน 5 วัน — ยังไม่นิ่ง")
+    v = m.get("vs_ema200_pct")
+    if v is not None and v >= 0:
+        out.append("ยืนเหนือ EMA200 แล้ว")
+    elif v is not None:
+        out.append(f"ยังใต้ EMA200 ({price_txt(m.get('ema200'))}) — รอยืนให้ได้ก่อน")
+    return out[:2]
+
+
 def latest_scan_day(ctx, fname="lekkung_daytrade"):
     cal = scan_days(ctx.trading_days, lambda d: ctx.has(d, fname))
     return cal[-1] if cal else None
@@ -825,6 +1042,13 @@ def build(root, day=None):
             if report[k]:
                 report["compared_to"] = report[k]["compared_to"]
                 break
+    # ประโยคอธิบาย (กติกาในโค้ด ไม่มี AI) — แยก try ต่อแท็บ · พัง → แท็บนั้นไม่มีประโยค แต่ตัวเลขยังอยู่
+    for name, fn in (("daytrade", notes_daytrade), ("growth", notes_growth), ("market_stage", notes_stage)):
+        if report.get(name):
+            try:
+                fn(report[name])
+            except Exception as e:  # noqa: BLE001
+                warnings.append(f"{name} notes: {type(e).__name__}: {e}")
     report["warnings"] = warnings
     return report
 

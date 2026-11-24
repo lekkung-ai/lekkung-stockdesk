@@ -1,16 +1,15 @@
 import type { Metadata, Viewport } from 'next';
-import { Anuphan, Geist_Mono } from 'next/font/google';
+import { IBM_Plex_Sans_Thai, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { StockProvider } from '@/context/stock';
 import Shell from '@/components/Shell';
 
-// Anuphan (แบบ D, 2026-11-23): Thai + Latin in one family, self-hosted by next/font at build time
-// (no request to Google when a page opens). 400/500/600/700 cover font-normal..font-bold
-// (font-extrabold/black fall back to 700: Anuphan tops out at 700).
-// ชื่อตัวแปร --font-plex-sans-thai คงไว้ตามเดิม (globals.css อ้างถึงที่เดียว) ทั้งที่ตอนนี้เป็น Anuphan
-// สลับกลับเป็นแบบ B / C: เปลี่ยน import เป็น IBM_Plex_Sans_Thai (B) หรือ IBM_Plex_Sans_Thai_Looped (C)
-// แล้วแก้ชื่อฟังก์ชันด้านล่างให้ตรง — ไม่ต้องแก้ที่อื่น
-const plexSansThai = Anuphan({
+// IBM Plex Sans Thai (แบบ B — กลับมาใช้ 2026-11-24 หลังลอง Anuphan แบบ D แล้วอ่านยาก): Thai + Latin
+// in one family, self-hosted by next/font at build time (no request to Google when a page opens).
+// 400/500/600/700 cover font-normal..font-bold.
+// สลับแบบ: เปลี่ยน import + ชื่อฟังก์ชันด้านล่างเป็น IBM_Plex_Sans_Thai_Looped (C) หรือ Anuphan (D) —
+// ตัวแปร --font-plex-sans-thai คงไว้ (globals.css อ้างถึงที่เดียว) ไม่ต้องแก้ที่อื่น
+const plexSansThai = IBM_Plex_Sans_Thai({
   variable: '--font-plex-sans-thai',
   subsets: ['thai', 'latin'],
   weight: ['400', '500', '600', '700'],

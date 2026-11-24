@@ -324,6 +324,9 @@ class TestNewSections(unittest.TestCase):
             self.assertFalse(any(r["ticker"] == "FND" for v in ms["lists"].values() for r in v["rows"]))
             self.assertEqual(ms["summary"], [{"from": "Warning", "to": "Bull", "count": 1, "examples": ["S2"]}])
             self.assertEqual({x["ticker"]: x["flips_5d"] for x in ms["focus"]}, {"S1": 1, "FND": 1})
+            for x in ms["focus"]:  # ธง น่าดู ต้องยังเป็น bool · บรรทัดจับตาอยู่ที่ notes
+                self.assertIsInstance(x["watch"], bool)
+                self.assertTrue(x["notes"])
 
     def test_missing_sepa_file_other_sections_ok(self):
         with tempfile.TemporaryDirectory() as root:
@@ -382,6 +385,130 @@ class TestStageOrderAndTotals(unittest.TestCase):
             extra = sum(v for k, v in ms["counts"]["stock"].items() if k not in grouped)
             self.assertEqual(extra, 1)  # IPO
             self.assertEqual(card_sum + extra, ms["total_stock"])
+
+
+def dt_row(t, status="stay", rv="lo", rel=0.5, trig=10.5, stop=9.5, stale=False, close=10.0, last_seen=None):
+    return {"ticker": t, "status": status, "rv_tier": rv, "rel_vol": rel, "trigger": trig, "stop": stop,
+            "price_stale": stale, "close": close, "min_vol_1030": 1_500_000, "last_seen": last_seen}
+
+
+class TestNotesDaytrade(unittest.TestCase):
+    def section(self, rows, dropped=(), prev=None):
+        c = {"total": len(rows), "prev_total": prev, "rv_lo": sum(r["rv_tier"] == "lo" for r in rows)}
+        return {"rows": rows, "dropped": list(dropped), "counts": c}
+
+    def test_headline_shrink_top_relvol(self):
+        dt = self.section([dt_row("AAA", rv="hi", rel=2.1), dt_row("BBB"), dt_row("CCC")], prev=5)
+        m.notes_daytrade(dt)
+        self.assertEqual(dt["headline"], "สแกนหดเหลือ 3 ตัว (จาก 5) — AAA วอลุ่มมาแรงสุด 2.10 เท่า · อีก 2 ตัววอลุ่มยังไม่มา")
+
+    def test_headline_grow_and_empty(self):
+        dt = self.section([dt_row("AAA", rv="mid", rel=1.2)], prev=0)
+        m.notes_daytrade(dt)
+        self.assertTrue(dt["headline"].startswith("สแกนเพิ่มเป็น 1 ตัว (จาก 0)"))
+        empty = self.section([], prev=3)
+        m.notes_daytrade(empty)
+        self.assertEqual(empty["headline"], "สแกนหดเหลือ 0 ตัว (จาก 3) — วันนี้ไม่มีหุ้นผ่านเกณฑ์ Daytrade")
+        all_lo = self.section([dt_row("A", rel=0.9), dt_row("B"), dt_row("C")], prev=3)
+        m.notes_daytrade(all_lo)
+        self.assertTrue(all_lo["headline"].endswith("· ทุกตัววอลุ่มยังไม่มา"))
+
+    def test_watch_lines(self):
+        self.assertEqual(m.watch_daytrade(dt_row("A", rv="hi")),
+                         ["ผ่าน 10.50 + ถึง 10:30 วอลุ่ม ≥ 1.50 ล้านหุ้น → ลุ้นต่อ · หลุด 9.50 = จบรอบ", "วอลุ่มมาจริง"])
+        self.assertEqual(m.watch_daytrade(dt_row("A", rv="mid"))[1], "วอลุ่มเกือบมา")
+        self.assertEqual(m.watch_daytrade(dt_row("A", rv="lo"))[1], "วอลุ่มยังไม่มา อย่าไล่")
+        self.assertTrue(m.watch_daytrade(dt_row("A", trig=None))[0].startswith("ทำ High ใหม่เหนือ 10.00"))
+        self.assertEqual(m.watch_daytrade(dt_row("A", stale=True)), ["⚠️ ราคาค้าง — ไม่มีจุดซื้อ/ทิ้งของวันนี้"])
+
+    def test_change_notes_and_drop_reason(self):
+        rows = [dt_row("RE", status="reentry", last_seen="2026-11-17")]
+        drops = [{"ticker": "D1", "days_before_drop": 1, "check": {"criteria": {"chg_gt_0": "fail", "rsi7_gt_50": "unknown"}}},
+                 {"ticker": "D2", "days_before_drop": 4, "check": {"criteria": {"chg_gt_0": "pass"}}}]
+        dt = self.section(rows, drops, prev=2)
+        m.notes_daytrade(dt)
+        n = dt["change_notes"]
+        self.assertEqual(n["reentry"], "RE ล่าสุดอยู่ในสแกน 17 พ.ย.")
+        self.assertIsNone(n["new"])
+        self.assertEqual(n["dropped_items"]["D1"], "หลุดเพราะราคาวันนี้ไม่บวก · อยู่รอบนี้แค่วันเดียว")
+        self.assertEqual(n["dropped_items"]["D2"], "อยู่มา 4 วัน")
+
+    def test_no_drops_no_new(self):
+        dt = self.section([dt_row("S")], prev=1)
+        m.notes_daytrade(dt)
+        self.assertEqual(dt["change_notes"]["dropped"], None)
+        self.assertEqual(dt["change_notes"]["new"], None)
+        self.assertEqual(dt["headline"], "สแกนทรงตัวที่ 1 ตัว — S วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย 0.50 เท่า")
+
+
+def gr_row(t, status="stay", chg=1.0, ema=2.0, hi=-10.0, val=50.0, last_seen=None, stale=False):
+    return {"ticker": t, "status": status, "chg_pct": chg, "vs_ema10_pct": ema, "pct_from_52w_high": hi,
+            "high_52w": 12.0, "value_mb_1d": val, "last_seen": last_seen, "price_stale": stale}
+
+
+class TestNotesGrowth(unittest.TestCase):
+    def test_headline_all_parts(self):
+        g = {"rows": [gr_row("UP", chg=3.0), gr_row("RE", status="reentry", hi=-1.0, last_seen="2026-11-19")],
+             "dropped": [{"ticker": "OUT", "days_before_drop": 2}], "counts": {"total": 2, "prev_total": 2}}
+        m.notes_growth(g)
+        self.assertEqual(g["headline"], "สแกนทรงตัวที่ 2 ตัว — RE เข้ามา · OUT หลุดไป · UP บวกแรงสุด +3.00% · RE ใกล้ High สุด (ห่าง 1.0%)")
+
+    def test_headline_no_in_no_out_no_up(self):
+        g = {"rows": [gr_row("A", chg=-1.0)], "dropped": [], "counts": {"total": 1, "prev_total": 1}}
+        m.notes_growth(g)
+        self.assertEqual(g["headline"], "สแกนทรงตัวที่ 1 ตัว — วันนี้ไม่มีตัวไหนบวก · A ใกล้ High สุด (ห่าง 10.0%)")
+
+    def test_watch_priority_and_cap(self):
+        self.assertEqual(m.watch_growth(gr_row("A", ema=0.4)), ["เกาะ EMA10 บาง (+0.40%) — หลุดเส้นคือสัญญาณเปลี่ยน"])
+        self.assertEqual(m.watch_growth(gr_row("A", hi=-2.0))[0], "ใกล้ High รอบปี 12.00 อีก 2.0% — จับตาเบรค")
+        self.assertEqual(m.watch_growth(gr_row("A", status="reentry", last_seen="2026-11-18"))[0], "เพิ่งกลับเข้ามา (ล่าสุดในสแกน 18 พ.ย.)")
+        self.assertEqual(m.watch_growth(gr_row("A", val=3.0))[0], "สภาพคล่องบาง (มูลค่าวันนี้ 3.0 ลบ.)")
+        many = m.watch_growth(gr_row("A", ema=0.2, hi=-1.0, val=1.0, status="reentry", last_seen="2026-11-18"))
+        self.assertEqual(len(many), 2)
+        self.assertTrue(m.watch_growth(gr_row("A", ema=-0.5))[0].startswith("ราคาต่ำกว่า EMA10"))
+        self.assertEqual(m.watch_growth(gr_row("A")), ["เหนือ EMA10 +2.00% · ห่าง High รอบปี 10.0% — แนวโน้มยังปกติ"])
+        self.assertEqual(m.watch_growth(gr_row("A", stale=True))[0], "⚠️ ราคาค้าง")
+
+
+class TestNotesStage(unittest.TestCase):
+    def section(self, now, prev):
+        groups = [{"key": "base", "stages": ["Accumulation", "Recovery"]}, {"key": "strong", "stages": ["Bull", "S.Bull"]},
+                  {"key": "weak", "stages": ["Warning", "Distribution"]}, {"key": "bear", "stages": ["Bear"]}]
+        return {"counts": {"stock": now}, "counts_prev": {"stock": prev} if prev else None, "groups": groups,
+                "total_stock": sum(now.values()), "transitions_total": 4, "focus": []}
+
+    def test_headline_bear_dominant_and_delta(self):
+        ms = self.section({"Accumulation": 3, "Recovery": 2, "Bull": 1, "Bear": 14}, {"Accumulation": 2, "Recovery": 1, "Bear": 17})
+        m.notes_stage(ms)
+        self.assertEqual(ms["headline"], "กลุ่มสะสม/ฟื้นตัว 5 ตัว (+2 จากวันก่อน) — ขาลงยังครอง 70.0% ของหุ้นสามัญ · ย้าย stage วันนี้ 4 ตัว")
+
+    def test_headline_other_dominant_no_prev(self):
+        ms = self.section({"Accumulation": 1, "Bull": 6, "Bear": 3}, None)
+        m.notes_stage(ms)
+        self.assertEqual(ms["headline"], "กลุ่มสะสม/ฟื้นตัว 1 ตัว — กลุ่มแข็งแรง (Bull/S.Bull) มากสุด 60.0% ของหุ้นสามัญ · ย้าย stage วันนี้ 4 ตัว")
+
+    def test_watch(self):
+        self.assertEqual(m.watch_stage({"vs_ema200_pct": 2.0, "flips_5d": 0}), ["ยืนเหนือ EMA200 แล้ว"])
+        self.assertEqual(m.watch_stage({"vs_ema200_pct": -2.0, "ema200": 4.5, "flips_5d": 1}), ["ยังใต้ EMA200 (4.50) — รอยืนให้ได้ก่อน"])
+        self.assertEqual(m.watch_stage({"vs_ema200_pct": 1.0, "flips_5d": 3}), ["เหวี่ยง 3 รอบใน 5 วัน — ยังไม่นิ่ง", "ยืนเหนือ EMA200 แล้ว"])
+        self.assertEqual(m.watch_stage({"price_stale": True, "vs_ema200_pct": 1.0, "flips_5d": 4})[0], "⚠️ ราคาค้าง")
+
+
+class TestNotesBrokenSection(unittest.TestCase):
+    def test_notes_failure_keeps_numbers(self):
+        with tempfile.TemporaryDirectory() as root:
+            Fixture(root)
+            orig = m.notes_growth
+            m.notes_growth = lambda g: (_ for _ in ()).throw(RuntimeError("boom"))
+            try:
+                rep = m.build(root)
+            finally:
+                m.notes_growth = orig
+            self.assertIsNotNone(rep["growth"])
+            self.assertNotIn("headline", rep["growth"])
+            self.assertTrue(any(w.startswith("growth notes") for w in rep["warnings"]))
+            self.assertIn("headline", rep["daytrade"])
+            self.assertIn("headline", rep["market_stage"])
 
 
 if __name__ == "__main__":

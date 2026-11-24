@@ -55,6 +55,8 @@ export interface DtRow {
   value_is_calc: boolean;
   in_scans: string[];
   events: NewsFlag[];
+  /** บรรทัด "จับตา" (กติกาในสคริปต์) — ไม่มี = สคริปต์สร้างประโยคไม่ได้รอบนี้ */
+  watch?: string[];
 }
 
 export interface DtDropped {
@@ -112,6 +114,8 @@ export interface DailyReport {
     rows: DtRow[];
     dropped: DtDropped[];
     criteria: { key: string; label: string }[];
+    headline?: string;
+    change_notes?: ChangeNotes;
   } | null;
   growth: GrowthSection | null;
   sepa: SepaSection | null;
@@ -129,8 +133,8 @@ export const DT_FILTER_LABELS: Record<DtFilter, string> = {
   reentry: 'กลับเข้า',
   stay: 'อยู่ต่อ',
   'rv-hi': 'วอลุ่มมาจริง',
-  'rv-mid': 'เฉียด',
-  'rv-lo': 'ไม่มา',
+  'rv-mid': 'วอลุ่มเกือบมา',
+  'rv-lo': 'วอลุ่มยังไม่มา',
 };
 
 export function matchFilter(r: DtRow, f: DtFilter): boolean {
@@ -154,7 +158,7 @@ export function filterCounts(rows: DtRow[]): Record<DtFilter, number> {
 // ─── ป้าย ───────────────────────────────────────────────────────────────
 
 export const STATUS_LABEL: Record<DtStatus, string> = { new: 'เข้าใหม่', reentry: 'กลับเข้า', stay: 'อยู่ต่อ' };
-export const RV_LABEL: Record<RvTier, string> = { hi: 'มาจริง', mid: 'เฉียด', lo: 'ไม่มา' };
+export const RV_LABEL: Record<RvTier, string> = { hi: 'มาจริง', mid: 'เกือบมา', lo: 'ยังไม่มา' };
 export const CLOSE_POS_LABEL: Record<ClosePos, string> = {
   at_high: 'ที่ High วัน',
   near_high: 'ชิด High',
@@ -243,6 +247,18 @@ export function calendarText(i: CalendarItem): string {
   return `${i.type} ${shortDate(i.date)}${i.amount != null ? ` ${i.amount}` : ''}`;
 }
 
+/** สแกนของรายการปฏิทินที่นับเป็น "อยู่ในสแกนของเรา" — Daytrade / Growth / SEPA เท่านั้น */
+export function calendarScans(i: CalendarItem): string[] {
+  return i.in_scans.filter(k => scanKeyOf(k) !== 'market_stage');
+}
+
+export interface ChangeNotes {
+  new: string | null;
+  reentry: string | null;
+  dropped: string | null;
+  dropped_items: Record<string, string>;
+}
+
 export interface CalendarSplit {
   /** พรุ่งนี้ (วันทำการถัดไป): หุ้นที่อยู่ในสแกนก่อน แล้วตามด้วยตัวอื่น */
   tomorrow: { inScan: CalendarItem[]; other: CalendarItem[] };
@@ -255,7 +271,8 @@ export function splitCalendar(items: CalendarItem[], nextDay: string): CalendarS
   const sorted = [...items].sort((a, b) => a.date.localeCompare(b.date) || a.ticker.localeCompare(b.ticker));
   const tm = sorted.filter(i => i.date === nextDay);
   const wk = sorted.filter(i => i.date > nextDay);
-  const inScan = (i: CalendarItem) => i.in_scans.length > 0;
+  // ตัวหนา = อยู่ใน Daytrade / Growth / SEPA (Market Stage ไม่นับในปฏิทิน)
+  const inScan = (i: CalendarItem) => calendarScans(i).length > 0;
   return {
     tomorrow: { inScan: tm.filter(inScan), other: tm.filter(i => !inScan(i)) },
     week: { shown: wk.filter(inScan), hidden: wk.filter(i => !inScan(i)) },

@@ -4,7 +4,8 @@
 import { sepaCompositeScore } from './compositeScore';
 import { tierOf, toNum, type Tier } from './sepaTier';
 import { inLiqSet, type LiqSet } from './liquidity';
-import type { NewsFlag } from './dailyReport';
+import type { NewsFlag, ChangeNotes } from './dailyReport';
+import { vcpFootprint } from './sepaTier';
 
 export type ScanStatus = 'new' | 'reentry' | 'stay';
 
@@ -57,6 +58,7 @@ export interface GrowthRow {
   bar_date: string | null;
   in_scans: string[];
   events: NewsFlag[];
+  watch?: string[];
 }
 
 export interface GrowthSection {
@@ -72,6 +74,8 @@ export interface GrowthSection {
   rows: GrowthRow[];
   dropped: DroppedRow[];
   dropped_earlier: DroppedRow[];
+  headline?: string;
+  change_notes?: ChangeNotes;
 }
 
 export type GrowthFilter = 'all' | ScanStatus;
@@ -245,7 +249,10 @@ export interface StageMove extends StageDetail {
   from: string;
   to: string;
   to_bear: boolean;
+  /** น่าดู = ADTV/ราคาผ่านเกณฑ์ focus_rule */
   watch: boolean;
+  /** บรรทัด "จับตา" (กติกาในสคริปต์) */
+  notes?: string[];
 }
 
 export interface StageSection {
@@ -267,6 +274,7 @@ export interface StageSection {
   list_limit: number;
   flip_days: number;
   price_stale: string[];
+  headline?: string;
 }
 
 export function sumStages(counts: Record<string, number> | undefined, stages: string[]): number {
@@ -276,4 +284,42 @@ export function sumStages(counts: Record<string, number> | undefined, stages: st
 /** % ของยอดหุ้นสามัญ (ยอดเดียวกันทุกจุด) */
 export function shareOf(n: number, total: number): number {
   return total > 0 ? (n / total) * 100 : 0;
+}
+
+// ─── SEPA: ประโยคจากกติกา (ฝั่งหน้าเว็บ เพราะอันดับ / Score / กลุ่ม / Pivot ต้องมาจาก lib เดียวกับ /sepa) ───
+
+const pct1 = (v: number) => `${Math.abs(v).toFixed(1)}%`;
+const price2 = (v: number | null) => (v == null ? '—' : v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+/** ประโยคเปิดแท็บ SEPA จากอันดับของมุมมองที่เลือก */
+export function sepaHeadline(ranked: RankedSepa<SepaRow>[]): string {
+  if (!ranked.length) return 'วันนี้ไม่มีหุ้นผ่าน SEPA ในมุมมองนี้';
+  const ready = ranked.filter(x => x.tier === 'ready');
+  const withPivot = (xs: RankedSepa<SepaRow>[]) =>
+    xs.map(x => ({ x, p: toNum(x.row.VCP_ToPivot) })).filter((o): o is { x: RankedSepa<SepaRow>; p: number } => o.p != null && o.p >= 0)
+      .sort((a, b) => a.p - b.p);
+  const parts: string[] = [ready.length ? `พร้อมยิง ${ready.length} ตัว` : 'ยังไม่มีตัวพร้อมยิง'];
+  const near = withPivot(ready)[0] ?? withPivot(ranked)[0];
+  if (near) parts.push(near.p < 0.05 ? `${near.x.row.Ticker} อยู่ที่ Pivot พอดี` : `${near.x.row.Ticker} ห่าง Pivot แค่ ${pct1(near.p)}`);
+  const top = ranked[0];
+  parts.push(`อันดับ 1 ${top.row.Ticker} Score ${Math.round(top.score)}`);
+  return parts.join(' · ');
+}
+
+/** บรรทัด "จับตา" ของการ์ด SEPA (≤ 2 วลี เรียงตามความสำคัญ) */
+export function sepaWatch(x: RankedSepa<SepaRow>): string[] {
+  const out: string[] = [];
+  const toPivot = toNum(x.row.VCP_ToPivot);
+  const pivot = toNum(x.row.VCP_Pivot);
+  if (x.row.price_stale) out.push('⚠️ ราคาค้าง');
+  if (x.tier === 'ready' && toPivot != null) {
+    out.push(toPivot < 0.05
+      ? `อยู่ที่ Pivot ${price2(pivot)} พอดี — เบรคพร้อมวอลุ่ม = จุดซื้อ`
+      : `ห่าง Pivot ${price2(pivot)} อีก ${pct1(toPivot)} — เบรคพร้อมวอลุ่ม = จุดซื้อ`);
+  }
+  else if (toPivot != null && toPivot < 0) out.push(`ผ่าน Pivot ไปแล้ว ${pct1(toPivot)} — ไม่ไล่ รอฐานใหม่`);
+  else if (vcpFootprint(x.row) == null) out.push('ยังไม่มีฐาน — เฝ้าดู');
+  else if (toPivot != null) out.push(`ห่าง Pivot ${price2(pivot)} อีก ${pct1(toPivot)} — ยังไม่เข้าเกณฑ์พร้อมยิง`);
+  if (x.fromHigh != null && x.fromHigh >= -NEAR_HIGH_PCT) out.push('ชิด High รอบปี');
+  return out.slice(0, 2);
 }

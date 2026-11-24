@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ฟอนต์หลักของทั้งแอปตั้งที่นี่ที่เดียว: next/font ใน app/layout.tsx -> --font-plex-sans-thai (ตอนนี้ = Anuphan, แบบ D)
-     สลับกลับ B/C: แก้ import + ชื่อฟังก์ชันใน layout.tsx เป็น IBM_Plex_Sans_Thai (B) หรือ IBM_Plex_Sans_Thai_Looped (C)
+  /* ฟอนต์หลักของทั้งแอปตั้งที่นี่ที่เดียว: next/font ใน app/layout.tsx -> --font-plex-sans-thai (ตอนนี้ = IBM Plex Sans Thai, แบบ B)
+     สลับแบบ: แก้ import + ชื่อฟังก์ชันใน layout.tsx เป็น IBM_Plex_Sans_Thai_Looped (C) หรือ Anuphan (D)
      คงชื่อตัวแปร --font-plex-sans-thai ไว้ — บรรทัดนี้ไม่ต้องแก้ */
   --font-sans: var(--font-plex-sans-thai), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
