@@ -1,23 +1,13 @@
 [
   {
     "Ticker": "CPALL",
-    "Price": 50.25,
+    "Price": 50.5,
     "Box_Low": 42.25,
-    "Box_High(Break)": 50.25,
+    "Box_High(Break)": 50.5,
     "To_Break": "0.0%",
-    "ADTV(MB)": 1803.0,
-    "Box_Width": "18.93%",
-    "SMA150_Chg": 0.416
-  },
-  {
-    "Ticker": "ICHI",
-    "Price": 14.85,
-    "Box_Low": 11.82,
-    "Box_High(Break)": 14.85,
-    "To_Break": "0.0%",
-    "ADTV(MB)": 58.8,
-    "Box_Width": "25.59%",
-    "SMA150_Chg": 0.244
+    "ADTV(MB)": 1819.7,
+    "Box_Width": "19.53%",
+    "SMA150_Chg": 0.454
   },
   {
     "Ticker": "CHG",
@@ -25,108 +15,118 @@
     "Box_Low": 1.31,
     "Box_High(Break)": 1.77,
     "To_Break": "0.0%",
-    "ADTV(MB)": 86.6,
+    "ADTV(MB)": 88.2,
     "Box_Width": "34.8%",
-    "SMA150_Chg": 0.03
+    "SMA150_Chg": 0.033
   },
   {
-    "Ticker": "CPAXT",
-    "Price": 15.35,
-    "Box_Low": 14.0,
-    "Box_High(Break)": 15.46,
-    "To_Break": "0.74%",
-    "ADTV(MB)": 102.0,
-    "Box_Width": "10.46%",
-    "SMA150_Chg": 0.003
-  },
-  {
-    "Ticker": "BCH",
-    "Price": 11.6,
-    "Box_Low": 8.87,
-    "Box_High(Break)": 11.7,
-    "To_Break": "0.85%",
-    "ADTV(MB)": 120.1,
-    "Box_Width": "31.92%",
-    "SMA150_Chg": 0.24
+    "Ticker": "ICHI",
+    "Price": 14.8,
+    "Box_Low": 11.82,
+    "Box_High(Break)": 14.85,
+    "To_Break": "0.34%",
+    "ADTV(MB)": 59.6,
+    "Box_Width": "25.59%",
+    "SMA150_Chg": 0.255
   },
   {
     "Ticker": "BDMS",
-    "Price": 20.7,
+    "Price": 20.8,
     "Box_Low": 17.59,
     "Box_High(Break)": 20.95,
-    "To_Break": "1.19%",
-    "ADTV(MB)": 1341.8,
+    "To_Break": "0.72%",
+    "ADTV(MB)": 1337.2,
     "Box_Width": "19.08%",
-    "SMA150_Chg": 0.216
+    "SMA150_Chg": 0.222
+  },
+  {
+    "Ticker": "CPAXT",
+    "Price": 15.2,
+    "Box_Low": 14.0,
+    "Box_High(Break)": 15.37,
+    "To_Break": "1.1%",
+    "ADTV(MB)": 105.2,
+    "Box_Width": "9.78%",
+    "SMA150_Chg": 0.0
+  },
+  {
+    "Ticker": "BCH",
+    "Price": 11.55,
+    "Box_Low": 8.87,
+    "Box_High(Break)": 11.7,
+    "To_Break": "1.28%",
+    "ADTV(MB)": 121.7,
+    "Box_Width": "31.92%",
+    "SMA150_Chg": 0.243
   },
   {
     "Ticker": "MAJOR",
-    "Price": 8.76,
+    "Price": 8.84,
     "Box_Low": 6.5,
     "Box_High(Break)": 8.98,
-    "To_Break": "2.45%",
-    "ADTV(MB)": 15.0,
+    "To_Break": "1.56%",
+    "ADTV(MB)": 15.4,
     "Box_Width": "38.15%",
-    "SMA150_Chg": 0.126
-  },
-  {
-    "Ticker": "SCB",
-    "Price": 153.5,
-    "Box_Low": 127.8,
-    "Box_High(Break)": 158.0,
-    "To_Break": "2.85%",
-    "ADTV(MB)": 2018.4,
-    "Box_Width": "23.63%",
-    "SMA150_Chg": 2.383
-  },
-  {
-    "Ticker": "TISCO",
-    "Price": 126.5,
-    "Box_Low": 106.13,
-    "Box_High(Break)": 130.91,
-    "To_Break": "3.37%",
-    "ADTV(MB)": 322.8,
-    "Box_Width": "23.35%",
-    "SMA150_Chg": 2.498
+    "SMA150_Chg": 0.135
   },
   {
     "Ticker": "TU",
-    "Price": 12.9,
+    "Price": 13.15,
     "Box_Low": 10.67,
     "Box_High(Break)": 13.4,
-    "To_Break": "3.73%",
-    "ADTV(MB)": 232.4,
+    "To_Break": "1.87%",
+    "ADTV(MB)": 234.8,
     "Box_Width": "25.57%",
-    "SMA150_Chg": 0.294
+    "SMA150_Chg": 0.293
+  },
+  {
+    "Ticker": "SCB",
+    "Price": 154.0,
+    "Box_Low": 127.8,
+    "Box_High(Break)": 158.0,
+    "To_Break": "2.53%",
+    "ADTV(MB)": 2015.9,
+    "Box_Width": "23.63%",
+    "SMA150_Chg": 2.373
+  },
+  {
+    "Ticker": "TISCO",
+    "Price": 125.5,
+    "Box_Low": 106.13,
+    "Box_High(Break)": 130.91,
+    "To_Break": "4.13%",
+    "ADTV(MB)": 325.0,
+    "Box_Width": "23.35%",
+    "SMA150_Chg": 2.482
   },
   {
     "Ticker": "AP",
-    "Price": 8.08,
+    "Price": 8.04,
     "Box_Low": 6.95,
     "Box_High(Break)": 8.4,
-    "To_Break": "3.81%",
-    "ADTV(MB)": 55.3,
+    "To_Break": "4.29%",
+    "ADTV(MB)": 55.1,
     "Box_Width": "20.86%",
-    "SMA150_Chg": 0.003
+    "SMA150_Chg": 0.005
   },
   {
     "Ticker": "ITC",
-    "Price": 17.05,
+    "Price": 17.0,
     "Box_Low": 14.33,
     "Box_High(Break)": 17.8,
-    "To_Break": "4.21%",
-    "ADTV(MB)": 101.9,
+    "To_Break": "4.49%",
+    "ADTV(MB)": 102.0,
     "Box_Width": "24.17%",
-    "SMA150_Chg": 0.335
+    "SMA150_Chg": 0.333
   },
   {
     "Ticker": "OR",
-    "Price": 12.35,
+    "Price": 12.3,
     "Box_Low": 11.62,
     "Box_High(Break)": 12.9,
-    "To_Break": "4.26%",
-    "ADTV(MB)": 171.0,
+    "To_Break": "4.65%",
+    "ADTV(MB)": 169.8,
     "Box_Width": "11.01%",
-    "SMA150_Chg": 0.115
+    "SMA150_Chg": 0.107
   }
 ]
