@@ -4,7 +4,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { STATUS_LABEL, SCAN_LABEL, fmtPct, pctClass, type NewsFlag } from '@/lib/dailyReport';
+import { STATUS_LABEL, scanTagLabel, scanKeyOf, fmtPct, pctClass, type NewsFlag } from '@/lib/dailyReport';
 import type { SignalD10 } from '@/lib/dailyReportTabs';
 import { winFlatLoss } from '@/lib/winFlatLoss';
 import s from './DailyReport.module.css';
@@ -41,9 +41,9 @@ export function EventTags({ events }: { events: NewsFlag[] }) {
 
 /** "อยู่ใน: …" — ชุดเดียวกันทุกแท็บ (daytrade / growth / sepa / market_stage 4 stage) */
 export function InScans({ scans, exclude }: { scans: string[]; exclude?: string }) {
-  const other = scans.filter(k => k !== exclude);
+  const other = scans.filter(k => scanKeyOf(k) !== exclude);
   if (!other.length) return null;
-  return <span className={s.ls}>อยู่ใน: {other.map(k => SCAN_LABEL[k] ?? k).join(' · ')}</span>;
+  return <span className={s.ls}>อยู่ใน: {other.map(scanTagLabel).join(' · ')}</span>;
 }
 
 export const DAYS_TITLE =

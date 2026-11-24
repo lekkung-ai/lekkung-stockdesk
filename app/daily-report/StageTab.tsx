@@ -74,6 +74,11 @@ export default function StageTab({ ms }: { ms: StageSection | null }) {
   const stPrev = ms.counts_prev?.stock;
   const watch = ms.focus.filter(m => m.watch);
   const thin = ms.focus.filter(m => !m.watch);
+  // stage ที่ไม่อยู่ในการ์ดกลุ่มไหน (เช่น IPO) → บรรทัดใต้การ์ด · การ์ด + ส่วนนี้ = หุ้นสามัญทั้งหมด
+  const grouped = new Set(ms.groups.flatMap(g => g.stages));
+  const extra = ms.stage_order.filter(k => !grouped.has(k) && (st[k] ?? 0) > 0);
+  const cardsSum = ms.groups.reduce((a, g) => a + sumStages(st, g.stages), 0);
+  const extraSum = extra.reduce((a, k) => a + (st[k] ?? 0), 0);
   const summarySum = ms.summary.reduce((a, x) => a + x.count, 0);
   const active = stage ?? ms.stage_order.find(k => (ms.lists[k]?.count ?? 0) > 0) ?? null;
   const list = active ? ms.lists[active] : null;
@@ -99,6 +104,11 @@ export default function StageTab({ ms }: { ms: StageSection | null }) {
           );
         })}
       </div>
+
+      <p className={s.lblSub} data-testid="stage-extra" data-sum={cardsSum + extraSum}>
+        {extra.length > 0 && <>+ {extra.map(k => `${k} ${st[k]} ตัว`).join(' · ')} · </>}รวมหุ้นสามัญ {cardsSum + extraSum} ตัว
+        {cardsSum + extraSum !== total && <span className={s.warnTxt}> (ไม่เท่ายอดหุ้นสามัญ {total})</span>}
+      </p>
 
       <div className={`${s.card} ${s.barCard}`}>
         <div className={s.stackBar} data-testid="stage-bar">
@@ -147,7 +157,7 @@ export default function StageTab({ ms }: { ms: StageSection | null }) {
         </table>
       </div>
 
-      <h3 className={s.sec}>รายชื่อตาม Stage<small>หุ้นสามัญ · {ms.list_limit} ตัวแรก เรียงจากเพิ่งเข้า stage (วันใน stage น้อย → มาก)</small></h3>
+      <h3 className={s.sec}>รายชื่อตาม Stage<small>หุ้นสามัญ · {ms.list_limit} ตัวแรก เรียงตามวันใน stage มาก → น้อย (เหมือนค่าเริ่มต้นของหน้า Market Stage)</small></h3>
       <div className={s.controls}>
         {ms.stage_order.map(k => {
           const n = ms.lists[k]?.count ?? 0;

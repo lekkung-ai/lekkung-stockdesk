@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DT_FILTERS, filterCounts, matchFilter, groupCalendar, splitCalendar, latestScanDate, longDate, shortDate, type DtRow } from './dailyReport';
+import { scanTagLabel, scanKeyOf, DT_FILTERS, filterCounts, matchFilter, groupCalendar, splitCalendar, latestScanDate, longDate, shortDate, type DtRow } from './dailyReport';
 
 const row = (ticker: string, status: DtRow['status'], rv: DtRow['rv_tier']) => ({ ticker, status, rv_tier: rv }) as DtRow;
 
@@ -43,5 +43,14 @@ describe('splitCalendar', () => {
     expect(r.tomorrow.other.map(i => i.ticker)).toEqual(['A']);
     expect(r.week.shown.map(i => i.ticker)).toEqual(['E', 'D']);
     expect(r.week.hidden.map(i => i.ticker)).toEqual(['C']);
+  });
+});
+
+describe('scanTagLabel', () => {
+  it('stage tag shows the real stage; plain scans keep their name', () => {
+    expect(scanTagLabel('market_stage:S.Bull')).toBe('Stage: S.Bull');
+    expect(scanTagLabel('sepa')).toBe('SEPA');
+    expect(scanKeyOf('market_stage:Bull')).toBe('market_stage');
+    expect(scanKeyOf('growth')).toBe('growth');
   });
 });

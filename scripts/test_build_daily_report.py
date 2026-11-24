@@ -219,12 +219,12 @@ class TestCalendarInScans(unittest.TestCase):
             self.make_root(root, days[0], days[1])
             cal = m.build_calendar(m.Ctx(root), days[0])
             by = {i["ticker"]: i["in_scans"] for i in cal["items"]}
-            self.assertEqual(by["MULTI"], ["daytrade", "growth", "sepa", "market_stage"])  # หลายสแกน
+            self.assertEqual(by["MULTI"], ["daytrade", "growth", "sepa", "market_stage:Bull"])  # หลายสแกน
             self.assertEqual(by["NONE"], [])                                              # ไม่อยู่สักสแกน (ไม่ถูกตัดทิ้ง)
             self.assertEqual(by["GRO"], ["growth"])
-            for t in ("BULL", "SB", "ACC", "REC"):                                        # 4 stage ที่นับ
-                self.assertEqual(by[t], ["market_stage"], t)
-            for t in ("BEAR", "WARN", "DIST", "IPO1"):                                    # stage อื่นไม่นับ
+            for t, st in (("BULL", "Bull"), ("SB", "S.Bull"), ("ACC", "Accumulation"), ("REC", "Recovery")):
+                self.assertEqual(by[t], [f"market_stage:{st}"], t)                        # 4 stage ที่นับ · แนบชื่อ stage จริง
+            for t in ("BEAR", "WARN", "DIST", "IPO1"):                                    # Bear/Warning/Distribution/IPO ไม่มีป้าย Stage
                 self.assertEqual(by[t], [], t)
             self.assertEqual(len(cal["items"]), 11)                                       # ไม่ตัดรายการ
             self.assertEqual(cal["next_trading_day"], days[1])
@@ -357,6 +357,31 @@ class TestNewSections(unittest.TestCase):
             self.assertTrue(rep["warnings"])
             self.assertIsNotNone(rep["date"])
             self.assertEqual(fx.day, rep["date"])
+
+
+class TestStageOrderAndTotals(unittest.TestCase):
+    def test_list_order_bar_count_desc_stable_and_extra_total(self):
+        with tempfile.TemporaryDirectory() as root:
+            fx = Fixture(root)
+            rows = [
+                {"Ticker": "P1", "Stage": "Bull", "Price": 5, "EMA200": 4, "ADTV(MB)": 1, "Bar_Count": 3},
+                {"Ticker": "P2", "Stage": "Bull", "Price": 5, "EMA200": 4, "ADTV(MB)": 1, "Bar_Count": 9},
+                {"Ticker": "P3", "Stage": "Bull", "Price": 5, "EMA200": 4, "ADTV(MB)": 1, "Bar_Count": 3},
+                {"Ticker": "P0", "Stage": "Bull", "Price": 5, "EMA200": 4, "ADTV(MB)": 1, "Bar_Count": 3},
+                {"Ticker": "NEW1", "Stage": "IPO", "Price": 5, "EMA200": None, "ADTV(MB)": 1, "Bar_Count": 2},
+                {"Ticker": "WRN", "Stage": "Warning", "Price": 5, "EMA200": 4, "ADTV(MB)": 1, "Bar_Count": 4},
+            ]
+            path = os.path.join(root, "data", "history", fx.day, "market_stage.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(rows, f)
+            ms = m.build(root)["market_stage"]
+            # วันใน stage มาก → น้อย · เสมอกันคงลำดับไฟล์ (P1, P3, P0)
+            self.assertEqual([r["ticker"] for r in ms["lists"]["Bull"]["rows"]], ["P2", "P1", "P3", "P0"])
+            grouped = {s for g in ms["groups"] for s in g["stages"]}
+            card_sum = sum(ms["counts"]["stock"].get(s, 0) for s in grouped)
+            extra = sum(v for k, v in ms["counts"]["stock"].items() if k not in grouped)
+            self.assertEqual(extra, 1)  # IPO
+            self.assertEqual(card_sum + extra, ms["total_stock"])
 
 
 if __name__ == "__main__":

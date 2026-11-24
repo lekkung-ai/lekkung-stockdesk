@@ -10,7 +10,7 @@ import rawReport from '@/data/scans/daily_report.json';
 import rawGeneratedAt from '@/data/scans/generated_at.json';
 import {
   type DailyReport, type CalendarItem, type DtRow, type DtFilter, type RvTier,
-  DT_FILTERS, DT_FILTER_LABELS, RV_LABEL, CLOSE_POS_LABEL, TRIGGER_LABEL, SCAN_LABEL,
+  DT_FILTERS, DT_FILTER_LABELS, RV_LABEL, CLOSE_POS_LABEL, TRIGGER_LABEL, scanTagLabel,
   matchFilter, matchQuery, filterCounts, shortDate, longDate, hhmm, fmtNum, fmtPct, fmtShares, pctClass,
   calendarFor, calendarText, splitCalendar, latestScanDate,
 } from '@/lib/dailyReport';
@@ -104,7 +104,7 @@ function StockCard({ r, rep, flash }: { r: DtRow; rep: DailyReport; flash: boole
             {r.status === 'reentry' && <>ล่าสุดในสแกน {shortDate(r.last_seen)} · </>}
             {r.status === 'stay' && <>อยู่ในสแกนติดกัน {r.streak_days} วัน · </>}
             {r.status === 'new' && <>ไม่อยู่ในสแกนตลอด {lookback} วันทำการ · </>}
-            อยู่ใน: {r.in_scans.map(k => SCAN_LABEL[k] ?? k).join(' · ')}
+            อยู่ใน: {r.in_scans.map(scanTagLabel).join(' · ')}
           </div>
           {r.events.length > 0 && (
             <div className={s.meta}>ป้ายข่าว: {r.events.map(e => e.label).join(' · ')}</div>
@@ -158,7 +158,7 @@ function CalChip({ i, strong }: { i: CalendarItem; strong: boolean }) {
   return (
     <span className={strong ? s.calIn : s.calOut} title={i.note}>
       {i.ticker}{i.amount != null ? ` ${i.amount}` : ''}
-      {strong && i.in_scans.map(k => <span key={k} className={s.scanTag}>{SCAN_LABEL[k] ?? k}</span>)}
+      {strong && i.in_scans.map(k => <span key={k} className={s.scanTag}>{scanTagLabel(k)}</span>)}
     </span>
   );
 }

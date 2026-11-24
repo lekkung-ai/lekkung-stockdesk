@@ -333,15 +333,16 @@ def build_market(ctx, day):
 
 
 def scan_membership(ctx, day):
-    """สแกนที่หุ้นแต่ละตัวอยู่ ณ `day` → {scan: set(ticker)} (ใช้ in_scans ของปฏิทิน)
-    growth / sepa (ทั้งไฟล์) / daytrade จาก history ของวันนั้น · market_stage เฉพาะ STAGE_IN_SCAN"""
+    """สแกนที่หุ้นแต่ละตัวอยู่ ณ `day` → {scan: set(ticker)} (ใช้ in_scans ทุกจุด: ทุกแท็บ + ปฏิทิน — ฟังก์ชันเดียว)
+    growth / sepa (ทั้งไฟล์) / daytrade จาก history ของวันนั้น
+    market_stage: {ticker: stage} เฉพาะ STAGE_IN_SCAN (Accumulation/Recovery/Bull/S.Bull) · stage อื่นไม่นับ"""
     mem = {
         "growth": tickers_of(load_json(ctx.hist_path(day, "lekkung"))),
         "sepa": tickers_of(load_json(ctx.hist_path(day, "sepa"))),
         "daytrade": tickers_of(load_json(ctx.hist_path(day, "lekkung_daytrade"))),
     }
     ms = rows_of(load_json(ctx.hist_path(day, "market_stage")))
-    mem["market_stage"] = {r.get("Ticker") for r in ms if r.get("Stage") in STAGE_IN_SCAN} - {None}
+    mem["market_stage"] = {r["Ticker"]: r["Stage"] for r in ms if r.get("Ticker") and r.get("Stage") in STAGE_IN_SCAN}
     return mem
 
 
@@ -349,7 +350,13 @@ SCAN_ORDER = ("daytrade", "growth", "sepa", "market_stage")
 
 
 def scans_of(mem, ticker):
-    return [k for k in SCAN_ORDER if ticker in mem.get(k, set())]
+    """['daytrade', 'growth', 'sepa', 'market_stage:S.Bull'] — stage แนบชื่อจริงหลัง ':' (หน้าเว็บแสดง "Stage: S.Bull")"""
+    out = []
+    for k in SCAN_ORDER:
+        grp = mem.get(k, set())
+        if ticker in grp:
+            out.append(f"{k}:{grp[ticker]}" if isinstance(grp, dict) else k)
+    return out
 
 
 def build_calendar(ctx, day):
@@ -736,7 +743,9 @@ def build_market_stage(ctx, day):
     lists = {}
     for st in STAGE_ORDER:
         members = [(t, r) for t, r in rows.items() if r.get("Stage") == st and not ctx.is_fund(t)]
-        members.sort(key=lambda x: (x[1].get("Bar_Count") or 0, x[0]))
+        # ลำดับเดียวกับค่าเริ่มต้นของหน้า /market-stage (app/market-stage/page.tsx: b.Bar_Count - a.Bar_Count)
+        # วันใน stage มาก → น้อย · เสมอกันคงลำดับไฟล์ (Array.sort ของ JS stable เหมือน Python)
+        members.sort(key=lambda x: -(x[1].get("Bar_Count") or 0))
         out = []
         for t, r in members[:STAGE_LIST_N]:
             d = detail(t, r)

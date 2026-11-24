@@ -169,6 +169,20 @@ export const TRIGGER_LABEL: Record<TriggerKind, string> = {
 };
 export const SCAN_LABEL: Record<string, string> = { daytrade: 'Daytrade', growth: 'Growth', sepa: 'SEPA', market_stage: 'Stage' };
 
+/** ป้าย "อยู่ใน" — ฟังก์ชันเดียวทุกจุด · 'market_stage:S.Bull' → 'Stage: S.Bull' (สคริปต์นับเฉพาะ Accumulation/Recovery/Bull/S.Bull) */
+export function scanTagLabel(key: string): string {
+  const i = key.indexOf(':');
+  if (i < 0) return SCAN_LABEL[key] ?? key;
+  const base = key.slice(0, i);
+  return `${SCAN_LABEL[base] ?? base}: ${key.slice(i + 1)}`;
+}
+
+/** สแกนหลักของป้าย ('market_stage:Bull' → 'market_stage') ใช้เทียบ exclude */
+export function scanKeyOf(key: string): string {
+  const i = key.indexOf(':');
+  return i < 0 ? key : key.slice(0, i);
+}
+
 // ─── รูปแบบตัวเลข / วันที่ ─────────────────────────────────────────────────
 
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
