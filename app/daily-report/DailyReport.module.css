@@ -1,0 +1,195 @@
+/* /daily-report — สีและโครงตาม mockups/daily-report-v1.html (ธีมมืด StockDesk)
+   ตัวอักษรไทยเล็กสุด 12px · ราคาปัจจุบัน #7dd3fc */
+.root {
+  --line: #263042;
+  --card: #121823;
+  --card2: #171e2b;
+  --ink: #e6e9ef;
+  --muted: #a3aabb;
+  --price: #7dd3fc;
+  --green: #34d399;
+  --red: #f87171;
+  --amber: #ef9f27;
+  --blue: #60a5fa;
+  --violet: #c4b5fd;
+  --green-bg: rgba(52, 211, 153, 0.12);
+  --amber-bg: rgba(239, 159, 39, 0.14);
+  --blue-bg: rgba(96, 165, 250, 0.13);
+  --violet-bg: rgba(196, 181, 253, 0.12);
+  color: var(--ink);
+  font-size: 14.5px;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+  min-width: 0;
+}
+.root a { color: var(--blue); }
+.root a:hover { text-decoration: underline; }
+.h1 { font-size: 22px; font-weight: 700; margin: 0 0 2px; }
+.sub { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+.pos { color: var(--green); }
+.neg { color: var(--red); }
+.flat { color: var(--muted); }
+.r { text-align: right; }
+.price { color: var(--price); font-weight: 600; }
+.calc {
+  display: inline-block; font-size: 12px; color: var(--violet); background: var(--violet-bg);
+  border-radius: 4px; padding: 0 6px; margin-left: 4px; font-weight: 600; vertical-align: 1px;
+}
+.p2 {
+  display: inline-block; font-size: 12px; color: var(--muted); border: 1px dashed var(--line);
+  border-radius: 4px; padding: 0 6px; font-weight: 600;
+}
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+.staleBar {
+  background: var(--amber-bg); border: 1px solid rgba(239, 159, 39, 0.45); color: #fcd9a0;
+  border-radius: 9px; padding: 8px 12px; font-size: 13.5px; margin-bottom: 12px;
+}
+
+/* แถบตลาด */
+.market { padding: 14px 18px; margin-bottom: 12px; }
+.mTop { display: flex; flex-wrap: wrap; gap: 6px 26px; align-items: baseline; }
+.mDate { font-weight: 700; font-size: 16px; }
+.mItem { color: var(--muted); font-size: 14px; }
+.mItem b { color: var(--ink); font-weight: 600; }
+.mAlert {
+  margin-top: 10px; display: flex; gap: 8px; align-items: flex-start; background: var(--amber-bg);
+  border: 1px solid rgba(239, 159, 39, 0.35); border-radius: 9px; padding: 9px 12px; font-size: 14px;
+}
+.mAlert b { color: var(--amber); }
+.mInfo {
+  margin-top: 10px; background: var(--card2); border: 1px solid var(--line); border-radius: 9px;
+  padding: 9px 12px; font-size: 14px; color: var(--muted);
+}
+.mRow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.mBox { background: var(--card2); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; font-size: 13.5px; min-width: 0; }
+.mBox h4 { margin: 0 0 6px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+.mBox ul { margin: 0; padding-left: 18px; list-style: disc; }
+.mBox li { margin-bottom: 3px; }
+.calList { max-height: 220px; overflow-y: auto; }
+
+/* แท็บ */
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 16px 0; border-bottom: 1px solid var(--line); }
+.tab {
+  background: none; border: 0; color: var(--muted); font: inherit; font-weight: 600; padding: 9px 14px;
+  cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tab[aria-selected='true'] { color: var(--ink); border-bottom-color: var(--price); }
+.tab small { font-weight: 500; opacity: 0.8; font-size: 12px; margin-left: 4px; }
+.tabTitle { font-size: 19px; font-weight: 700; margin: 0 0 4px; }
+.tabHead { color: var(--muted); font-size: 13.5px; margin: 0 0 4px; }
+.tabHead b { color: var(--ink); }
+.placeholder { padding: 40px; text-align: center; color: var(--muted); }
+
+/* การ์ดตัวเลข */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
+.stat { padding: 12px 14px; }
+.big { font-size: 24px; font-weight: 700; line-height: 1.2; }
+.lbl { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+/* กล่องเปลี่ยนแปลง */
+.changes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+.chg { padding: 11px 13px; }
+.chg h3 { margin: 0 0 8px; font-size: 14px; font-weight: 700; }
+.chg h3 span { color: var(--muted); font-weight: 500; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--card2); border-radius: 999px; padding: 2px 10px; font-size: 13px; }
+.chip b { font-weight: 700; }
+.chip small { color: var(--muted); font-size: 12px; }
+.chipNone { color: var(--muted); border-style: dashed; }
+
+/* ตัวกรอง */
+.controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
+.search {
+  flex: 1 1 180px; background: var(--card); border: 1px solid var(--line); color: var(--ink);
+  border-radius: 8px; padding: 7px 10px; font: inherit;
+}
+.f {
+  background: var(--card); border: 1px solid var(--line); color: var(--ink); border-radius: 8px;
+  padding: 6px 11px; font: inherit; font-size: 13.5px; cursor: pointer;
+}
+.f[aria-pressed='true'] { background: #1e3a52; border-color: var(--price); }
+.f:disabled { opacity: 0.4; cursor: not-allowed; }
+.n { color: var(--muted); margin-left: 3px; }
+
+/* ตาราง */
+.tshell { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--card); -webkit-overflow-scrolling: touch; }
+.table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 1080px; font-size: 13.5px; }
+.tableSm { min-width: 560px; }
+.table th {
+  background: var(--card2); color: var(--muted); font-weight: 600; text-align: left; padding: 9px 10px;
+  border-bottom: 1px solid var(--line); white-space: nowrap; font-size: 13px;
+}
+.table th.r { text-align: right; }
+.table td { padding: 9px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: middle; }
+.table tbody tr:last-child td { border-bottom: 0; }
+.clickRows tbody tr { cursor: pointer; }
+.clickRows tbody tr:hover td { background: #151d2a; }
+.p2h { color: #6b7385 !important; }
+.stk { position: sticky; left: 0; background: var(--card); z-index: 1; }
+.table th.stk { background: var(--card2); z-index: 2; }
+.tk { font-weight: 700; font-size: 14.5px; }
+.tag { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 0 8px; margin-left: 4px; vertical-align: 1px; }
+.tNew { background: var(--amber-bg); color: var(--amber); }
+.tRe { background: var(--blue-bg); color: var(--blue); }
+.tStay { background: var(--card2); color: var(--muted); border: 1px solid var(--line); }
+.tXd { background: rgba(244, 114, 182, 0.13); color: #f9a8d4; }
+.tWarn { background: var(--amber-bg); color: var(--amber); }
+.ls { display: block; color: var(--muted); font-size: 12px; font-weight: 500; }
+.rv { display: inline-block; width: 56px; height: 7px; border-radius: 4px; background: var(--line); position: relative; overflow: hidden; vertical-align: middle; margin-right: 6px; }
+.rv i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 4px; }
+.rvHi i { background: var(--green); }
+.rvMid i { background: var(--amber); }
+.rvLo i { background: #64748b; }
+.lvl { font-weight: 600; }
+.note { color: var(--muted); font-size: 12.5px; margin: 6px 2px 16px; }
+.empty { color: var(--muted); text-align: center; padding: 18px; }
+
+/* การ์ดรายตัว */
+.sec { font-size: 17px; font-weight: 700; margin: 24px 0 10px; }
+.sec small { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 6px; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.sc { padding: 0; overflow: hidden; scroll-margin-top: 12px; min-width: 0; }
+.scFlash { outline: 2px solid var(--price); }
+.scTop { display: flex; justify-content: space-between; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.scTop h3 { margin: 0; font-size: 18px; font-weight: 700; }
+.meta { color: var(--muted); font-size: 12.5px; }
+.px { text-align: right; }
+.px b { font-size: 20px; }
+.kpis { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px 0; }
+.kpi { background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 4px 9px; font-size: 12.5px; color: var(--muted); }
+.kpi b { color: var(--ink); font-size: 14px; margin-left: 4px; }
+.spark { padding: 8px 14px 0; }
+.cap { color: var(--muted); font-size: 12px; }
+.lines { padding: 8px 14px; display: grid; gap: 4px; font-size: 13.5px; }
+.lines p { margin: 0; }
+.ok { color: var(--green); font-weight: 700; }
+.mid { color: var(--amber); font-weight: 700; }
+.bad { color: var(--red); font-weight: 700; }
+.plan { margin: 4px 14px 14px; background: var(--card2); border: 1px solid var(--line); border-radius: 9px; padding: 9px 12px; display: grid; gap: 3px; font-size: 13.5px; }
+.plan p { margin: 0; }
+.p2box { margin: 0 14px 14px; border: 1px dashed var(--line); border-radius: 9px; padding: 8px 12px; color: #7d8597; font-size: 13px; }
+
+/* กฎ + วิธีอ่าน */
+.rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.rules > div { padding: 12px 14px; }
+.rules h3 { margin: 0 0 8px; font-size: 14.5px; font-weight: 700; }
+.rules ul { margin: 0; padding-left: 18px; font-size: 13.5px; list-style: disc; }
+.rules li { margin-bottom: 4px; }
+.fold { margin-top: 14px; padding: 0 14px; }
+.fold summary { cursor: pointer; padding: 11px 0; font-weight: 600; }
+.foldBody { padding: 0 0 12px; color: var(--muted); font-size: 13.5px; }
+.foldBody p { margin: 0 0 6px; }
+.foldBody b { color: var(--ink); }
+
+/* มือถือ: คอลัมน์หุ้นที่ตรึงซ้ายไม่กินจอเกินไป — ป้ายขึ้นบรรทัดใหม่แทน */
+@media (max-width: 600px) {
+  .table td.stk { white-space: normal; min-width: 130px; max-width: 165px; }
+  .table td.stk .tag { white-space: nowrap; margin-left: 0; margin-right: 4px; }
+}
+@media (max-width: 900px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .changes, .mRow, .rules, .cards { grid-template-columns: 1fr; }
+}
