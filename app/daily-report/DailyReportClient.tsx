@@ -10,14 +10,27 @@ import rawReport from '@/data/scans/daily_report.json';
 import rawGeneratedAt from '@/data/scans/generated_at.json';
 import {
   type DailyReport, type CalendarItem, type DtRow, type DtFilter, type RvTier,
-  DT_FILTERS, DT_FILTER_LABELS, STATUS_LABEL, RV_LABEL, CLOSE_POS_LABEL, TRIGGER_LABEL, SCAN_LABEL,
+  DT_FILTERS, DT_FILTER_LABELS, RV_LABEL, CLOSE_POS_LABEL, TRIGGER_LABEL, SCAN_LABEL,
   matchFilter, matchQuery, filterCounts, shortDate, longDate, hhmm, fmtNum, fmtPct, fmtShares, pctClass,
   calendarFor, calendarText, splitCalendar, latestScanDate,
 } from '@/lib/dailyReport';
+import { Calc, Pct, StatusTag, NoData } from './shared';
+import GrowthTab from './GrowthTab';
+import SepaTab from './SepaTab';
+import StageTab from './StageTab';
+import { LIQ_DEFAULT } from '@/lib/liquidity';
+import { rankSepa } from '@/lib/dailyReportTabs';
 import s from './DailyReport.module.css';
 
 const REPORT = rawReport as unknown as DailyReport;
 const LATEST_SCAN = latestScanDate(rawGeneratedAt as Record<string, unknown>);
+// เลขบนแท็บ: Daytrade/Growth = ผ่านสแกน · SEPA = มุมมองเริ่มต้น (ชุดสภาพคล่องของ /sepa) · Stage = หุ้นสามัญ
+const TAB_COUNT: Record<string, number | null> = {
+  daytrade: REPORT.daytrade?.counts.total ?? null,
+  growth: REPORT.growth?.counts.total ?? null,
+  sepa: REPORT.sepa ? rankSepa(REPORT.sepa.rows, LIQ_DEFAULT).length : null,
+  stage: REPORT.market_stage?.total_stock ?? null,
+};
 
 type TabKey = 'daytrade' | 'growth' | 'sepa' | 'stage';
 const TABS: { key: TabKey; label: string }[] = [
@@ -27,18 +40,6 @@ const TABS: { key: TabKey; label: string }[] = [
   { key: 'stage', label: 'Market Stage' },
 ];
 
-const Calc = ({ children = 'คำนวณ', title }: { children?: React.ReactNode; title?: string }) => (
-  <span className={s.calc} title={title}>{children}</span>
-);
-
-function Pct({ v }: { v: number | null | undefined }) {
-  return <span className={s[pctClass(v)]}>{fmtPct(v)}</span>;
-}
-
-function StatusTag({ status }: { status: DtRow['status'] }) {
-  const cls = status === 'new' ? s.tNew : status === 'reentry' ? s.tRe : s.tStay;
-  return <span className={`${s.tag} ${cls}`}>{STATUS_LABEL[status]}</span>;
-}
 
 function rvClass(t: RvTier | null) {
   return t === 'hi' ? s.rvHi : t === 'mid' ? s.rvMid : s.rvLo;
@@ -86,7 +87,7 @@ function TriggerCell({ r }: { r: DtRow }) {
 }
 
 function StockCard({ r, rep, flash }: { r: DtRow; rep: DailyReport; flash: boolean }) {
-  const cal = calendarFor(rep.calendar.items, r.ticker);
+  const cal = calendarFor(rep.calendar?.items ?? [], r.ticker);
   const vMark = r.rv_tier === 'hi' ? [s.ok, '✓'] : r.rv_tier === 'mid' ? [s.mid, '~'] : [s.bad, '✗'];
   const pOk = (r.chg_pct ?? 0) > 0;
   const lookback = rep.daytrade?.lookback_days;
@@ -175,6 +176,7 @@ function CalLine({ items, strong }: { items: CalendarItem[]; strong: boolean }) 
 }
 
 function CalendarBox({ rep }: { rep: DailyReport }) {
+  if (!rep.calendar) return null;
   const sp = splitCalendar(rep.calendar.items, rep.calendar.next_trading_day);
   const weekDates = [...new Set(sp.week.shown.map(i => i.date))];
   const hiddenDates = [...new Set(sp.week.hidden.map(i => i.date))].sort();
@@ -216,6 +218,9 @@ function CalendarBox({ rep }: { rep: DailyReport }) {
 
 function MarketBar({ rep }: { rep: DailyReport }) {
   const m = rep.market;
+  if (!m) {
+    return <section className={`${s.card} ${s.market}`} data-testid="dr-market"><span className={s.flat}>รอบนี้ไม่มีข้อมูลแถบตลาด</span><CalendarBox rep={rep} /></section>;
+  }
   return (
     <section className={`${s.card} ${s.market}`} data-testid="dr-market">
       <div className={s.mTop}>
@@ -261,7 +266,7 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
   const counts = useMemo(() => filterCounts(rows), [rows]);
   const shown = useMemo(() => rows.filter(r => matchFilter(r, filter) && matchQuery(r, q)), [rows, filter, q]);
 
-  if (!dt) return <div className={`${s.card} ${s.placeholder}`}>ยังไม่มีข้อมูล Daytrade ของวันนี้</div>;
+  if (!dt) return <NoData />;
 
   const byStatus = (st: DtRow['status']) => rows.filter(r => r.status === st);
   const reentry = byStatus('reentry');
@@ -357,7 +362,7 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
           </thead>
           <tbody>
             {shown.map(r => {
-              const cal = calendarFor(rep.calendar.items, r.ticker);
+              const cal = calendarFor(rep.calendar?.items ?? [], r.ticker);
               return (
                 <tr key={r.ticker} onClick={() => goCard(r.ticker)} data-testid="dr-row" data-ticker={r.ticker}>
                   <td className={s.stk}>
@@ -450,7 +455,7 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
         <div className={s.card}>
           <h3>ปฏิทินที่เกี่ยวกับหุ้นในแท็บนี้</h3>
           {(() => {
-            const its = rows.flatMap(r => calendarFor(rep.calendar.items, r.ticker));
+            const its = rows.flatMap(r => calendarFor(rep.calendar?.items ?? [], r.ticker));
             return its.length ? (
               <ul>{its.map(i => <li key={i.ticker + i.date + i.type}>{i.ticker} · {i.type} {shortDate(i.date)}{i.amount != null ? ` ${i.amount} บาท` : ` · ${i.note}`}</li>)}</ul>
             ) : <p className={s.flat} style={{ margin: 0 }}>ไม่มี XD/XR ของหุ้นในแท็บนี้</p>;
@@ -507,15 +512,17 @@ export default function DailyReportClient() {
             data-testid={`dr-tab-${t.key}`}
           >
             {t.label}
-            {t.key === 'daytrade' && rep.daytrade ? <small>{rep.daytrade.counts.total}</small> : t.key !== 'daytrade' ? <small>เร็ว ๆ นี้</small> : null}
+            {TAB_COUNT[t.key] != null && <small>{TAB_COUNT[t.key]}</small>}
           </button>
         ))}
       </nav>
 
-      {tab === 'daytrade' ? (
-        <DaytradeTab rep={rep} />
-      ) : (
-        <div className={`${s.card} ${s.placeholder}`}>แท็บ {TABS.find(t => t.key === tab)?.label} — เร็ว ๆ นี้</div>
+      {tab === 'daytrade' && <DaytradeTab rep={rep} />}
+      {tab === 'growth' && <GrowthTab g={rep.growth} />}
+      {tab === 'sepa' && <SepaTab sp={rep.sepa} market={rep.market} />}
+      {tab === 'stage' && <StageTab ms={rep.market_stage} />}
+      {rep.warnings && rep.warnings.length > 0 && (
+        <p className={s.note} data-testid="dr-warnings">บางส่วนของรอบนี้คำนวณไม่ได้: {rep.warnings.join(' · ')}</p>
       )}
     </div>
   );

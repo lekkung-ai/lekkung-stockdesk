@@ -2,6 +2,8 @@
 // scripts/build_daily_report.py) + logic ล้วนของหน้า (ตัวกรอง / ป้าย / รูปแบบวันที่)
 // ไม่มี React ไม่มี JSON import — หน้าส่งข้อมูลเข้ามาเอง
 
+import type { GrowthSection, SepaSection, StageSection } from './dailyReportTabs';
+
 export type DtStatus = 'new' | 'reentry' | 'stay';
 export type RvTier = 'hi' | 'mid' | 'lo';
 export type ClosePos = 'at_high' | 'near_high' | 'mid' | 'near_low';
@@ -96,8 +98,8 @@ export interface DailyReport {
     value_is_universe: boolean;
     breadth: { up: number; flat: number; down: number; skipped_no_bar: number };
     condition: { label: string; dd_window: number; dd_count: number | null; caution: boolean; advice: string | null } | null;
-  };
-  calendar: { as_of: string | null; ahead_days: number; next_trading_day: string; items: CalendarItem[] };
+  } | null;
+  calendar: { as_of: string | null; ahead_days: number; next_trading_day: string; items: CalendarItem[] } | null;
   daytrade: {
     scan: string;
     page: string;
@@ -111,9 +113,10 @@ export interface DailyReport {
     dropped: DtDropped[];
     criteria: { key: string; label: string }[];
   } | null;
-  growth: unknown;
-  sepa: unknown;
-  market_stage: unknown;
+  growth: GrowthSection | null;
+  sepa: SepaSection | null;
+  market_stage: StageSection | null;
+  warnings?: string[];
 }
 
 // ─── ตัวกรอง ─────────────────────────────────────────────────────────────

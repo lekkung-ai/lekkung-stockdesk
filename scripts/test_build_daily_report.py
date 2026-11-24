@@ -237,5 +237,127 @@ class TestCalendarInScans(unittest.TestCase):
             self.assertEqual(cal["next_trading_day"], "2026-11-23")
 
 
+def write_json(path, obj):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f)
+
+
+class Fixture:
+    """root ขนาดเล็ก: 12 วันทำการ · growth / sepa / daytrade / market_stage ครบทุกวัน"""
+
+    def __init__(self, root):
+        self.root = root
+        self.days = weekdays(start="2026-10-01", n=12)
+        self.day = self.days[-1]
+        self.prev = self.days[-2]
+        scans = os.path.join(root, "data", "scans")
+        write_json(os.path.join(scans, "breadth.json"),
+                   {"set_index": [{"date": d, "close": 1000, "volume": 1e10} for d in self.days],
+                    "market_stage": {"stage": "Uptrend", "dd_count_25d": 1}})
+        write_json(os.path.join(scans, "sector_map.json"),
+                   {"ticker_to_sector": {"FND": {"subsector": "Property Fund & REITs"}}})
+        write_json(os.path.join(scans, "combined.json"), {"data": []})
+        write_json(os.path.join(scans, "report_card.json"), {"scans": {}})
+        write_json(os.path.join(scans, "generated_at.json"), {})
+        bars = {t: {"bars": [bar(d, 10, 11, 9, 10 + i * 0.1) for i, d in enumerate(self.days)]}
+                for t in ("AAA", "BBB", "CCC", "DDD", "EEE", "FND", "S1", "S2")}
+        write_json(os.path.join(scans, "topmover_charts.json"), {"data": bars})
+        write_json(os.path.join(root, "public", "data", "news_flags.json"), {"flags": {}})
+        # growth: AAA ทุกวัน (stay) · BBB หายวันก่อน (reentry) · CCC อยู่ถึงวันก่อน (dropped) · DDD หลุดก่อนหน้า
+        g = {d: ["AAA"] for d in self.days}
+        g[self.days[-3]] += ["BBB", "DDD"]
+        g[self.day] += ["BBB"]
+        g[self.prev] += ["CCC"]
+        # sepa: EEE เข้าใหม่วันนี้ · AAA อยู่ทุกวัน
+        sp = {d: ["AAA"] for d in self.days}
+        sp[self.day] += ["EEE"]
+        # market stage: S1 Bear→Recovery (focus) · S2 Warning→Bull (summary) · FND กองทุน
+        for d in self.days:
+            h = os.path.join(root, "data", "history", d)
+            write_json(os.path.join(h, "lekkung.json"),
+                       [{"Ticker": t, "Close": 10, "EMA_10": 9.5, "52W_High": 12, "ADTV_MB": 5} for t in g[d]])
+            write_json(os.path.join(h, "sepa.json"),
+                       [{"Ticker": t, "Price": 10, "RS_Rating": 90, "%_From_High": "-5%", "ADTV(MB)": 8} for t in sp[d]])
+            write_json(os.path.join(h, "lekkung_daytrade.json"), {"data": [{"Ticker": "AAA", "Close": 10}]})
+            last = d == self.day
+            write_json(os.path.join(h, "market_stage.json"), [
+                {"Ticker": "S1", "Stage": "Recovery" if last else "Bear", "Price": 5, "EMA200": 4, "ADTV(MB)": 3, "Bar_Count": 1},
+                {"Ticker": "S2", "Stage": "Bull" if last else "Warning", "Price": 5, "EMA200": 4, "ADTV(MB)": 9, "Bar_Count": 1},
+                {"Ticker": "AAA", "Stage": "S.Bull", "Price": 10, "EMA200": 8, "ADTV(MB)": 5, "Bar_Count": 12},
+                {"Ticker": "FND", "Stage": "Accumulation" if last else "Bear", "Price": 1.5, "EMA200": 2, "ADTV(MB)": 0, "Bar_Count": 1},
+            ])
+        write_json(os.path.join(scans, "sepa_diff.json"),
+                   {"previousDate": self.prev, "currentDate": self.day, "newTickers": ["EEE"], "droppedTickers": []})
+
+
+class TestNewSections(unittest.TestCase):
+    def test_growth_sepa_stage(self):
+        with tempfile.TemporaryDirectory() as root:
+            fx = Fixture(root)
+            rep = m.build(root)
+            self.assertEqual(rep["warnings"], [])
+            g = {r["ticker"]: r for r in rep["growth"]["rows"]}
+            self.assertEqual(g["AAA"]["status"], "stay")
+            self.assertEqual(g["AAA"]["streak_days"], len(fx.days))
+            self.assertEqual(g["BBB"]["status"], "reentry")
+            self.assertEqual(g["BBB"]["last_seen"], fx.days[-3])
+            self.assertEqual(g["BBB"]["streak_days"], 1)
+            self.assertEqual(g["BBB"]["days_web"], 3)  # ไม้ตามเว็บ: นับวันที่หลุดรวมด้วย
+            self.assertEqual([d["ticker"] for d in rep["growth"]["dropped"]], ["CCC"])
+            self.assertEqual([(d["ticker"], d["last_seen"]) for d in rep["growth"]["dropped_earlier"]], [("DDD", fx.days[-3])])
+            self.assertEqual(g["AAA"]["vs_ema10_pct"], round((10 / 9.5 - 1) * 100, 2))
+
+            s = rep["sepa"]
+            self.assertEqual(s["web_diff"]["new"], 1)
+            self.assertEqual({r["Ticker"]: r["status"] for r in s["rows"]}, {"AAA": "stay", "EEE": "new"})
+            self.assertEqual(len(s["prev_rows"]), 1)
+
+            ms = rep["market_stage"]
+            self.assertEqual(ms["total_stock"], 3)
+            self.assertEqual(ms["total_fund"], 1)
+            self.assertEqual(ms["counts"]["fund"]["Accumulation"], 1)
+            self.assertEqual(ms["transitions_total"], 3)
+            self.assertEqual(len(ms["focus"]) + sum(x["count"] for x in ms["summary"]), ms["transitions_total"])
+            fnd = [x for x in ms["focus"] if x["ticker"] == "FND"][0]
+            self.assertTrue(fnd["is_fund"])
+            self.assertFalse(any(r["ticker"] == "FND" for v in ms["lists"].values() for r in v["rows"]))
+            self.assertEqual(ms["summary"], [{"from": "Warning", "to": "Bull", "count": 1, "examples": ["S2"]}])
+            self.assertEqual({x["ticker"]: x["flips_5d"] for x in ms["focus"]}, {"S1": 1, "FND": 1})
+
+    def test_missing_sepa_file_other_sections_ok(self):
+        with tempfile.TemporaryDirectory() as root:
+            fx = Fixture(root)
+            os.remove(os.path.join(root, "data", "history", fx.day, "sepa.json"))
+            rep = m.build(root)
+            self.assertIsNone(rep["sepa"])
+            self.assertTrue(any(w.startswith("sepa") for w in rep["warnings"]))
+            for k in ("market", "calendar", "daytrade", "growth", "market_stage"):
+                self.assertIsNotNone(rep[k], k)
+
+    def test_corrupt_market_stage(self):
+        with tempfile.TemporaryDirectory() as root:
+            fx = Fixture(root)
+            with open(os.path.join(root, "data", "history", fx.day, "market_stage.json"), "w") as f:
+                f.write("{not json")
+            rep = m.build(root)
+            self.assertIsNone(rep["market_stage"])
+            self.assertTrue(any(w.startswith("market_stage") for w in rep["warnings"]))
+            self.assertIsNotNone(rep["growth"])
+            self.assertIsNotNone(rep["daytrade"])
+
+    def test_main_always_writes_and_exits_0(self):
+        with tempfile.TemporaryDirectory() as root:
+            fx = Fixture(root)
+            os.remove(os.path.join(root, "data", "scans", "breadth.json"))
+            out = os.path.join(root, "out.json")
+            self.assertEqual(m.main(["--root", root, "--out", out]), 0)
+            with open(out, encoding="utf-8") as f:
+                rep = json.load(f)
+            self.assertTrue(rep["warnings"])
+            self.assertIsNotNone(rep["date"])
+            self.assertEqual(fx.day, rep["date"])
+
+
 if __name__ == "__main__":
     unittest.main()

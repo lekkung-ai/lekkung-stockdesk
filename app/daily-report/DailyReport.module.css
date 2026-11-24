@@ -194,6 +194,24 @@
 .foldBody p { margin: 0 0 6px; }
 .foldBody b { color: var(--ink); }
 
+/* แท็บ Growth / SEPA / Stage */
+.bigSm { font-size: 17px; font-weight: 700; line-height: 1.3; }
+.bigOf { font-size: 15px; font-weight: 600; color: var(--muted); }
+.lblSub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.tEvent { background: rgba(196, 181, 253, 0.12); color: var(--violet); }
+.tReady { background: var(--green-bg); color: var(--green); }
+.tWatch { background: var(--blue-bg); color: var(--blue); }
+.tF { background: var(--green-bg); color: var(--green); }
+.warnTxt { color: var(--amber); }
+.p2wide { border-style: dashed; color: #7d8597; font-size: 13px; padding: 12px 14px; margin-top: 16px; }
+.barCard { padding: 12px 14px; margin-bottom: 12px; }
+.stackBar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--line); }
+.stackBar i { display: block; height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: 13px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+.rowBear td { background: rgba(248, 113, 113, 0.08); }
+.table tr.rowBear td.stk { background: #2a1a1f; }
+
 /* มือถือ: คอลัมน์หุ้นที่ตรึงซ้ายไม่กินจอเกินไป — ป้ายขึ้นบรรทัดใหม่แทน */
 @media (max-width: 600px) {
   .table td.stk { white-space: normal; min-width: 130px; max-width: 165px; }

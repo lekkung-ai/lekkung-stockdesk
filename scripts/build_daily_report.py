@@ -36,6 +36,9 @@ import re
 import sys
 from datetime import date as Date, datetime, timedelta, timezone
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from scan_setups import current_setup, scan_calendar  # noqa: E402  (กติกา 5 วันของ DAYS บนหน้าสแกน)
+
 SCHEMA_VERSION = 1
 BANGKOK_TZ = timezone(timedelta(hours=7))
 LOOKBACK_DAYS = 10          # reentry / new window (วันสแกนก่อน date)
@@ -423,13 +426,11 @@ def build_daytrade(ctx, day):
     prev, current, dropped = classify(cal, sets, day)
     raw = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(day, fname)))}
     prev_raw = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(prev, fname)))} if prev else {}
-    in_growth = tickers_of(load_json(ctx.hist_path(day, "lekkung")))
-    in_sepa = tickers_of(load_json(ctx.hist_path(day, "sepa")))
+    mem = scan_membership(ctx, day)  # ป้าย "อยู่ใน" ชุดเดียวกันทุกแท็บ + ปฏิทิน
     flags = ctx.flags_file.get("flags") or {}
 
-    def in_scans(t, daytrade):
-        s = (["daytrade"] if daytrade else []) + (["growth"] if t in in_growth else []) + (["sepa"] if t in in_sepa else [])
-        return s
+    def in_scans(t, _daytrade=None):
+        return scans_of(mem, t)
 
     rows, mismatches = [], []
     for t, st in current.items():
@@ -502,31 +503,321 @@ def build_daytrade(ctx, day):
     }
 
 
+def web_days(ctx, fname, day):
+    """DAYS "ไม้ (ตามเว็บ)" ของทุกหุ้น ณ day — กติกา 5 วันเดียวกับ compute_scan_days.py
+    (scan_setups.current_setup บนวันธรรมดาที่มีไฟล์ · นับวันที่หลุด 1-4 วันรวมด้วย)"""
+    cal = [d for d in scan_calendar(ctx.hist, fname) if d <= day]
+    hits = {}
+    for d in cal:
+        for t in tickers_of(load_json(ctx.hist_path(d, fname))):
+            hits.setdefault(t, []).append(d)
+    out = {}
+    for t, hs in hits.items():
+        cs = current_setup(hs, cal, latest=day)
+        if cs:
+            out[t] = max(cs["days"], 1)
+    return out
+
+
+def chart_price(ctx, t, day):
+    """ราคา/% วันนี้จาก topmover_charts · ไม่มีแท่งของ day → price_stale (ไม่เดา)"""
+    pb = price_block(ctx.bars(t), day)
+    chg = None
+    if not pb["price_stale"] and pb.get("prev_close"):
+        chg = rnd((pb["close"] / pb["prev_close"] - 1) * 100, 2)
+    return {"close": pb.get("close"), "chg_pct": chg, "price_stale": pb["price_stale"], "bar_date": pb.get("bar_date")}
+
+
+def scan_status(ctx, fname, day):
+    """cal / sets / prev / current / dropped / earlier-dropped ของสแกนหนึ่ง (กติกาเดียวกับ Daytrade)"""
+    cal = scan_days(ctx.trading_days, lambda d: ctx.has(d, fname))
+    if day not in cal:
+        raise ValueError(f"{fname}: ไม่มีไฟล์ของวันที่ {day}")
+    sets = {d: tickers_of(load_json(ctx.hist_path(d, fname))) for d in cal}
+    prev, current, dropped = classify(cal, sets, day)
+    i = cal.index(day)
+    window = cal[max(0, i - LOOKBACK_DAYS):i]
+    today, before = sets[day], sets.get(prev, set())
+    earlier = {}
+    for d in window:
+        for t in sets[d]:
+            if t not in today and t not in before:
+                earlier[t] = d  # ascending → ค่าสุดท้าย = วันล่าสุดที่อยู่
+    return cal, sets, prev, current, dropped, earlier
+
+
+def build_growth(ctx, day):
+    fname = "lekkung"
+    cal, sets, prev, current, dropped, earlier = scan_status(ctx, fname, day)
+    raw = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(day, fname)))}
+    wd = web_days(ctx, fname, day)
+    mem = scan_membership(ctx, day)
+    flags = ctx.flags_file.get("flags") or {}
+    rows = []
+    for t, st in current.items():
+        r = raw.get(t, {})
+        close, ema10, hi52 = num(r.get("Close")), num(r.get("EMA_10")), num(r.get("52W_High"))
+        cp = chart_price(ctx, t, day)
+        rows.append({
+            "ticker": t, **st, "days_web": wd.get(t),
+            "close": close, "chg_pct": rnd(r.get("Change_Pct"), 2),
+            "pe": rnd(r.get("PE_Ratio"), 2), "roe_pct": rnd(num(r.get("ROE")) * 100, 2) if num(r.get("ROE")) is not None else None,
+            "rev_gr_fy": rnd(r.get("Revenue_Growth_YoY"), 2), "rev_gr_period": r.get("Rev_Growth_Period_End"),
+            "profit_gr_q_yoy": rnd(r.get("NetProfit_Growth_QoQY"), 2), "profit_gr_quarter": r.get("Growth_Quarter"),
+            "growth_stale": r.get("Growth_Stale"),
+            "ema10": ema10,
+            "vs_ema10": rnd(close - ema10, 4) if close is not None and ema10 is not None else None,
+            "vs_ema10_pct": rnd((close / ema10 - 1) * 100, 2) if close is not None and ema10 else None,
+            "high_52w": hi52,
+            "pct_from_52w_high": rnd((close / hi52 - 1) * 100, 2) if close is not None and hi52 else None,
+            "value_mb_1d": rnd(r.get("ADTV_MB"), 2),
+            "price_stale": cp["price_stale"], "bar_date": cp["bar_date"],
+            "in_scans": scans_of(mem, t), "events": flags.get(t, []),
+        })
+    rows.sort(key=lambda x: (-(x["value_mb_1d"] or 0), x["ticker"]))
+
+    def drop_row(t, extra):
+        cp = chart_price(ctx, t, day)
+        return {"ticker": t, **extra, **cp, "in_scans": scans_of(mem, t), "events": flags.get(t, [])}
+
+    drops = sorted((drop_row(t, st) for t, st in dropped.items()), key=lambda x: x["ticker"])
+    earlier_rows = sorted((drop_row(t, {"status": "dropped_earlier", "last_seen": d}) for t, d in earlier.items()),
+                          key=lambda x: (x["last_seen"], x["ticker"]), reverse=True)
+    rc = ((load_json(os.path.join(ctx.scans, "report_card.json")) or {}).get("scans") or {}).get("lekkung_growth") or {}
+    count = lambda v: sum(1 for r in rows if r["status"] == v)  # noqa: E731
+    return {
+        "scan": fname, "page": "/lekkung", "date": day, "compared_to": prev,
+        "generated_at": (load_json(os.path.join(ctx.scans, "generated_at.json")) or {}).get("lekkung"),
+        "counts": {"total": len(rows), "new": count("new"), "reentry": count("reentry"), "stay": count("stay"),
+                   "dropped": len(drops), "dropped_earlier": len(earlier_rows)},
+        "lookback_days": LOOKBACK_DAYS,
+        "signal_d10": (rc.get("horizons") or {}).get("10"),
+        "report_card_href": "/report-card/lekkung_growth",
+        "rows": rows, "dropped": drops, "dropped_earlier": earlier_rows,
+    }
+
+
+SEPA_ROW_FIELDS = ["Ticker", "Price", "RS_Rating", "%_From_High", "ADTV(MB)", "Fundamental_Pass", "52W_High",
+                   "VCP_T", "VCP_Contracting", "VCP_ToPivot", "VCP_Pivot", "VCP_Footprint", "VCP_Weeks",
+                   "VCP_MaxDepth", "VCP_FinalDepth", "VCP_VolRatio"]
+SEPA_PREV_FIELDS = ["Ticker", "RS_Rating", "%_From_High", "ADTV(MB)", "Fundamental_Pass"]
+
+
+def build_sepa(ctx, day):
+    """ใส่แถวดิบ (เฉพาะฟิลด์ที่สูตร/หน้า /sepa ใช้) — หน้าเว็บคิด score / rank / กลุ่ม ด้วย lib เดียวกับ /sepa"""
+    fname = "sepa"
+    cal, sets, prev, current, dropped, _earlier = scan_status(ctx, fname, day)
+    raw = rows_of(load_json(ctx.hist_path(day, fname)))
+    prev_raw = rows_of(load_json(ctx.hist_path(prev, fname))) if prev else []
+    wd = web_days(ctx, fname, day)
+    mem = scan_membership(ctx, day)
+    flags = ctx.flags_file.get("flags") or {}
+    rows = []
+    for r in raw:
+        t = r.get("Ticker")
+        if t not in current:
+            continue
+        cp = chart_price(ctx, t, day)
+        price = num(r.get("Price"))
+        rows.append({**{k: r.get(k) for k in SEPA_ROW_FIELDS}, **current[t], "days_web": wd.get(t),
+                     "chg_pct": cp["chg_pct"], "price_stale": cp["price_stale"], "bar_date": cp["bar_date"],
+                     "price_check": None if cp["price_stale"] or price is None
+                     else ("ok" if abs(cp["close"] - price) < 1e-6 else "mismatch"),
+                     "in_scans": scans_of(mem, t), "events": flags.get(t, [])})
+    prev_rows = [{k: r.get(k) for k in SEPA_PREV_FIELDS} for r in prev_raw]
+    drops = []
+    for t, st in dropped.items():
+        drops.append({"ticker": t, **st, **chart_price(ctx, t, day), "in_scans": scans_of(mem, t),
+                      "events": flags.get(t, [])})
+    drops.sort(key=lambda x: x["ticker"])
+    web = load_json(os.path.join(ctx.scans, "sepa_diff.json")) or {}
+    web_diff = None
+    if web.get("currentDate") == day:
+        web_diff = {"previous_date": web.get("previousDate"), "new": len(web.get("newTickers") or []),
+                    "dropped": len(web.get("droppedTickers") or []),
+                    "new_tickers": web.get("newTickers") or [],
+                    "dropped_tickers": [x.get("ticker") for x in web.get("droppedTickers") or []]}
+    rc = ((load_json(os.path.join(ctx.scans, "report_card.json")) or {}).get("scans") or {}).get("sepa") or {}
+    n = lambda v: sum(1 for r in rows if r["status"] == v)  # noqa: E731
+    return {
+        "scan": fname, "page": "/sepa", "date": day, "compared_to": prev,
+        "generated_at": (load_json(os.path.join(ctx.scans, "generated_at.json")) or {}).get("sepa"),
+        "counts": {"total": len(rows), "new": n("new"), "reentry": n("reentry"), "stay": n("stay"), "dropped": len(drops)},
+        "web_diff": web_diff, "lookback_days": LOOKBACK_DAYS,
+        "signal_d10": (rc.get("horizons") or {}).get("10"), "report_card_href": "/report-card/sepa",
+        "rows": rows, "prev_rows": prev_rows, "dropped": drops,
+    }
+
+
+STAGE_ORDER = ["Accumulation", "Recovery", "Bull", "S.Bull", "Warning", "Distribution", "Bear", "IPO"]
+STAGE_GROUPS = [
+    ("base", "Accumulation + Recovery", ["Accumulation", "Recovery"]),
+    ("strong", "Bull + S.Bull", ["Bull", "S.Bull"]),
+    ("weak", "Warning + Distribution", ["Warning", "Distribution"]),
+    ("bear", "Bear", ["Bear"]),
+]
+FOCUS_STAGES = {"Accumulation", "Recovery"}
+STAGE_LIST_N = 20
+WATCH_MIN_ADTV_MB = 1.0
+WATCH_MIN_PRICE = 1.0
+FLIP_DAYS = 5
+
+
+def build_market_stage(ctx, day):
+    fname = "market_stage"
+    cal = scan_days(ctx.trading_days, lambda d: ctx.has(d, fname))
+    if day not in cal:
+        raise ValueError(f"market_stage: ไม่มีไฟล์ของวันที่ {day}")
+    i = cal.index(day)
+    prev = cal[i - 1] if i > 0 else None
+    rows = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(day, fname))) if r.get("Ticker")}
+    if not rows:
+        raise ValueError("market_stage: ไฟล์ว่างหรืออ่านไม่ได้")
+    prev_rows = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(prev, fname)))} if prev else {}
+    wein = {r.get("Ticker"): r for r in rows_of(load_json(ctx.hist_path(day, "weinstein")))}
+
+    # เหวี่ยงใน 5 วัน: จำนวนครั้งที่ stage เปลี่ยนระหว่างวันสแกนติดกัน ใน 5 วันล่าสุด (ถึง day)
+    span = cal[max(0, i - FLIP_DAYS):i + 1]
+    stage_by_day = {d: {r.get("Ticker"): r.get("Stage") for r in rows_of(load_json(ctx.hist_path(d, fname)))}
+                    for d in span}
+    flips = {}
+    for a, b in zip(span, span[1:]):
+        for t, s_b in stage_by_day[b].items():
+            s_a = stage_by_day[a].get(t)
+            if s_a is not None and s_a != s_b:
+                flips[t] = flips.get(t, 0) + 1
+
+    def counts_of(rs):
+        c = {"stock": {s: 0 for s in STAGE_ORDER}, "fund": {s: 0 for s in STAGE_ORDER}}
+        for t, r in rs.items():
+            side = "fund" if ctx.is_fund(t) else "stock"
+            st = r.get("Stage")
+            c[side][st] = c[side].get(st, 0) + 1
+        return c
+
+    cnt, cnt_prev = counts_of(rows), counts_of(prev_rows) if prev_rows else None
+    stale = []
+
+    def detail(t, r):
+        cp = chart_price(ctx, t, day)
+        if cp["price_stale"]:
+            stale.append(t)
+        price, ema200 = num(r.get("Price")), num(r.get("EMA200"))
+        roe = num(r.get("ROE"))
+        return {"ticker": t, "is_fund": ctx.is_fund(t), "price": price, "chg_pct": cp["chg_pct"],
+                "price_stale": cp["price_stale"], "bar_date": cp["bar_date"],
+                "ema50": num(r.get("EMA50")), "ema200": ema200,
+                "vs_ema200_pct": rnd((price / ema200 - 1) * 100, 2) if price is not None and ema200 else None,
+                "adtv_mb": num(r.get("ADTV(MB)")), "pe": rnd(r.get("PE_Ratio"), 2),
+                "roe_pct": rnd(roe * 100, 2) if roe is not None else None,
+                "days_in_stage": r.get("Bar_Count"), "flips_5d": flips.get(t, 0)}
+
+    focus, others = [], {}
+    total_moves = 0
+    for t, r in rows.items():
+        pr = prev_rows.get(t)
+        if not pr or pr.get("Stage") == r.get("Stage"):
+            continue
+        total_moves += 1
+        frm, to = pr.get("Stage"), r.get("Stage")
+        if frm in FOCUS_STAGES or to in FOCUS_STAGES:
+            d = detail(t, r)
+            d.update({"from": frm, "to": to, "to_bear": to == "Bear",
+                      "watch": (d["adtv_mb"] or 0) >= WATCH_MIN_ADTV_MB and (d["price"] or 0) >= WATCH_MIN_PRICE})
+            focus.append(d)
+        else:
+            others.setdefault((frm, to), []).append((num(r.get("ADTV(MB)")) or 0, t))
+    focus.sort(key=lambda x: (-(x["adtv_mb"] or 0), x["ticker"]))
+    summary = [{"from": f, "to": to, "count": len(v),
+                "examples": [t for _, t in sorted(v, key=lambda x: (-x[0], x[1]))[:3]]}
+               for (f, to), v in others.items()]
+    summary.sort(key=lambda x: (-x["count"], x["from"], x["to"]))
+
+    lists = {}
+    for st in STAGE_ORDER:
+        members = [(t, r) for t, r in rows.items() if r.get("Stage") == st and not ctx.is_fund(t)]
+        members.sort(key=lambda x: (x[1].get("Bar_Count") or 0, x[0]))
+        out = []
+        for t, r in members[:STAGE_LIST_N]:
+            d = detail(t, r)
+            hi = num((wein.get(t) or {}).get("52W_High"))
+            d["pct_from_52w_high"] = rnd((d["price"] / hi - 1) * 100, 2) if d["price"] is not None and hi else None
+            out.append(d)
+        lists[st] = {"count": len(members), "rows": out}
+
+    # ราคาค้างของทั้งชุด (ทุกหุ้นใน market_stage) — นับแยกจากรายการที่แสดง
+    stale_all = sorted(t for t in rows if chart_price(ctx, t, day)["price_stale"])
+    return {
+        "scan": fname, "page": "/market-stage", "date": day, "compared_to": prev,
+        "stage_order": STAGE_ORDER,
+        "groups": [{"key": k, "label": lab, "stages": sts} for k, lab, sts in STAGE_GROUPS],
+        "counts": cnt, "counts_prev": cnt_prev,
+        "total_stock": sum(cnt["stock"].values()), "total_fund": sum(cnt["fund"].values()),
+        "transitions_total": total_moves,
+        "focus": focus, "summary": summary,
+        "focus_rule": {"stages": sorted(FOCUS_STAGES), "watch_min_adtv_mb": WATCH_MIN_ADTV_MB,
+                       "watch_min_price": WATCH_MIN_PRICE},
+        "lists": lists, "list_limit": STAGE_LIST_N, "flip_days": FLIP_DAYS,
+        "price_stale": stale_all,
+    }
+
+
 def latest_scan_day(ctx, fname="lekkung_daytrade"):
     cal = scan_days(ctx.trading_days, lambda d: ctx.has(d, fname))
     return cal[-1] if cal else None
 
 
+def fallback_day(ctx):
+    """ไม่มี breadth.json / ไม่มีวันทำการ → โฟลเดอร์ history ล่าสุด (ยังเขียนไฟล์ได้ พร้อม warnings)"""
+    try:
+        ds = sorted(d for d in os.listdir(ctx.hist) if d[:1].isdigit())
+        return ds[-1] if ds else None
+    except Exception:
+        return None
+
+
 def build(root, day=None):
+    """แต่ละส่วนคำนวณแยก try — ส่วนไหนพัง → null + ข้อความใน warnings แล้วทำส่วนอื่นต่อ"""
+    warnings = []
     ctx = Ctx(root)
-    day = day or latest_scan_day(ctx)
-    if day is None:
-        raise SystemExit("no scan day found")
-    if day not in ctx.trading_days:
-        raise SystemExit(f"{day} is not a trading day (no SET bar in breadth.json)")
-    dt = build_daytrade(ctx, day)
-    return {
+    if not ctx.trading_days:
+        warnings.append("breadth.json: ไม่มี set_index — ไม่รู้วันทำการ")
+    day = day or latest_scan_day(ctx) or fallback_day(ctx)
+    if day and ctx.trading_days and day not in ctx.trading_days:
+        warnings.append(f"{day} ไม่มีแท่ง SET ใน breadth.json (ไม่ใช่วันทำการ?)")
+
+    def section(name, fn):
+        if not day:
+            warnings.append(f"{name}: ไม่มีวันที่ให้คำนวณ")
+            return None
+        try:
+            return fn(ctx, day)
+        except Exception as e:  # noqa: BLE001 — ส่วนเดียวพังต้องไม่ล้มทั้งไฟล์
+            warnings.append(f"{name}: {type(e).__name__}: {e}")
+            return None
+
+    dt = section("daytrade", build_daytrade)
+    if day and dt is None and not any(w.startswith("daytrade") for w in warnings):
+        warnings.append(f"daytrade: ไม่มีไฟล์ของวันที่ {day}")
+    report = {
         "schema_version": SCHEMA_VERSION,
         "date": day,
         "compared_to": dt["compared_to"] if dt else None,
         "generated_at": datetime.now(BANGKOK_TZ).strftime("%Y-%m-%dT%H:%M:%S+07:00"),
-        "market": build_market(ctx, day),
-        "calendar": build_calendar(ctx, day),
+        "market": section("market", build_market),
+        "calendar": section("calendar", build_calendar),
         "daytrade": dt,
-        "growth": None,
-        "sepa": None,
-        "market_stage": None,
+        "growth": section("growth", build_growth),
+        "sepa": section("sepa", build_sepa),
+        "market_stage": section("market_stage", build_market_stage),
     }
+    if report["compared_to"] is None:
+        for k in ("growth", "sepa", "market_stage"):
+            if report[k]:
+                report["compared_to"] = report[k]["compared_to"]
+                break
+    report["warnings"] = warnings
+    return report
 
 
 def main(argv=None):
@@ -535,13 +826,19 @@ def main(argv=None):
     ap.add_argument("--out", default=None, help="output path (default data/scans/daily_report.json)")
     ap.add_argument("--root", default=STOCKDESK_DIR, help=argparse.SUPPRESS)
     args = ap.parse_args(argv)
-    report = build(args.root, args.date)
+    try:
+        report = build(args.root, args.date)
+    except Exception as e:  # noqa: BLE001 — สุดท้ายจริง ๆ ก็ยังเขียนไฟล์ (ทุกส่วน null)
+        report = {"schema_version": SCHEMA_VERSION, "date": args.date, "compared_to": None,
+                  "generated_at": datetime.now(BANGKOK_TZ).strftime("%Y-%m-%dT%H:%M:%S+07:00"),
+                  "market": None, "calendar": None, "daytrade": None, "growth": None, "sepa": None,
+                  "market_stage": None, "warnings": [f"build: {type(e).__name__}: {e}"]}
     out = args.out or os.path.join(args.root, "data", "scans", "daily_report.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-    dt = report["daytrade"] or {}
-    print(f"  daily_report {report['date']} vs {report['compared_to']}: daytrade "
-          f"{(dt.get('counts') or {})} mismatch={dt.get('price_mismatch')} -> {out}")
+    parts = {k: ("ok" if report.get(k) else "null") for k in ("market", "calendar", "daytrade", "growth", "sepa", "market_stage")}
+    print(f"  daily_report {report['date']} vs {report['compared_to']}: {parts} warnings={report['warnings']} -> {out}")
+    return 0
 
 
 if __name__ == "__main__":
