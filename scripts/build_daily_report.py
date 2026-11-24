@@ -40,6 +40,8 @@ SCHEMA_VERSION = 1
 BANGKOK_TZ = timezone(timedelta(hours=7))
 LOOKBACK_DAYS = 10          # reentry / new window (วันสแกนก่อน date)
 CAL_AHEAD_DAYS = 10         # ปฏิทิน XD/XR ล่วงหน้า (วันปฏิทิน)
+# Market Stage นับเป็น "อยู่ในสแกน" เฉพาะ 4 stage นี้ (ใช้กับ in_scans ของปฏิทิน)
+STAGE_IN_SCAN = ("Accumulation", "Recovery", "Bull", "S.Bull")
 THIN_VALUE_MB = 10.0
 MIN_VOL_1030_RATIO = 0.30
 FUND_SUBSECTOR = "Property Fund & REITs"  # same constant as lib/sectorData.ts FUND_SUBSECTOR
@@ -327,8 +329,29 @@ def build_market(ctx, day):
     return m
 
 
+def scan_membership(ctx, day):
+    """สแกนที่หุ้นแต่ละตัวอยู่ ณ `day` → {scan: set(ticker)} (ใช้ in_scans ของปฏิทิน)
+    growth / sepa (ทั้งไฟล์) / daytrade จาก history ของวันนั้น · market_stage เฉพาะ STAGE_IN_SCAN"""
+    mem = {
+        "growth": tickers_of(load_json(ctx.hist_path(day, "lekkung"))),
+        "sepa": tickers_of(load_json(ctx.hist_path(day, "sepa"))),
+        "daytrade": tickers_of(load_json(ctx.hist_path(day, "lekkung_daytrade"))),
+    }
+    ms = rows_of(load_json(ctx.hist_path(day, "market_stage")))
+    mem["market_stage"] = {r.get("Ticker") for r in ms if r.get("Stage") in STAGE_IN_SCAN} - {None}
+    return mem
+
+
+SCAN_ORDER = ("daytrade", "growth", "sepa", "market_stage")
+
+
+def scans_of(mem, ticker):
+    return [k for k in SCAN_ORDER if ticker in mem.get(k, set())]
+
+
 def build_calendar(ctx, day):
     out = []
+    mem = scan_membership(ctx, day)
     end = (Date.fromisoformat(day) + timedelta(days=CAL_AHEAD_DAYS)).isoformat()
     for t, flags in (ctx.flags_file.get("flags") or {}).items():
         for f in flags or []:
@@ -340,9 +363,19 @@ def build_calendar(ctx, day):
             title = f.get("title") or ""
             kind = "XR" if "XR" in title or "XR" in (f.get("label") or "") else "XD"
             out.append({"date": d, "type": kind, "ticker": t, "amount": xd_amount(title) if kind == "XD" else None,
-                        "note": title})
+                        "note": title, "in_scans": scans_of(mem, t)})
     out.sort(key=lambda r: (r["date"], r["ticker"]))
-    return {"as_of": ctx.flags_file.get("as_of"), "ahead_days": CAL_AHEAD_DAYS, "items": out}
+    # วันทำการถัดไป (ใช้แยก "พรุ่งนี้" ในหน้า) — จากปฏิทิน SET ถ้ามีวันหลัง day · ไม่มี (วันล่าสุด) → วันธรรมดาถัดไป
+    nxt = [d for d in ctx.trading_days if d > day]
+    if nxt:
+        next_day = nxt[0]
+    else:
+        nd = Date.fromisoformat(day) + timedelta(days=1)
+        while nd.weekday() >= 5:
+            nd += timedelta(days=1)
+        next_day = nd.isoformat()
+    return {"as_of": ctx.flags_file.get("as_of"), "ahead_days": CAL_AHEAD_DAYS, "next_trading_day": next_day,
+            "items": out}
 
 
 def check_dropped(ctx, t, day, pb):

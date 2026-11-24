@@ -9,10 +9,10 @@ import Link from 'next/link';
 import rawReport from '@/data/scans/daily_report.json';
 import rawGeneratedAt from '@/data/scans/generated_at.json';
 import {
-  type DailyReport, type DtRow, type DtFilter, type RvTier,
+  type DailyReport, type CalendarItem, type DtRow, type DtFilter, type RvTier,
   DT_FILTERS, DT_FILTER_LABELS, STATUS_LABEL, RV_LABEL, CLOSE_POS_LABEL, TRIGGER_LABEL, SCAN_LABEL,
   matchFilter, matchQuery, filterCounts, shortDate, longDate, hhmm, fmtNum, fmtPct, fmtShares, pctClass,
-  calendarFor, calendarText, groupCalendar, latestScanDate,
+  calendarFor, calendarText, splitCalendar, latestScanDate,
 } from '@/lib/dailyReport';
 import s from './DailyReport.module.css';
 
@@ -153,9 +153,69 @@ function StockCard({ r, rep, flash }: { r: DtRow; rep: DailyReport; flash: boole
   );
 }
 
+function CalChip({ i, strong }: { i: CalendarItem; strong: boolean }) {
+  return (
+    <span className={strong ? s.calIn : s.calOut} title={i.note}>
+      {i.ticker}{i.amount != null ? ` ${i.amount}` : ''}
+      {strong && i.in_scans.map(k => <span key={k} className={s.scanTag}>{SCAN_LABEL[k] ?? k}</span>)}
+    </span>
+  );
+}
+
+function CalLine({ items, strong }: { items: CalendarItem[]; strong: boolean }) {
+  return (
+    <>
+      {(['XD', 'XR'] as const).map(type => {
+        const its = items.filter(i => i.type === type);
+        if (!its.length) return null;
+        return <span key={type} className={s.calGroup}><span className={s.calType}>{type}:</span> {its.map(i => <React.Fragment key={i.ticker + i.date}><CalChip i={i} strong={strong} />{' '}</React.Fragment>)}</span>;
+      })}
+    </>
+  );
+}
+
+function CalendarBox({ rep }: { rep: DailyReport }) {
+  const sp = splitCalendar(rep.calendar.items, rep.calendar.next_trading_day);
+  const weekDates = [...new Set(sp.week.shown.map(i => i.date))];
+  const hiddenDates = [...new Set(sp.week.hidden.map(i => i.date))].sort();
+  const tmCount = sp.tomorrow.inScan.length + sp.tomorrow.other.length;
+  return (
+    <div className={s.mBox} data-testid="dr-calendar">
+      <h4>ปฏิทิน XD/XR (จากป้ายข่าว SET {rep.calendar.ahead_days} วันข้างหน้า) · ตัวหนา = อยู่ในสแกนของเรา</h4>
+      <div className={s.calRow}>
+        <b>พรุ่งนี้ {shortDate(rep.calendar.next_trading_day)}</b>
+        {tmCount === 0 ? <span className={s.flat}> ไม่มี XD/XR</span> : (
+          <>
+            {sp.tomorrow.inScan.length > 0 && <div className={s.calDay}><CalLine items={sp.tomorrow.inScan} strong /></div>}
+            {sp.tomorrow.other.length > 0 && <div className={s.calDay}><CalLine items={sp.tomorrow.other} strong={false} /></div>}
+          </>
+        )}
+      </div>
+      <div className={s.calRow}>
+        <b>ภายในสัปดาห์</b>
+        {weekDates.length === 0 && <span className={s.flat}> ไม่มีหุ้นในสแกนที่ XD/XR</span>}
+        {weekDates.map(d => (
+          <div key={d} className={s.calDay}>
+            <span className={s.calDate}>{shortDate(d)}</span> <CalLine items={sp.week.shown.filter(i => i.date === d)} strong />
+          </div>
+        ))}
+        {sp.week.hidden.length > 0 && (
+          <details className={s.calMore} data-testid="dr-cal-more">
+            <summary>+ อีก {sp.week.hidden.length} ตัวที่ไม่อยู่ในสแกน</summary>
+            {hiddenDates.map(d => (
+              <div key={d} className={s.calDay}>
+                <span className={s.calDate}>{shortDate(d)}</span> <CalLine items={sp.week.hidden.filter(i => i.date === d)} strong={false} />
+              </div>
+            ))}
+          </details>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function MarketBar({ rep }: { rep: DailyReport }) {
   const m = rep.market;
-  const cal = groupCalendar(rep.calendar.items);
   return (
     <section className={`${s.card} ${s.market}`} data-testid="dr-market">
       <div className={s.mTop}>
@@ -168,6 +228,7 @@ function MarketBar({ rep }: { rep: DailyReport }) {
         <span className={s.mItem} title={`ข้ามหุ้นที่ไม่มีแท่งของวันนี้ ${m.breadth.skipped_no_bar} ตัว`}>
           บวก <b className={s.pos}>{m.breadth.up}</b> · คงที่ <b>{m.breadth.flat}</b> · ลบ <b className={s.neg}>{m.breadth.down}</b> <Calc />
         </span>
+        <span className={s.p2}>ธีมวันนี้ · เฟส 2</span>
       </div>
       {m.condition && (m.condition.caution ? (
         <div className={s.mAlert}>
@@ -185,32 +246,7 @@ function MarketBar({ rep }: { rep: DailyReport }) {
         </div>
       ))}
       <div className={s.mRow}>
-        <div className={s.mBox}>
-          <h4>ปฏิทิน (จากป้ายข่าว SET {rep.calendar.ahead_days} วันข้างหน้า)</h4>
-          {cal.length === 0 ? (
-            <span className={s.flat}>ไม่มี XD/XR ในช่วงนี้</span>
-          ) : (
-            <ul className={s.calList} data-testid="dr-calendar">
-              {cal.map(g => (
-                <li key={g.date}>
-                  <b>{shortDate(g.date)}</b> ·{' '}
-                  {(['XD', 'XR'] as const).map(type => {
-                    const its = g.items.filter(i => i.type === type);
-                    if (!its.length) return null;
-                    return (
-                      <span key={type}>
-                        {type}: {its.map((i, k) => (
-                          <span key={i.ticker} title={i.note}>{k > 0 && ' · '}{i.ticker}{i.amount != null ? ` ${i.amount}` : ''}</span>
-                        ))}{' '}
-                      </span>
-                    );
-                  })}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className={s.mBox}><h4>ธีมวันนี้</h4><span className={s.p2}>เฟส 2 · AI สรุปธีมจากข่าว</span></div>
+        <CalendarBox rep={rep} />
       </div>
     </section>
   );

@@ -47,6 +47,7 @@ const NAV_GROUPS: NavGroup[] = [
     section: 'ภาพรวม',
     items: [
       { label: 'Overview', href: '/', icon: Globe },
+      { label: 'สรุปรายวัน', href: '/daily-report', icon: ClipboardList },
       { label: 'Market Breadth', href: '/breadth', icon: BarChart2 },
       { label: 'Sector Map', href: '/sector', icon: Map },
       { label: 'Sector Flow', href: '/sector-flow', icon: RotateCw },
@@ -72,7 +73,6 @@ const NAV_GROUPS: NavGroup[] = [
     section: 'Scanner',
     items: [
       { label: 'Quant Scanner', href: '/scanner', icon: ScanLine, count: COUNTS.all },
-      { label: 'สรุปรายวัน', href: '/daily-report', icon: ClipboardList, indent: true },
       { label: 'Lekkung Growth', href: '/lekkung', icon: Activity, indent: true, count: COUNTS.lekkung },
       { label: 'Lekkung Daytrade Scan', href: '/lekkung-daytrade', icon: Flame, indent: true, count: COUNTS.lekkungDaytrade },
       { label: 'CAN SLIM (O\'Neil)', href: '/oneil', icon: TrendingUp, indent: true, count: COUNTS.oneil },

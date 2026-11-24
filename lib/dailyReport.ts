@@ -79,6 +79,7 @@ export interface CalendarItem {
   ticker: string;
   amount: number | null;
   note: string;
+  in_scans: string[];
 }
 
 export interface DailyReport {
@@ -96,7 +97,7 @@ export interface DailyReport {
     breadth: { up: number; flat: number; down: number; skipped_no_bar: number };
     condition: { label: string; dd_window: number; dd_count: number | null; caution: boolean; advice: string | null } | null;
   };
-  calendar: { as_of: string | null; ahead_days: number; items: CalendarItem[] };
+  calendar: { as_of: string | null; ahead_days: number; next_trading_day: string; items: CalendarItem[] };
   daytrade: {
     scan: string;
     page: string;
@@ -163,7 +164,7 @@ export const TRIGGER_LABEL: Record<TriggerKind, string> = {
   high_30d: 'High 30 วัน',
   close_30d_high: 'ปิดสูงสุดใน 30 วัน',
 };
-export const SCAN_LABEL: Record<string, string> = { daytrade: 'Daytrade', growth: 'Growth', sepa: 'SEPA' };
+export const SCAN_LABEL: Record<string, string> = { daytrade: 'Daytrade', growth: 'Growth', sepa: 'SEPA', market_stage: 'Stage' };
 
 // ─── รูปแบบตัวเลข / วันที่ ─────────────────────────────────────────────────
 
@@ -223,6 +224,25 @@ export function calendarFor(items: CalendarItem[], ticker: string): CalendarItem
 
 export function calendarText(i: CalendarItem): string {
   return `${i.type} ${shortDate(i.date)}${i.amount != null ? ` ${i.amount}` : ''}`;
+}
+
+export interface CalendarSplit {
+  /** พรุ่งนี้ (วันทำการถัดไป): หุ้นที่อยู่ในสแกนก่อน แล้วตามด้วยตัวอื่น */
+  tomorrow: { inScan: CalendarItem[]; other: CalendarItem[] };
+  /** หลังพรุ่งนี้เป็นต้นไป: แสดงเฉพาะหุ้นที่อยู่ในสแกน (เรียงตามวัน) · ที่เหลือซ่อนไว้ใน hidden */
+  week: { shown: CalendarItem[]; hidden: CalendarItem[] };
+}
+
+/** แบ่งปฏิทินเป็น พรุ่งนี้ / ภายในสัปดาห์ — ไม่ตัดรายการทิ้ง (ซ่อนไว้ใน hidden) */
+export function splitCalendar(items: CalendarItem[], nextDay: string): CalendarSplit {
+  const sorted = [...items].sort((a, b) => a.date.localeCompare(b.date) || a.ticker.localeCompare(b.ticker));
+  const tm = sorted.filter(i => i.date === nextDay);
+  const wk = sorted.filter(i => i.date > nextDay);
+  const inScan = (i: CalendarItem) => i.in_scans.length > 0;
+  return {
+    tomorrow: { inScan: tm.filter(inScan), other: tm.filter(i => !inScan(i)) },
+    week: { shown: wk.filter(inScan), hidden: wk.filter(i => !inScan(i)) },
+  };
 }
 
 /** จัดกลุ่มปฏิทินตามวันที่ (เรียงวันจากไฟล์) */

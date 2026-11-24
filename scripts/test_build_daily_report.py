@@ -190,5 +190,52 @@ class TestHolidayFolder(unittest.TestCase):
             self.assertEqual(rep["market"]["breadth"]["skipped_no_bar"], 1)
 
 
+class TestCalendarInScans(unittest.TestCase):
+    def make_root(self, root, day, nxt):
+        def w(path, obj):
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(obj, f)
+        w(os.path.join(root, "data", "scans", "breadth.json"),
+          {"set_index": [{"date": day, "close": 1, "volume": 1}, {"date": nxt, "close": 1, "volume": 1}]})
+        h = os.path.join(root, "data", "history", day)
+        w(os.path.join(h, "lekkung.json"), [{"Ticker": "GRO"}, {"Ticker": "MULTI"}])
+        w(os.path.join(h, "sepa.json"), [{"Ticker": "SEP"}, {"Ticker": "MULTI"}])
+        w(os.path.join(h, "lekkung_daytrade.json"), {"data": [{"Ticker": "DAY"}, {"Ticker": "MULTI"}]})
+        w(os.path.join(h, "market_stage.json"), [
+            {"Ticker": "BULL", "Stage": "Bull"}, {"Ticker": "SB", "Stage": "S.Bull"},
+            {"Ticker": "ACC", "Stage": "Accumulation"}, {"Ticker": "REC", "Stage": "Recovery"},
+            {"Ticker": "BEAR", "Stage": "Bear"}, {"Ticker": "WARN", "Stage": "Warning"},
+            {"Ticker": "DIST", "Stage": "Distribution"}, {"Ticker": "IPO1", "Stage": "IPO"},
+            {"Ticker": "MULTI", "Stage": "Bull"},
+        ])
+        flags = {t: [{"type": "xd_soon", "label": "XD", "date": nxt, "title": "วัน XD · เงินปันผล 0.10 บาท/หุ้น"}]
+                 for t in ("MULTI", "NONE", "BEAR", "BULL", "SB", "ACC", "REC", "WARN", "DIST", "IPO1", "GRO")}
+        w(os.path.join(root, "public", "data", "news_flags.json"), {"as_of": day, "flags": flags})
+
+    def test_in_scans(self):
+        days = weekdays(start="2026-11-16", n=2)
+        with tempfile.TemporaryDirectory() as root:
+            self.make_root(root, days[0], days[1])
+            cal = m.build_calendar(m.Ctx(root), days[0])
+            by = {i["ticker"]: i["in_scans"] for i in cal["items"]}
+            self.assertEqual(by["MULTI"], ["daytrade", "growth", "sepa", "market_stage"])  # หลายสแกน
+            self.assertEqual(by["NONE"], [])                                              # ไม่อยู่สักสแกน (ไม่ถูกตัดทิ้ง)
+            self.assertEqual(by["GRO"], ["growth"])
+            for t in ("BULL", "SB", "ACC", "REC"):                                        # 4 stage ที่นับ
+                self.assertEqual(by[t], ["market_stage"], t)
+            for t in ("BEAR", "WARN", "DIST", "IPO1"):                                    # stage อื่นไม่นับ
+                self.assertEqual(by[t], [], t)
+            self.assertEqual(len(cal["items"]), 11)                                       # ไม่ตัดรายการ
+            self.assertEqual(cal["next_trading_day"], days[1])
+
+    def test_next_trading_day_when_latest(self):
+        # วันศุกร์ที่เป็นวันล่าสุด → วันทำการถัดไป = จันทร์
+        with tempfile.TemporaryDirectory() as root:
+            self.make_root(root, "2026-11-20", "2026-11-20")
+            cal = m.build_calendar(m.Ctx(root), "2026-11-20")
+            self.assertEqual(cal["next_trading_day"], "2026-11-23")
+
+
 if __name__ == "__main__":
     unittest.main()

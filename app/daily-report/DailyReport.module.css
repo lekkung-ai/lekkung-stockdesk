@@ -63,12 +63,22 @@
   margin-top: 10px; background: var(--card2); border: 1px solid var(--line); border-radius: 9px;
   padding: 9px 12px; font-size: 14px; color: var(--muted);
 }
-.mRow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.mRow { display: block; margin-top: 12px; }
 .mBox { background: var(--card2); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; font-size: 13.5px; min-width: 0; }
 .mBox h4 { margin: 0 0 6px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
 .mBox ul { margin: 0; padding-left: 18px; list-style: disc; }
 .mBox li { margin-bottom: 3px; }
-.calList { max-height: 220px; overflow-y: auto; }
+.calRow { margin-bottom: 8px; line-height: 1.8; }
+.calRow:last-child { margin-bottom: 0; }
+.calGroup { margin-right: 10px; }
+.calType { color: var(--muted); }
+.calIn { font-weight: 700; color: var(--ink); margin-right: 8px; white-space: nowrap; }
+.calOut { color: var(--muted); margin-right: 8px; white-space: nowrap; }
+.scanTag { display: inline-block; font-size: 12px; font-weight: 600; color: var(--blue); background: var(--blue-bg); border-radius: 999px; padding: 0 7px; margin-left: 3px; }
+.calDay { margin: 2px 0 2px 12px; }
+.calDate { color: var(--muted); font-weight: 600; margin-right: 4px; }
+.calMore { margin: 4px 0 0 12px; color: var(--muted); }
+.calMore summary { cursor: pointer; color: var(--blue); }
 
 /* แท็บ */
 .tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 16px 0; border-bottom: 1px solid var(--line); }
