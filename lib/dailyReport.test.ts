@@ -4,12 +4,12 @@ import { scanTagLabel, scanKeyOf, DT_FILTERS, filterCounts, matchFilter, groupCa
 const row = (ticker: string, status: DtRow['status'], rv: DtRow['rv_tier']) => ({ ticker, status, rv_tier: rv }) as DtRow;
 
 describe('dailyReport filters', () => {
-  const rows = [row('A', 'new', 'lo'), row('B', 'reentry', 'hi'), row('C', 'reentry', 'mid'), row('D', 'stay', 'lo')];
+  const rows = [row('A', 'new', 'lo'), row('B', 'new', 'hi'), row('C', 'new', 'mid'), row('D', 'stay', 'lo')];
 
   it('button count equals the rows the filter shows', () => {
     const c = filterCounts(rows);
     for (const f of DT_FILTERS) expect(c[f]).toBe(rows.filter(r => matchFilter(r, f)).length);
-    expect(c).toMatchObject({ all: 4, new: 1, reentry: 2, stay: 1, 'rv-hi': 1, 'rv-mid': 1, 'rv-lo': 2 });
+    expect(c).toMatchObject({ all: 4, new: 3, stay: 1, 'rv-hi': 1, 'rv-mid': 1, 'rv-lo': 2 });
   });
 });
 

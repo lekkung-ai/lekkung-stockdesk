@@ -211,13 +211,18 @@ def rv_tier(rel):
 
 
 def tech_label(score):
+    """เกณฑ์เดียวกับ techRatingLabel ใน lib/lekkungDaytradeData.ts (หน้า /lekkung-daytrade)"""
     if score is None:
         return None
-    if score >= 0.5:
+    if score > 0.5:
         return "Strong Buy"
     if score >= 0.1:
         return "Buy"
-    return "Neutral"
+    if score > -0.1:
+        return "Neutral"
+    if score >= -0.5:
+        return "Sell"
+    return "Strong Sell"
 
 
 def price_block(bars, day):
@@ -424,6 +429,36 @@ def check_dropped(ctx, t, day, pb):
     return {"criteria": res, "sources": src, "failed": failed, "checked": checked, "total": len(CRITERIA)}
 
 
+def align_to_web(ctx, fname, days_key, day, cal, sets, prev, current, dropped, fallback_days):
+    """ให้สถานะ / หลุด / Days ตรงกับหน้าสแกน (ผู้ใช้สั่ง: ไม่ตรงให้ยึดหน้าสแกน)
+
+    หน้าสแกนติด NEW ตาม <scan>_diff.json (ไม่อยู่ในวันสแกนก่อนหน้า) และแสดง Days จาก scan_days.json
+    ไฟล์ทั้งสองเป็นของรอบล่าสุดเท่านั้น → ใช้เมื่อ diff.currentDate == day · ย้อนหลังใช้กติกาเดียวกันคิดเอง
+    status: 'new' | 'stay' (ไม่มี reentry แล้ว) · seen_before = เคยอยู่ใน 10 วันก่อนหน้า (ข้อมูลเสริม ตัวเล็กสีเทา)
+    แก้ current / dropped ในที่ · คืน (days_map, source)"""
+    diff = load_json(os.path.join(ctx.scans, f"{fname}_diff.json")) or {}
+    use_web = diff.get("currentDate") == day
+    web_new = set(diff.get("newTickers") or []) if use_web else None
+    for t, st in current.items():
+        is_new = (t in web_new) if use_web else st["status"] in ("new", "reentry")
+        seen = st.get("last_seen")
+        st["status"] = "new" if is_new else "stay"
+        st["seen_before"] = seen if is_new else None
+        st["last_seen"] = st["seen_before"]
+    if use_web:
+        web_drop = {x.get("ticker") for x in diff.get("droppedTickers") or []} - {None}
+        for t in list(dropped):
+            if t not in web_drop:
+                del dropped[t]
+        for t in web_drop - set(dropped):
+            dropped[t] = {"status": "dropped", "days_before_drop": streak_at(t, cal, sets, prev) if prev else None}
+    sd = (load_json(os.path.join(ctx.scans, "scan_days.json")) or {}).get(days_key)
+    if use_web and isinstance(sd, dict):
+        return {t: sd.get(t) for t in current}, "scan_days.json"
+    return fallback_days(), "computed"
+
+
+
 def build_daytrade(ctx, day):
     fname = "lekkung_daytrade"
     cal = scan_days(ctx.trading_days, lambda d: ctx.has(d, fname))
@@ -431,6 +466,8 @@ def build_daytrade(ctx, day):
         return None
     sets = {d: tickers_of(load_json(ctx.hist_path(d, fname))) for d in cal}
     prev, current, dropped = classify(cal, sets, day)
+    days_map, days_src = align_to_web(ctx, fname, "lekkung_daytrade", day, cal, sets, prev, current, dropped,
+                                      lambda: {t: streak_at(t, cal, sets, day) for t in current})
     raw = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(day, fname)))}
     prev_raw = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(prev, fname)))} if prev else {}
     mem = scan_membership(ctx, day)  # ป้าย "อยู่ใน" ชุดเดียวกันทุกแท็บ + ปฏิทิน
@@ -445,7 +482,7 @@ def build_daytrade(ctx, day):
         close = num(r.get("Close"))
         chg = num(r.get("Change_Pct"))
         pb = price_block(ctx.bars(t), day)
-        row = {"ticker": t, "name": r.get("Name"), **st,
+        row = {"ticker": t, "name": r.get("Name"), **st, "days_web": days_map.get(t),
                "close": close, "chg_pct": rnd(chg, 2), "volume": num(r.get("Volume")),
                "avg_vol_10d": num(r.get("Avg_Volume_10D")), "rel_vol": rnd(r.get("Rel_Volume"), 2),
                "rv_tier": rv_tier(num(r.get("Rel_Volume"))),
@@ -503,7 +540,7 @@ def build_daytrade(ctx, day):
                    "new": count("status", "new"), "reentry": count("status", "reentry"),
                    "stay": count("status", "stay"), "dropped": len(drops),
                    "rv_hi": count("rv_tier", "hi"), "rv_mid": count("rv_tier", "mid"), "rv_lo": count("rv_tier", "lo")},
-        "lookback_days": LOOKBACK_DAYS,
+        "lookback_days": LOOKBACK_DAYS, "days_source": days_src,
         "price_mismatch": mismatches,
         "rows": rows,
         "dropped": drops,
@@ -558,7 +595,8 @@ def build_growth(ctx, day):
     fname = "lekkung"
     cal, sets, prev, current, dropped, earlier = scan_status(ctx, fname, day)
     raw = {r["Ticker"]: r for r in rows_of(load_json(ctx.hist_path(day, fname)))}
-    wd = web_days(ctx, fname, day)
+    wd, days_src = align_to_web(ctx, fname, "lekkung", day, cal, sets, prev, current, dropped,
+                                lambda: web_days(ctx, fname, day))
     mem = scan_membership(ctx, day)
     flags = ctx.flags_file.get("flags") or {}
     rows = []
@@ -570,8 +608,10 @@ def build_growth(ctx, day):
             "ticker": t, **st, "days_web": wd.get(t),
             "close": close, "chg_pct": rnd(r.get("Change_Pct"), 2),
             "pe": rnd(r.get("PE_Ratio"), 2), "roe_pct": rnd(num(r.get("ROE")) * 100, 2) if num(r.get("ROE")) is not None else None,
+            "roe": num(r.get("ROE")),  # ค่าดิบ — หน้าเว็บปัดแบบเดียวกับ /lekkung ((ROE*100).toFixed(1))
             "rev_gr_fy": rnd(r.get("Revenue_Growth_YoY"), 2), "rev_gr_period": r.get("Rev_Growth_Period_End"),
             "profit_gr_q_yoy": rnd(r.get("NetProfit_Growth_QoQY"), 2), "profit_gr_quarter": r.get("Growth_Quarter"),
+            "growth_quarter_end": r.get("Growth_Quarter_End"),  # หน้า /lekkung ใช้ quarterShort(Growth_Quarter_End)
             "growth_stale": r.get("Growth_Stale"),
             "ema10": ema10,
             "vs_ema10": rnd(close - ema10, 4) if close is not None and ema10 is not None else None,
@@ -599,7 +639,7 @@ def build_growth(ctx, day):
         "counts": {"total": len(rows), "prev_total": len(sets.get(prev, ())) if prev else None,
                    "new": count("new"), "reentry": count("reentry"), "stay": count("stay"),
                    "dropped": len(drops), "dropped_earlier": len(earlier_rows)},
-        "lookback_days": LOOKBACK_DAYS,
+        "lookback_days": LOOKBACK_DAYS, "days_source": days_src,
         "signal_d10": (rc.get("horizons") or {}).get("10"),
         "report_card_href": "/report-card/lekkung_growth",
         "rows": rows, "dropped": drops, "dropped_earlier": earlier_rows,
@@ -616,9 +656,10 @@ def build_sepa(ctx, day):
     """ใส่แถวดิบ (เฉพาะฟิลด์ที่สูตร/หน้า /sepa ใช้) — หน้าเว็บคิด score / rank / กลุ่ม ด้วย lib เดียวกับ /sepa"""
     fname = "sepa"
     cal, sets, prev, current, dropped, _earlier = scan_status(ctx, fname, day)
+    wd, days_src = align_to_web(ctx, fname, "sepa", day, cal, sets, prev, current, dropped,
+                                lambda: web_days(ctx, fname, day))
     raw = rows_of(load_json(ctx.hist_path(day, fname)))
     prev_raw = rows_of(load_json(ctx.hist_path(prev, fname))) if prev else []
-    wd = web_days(ctx, fname, day)
     mem = scan_membership(ctx, day)
     flags = ctx.flags_file.get("flags") or {}
     rows = []
@@ -652,7 +693,7 @@ def build_sepa(ctx, day):
         "scan": fname, "page": "/sepa", "date": day, "compared_to": prev,
         "generated_at": (load_json(os.path.join(ctx.scans, "generated_at.json")) or {}).get("sepa"),
         "counts": {"total": len(rows), "new": n("new"), "reentry": n("reentry"), "stay": n("stay"), "dropped": len(drops)},
-        "web_diff": web_diff, "lookback_days": LOOKBACK_DAYS,
+        "web_diff": web_diff, "lookback_days": LOOKBACK_DAYS, "days_source": days_src,
         "signal_d10": (rc.get("horizons") or {}).get("10"), "report_card_href": "/report-card/sepa",
         "rows": rows, "prev_rows": prev_rows, "dropped": drops,
     }
@@ -838,13 +879,13 @@ def count_change(n, prev, noun="สแกน"):
 
 def change_notes(rows, dropped, extra_reason=None):
     """คำอธิบายใต้กล่องเปลี่ยนแปลง: กลับเข้า → วันล่าสุด · หลุด → อยู่รอบเดียว / หลุดเพราะ…"""
-    re_ = [r for r in rows if r["status"] == "reentry"]
     new = [r for r in rows if r["status"] == "new"]
-    out = {"new": None, "reentry": None, "dropped": None, "dropped_items": {}}
+    out = {"new": None, "reentry": None, "dropped": None, "dropped_items": {}, "new_items": {}}
+    for r in new:  # NEW ตามหน้าสแกน · ข้อมูลเสริม: เคยอยู่ใน 10 วันทำการก่อนหน้าไหม
+        out["new_items"][r["ticker"]] = (f"เคยอยู่ล่าสุด {th_date(r['seen_before'])}" if r.get("seen_before")
+                                         else f"ครั้งแรกใน {LOOKBACK_DAYS} วันทำการ")
     if new:
-        out["new"] = f"{names(r['ticker'] for r in new)} ไม่อยู่ในสแกนเลยใน {LOOKBACK_DAYS} วันทำการก่อนหน้า"
-    if re_:
-        out["reentry"] = " · ".join(f"{r['ticker']} ล่าสุดอยู่ในสแกน {th_date(r['last_seen'])}" for r in re_)
+        out["new"] = " · ".join(f"{t} {v}" for t, v in out["new_items"].items())
     parts = []
     for d in dropped:
         why = []
@@ -869,6 +910,8 @@ def notes_daytrade(dt):
         dt["headline"] = f"{head} — วันนี้ไม่มีหุ้นผ่านเกณฑ์ Daytrade"
     else:
         top = max((r for r in rows if r.get("rel_vol") is not None), key=lambda r: r["rel_vol"], default=None)
+        # เข้าใหม่ / หลุด = ตัวเลขเดียวกับป้าย NEW และรายการหลุดของหน้าสแกน
+        head += f" (เข้าใหม่ {c.get('new', 0)} · หลุด {c.get('dropped', len(dt.get('dropped') or []))})"
         bits = [head]
         if top:
             word = {"hi": "วอลุ่มมาแรงสุด", "mid": "วอลุ่มมากสุด", "lo": "วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย"}.get(top["rv_tier"], "วอลุ่มมากสุด")
@@ -935,8 +978,8 @@ def watch_growth(r):
     h = r.get("pct_from_52w_high")
     if h is not None and h >= -NEAR_HIGH_PCT_GROWTH:
         out.append(f"ใกล้ High รอบปี {price_txt(r.get('high_52w'))} อีก {abs(h):.1f}% — จับตาเบรค")
-    if r.get("status") == "reentry":
-        out.append(f"เพิ่งกลับเข้ามา (ล่าสุดในสแกน {th_date(r.get('last_seen'))})")
+    if r.get("status") == "new" and r.get("seen_before"):
+        out.append(f"เพิ่งกลับเข้ามา (เคยอยู่ล่าสุด {th_date(r.get('seen_before'))})")
     val = r.get("value_mb_1d")
     if val is not None and val < THIN_VALUE_GROWTH_MB:
         out.append(f"สภาพคล่องบาง (มูลค่าวันนี้ {val:.1f} ลบ.)")

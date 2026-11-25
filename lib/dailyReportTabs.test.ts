@@ -52,7 +52,7 @@ describe('sepa filter counts', () => {
   it('count = rows the filter shows', () => {
     const rows = [
       { ...raw('A', 90, '-1%', 10, true), status: 'new' },
-      { ...raw('B', 85, '-5%', 10), status: 'reentry' },
+      { ...raw('B', 85, '-5%', 10), status: 'new' },
       { ...raw('C', 70, '-20%', 10), status: 'stay' },
     ] as unknown as SepaRow[];
     const ranked = rankSepa(rows, 'all');

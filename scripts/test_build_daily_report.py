@@ -97,7 +97,9 @@ class TestTiers(unittest.TestCase):
         self.assertEqual([m.rv_tier(v) for v in (1.5, 1.49, 1.0, 0.99, None)], ["hi", "mid", "mid", "lo", None])
 
     def test_tech(self):
-        self.assertEqual([m.tech_label(v) for v in (0.5, 0.49, 0.1, 0.09)], ["Strong Buy", "Buy", "Buy", "Neutral"])
+        # เกณฑ์เดียวกับ techRatingLabel ของหน้า /lekkung-daytrade (Strong Buy ต้อง > 0.5)
+        self.assertEqual([m.tech_label(v) for v in (0.51, 0.5, 0.1, 0.09, -0.1, -0.5, -0.6)],
+                         ["Strong Buy", "Buy", "Buy", "Neutral", "Sell", "Sell", "Strong Sell"])
 
     def test_xd_amount(self):
         self.assertEqual(m.xd_amount("วัน XD · เงินปันผล 0.05 บาท/หุ้น"), 0.05)
@@ -300,8 +302,8 @@ class TestNewSections(unittest.TestCase):
             g = {r["ticker"]: r for r in rep["growth"]["rows"]}
             self.assertEqual(g["AAA"]["status"], "stay")
             self.assertEqual(g["AAA"]["streak_days"], len(fx.days))
-            self.assertEqual(g["BBB"]["status"], "reentry")
-            self.assertEqual(g["BBB"]["last_seen"], fx.days[-3])
+            self.assertEqual(g["BBB"]["status"], "new")  # ไม่อยู่วันก่อน = NEW แบบหน้าสแกน
+            self.assertEqual(g["BBB"]["seen_before"], fx.days[-3])  # ข้อมูลเสริม: เคยอยู่ล่าสุด
             self.assertEqual(g["BBB"]["streak_days"], 1)
             self.assertEqual(g["BBB"]["days_web"], 3)  # ไม้ตามเว็บ: นับวันที่หลุดรวมด้วย
             self.assertEqual([d["ticker"] for d in rep["growth"]["dropped"]], ["CCC"])
@@ -400,7 +402,7 @@ class TestNotesDaytrade(unittest.TestCase):
     def test_headline_shrink_top_relvol(self):
         dt = self.section([dt_row("AAA", rv="hi", rel=2.1), dt_row("BBB"), dt_row("CCC")], prev=5)
         m.notes_daytrade(dt)
-        self.assertEqual(dt["headline"], "สแกนหดเหลือ 3 ตัว (จาก 5) — AAA วอลุ่มมาแรงสุด 2.10 เท่า · อีก 2 ตัววอลุ่มยังไม่มา")
+        self.assertEqual(dt["headline"], "สแกนหดเหลือ 3 ตัว (จาก 5) (เข้าใหม่ 0 · หลุด 0) — AAA วอลุ่มมาแรงสุด 2.10 เท่า · อีก 2 ตัววอลุ่มยังไม่มา")
 
     def test_headline_grow_and_empty(self):
         dt = self.section([dt_row("AAA", rv="mid", rel=1.2)], prev=0)
@@ -422,14 +424,15 @@ class TestNotesDaytrade(unittest.TestCase):
         self.assertEqual(m.watch_daytrade(dt_row("A", stale=True)), ["⚠️ ราคาค้าง — ไม่มีจุดซื้อ/ทิ้งของวันนี้"])
 
     def test_change_notes_and_drop_reason(self):
-        rows = [dt_row("RE", status="reentry", last_seen="2026-11-17")]
+        rows = [dt_row("RE", status="new"), dt_row("NW", status="new")]
+        rows[0]["seen_before"] = "2026-11-17"
         drops = [{"ticker": "D1", "days_before_drop": 1, "check": {"criteria": {"chg_gt_0": "fail", "rsi7_gt_50": "unknown"}}},
                  {"ticker": "D2", "days_before_drop": 4, "check": {"criteria": {"chg_gt_0": "pass"}}}]
         dt = self.section(rows, drops, prev=2)
         m.notes_daytrade(dt)
         n = dt["change_notes"]
-        self.assertEqual(n["reentry"], "RE ล่าสุดอยู่ในสแกน 17 พ.ย.")
-        self.assertIsNone(n["new"])
+        self.assertEqual(n["new_items"], {"RE": "เคยอยู่ล่าสุด 17 พ.ย.", "NW": "ครั้งแรกใน 10 วันทำการ"})
+        self.assertIsNone(n["reentry"])
         self.assertEqual(n["dropped_items"]["D1"], "หลุดเพราะราคาวันนี้ไม่บวก · อยู่รอบนี้แค่วันเดียว")
         self.assertEqual(n["dropped_items"]["D2"], "อยู่มา 4 วัน")
 
@@ -438,7 +441,7 @@ class TestNotesDaytrade(unittest.TestCase):
         m.notes_daytrade(dt)
         self.assertEqual(dt["change_notes"]["dropped"], None)
         self.assertEqual(dt["change_notes"]["new"], None)
-        self.assertEqual(dt["headline"], "สแกนทรงตัวที่ 1 ตัว — S วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย 0.50 เท่า")
+        self.assertEqual(dt["headline"], "สแกนทรงตัวที่ 1 ตัว (เข้าใหม่ 0 · หลุด 0) — S วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย 0.50 เท่า")
 
 
 def gr_row(t, status="stay", chg=1.0, ema=2.0, hi=-10.0, val=50.0, last_seen=None, stale=False):
@@ -461,9 +464,11 @@ class TestNotesGrowth(unittest.TestCase):
     def test_watch_priority_and_cap(self):
         self.assertEqual(m.watch_growth(gr_row("A", ema=0.4)), ["เกาะ EMA10 บาง (+0.40%) — หลุดเส้นคือสัญญาณเปลี่ยน"])
         self.assertEqual(m.watch_growth(gr_row("A", hi=-2.0))[0], "ใกล้ High รอบปี 12.00 อีก 2.0% — จับตาเบรค")
-        self.assertEqual(m.watch_growth(gr_row("A", status="reentry", last_seen="2026-11-18"))[0], "เพิ่งกลับเข้ามา (ล่าสุดในสแกน 18 พ.ย.)")
+        re_row = gr_row("A", status="new")
+        re_row["seen_before"] = "2026-11-18"
+        self.assertEqual(m.watch_growth(re_row)[0], "เพิ่งกลับเข้ามา (เคยอยู่ล่าสุด 18 พ.ย.)")
         self.assertEqual(m.watch_growth(gr_row("A", val=3.0))[0], "สภาพคล่องบาง (มูลค่าวันนี้ 3.0 ลบ.)")
-        many = m.watch_growth(gr_row("A", ema=0.2, hi=-1.0, val=1.0, status="reentry", last_seen="2026-11-18"))
+        many = m.watch_growth(dict(gr_row("A", ema=0.2, hi=-1.0, val=1.0, status="new"), seen_before="2026-11-18"))
         self.assertEqual(len(many), 2)
         self.assertTrue(m.watch_growth(gr_row("A", ema=-0.5))[0].startswith("ราคาต่ำกว่า EMA10"))
         self.assertEqual(m.watch_growth(gr_row("A")), ["เหนือ EMA10 +2.00% · ห่าง High รอบปี 10.0% — แนวโน้มยังปกติ"])
@@ -509,6 +514,34 @@ class TestNotesBrokenSection(unittest.TestCase):
             self.assertTrue(any(w.startswith("growth notes") for w in rep["warnings"]))
             self.assertIn("headline", rep["daytrade"])
             self.assertIn("headline", rep["market_stage"])
+
+
+class TestAlignToScanPages(unittest.TestCase):
+    """ไม่ตรงกันเมื่อไร ให้ยึดหน้าสแกน: NEW/หลุด จาก <scan>_diff.json · Days จาก scan_days.json (ของวันเดียวกัน)"""
+
+    def test_web_diff_and_scan_days_win(self):
+        with tempfile.TemporaryDirectory() as root:
+            fx = Fixture(root)
+            scans = os.path.join(root, "data", "scans")
+            # หน้าสแกนบอกว่า AAA เป็น NEW (เช่นเทียบกับโฟลเดอร์วันหยุด) และ ZZZ หลุด — ต่างจากที่หน้านี้คิดเอง
+            write_json(os.path.join(scans, "lekkung_diff.json"),
+                       {"currentDate": fx.day, "previousDate": fx.prev, "newTickers": ["AAA"], "droppedTickers": [{"ticker": "ZZZ"}]})
+            write_json(os.path.join(scans, "scan_days.json"), {"lekkung": {"AAA": 77, "BBB": 5}})
+            g = m.build(root)["growth"]
+            st = {r["ticker"]: r["status"] for r in g["rows"]}
+            self.assertEqual(st, {"AAA": "new", "BBB": "stay"})
+            self.assertEqual({r["ticker"]: r["days_web"] for r in g["rows"]}, {"AAA": 77, "BBB": 5})
+            self.assertEqual([d["ticker"] for d in g["dropped"]], ["ZZZ"])
+            self.assertEqual(g["days_source"], "scan_days.json")
+
+    def test_old_diff_is_ignored(self):
+        with tempfile.TemporaryDirectory() as root:
+            fx = Fixture(root)
+            write_json(os.path.join(root, "data", "scans", "lekkung_diff.json"),
+                       {"currentDate": fx.prev, "newTickers": ["AAA"], "droppedTickers": []})
+            g = m.build(root)["growth"]
+            self.assertEqual({r["ticker"]: r["status"] for r in g["rows"]}, {"AAA": "stay", "BBB": "new"})
+            self.assertEqual(g["days_source"], "computed")
 
 
 if __name__ == "__main__":

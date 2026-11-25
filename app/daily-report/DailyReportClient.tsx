@@ -16,9 +16,11 @@ import {
 } from '@/lib/dailyReport';
 import { LIQ_DEFAULT } from '@/lib/liquidity';
 import { rankSepa } from '@/lib/dailyReportTabs';
+import { techRatingLabel } from '@/lib/lekkungDaytradeData';
+import { TS } from '@/lib/typeScale';
 import {
   N, Pct, Price, StatusTag, StaleTag, EventTags, InScans, NoData, TabHead, Verdict, StatCard, ChangeBox, Chip,
-  FilterButton, StockCard, Fold, monoTickers,
+  FilterButton, StockCard, Fold, DaysCell, DAYS_TITLE_WEB,
 } from './shared';
 import GrowthTab from './GrowthTab';
 import SepaTab from './SepaTab';
@@ -141,7 +143,7 @@ function CalendarBox({ rep }: { rep: DailyReport }) {
 function MarketBar({ rep }: { rep: DailyReport }) {
   const m = rep.market;
   return (
-    <section className={s.marketbar} data-testid="dr-market">
+    <section className={`${s.card} ${s.marketbar}`} data-testid="dr-market">
       {m ? (
         <>
           <div className={s.mbTop}>
@@ -184,7 +186,7 @@ function DaytradeCard({ r, rep, flash }: { r: DtRow; rep: DailyReport; flash: bo
     <StockCard
       id={`c-${r.ticker}`} testid="dr-card" ticker={r.ticker} flash={flash} close={r.close} chg={r.chg_pct}
       tags={<>
-        <StatusTag status={r.status} lastSeen={r.last_seen} />
+        <StatusTag status={r.status} seenBefore={r.seen_before} />
         <XdTags items={cal} />
         <StaleTag stale={r.price_stale} barDate={r.bar_date} />
         {r.price_check === 'mismatch' && <span className={`${s.tag} ${s.tWarn}`}>⚠️ ราคาไม่ตรงสแกน</span>}
@@ -207,8 +209,8 @@ function DaytradeCard({ r, rep, flash }: { r: DtRow; rep: DailyReport; flash: bo
           ['วอลุ่มวันนี้', <><N>{fmtShares(r.volume)}</N> หุ้น = <RelVol r={r} /></>],
           ['ถึง 10:30 ควรได้', <><N>{fmtShares(r.min_vol_1030)}</N> หุ้น (30% ของเฉลี่ย 10 วัน)</>],
           ['มูลค่าซื้อขาย', <><N>{fmtNum(r.value_mb, 1)}</N> ลบ.{r.thin && <span className={`${s.tag} ${s.tThin}`}>เงินบาง</span>}</>],
-          ['RSI7 · Tech Rating', <><N>{fmtNum(r.rsi7, 1)}</N> · {r.tech_label ?? '—'} <N>{fmtNum(r.tech_rating)}</N></>],
-          ['อยู่ในสแกนติดกัน', <><N>{r.streak_days}</N> วัน</>],
+          ['RSI7 · Tech Rating', <><N>{fmtNum(r.rsi7, 1)}</N> · {techRatingLabel(r.tech_rating) ?? '—'} <N>{fmtNum(r.tech_rating)}</N></>],
+          ['Days', <DaysCell key="d" web={r.days_web} streak={r.streak_days} />],
         ],
       }}
       extra={!r.price_stale && <div className={s.panel}><Sparkline closes={r.closes_7d} /></div>}
@@ -244,19 +246,20 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
         <StatCard big={dt.counts.total} label="ผ่านสแกนวันนี้" />
         <StatCard big={<><span className={s.pos}>{dt.counts.rv_hi}</span> · <span style={{ color: 'var(--yellow)' }}>{dt.counts.rv_mid}</span> · <span className={s.flat}>{dt.counts.rv_lo}</span></>}
           label="วอลุ่ม มาจริง · เกือบมา · ยังไม่มา" />
-        <StatCard big={<>{dt.counts.new} · {dt.counts.reentry} · {dt.counts.stay}</>} label="เข้าใหม่ · กลับเข้า · อยู่ต่อ" />
+        <StatCard big={<>{dt.counts.new} · {dt.counts.stay}</>} label="เข้าใหม่ (NEW) · อยู่ต่อ" />
         <StatCard big={<span className={s.neg}>{dt.counts.dropped}</span>} label="หลุดวันนี้" />
       </div>
 
       <div className={s.changes}>
-        <ChangeBox title="เข้าใหม่" hint={`ไม่อยู่ในสแกนตลอด ${dt.lookback_days} วันทำการ`}
+        <ChangeBox title="เข้าใหม่ (NEW)" hint="ไม่อยู่ในสแกนวันทำการก่อนหน้า"
           chips={by('new').map(r => <Chip key={r.ticker} ticker={r.ticker}><Pct v={r.chg_pct} /></Chip>)}
-          note={notes?.new && monoTickers(notes.new)} />
-        <ChangeBox title="กลับเข้า" chips={by('reentry').map(r => <Chip key={r.ticker} ticker={r.ticker}><Pct v={r.chg_pct} /></Chip>)}
-          note={notes?.reentry && monoTickers(notes.reentry)} />
+          note={notes?.new_items && Object.keys(notes.new_items).length > 0 && (
+            <>{Object.entries(notes.new_items).map(([t, why]) => <div key={t}>{t}: {why}</div>)}</>
+          )} />
+        <ChangeBox title="อยู่ต่อ" chips={by('stay').map(r => <Chip key={r.ticker} ticker={r.ticker}><span className={s.small}>Days {r.days_web ?? r.streak_days}</span></Chip>)} />
         <ChangeBox title="หลุด" chips={dt.dropped.map(d => <Chip key={d.ticker} ticker={d.ticker}><Pct v={d.chg_pct} /></Chip>)}
           note={notes && Object.keys(notes.dropped_items).length > 0 && (
-            <>{Object.entries(notes.dropped_items).map(([t, why]) => <div key={t}><span className={s.num}>{t}</span>: {why || '—'}</div>)}</>
+            <>{Object.entries(notes.dropped_items).map(([t, why]) => <div key={t}>{t}: {why || '—'}</div>)}</>
           )} />
       </div>
 
@@ -283,7 +286,7 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
               <th>Tech Rating</th>
               <th className={s.r}>P/E</th>
               <th className={s.r}>EPS Gr YoY</th>
-              <th className={s.r}>อยู่ในสแกนติดกัน</th>
+              <th className={s.r} title={DAYS_TITLE_WEB}>Days</th>
             </tr>
           </thead>
           <tbody>
@@ -291,7 +294,7 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
               <tr key={r.ticker} onClick={() => goCard(r.ticker)} data-testid="dr-row" data-ticker={r.ticker}>
                 <td className={s.stk}>
                   <span className={`${s.tk} ${s.num}`}>{r.ticker}</span>
-                  <StatusTag status={r.status} />
+                  <StatusTag status={r.status} seenBefore={r.seen_before} />
                   <XdTags items={calendarFor(rep.calendar?.items ?? [], r.ticker)} />
                   <StaleTag stale={r.price_stale} barDate={r.bar_date} />
                 </td>
@@ -306,10 +309,10 @@ function DaytradeTab({ rep }: { rep: DailyReport }) {
                 </td>
                 <td className={s.r}><N>{fmtNum(r.stop)}</N></td>
                 <td className={s.r}><N>{fmtShares(r.min_vol_1030)}</N></td>
-                <td>{r.tech_label ?? '—'} <N>{fmtNum(r.tech_rating)}</N></td>
+                <td>{techRatingLabel(r.tech_rating) ?? '—'}<span className={s.ls}>{fmtNum(r.tech_rating)}</span></td>
                 <td className={s.r}><N>{fmtNum(r.pe, 1)}</N></td>
                 <td className={s.r}><Pct v={r.eps_gr_yoy} digits={1} /></td>
-                <td className={s.r}><N>{r.streak_days}</N> วัน</td>
+                <td className={s.r}><DaysCell web={r.days_web} streak={r.streak_days} /></td>
               </tr>
             ))}
             {shown.length === 0 && <tr><td colSpan={13} className={s.empty}>ไม่มีหุ้นตามตัวกรองนี้</td></tr>}
@@ -366,8 +369,8 @@ export default function DailyReportClient() {
   const ts = hhmm(rep.daytrade?.generated_at);
   return (
     <div className={s.root} data-testid="daily-report">
-      <h1 className={s.h1}>สรุปสแกนรายวัน</h1>
-      <p className={s.sub}>สแกน {longDate(rep.date)}{ts && ` · ${ts}`} · เทียบกับวันทำการก่อนหน้า {shortDate(rep.compared_to)} · ทุกตัวเลขมาจากข้อมูล StockDesk</p>
+      <h1 className={`${TS.pageTitle} text-white`}>สรุปสแกนรายวัน</h1>
+      <p className={`${s.sub} ${s.readable}`}>สแกน {longDate(rep.date)}{ts && ` · ${ts}`} · เทียบกับวันทำการก่อนหน้า {shortDate(rep.compared_to)} · ทุกตัวเลขมาจากข้อมูล StockDesk</p>
       {isOld && (
         <div className={s.staleBar} data-testid="dr-stale">
           ข้อมูลสรุปของวันที่ {longDate(rep.date)} · สแกนล่าสุดคือ {longDate(LATEST_SCAN)} (สรุปของวันล่าสุดยังไม่ถูกสร้าง)
@@ -391,7 +394,7 @@ export default function DailyReportClient() {
       {tab === 'stage' && <StageTab ms={rep.market_stage} />}
 
       <p className={s.foot}>
-        ค่าที่หน้านี้คิดเพิ่มจากไฟล์สแกน: มูลค่าซื้อขาย · ปิดที่ · ซื้อเมื่อ/ทิ้งเมื่อ · วอลุ่มถึง 10:30 · % ห่าง High · ระยะจาก EMA · จำนวนหุ้นบวก/ลบ ·
+        ป้าย NEW / หลุด / Days ตรงกับหน้าสแกน · ค่าที่หน้านี้คิดเพิ่ม: มูลค่าซื้อขาย · ปิดที่ · ซื้อเมื่อ/ทิ้งเมื่อ · วอลุ่มถึง 10:30 · % ห่าง High · ระยะจาก EMA · จำนวนหุ้นบวก/ลบ ·
         ประโยคอธิบายสร้างจากกติกาในโค้ด (ไม่ใช้ AI) · <Link href="/report-card">Report Card</Link>
       </p>
       {rep.warnings && rep.warnings.length > 0 && (

@@ -57,6 +57,10 @@ export interface DtRow {
   events: NewsFlag[];
   /** บรรทัด "จับตา" (กติกาในสคริปต์) — ไม่มี = สคริปต์สร้างประโยคไม่ได้รอบนี้ */
   watch?: string[];
+  /** Days ตามหน้าสแกน (scan_days.json) */
+  days_web?: number | null;
+  /** NEW ที่เคยอยู่ในสแกนภายใน 10 วันทำการก่อนหน้า (ข้อมูลเสริม) */
+  seen_before?: string | null;
 }
 
 export interface DtDropped {
@@ -125,11 +129,12 @@ export interface DailyReport {
 
 // ─── ตัวกรอง ─────────────────────────────────────────────────────────────
 
+// สถานะตามหน้าสแกน: NEW (ป้ายเดียวกับ /lekkung-daytrade) / อยู่ต่อ — ไม่มี 'กลับเข้า' แยกแล้ว
 export type DtFilter = 'all' | DtStatus | 'rv-hi' | 'rv-mid' | 'rv-lo';
-export const DT_FILTERS: DtFilter[] = ['all', 'new', 'reentry', 'stay', 'rv-hi', 'rv-mid', 'rv-lo'];
+export const DT_FILTERS: DtFilter[] = ['all', 'new', 'stay', 'rv-hi', 'rv-mid', 'rv-lo'];
 export const DT_FILTER_LABELS: Record<DtFilter, string> = {
   all: 'ทั้งหมด',
-  new: 'เข้าใหม่',
+  new: 'เข้าใหม่ (NEW)',
   reentry: 'กลับเข้า',
   stay: 'อยู่ต่อ',
   'rv-hi': 'วอลุ่มมาจริง',
@@ -257,6 +262,7 @@ export interface ChangeNotes {
   reentry: string | null;
   dropped: string | null;
   dropped_items: Record<string, string>;
+  new_items?: Record<string, string>;
 }
 
 export interface CalendarSplit {

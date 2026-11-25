@@ -103,7 +103,7 @@ export default function StageTab({ ms }: { ms: StageSection | null }) {
         {extra.length > 0 && <>+ {extra.map(k => `${k} ${st[k]} ตัว`).join(' · ')} · </>}รวมหุ้นสามัญ <N>{cardsSum + extraSum}</N> ตัว
       </p>
 
-      <div className={s.barCard}>
+      <div className={`${s.card} ${s.barCard}`}>
         <div className={s.stageBar} data-testid="stage-bar">
           {ms.stage_order.map(k => (st[k] ?? 0) > 0 && (
             <i key={k} data-count={st[k]} title={`${k} ${st[k]} (${shareOf(st[k], total).toFixed(1)}%)`}
@@ -128,7 +128,7 @@ export default function StageTab({ ms }: { ms: StageSection | null }) {
       <p className={s.tableNote}>สภาพคล่องดี = ADTV ≥ <N>{ms.focus_rule.watch_min_adtv_mb}</N> ลบ. และราคา ≥ <N>{ms.focus_rule.watch_min_price}</N> บาท · พื้นแดง = ตกลง Bear · รวมกองทุน/REIT (มีป้ายกำกับ)</p>
       {watchRows.length ? <MoveTable rows={watchRows} testid="stage-focus" /> : <p className={s.tableNote}>ไม่มีตัวที่สภาพคล่องดี</p>}
       {thin.length > 0 && (
-        <details className={s.fold} data-testid="stage-thin">
+        <details className={`${s.card} ${s.fold}`} data-testid="stage-thin">
           <summary>สภาพคล่องต่ำ / หุ้นสตางค์ <N>{thin.length}</N> ตัว</summary>
           <MoveTable rows={thin} testid="stage-thin-table" />
         </details>

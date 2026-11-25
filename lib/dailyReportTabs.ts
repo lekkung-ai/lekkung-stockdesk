@@ -43,11 +43,14 @@ export interface GrowthRow {
   chg_pct: number | null;
   pe: number | null;
   roe_pct: number | null;
+  roe?: number | null;
   rev_gr_fy: number | null;
   rev_gr_period: string | null;
   profit_gr_q_yoy: number | null;
   profit_gr_quarter: string | null;
   growth_stale: unknown;
+  growth_quarter_end?: string | null;
+  seen_before?: string | null;
   ema10: number | null;
   vs_ema10: number | null;
   vs_ema10_pct: number | null;
@@ -79,7 +82,7 @@ export interface GrowthSection {
 }
 
 export type GrowthFilter = 'all' | ScanStatus;
-export const GROWTH_FILTERS: GrowthFilter[] = ['all', 'new', 'reentry', 'stay'];
+export const GROWTH_FILTERS: GrowthFilter[] = ['all', 'new', 'stay'];
 
 export function growthCounts(rows: GrowthRow[]): Record<GrowthFilter, number> {
   const c = { all: rows.length, new: 0, reentry: 0, stay: 0 } as Record<GrowthFilter, number>;
@@ -131,6 +134,7 @@ export interface SepaRawRow {
 
 export interface SepaRow extends SepaRawRow {
   status: ScanStatus;
+  seen_before?: string | null;
   last_seen: string | null;
   streak_days: number;
   days_web: number | null;
@@ -186,8 +190,8 @@ export function rankSepa<T extends SepaRawRow>(rows: T[], liq: LiqSet): RankedSe
   return scored.map((x, i) => ({ ...x, rank: i + 1 }));
 }
 
-export type SepaFilter = 'all' | 'ready' | 'watch' | 'fplus' | 'new' | 'reentry' | 'near_high';
-export const SEPA_FILTERS: SepaFilter[] = ['all', 'ready', 'watch', 'fplus', 'new', 'reentry', 'near_high'];
+export type SepaFilter = 'all' | 'ready' | 'watch' | 'fplus' | 'new' | 'near_high';
+export const SEPA_FILTERS: SepaFilter[] = ['all', 'ready', 'watch', 'fplus', 'new', 'near_high'];
 export const NEAR_HIGH_PCT = 2;
 
 export function matchSepa(x: RankedSepa<SepaRow>, f: SepaFilter): boolean {
@@ -197,7 +201,6 @@ export function matchSepa(x: RankedSepa<SepaRow>, f: SepaFilter): boolean {
     case 'watch': return x.tier === 'watch';
     case 'fplus': return x.row.Fundamental_Pass === true;
     case 'new': return x.row.status === 'new';
-    case 'reentry': return x.row.status === 'reentry';
     case 'near_high': return x.fromHigh != null && x.fromHigh >= -NEAR_HIGH_PCT;
   }
 }

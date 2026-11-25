@@ -1,11 +1,12 @@
 'use client';
 
 // ชิ้นส่วนที่ทุกแท็บของ /daily-report ใช้ร่วมกัน (โครงตามแบบ Muse v48)
-// ตัวเลข / ราคา / % / ticker ใช้ .num (IBM Plex Mono) · ข้อความใช้ฟอนต์หลัก (IBM Plex Sans Thai)
+// ธีมเดียวกับหน้าอื่น: ฟอนต์หลักของแอป + tabular-nums (.num) · ป้าย NEW ใช้คอมโพเนนต์เดียวกับหน้าสแกน
 
 import React from 'react';
 import Link from 'next/link';
-import { STATUS_LABEL, scanTagLabel, scanKeyOf, fmtPct, fmtNum, pctClass, shortDate, hhmm, type NewsFlag } from '@/lib/dailyReport';
+import NewBadge from '@/components/NewBadge';
+import { scanTagLabel, scanKeyOf, fmtPct, fmtNum, pctClass, shortDate, hhmm, type NewsFlag } from '@/lib/dailyReport';
 import s from './DailyReport.module.css';
 
 /** ตัวเลขฟอนต์ Mono */
@@ -21,11 +22,25 @@ export function Price({ v }: { v: number | null | undefined }) {
   return <span className={`${s.num} ${s.price}`}>{fmtNum(v)}</span>;
 }
 
-export function StatusTag({ status, lastSeen }: { status: 'new' | 'reentry' | 'stay'; lastSeen?: string | null }) {
-  const cls = status === 'new' ? s.tNew : status === 'reentry' ? s.tRe : s.tStay;
+/** ป้ายสถานะแบบหน้าสแกน: NEW (ตาม _diff.json) · อยู่ต่อไม่มีป้าย · ข้อมูลเสริม "เคยอยู่ล่าสุด" เป็นตัวเล็กสีเทา */
+export function StatusTag({ status, seenBefore }: { status: 'new' | 'reentry' | 'stay'; seenBefore?: string | null }) {
+  if (status === 'stay') return null;
   return (
-    <span className={`${s.tag} ${cls}`}>
-      {STATUS_LABEL[status]}{status === 'reentry' && lastSeen && <> · ล่าสุด {shortDate(lastSeen)}</>}
+    <>
+      <NewBadge />
+      {seenBefore && <span className={s.small}> เคยอยู่ล่าสุด {shortDate(seenBefore)}</span>}
+    </>
+  );
+}
+
+export const DAYS_TITLE_WEB = 'Days ตามหน้าสแกน (scan_days)';
+
+/** Days ตามหน้าสแกน · ตัวเล็กสีเทา = อยู่ติดกันจริงกี่วัน (แสดงเมื่อไม่เท่ากัน) */
+export function DaysCell({ web, streak }: { web: number | null | undefined; streak: number }) {
+  return (
+    <span className={s.num}>
+      {web ?? streak}
+      {web != null && web !== streak && <span className={s.ls}>ติดกัน {streak} วัน</span>}
     </span>
   );
 }
@@ -49,7 +64,7 @@ export function InScans({ scans, exclude, asTag = false }: { scans: string[]; ex
 }
 
 export function NoData() {
-  return <div className={s.statCard} data-testid="dr-nodata">รอบนี้ไม่มีข้อมูลแท็บนี้</div>;
+  return <div className={`${s.card} ${s.statCard}`} data-testid="dr-nodata">รอบนี้ไม่มีข้อมูลแท็บนี้</div>;
 }
 
 export function TabHead({ title, date, ts, compared, href }: { title: string; date: string; ts?: string | null; compared: string | null; href: string }) {
@@ -70,26 +85,15 @@ export function Verdict({ text }: { text?: string | null }) {
   return <p className={s.verdict} data-testid="dr-verdict">{monoTickers(text)}</p>;
 }
 
-/** แยก ticker / ตัวเลขในประโยคไปเป็น .num (ข้อความไทยคงฟอนต์หลัก) */
+/** ประโยคจากสคริปต์ — ฟอนต์หลักทั้งหมด (ไม่แยกฟอนต์ตัวเลขแล้ว) */
 export function monoTickers(text: string): React.ReactNode[] {
-  const re = /([A-Z][A-Z0-9&.\-]{1,9}|[+−-]?\d[\d,]*(?:\.\d+)?%?)/g;
-  const out: React.ReactNode[] = [];
-  let last = 0;
-  let m: RegExpExecArray | null;
-  let i = 0;
-  while ((m = re.exec(text))) {
-    if (m.index > last) out.push(text.slice(last, m.index));
-    out.push(<span key={i++} className={s.num}>{m[0]}</span>);
-    last = m.index + m[0].length;
-  }
-  if (last < text.length) out.push(text.slice(last));
-  return out;
+  return [text];
 }
 
 export function StatCard({ big, label, testid, count }: { big: React.ReactNode; label: React.ReactNode; testid?: string; count?: number }) {
   return (
-    <div className={s.statCard} data-testid={testid} data-count={count}>
-      <div className={`${s.scBig} ${s.num}`}>{big}</div>
+    <div className={`${s.card} ${s.statCard}`} data-testid={testid} data-count={count}>
+      <div className={s.scBig}>{big}</div>
       <div className={s.scLabel}>{label}</div>
     </div>
   );
@@ -99,7 +103,7 @@ export function ChangeBox({ title, hint, chips, note, testid }: {
   title: string; hint?: string; chips: React.ReactNode[]; note?: React.ReactNode; testid?: string;
 }) {
   return (
-    <div className={s.changeBox} data-testid={testid}>
+    <div className={`${s.card} ${s.changeBox}`} data-testid={testid}>
       <h3>{title} <span>{chips.length} ตัว{hint && ` · ${hint}`}</span></h3>
       <div className={s.chips}>{chips.length ? chips : <span className={`${s.chip} ${s.chipNone}`}>ไม่มี</span>}</div>
       {note && <div className={s.changeNote}>{note}</div>}
@@ -135,7 +139,7 @@ export function StockCard({ id, ticker, rank, tags, sub, close, chg, left, right
     </div>
   );
   return (
-    <article className={`${s.stock} ${flash ? s.stockFlash : ''}`} id={id} data-testid={testid} data-ticker={ticker}>
+    <article className={`${s.card} ${s.stock} ${flash ? s.stockFlash : ''}`} id={id} data-testid={testid} data-ticker={ticker}>
       <div className={s.stockTop}>
         <div>
           <div className={s.tickerLine}>
@@ -167,7 +171,7 @@ export function StockCard({ id, ticker, rank, tags, sub, close, chg, left, right
 
 export function Fold({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <details className={s.fold}>
+    <details className={`${s.card} ${s.fold}`}>
       <summary>{title}</summary>
       <div className={s.foldBody}>{children}</div>
     </details>
