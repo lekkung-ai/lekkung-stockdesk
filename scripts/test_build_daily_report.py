@@ -402,7 +402,7 @@ class TestNotesDaytrade(unittest.TestCase):
     def test_headline_shrink_top_relvol(self):
         dt = self.section([dt_row("AAA", rv="hi", rel=2.1), dt_row("BBB"), dt_row("CCC")], prev=5)
         m.notes_daytrade(dt)
-        self.assertEqual(dt["headline"], "สแกนหดเหลือ 3 ตัว (จาก 5) (เข้าใหม่ 0 · หลุด 0) — AAA วอลุ่มมาแรงสุด 2.10 เท่า · อีก 2 ตัววอลุ่มยังไม่มา")
+        self.assertEqual(dt["headline"], "สแกนหดเหลือ 3 ตัว (จาก 5) — AAA วอลุ่มมาแรงสุด 2.10 เท่า · อีก 2 ตัววอลุ่มยังไม่มา")
 
     def test_headline_grow_and_empty(self):
         dt = self.section([dt_row("AAA", rv="mid", rel=1.2)], prev=0)
@@ -441,7 +441,7 @@ class TestNotesDaytrade(unittest.TestCase):
         m.notes_daytrade(dt)
         self.assertEqual(dt["change_notes"]["dropped"], None)
         self.assertEqual(dt["change_notes"]["new"], None)
-        self.assertEqual(dt["headline"], "สแกนทรงตัวที่ 1 ตัว (เข้าใหม่ 0 · หลุด 0) — S วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย 0.50 เท่า")
+        self.assertEqual(dt["headline"], "สแกนทรงตัวที่ 1 ตัว — S วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย 0.50 เท่า")
 
 
 def gr_row(t, status="stay", chg=1.0, ema=2.0, hi=-10.0, val=50.0, last_seen=None, stale=False):

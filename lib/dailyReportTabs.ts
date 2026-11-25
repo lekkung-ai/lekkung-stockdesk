@@ -326,3 +326,43 @@ export function sepaWatch(x: RankedSepa<SepaRow>): string[] {
   if (x.fromHigh != null && x.fromHigh >= -NEAR_HIGH_PCT) out.push('ชิด High รอบปี');
   return out.slice(0, 2);
 }
+
+// ─── "พรุ่งนี้ดูตัวไหน" — เกณฑ์เลือกหุ้นของแต่ละแท็บ (ฟังก์ชันล้วน มี test) ─────────────────────────
+
+export const WATCH_NEAR_HIGH_PCT = 3; // Growth: ห่าง 52W High ≤ 3%
+export const WATCH_EMA10_THIN_PCT = 1; // Growth: เหนือ EMA10 < 1%
+
+export type GrowthWatchReason = 'near_high' | 'thin_ema10' | 'new';
+export const GROWTH_REASON_LABEL: Record<GrowthWatchReason, string> = {
+  near_high: 'ใกล้ High',
+  thin_ema10: 'เกาะ EMA10 บาง',
+  new: 'เข้าใหม่',
+};
+
+/** Growth: ตัวที่ ห่าง High ≤ 3% · เหนือ EMA10 < 1% · หรือ NEW วันนี้ — ตัวเดียวเข้าหลายเกณฑ์แสดงครั้งเดียว (reasons รวมให้) */
+export function growthWatchlist(rows: GrowthRow[]): { row: GrowthRow; reasons: GrowthWatchReason[] }[] {
+  const out: { row: GrowthRow; reasons: GrowthWatchReason[] }[] = [];
+  for (const row of rows) {
+    const reasons: GrowthWatchReason[] = [];
+    if (row.pct_from_52w_high != null && row.pct_from_52w_high >= -WATCH_NEAR_HIGH_PCT) reasons.push('near_high');
+    if (row.vs_ema10_pct != null && row.vs_ema10_pct < WATCH_EMA10_THIN_PCT) reasons.push('thin_ema10');
+    if (row.status === 'new') reasons.push('new');
+    if (reasons.length) out.push({ row, reasons });
+  }
+  return out;
+}
+
+/** SEPA: เฉพาะพร้อมยิงของมุมมองที่ส่งเข้ามา (rankSepa แล้ว) เรียงระยะถึง Pivot ใกล้ → ไกล (ผ่าน Pivot แล้ว/ไม่มี Pivot ท้ายสุด) */
+export function sepaReadyList(ranked: RankedSepa<SepaRow>[]): RankedSepa<SepaRow>[] {
+  return ranked.filter(x => x.tier === 'ready').sort((a, b) => comparePivot(a.row.VCP_ToPivot, b.row.VCP_ToPivot) || a.rank - b.rank);
+}
+
+/** Stage: "เพิ่งเข้ากลุ่มสะสม/ฟื้นตัว" = ย้ายเข้า stage ใน focus_rule.stages จากนอกกลุ่ม · "หลุดลงขาลง" = to_bear · เฉพาะสภาพคล่องดี (watch) */
+export function stageWatchLists(ms: StageSection): { entered: StageMove[]; fellToBear: StageMove[] } {
+  const base = new Set(ms.focus_rule.stages);
+  const liquid = ms.focus.filter(m => m.watch);
+  return {
+    entered: liquid.filter(m => base.has(m.to) && !base.has(m.from)),
+    fellToBear: liquid.filter(m => m.to_bear),
+  };
+}

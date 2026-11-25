@@ -910,8 +910,7 @@ def notes_daytrade(dt):
         dt["headline"] = f"{head} — วันนี้ไม่มีหุ้นผ่านเกณฑ์ Daytrade"
     else:
         top = max((r for r in rows if r.get("rel_vol") is not None), key=lambda r: r["rel_vol"], default=None)
-        # เข้าใหม่ / หลุด = ตัวเลขเดียวกับป้าย NEW และรายการหลุดของหน้าสแกน
-        head += f" (เข้าใหม่ {c.get('new', 0)} · หลุด {c.get('dropped', len(dt.get('dropped') or []))})"
+        # จำนวนเข้าใหม่/หลุดอยู่ที่บรรทัดตัวเลขของหน้า (ไม่ซ้อนวงเล็บในประโยคเปิด)
         bits = [head]
         if top:
             word = {"hi": "วอลุ่มมาแรงสุด", "mid": "วอลุ่มมากสุด", "lo": "วอลุ่มมากสุดแต่ยังไม่ถึงค่าเฉลี่ย"}.get(top["rv_tier"], "วอลุ่มมากสุด")

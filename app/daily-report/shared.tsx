@@ -186,3 +186,44 @@ export function ReportCardLink({ href }: { href: string }) {
 export function pctText(v: number | null | undefined, digits = 2) {
   return fmtPct(v, digits);
 }
+
+
+/** บรรทัดตัวเลขเดียวใต้ประโยคเปิด เช่น "ผ่าน 7 · เข้าใหม่ 4 · หลุด 8" (ตัวเลขตามหน้าสแกน) */
+export function CountLine({ parts }: { parts: { label: string; value: React.ReactNode }[] }) {
+  return (
+    <p className={s.countLine} data-testid="dr-countline">
+      {parts.map((p, i) => <React.Fragment key={p.label}>{i > 0 && ' · '}{p.label} <b className={s.num}>{p.value}</b></React.Fragment>)}
+    </p>
+  );
+}
+
+/** การ์ดกะทัดรัดของ "พรุ่งนี้ดูตัวไหน": ชื่อ · ป้าย · ราคาปิด · % · ตัวเลขสำคัญ 2–3 ตัว · บรรทัดจับตา */
+export function CompactCard({ ticker, tags, sub, close, chg, facts, watch, testid }: {
+  ticker: string; tags?: React.ReactNode; sub?: React.ReactNode; close: number | null; chg: number | null;
+  facts: [string, React.ReactNode][]; watch?: string[] | null; testid?: string;
+}) {
+  return (
+    <article className={`${s.card} ${s.compact}`} data-testid={testid} data-ticker={ticker}>
+      <div className={s.compactTop}>
+        <div>
+          <div className={s.tickerLine}><h3><Link href={`/stock/${ticker}`}>{ticker}</Link></h3>{tags}</div>
+          {sub && <div className={s.company}>{sub}</div>}
+        </div>
+        <div className={s.priceBox}><strong className={s.num}>{fmtNum(close)}</strong> <small><Pct v={chg} /></small></div>
+      </div>
+      <dl className={s.facts}>
+        {facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd className={s.num}>{v}</dd></div>)}
+      </dl>
+      {watch && watch.length > 0 && <div className={s.watch} data-testid="dr-watch"><b>จับตา</b><span>{watch.join(' · ')}</span></div>}
+    </article>
+  );
+}
+
+export function WatchGrid({ children, empty, testid }: { children: React.ReactNode[]; empty?: boolean; testid?: string }) {
+  if (empty || children.length === 0) return <p className={s.tableNote} data-testid={testid}>วันนี้ไม่มีตัวที่ต้องจับตาเป็นพิเศษ</p>;
+  return <div className={s.cards} data-testid={testid}>{children}</div>;
+}
+
+export function FullListLink({ href, n, label }: { href: string; n: number; label: string }) {
+  return <p className={s.fullLink} data-testid="dr-fulllist">ดูรายชื่อทั้งหมด <b className={s.num}>{n}</b> ตัว → <Link href={href}>{label}</Link></p>;
+}
