@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T18:12:05.324741+07:00",
+  "generatedAt": "2026-11-25T18:12:38.324511+07:00",
   "windowDays": 45,
   "universeSize": 910,
   "buckets": {
@@ -101,6 +101,56 @@
   },
   "announcements": [
     {
+      "ticker": "FTREIT",
+      "sector": "Property",
+      "subsector": "Property Fund & REITs",
+      "market": "SET",
+      "announceDate": "2026-11-24T19:32:00+07:00",
+      "quarter": "ประจำปี 2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "netProfitPriorQ": null,
+      "netProfitQoQ": null,
+      "priorQuarter": null,
+      "netProfitPriorQPrior": null,
+      "netProfitPriorQYoY": null,
+      "profitAcceleration": null,
+      "profitHistory": null,
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "isCorrection": false,
+      "bucket": null,
+      "f45Url": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108248101&symbol=FTREIT",
+      "statementUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=17954773899281&symbol=FTREIT",
+      "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108224801&symbol=FTREIT",
+      "headline": "สรุปผลการดำเนินงานของบจ. ประจำปี (F45)",
+      "reason": "กำไรจากการลงทุนสุทธิ 2,965.34 2,789.92 +6.29 รายการกำไร (ขาดทุน) สุทธิจากการเปลี่ยนแปลงในมูลค่ายุติธรรม ของเงินลงทุนในอสังหาริมทรัพย์ (272.81) 673.63 -140.50 การเพิ่มขึ้นในสินทรัพย์สุทธิจากการดำเนินงาน 2,692.54 3,464.35",
+      "reason_source": "mda_extract",
+      "gap_pct": 0.0,
+      "drift_d1_pct": null,
+      "drift_d2_pct": null,
+      "drift_d5_pct": null,
+      "price_path": {
+        "pre": [
+          0.0,
+          0.0,
+          0.0,
+          -1.55,
+          0.0
+        ],
+        "post": [
+          0.0
+        ]
+      }
+    },
+    {
       "ticker": "AOT",
       "sector": "Services",
       "subsector": "Transportation & Logistics",
@@ -155,7 +205,7 @@
       "reason": "",
       "reason_source": "none",
       "gap_pct": 0.0,
-      "drift_d1_pct": null,
+      "drift_d1_pct": -6.25,
       "drift_d2_pct": null,
       "drift_d5_pct": null,
       "price_path": {
@@ -167,7 +217,8 @@
           0.0
         ],
         "post": [
-          0.0
+          0.0,
+          -6.25
         ]
       }
     },
@@ -227,7 +278,7 @@
       "reason_source": "mda_extract",
       "gap_pct": 0.0,
       "drift_d1_pct": -20.0,
-      "drift_d2_pct": null,
+      "drift_d2_pct": -20.0,
       "drift_d5_pct": null,
       "price_path": {
         "pre": [
@@ -239,6 +290,7 @@
         ],
         "post": [
           0.0,
+          -20.0,
           -20.0
         ]
       }
@@ -299,7 +351,7 @@
       "reason_source": "none",
       "gap_pct": 0.0,
       "drift_d1_pct": 0.88,
-      "drift_d2_pct": null,
+      "drift_d2_pct": 0.0,
       "drift_d5_pct": null,
       "price_path": {
         "pre": [
@@ -311,7 +363,8 @@
         ],
         "post": [
           0.0,
-          0.88
+          0.88,
+          0.0
         ]
       }
     },
@@ -372,7 +425,7 @@
       "gap_pct": 1.67,
       "drift_d1_pct": 0.67,
       "drift_d2_pct": 0.33,
-      "drift_d5_pct": null,
+      "drift_d5_pct": 1.0,
       "price_path": {
         "pre": [
           -0.67,
@@ -386,6 +439,7 @@
           0.67,
           0.33,
           0.33,
+          1.0,
           1.0
         ]
       }
@@ -3137,7 +3191,7 @@
       "gap_pct": 0.0,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": 0.0,
-      "drift_d5_pct": null,
+      "drift_d5_pct": 9.09,
       "price_path": {
         "pre": [
           16.82,
@@ -3150,6 +3204,7 @@
           0.0,
           0.0,
           0.0,
+          9.09,
           9.09,
           9.09
         ]
@@ -3668,7 +3723,7 @@
       "gap_pct": 0.33,
       "drift_d1_pct": 0.0,
       "drift_d2_pct": -0.33,
-      "drift_d5_pct": null,
+      "drift_d5_pct": -0.67,
       "price_path": {
         "pre": [
           -0.83,
@@ -3682,7 +3737,8 @@
           0.0,
           -0.33,
           -0.33,
-          -1.0
+          -1.0,
+          -0.67
         ]
       }
     },
@@ -4081,7 +4137,7 @@
       "gap_pct": -12.24,
       "drift_d1_pct": -13.27,
       "drift_d2_pct": -13.27,
-      "drift_d5_pct": null,
+      "drift_d5_pct": -8.16,
       "price_path": {
         "pre": [
           -12.24,
@@ -4095,6 +4151,7 @@
           -13.27,
           -13.27,
           -15.31,
+          -8.16,
           -8.16
         ]
       }
@@ -10292,7 +10349,28 @@
       "mdaUrl": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107958801&symbol=TIPAK",
       "headline": "สรุปผลการดำเนินงานของ บจ. ไตรมาสที่ 3 (F45) (สอบทานแล้ว)",
       "reason": "",
-      "reason_source": "none"
+      "reason_source": "none",
+      "gap_pct": -0.64,
+      "drift_d1_pct": -6.41,
+      "drift_d2_pct": -10.26,
+      "drift_d5_pct": -11.54,
+      "price_path": {
+        "pre": [
+          0.64,
+          1.92,
+          1.28,
+          0.64,
+          0.0
+        ],
+        "post": [
+          -0.64,
+          -6.41,
+          -10.26,
+          -9.62,
+          -12.18,
+          -11.54
+        ]
+      }
     },
     {
       "ticker": "EMC",
@@ -74558,13 +74636,6 @@
       "quarter": "ไตรมาส 3/2569"
     },
     {
-      "ticker": "FTREIT",
-      "date": "2026-11-13T21:47:00+07:00",
-      "status": "predicted",
-      "quarter": null,
-      "basedOnLastYear": "2025-11-13T21:47:00+07:00"
-    },
-    {
       "ticker": "BCH",
       "date": "2026-11-13T21:52:00+07:00",
       "status": "confirmed",
@@ -75337,6 +75408,12 @@
       "status": "predicted",
       "quarter": null,
       "basedOnLastYear": "2025-11-24T17:47:00+07:00"
+    },
+    {
+      "ticker": "FTREIT",
+      "date": "2026-11-24T19:32:00+07:00",
+      "status": "confirmed",
+      "quarter": "ประจำปี 2569"
     },
     {
       "ticker": "GVREIT",
@@ -132618,6 +132695,21 @@
       "netProfitCum": null,
       "netProfitCumPrior": null,
       "filed": "2026-11-23"
+    },
+    "108248101": {
+      "quarter": "ประจำปี 2569",
+      "periodEnd": "30 กันยายน 2569",
+      "netProfit": null,
+      "netProfitPrior": null,
+      "netProfitYoY": null,
+      "eps": null,
+      "epsPrior": null,
+      "epsYoY": null,
+      "auditorOpinion": "ไม่มีเงื่อนไข",
+      "cumMonths": null,
+      "netProfitCum": null,
+      "netProfitCumPrior": null,
+      "filed": "2026-11-24"
     },
     "98154601": {
       "quarter": "ไตรมาส 2/2568",
