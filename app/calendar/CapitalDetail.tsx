@@ -22,6 +22,7 @@ export interface CapitalRowInput {
   ticker: string;
   date: string;               // xdate / first trade day / announce day
   today: string;
+  afterClose?: boolean;       // Bangkok time is past 16:30 (market closed)
   close: number | null;       // latest scan close
   priceDate: string | null;   // day of that close (combined.json generated_at)
   halted: boolean;            // SP / H mark → no price numbers
@@ -202,7 +203,9 @@ function SummaryPoints({ r, c, lastCum, exampleText }: { r: CapitalRowInput; c: 
   const items: ReactNode[] = pts.map(p => {
     if (p.kind === 'last_cum') {
       return (
-        <span key="lc">ซื้อ<b style={{ color: p.urgent ? RED_SOFT : AMBER }}>{p.days === 0 ? 'วันนี้' : 'พรุ่งนี้'} ({fmtDay(lastCum, r.today)})</b> เป็นวันสุดท้ายที่ได้สิทธิ</span>
+        p.days === 0 && r.afterClose
+          ? <span key="lc">วันสุดท้ายคือ<b style={{ color: RED_SOFT }}>วันนี้</b> (ตลาดปิดแล้ว)</span>
+          : <span key="lc">ซื้อ<b style={{ color: p.urgent ? RED_SOFT : AMBER }}>{p.days === 0 ? 'วันนี้' : 'พรุ่งนี้'} ({fmtDay(lastCum, r.today)})</b> เป็นวันสุดท้ายที่ได้สิทธิ</span>
       );
     }
     if (p.kind === 'expensive') {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { bangkokDateKey, bangkokParts } from '@/lib/utils';
 import Link from 'next/link';
 import { AlertTriangle, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
@@ -10,7 +10,7 @@ import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { EarningsAnnouncement, EarningsFeed } from '@/app/api/earnings/route';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
 import { loadMyStockSymbols } from '@/lib/myStocks';
-import { isHalted, listingCalc, xrCalc, type CapitalEvent, type CapitalEventsFile } from '@/lib/capitalCalc';
+import { isAfterMarketClose, isHalted, listingCalc, tradingDaysBack, xrCalc, type CapitalEvent, type CapitalEventsFile } from '@/lib/capitalCalc';
 import type { NewsFlagsFile } from '@/lib/newsFlags';
 import CapitalRow, { type CapitalRowInput } from './CapitalDetail';
 
@@ -96,6 +96,9 @@ const CA_BADGE_CLS: Record<Exclude<EventKind, 'earnings'>, string> = {
 };
 
 type EventFilter = 'all' | 'earnings' | 'XD' | 'XR_XW' | 'NEW' | 'XM';
+// ?type=… (links from the Overview card): new = หุ้นใหม่เข้า · xr = XR+XW
+const TYPE_PARAM: Record<string, EventFilter> = { all: 'all', earnings: 'earnings', xd: 'XD', xr: 'XR_XW', new: 'NEW', xm: 'XM' };
+const NEW_BACK_TRADING_DAYS = 10; // "หุ้นใหม่เข้า" starts this many SET trading days back
 const EVENT_FILTER_OPTS: { key: EventFilter; label: string }[] = [
   { key: 'all', label: 'ทั้งหมด' },
   { key: 'earnings', label: 'ประกาศงบ' },
@@ -331,6 +334,7 @@ export default function CalendarPage() {
   const [myStocks, setMyStocks] = useState<Set<string>>(new Set());
 
   const [fromDate, setFromDate] = useState(todayISO());
+  const autoFromRef = useRef<string | null>(null); // start date set by the "หุ้นใหม่เข้า" filter itself (so leaving it can undo it)
   const [toDate, setToDate] = useState(addDaysISO(todayISO(), 14));
   const [monthCursor, setMonthCursor] = useState(() => {
     const p = bangkokParts(new Date());
@@ -349,6 +353,28 @@ export default function CalendarPage() {
 
   // My Stocks is localStorage-only - hydrate client-side after mount.
   useEffect(() => { setMyStocks(new Set(loadMyStockSymbols())); }, []);
+
+  // Choosing "หุ้นใหม่เข้า" moves the start back 10 trading days (listings already started would otherwise be out of range);
+  // the user can still change the dates. Leaving it puts the start back to today unless the user moved it.
+  const selectType = useCallback((key: EventFilter) => {
+    setEventFilter(key);
+    const auto = autoFromRef.current;
+    if (key === 'NEW') {
+      const d = tradingDaysBack(todayISO(), NEW_BACK_TRADING_DAYS);
+      autoFromRef.current = d;
+      setFromDate(d);
+    } else if (auto) {
+      autoFromRef.current = null;
+      setFromDate(cur => (cur === auto ? todayISO() : cur));
+    }
+  }, []);
+
+  // ?type=new|xr|… on arrival (static page: read in the browser, no useSearchParams)
+  useEffect(() => {
+    const t = new URLSearchParams(window.location.search).get('type');
+    const key = t ? TYPE_PARAM[t.toLowerCase()] : undefined;
+    if (key) queueMicrotask(() => selectType(key)); // after the effect body (state is applied from a callback)
+  }, [selectType]);
 
   // Earnings feed covers its own fixed window (real + predicted) regardless
   // of view mode - fetched once, filtered client-side same as CA events.
@@ -467,7 +493,7 @@ export default function CalendarPage() {
         const warn = row.bucket === 'XR'
           && !!xrCalc({ ratio: row.ratio, exercise: row.subscriptionPrice, close, upcoming: daysUntil(row.xDate) >= 0, halted })?.warn;
         ev.cap = {
-          kind: row.bucket, ticker: row.ticker, date: row.xDate, today: todayISO(), close, priceDate: PRICE_DATE, halted, warn,
+          kind: row.bucket, ticker: row.ticker, date: row.xDate, today: todayISO(), afterClose: isAfterMarketClose(new Date()), close, priceDate: PRICE_DATE, halted, warn,
           detail: row.detail, ratio: row.ratio, exercise: row.subscriptionPrice, allotShare: row.allotShare ?? null,
           recordDate: row.recordDate, subBegin: row.subscriptionBegin, subEnd: row.subscriptionEnd,
           withWarrant: xw ? { ratio: xw.ratio, allotShare: xw.allotShare ?? null } : null, withRights: hasXr,
@@ -608,7 +634,7 @@ export default function CalendarPage() {
           {EVENT_FILTER_OPTS.map(o => (
             <button
               key={o.key}
-              onClick={() => setEventFilter(o.key)}
+              onClick={() => selectType(o.key)}
               className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
                 eventFilter === o.key ? 'bg-white/15 text-white' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
               }`}
