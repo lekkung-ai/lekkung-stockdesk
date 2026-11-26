@@ -9,6 +9,7 @@ import rawBreakoutDefault from '@/data/scans/breakout.json';
 import rawBreadth from '@/data/scans/breadth.json';
 import TopRSTable from '@/components/TopRSTable';
 import SetIndexCard from '@/components/SetIndexCard';
+import CapitalEventsCard from '@/components/CapitalEventsCard';
 import VolumeCard from '@/components/VolumeCard';
 import InvestorTypeSection from '@/components/InvestorTypeSection';
 import SectorTodayTable from '@/components/SectorTodayTable';
@@ -128,6 +129,9 @@ export default function OverviewPage() {
   // ── Top RS ────────────────────────────────────────────────────────────
   const stageMap = new Map(stageData.map(s => [s.Ticker, s.Stage]));
   const combinedMap = new Map(combinedData.map(s => [s.ticker, s]));
+  // scan closes for the capital-events card (ticker → price; the card computes everything else)
+  const capitalPrices: Record<string, number> = {};
+  for (const s of combinedData) if (typeof s.price === 'number' && s.price > 0) capitalPrices[s.ticker] = s.price;
   // rs_score มาก→น้อย · เท่ากันใช้ RS_Raw · กองทุนไม่ติดอันดับ (lib/fundFilter.rankTopRS)
   const topRS = rankTopRS(combinedData, 10);
 
@@ -208,9 +212,12 @@ export default function OverviewPage() {
             </p>
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-3 max-w-md">
-          <SetIndexCard label="SET50" symbol="^SET50.BK" href="/set-index/set50" />
-          <SetIndexCard label="SET100" symbol="^SET100.BK" href="/set-index/set100" />
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] gap-3 items-stretch">
+          <div className="grid grid-cols-2 gap-3">
+            <SetIndexCard label="SET50" symbol="^SET50.BK" href="/set-index/set50" />
+            <SetIndexCard label="SET100" symbol="^SET100.BK" href="/set-index/set100" />
+          </div>
+          <CapitalEventsCard prices={capitalPrices} />
         </div>
       </div>
 

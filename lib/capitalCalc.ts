@@ -27,6 +27,7 @@ export interface CapitalEvent {
   take_up_pct?: number; // ro_result
   allotted?: number;    // ro_result
   sold?: number;        // ro_result
+  allot_share?: number | null; // XR / XW: new shares / warrants offered at most
   linked?: string[] | null;
   origin?: { source: string; news_id?: string | null; link?: string | null; pdf?: string | null };
 }
@@ -245,4 +246,117 @@ export function pickSummary(o: { lastCum: string; today: string; discountPct: nu
   if (o.discountPct != null && o.discountPct < -0.5) out.push({ kind: 'expensive' });
   if (o.pctNew != null && o.pctNew >= 100) out.push({ kind: 'bigger' });
   return out.length ? out.slice(0, 2) : [{ kind: 'example' }];
+}
+
+// ─── Overview card "เหตุการณ์ทุน · หุ้นใหม่เข้าตลาด" + calendar helpers (formulas above are reused, not repeated) ───
+
+/** SET trading day `n` days back from `iso` (n ≥ 0; weekends + lib/setHolidays.ts skipped). */
+export function tradingDaysBack(iso: string, n: number): string {
+  let d = iso;
+  for (let left = n, guard = 0; left > 0 && guard < 400; guard++) {
+    d = addDaysIso(d, -1);
+    if (isSetTradingDay(d)) left--;
+  }
+  return d;
+}
+
+/** SET trading day `n` days ahead of `iso`. */
+export function tradingDaysAhead(iso: string, n: number): string {
+  let d = iso;
+  for (let left = n, guard = 0; left > 0 && guard < 400; guard++) {
+    d = addDaysIso(d, 1);
+    if (isSetTradingDay(d)) left--;
+  }
+  return d;
+}
+
+export const MARKET_CLOSE_MINUTES = 16 * 60 + 30; // 16:30 Asia/Bangkok
+
+/** true from 16:30 Asia/Bangkok on (uses the Bangkok clock, never the machine's). */
+export function isAfterMarketClose(now: Date): boolean {
+  const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(now);
+  const h = Number(parts.find(p => p.type === 'hour')?.value);
+  const m = Number(parts.find(p => p.type === 'minute')?.value);
+  return h * 60 + m >= MARKET_CLOSE_MINUTES;
+}
+
+export const CARD_AHEAD_TRADING_DAYS = 10;
+export const CARD_BACK_TRADING_DAYS = 5;
+export const CARD_VISIBLE_ROWS = 2;
+
+export interface CapitalCardRow {
+  id: string;
+  ticker: string;
+  kind: 'XR' | 'XW' | 'NEW';
+  label: string;            // chip: XR / XW / PP / RO / แปลง W / หุ้นกู้ / ESOP
+  date: string;             // xdate / first trade day
+  warn: boolean;
+  halted: boolean;          // SP / H → no price numbers
+  pctNew: number | null;    // new shares ÷ old (XW: if every warrant converts)
+  price: number | null;     // exercise price (XR) / price the new shares were got at
+  ratioText: string | null; // XR / XW as Settrade writes it
+  discountPct: number | null; // price vs close (listing / XR)
+  holderGainPct: number | null;
+}
+
+export interface CapitalCard {
+  upcoming: CapitalCardRow[];
+  recent: CapitalCardRow[];
+  upcomingEnd: string;      // last day of "กำลังจะเกิด" window (10 trading days ahead)
+  recentStart: string;      // first day of "เพิ่งเข้ามา" window (5 trading days back)
+}
+
+const SOURCE_CHIP: Record<string, string> = { PP: 'PP', RO: 'RO', W: 'แปลง W', CB: 'หุ้นกู้', ESOP: 'ESOP' };
+
+function cardRow(e: CapitalEvent, close: number | null, halted: boolean): CapitalCardRow | null {
+  if (e.kind === 'XR') {
+    const c = xrCalc({ ratio: e.ratio?.text, exercise: e.price, close, allotShare: e.allot_share ?? e.shares?.new, upcoming: true, halted });
+    return { id: e.id, ticker: e.ticker, kind: 'XR', label: 'XR', date: e.date, warn: !!c?.warn, halted, pctNew: c?.pctNew ?? null,
+      price: e.price ?? null, ratioText: e.ratio?.text ?? null, discountPct: c?.discountPct ?? null, holderGainPct: null };
+  }
+  if (e.kind === 'XW') {
+    const x = xwCalc(e.ratio?.text);
+    return { id: e.id, ticker: e.ticker, kind: 'XW', label: 'XW', date: e.date, warn: false, halted, pctNew: x?.pctNewMax ?? null,
+      price: null, ratioText: e.ratio?.text ?? null, discountPct: null, holderGainPct: null };
+  }
+  if (e.kind === 'listing') {
+    const price = e.price ?? e.prices?.find(p => p.price != null)?.price ?? null;
+    const c = listingCalc({ old: e.shares?.old, added: e.shares?.new, price, close, halted });
+    return { id: e.id, ticker: e.ticker, kind: 'NEW', label: SOURCE_CHIP[e.source_type ?? ''] ?? (e.source_type || 'หุ้นใหม่'), date: e.date,
+      warn: !!c?.warn, halted, pctNew: c?.pctNew ?? null, price, ratioText: null, discountPct: c?.discountPct ?? null, holderGainPct: c?.holderGainPct ?? null };
+  }
+  return null;
+}
+
+function dayDiff(a: string, b: string): number {
+  return Math.round((new Date(a + 'T00:00:00Z').getTime() - new Date(b + 'T00:00:00Z').getTime()) / 86400000);
+}
+
+/** Rows of the Overview card. "กำลังจะเกิด" = XR/XW with xdate from today to 10 trading days ahead + new shares starting today or later;
+ *  "เพิ่งเข้ามา" = new shares that started in the 5 trading days before today. Board resolutions are not shown.
+ *  Order: ⚠ first, then nearest to today. */
+export function selectCapitalCard(events: CapitalEvent[] | null | undefined, o: {
+  today: string; prices: Record<string, number | null | undefined>; halted?: Set<string>;
+}): CapitalCard {
+  const upcomingEnd = tradingDaysAhead(o.today, CARD_AHEAD_TRADING_DAYS);
+  const recentStart = tradingDaysBack(o.today, CARD_BACK_TRADING_DAYS);
+  const seen = new Set<string>();
+  const upcoming: CapitalCardRow[] = [];
+  const recent: CapitalCardRow[] = [];
+  for (const e of events ?? []) {
+    if (!e || !e.ticker || !e.date) continue;
+    const isFuture = (e.kind === 'XR' || e.kind === 'XW') ? e.date >= o.today && e.date <= upcomingEnd : e.kind === 'listing' && e.date >= o.today;
+    const isRecent = e.kind === 'listing' && e.date >= recentStart && e.date < o.today;
+    if (!isFuture && !isRecent) continue;
+    const dup = `${e.kind}:${e.ticker}:${e.date}:${e.source_type ?? ''}:${e.ratio?.text ?? ''}`;
+    if (seen.has(dup)) continue;
+    seen.add(dup);
+    const close = o.prices[e.ticker];
+    const row = cardRow(e, typeof close === 'number' && close > 0 ? close : null, !!o.halted?.has(e.ticker));
+    if (!row) continue;
+    (isFuture ? upcoming : recent).push(row);
+  }
+  const byNearest = (a: CapitalCardRow, b: CapitalCardRow) =>
+    Number(b.warn) - Number(a.warn) || Math.abs(dayDiff(a.date, o.today)) - Math.abs(dayDiff(b.date, o.today)) || a.ticker.localeCompare(b.ticker);
+  return { upcoming: upcoming.sort(byNearest), recent: recent.sort(byNearest), upcomingEnd, recentStart };
 }

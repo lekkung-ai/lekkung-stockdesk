@@ -3,6 +3,8 @@ import {
   fmtDay, fmtDayRange, fmtPct, fmtPrice, fmtPriceShort, isHalted, lastCumDate, lastCumNote, listingCalc, niceNum, parseRatio, pickSummary, rightsExample, xrCalc, xwCalc,
 } from './capitalCalc';
 import { hasHolidayCalendar, isSetHoliday, isSetTradingDay } from './setHolidays';
+import capitalFixture from './fixtures/capitalEvents.2026-11-26.json';
+import { isAfterMarketClose, selectCapitalCard, tradingDaysAhead, tradingDaysBack, type CapitalEvent } from './capitalCalc';
 
 // expected values: mock calendar-capital-v2 + the 2026-11-26 study (close = scan 25 Nov)
 const near = (v: number | null | undefined, want: number, tol = 0.1) => {
@@ -163,5 +165,63 @@ describe('lastCumDate with SET holidays', () => {
     expect(lastCumNote('2027-01-04')).toBe('(ยังไม่มีปฏิทินวันหยุดปีนี้)');
     expect(lastCumNote('2026-12-11')).toBeNull();
     expect(lastCumNote('2027-01-01')).not.toBeNull(); // computed day 31 Dec 2026 is covered, xdate year is not
+  });
+});
+
+// ─── Overview card + calendar helpers ───
+const CAP_EVENTS = (capitalFixture as unknown as { events: CapitalEvent[] }).events; // public/data/capital_events.json of 2026-11-26 21:03 (events only)
+const PRICES_1126 = { KGEN: 2.02, AJA: 0.1, SOLAR: 0.3, B52: 0.16, STPI: 4.28, CAZ: 2.1, IROYAL: 3.38, RWI: 0.59 };
+
+describe('selectCapitalCard (reference day 2026-11-26)', () => {
+  const card = selectCapitalCard(CAP_EVENTS, { today: '2026-11-26', prices: PRICES_1126 });
+  it('"เพิ่งเข้ามา": KGEN (⚠) first, then the other listings of the last 5 trading days', () => {
+    expect(card.recentStart).toBe('2026-11-19');
+    expect(card.recent[0].ticker).toBe('KGEN');
+    expect(card.recent[0].warn).toBe(true);
+    expect(card.recent[0].label).toBe('PP');
+    const tk = card.recent.map(r => r.ticker);
+    for (const t of ['STPI', 'CAZ', 'SOLAR', 'AJA']) expect(tk).toContain(t);
+    expect(tk).not.toContain('PROEN'); // 18 Nov is before the window
+    expect(card.recent.every(r => r.date < '2026-11-26')).toBe(true);
+    expect(card.recent.find(r => r.ticker === 'STPI')!.warn).toBe(false); // RO above the market
+  });
+  it('"กำลังจะเกิด": AJA 27 Nov (new shares), B52 (⚠ first), SOLAR today; nothing past 10 trading days', () => {
+    expect(card.upcomingEnd).toBe('2026-12-14');
+    const tk = card.upcoming.map(r => `${r.kind}:${r.ticker}:${r.date}`);
+    expect(tk).toContain('NEW:AJA:2026-11-27');
+    expect(tk).toContain('XR:B52:2026-11-27');
+    expect(tk).toContain('XR:SOLAR:2026-11-26');
+    expect(card.upcoming[0].ticker).toBe('B52');
+    expect(card.upcoming[0].warn).toBe(true);
+    expect(card.upcoming.some(r => r.ticker === 'KGEN')).toBe(false); // XW 15 Dec is outside
+    expect(card.upcoming.every(r => r.label !== 'board')).toBe(true);
+  });
+  it('halted stock: no price numbers, no ⚠', () => {
+    const c = selectCapitalCard(CAP_EVENTS, { today: '2026-11-26', prices: PRICES_1126, halted: new Set(['KGEN']) });
+    const k = c.recent.find(r => r.ticker === 'KGEN')!;
+    expect(k.halted).toBe(true); expect(k.warn).toBe(false); expect(k.discountPct).toBeNull(); near(k.pctNew, 9.0);
+  });
+  it('board events never show; empty input → empty card', () => {
+    const c = selectCapitalCard([{ id: 'x', kind: 'board', ticker: 'JAK', date: '2026-11-26', tags: ['W'] } as CapitalEvent], { today: '2026-11-26', prices: {} });
+    expect(c.upcoming).toEqual([]); expect(c.recent).toEqual([]);
+    expect(selectCapitalCard(null, { today: '2026-11-26', prices: {} }).upcoming).toEqual([]);
+  });
+});
+
+describe('trading-day steps + market close', () => {
+  it('10 trading days back skips weekends and SET holidays (7 and 10 Dec 2026)', () => {
+    expect(tradingDaysBack('2026-12-14', 10)).toBe('2026-11-26');
+    expect(tradingDaysBack('2026-11-26', 5)).toBe('2026-11-19');
+    expect(tradingDaysBack('2026-11-26', 0)).toBe('2026-11-26');
+  });
+  it('10 trading days ahead', () => {
+    expect(tradingDaysAhead('2026-11-26', 10)).toBe('2026-12-14');
+  });
+  it('after 16:30 Asia/Bangkok (not the machine clock)', () => {
+    expect(isAfterMarketClose(new Date('2026-11-26T09:29:00Z'))).toBe(false); // 16:29
+    expect(isAfterMarketClose(new Date('2026-11-26T09:30:00Z'))).toBe(true);  // 16:30
+    expect(isAfterMarketClose(new Date('2026-11-26T15:00:00Z'))).toBe(true);  // 22:00
+    expect(isAfterMarketClose(new Date('2026-11-26T01:00:00Z'))).toBe(false); // 08:00
+    expect(isAfterMarketClose(new Date('2026-11-26T17:30:00Z'))).toBe(false); // 00:30 next day
   });
 });
