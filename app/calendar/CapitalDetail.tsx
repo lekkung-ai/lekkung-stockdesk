@@ -8,7 +8,7 @@ import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { AlertTriangle } from 'lucide-react';
 import {
-  fmtDay, fmtDayRange, fmtMillion, fmtPct, fmtPrice, fmtPriceShort, lastCumDate, listingCalc, niceNum, parseRatio, pickSummary,
+  fmtDay, fmtDayRange, fmtMillion, fmtPct, fmtPrice, fmtPriceShort, lastCumDate, lastCumNote, listingCalc, niceNum, parseRatio, pickSummary,
   rightsExample, xrCalc, xwCalc, SOURCE_LABEL,
   type CapitalEvent, type CapitalResult, type XrCalc,
 } from '@/lib/capitalCalc';
@@ -113,7 +113,7 @@ function vsText(disc: number | null): string {
 }
 
 // ─── timeline ───
-interface TlItem { from?: string | null; to?: string | null; text: string }
+interface TlItem { from?: string | null; to?: string | null; text: string; note?: string | null }
 
 function Timeline({ items, today }: { items: TlItem[]; today: string }) {
   return (
@@ -130,7 +130,7 @@ function Timeline({ items, today }: { items: TlItem[]; today: string }) {
             <span className={`font-semibold ${now ? '' : pending ? 'text-white/50' : ''}`} style={now ? { color: RED_SOFT } : undefined}>
               {label}{now && (!it.to || it.to === it.from) ? ' (วันนี้)' : now ? ' (ตอนนี้)' : ''}
             </span>
-            <span className="text-white/80">{it.text}</span>
+            <span className="text-white/80">{it.text}{it.note && <span className="text-[12px] text-white/40"> {it.note}</span>}</span>
           </li>
         );
       })}
@@ -267,7 +267,7 @@ function XrRow({ r, open, toggle, shell }: RowProps) {
       <div className="grid gap-3.5 content-start">
         <Box title="วันสำคัญ">
           <Timeline today={r.today} items={[
-            { from: lastCum, text: 'วันสุดท้ายที่ซื้อแล้วได้สิทธิ' },
+            { from: lastCum, text: 'วันสุดท้ายที่ซื้อแล้วได้สิทธิ', note: lastCumNote(r.date) },
             { from: r.date, text: 'XR · ซื้อวันนี้ไม่ได้สิทธิแล้ว ราคามักปรับลง' },
             { from: r.recordDate, text: 'ปิดสมุดทะเบียน (record date)' },
             { from: r.subBegin, to: r.subEnd, text: 'ช่วงจองซื้อและชำระเงิน' },
@@ -347,7 +347,7 @@ function XwRow({ r, open, toggle, shell }: RowProps) {
       <div className="grid gap-3.5 content-start">
         <Box title="วันสำคัญ">
           <Timeline today={r.today} items={[
-            { from: lastCum, text: 'วันสุดท้ายที่ซื้อแล้วได้ W' },
+            { from: lastCum, text: 'วันสุดท้ายที่ซื้อแล้วได้ W', note: lastCumNote(r.date) },
             { from: r.date, text: 'XW · ซื้อวันนี้ไม่ได้ W แจกฟรีแล้ว' },
             { from: r.recordDate, text: 'ปิดสมุดทะเบียน (record date)' },
             ...(r.subBegin ? [{ from: r.subBegin, to: r.subEnd, text: 'ช่วงจอง/ใช้สิทธิ (ตาม Settrade)' }] : []),

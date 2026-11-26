@@ -1,6 +1,7 @@
 // Capital-event numbers for /calendar (mock calendar-capital-v2 "กติกาคำนวณ"). Pure functions, no AI, no I/O.
 // Facts come from public/data/capital_events.json (scripts/build_capital_events.py) and /api/corporate-action;
 // the price is the latest scan close (data/scans/combined.json) and is applied only here, at render time.
+import { hasHolidayCalendar, isSetTradingDay } from './setHolidays';
 
 export type CapitalSource = 'PP' | 'RO' | 'W' | 'CB' | 'ESOP' | string;
 
@@ -179,15 +180,23 @@ function addDaysIso(iso: string, n: number): string {
   return d.toISOString().slice(0, 10);
 }
 
-/** Last day you can buy and still get the right = the working day before the XR/XW date.
- *  Mon–Fri only: stockdesk has no SET holiday list on the TS side, so a holiday in between is not skipped. */
+/** Last day you can buy and still get the right = the SET trading day before the XR/XW date (weekends + lib/setHolidays.ts).
+ *  A year without a holiday list falls back to Mon–Fri only (see lastCumNote). */
 export function lastCumDate(xdate: string): string {
   let d = addDaysIso(xdate, -1);
-  for (;;) {
-    const wd = new Date(d + 'T00:00:00Z').getUTCDay();
-    if (wd !== 0 && wd !== 6) return d;
+  for (let i = 0; i < 30; i++) {
+    if (isSetTradingDay(d)) return d;
     d = addDaysIso(d, -1);
   }
+  return d;
+}
+
+export const NO_HOLIDAY_CALENDAR_NOTE = '(ยังไม่มีปฏิทินวันหยุดปีนี้)';
+
+/** Gray note for the timeline when the holiday list does not cover the year of the XR/XW date or of the computed day; else null. */
+export function lastCumNote(xdate: string): string | null {
+  const year = (iso: string) => Number(iso.slice(0, 4));
+  return hasHolidayCalendar(year(xdate)) && hasHolidayCalendar(year(lastCumDate(xdate))) ? null : NO_HOLIDAY_CALENDAR_NOTE;
 }
 
 /** "27 พ.ย." (same year as `today`) or "15 ม.ค. 70" (other year, 2-digit Buddhist year). */

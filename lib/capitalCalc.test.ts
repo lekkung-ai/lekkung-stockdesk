@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
-  fmtDay, fmtDayRange, fmtPct, fmtPrice, fmtPriceShort, isHalted, lastCumDate, listingCalc, niceNum, parseRatio, pickSummary, rightsExample, xrCalc, xwCalc,
+  fmtDay, fmtDayRange, fmtPct, fmtPrice, fmtPriceShort, isHalted, lastCumDate, lastCumNote, listingCalc, niceNum, parseRatio, pickSummary, rightsExample, xrCalc, xwCalc,
 } from './capitalCalc';
+import { hasHolidayCalendar, isSetHoliday, isSetTradingDay } from './setHolidays';
 
 // expected values: mock calendar-capital-v2 + the 2026-11-26 study (close = scan 25 Nov)
 const near = (v: number | null | undefined, want: number, tol = 0.1) => {
@@ -130,5 +131,37 @@ describe('v3 helpers', () => {
     expect(pickSummary({ lastCum: '2026-11-25', today, discountPct: -6.7, pctNew: 18.2 })).toEqual([{ kind: 'expensive' }]); // SOLAR on 26 Nov
     expect(pickSummary({ lastCum: '2026-11-25', today, discountPct: 6, pctNew: 150 })).toEqual([{ kind: 'bigger' }]);
     expect(pickSummary({ lastCum: '2026-12-10', today, discountPct: 0, pctNew: 10 })).toEqual([{ kind: 'example' }]);
+  });
+});
+
+// ─── SET holidays (lib/setHolidays.ts, copied from data_engine tools/core/set_holidays.py) ───
+
+describe('lastCumDate with SET holidays', () => {
+  it('Dec 2026: 7 Dec (compensation), 10 Dec and 31 Dec are skipped', () => {
+    expect(lastCumDate('2026-12-11')).toBe('2026-12-09'); // Fri after Constitution Day (Thu 10)
+    expect(lastCumDate('2026-12-08')).toBe('2026-12-04'); // Tue → Mon 7 holiday, weekend → Fri 4
+    expect(lastCumDate('2026-12-09')).toBe('2026-12-08');
+    expect(lastCumDate('2026-12-30')).toBe('2026-12-29');
+    expect(lastCumDate('2026-12-31')).toBe('2026-12-30'); // xdate itself a holiday: day before
+  });
+  it('old cases still hold', () => {
+    expect(lastCumDate('2026-11-27')).toBe('2026-11-26');
+    expect(lastCumDate('2026-11-30')).toBe('2026-11-27');
+  });
+  it('isSetTradingDay: weekdays minus holidays, incl. the special closure 16 Oct', () => {
+    expect(isSetTradingDay('2026-12-10')).toBe(false);
+    expect(isSetTradingDay('2026-12-07')).toBe(false);
+    expect(isSetTradingDay('2026-12-08')).toBe(true);
+    expect(isSetTradingDay('2026-12-05')).toBe(false); // Saturday
+    expect(isSetTradingDay('2026-10-16')).toBe(false); // SPECIAL
+    expect(isSetHoliday('2026-12-31')).toBe(true);
+  });
+  it('year without a holiday list: Mon–Fri only + note', () => {
+    expect(hasHolidayCalendar(2026)).toBe(true);
+    expect(hasHolidayCalendar(2027)).toBe(false); // set_holidays.py has only 2026
+    expect(lastCumDate('2027-01-04')).toBe('2027-01-01'); // Mon → Fri 1 Jan (no 2027 list, so not skipped)
+    expect(lastCumNote('2027-01-04')).toBe('(ยังไม่มีปฏิทินวันหยุดปีนี้)');
+    expect(lastCumNote('2026-12-11')).toBeNull();
+    expect(lastCumNote('2027-01-01')).not.toBeNull(); // computed day 31 Dec 2026 is covered, xdate year is not
   });
 });
