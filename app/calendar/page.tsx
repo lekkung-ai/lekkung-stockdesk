@@ -14,12 +14,11 @@ import { isHalted, listingCalc, xrCalc, type CapitalEvent, type CapitalEventsFil
 import type { NewsFlagsFile } from '@/lib/newsFlags';
 import CapitalDetail, { capitalMainLine, type CapitalRowInput } from './CapitalDetail';
 
-// ─── Combined-scan price/universe lookup (for XD yield calc + "scan scope" filter) ───
+// ─── Combined-scan price lookup (XD yield, capital-event numbers) ───
 type CombinedEntry = { ticker: string; price: number };
 const _rawC = rawCombined as unknown as CombinedEntry[] | { data: CombinedEntry[] };
 const combinedData: CombinedEntry[] = Array.isArray(_rawC) ? _rawC : _rawC.data;
 const PRICE_MAP = new Map(combinedData.map(c => [c.ticker, c.price]));
-const SCAN_TICKERS = new Set(combinedData.map(c => c.ticker));
 
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const WEEKDAYS_TH = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
@@ -112,13 +111,6 @@ function passesEventFilter(e: UnifiedEvent, f: EventFilter): boolean {
   if (f === 'XM') return e.kind === 'XM';
   return true;
 }
-
-type ScopeFilter = 'all' | 'mystocks' | 'scan';
-const SCOPE_FILTER_OPTS: { key: ScopeFilter; label: string }[] = [
-  { key: 'all', label: 'ทั้งหมด' },
-  { key: 'mystocks', label: 'My Stocks' },
-  { key: 'scan', label: 'ในผลสแกนปัจจุบัน' },
-];
 
 // ─── Event row (shared shell across all kinds) ───
 function EarningsBadge({ bucket, isLastKnown }: { bucket: EarningsBucket | null | undefined; isLastKnown: boolean }) {
@@ -343,7 +335,7 @@ function MonthGrid({
 export default function CalendarPage() {
   const [viewMode, setViewMode] = useState<'week' | 'month'>('week');
   const [eventFilter, setEventFilter] = useState<EventFilter>('all');
-  const [scopeFilter, setScopeFilter] = useState<ScopeFilter>('all');
+  const [myOnly, setMyOnly] = useState(false); // "☆ เฉพาะ My Stocks" toggle (off = every stock)
   const [myStocks, setMyStocks] = useState<Set<string>>(new Set());
 
   const [fromDate, setFromDate] = useState(todayISO());
@@ -510,11 +502,10 @@ export default function CalendarPage() {
   const filteredEvents = useMemo(() => {
     return allEvents.filter(e => {
       if (!passesEventFilter(e, eventFilter)) return false;
-      if (scopeFilter === 'mystocks' && !myStocks.has(e.ticker)) return false;
-      if (scopeFilter === 'scan' && !SCAN_TICKERS.has(e.ticker)) return false;
+      if (myOnly && !myStocks.has(e.ticker)) return false;
       return true;
     });
-  }, [allEvents, eventFilter, scopeFilter, myStocks]);
+  }, [allEvents, eventFilter, myOnly, myStocks]);
 
   // My Stocks holding an XR/XW within 14 days - dilution/warrant events are
   // rare but high-impact, worth a standing warning regardless of filters.
@@ -532,13 +523,13 @@ export default function CalendarPage() {
   }, [allEvents, eventFilter, myStocks]);
 
   const myStocksWithoutEvents = useMemo(() => {
-    if (scopeFilter !== 'mystocks') return [];
+    if (!myOnly) return [];
     const missing: string[] = [];
     myStocks.forEach(ticker => {
       if (!myStocksWithEvents.has(ticker)) missing.push(ticker);
     });
     return missing;
-  }, [scopeFilter, myStocks, myStocksWithEvents]);
+  }, [myOnly, myStocks, myStocksWithEvents]);
 
   const monthEvents = viewMode === 'month' ? filteredEvents : [];
   const selectedDayEvents = viewMode === 'month' ? filteredEvents.filter(e => e.date === selectedDate) : filteredEvents;
@@ -578,7 +569,7 @@ export default function CalendarPage() {
       )}
 
       {/* My Stocks Status Banner */}
-      {scopeFilter === 'mystocks' && (
+      {myOnly && (
         <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3.5 text-[12px] text-white/80 space-y-1 shadow-sm">
           <p className="font-semibold text-blue-300 flex items-center gap-1.5">
             <span>📌</span>
@@ -611,12 +602,10 @@ export default function CalendarPage() {
         ))}
       </div>
 
-      {/* Two independent dimensions, each labeled and on its own row so this
-          doesn't read as one flat row of 8 buttons - event TYPE (default
-          "all" so rare XR events are never hidden) and STOCK scope. */}
+      {/* Event TYPE row (default "all" so rare XR events are never hidden) + one My Stocks toggle at its end. */}
       <div className="space-y-1.5">
         <div className="flex flex-wrap gap-1.5 items-center">
-          <span className="text-[11px] text-white/30 w-14 flex-shrink-0">ประเภท</span>
+          <span className="text-[12px] text-white/40 w-14 flex-shrink-0">ประเภท</span>
           {EVENT_FILTER_OPTS.map(o => (
             <button
               key={o.key}
@@ -628,20 +617,15 @@ export default function CalendarPage() {
               {o.label}
             </button>
           ))}
-        </div>
-        <div className="flex flex-wrap gap-1.5 items-center">
-          <span className="text-[11px] text-white/30 w-14 flex-shrink-0">หุ้น</span>
-          {SCOPE_FILTER_OPTS.map(o => (
-            <button
-              key={o.key}
-              onClick={() => setScopeFilter(o.key)}
-              className={`px-3 py-1.5 rounded text-[12.5px] font-semibold transition-all ${
-                scopeFilter === o.key ? 'bg-white/10 text-white/80' : 'bg-white/[0.04] text-white/30 hover:text-white/60'
-              }`}
-            >
-              {o.label}
-            </button>
-          ))}
+          <button
+            onClick={() => setMyOnly(v => !v)}
+            aria-pressed={myOnly}
+            className={`ml-2 px-3 py-1.5 rounded text-[12.5px] font-semibold border transition-all ${
+              myOnly ? 'bg-white/15 text-white border-white/25' : 'bg-transparent text-white/45 border-white/15 hover:text-white/70'
+            }`}
+          >
+            {myOnly ? '★' : '☆'} เฉพาะ My Stocks
+          </button>
         </div>
       </div>
 
