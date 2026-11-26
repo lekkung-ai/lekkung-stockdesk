@@ -53,6 +53,8 @@ interface RawCA {
   venue?: string | null;
   returnAmount?: number | null;
   remark?: string | null;
+  allotShare?: number | null;
+  recordDate?: string | null;
   xdate: string;
 }
 
@@ -74,6 +76,11 @@ export interface CalendarRow {
   dividendAmount: number | null;    // XD: baht/share
   ratio: string | null;             // XR/XW: e.g. "4:1"
   subscriptionPrice: number | null; // XR: baht/share
+  // XR/XW: new shares (XR) / warrants (XW) offered at most - old shares = allotShare × old/new of `ratio`
+  allotShare: number | null;
+  subscriptionBegin: string | null; // XR/XW (yyyy-mm-dd)
+  subscriptionEnd: string | null;   // XR/XW (yyyy-mm-dd)
+  recordDate: string | null;
 }
 
 const KNOWN_BUCKETS = new Set(['XD', 'XR', 'XW', 'XM']);
@@ -221,6 +228,10 @@ export async function GET(req: NextRequest) {
                 : null,
               ratio: (ca.caType === 'XR' || ca.caType === 'XW') ? (ca.ratio ?? null) : null,
               subscriptionPrice: ca.caType === 'XR' ? (ca.price ?? null) : null,
+              allotShare: (ca.caType === 'XR' || ca.caType === 'XW') ? (ca.allotShare ?? null) : null,
+              subscriptionBegin: (ca.caType === 'XR' || ca.caType === 'XW') ? toISODate(ca.beginSubscription) : null,
+              subscriptionEnd: (ca.caType === 'XR' || ca.caType === 'XW') ? toISODate(ca.endSubscription) : null,
+              recordDate: toISODate(ca.recordDate),
             });
           }
         }

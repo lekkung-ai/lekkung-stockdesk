@@ -10,6 +10,9 @@ import type { CalendarRow } from '@/app/api/corporate-action/route';
 import type { EarningsAnnouncement, EarningsFeed } from '@/app/api/earnings/route';
 import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@/lib/earningsBucket';
 import { loadMyStockSymbols } from '@/lib/myStocks';
+import { isHalted, listingCalc, xrCalc, type CapitalEvent, type CapitalEventsFile } from '@/lib/capitalCalc';
+import type { NewsFlagsFile } from '@/lib/newsFlags';
+import CapitalDetail, { capitalMainLine, type CapitalRowInput } from './CapitalDetail';
 
 // ─── Combined-scan price/universe lookup (for XD yield calc + "scan scope" filter) ───
 type CombinedEntry = { ticker: string; price: number };
@@ -43,7 +46,7 @@ function daysUntil(iso: string): number {
 // ─── Unified event model - earnings (real+predicted) and every corporate-action
 // type, merged so the calendar shows everything in one layer instead of
 // requiring two separate pages to get the full picture ───
-type EventKind = 'earnings' | 'XD' | 'XR' | 'XW' | 'XM' | 'XA';
+type EventKind = 'earnings' | 'XD' | 'XR' | 'XW' | 'XM' | 'XA' | 'NEW' | 'BOARD'; // NEW/BOARD: capital_events.json
 
 interface UnifiedEvent {
   key: string;
@@ -61,6 +64,11 @@ interface UnifiedEvent {
   dividendAmount?: number | null;
   ratio?: string | null;
   subscriptionPrice?: number | null;
+  allotShare?: number | null;
+  // capital detail block (XR / XW / NEW / BOARD)
+  capital?: CapitalEvent;
+  cap?: CapitalRowInput;
+  warn?: boolean;
 }
 
 const CA_COLOR: Record<Exclude<EventKind, 'earnings'>, string> = {
@@ -69,9 +77,12 @@ const CA_COLOR: Record<Exclude<EventKind, 'earnings'>, string> = {
   XW: '#EF9F27',  // orange
   XM: 'rgba(255,255,255,0.5)', // gray - lowest priority
   XA: 'rgba(255,255,255,0.35)',
+  NEW: '#E879F9', // pink - new shares entering the market
+  BOARD: 'rgba(255,255,255,0.35)',
 };
 const CA_LABEL: Record<Exclude<EventKind, 'earnings'>, string> = {
   XD: 'เงินปันผล (XD)', XR: 'เพิ่มทุน (XR)', XW: 'แจกวอร์แรนต์ (XW)', XM: 'ประชุมผู้ถือหุ้น (XM)', XA: 'อื่นๆ',
+  NEW: 'หุ้นใหม่เข้า', BOARD: 'บอร์ดอนุมัติเพิ่มทุน',
 };
 const CA_BADGE_CLS: Record<Exclude<EventKind, 'earnings'>, string> = {
   XD: 'bg-[#EAB308]/15 text-[#EAB308] ring-1 ring-[#EAB308]/30',
@@ -79,14 +90,17 @@ const CA_BADGE_CLS: Record<Exclude<EventKind, 'earnings'>, string> = {
   XW: 'bg-[#EF9F27]/15 text-[#EF9F27] ring-1 ring-[#EF9F27]/30',
   XM: 'bg-white/10 text-white/50 ring-1 ring-white/10',
   XA: 'bg-white/[0.07] text-white/40 ring-1 ring-white/10',
+  NEW: 'bg-[#E879F9]/15 text-[#f0abfc] ring-1 ring-[#E879F9]/30',
+  BOARD: 'bg-white/[0.06] text-white/50 ring-1 ring-white/10',
 };
 
-type EventFilter = 'all' | 'earnings' | 'XD' | 'XR_XW' | 'XM';
+type EventFilter = 'all' | 'earnings' | 'XD' | 'XR_XW' | 'NEW' | 'XM';
 const EVENT_FILTER_OPTS: { key: EventFilter; label: string }[] = [
   { key: 'all', label: 'ทั้งหมด' },
   { key: 'earnings', label: 'ประกาศงบ' },
   { key: 'XD', label: 'XD' },
   { key: 'XR_XW', label: 'XR+XW' },
+  { key: 'NEW', label: 'หุ้นใหม่เข้า' },
   { key: 'XM', label: 'XM' },
 ];
 function passesEventFilter(e: UnifiedEvent, f: EventFilter): boolean {
@@ -94,6 +108,7 @@ function passesEventFilter(e: UnifiedEvent, f: EventFilter): boolean {
   if (f === 'earnings') return e.kind === 'earnings';
   if (f === 'XD') return e.kind === 'XD';
   if (f === 'XR_XW') return e.kind === 'XR' || e.kind === 'XW';
+  if (f === 'NEW') return e.kind === 'NEW' || e.kind === 'BOARD';
   if (f === 'XM') return e.kind === 'XM';
   return true;
 }
@@ -127,8 +142,9 @@ function EventTypeBadge({ event }: { event: UnifiedEvent }) {
     </span>
   ) : (
     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap ${CA_BADGE_CLS[event.kind]}`}>
-      {event.kind === 'XR' && <AlertTriangle size={11} className="flex-shrink-0" />}
-      {event.kind}
+      {event.warn && <AlertTriangle size={11} className="flex-shrink-0" />}
+      {event.kind === 'NEW' ? (event.capital?.source_type ? `${event.capital.source_type} เข้า` : 'หุ้นใหม่เข้า')
+        : event.kind === 'BOARD' ? 'ประกาศแล้ว' : event.kind}
     </span>
   );
 }
@@ -151,6 +167,8 @@ function EventDetail({ event, yieldPct }: { event: UnifiedEvent; yieldPct: numbe
     </span>
   ) : event.kind === 'XW' ? (
     <span>{event.ratio ? `อัตราส่วน ${event.ratio}` : event.detail}</span>
+  ) : (event.kind === 'NEW' || event.kind === 'BOARD') && event.capital ? (
+    <span className={event.kind === 'NEW' ? 'text-[#f0abfc]' : 'text-white/45'}>{capitalMainLine(event.capital)}</span>
   ) : (
     <span>{event.detail}</span>
   );
@@ -167,10 +185,10 @@ function EventRow({ event }: { event: UnifiedEvent }) {
   const yieldPct = event.kind === 'XD' && event.dividendAmount != null && price ? (event.dividendAmount / price) * 100 : null;
 
   return (
-    <>
+    <div className="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02] transition-colors">
       {/* Mobile: 2-line card - no fixed-width columns, nothing can push past
           the viewport edge. Desktop: original fixed-width row layout. */}
-      <div className="md:hidden px-3 py-3 hover:bg-white/[0.02] transition-colors border-b border-white/[0.04] last:border-0">
+      <div className="md:hidden px-3 py-3">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             <Link href={`/stock/${event.ticker}`} className="text-[14px] font-semibold text-blue-400 hover:text-blue-300 flex-shrink-0">
@@ -191,7 +209,7 @@ function EventRow({ event }: { event: UnifiedEvent }) {
         )}
       </div>
 
-      <div className="hidden md:flex items-start gap-3 px-3 py-3 hover:bg-white/[0.02] transition-colors border-b border-white/[0.04] last:border-0">
+      <div className="hidden md:flex items-start gap-3 px-3 py-3">
         <div className="w-[110px] flex-shrink-0 text-[13px] text-white/55">
           {isoToThaiLabel(event.date)}
           {dayBadge}
@@ -208,10 +226,11 @@ function EventRow({ event }: { event: UnifiedEvent }) {
           <EventDetail event={event} yieldPct={yieldPct} />
         </div>
         <div className="w-[100px] flex-shrink-0 text-[12px] text-white/40 text-right">
-          {event.payDate ? isoToThaiLabel(event.payDate) : ''}
+          {event.payDate ? isoToThaiLabel(event.payDate) : event.capital?.announce_date ? `ประกาศ ${isoToThaiLabel(event.capital.announce_date)}` : ''}
         </div>
       </div>
-    </>
+      {event.cap && <CapitalDetail r={event.cap} />}
+    </div>
   );
 }
 
@@ -339,6 +358,10 @@ export default function CalendarPage() {
   const [earningsFeed, setEarningsFeed] = useState<EarningsFeed | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  // capital_events.json (facts) + news_flags.json (SP/H marks) - static files; missing → rows as before
+  const [capFile, setCapFile] = useState<CapitalEventsFile | null>(null);
+  const [capState, setCapState] = useState<'loading' | 'ok' | 'missing'>('loading');
+  const [haltedSet, setHaltedSet] = useState<Set<string>>(new Set());
 
   // My Stocks is localStorage-only - hydrate client-side after mount.
   useEffect(() => { setMyStocks(new Set(loadMyStockSymbols())); }, []);
@@ -352,6 +375,27 @@ export default function CalendarPage() {
         if (res.ok) setEarningsFeed(await res.json());
       } catch { /* earnings events just won't show */ }
     })();
+  }, []);
+
+  useEffect(() => {
+    fetch('/data/capital_events.json')
+      .then(r => (r.ok ? (r.json() as Promise<CapitalEventsFile>) : null))
+      .then(f => {
+        const ok = !!f && Array.isArray(f.events);
+        setCapFile(ok ? f : null);
+        setCapState(ok ? 'ok' : 'missing');
+      })
+      .catch(() => setCapState('missing'));
+    fetch('/data/news_flags.json')
+      .then(r => (r.ok ? (r.json() as Promise<NewsFlagsFile>) : null))
+      .then(f => {
+        const s = new Set<string>();
+        for (const [t, flags] of Object.entries(f?.flags ?? {})) {
+          if (Array.isArray(flags) && isHalted(flags.filter(x => x?.type === 'mark').map(x => x.label))) s.add(t);
+        }
+        setHaltedSet(s);
+      })
+      .catch(() => { /* no marks → nothing treated as halted */ });
   }, []);
 
   const rangeFrom = viewMode === 'month'
@@ -411,16 +455,57 @@ export default function CalendarPage() {
       }
     }
 
+    const capEvents = capFile?.events ?? [];
+    const roResults = capEvents.filter(c => c.kind === 'ro_result');
+    const closeOf = (t: string) => { const p = PRICE_MAP.get(t); return typeof p === 'number' && p > 0 ? p : null; };
+    const keyCount = new Map<string, number>();
     for (const row of caRows) {
-      events.push({
-        key: `ca-${row.ticker}-${row.caType}-${row.xDate}`, kind: row.bucket, ticker: row.ticker, date: row.xDate,
+      // one ticker can have two rows of a type on one day (two warrant series) - keys must stay unique
+      const base = `ca-${row.ticker}-${row.caType}-${row.xDate}`;
+      const n = keyCount.get(base) ?? 0;
+      keyCount.set(base, n + 1);
+      const ev: UnifiedEvent = {
+        key: n ? `${base}-${n + 1}` : base, kind: row.bucket, ticker: row.ticker, date: row.xDate,
         detail: row.detail, payDate: row.payDate, dividendAmount: row.dividendAmount, ratio: row.ratio, subscriptionPrice: row.subscriptionPrice,
+        allotShare: row.allotShare,
+      };
+      if (row.bucket === 'XR' || row.bucket === 'XW') {
+        const halted = haltedSet.has(row.ticker);
+        const xw = row.bucket === 'XR' ? caRows.find(x => x.bucket === 'XW' && x.ticker === row.ticker && x.xDate === row.xDate) : undefined;
+        const res = row.bucket === 'XR'
+          ? roResults.find(c => c.ticker === row.ticker && c.date >= row.xDate && (c.price == null || c.price === row.subscriptionPrice))
+          : undefined;
+        ev.cap = {
+          kind: row.bucket, ticker: row.ticker, upcoming: daysUntil(row.xDate) >= 0, close: closeOf(row.ticker), halted,
+          ratio: row.ratio, exercise: row.subscriptionPrice, allotShare: row.allotShare ?? null,
+          withWarrant: xw ? { ratio: xw.ratio, allotShare: xw.allotShare ?? null } : null,
+          result: res && res.take_up_pct != null
+            ? { news_id: res.origin?.news_id ?? null, allotted: res.allotted ?? 0, sold: res.sold ?? 0, take_up_pct: res.take_up_pct }
+            : null,
+        };
+        if (row.bucket === 'XR') {
+          ev.warn = !!xrCalc({ ratio: row.ratio, exercise: row.subscriptionPrice, close: ev.cap.close, upcoming: ev.cap.upcoming, halted })?.warn;
+        }
+      }
+      events.push(ev);
+    }
+
+    for (const c of capEvents) {
+      if (c.kind !== 'listing' && c.kind !== 'board') continue;
+      if (!c.date || c.date < rangeFrom || c.date > rangeTo) continue;
+      const kind: EventKind = c.kind === 'listing' ? 'NEW' : 'BOARD';
+      const halted = haltedSet.has(c.ticker);
+      const close = closeOf(c.ticker);
+      events.push({
+        key: `cap-${c.id}`, kind, ticker: c.ticker, date: c.date, capital: c,
+        cap: { kind, ticker: c.ticker, upcoming: daysUntil(c.date) >= 0, close, halted, capital: c },
+        warn: kind === 'NEW' && !!listingCalc({ old: c.shares?.old, added: c.shares?.new, price: c.price, close, halted })?.warn,
       });
     }
 
     events.sort((a, b) => a.date.localeCompare(b.date) || a.ticker.localeCompare(b.ticker));
     return events;
-  }, [earningsFeed, caRows, rangeFrom, rangeTo]);
+  }, [earningsFeed, caRows, capFile, haltedSet, rangeFrom, rangeTo]);
 
   const filteredEvents = useMemo(() => {
     return allEvents.filter(e => {
@@ -632,7 +717,9 @@ export default function CalendarPage() {
           </div>
         ) : selectedDayEvents.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-[13px] text-white/30">ไม่พบเหตุการณ์ที่ตรงกับตัวกรอง</p>
+            <p className="text-[13px] text-white/30">
+              {eventFilter === 'NEW' && capState === 'missing' ? 'ยังไม่มีข้อมูลหุ้นใหม่เข้า' : 'ไม่พบเหตุการณ์ที่ตรงกับตัวกรอง'}
+            </p>
           </div>
         ) : (
           <div>
@@ -642,7 +729,7 @@ export default function CalendarPage() {
       </div>
 
       <p className="text-[10px] text-white/20 text-right">
-        แหล่งข้อมูล: SET (ผ่าน Settrade) + earnings feed · {filteredEvents.length} รายการ
+        แหล่งข้อมูล: SET (ผ่าน Settrade) + ประกาศ SET (เพิ่มทุน/PP{capFile?.generated_at ? ` · ${capFile.generated_at.slice(0, 16).replace('T', ' ')}` : ''}) + earnings feed · {filteredEvents.length} รายการ
       </p>
     </div>
   );
