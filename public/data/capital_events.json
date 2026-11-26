@@ -1,0 +1,1887 @@
+{
+ "generated_at": "2026-11-26T21:03:19+07:00",
+ "as_of": "2026-11-26",
+ "schema_version": 1,
+ "sources": {
+  "set_news": {
+   "headlines": 42,
+   "fetched_now": 20,
+   "pending": 0
+  },
+  "settrade_calendar": {
+   "ok": true
+  },
+  "requests": 24
+ },
+ "counts": {
+  "listing": 16,
+  "board": 15,
+  "ro_result": 3,
+  "XR": 7,
+  "XW": 6
+ },
+ "warnings": [
+  "CSC 107222501: dropped - PP allottees do not add up to the new shares"
+ ],
+ "events": [
+  {
+   "id": "LIST:CAZ:2026-10-28:107207601",
+   "kind": "listing",
+   "ticker": "CAZ",
+   "announce_date": "2026-10-27",
+   "date": "2026-10-28",
+   "source_type": "W",
+   "shares": {
+    "old": 305652339,
+    "new": 3715000,
+    "total": 309367339,
+    "basis": "actual"
+   },
+   "price": 0.8,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-15",
+    "2026-10-15"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107207601",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107207601&symbol=CAZ",
+    "pdf": "https://weblink.set.or.th/dat/news/202610/8000NWS271020260800017690T.pdf"
+   }
+  },
+  {
+   "id": "BOARD:SCM:107226401",
+   "kind": "board",
+   "ticker": "SCM",
+   "date": "2026-10-28",
+   "tags": [
+    "RO"
+   ],
+   "title": "แจ้งมติที่ประชุมคณะกรรมการบริษัท ครั้งที่ 6/2569 เรื่อง กำหนดระยะเวลาจองซื้อและชำระเงินค่าจองซื้อหุ้นสามัญเพิ่มทุนที่เสนอขายให้แก่ผู้ถือหุ้นเดิมตามสัดส่วนการถือหุ้น (Rights Offering : RO) ครั้งที่ 2 (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107226401",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107226401&symbol=SCM"
+   }
+  },
+  {
+   "id": "BOARD:TL:107241601",
+   "kind": "board",
+   "ticker": "TL",
+   "date": "2026-10-29",
+   "tags": [
+    "PP",
+    "RO"
+   ],
+   "title": "แจ้งมติที่ประชุมคณะกรรมการ เรื่อง การเข้าลงทุนในบริษัท เซเว่นโซลูชั่น จำกัด การเพิ่มทุน จัดสรรหุ้นเพิ่มทุนให้แก่ผู้ถือหุ้นเดิมตามสัดส่วน (Right Offering) และบุคคลในวงจำกัด (Private Placement) และการกำหนดวันประชุม EGM ครั้งที่ 2/2569 (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107241601",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107241601&symbol=TL"
+   }
+  },
+  {
+   "id": "RORES:WAVE:107245401",
+   "kind": "ro_result",
+   "ticker": "WAVE",
+   "date": "2026-10-29",
+   "news_id": "107245401",
+   "report_date": "2026-10-29",
+   "security": "หุ้นสามัญ",
+   "offered_to": "ผู้ถือหุ้นสามัญทั้งหมด",
+   "ratio": {
+    "a": 3.0,
+    "b": 1.0
+   },
+   "price": 0.04,
+   "subscription": [
+    "2026-10-14",
+    "2026-10-21"
+   ],
+   "allotted": 3820979033,
+   "sold": 1611111190,
+   "left": 2209867843,
+   "proceeds": 64444447.6,
+   "take_up_pct": 42.16,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107245401",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107245401&symbol=WAVE"
+   }
+  },
+  {
+   "id": "LIST:PRECHA:2026-11-03:107279201",
+   "kind": "listing",
+   "ticker": "PRECHA",
+   "announce_date": "2026-11-02",
+   "date": "2026-11-03",
+   "source_type": "RO",
+   "shares": {
+    "old": 336000000,
+    "new": 523291767,
+    "total": 859291767,
+    "basis": "actual"
+   },
+   "price": 0.2,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 2.5
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-05",
+    "2026-10-09"
+   ],
+   "par": 1.0,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107279201",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107279201&symbol=PRECHA",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS021120260800029460T.pdf"
+   },
+   "result": {
+    "news_id": null,
+    "allotted": 840000000,
+    "sold": 523291767,
+    "take_up_pct": 62.3,
+    "from": "listing÷ratio"
+   }
+  },
+  {
+   "id": "LIST:WAVE:2026-11-03:107279301",
+   "kind": "listing",
+   "ticker": "WAVE",
+   "announce_date": "2026-11-02",
+   "date": "2026-11-03",
+   "source_type": "RO",
+   "shares": {
+    "old": 11462937100,
+    "new": 1611111190,
+    "total": 13074048290,
+    "basis": "actual"
+   },
+   "price": 0.04,
+   "prices": null,
+   "ratio": {
+    "a": 3.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-14",
+    "2026-10-21"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107279301",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107279301&symbol=WAVE",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0397NWS021120260800040680T.pdf"
+   },
+   "result": {
+    "news_id": "107245401",
+    "allotted": 3820979033,
+    "sold": 1611111190,
+    "take_up_pct": 42.16
+   }
+  },
+  {
+   "id": "LIST:PPPM:2026-11-05:107325101",
+   "kind": "listing",
+   "ticker": "PPPM",
+   "announce_date": "2026-11-04",
+   "date": "2026-11-05",
+   "source_type": "W",
+   "shares": {
+    "old": 933150915,
+    "new": 2496751,
+    "total": 935647666,
+    "basis": "actual"
+   },
+   "price": 0.3,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-30"
+   ],
+   "par": 1.0,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107325101",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107325101&symbol=PPPM",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS041120260800029630T.pdf"
+   }
+  },
+  {
+   "id": "BOARD:FPT:107400601",
+   "kind": "board",
+   "ticker": "FPT",
+   "date": "2026-11-06",
+   "tags": [
+    "PP"
+   ],
+   "title": "แจ้งมติที่ประชุมคณะกรรมการบริษัทเกี่ยวกับการจ่ายเงินปันผล การขยายระยะเวลาการจัดสรรหุ้นสามัญเพิ่มทุนแบบมอบอำนาจทั่วไป (General Mandate) และกำหนดวันประชุมและวาระการประชุมสามัญผู้ถือหุ้นประจำปี 2570",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107400601",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107400601&symbol=FPT"
+   }
+  },
+  {
+   "id": "BOARD:KGEN:107399901",
+   "kind": "board",
+   "ticker": "KGEN",
+   "date": "2026-11-06",
+   "tags": [
+    "PP",
+    "W"
+   ],
+   "title": "แจ้งมติ BOD 6/2569 การกำหนดราคา รายชื่อบุคคลในวงจำกัด วันจองซื้อและชำระค่าหุ้นสามัญเพิ่มทุนแบบ GM เพื่อเสนอขายให้แก่บุคคลในวงจำกัด และกำหนดวันกำหนดรายชื่อผู้ถือหุ้นที่มีสิทธิได้รับการจัดสรร KGEN-W3 (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107399901",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107399901&symbol=KGEN"
+   }
+  },
+  {
+   "id": "RORES:PROEN:107398901",
+   "kind": "ro_result",
+   "ticker": "PROEN",
+   "date": "2026-11-06",
+   "news_id": "107398901",
+   "report_date": "2026-11-06",
+   "security": "หุ้นสามัญ",
+   "offered_to": "ผู้ถือหุ้นสามัญทั้งหมด",
+   "ratio": {
+    "a": 4.0,
+    "b": 1.0
+   },
+   "price": 0.84,
+   "subscription": [
+    "2026-10-19",
+    "2026-10-26"
+   ],
+   "allotted": 98142017,
+   "sold": 37515943,
+   "left": 60626074,
+   "proceeds": 31513392.12,
+   "take_up_pct": 38.23,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107398901",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107398901&symbol=PROEN"
+   }
+  },
+  {
+   "id": "LIST:ROH:2026-11-06:107347201",
+   "kind": "listing",
+   "ticker": "ROH",
+   "announce_date": "2026-11-05",
+   "date": "2026-11-06",
+   "source_type": "RO",
+   "shares": {
+    "old": 938917233,
+    "new": 280000000,
+    "total": 1218917233,
+    "basis": "actual"
+   },
+   "price": 0.6,
+   "prices": null,
+   "ratio": {
+    "a": 3.3533,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-20",
+    "2026-10-27"
+   ],
+   "par": 1.0,
+   "note": "เนื่องจาก ROH ยังไม่นำส่งงบการเงินไตรมาสที่ 2 ปี 2569 ตลาดหลักทรัพย์ฯ จึงยังคงสั่งห้ามการซื้อหรือขายหุ้นเพิ่มทุนและหุ้นเดิมของ ROH ต่อไป จนกว่าบริษัทจะนำส่งงบการเงินดังกล่าว ทั้งนี้ ROH ยังคงเป็นบริษัทจดทะเบียนที่เข้าข่ายอาจถูกเพิกถอน โดยอยู่ระหว่างดำเนินการแก้ไขเหตุแห่งการเพิกถอนให้หมดไป",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107347201",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107347201&symbol=ROH",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS051120260841059990T.pdf"
+   },
+   "result": {
+    "news_id": null,
+    "allotted": 279997982,
+    "sold": 280000000,
+    "take_up_pct": 100.0,
+    "from": "listing÷ratio"
+   }
+  },
+  {
+   "id": "RORES:STPI:107434001",
+   "kind": "ro_result",
+   "ticker": "STPI",
+   "date": "2026-11-09",
+   "news_id": "107434001",
+   "report_date": "2026-11-09",
+   "security": "หุ้นสามัญ",
+   "offered_to": "ผู้ถือหุ้นสามัญทั้งหมด",
+   "ratio": {
+    "a": 11.0,
+    "b": 1.0
+   },
+   "price": 5.55,
+   "subscription": [
+    "2026-10-29",
+    "2026-11-04"
+   ],
+   "allotted": 164752035,
+   "sold": 27374050,
+   "left": 137377985,
+   "proceeds": 151925977.5,
+   "take_up_pct": 16.62,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107434001",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107434001&symbol=STPI"
+   }
+  },
+  {
+   "id": "LIST:ITTHI:2026-11-11:107469001",
+   "kind": "listing",
+   "ticker": "ITTHI",
+   "announce_date": "2026-11-10",
+   "date": "2026-11-11",
+   "source_type": "W",
+   "shares": {
+    "old": 270200000,
+    "new": 344000,
+    "total": 270544000,
+    "basis": "actual"
+   },
+   "price": 0.5,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-29"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107469001",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107469001&symbol=ITTHI",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS101120260800032190T.pdf"
+   }
+  },
+  {
+   "id": "BOARD:KGEN:107559201",
+   "kind": "board",
+   "ticker": "KGEN",
+   "date": "2026-11-11",
+   "tags": [
+    "PP"
+   ],
+   "title": "การจัดสรรหุ้นเพิ่มทุนแบบ General Mandate (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107559201",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107559201&symbol=KGEN"
+   }
+  },
+  {
+   "id": "LIST:PROEN:2026-11-11:107468901",
+   "kind": "listing",
+   "ticker": "PROEN",
+   "announce_date": "2026-11-10",
+   "date": "2026-11-11",
+   "source_type": "W",
+   "shares": {
+    "old": 392568069,
+    "new": 13358,
+    "total": 392581427,
+    "basis": "actual"
+   },
+   "price": 1.0,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-14"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "107468901",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107468901&symbol=PROEN",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/1622NWS101120260800023590T.pdf"
+   }
+  },
+  {
+   "id": "BOARD:III:107653901",
+   "kind": "board",
+   "ticker": "III",
+   "date": "2026-11-12",
+   "tags": [
+    "PP"
+   ],
+   "title": "แจ้งมติที่ประชุมคณะกรรมการบริษัท ครั้งที่ 5/2569 การจำหน่ายหุ้นที่ซื้อคืน การรวมธุรกิจซึ่งเป็นรายการที่เกี่ยวโยงกัน การเพิ่มทุนจดทะเบียน การออกและเสนอขายหุ้นสามัญเพิ่มทุนให้แก่บุคคลในวงจำกัด และการเรียกประชุมวิสามัญผู้ถือหุ้น ครั้งที่ 1/2569",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107653901",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107653901&symbol=III"
+   }
+  },
+  {
+   "id": "BOARD:JAK:107672801",
+   "kind": "board",
+   "ticker": "JAK",
+   "date": "2026-11-12",
+   "tags": [
+    "W"
+   ],
+   "title": "แจ้งมติที่ประชุมคณะกรรมการบริษัทเกี่ยวกับการออกและเสนอขายใบสำคัญแสดงสิทธิ การเพิ่มทุนจดทะเบียน และการกำหนดวันประชุมและระเบียบวาระการประชุมวิสามัญผู้ถือหุ้น ครั้งที่ 1/2569 (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107672801",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107672801&symbol=JAK"
+   }
+  },
+  {
+   "id": "BOARD:B52:107982001",
+   "kind": "board",
+   "ticker": "B52",
+   "date": "2026-11-13",
+   "tags": [
+    "RO"
+   ],
+   "title": "การลดทุนจดทะเบียน,การเพิ่มทุนจดทะเบียน, การออกและเสนอขายหุ้นเพิ่มทุนให้แก่ผู้ถือหุ้นเดิมตามสัดส่วนการถือหุ้น (Right Offering) และกำหนดวันประชุมวิสามัญผู้ถือหุ้น  (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107982001",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107982001&symbol=B52"
+   }
+  },
+  {
+   "id": "BOARD:B52:107902201",
+   "kind": "board",
+   "ticker": "B52",
+   "date": "2026-11-13",
+   "tags": [
+    "RO"
+   ],
+   "title": "การลดทุนจดทะเบียน,การเพิ่มทุนจดทะเบียนของบริษัท การออกและเสนอขายหุ้นเพิ่มทุนให้แก่ผู้ถือหุ้นเดิมตามสัดส่วนการถือหุ้น (Right Offering) และกำหนดวันประชุมวิสามัญผู้ถือหุ้น",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107902201",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107902201&symbol=B52"
+   }
+  },
+  {
+   "id": "BOARD:NOBLE:107975001",
+   "kind": "board",
+   "ticker": "NOBLE",
+   "date": "2026-11-13",
+   "tags": [
+    "RO"
+   ],
+   "title": "การลดทุนจดทะเบียน การเพิ่มทุนจดทะเบียน การออกหุ้นสามัญเพิ่มทุนให้แก่ผู้ถือหุ้นเดิมของบริษัทฯ ตามสัดส่วนการถือหุ้น โดยไม่จัดสรรให้ผู้ถือหุ้นที่จะทำให้บริษัทมีหน้าที่ตามกฎหมายต่างประเทศ และการกำหนดวันประชุมวิสามัญผู้ถือหุ้น ครั้งที่ 1/2569",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107975001",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107975001&symbol=NOBLE"
+   }
+  },
+  {
+   "id": "BOARD:SOLAR:107848101",
+   "kind": "board",
+   "ticker": "SOLAR",
+   "date": "2026-11-13",
+   "tags": [
+    "PP",
+    "CB"
+   ],
+   "title": "แจ้งมติกรรมการเกี่ยวกับการจัดสรรหุ้นเพิ่มทุนแบบมอบอำนาจทั่วไป การแต่งตั้งกรรมการ การปรับโครงสร้างเป็น Holding Company การจัดตั้งบริษัทย่อยเพื่อรับโอนกิจการ (PBT) การออกหุ้นกู้แปลงสภาพ การเพิ่มทุน การก่อหนี้ และการเรียกประชุม EGM 1/2569 (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "107848101",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107848101&symbol=SOLAR"
+   }
+  },
+  {
+   "id": "LIST:IROYAL:2026-11-17:108017201",
+   "kind": "listing",
+   "ticker": "IROYAL",
+   "announce_date": "2026-11-16",
+   "date": "2026-11-17",
+   "source_type": "W",
+   "shares": {
+    "old": 230000000,
+    "new": 58033232,
+    "total": 288033232,
+    "basis": "actual"
+   },
+   "price": 2.92,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 1.0257
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-28"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108017201",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108017201&symbol=IROYAL",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS161120260800026590T.pdf"
+   }
+  },
+  {
+   "id": "LIST:RWI:2026-11-17:108017301",
+   "kind": "listing",
+   "ticker": "RWI",
+   "announce_date": "2026-11-16",
+   "date": "2026-11-17",
+   "source_type": "PP",
+   "shares": {
+    "old": 915277061,
+    "new": 304929659,
+    "total": 1220206720,
+    "basis": "actual"
+   },
+   "price": 0.2,
+   "prices": null,
+   "ratio": null,
+   "allottees": [
+    {
+     "name": "บริลเลียนท์ สโตนส์ เทรดดิ้ง พีทีอี. แอลทีดี.",
+     "shares": 304929659
+    }
+   ],
+   "subscription": [
+    "2026-11-10",
+    "2026-11-10"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108017301",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108017301&symbol=RWI",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/1174NWS161120260800036090T.pdf"
+   }
+  },
+  {
+   "id": "XR:FORTH:2026-11-18",
+   "kind": "XR",
+   "ticker": "FORTH",
+   "date": "2026-11-18",
+   "record_date": "2026-11-19",
+   "subscription": {
+    "begin": "2026-12-08",
+    "end": "2026-12-15"
+   },
+   "ratio": {
+    "old": 34.475238,
+    "new": 1.0,
+    "text": "34.475238 : 1"
+   },
+   "price": 12.0,
+   "rights_for": "หุ้นสามัญ",
+   "allot_share": 27131783,
+   "shares": {
+    "old": 935374676,
+    "new": 27131783,
+    "basis": "max"
+   },
+   "linked": null,
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "LIST:PROEN:2026-11-18:108118801",
+   "kind": "listing",
+   "ticker": "PROEN",
+   "announce_date": "2026-11-17",
+   "date": "2026-11-18",
+   "source_type": "RO",
+   "shares": {
+    "old": 392581427,
+    "new": 37515943,
+    "total": 430097370,
+    "basis": "actual"
+   },
+   "price": 0.84,
+   "prices": null,
+   "ratio": {
+    "a": 4.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-19",
+    "2026-10-26"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108118801",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108118801&symbol=PROEN",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/1622NWS171120260800025040T.pdf"
+   },
+   "result": {
+    "news_id": "107398901",
+    "allotted": 98142017,
+    "sold": 37515943,
+    "take_up_pct": 38.23
+   }
+  },
+  {
+   "id": "XR:BTW:2026-11-19",
+   "kind": "XR",
+   "ticker": "BTW",
+   "date": "2026-11-19",
+   "record_date": "2026-11-20",
+   "subscription": {
+    "begin": null,
+    "end": null
+   },
+   "ratio": {
+    "old": 2.0,
+    "new": 3.0,
+    "text": "2 : 3"
+   },
+   "price": 0.05,
+   "rights_for": "หุ้นสามัญ",
+   "allot_share": 1134000000,
+   "shares": {
+    "old": 756000000,
+    "new": 1134000000,
+    "basis": "max"
+   },
+   "linked": [
+    "XW:BTW:2026-11-19",
+    "XW:BTW:2026-11-19#2"
+   ],
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "XW:BTW:2026-11-19",
+   "kind": "XW",
+   "ticker": "BTW",
+   "date": "2026-11-19",
+   "record_date": "2026-11-20",
+   "subscription": {
+    "begin": null,
+    "end": null
+   },
+   "ratio": {
+    "old": 1.0,
+    "new": 12100.0,
+    "text": "1 : 12,100"
+   },
+   "price": null,
+   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
+   "allot_share": 363000000,
+   "shares": {
+    "old": 30000,
+    "new": 363000000,
+    "basis": "max"
+   },
+   "linked": [
+    "XR:BTW:2026-11-19"
+   ],
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "XW:BTW:2026-11-19#2",
+   "kind": "XW",
+   "ticker": "BTW",
+   "date": "2026-11-19",
+   "record_date": "2026-11-20",
+   "subscription": {
+    "begin": null,
+    "end": null
+   },
+   "ratio": {
+    "old": 2.0,
+    "new": 1.0,
+    "text": "2 : 1"
+   },
+   "price": null,
+   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
+   "allot_share": 567000000,
+   "shares": {
+    "old": 1134000000,
+    "new": 567000000,
+    "basis": "max"
+   },
+   "linked": [
+    "XR:BTW:2026-11-19"
+   ],
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "BOARD:SOLAR:108196601",
+   "kind": "board",
+   "ticker": "SOLAR",
+   "date": "2026-11-19",
+   "tags": [
+    "PP"
+   ],
+   "title": "การจัดสรรหุ้นเพิ่มทุนแบบ General Mandate (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "108196601",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108196601&symbol=SOLAR"
+   }
+  },
+  {
+   "id": "XR:TWZ:2026-11-20",
+   "kind": "XR",
+   "ticker": "TWZ",
+   "date": "2026-11-20",
+   "record_date": "2026-11-23",
+   "subscription": {
+    "begin": "2027-01-25",
+    "end": "2027-01-29"
+   },
+   "ratio": {
+    "old": 8.0,
+    "new": 3.0,
+    "text": "8 : 3"
+   },
+   "price": 0.01,
+   "rights_for": "หุ้นสามัญ",
+   "allot_share": 7447841817,
+   "shares": {
+    "old": 19860911512,
+    "new": 7447841817,
+    "basis": "max"
+   },
+   "linked": [
+    "XW:TWZ:2026-11-20"
+   ],
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "XW:TWZ:2026-11-20",
+   "kind": "XW",
+   "ticker": "TWZ",
+   "date": "2026-11-20",
+   "record_date": "2026-11-23",
+   "subscription": {
+    "begin": null,
+    "end": null
+   },
+   "ratio": {
+    "old": 2.0,
+    "new": 1.0,
+    "text": "2 : 1"
+   },
+   "price": null,
+   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
+   "allot_share": 3723920909,
+   "shares": {
+    "old": 7447841818,
+    "new": 3723920909,
+    "basis": "max"
+   },
+   "linked": [
+    "XR:TWZ:2026-11-20"
+   ],
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "LIST:AJA:2026-11-23:108203901",
+   "kind": "listing",
+   "ticker": "AJA",
+   "announce_date": "2026-11-20",
+   "date": "2026-11-23",
+   "source_type": "CB",
+   "shares": {
+    "old": 5743212607,
+    "new": 12626262,
+    "total": 5755838869,
+    "basis": "actual"
+   },
+   "price": 0.099,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 10101.01
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-11-12"
+   ],
+   "par": 0.1,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108203901",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108203901&symbol=AJA",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS201120260800040200T.pdf"
+   }
+  },
+  {
+   "id": "LIST:CAZ:2026-11-23:108204001",
+   "kind": "listing",
+   "ticker": "CAZ",
+   "announce_date": "2026-11-20",
+   "date": "2026-11-23",
+   "source_type": "W",
+   "shares": {
+    "old": 309367339,
+    "new": 440000,
+    "total": 309807339,
+    "basis": "actual"
+   },
+   "price": 0.8,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-11-13"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108204001",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108204001&symbol=CAZ",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS201120260800048570T.pdf"
+   }
+  },
+  {
+   "id": "LIST:KGEN:2026-11-23:108203801",
+   "kind": "listing",
+   "ticker": "KGEN",
+   "announce_date": "2026-11-20",
+   "date": "2026-11-23",
+   "source_type": "PP",
+   "shares": {
+    "old": 2225726175,
+    "new": 200000000,
+    "total": 2425726175,
+    "basis": "actual"
+   },
+   "price": 1.35,
+   "prices": null,
+   "ratio": null,
+   "allottees": [
+    {
+     "name": "บริษัท ระยองไวร์ อินดัสตรีส์ จำกัด (มหาชน)",
+     "shares": 185185185
+    },
+    {
+     "name": "นาย จินดาสร แสงฤทธิ์",
+     "shares": 14814815
+    }
+   ],
+   "subscription": [
+    "2026-11-09",
+    "2026-11-13"
+   ],
+   "par": 0.5,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108203801",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108203801&symbol=KGEN",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS201120260800031740T.pdf"
+   }
+  },
+  {
+   "id": "LIST:STPI:2026-11-23:108203701",
+   "kind": "listing",
+   "ticker": "STPI",
+   "announce_date": "2026-11-20",
+   "date": "2026-11-23",
+   "source_type": "RO",
+   "shares": {
+    "old": 1812272387,
+    "new": 27374050,
+    "total": 1839646437,
+    "basis": "actual"
+   },
+   "price": 5.55,
+   "prices": null,
+   "ratio": {
+    "a": 11.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-10-29",
+    "2026-11-04"
+   ],
+   "par": 0.25,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108203701",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108203701&symbol=STPI",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0566NWS201120260800018880T.pdf"
+   },
+   "result": {
+    "news_id": "107434001",
+    "allotted": 164752035,
+    "sold": 27374050,
+    "take_up_pct": 16.62
+   }
+  },
+  {
+   "id": "BOARD:KGEN:108246001",
+   "kind": "board",
+   "ticker": "KGEN",
+   "date": "2026-11-24",
+   "tags": [
+    "W"
+   ],
+   "title": "แจ้งมติคณะกรรมการบริษัทครั้งที่ 8/2569 การเลื่อนวันกำหนดรายชื่อผู้ถือหุ้นที่ได้รับสิทธิซื้อ KGEN-W3 (Record Date) เป็นวันที่ 17 ธันวาคม 2569 (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "108246001",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108246001&symbol=KGEN"
+   }
+  },
+  {
+   "id": "XR:META:2026-11-24",
+   "kind": "XR",
+   "ticker": "META",
+   "date": "2026-11-24",
+   "record_date": "2026-11-25",
+   "subscription": {
+    "begin": "2026-12-09",
+    "end": "2026-12-18"
+   },
+   "ratio": {
+    "old": 1.0,
+    "new": 33.0,
+    "text": "1 : 33"
+   },
+   "price": 0.1127,
+   "rights_for": "หุ้นสามัญ",
+   "allot_share": 2440800120,
+   "shares": {
+    "old": 73963640,
+    "new": 2440800120,
+    "basis": "max"
+   },
+   "linked": [
+    "XW:META:2026-11-24"
+   ],
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "XW:META:2026-11-24",
+   "kind": "XW",
+   "ticker": "META",
+   "date": "2026-11-24",
+   "record_date": "2026-11-25",
+   "subscription": {
+    "begin": "2026-12-09",
+    "end": "2026-12-18"
+   },
+   "ratio": {
+    "old": 33.0,
+    "new": 10.0,
+    "text": "33 : 10"
+   },
+   "price": null,
+   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
+   "allot_share": 739636400,
+   "shares": {
+    "old": 2440800120,
+    "new": 739636400,
+    "basis": "max"
+   },
+   "linked": [
+    "XR:META:2026-11-24"
+   ],
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "BOARD:SOLAR:108255101",
+   "kind": "board",
+   "ticker": "SOLAR",
+   "date": "2026-11-24",
+   "tags": [
+    "CB"
+   ],
+   "title": "แจ้งมติแต่งตั้งกรรมการใหม่ ปรับโครงสร้างเป็น Holding Company จัดตั้งบริษัทย่อยเพื่อรับโอนกิจการ (PBT) ออกหุ้นกู้แปลงสภาพ เพิ่มทุนและจัดสรรหุ้นเพิ่มทุน ก่อหนี้และภาระผูกพัน และเรียกประชุม EGM ครั้งที่ 1/2569 (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "108255101",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108255101&symbol=SOLAR"
+   }
+  },
+  {
+   "id": "LIST:SOLAR:2026-11-25:108241101",
+   "kind": "listing",
+   "ticker": "SOLAR",
+   "announce_date": "2026-11-24",
+   "date": "2026-11-25",
+   "source_type": "PP",
+   "shares": {
+    "old": 1307120744,
+    "new": 130712000,
+    "total": 1437832744,
+    "basis": "actual"
+   },
+   "price": 0.32,
+   "prices": null,
+   "ratio": null,
+   "allottees": [
+    {
+     "name": "นายแสงชัย อภิชาติธนพัฒน์",
+     "shares": 60000000
+    },
+    {
+     "name": "นางสาวพิศมัย วงศ์สามารถ",
+     "shares": 60000000
+    },
+    {
+     "name": "นางสาวเนาวรัตน์ ธรรมรัตน์",
+     "shares": 10712000
+    }
+   ],
+   "subscription": [
+    "2026-11-13",
+    "2026-12-30"
+   ],
+   "par": 1.0,
+   "note": "บุคคลเฉพาะเจาะจงทั้ง 3 รายจองซื้อและชำระค่าหุ้นทั้งจำนวนแล้ว โดยบริษัทได้จดทะเบียนเปลี่ยนแปลงทุนชำระแล้วเมื่อวันที่ 19 พฤศจิกายน 2569",
+   "origin": {
+    "source": "set-news",
+    "news_id": "108241101",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108241101&symbol=SOLAR",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0831NWS241120260800027210T.pdf"
+   }
+  },
+  {
+   "id": "BOARD:TSI:108279601",
+   "kind": "board",
+   "ticker": "TSI",
+   "date": "2026-11-25",
+   "tags": [
+    "CB"
+   ],
+   "title": "แจ้งมติคณะกรรมการบริษัทให้จัดประชุม EGM ครั้งที่ 1/2569 เพื่อพิจารณา การออกและเสนอขายตราสารแปลงสภาพด้อยสิทธิ การแก้ไขข้อบังคับ การเพิ่มทุนจดทะเบียน การแก้ไขหนังสือบริคณห์สนธิ การจัดสรรหุ้นเพิ่มทุน การขอผ่อนผันการทำคำเสนอซื้อหลักทรัพย์  (แก้ไข)",
+   "origin": {
+    "source": "set-news",
+    "news_id": "108279601",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108279601&symbol=TSI"
+   }
+  },
+  {
+   "id": "XR:SOLAR:2026-11-26",
+   "kind": "XR",
+   "ticker": "SOLAR",
+   "date": "2026-11-26",
+   "record_date": "2026-11-27",
+   "subscription": {
+    "begin": "2026-12-18",
+    "end": "2026-12-24"
+   },
+   "ratio": {
+    "old": 5.500003,
+    "new": 1.0,
+    "text": "5.500003 : 1"
+   },
+   "price": 0.32,
+   "rights_for": "หุ้นสามัญ",
+   "allot_share": 261424000,
+   "shares": {
+    "old": 1437832784,
+    "new": 261424000,
+    "basis": "max"
+   },
+   "linked": null,
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "LIST:AJA:2026-11-27:108287801",
+   "kind": "listing",
+   "ticker": "AJA",
+   "announce_date": "2026-11-26",
+   "date": "2026-11-27",
+   "source_type": "CB",
+   "shares": {
+    "old": 5755838869,
+    "new": 12626262,
+    "total": 5768465131,
+    "basis": "actual"
+   },
+   "price": 0.099,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 10101.01
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-11-23"
+   ],
+   "par": 0.1,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108287801",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108287801&symbol=AJA",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS261120260800028140T.pdf"
+   }
+  },
+  {
+   "id": "XR:B52:2026-11-27",
+   "kind": "XR",
+   "ticker": "B52",
+   "date": "2026-11-27",
+   "record_date": "2026-11-30",
+   "subscription": {
+    "begin": "2027-01-15",
+    "end": "2027-01-21"
+   },
+   "ratio": {
+    "old": 2.0,
+    "new": 3.0,
+    "text": "2 : 3"
+   },
+   "price": 0.15,
+   "rights_for": "หุ้นสามัญ",
+   "allot_share": 1509420294,
+   "shares": {
+    "old": 1006280196,
+    "new": 1509420294,
+    "basis": "max"
+   },
+   "linked": null,
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "XW:KGEN:2026-12-15",
+   "kind": "XW",
+   "ticker": "KGEN",
+   "date": "2026-12-15",
+   "record_date": "2026-12-17",
+   "subscription": {
+    "begin": "2027-01-12",
+    "end": "2027-01-18"
+   },
+   "ratio": {
+    "old": 5.0,
+    "new": 1.0,
+    "text": "5 : 1"
+   },
+   "price": 0.05,
+   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
+   "allot_share": 548316763,
+   "shares": {
+    "old": 2741583815,
+    "new": 548316763,
+    "basis": "max"
+   },
+   "linked": null,
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "XR:NOBLE:2026-12-29",
+   "kind": "XR",
+   "ticker": "NOBLE",
+   "date": "2026-12-29",
+   "record_date": "2026-12-30",
+   "subscription": {
+    "begin": null,
+    "end": null
+   },
+   "ratio": {
+    "old": 2.29,
+    "new": 1.0,
+    "text": "2.29 : 1"
+   },
+   "price": null,
+   "rights_for": "หุ้นสามัญ",
+   "allot_share": 597997245,
+   "shares": {
+    "old": 1369413691,
+    "new": 597997245,
+    "basis": "max"
+   },
+   "linked": null,
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  },
+  {
+   "id": "XW:JAK:2027-01-07",
+   "kind": "XW",
+   "ticker": "JAK",
+   "date": "2027-01-07",
+   "record_date": "2027-01-08",
+   "subscription": {
+    "begin": null,
+    "end": null
+   },
+   "ratio": {
+    "old": 3.2,
+    "new": 1.0,
+    "text": "3.2 : 1"
+   },
+   "price": null,
+   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
+   "allot_share": 100000000,
+   "shares": {
+    "old": 320000000,
+    "new": 100000000,
+    "basis": "max"
+   },
+   "linked": null,
+   "origin": {
+    "source": "settrade-calendar"
+   }
+  }
+ ],
+ "fetched": {
+  "108287801": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "AJA",
+   "date": "2026-11-26",
+   "data": {
+    "ticker": "AJA",
+    "date": "2026-11-27",
+    "source_type": "CB",
+    "shares": {
+     "old": 5755838869,
+     "new": 12626262,
+     "total": 5768465131,
+     "basis": "actual"
+    },
+    "price": 0.099,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 10101.01
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-11-23"
+    ],
+    "par": 0.1,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS261120260800028140T.pdf"
+  },
+  "108241101": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "SOLAR",
+   "date": "2026-11-24",
+   "data": {
+    "ticker": "SOLAR",
+    "date": "2026-11-25",
+    "source_type": "PP",
+    "shares": {
+     "old": 1307120744,
+     "new": 130712000,
+     "total": 1437832744,
+     "basis": "actual"
+    },
+    "price": 0.32,
+    "prices": null,
+    "ratio": null,
+    "allottees": [
+     {
+      "name": "นายแสงชัย อภิชาติธนพัฒน์",
+      "shares": 60000000
+     },
+     {
+      "name": "นางสาวพิศมัย วงศ์สามารถ",
+      "shares": 60000000
+     },
+     {
+      "name": "นางสาวเนาวรัตน์ ธรรมรัตน์",
+      "shares": 10712000
+     }
+    ],
+    "subscription": [
+     "2026-11-13",
+     "2026-12-30"
+    ],
+    "par": 1.0,
+    "note": "บุคคลเฉพาะเจาะจงทั้ง 3 รายจองซื้อและชำระค่าหุ้นทั้งจำนวนแล้ว โดยบริษัทได้จดทะเบียนเปลี่ยนแปลงทุนชำระแล้วเมื่อวันที่ 19 พฤศจิกายน 2569"
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0831NWS241120260800027210T.pdf"
+  },
+  "108204001": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "CAZ",
+   "date": "2026-11-20",
+   "data": {
+    "ticker": "CAZ",
+    "date": "2026-11-23",
+    "source_type": "W",
+    "shares": {
+     "old": 309367339,
+     "new": 440000,
+     "total": 309807339,
+     "basis": "actual"
+    },
+    "price": 0.8,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-11-13"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS201120260800048570T.pdf"
+  },
+  "108203901": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "AJA",
+   "date": "2026-11-20",
+   "data": {
+    "ticker": "AJA",
+    "date": "2026-11-23",
+    "source_type": "CB",
+    "shares": {
+     "old": 5743212607,
+     "new": 12626262,
+     "total": 5755838869,
+     "basis": "actual"
+    },
+    "price": 0.099,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 10101.01
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-11-12"
+    ],
+    "par": 0.1,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS201120260800040200T.pdf"
+  },
+  "108203801": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "KGEN",
+   "date": "2026-11-20",
+   "data": {
+    "ticker": "KGEN",
+    "date": "2026-11-23",
+    "source_type": "PP",
+    "shares": {
+     "old": 2225726175,
+     "new": 200000000,
+     "total": 2425726175,
+     "basis": "actual"
+    },
+    "price": 1.35,
+    "prices": null,
+    "ratio": null,
+    "allottees": [
+     {
+      "name": "บริษัท ระยองไวร์ อินดัสตรีส์ จำกัด (มหาชน)",
+      "shares": 185185185
+     },
+     {
+      "name": "นาย จินดาสร แสงฤทธิ์",
+      "shares": 14814815
+     }
+    ],
+    "subscription": [
+     "2026-11-09",
+     "2026-11-13"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS201120260800031740T.pdf"
+  },
+  "108203701": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "STPI",
+   "date": "2026-11-20",
+   "data": {
+    "ticker": "STPI",
+    "date": "2026-11-23",
+    "source_type": "RO",
+    "shares": {
+     "old": 1812272387,
+     "new": 27374050,
+     "total": 1839646437,
+     "basis": "actual"
+    },
+    "price": 5.55,
+    "prices": null,
+    "ratio": {
+     "a": 11.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-29",
+     "2026-11-04"
+    ],
+    "par": 0.25,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0566NWS201120260800018880T.pdf"
+  },
+  "108118801": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "PROEN",
+   "date": "2026-11-17",
+   "data": {
+    "ticker": "PROEN",
+    "date": "2026-11-18",
+    "source_type": "RO",
+    "shares": {
+     "old": 392581427,
+     "new": 37515943,
+     "total": 430097370,
+     "basis": "actual"
+    },
+    "price": 0.84,
+    "prices": null,
+    "ratio": {
+     "a": 4.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-19",
+     "2026-10-26"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/1622NWS171120260800025040T.pdf"
+  },
+  "108017301": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "RWI",
+   "date": "2026-11-16",
+   "data": {
+    "ticker": "RWI",
+    "date": "2026-11-17",
+    "source_type": "PP",
+    "shares": {
+     "old": 915277061,
+     "new": 304929659,
+     "total": 1220206720,
+     "basis": "actual"
+    },
+    "price": 0.2,
+    "prices": null,
+    "ratio": null,
+    "allottees": [
+     {
+      "name": "บริลเลียนท์ สโตนส์ เทรดดิ้ง พีทีอี. แอลทีดี.",
+      "shares": 304929659
+     }
+    ],
+    "subscription": [
+     "2026-11-10",
+     "2026-11-10"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/1174NWS161120260800036090T.pdf"
+  },
+  "108017201": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "IROYAL",
+   "date": "2026-11-16",
+   "data": {
+    "ticker": "IROYAL",
+    "date": "2026-11-17",
+    "source_type": "W",
+    "shares": {
+     "old": 230000000,
+     "new": 58033232,
+     "total": 288033232,
+     "basis": "actual"
+    },
+    "price": 2.92,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 1.0257
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-28"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS161120260800026590T.pdf"
+  },
+  "107469001": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "ITTHI",
+   "date": "2026-11-10",
+   "data": {
+    "ticker": "ITTHI",
+    "date": "2026-11-11",
+    "source_type": "W",
+    "shares": {
+     "old": 270200000,
+     "new": 344000,
+     "total": 270544000,
+     "basis": "actual"
+    },
+    "price": 0.5,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-29"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/8000NWS101120260800032190T.pdf"
+  },
+  "107468901": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "PROEN",
+   "date": "2026-11-10",
+   "data": {
+    "ticker": "PROEN",
+    "date": "2026-11-11",
+    "source_type": "W",
+    "shares": {
+     "old": 392568069,
+     "new": 13358,
+     "total": 392581427,
+     "basis": "actual"
+    },
+    "price": 1.0,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-14"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/1622NWS101120260800023590T.pdf"
+  },
+  "107434001": {
+   "status": "ok",
+   "kind": "ro_result",
+   "ticker": "STPI",
+   "date": "2026-11-09",
+   "data": {
+    "report_date": "2026-11-09",
+    "security": "หุ้นสามัญ",
+    "offered_to": "ผู้ถือหุ้นสามัญทั้งหมด",
+    "ratio": {
+     "a": 11.0,
+     "b": 1.0
+    },
+    "price": 5.55,
+    "subscription": [
+     "2026-10-29",
+     "2026-11-04"
+    ],
+    "allotted": 164752035,
+    "sold": 27374050,
+    "left": 137377985,
+    "proceeds": 151925977.5,
+    "take_up_pct": 16.62
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0566NWS091120261821050260T.pdf"
+  },
+  "107398901": {
+   "status": "ok",
+   "kind": "ro_result",
+   "ticker": "PROEN",
+   "date": "2026-11-06",
+   "data": {
+    "report_date": "2026-11-06",
+    "security": "หุ้นสามัญ",
+    "offered_to": "ผู้ถือหุ้นสามัญทั้งหมด",
+    "ratio": {
+     "a": 4.0,
+     "b": 1.0
+    },
+    "price": 0.84,
+    "subscription": [
+     "2026-10-19",
+     "2026-10-26"
+    ],
+    "allotted": 98142017,
+    "sold": 37515943,
+    "left": 60626074,
+    "proceeds": 31513392.12,
+    "take_up_pct": 38.23
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/1622NWS061120261746551440T.pdf"
+  },
+  "107347201": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "ROH",
+   "date": "2026-11-05",
+   "data": {
+    "ticker": "ROH",
+    "date": "2026-11-06",
+    "source_type": "RO",
+    "shares": {
+     "old": 938917233,
+     "new": 280000000,
+     "total": 1218917233,
+     "basis": "actual"
+    },
+    "price": 0.6,
+    "prices": null,
+    "ratio": {
+     "a": 3.3533,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-20",
+     "2026-10-27"
+    ],
+    "par": 1.0,
+    "note": "เนื่องจาก ROH ยังไม่นำส่งงบการเงินไตรมาสที่ 2 ปี 2569 ตลาดหลักทรัพย์ฯ จึงยังคงสั่งห้ามการซื้อหรือขายหุ้นเพิ่มทุนและหุ้นเดิมของ ROH ต่อไป จนกว่าบริษัทจะนำส่งงบการเงินดังกล่าว ทั้งนี้ ROH ยังคงเป็นบริษัทจดทะเบียนที่เข้าข่ายอาจถูกเพิกถอน โดยอยู่ระหว่างดำเนินการแก้ไขเหตุแห่งการเพิกถอนให้หมดไป"
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS051120260841059990T.pdf"
+  },
+  "107325101": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "PPPM",
+   "date": "2026-11-04",
+   "data": {
+    "ticker": "PPPM",
+    "date": "2026-11-05",
+    "source_type": "W",
+    "shares": {
+     "old": 933150915,
+     "new": 2496751,
+     "total": 935647666,
+     "basis": "actual"
+    },
+    "price": 0.3,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-30"
+    ],
+    "par": 1.0,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS041120260800029630T.pdf"
+  },
+  "107279301": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "WAVE",
+   "date": "2026-11-02",
+   "data": {
+    "ticker": "WAVE",
+    "date": "2026-11-03",
+    "source_type": "RO",
+    "shares": {
+     "old": 11462937100,
+     "new": 1611111190,
+     "total": 13074048290,
+     "basis": "actual"
+    },
+    "price": 0.04,
+    "prices": null,
+    "ratio": {
+     "a": 3.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-14",
+     "2026-10-21"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0397NWS021120260800040680T.pdf"
+  },
+  "107279201": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "PRECHA",
+   "date": "2026-11-02",
+   "data": {
+    "ticker": "PRECHA",
+    "date": "2026-11-03",
+    "source_type": "RO",
+    "shares": {
+     "old": 336000000,
+     "new": 523291767,
+     "total": 859291767,
+     "basis": "actual"
+    },
+    "price": 0.2,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 2.5
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-05",
+     "2026-10-09"
+    ],
+    "par": 1.0,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS021120260800029460T.pdf"
+  },
+  "107245401": {
+   "status": "ok",
+   "kind": "ro_result",
+   "ticker": "WAVE",
+   "date": "2026-10-29",
+   "data": {
+    "report_date": "2026-10-29",
+    "security": "หุ้นสามัญ",
+    "offered_to": "ผู้ถือหุ้นสามัญทั้งหมด",
+    "ratio": {
+     "a": 3.0,
+     "b": 1.0
+    },
+    "price": 0.04,
+    "subscription": [
+     "2026-10-14",
+     "2026-10-21"
+    ],
+    "allotted": 3820979033,
+    "sold": 1611111190,
+    "left": 2209867843,
+    "proceeds": 64444447.6,
+    "take_up_pct": 42.16
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202610/0397NWS291020261732382760T.pdf"
+  },
+  "107222501": {
+   "status": "invalid",
+   "kind": "listing",
+   "ticker": "CSC",
+   "date": "2026-10-28",
+   "reason": "PP allottees do not add up to the new shares"
+  },
+  "107207601": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "CAZ",
+   "date": "2026-10-27",
+   "data": {
+    "ticker": "CAZ",
+    "date": "2026-10-28",
+    "source_type": "W",
+    "shares": {
+     "old": 305652339,
+     "new": 3715000,
+     "total": 309367339,
+     "basis": "actual"
+    },
+    "price": 0.8,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-10-15",
+     "2026-10-15"
+    ],
+    "par": 0.5,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202610/8000NWS271020260800017690T.pdf"
+  }
+ }
+}
