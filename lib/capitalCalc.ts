@@ -151,3 +151,89 @@ export function fmtPrice(v: number | null | undefined): string {
 export const SOURCE_LABEL: Record<string, string> = {
   PP: 'PP (เสนอขายเฉพาะเจาะจง)', RO: 'RO (ผู้ถือหุ้นเดิม)', W: 'แปลง Warrant', CB: 'แปลงหุ้นกู้แปลงสภาพ', ESOP: 'ESOP (กรรมการ/พนักงาน)',
 };
+
+// ─── v3 helpers: readable sentences, key dates, "ถ้าถือ 10,000 หุ้น" example (formulas above are unchanged) ───
+
+const MONTHS_TH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+
+/** Price for display: under 2 baht 3 decimals (0.3031 → 0.303, 0.32 → 0.32), else 2. Offered / exercise prices keep fmtPrice (exact). */
+export function fmtPriceShort(v: number | null | undefined): string {
+  if (v == null || !Number.isFinite(v)) return '—';
+  if (v >= 2) return v.toFixed(2);
+  const s = v.toFixed(3);
+  return s.endsWith('0') ? s.slice(0, -1) : s;
+}
+
+/** Ratio part for people: 5.500003 → 5.5 · 34.475238 → 34.48 · 3.3533 → 3.35 · 0.1714 and integers stay as they are. */
+export function niceNum(n: number | null | undefined): string {
+  if (n == null || !Number.isFinite(n)) return '—';
+  if (Number.isInteger(n)) return n.toLocaleString('en-US');
+  const r2 = Math.round(n * 100) / 100;
+  const round = r2 > 0 && Math.abs(r2 - n) / n < 0.002;
+  return (round ? r2 : Number(n.toFixed(4))).toLocaleString('en-US', { maximumFractionDigits: round ? 2 : 4 });
+}
+
+function addDaysIso(iso: string, n: number): string {
+  const d = new Date(iso + 'T00:00:00Z');
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+/** Last day you can buy and still get the right = the working day before the XR/XW date.
+ *  Mon–Fri only: stockdesk has no SET holiday list on the TS side, so a holiday in between is not skipped. */
+export function lastCumDate(xdate: string): string {
+  let d = addDaysIso(xdate, -1);
+  for (;;) {
+    const wd = new Date(d + 'T00:00:00Z').getUTCDay();
+    if (wd !== 0 && wd !== 6) return d;
+    d = addDaysIso(d, -1);
+  }
+}
+
+/** "27 พ.ย." (same year as `today`) or "15 ม.ค. 70" (other year, 2-digit Buddhist year). */
+export function fmtDay(iso: string | null | undefined, today: string): string {
+  if (!iso) return '—';
+  const [y, m, d] = iso.split('-').map(Number);
+  const base = `${d} ${MONTHS_TH[m - 1]}`;
+  return y === Number(today.slice(0, 4)) ? base : `${base} ${String((y + 543) % 100).padStart(2, '0')}`;
+}
+
+/** "15–21 ม.ค. 70" when both ends share month and year, else "30 ธ.ค. – 5 ม.ค. 70". */
+export function fmtDayRange(a: string, b: string, today: string): string {
+  if (a === b) return fmtDay(a, today);
+  if (a.slice(0, 7) === b.slice(0, 7)) {
+    const da = Number(a.split('-')[2]);
+    return `${da}–${fmtDay(b, today)}`;
+  }
+  return `${fmtDay(a, today)} – ${fmtDay(b, today)}`;
+}
+
+export interface RightsExample { rights: number; money: number | null; totalIfAll: number; holdingIfSkip: number }
+
+/** "ถ้าถือ N หุ้น": rights = floor(N × new/old) · money = rights × price · total if all taken · share if skipped. */
+export function rightsExample(o: { ratio: string | null | undefined; exercise?: number | null; shares?: number }): RightsExample | null {
+  const r = parseRatio(o.ratio);
+  if (!r) return null;
+  const n = o.shares ?? 10000;
+  const rights = Math.floor((n * r.new) / r.old + 1e-9);
+  return {
+    rights,
+    money: o.exercise != null && o.exercise >= 0 ? rights * o.exercise : null,
+    totalIfAll: n + rights,
+    holdingIfSkip: (n / (n + rights)) * 100,
+  };
+}
+
+export type SummaryPointKind = 'last_cum' | 'expensive' | 'bigger' | 'example';
+export interface SummaryPoint { kind: SummaryPointKind; urgent?: boolean; days?: number }
+
+/** Second summary line: the 1–2 most important facts in order (ก) last day to buy is today/tomorrow (ข) exercise price above the close
+ *  (ค) new shares outnumber the old; none of those → the 10,000-share example. */
+export function pickSummary(o: { lastCum: string; today: string; discountPct: number | null; pctNew: number | null }): SummaryPoint[] {
+  const out: SummaryPoint[] = [];
+  if (o.lastCum === o.today) out.push({ kind: 'last_cum', urgent: true, days: 0 });
+  else if (o.lastCum === addDaysIso(o.today, 1)) out.push({ kind: 'last_cum', days: 1 });
+  if (o.discountPct != null && o.discountPct < -0.5) out.push({ kind: 'expensive' });
+  if (o.pctNew != null && o.pctNew >= 100) out.push({ kind: 'bigger' });
+  return out.length ? out.slice(0, 2) : [{ kind: 'example' }];
+}

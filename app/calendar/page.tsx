@@ -12,13 +12,15 @@ import { BUCKET_ORDER, BUCKET_LABEL, BUCKET_COLOR, type EarningsBucket } from '@
 import { loadMyStockSymbols } from '@/lib/myStocks';
 import { isHalted, listingCalc, xrCalc, type CapitalEvent, type CapitalEventsFile } from '@/lib/capitalCalc';
 import type { NewsFlagsFile } from '@/lib/newsFlags';
-import CapitalDetail, { capitalMainLine, type CapitalRowInput } from './CapitalDetail';
+import CapitalRow, { type CapitalRowInput } from './CapitalDetail';
 
 // ─── Combined-scan price lookup (XD yield, capital-event numbers) ───
 type CombinedEntry = { ticker: string; price: number };
 const _rawC = rawCombined as unknown as CombinedEntry[] | { data: CombinedEntry[] };
 const combinedData: CombinedEntry[] = Array.isArray(_rawC) ? _rawC : _rawC.data;
 const PRICE_MAP = new Map(combinedData.map(c => [c.ticker, c.price]));
+// day of those closes (scan time) - shown next to every price-based capital number
+const PRICE_DATE: string | null = (rawCombined as unknown as { generated_at?: string }).generated_at?.slice(0, 10) ?? null;
 
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const WEEKDAYS_TH = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
@@ -134,9 +136,7 @@ function EventTypeBadge({ event }: { event: UnifiedEvent }) {
     </span>
   ) : (
     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap ${CA_BADGE_CLS[event.kind]}`}>
-      {event.warn && <AlertTriangle size={11} className="flex-shrink-0" />}
-      {event.kind === 'NEW' ? (event.capital?.source_type ? `${event.capital.source_type} เข้า` : 'หุ้นใหม่เข้า')
-        : event.kind === 'BOARD' ? 'ประกาศแล้ว' : event.kind}
+      {event.kind}
     </span>
   );
 }
@@ -152,15 +152,6 @@ function EventDetail({ event, yieldPct }: { event: UnifiedEvent; yieldPct: numbe
       เงินปันผล {event.dividendAmount != null ? `${event.dividendAmount} บาท/หุ้น` : '—'}
       {yieldPct != null && <span className="text-[#1D9E75] ml-1.5">(yield ~{yieldPct.toFixed(2)}%)</span>}
     </span>
-  ) : event.kind === 'XR' ? (
-    <span className="text-[#A855F7]">
-      {event.ratio ? `อัตราส่วน ${event.ratio}` : ''}{event.subscriptionPrice != null ? ` ราคาใช้สิทธิ ${event.subscriptionPrice} บาท` : ''}
-      {!event.ratio && event.subscriptionPrice == null && event.detail}
-    </span>
-  ) : event.kind === 'XW' ? (
-    <span>{event.ratio ? `อัตราส่วน ${event.ratio}` : event.detail}</span>
-  ) : (event.kind === 'NEW' || event.kind === 'BOARD') && event.capital ? (
-    <span className={event.kind === 'NEW' ? 'text-[#f0abfc]' : 'text-white/45'}>{capitalMainLine(event.capital)}</span>
   ) : (
     <span>{event.detail}</span>
   );
@@ -169,9 +160,11 @@ function EventDetail({ event, yieldPct }: { event: UnifiedEvent; yieldPct: numbe
 function EventRow({ event }: { event: UnifiedEvent }) {
   const days = daysUntil(event.date);
   const dayBadge =
-    days < 0 ? <span className="text-[10px] text-white/25 ml-1.5 whitespace-nowrap">ผ่านมาแล้ว {Math.abs(days)} วัน</span>
-    : days === 0 ? <span className="text-[10px] font-semibold text-white/45 bg-white/[0.06] px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap">วันนี้</span>
-    : <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap ${days <= 3 ? 'bg-[#E24B4A]/15 text-[#E24B4A]' : days <= 7 ? 'bg-[#EF9F27]/15 text-[#EF9F27]' : 'bg-white/[0.05] text-white/30'}`}>เหลือ {days} วัน</span>;
+    days < 0 ? <span className="text-[12px] text-white/35 ml-1.5 whitespace-nowrap">ผ่านมาแล้ว {Math.abs(days)} วัน</span>
+    : days === 0 ? <span className="text-[12px] font-semibold text-white/55 bg-white/[0.08] px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap">วันนี้</span>
+    : <span className={`text-[12px] font-semibold px-1.5 py-0.5 rounded ml-1.5 whitespace-nowrap ${days <= 3 ? 'bg-[#E24B4A]/15 text-[#E24B4A]' : days <= 7 ? 'bg-[#EF9F27]/15 text-[#EF9F27]' : 'bg-white/[0.05] text-white/30'}`}>เหลือ {days} วัน</span>;
+
+  if (event.cap) return <CapitalRow r={event.cap} dateLabel={isoToThaiLabel(event.date)} dayBadge={dayBadge} />;
 
   const price = PRICE_MAP.get(event.ticker);
   const yieldPct = event.kind === 'XD' && event.dividendAmount != null && price ? (event.dividendAmount / price) * 100 : null;
@@ -218,10 +211,9 @@ function EventRow({ event }: { event: UnifiedEvent }) {
           <EventDetail event={event} yieldPct={yieldPct} />
         </div>
         <div className="w-[100px] flex-shrink-0 text-[12px] text-white/40 text-right">
-          {event.payDate ? isoToThaiLabel(event.payDate) : event.capital?.announce_date ? `ประกาศ ${isoToThaiLabel(event.capital.announce_date)}` : ''}
+          {event.payDate ? isoToThaiLabel(event.payDate) : ''}
         </div>
       </div>
-      {event.cap && <CapitalDetail r={event.cap} />}
     </div>
   );
 }
@@ -463,21 +455,28 @@ export default function CalendarPage() {
       };
       if (row.bucket === 'XR' || row.bucket === 'XW') {
         const halted = haltedSet.has(row.ticker);
+        const close = closeOf(row.ticker);
         const xw = row.bucket === 'XR' ? caRows.find(x => x.bucket === 'XW' && x.ticker === row.ticker && x.xDate === row.xDate) : undefined;
+        const hasXr = row.bucket === 'XW' && caRows.some(x => x.bucket === 'XR' && x.ticker === row.ticker && x.xDate === row.xDate);
         const res = row.bucket === 'XR'
           ? roResults.find(c => c.ticker === row.ticker && c.date >= row.xDate && (c.price == null || c.price === row.subscriptionPrice))
           : undefined;
+        const listing = row.bucket === 'XR'
+          ? capEvents.find(c => c.kind === 'listing' && c.source_type === 'RO' && c.ticker === row.ticker && c.date >= row.xDate)
+          : undefined;
+        const warn = row.bucket === 'XR'
+          && !!xrCalc({ ratio: row.ratio, exercise: row.subscriptionPrice, close, upcoming: daysUntil(row.xDate) >= 0, halted })?.warn;
         ev.cap = {
-          kind: row.bucket, ticker: row.ticker, upcoming: daysUntil(row.xDate) >= 0, close: closeOf(row.ticker), halted,
-          ratio: row.ratio, exercise: row.subscriptionPrice, allotShare: row.allotShare ?? null,
-          withWarrant: xw ? { ratio: xw.ratio, allotShare: xw.allotShare ?? null } : null,
+          kind: row.bucket, ticker: row.ticker, date: row.xDate, today: todayISO(), close, priceDate: PRICE_DATE, halted, warn,
+          detail: row.detail, ratio: row.ratio, exercise: row.subscriptionPrice, allotShare: row.allotShare ?? null,
+          recordDate: row.recordDate, subBegin: row.subscriptionBegin, subEnd: row.subscriptionEnd,
+          withWarrant: xw ? { ratio: xw.ratio, allotShare: xw.allotShare ?? null } : null, withRights: hasXr,
+          listingDate: listing?.date ?? null,
           result: res && res.take_up_pct != null
             ? { news_id: res.origin?.news_id ?? null, allotted: res.allotted ?? 0, sold: res.sold ?? 0, take_up_pct: res.take_up_pct }
             : null,
         };
-        if (row.bucket === 'XR') {
-          ev.warn = !!xrCalc({ ratio: row.ratio, exercise: row.subscriptionPrice, close: ev.cap.close, upcoming: ev.cap.upcoming, halted })?.warn;
-        }
+        ev.warn = warn;
       }
       events.push(ev);
     }
@@ -488,10 +487,10 @@ export default function CalendarPage() {
       const kind: EventKind = c.kind === 'listing' ? 'NEW' : 'BOARD';
       const halted = haltedSet.has(c.ticker);
       const close = closeOf(c.ticker);
+      const warn = kind === 'NEW' && !!listingCalc({ old: c.shares?.old, added: c.shares?.new, price: c.price, close, halted })?.warn;
       events.push({
-        key: `cap-${c.id}`, kind, ticker: c.ticker, date: c.date, capital: c,
-        cap: { kind, ticker: c.ticker, upcoming: daysUntil(c.date) >= 0, close, halted, capital: c },
-        warn: kind === 'NEW' && !!listingCalc({ old: c.shares?.old, added: c.shares?.new, price: c.price, close, halted })?.warn,
+        key: `cap-${c.id}`, kind, ticker: c.ticker, date: c.date, capital: c, warn,
+        cap: { kind, ticker: c.ticker, date: c.date, today: todayISO(), close, priceDate: PRICE_DATE, halted, warn, capital: c },
       });
     }
 

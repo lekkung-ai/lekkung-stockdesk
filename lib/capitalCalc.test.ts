@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { fmtPct, fmtPrice, isHalted, listingCalc, parseRatio, xrCalc, xwCalc } from './capitalCalc';
+import {
+  fmtDay, fmtDayRange, fmtPct, fmtPrice, fmtPriceShort, isHalted, lastCumDate, listingCalc, niceNum, parseRatio, pickSummary, rightsExample, xrCalc, xwCalc,
+} from './capitalCalc';
 
 // expected values: mock calendar-capital-v2 + the 2026-11-26 study (close = scan 25 Nov)
 const near = (v: number | null | undefined, want: number, tol = 0.1) => {
@@ -78,5 +80,55 @@ describe('helpers', () => {
     expect(fmtPct(-3.75)).toBe('−3.8%');
     expect(fmtPrice(0.154)).toBe('0.154');
     expect(fmtPrice(5.5)).toBe('5.50');
+  });
+});
+
+// ─── v3 ───
+
+describe('v3 helpers', () => {
+  it('lastCumDate = working day before xdate (Mon–Fri)', () => {
+    expect(lastCumDate('2026-11-27')).toBe('2026-11-26'); // B52, Friday → Thursday
+    expect(lastCumDate('2026-11-30')).toBe('2026-11-27'); // Monday → previous Friday
+    expect(lastCumDate('2026-11-28')).toBe('2026-11-27'); // Saturday xdate (not real, still safe)
+    expect(lastCumDate('2026-11-26')).toBe('2026-11-25'); // SOLAR
+  });
+  it('rightsExample: 10,000 shares', () => {
+    const b = rightsExample({ ratio: '2 : 3', exercise: 0.15 })!;
+    expect(b.rights).toBe(15000); expect(b.money).toBeCloseTo(2250, 6); expect(b.totalIfAll).toBe(25000); near(b.holdingIfSkip, 40);
+    const s = rightsExample({ ratio: '5.500003 : 1', exercise: 0.32 })!;
+    expect(s.rights).toBe(1818); expect(s.money).toBeCloseTo(581.76, 6); expect(Math.round(s.money!)).toBe(582);
+    const w = rightsExample({ ratio: '2 : 1' })!;
+    expect(w.rights).toBe(5000); expect(w.money).toBeNull();
+    expect(rightsExample({ ratio: 'x' })).toBeNull();
+  });
+  it('niceNum keeps clean numbers, trims noisy decimals', () => {
+    expect(niceNum(5.500003)).toBe('5.5');
+    expect(niceNum(34.475238)).toBe('34.48');
+    expect(niceNum(3.3533)).toBe('3.35');
+    expect(niceNum(0.1714)).toBe('0.1714');
+    expect(niceNum(2)).toBe('2');
+    expect(niceNum(12100)).toBe('12,100');
+  });
+  it('fmtPriceShort: 3 decimals under 2 baht', () => {
+    expect(fmtPriceShort(0.3031)).toBe('0.303');
+    expect(fmtPriceShort(0.32)).toBe('0.32');
+    expect(fmtPriceShort(0.3)).toBe('0.30');
+    expect(fmtPriceShort(0.154)).toBe('0.154');
+    expect(fmtPriceShort(2.02)).toBe('2.02');
+    expect(fmtPriceShort(null)).toBe('—');
+  });
+  it('day labels', () => {
+    expect(fmtDay('2026-11-27', '2026-11-26')).toBe('27 พ.ย.');
+    expect(fmtDay('2027-01-15', '2026-11-26')).toBe('15 ม.ค. 70');
+    expect(fmtDayRange('2027-01-15', '2027-01-21', '2026-11-26')).toBe('15–21 ม.ค. 70');
+    expect(fmtDayRange('2026-12-30', '2027-01-05', '2026-11-26')).toBe('30 ธ.ค. – 5 ม.ค. 70');
+  });
+  it('pickSummary priority and fallback', () => {
+    const today = '2026-11-26';
+    expect(pickSummary({ lastCum: today, today, discountPct: 6, pctNew: 150 })).toEqual([{ kind: 'last_cum', urgent: true, days: 0 }, { kind: 'bigger' }]);
+    expect(pickSummary({ lastCum: '2026-11-27', today, discountPct: -6.7, pctNew: 18 })).toEqual([{ kind: 'last_cum', days: 1 }, { kind: 'expensive' }]);
+    expect(pickSummary({ lastCum: '2026-11-25', today, discountPct: -6.7, pctNew: 18.2 })).toEqual([{ kind: 'expensive' }]); // SOLAR on 26 Nov
+    expect(pickSummary({ lastCum: '2026-11-25', today, discountPct: 6, pctNew: 150 })).toEqual([{ kind: 'bigger' }]);
+    expect(pickSummary({ lastCum: '2026-12-10', today, discountPct: 0, pctNew: 10 })).toEqual([{ kind: 'example' }]);
   });
 });
