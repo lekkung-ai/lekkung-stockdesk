@@ -1,62 +1,27 @@
 {
- "generated_at": "2026-11-26T21:03:19+07:00",
- "as_of": "2026-11-26",
+ "generated_at": "2026-11-27T09:02:00+07:00",
+ "as_of": "2026-11-27",
  "schema_version": 1,
  "sources": {
   "set_news": {
    "headlines": 42,
-   "fetched_now": 20,
+   "fetched_now": 1,
    "pending": 0
   },
   "settrade_calendar": {
    "ok": true
   },
-  "requests": 24
+  "requests": 5
  },
  "counts": {
-  "listing": 16,
   "board": 15,
   "ro_result": 3,
+  "listing": 16,
   "XR": 7,
   "XW": 6
  },
- "warnings": [
-  "CSC 107222501: dropped - PP allottees do not add up to the new shares"
- ],
+ "warnings": [],
  "events": [
-  {
-   "id": "LIST:CAZ:2026-10-28:107207601",
-   "kind": "listing",
-   "ticker": "CAZ",
-   "announce_date": "2026-10-27",
-   "date": "2026-10-28",
-   "source_type": "W",
-   "shares": {
-    "old": 305652339,
-    "new": 3715000,
-    "total": 309367339,
-    "basis": "actual"
-   },
-   "price": 0.8,
-   "prices": null,
-   "ratio": {
-    "a": 1.0,
-    "b": 1.0
-   },
-   "allottees": [],
-   "subscription": [
-    "2026-10-15",
-    "2026-10-15"
-   ],
-   "par": 0.5,
-   "note": null,
-   "origin": {
-    "source": "set-news",
-    "news_id": "107207601",
-    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107207601&symbol=CAZ",
-    "pdf": "https://weblink.set.or.th/dat/news/202610/8000NWS271020260800017690T.pdf"
-   }
-  },
   {
    "id": "BOARD:SCM:107226401",
    "kind": "board",
@@ -1206,6 +1171,38 @@
    }
   },
   {
+   "id": "LIST:B:2026-11-30:108306601",
+   "kind": "listing",
+   "ticker": "B",
+   "announce_date": "2026-11-27",
+   "date": "2026-11-30",
+   "source_type": "W",
+   "shares": {
+    "old": 8074009105,
+    "new": 10124,
+    "total": 8074019229,
+    "basis": "actual"
+   },
+   "price": 0.3,
+   "prices": null,
+   "ratio": {
+    "a": 1.0,
+    "b": 1.0
+   },
+   "allottees": [],
+   "subscription": [
+    "2026-11-13"
+   ],
+   "par": 2.04,
+   "note": null,
+   "origin": {
+    "source": "set-news",
+    "news_id": "108306601",
+    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108306601&symbol=B",
+    "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS271120260808049280T.pdf"
+   }
+  },
+  {
    "id": "XW:KGEN:2026-12-15",
    "kind": "XW",
    "ticker": "KGEN",
@@ -1882,6 +1879,36 @@
     "note": null
    },
    "pdf": "https://weblink.set.or.th/dat/news/202610/8000NWS271020260800017690T.pdf"
+  },
+  "108306601": {
+   "status": "ok",
+   "kind": "listing",
+   "ticker": "B",
+   "date": "2026-11-27",
+   "data": {
+    "ticker": "B",
+    "date": "2026-11-30",
+    "source_type": "W",
+    "shares": {
+     "old": 8074009105,
+     "new": 10124,
+     "total": 8074019229,
+     "basis": "actual"
+    },
+    "price": 0.3,
+    "prices": null,
+    "ratio": {
+     "a": 1.0,
+     "b": 1.0
+    },
+    "allottees": [],
+    "subscription": [
+     "2026-11-13"
+    ],
+    "par": 2.04,
+    "note": null
+   },
+   "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS271120260808049280T.pdf"
   }
  }
 }
