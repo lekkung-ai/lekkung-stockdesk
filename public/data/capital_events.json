@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-28T17:02:01+07:00",
+ "generated_at": "2026-11-28T21:02:13+07:00",
  "as_of": "2026-11-28",
  "schema_version": 1,
  "sources": {
@@ -9,18 +9,18 @@
    "pending": 0
   },
   "settrade_calendar": {
-   "ok": true
+   "ok": false
   },
   "requests": 4
  },
  "counts": {
   "board": 14,
   "ro_result": 3,
-  "listing": 16,
-  "XR": 7,
-  "XW": 6
+  "listing": 16
  },
- "warnings": [],
+ "warnings": [
+  "settrade x-calendar failed: HTTP Error 502: Bad Gateway - XR/XW empty this run"
+ ],
  "events": [
   {
    "id": "BOARD:TL:107241601",
@@ -545,34 +545,6 @@
    }
   },
   {
-   "id": "XR:FORTH:2026-11-18",
-   "kind": "XR",
-   "ticker": "FORTH",
-   "date": "2026-11-18",
-   "record_date": "2026-11-19",
-   "subscription": {
-    "begin": "2026-12-08",
-    "end": "2026-12-15"
-   },
-   "ratio": {
-    "old": 34.475238,
-    "new": 1.0,
-    "text": "34.475238 : 1"
-   },
-   "price": 12.0,
-   "rights_for": "หุ้นสามัญ",
-   "allot_share": 27131783,
-   "shares": {
-    "old": 935374676,
-    "new": 27131783,
-    "basis": "max"
-   },
-   "linked": null,
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
    "id": "LIST:PROEN:2026-11-18:108118801",
    "kind": "listing",
    "ticker": "PROEN",
@@ -612,97 +584,6 @@
    }
   },
   {
-   "id": "XR:BTW:2026-11-19",
-   "kind": "XR",
-   "ticker": "BTW",
-   "date": "2026-11-19",
-   "record_date": "2026-11-20",
-   "subscription": {
-    "begin": null,
-    "end": null
-   },
-   "ratio": {
-    "old": 2.0,
-    "new": 3.0,
-    "text": "2 : 3"
-   },
-   "price": 0.05,
-   "rights_for": "หุ้นสามัญ",
-   "allot_share": 1134000000,
-   "shares": {
-    "old": 756000000,
-    "new": 1134000000,
-    "basis": "max"
-   },
-   "linked": [
-    "XW:BTW:2026-11-19",
-    "XW:BTW:2026-11-19#2"
-   ],
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
-   "id": "XW:BTW:2026-11-19",
-   "kind": "XW",
-   "ticker": "BTW",
-   "date": "2026-11-19",
-   "record_date": "2026-11-20",
-   "subscription": {
-    "begin": null,
-    "end": null
-   },
-   "ratio": {
-    "old": 1.0,
-    "new": 12100.0,
-    "text": "1 : 12,100"
-   },
-   "price": null,
-   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
-   "allot_share": 363000000,
-   "shares": {
-    "old": 30000,
-    "new": 363000000,
-    "basis": "max"
-   },
-   "linked": [
-    "XR:BTW:2026-11-19"
-   ],
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
-   "id": "XW:BTW:2026-11-19#2",
-   "kind": "XW",
-   "ticker": "BTW",
-   "date": "2026-11-19",
-   "record_date": "2026-11-20",
-   "subscription": {
-    "begin": null,
-    "end": null
-   },
-   "ratio": {
-    "old": 2.0,
-    "new": 1.0,
-    "text": "2 : 1"
-   },
-   "price": null,
-   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
-   "allot_share": 567000000,
-   "shares": {
-    "old": 1134000000,
-    "new": 567000000,
-    "basis": "max"
-   },
-   "linked": [
-    "XR:BTW:2026-11-19"
-   ],
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
    "id": "BOARD:SOLAR:108196601",
    "kind": "board",
    "ticker": "SOLAR",
@@ -715,66 +596,6 @@
     "source": "set-news",
     "news_id": "108196601",
     "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108196601&symbol=SOLAR"
-   }
-  },
-  {
-   "id": "XR:TWZ:2026-11-20",
-   "kind": "XR",
-   "ticker": "TWZ",
-   "date": "2026-11-20",
-   "record_date": "2026-11-23",
-   "subscription": {
-    "begin": "2027-01-25",
-    "end": "2027-01-29"
-   },
-   "ratio": {
-    "old": 8.0,
-    "new": 3.0,
-    "text": "8 : 3"
-   },
-   "price": 0.01,
-   "rights_for": "หุ้นสามัญ",
-   "allot_share": 7447841817,
-   "shares": {
-    "old": 19860911512,
-    "new": 7447841817,
-    "basis": "max"
-   },
-   "linked": [
-    "XW:TWZ:2026-11-20"
-   ],
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
-   "id": "XW:TWZ:2026-11-20",
-   "kind": "XW",
-   "ticker": "TWZ",
-   "date": "2026-11-20",
-   "record_date": "2026-11-23",
-   "subscription": {
-    "begin": null,
-    "end": null
-   },
-   "ratio": {
-    "old": 2.0,
-    "new": 1.0,
-    "text": "2 : 1"
-   },
-   "price": null,
-   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
-   "allot_share": 3723920909,
-   "shares": {
-    "old": 7447841818,
-    "new": 3723920909,
-    "basis": "max"
-   },
-   "linked": [
-    "XR:TWZ:2026-11-20"
-   ],
-   "origin": {
-    "source": "settrade-calendar"
    }
   },
   {
@@ -935,66 +756,6 @@
    }
   },
   {
-   "id": "XR:META:2026-11-24",
-   "kind": "XR",
-   "ticker": "META",
-   "date": "2026-11-24",
-   "record_date": "2026-11-25",
-   "subscription": {
-    "begin": "2026-12-09",
-    "end": "2026-12-18"
-   },
-   "ratio": {
-    "old": 1.0,
-    "new": 33.0,
-    "text": "1 : 33"
-   },
-   "price": 0.1127,
-   "rights_for": "หุ้นสามัญ",
-   "allot_share": 2440800120,
-   "shares": {
-    "old": 73963640,
-    "new": 2440800120,
-    "basis": "max"
-   },
-   "linked": [
-    "XW:META:2026-11-24"
-   ],
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
-   "id": "XW:META:2026-11-24",
-   "kind": "XW",
-   "ticker": "META",
-   "date": "2026-11-24",
-   "record_date": "2026-11-25",
-   "subscription": {
-    "begin": "2026-12-09",
-    "end": "2026-12-18"
-   },
-   "ratio": {
-    "old": 33.0,
-    "new": 10.0,
-    "text": "33 : 10"
-   },
-   "price": null,
-   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
-   "allot_share": 739636400,
-   "shares": {
-    "old": 2440800120,
-    "new": 739636400,
-    "basis": "max"
-   },
-   "linked": [
-    "XR:META:2026-11-24"
-   ],
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
    "id": "BOARD:SOLAR:108255101",
    "kind": "board",
    "ticker": "SOLAR",
@@ -1068,34 +829,6 @@
    }
   },
   {
-   "id": "XR:SOLAR:2026-11-26",
-   "kind": "XR",
-   "ticker": "SOLAR",
-   "date": "2026-11-26",
-   "record_date": "2026-11-27",
-   "subscription": {
-    "begin": "2026-12-18",
-    "end": "2026-12-24"
-   },
-   "ratio": {
-    "old": 5.500003,
-    "new": 1.0,
-    "text": "5.500003 : 1"
-   },
-   "price": 0.32,
-   "rights_for": "หุ้นสามัญ",
-   "allot_share": 261424000,
-   "shares": {
-    "old": 1437832784,
-    "new": 261424000,
-    "basis": "max"
-   },
-   "linked": null,
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
    "id": "LIST:AJA:2026-11-27:108287801",
    "kind": "listing",
    "ticker": "AJA",
@@ -1128,34 +861,6 @@
    }
   },
   {
-   "id": "XR:B52:2026-11-27",
-   "kind": "XR",
-   "ticker": "B52",
-   "date": "2026-11-27",
-   "record_date": "2026-11-30",
-   "subscription": {
-    "begin": "2027-01-15",
-    "end": "2027-01-21"
-   },
-   "ratio": {
-    "old": 2.0,
-    "new": 3.0,
-    "text": "2 : 3"
-   },
-   "price": 0.15,
-   "rights_for": "หุ้นสามัญ",
-   "allot_share": 1509420294,
-   "shares": {
-    "old": 1006280196,
-    "new": 1509420294,
-    "basis": "max"
-   },
-   "linked": null,
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
    "id": "LIST:B:2026-11-30:108306601",
    "kind": "listing",
    "ticker": "B",
@@ -1185,90 +890,6 @@
     "news_id": "108306601",
     "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=108306601&symbol=B",
     "pdf": "https://weblink.set.or.th/dat/news/202611/0000NWS271120260808049280T.pdf"
-   }
-  },
-  {
-   "id": "XW:KGEN:2026-12-15",
-   "kind": "XW",
-   "ticker": "KGEN",
-   "date": "2026-12-15",
-   "record_date": "2026-12-17",
-   "subscription": {
-    "begin": "2027-01-12",
-    "end": "2027-01-18"
-   },
-   "ratio": {
-    "old": 5.0,
-    "new": 1.0,
-    "text": "5 : 1"
-   },
-   "price": 0.05,
-   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
-   "allot_share": 548316763,
-   "shares": {
-    "old": 2741583815,
-    "new": 548316763,
-    "basis": "max"
-   },
-   "linked": null,
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
-   "id": "XR:NOBLE:2026-12-29",
-   "kind": "XR",
-   "ticker": "NOBLE",
-   "date": "2026-12-29",
-   "record_date": "2026-12-30",
-   "subscription": {
-    "begin": null,
-    "end": null
-   },
-   "ratio": {
-    "old": 2.29,
-    "new": 1.0,
-    "text": "2.29 : 1"
-   },
-   "price": null,
-   "rights_for": "หุ้นสามัญ",
-   "allot_share": 597997245,
-   "shares": {
-    "old": 1369413691,
-    "new": 597997245,
-    "basis": "max"
-   },
-   "linked": null,
-   "origin": {
-    "source": "settrade-calendar"
-   }
-  },
-  {
-   "id": "XW:JAK:2027-01-07",
-   "kind": "XW",
-   "ticker": "JAK",
-   "date": "2027-01-07",
-   "record_date": "2027-01-08",
-   "subscription": {
-    "begin": null,
-    "end": null
-   },
-   "ratio": {
-    "old": 3.2,
-    "new": 1.0,
-    "text": "3.2 : 1"
-   },
-   "price": null,
-   "rights_for": "ใบสำคัญแสดงสิทธิ (Warrants)",
-   "allot_share": 100000000,
-   "shares": {
-    "old": 320000000,
-    "new": 100000000,
-    "basis": "max"
-   },
-   "linked": null,
-   "origin": {
-    "source": "settrade-calendar"
    }
   }
  ],
