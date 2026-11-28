@@ -6,7 +6,8 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { TableWrap, Td, stageCls } from '@/components/StrategyTable';
 import ReportCardChart from '@/components/ReportCardChart';
-import { MfeScatter, MonthlyChart, ReturnHistogram } from '@/components/reportCard/ReportCardCharts';
+import MfeGroupsCard from '@/components/reportCard/MfeGroupsCard';
+import { MonthlyChart, ReturnHistogram } from '@/components/reportCard/ReportCardCharts';
 import ReportCardTop from '@/components/reportCard/ReportCardTop';
 import { TS, READABLE } from '@/lib/typeScale';
 import {
@@ -643,19 +644,15 @@ export default function ReportCardDetailClient({
       {/* 2-6. สรุปผล · 3 คำถาม · ถืออะไรอยู่ / ปิดแล้ว · ถ้าเปลี่ยนวิธีขาย · วิธีวัด */}
       <ReportCardTop scan={scanData} sum={sum} setups={setups} color={scanColor} />
 
-      {/* 7. กราฟจุด + การกระจาย */}
-      {(hasScatter || hasHist) && (
+      {/* 7. สรุป 4 กลุ่ม (MFE vs ผลตอนขาย) + การกระจาย */}
+      {hasScatter && (
+        <div className={`${CARD} p-5 min-w-0`}>
+          <SectionTitle kind="setup">ขึ้นไปสูงสุดเท่าไหร่ เทียบกับตอนขาย</SectionTitle>
+          <MfeGroupsCard points={sum.scatter!} sampled={sum.scatter_sampled} color={CHART_MARK} mfeLine={sum.giveback_mfe_pct ?? GIVEBACK_MFE_DEFAULT} />
+        </div>
+      )}
+      {hasHist && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          {hasScatter && (
-            <div className={`${CARD} p-5 min-w-0`}>
-              <SectionTitle kind="setup">ขึ้นไปสูงสุดเท่าไหร่ เทียบกับตอนขาย</SectionTitle>
-              <p className={`${TS.body} text-white/45 mt-0.5 mb-2`}>
-                แต่ละจุด = 1 ไม้ที่ปิดแล้ว{sum.scatter_sampled ? ` (สุ่มมา ${fmtInt(sum.scatter!.length)} ไม้)` : ''}
-              </p>
-              <MfeScatter points={sum.scatter!} color={CHART_MARK} mfeLine={sum.giveback_mfe_pct ?? GIVEBACK_MFE_DEFAULT} />
-              <Note>จุดที่อยู่ขวาล่าง = เคยกำไรดีแต่ขายขาดทุน ถ้าจุดกองตรงนี้มาก แปลว่าควรแก้ที่จังหวะขาย ไม่ใช่ที่การเลือกหุ้น</Note>
-            </div>
-          )}
           {hasHist && (
             <div className={`${CARD} p-5 min-w-0`}>
               <SectionTitle kind="setup">ผลตอบแทนกระจายตัวยังไง</SectionTitle>
