@@ -7,7 +7,7 @@ import {
   Layers, Zap, Newspaper, Activity, Fuel,
   X, FileText, Package, CalendarDays, Calculator, BookOpen, Award, FileBarChart, Settings, RotateCw,
   Scale, Coins, CircleDollarSign, ListOrdered, ClipboardCheck, Building2, CandlestickChart, Flame,
-  ClipboardList, Trophy,
+  ClipboardList, Trophy, Crosshair,
 } from 'lucide-react';
 import { scanData } from '@/lib/scanData';
 import { lekkungDaytradeData } from '@/lib/lekkungDaytradeData';
@@ -73,9 +73,10 @@ const NAV_GROUPS: NavGroup[] = [
     section: 'Scanner',
     items: [
       { label: 'Quant Scanner', href: '/scanner', icon: ScanLine, count: COUNTS.all },
-      { label: 'RS Leaders', href: '/rs-leaders', icon: Trophy, indent: true },
       { label: 'Lekkung Growth', href: '/lekkung', icon: Activity, indent: true, count: COUNTS.lekkung },
       { label: 'Lekkung Daytrade Scan', href: '/lekkung-daytrade', icon: Flame, indent: true, count: COUNTS.lekkungDaytrade },
+      { label: 'RS Leaders', href: '/rs-leaders', icon: Trophy, indent: true },
+      { label: 'Martin Luk', href: '/luk', icon: Crosshair, indent: true },
       { label: 'CAN SLIM (O\'Neil)', href: '/oneil', icon: TrendingUp, indent: true, count: COUNTS.oneil },
       { label: 'SEPA Trend Template', href: '/sepa', icon: TrendingUp, indent: true, count: COUNTS.sepa },
       { label: 'VCP Review', href: '/vcp-review', icon: ClipboardCheck, indent: true },
