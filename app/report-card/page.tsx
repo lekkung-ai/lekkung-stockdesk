@@ -3,6 +3,8 @@ import rawReportCard from '@/data/scans/report_card.json';
 import { formatThaiDate } from '@/lib/utils';
 import { TS, READABLE } from '@/lib/typeScale';
 import HorizonSpark from '@/components/reportCard/HorizonSpark';
+import EventScanCards from '@/components/reportCard/EventScanCards';
+import { loadRcEvents } from '@/lib/rcEventsData';
 import {
   NEUTRAL,
   ReportCardFile,
@@ -228,6 +230,9 @@ export default function ReportCardPage() {
         &ldquo;ได้ ÷ เสีย&rdquo; = กำไรเฉลี่ยของไม้ที่ชนะ ÷ ขาดทุนเฉลี่ยของไม้ที่แพ้ ถ้ามากกว่า 1 แปลว่าชนะทีได้มากกว่าแพ้ทีเสีย win rate ต่ำก็ยังคุ้มได้
         · เส้นเล็กมุมขวา = ผลเฉลี่ยถ้าถือตายตัว 5 / 10 / 20 วันทำการ (วิธีวัดแบบ D+N) · กดการ์ดเพื่อดูรายละเอียดของสแกนนั้น
       </p>
+
+      {/* ── สแกนแบบเหตุการณ์ (RS-7 + Martin Luk) — ไฟล์แยก report_card_events.json อ่านตอน build ไม่มีไฟล์ = ข้อความรอ ── */}
+      <EventScanCards data={loadRcEvents()} />
 
       <div className="bg-[#13161e] border border-white/[0.07] rounded-xl p-4 space-y-2">
         <p className={`${TS.tableCell} font-semibold text-ink leading-relaxed ${READABLE}`}>
