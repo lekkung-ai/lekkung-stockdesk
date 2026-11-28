@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-11-27T21:02:03+07:00",
- "as_of": "2026-11-27",
+ "generated_at": "2026-11-28T09:01:57+07:00",
+ "as_of": "2026-11-28",
  "schema_version": 1,
  "sources": {
   "set_news": {
-   "headlines": 42,
+   "headlines": 40,
    "fetched_now": 0,
    "pending": 0
   },
@@ -14,7 +14,7 @@
   "requests": 4
  },
  "counts": {
-  "board": 15,
+  "board": 14,
   "ro_result": 3,
   "listing": 16,
   "XR": 7,
@@ -22,21 +22,6 @@
  },
  "warnings": [],
  "events": [
-  {
-   "id": "BOARD:SCM:107226401",
-   "kind": "board",
-   "ticker": "SCM",
-   "date": "2026-10-28",
-   "tags": [
-    "RO"
-   ],
-   "title": "แจ้งมติที่ประชุมคณะกรรมการบริษัท ครั้งที่ 6/2569 เรื่อง กำหนดระยะเวลาจองซื้อและชำระเงินค่าจองซื้อหุ้นสามัญเพิ่มทุนที่เสนอขายให้แก่ผู้ถือหุ้นเดิมตามสัดส่วนการถือหุ้น (Rights Offering : RO) ครั้งที่ 2 (แก้ไข)",
-   "origin": {
-    "source": "set-news",
-    "news_id": "107226401",
-    "link": "https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107226401&symbol=SCM"
-   }
-  },
   {
    "id": "BOARD:TL:107241601",
    "kind": "board",
